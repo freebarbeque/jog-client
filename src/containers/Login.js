@@ -3,7 +3,7 @@
 import React, { Component } from 'react'
 import { View, StyleSheet } from 'react-native'
 import { connect } from 'react-redux'
-import { Dispatch, RootReduxState } from '../redux/typedefs'
+import type { Dispatch, RootReduxState } from '../redux/typedefs'
 
 type LoginProps = {
   dispatch: Dispatch,

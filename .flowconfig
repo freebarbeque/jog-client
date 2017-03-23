@@ -26,6 +26,7 @@
 ; Ignore missing expo-sdk dependencies (temporarily)
 ; https://github.com/exponent/exponent-sdk/issues/36
 .*/node_modules/expo/src/*
+.*/node_modules/@expo/*
 
 ; Ignore react-native-fbads dependency of the expo sdk
 .*/node_modules/react-native-fbads/*

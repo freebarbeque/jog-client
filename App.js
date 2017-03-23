@@ -1,7 +1,7 @@
 // @flow
 
 import React from 'react'
-import { StyleSheet, View } from 'react-native'
+import {StatusBar, StyleSheet, View} from 'react-native'
 import { Provider } from 'react-redux'
 // import { Font } from 'expo'
 
@@ -23,6 +23,9 @@ export default class App extends React.Component {
   render() {
     return (
       <View style={styles.container}>
+        <StatusBar
+          barStyle="light-content"
+        />
         <Provider store={createStore({ logger: true })}>
           <Root />
         </Provider>

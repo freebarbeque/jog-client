@@ -3,7 +3,7 @@
 import React, { Component } from 'react'
 import { View, StyleSheet, Text } from 'react-native'
 import { connect } from 'react-redux'
-import { Dispatch, RootReduxState } from '../redux/typedefs'
+import type { Dispatch, RootReduxState } from '../redux/typedefs'
 
 type SettingsProps = {
   dispatch: Dispatch,
@@ -33,7 +33,6 @@ class Settings extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingTop: 20,
   },
 })
 

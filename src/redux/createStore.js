@@ -29,7 +29,6 @@ export default function createStore(opts: StoreOptions = {}): Store {
   if (module.hot) {
     // Enable Webpack hot module replacement for reducers
     module.hot.accept('./reducer', () => {
-      // eslint-disable-next-line global-require
       const nextRootReducer = require('./reducer')
       store.replaceReducer(nextRootReducer)
     })
