@@ -6,7 +6,9 @@ import { Provider } from 'react-redux'
 
 import Root from './src/containers/Root'
 import createStore from './src/redux/createStore'
+import initialiseFirebase from './src/data'
 
+initialiseFirebase()
 const store = createStore({ logger: true })
 
 export default class App extends React.Component {

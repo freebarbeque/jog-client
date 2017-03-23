@@ -4,6 +4,7 @@ import React, { Component } from 'react'
 import { View, StyleSheet, Text } from 'react-native'
 import { connect } from 'react-redux'
 import type { Dispatch, RootReduxState } from '../redux/typedefs'
+import { userSubscribe } from '../data/auth'
 
 type RootProps = {
   dummy: number,
@@ -27,6 +28,12 @@ class Root extends Component {
         dummy: 10,
       })
     }, 1000)
+    userSubscribe((user) => {
+      this.props.dispatch({
+        type: 'RECEIVE_USER',
+        user,
+      })
+    })
   }
 
   render() {

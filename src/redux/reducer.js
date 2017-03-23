@@ -2,7 +2,7 @@
 
 import type { Action, RootReduxState } from './typedefs'
 
-const DEFAULT_STATE = { dummy: 5 }
+const DEFAULT_STATE = { dummy: 5, user: null }
 
 export default function reducer(
   state: RootReduxState = DEFAULT_STATE,
@@ -12,6 +12,11 @@ export default function reducer(
     return {
       ...state,
       dummy: action.dummy,
+    }
+  } else if (action.type === 'RECEIVE_USER') {
+    return {
+      ...state,
+      user: action.user,
     }
   }
   return state
