@@ -18,6 +18,19 @@
   "rules": {
     "react/prefer-stateless-function": "off",
     "react/jsx-filename-extension": "off",
+    "react/sort-comp": [
+      2,
+      {
+        "order": [
+          "type-annotations",
+          "static-methods",
+          "lifecycle",
+          "everything-else",
+          "/^render.+$/",
+          "render"
+        ]
+      }
+    ],
     "no-use-before-define": "off",
     "semi": [
       2,
