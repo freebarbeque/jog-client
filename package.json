@@ -8,6 +8,7 @@
     "eject": "react-native-scripts eject",
     "eslint": "eslint ./ --fix",
     "flow": "flow",
+    "flow-typed": "flow-typed",
     "ios": "react-native-scripts ios",
     "lint": "npm run flow && npm run eslint && npm run sort-package-json",
     "sort-package-json": "./node_modules/.bin/sort-package-json",
