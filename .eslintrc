@@ -1,0 +1,27 @@
+{
+  "parser": "babel-eslint",
+  "env": {
+    "es6": true,
+    "node": true
+  },
+  "settings": {
+    "flowtype": {
+      "onlyFilesWithFlowAnnotation": true
+    }
+  },
+  "plugins": [
+    "flowtype"
+  ],
+  "extends": [
+    "airbnb"
+  ],
+  "rules": {
+    "react/prefer-stateless-function": "off",
+    "react/jsx-filename-extension": "off",
+    "no-use-before-define": "off",
+    "semi": [
+      2,
+      "never"
+    ]
+  }
+}
