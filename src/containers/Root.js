@@ -22,12 +22,6 @@ class Root extends Component {
   }
 
   componentDidMount() {
-    setTimeout(() => {
-      this.props.dispatch({
-        type: 'DUMMY_ACTION',
-        dummy: 10,
-      })
-    }, 1000)
     userSubscribe((user) => {
       this.props.dispatch({
         type: 'RECEIVE_USER',
@@ -41,7 +35,7 @@ class Root extends Component {
     return (
       <View style={styles.container}>
         <Text>
-          Root: {dummy}
+          Root - {dummy}
         </Text>
       </View>
     )

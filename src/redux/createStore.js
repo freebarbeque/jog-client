@@ -8,7 +8,7 @@ type StoreOptions = {
   logger: boolean
 }
 
-export default function createStore(opts: StoreOptions = {}) : Store {
+export default function createStore(opts: StoreOptions = {}): Store {
   const middleware = []
 
   const optsWithDefaults = {
@@ -20,9 +20,20 @@ export default function createStore(opts: StoreOptions = {}) : Store {
     middleware.push(createLogger())
   }
 
-  return _createStore(
+  const store = _createStore(
     reducer,
     undefined,
     applyMiddleware.apply(applyMiddleware, middleware),
   )
+
+  if (module.hot) {
+    // Enable Webpack hot module replacement for reducers
+    module.hot.accept('./reducer', () => {
+      // eslint-disable-next-line global-require
+      const nextRootReducer = require('./reducer')
+      store.replaceReducer(nextRootReducer)
+    })
+  }
+
+  return store
 }

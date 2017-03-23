@@ -9,13 +9,12 @@ import createStore from './src/redux/createStore'
 import initialiseFirebase from './src/data'
 
 initialiseFirebase()
-const store = createStore({ logger: true })
 
 export default class App extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <Provider store={store}>
+        <Provider store={createStore({ logger: true })}>
           <Root />
         </Provider>
       </View>
