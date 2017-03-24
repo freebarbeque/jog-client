@@ -4,9 +4,9 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Text, TouchableHighlight } from 'react-native'
 
-import type { RootReduxState } from '../redux/typedefs'
-import type { User } from '../data/typedefs'
-import { WHITE } from '../constants/palette'
+import type { RootReduxState } from 'jog/src/redux/typedefs'
+import type { User } from 'jog/src/data/typedefs'
+import { WHITE } from 'jog/src/constants/palette'
 
 type AuthButtonProps = {
   user: User | null,
@@ -41,9 +41,6 @@ const mapStateToProps = (state: RootReduxState) => {
     user,
   }
 }
-const mapDispatchToProps = dispatch => ({ dispatch })
-
 export default connect(
   mapStateToProps,
-  mapDispatchToProps,
 )(AuthButton)

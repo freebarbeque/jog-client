@@ -13,7 +13,7 @@
 ; "node_modules/react-native" but in the source repo it is in the root
 .*/Libraries/react-native/React.js
 .*/Libraries/react-native/ReactNative.js
-
+.*/node_modules/react-static-container/.*
 ; Additional create-react-native-app ignores
 
 ; Ignore duplicate module providers
@@ -26,7 +26,7 @@
 ; Ignore missing expo-sdk dependencies (temporarily)
 ; https://github.com/exponent/exponent-sdk/issues/36
 .*/node_modules/expo/src/*
-.*/node_modules/@expo/*
+.*/node_modules/@expo/ex-navigation/.*
 
 ; Ignore react-native-fbads dependency of the expo sdk
 .*/node_modules/react-native-fbads/*

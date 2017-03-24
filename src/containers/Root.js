@@ -7,9 +7,9 @@ import {
   NavigationProvider,
   StackNavigation,
 } from '@expo/ex-navigation'
-import type { Dispatch } from '../redux/typedefs'
-import { userSubscribe } from '../data/auth'
-import router from '../router'
+import type { Dispatch } from 'jog/src/redux/typedefs'
+import { userSubscribe } from 'jog/src/data/auth'
+import router from 'jog/src/router/index'
 
 type RootProps = {
   dispatch: Dispatch,

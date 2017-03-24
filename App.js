@@ -1,9 +1,8 @@
 // @flow
 
-import React from 'react'
-import {StatusBar, StyleSheet, View} from 'react-native'
+import React, { Component } from 'react'
+import { StatusBar, StyleSheet, View } from 'react-native'
 import { Provider } from 'react-redux'
-// import { Font } from 'expo'
 
 import Root from './src/containers/Root'
 import createStore from './src/redux/createStore'
@@ -15,7 +14,7 @@ type AppState = {
   fontsLoaded: boolean,
 }
 
-export default class App extends React.Component {
+export default class App extends Component {
   state: AppState = {
     fontsLoaded: false,
   };

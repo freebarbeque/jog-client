@@ -3,20 +3,26 @@
   "version": "0.1.0",
   "main": "./node_modules/react-native-scripts/build/bin/crna-entry.js",
   "scripts": {
-    "android": "react-native-scripts android",
-    "commit": "npm run lint && git commit -a",
+    "check:node": "check-node-version --node \">=7.7.0 <8\"",
+    "ci": "yarn flow && yarn eslint && yarn test",
+    "commit": "yarn flow && yarn eslint:fix && yarn sort-package-json && git commit -a",
     "eject": "react-native-scripts eject",
-    "eslint": "eslint ./ --fix",
+    "eslint": "eslint ./",
+    "eslint:fix": "eslint ./ --fix",
+    "fix": "yarn eslint:fix && yarn sort-package-json",
     "flow": "flow",
     "flow-typed": "flow-typed",
-    "ios": "react-native-scripts ios",
-    "lint": "npm run flow && npm run eslint && npm run sort-package-json",
-    "sort-package-json": "./node_modules/.bin/sort-package-json",
+    "postinstall": "yarn check:node",
+    "run:android": "react-native-scripts android",
+    "run:ios": "react-native-scripts ios",
+    "sort-package-json": "sort-package-json",
     "start": "react-native-scripts start",
-    "test": "node node_modules/jest/bin/jest.js --watch"
+    "test": "node node_modules/jest/bin/jest.js",
+    "test:watch": "node node_modules/jest/bin/jest.js --watch"
   },
   "dependencies": {
     "@expo/ex-navigation": "^2.9.4",
+    "check-node-version": "^2.0.1",
     "expo": "^15.1.0",
     "firebase": "^3.7.3",
     "lodash": "^4.17.4",
@@ -31,6 +37,8 @@
     "babel-eslint": "^7.2.0",
     "eslint": "^3.18.0",
     "eslint-config-airbnb": "^14.1.0",
+    "eslint-import-resolver-node": "^0.3.0",
+    "eslint-import-resolver-reactnative": "^1.0.1",
     "eslint-plugin-flowtype": "^2.30.4",
     "eslint-plugin-import": "^2.2.0",
     "eslint-plugin-jsx-a11y": "^4.0.0",
@@ -38,7 +46,8 @@
     "flow-bin": "^0.38.0",
     "jest-expo": "^0.3.0",
     "react-native-scripts": "0.0.25",
-    "react-test-renderer": "~15.4.1"
+    "react-test-renderer": "~15.4.1",
+    "sort-package-json": "^1.5.0"
   },
   "private": true,
   "jest": {
