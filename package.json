@@ -12,7 +12,7 @@
     "fix": "yarn eslint:fix && yarn sort-package-json",
     "flow": "flow",
     "flow-typed": "flow-typed",
-    "preinstall": "yarn check:node",
+    "postinstall": "yarn check:node",
     "run:android": "react-native-scripts android",
     "run:ios": "react-native-scripts ios",
     "sort-package-json": "sort-package-json",
