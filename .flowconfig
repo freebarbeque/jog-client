@@ -59,5 +59,13 @@ suppress_comment=\\(.\\|\n\\)*\\$FlowFixedInNextDeploy
 
 unsafe.enable_getters_and_setters=true
 
+module.name_mapper='^components/\(.*\)'->'<PROJECT_ROOT>/src/components/\1'
+module.name_mapper='^config/\(.*\)'->'<PROJECT_ROOT>/src/config/\1'
+module.name_mapper='^constants/\(.*\)'->'<PROJECT_ROOT>/src/constants/\1'
+module.name_mapper='^containers/\(.*\)'->'<PROJECT_ROOT>/src/containers/\1'
+module.name_mapper='^data/\(.*\)'->'<PROJECT_ROOT>/src/data/\1'
+module.name_mapper='^redux/\(.*\)'->'<PROJECT_ROOT>/src/redux/\1'
+module.name_mapper='^router/\(.*\)'->'<PROJECT_ROOT>/src/router/\1'
+
 [version]
 ^0.38.0

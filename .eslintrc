@@ -5,6 +5,19 @@
     "node": true
   },
   "settings": {
+    "import/resolver": {
+      "node": {
+        "extensions": [
+          ".js",
+          ".jsx",
+          ".json"
+        ],
+        "moduleDirectory": [
+          "node_modules",
+          "src"
+        ]
+      }
+    },
     "flowtype": {
       "onlyFilesWithFlowAnnotation": true
     }
