@@ -13,10 +13,13 @@
     "lint": "npm run flow && npm run eslint && npm run sort-package-json",
     "sort-package-json": "./node_modules/.bin/sort-package-json",
     "start": "react-native-scripts start",
-    "test": "node node_modules/jest/bin/jest.js --watch"
+    "test": "node node_modules/jest/bin/jest.js --watch",
+    "check:node": "check-node-version --node \">=7.7.0 <8\"",
+    "preinstall": "yarn check:node"
   },
   "dependencies": {
     "@expo/ex-navigation": "^2.9.4",
+    "check-node-version": "^2.0.1",
     "expo": "^15.1.0",
     "firebase": "^3.7.3",
     "lodash": "^4.17.4",
