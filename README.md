@@ -50,4 +50,20 @@ Configured in `circle.yml`. Results are at https://circleci.com/gh/z-dev/jog-app
 
 ## Deployment
 
+### Testing
+
+#### Expo Client
+
+First of all you need to be running XDE, then run the following:
+
+```bash
+exp publish
+```
+
+#### Testflight
+
+TODO
+
+#### Play Store (Beta)
+
 TODO
