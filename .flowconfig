@@ -59,6 +59,9 @@ suppress_comment=\\(.\\|\n\\)*\\$FlowFixedInNextDeploy
 
 unsafe.enable_getters_and_setters=true
 
+
+; Enable absolute imports. Only problem with this is that if you add a directory to src you have to add the name mapper here
+; TODO: Perhaps there is a better way?
 module.name_mapper='^components/\(.*\)'->'<PROJECT_ROOT>/src/components/\1'
 module.name_mapper='^config/\(.*\)'->'<PROJECT_ROOT>/src/config/\1'
 module.name_mapper='^constants/\(.*\)'->'<PROJECT_ROOT>/src/constants/\1'
