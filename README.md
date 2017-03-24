@@ -51,13 +51,3 @@ Configured in `circle.yml`. Results are at https://circleci.com/gh/z-dev/jog-app
 ## Deployment
 
 TODO
-
-## Flow
-
-### Absolute imports
-
-For absolute imports to pass the flow check you have to add a `name_mapper` to .flowconfig e.g.
-
-```
-module.name_mapper='^constants/\(.*\)'->'<PROJECT_ROOT>/src/constants/\1'
-```

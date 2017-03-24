@@ -1,7 +1,7 @@
 // @flow
 
 import type { Store as ReduxStore, Dispatch as ReduxDispatch } from 'redux'
-import type { User } from 'data/typedefs'
+import type { User } from 'jog/src/data/typedefs'
 
 export type Action = {
   type: 'DUMMY_ACTION',

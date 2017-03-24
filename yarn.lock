@@ -2227,7 +2227,7 @@ eslint-config-airbnb@^14.1.0:
   dependencies:
     eslint-config-airbnb-base "^11.1.0"
 
-eslint-import-resolver-node@^0.2.0:
+eslint-import-resolver-node@^0.2.0, eslint-import-resolver-node@^0.2.3:
   version "0.2.3"
   resolved "https://registry.yarnpkg.com/eslint-import-resolver-node/-/eslint-import-resolver-node-0.2.3.tgz#5add8106e8c928db2cba232bcd9efa846e3da16c"
   dependencies:
@@ -2241,6 +2241,13 @@ eslint-import-resolver-node@^0.3.0:
   dependencies:
     debug "^2.2.0"
     resolve "^1.2.0"
+
+eslint-import-resolver-reactnative@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/eslint-import-resolver-reactnative/-/eslint-import-resolver-reactnative-1.0.1.tgz#d950cb724f8a4f1a4b69d8be16bab4c0e933b433"
+  dependencies:
+    eslint-import-resolver-node "^0.2.3"
+    find-root "^1.0.0"
 
 eslint-module-utils@^2.0.0:
   version "2.0.0"
@@ -2650,6 +2657,10 @@ find-babel-config@^1.0.1:
   dependencies:
     json5 "^0.5.0"
     path-exists "^3.0.0"
+
+find-root@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/find-root/-/find-root-1.0.0.tgz#962ff211aab25c6520feeeb8d6287f8f6e95807a"
 
 find-up@^1.0.0:
   version "1.1.2"

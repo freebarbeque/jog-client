@@ -1,7 +1,7 @@
 // @flow
 
 import firebase from 'firebase'
-import config from 'config/index'
+import config from 'jog/src/config/index'
 
 let initialised = false
 

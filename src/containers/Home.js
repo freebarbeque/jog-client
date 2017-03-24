@@ -8,11 +8,11 @@ import {
   TabNavigation,
   TabNavigationItem as TabItem,
 } from '@expo/ex-navigation'
-import type { RootReduxState } from 'redux/typedefs'
-import router from 'router/index'
-import AuthButton from 'components/AuthButton'
-import { BLUE } from 'constants/palette'
-import { Logo } from 'components/images/index'
+import type { RootReduxState } from 'jog/src/redux/typedefs'
+import router from 'jog/src/router/index'
+import AuthButton from 'jog/src/components/AuthButton'
+import { BLUE } from 'jog/src/constants/palette'
+import { Logo } from 'jog/src/components/images/index'
 
 type HomeProps = {};
 type HomeState = {};

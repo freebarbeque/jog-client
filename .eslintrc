@@ -5,19 +5,7 @@
     "node": true
   },
   "settings": {
-    "import/resolver": {
-      "node": {
-        "extensions": [
-          ".js",
-          ".jsx",
-          ".json"
-        ],
-        "moduleDirectory": [
-          "node_modules",
-          "src"
-        ]
-      }
-    },
+    "import/resolver": reactnative,
     "flowtype": {
       "onlyFilesWithFlowAnnotation": true
     }

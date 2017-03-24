@@ -17,7 +17,7 @@
     "run:ios": "react-native-scripts ios",
     "sort-package-json": "sort-package-json",
     "start": "react-native-scripts start",
-    "test": "NODE_PATH=$NODE_PATH:src node node_modules/jest/bin/jest.js",
+    "test": "node node_modules/jest/bin/jest.js",
     "test:watch": "node node_modules/jest/bin/jest.js --watch"
   },
   "dependencies": {
@@ -38,6 +38,7 @@
     "eslint": "^3.18.0",
     "eslint-config-airbnb": "^14.1.0",
     "eslint-import-resolver-node": "^0.3.0",
+    "eslint-import-resolver-reactnative": "^1.0.1",
     "eslint-plugin-flowtype": "^2.30.4",
     "eslint-plugin-import": "^2.2.0",
     "eslint-plugin-jsx-a11y": "^4.0.0",
