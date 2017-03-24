@@ -41,9 +41,6 @@ const mapStateToProps = (state: RootReduxState) => {
     user,
   }
 }
-const mapDispatchToProps = (dispatch) => ({ dispatch })
-
 export default connect(
   mapStateToProps,
-  mapDispatchToProps,
 )(AuthButton)
