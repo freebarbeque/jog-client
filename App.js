@@ -1,7 +1,7 @@
 // @flow
 
 import React from 'react'
-import {StatusBar, StyleSheet, View} from 'react-native'
+import { StatusBar, StyleSheet, View } from 'react-native'
 import { Provider } from 'react-redux'
 // import { Font } from 'expo'
 
