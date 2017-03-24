@@ -1,20 +1,13 @@
 // @flow
 
 import firebase from 'firebase'
+import config from '../config'
 
 let initialised = false
 
 export default function initialiseFirebase() {
   if (!initialised) {
-    const config = {
-      apiKey: 'AIzaSyCa5Uyt5P1M9202SeF3qBt3xNCus7zonqE',
-      authDomain: 'abc123-10cde.firebaseapp.com',
-      databaseURL: 'https://abc123-10cde.firebaseio.com',
-      storageBucket: 'abc123-10cde.appspot.com',
-      messagingSenderId: '714554132264',
-    }
-
-    firebase.initializeApp(config)
+    firebase.initializeApp(config.firebase)
     initialised = true
   }
 }
