@@ -1,6 +1,6 @@
-# Jog 
+# Jog
 
-##Prerequisite Knowledge
+## Prerequisite Knowledge
 
 * ECMAScript 6
 * React
@@ -12,7 +12,7 @@
     * Jest
     * Enzyme
 
-##Setup
+## Setup
 ```bash
 yarn install
 ```
@@ -20,8 +20,8 @@ yarn install
 ### Simulator
 
 ```bash
-yarn ios
-yarn android
+yarn run:ios
+yarn run:android
 ```
 
 ### Device
