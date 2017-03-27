@@ -3,7 +3,6 @@
   "version": "0.1.0",
   "main": "./node_modules/react-native-scripts/build/bin/crna-entry.js",
   "scripts": {
-    "check:node": "check-node-version --node \">=7.7.0 <8\"",
     "ci": "yarn flow && yarn eslint && yarn test",
     "commit": "yarn flow && yarn eslint:fix && yarn sort-package-json && git commit -a",
     "eject": "react-native-scripts eject",
@@ -12,7 +11,6 @@
     "fix": "yarn eslint:fix && yarn sort-package-json",
     "flow": "flow",
     "flow-typed": "flow-typed",
-    "postinstall": "yarn check:node",
     "run:android": "react-native-scripts android",
     "run:ios": "react-native-scripts ios",
     "sort-package-json": "sort-package-json",
@@ -22,12 +20,12 @@
   },
   "dependencies": {
     "@expo/ex-navigation": "^2.9.4",
-    "check-node-version": "^2.0.1",
     "expo": "^15.1.0",
     "firebase": "^3.7.3",
     "lodash": "^4.17.4",
     "react": "~15.4.0",
     "react-native": "0.42.3",
+    "react-native-svg-uri": "^1.2.0",
     "react-redux": "^5.0.3",
     "react-style-proptype": "^2.0.2",
     "redux": "^3.6.0",
@@ -52,5 +50,9 @@
   "private": true,
   "jest": {
     "preset": "jest-expo"
-  }
+  },
+  "engines": {
+    "node": ">=7.7.0"
+  },
+  "engineStrict": true
 }
