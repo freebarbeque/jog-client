@@ -19,6 +19,7 @@
   "rules": {
     "react/prefer-stateless-function": "off",
     "react/jsx-filename-extension": "off",
+    "react/require-default-props": "off",
     "react/sort-comp": [
       2,
       {
@@ -72,6 +73,28 @@
   },
   "globals": {
     "fetch": false,
-    "FormData": false
+    "FormData": false,
+    // Flow global types.
+    "ReactComponent": false,
+    "ReactClass": false,
+    "ReactElement": false,
+    "ReactPropsCheckType": false,
+    "ReactPropsChainableTypeChecker": false,
+    "ReactPropTypes": false,
+    "SyntheticEvent": false,
+    "$Either": false,
+    "$All": false,
+    "$ArrayBufferView": false,
+    "$Tuple": false,
+    "$Supertype": false,
+    "$Subtype": false,
+    "$Shape": false,
+    "$Diff": false,
+    "$Keys": false,
+    "$Enum": false,
+    "$Exports": false,
+    "$FlowIssue": false,
+    "$FlowFixMe": false,
+    "$FixMe": false
   }
 }
