@@ -28,6 +28,9 @@
 .*/node_modules/expo/src/*
 .*/node_modules/@expo/ex-navigation/.*
 
+; Ignore react-navigation tests
+.*/node_modules/react-navigation/.*/__tests__/.*
+
 ; Ignore react-native-fbads dependency of the expo sdk
 .*/node_modules/react-native-fbads/*
 

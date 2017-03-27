@@ -1,46 +1,34 @@
 // @flow
+import React from 'react'
 
-import React, { Component } from 'react'
-import { StatusBar, StyleSheet, View } from 'react-native'
-import { Provider } from 'react-redux'
-
-import Root from './src/containers/Root'
+import { addNavigationHelpers } from 'react-navigation'
+import { Provider, connect } from 'react-redux'
+import RootNavigator from './src/navigators/RootNavigator'
 import createStore from './src/redux/createStore'
-import initialiseFirebase from './src/data'
+import type { RootReduxState } from './src/redux/typedefs'
 
-initialiseFirebase()
+const AppWithRootNavigationState = connect((state: RootReduxState) => ({
+  nav: state.nav,
+}))(({ dispatch, nav }) => {
+  console.log('nav', nav)
+  return (
+    <RootNavigator navigation={addNavigationHelpers({ dispatch, state: nav })} />
+  )
+})
 
-type AppState = {
-  fontsLoaded: boolean,
-}
+const store = createStore()
 
-const store = createStore({ logger: true })
+export default class ReduxExampleApp extends React.Component {
 
-export default class App extends Component {
-  state: AppState = {
-    fontsLoaded: false,
-  };
+  componentDidMount() {
+  }
 
   render() {
     return (
-      <View style={styles.container}>
-        <StatusBar
-          barStyle="light-content"
-        />
-        <Provider store={store}>
-          <Root />
-        </Provider>
-      </View>
+      <Provider store={store}>
+        <AppWithRootNavigationState />
+      </Provider>
     )
   }
 }
 
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-})

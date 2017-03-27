@@ -2,30 +2,32 @@
 
 import { createLogger } from 'redux-logger'
 import { createStore as _createStore, applyMiddleware } from 'redux'
+import { composeWithDevTools } from 'remote-redux-devtools'
+import env from 'jog/src/config/env.json'
+import reducer from 'jog/src/redux/reducer'
 
 import type { Store } from './typedefs'
-import reducer from './reducer'
 
-type StoreOptions = {
-  logger: boolean
-}
+export default function createStore(): Store {
+  const middleware = [
+  ]
 
-export default function createStore(opts?: StoreOptions): Store {
-  const middleware = []
+  const isDebug = env.environment === 'DEBUG'
 
-  const optsWithDefaults = {
-    logger: true,
-    ...opts,
-  }
-
-  if (optsWithDefaults.logger) {
+  if (isDebug) {
     middleware.push(createLogger())
   }
+
+  const composeEnhancer = composeWithDevTools({
+    realtime: !isDebug
+  })
 
   const store = _createStore(
     reducer,
     undefined,
-    applyMiddleware.apply(applyMiddleware, middleware),
+    composeEnhancer(
+      applyMiddleware.apply(applyMiddleware, middleware),
+    )
   )
 
   if (module.hot) {

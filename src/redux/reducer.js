@@ -1,23 +1,12 @@
 // @flow
 
-import type { Action, RootReduxState } from './typedefs'
+import { combineReducers } from 'redux'
+import nav from './nav/reducer'
+import auth from './auth/reducer'
 
-const DEFAULT_STATE = { dummy: 5, user: null }
+const AppReducer = combineReducers({
+  nav,
+  auth,
+})
 
-export default function reducer(
-  state: RootReduxState = DEFAULT_STATE,
-  action: Action,
-) : RootReduxState {
-  if (action.type === 'DUMMY_ACTION') {
-    return {
-      ...state,
-      dummy: action.dummy,
-    }
-  } else if (action.type === 'RECEIVE_USER') {
-    return {
-      ...state,
-      user: action.user,
-    }
-  }
-  return state
-}
+export default AppReducer

@@ -40,9 +40,7 @@ const mapStateToProps = (state: RootReduxState) => ({
   ...state,
 })
 
-const mapDispatchToProps = (dispatch: Dispatch) => ({ dispatch })
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps,
 )(Policies)
