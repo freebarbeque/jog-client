@@ -14,6 +14,8 @@ type AppState = {
   fontsLoaded: boolean,
 }
 
+const store = createStore({ logger: true })
+
 export default class App extends Component {
   state: AppState = {
     fontsLoaded: false,
@@ -25,13 +27,14 @@ export default class App extends Component {
         <StatusBar
           barStyle="light-content"
         />
-        <Provider store={createStore({ logger: true })}>
+        <Provider store={store}>
           <Root />
         </Provider>
       </View>
     )
   }
 }
+
 
 const styles = StyleSheet.create({
   container: {

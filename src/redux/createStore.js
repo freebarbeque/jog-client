@@ -1,3 +1,5 @@
+// @flow
+
 import { createLogger } from 'redux-logger'
 import { createStore as _createStore, applyMiddleware } from 'redux'
 
@@ -8,7 +10,7 @@ type StoreOptions = {
   logger: boolean
 }
 
-export default function createStore(opts: StoreOptions = {}): Store {
+export default function createStore(opts?: StoreOptions): Store {
   const middleware = []
 
   const optsWithDefaults = {
@@ -28,8 +30,10 @@ export default function createStore(opts: StoreOptions = {}): Store {
 
   if (module.hot) {
     // Enable Webpack hot module replacement for reducers
+    // $FlowFixMe
     module.hot.accept('./reducer', () => {
       const nextRootReducer = require('./reducer')
+      // $FlowFixMe
       store.replaceReducer(nextRootReducer)
     })
   }
