@@ -5,16 +5,16 @@ import { View, StyleSheet, Text } from 'react-native'
 import { connect } from 'react-redux'
 import type { Dispatch, RootReduxState } from 'jog/src/redux/typedefs'
 
-type MarketsProps = {
+type SettingsProps = {
   dispatch: Dispatch,
 };
-type MarketsState = {};
+type SettingsState = {};
 
-class Markets extends Component {
-  props: MarketsProps
-  state: MarketsState
+class Settings extends Component {
+  props: SettingsProps
+  state: SettingsState
 
-  constructor(props: MarketsProps) {
+  constructor(props: SettingsProps) {
     super(props)
     this.state = {}
   }
@@ -23,7 +23,7 @@ class Markets extends Component {
     return (
       <View style={styles.container}>
         <Text>
-          Markets
+          Settings
         </Text>
       </View>
     )
@@ -40,9 +40,6 @@ const mapStateToProps = (state: RootReduxState) => ({
   ...state,
 })
 
-const mapDispatchToProps = (dispatch: Dispatch) => ({ dispatch })
-
 export default connect(
   mapStateToProps,
-  mapDispatchToProps,
-)(Markets)
+)(Settings)

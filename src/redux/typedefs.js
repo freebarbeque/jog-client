@@ -1,19 +1,22 @@
 // @flow
 
 import type { Store as ReduxStore, Dispatch as ReduxDispatch } from 'redux'
-import type { User } from 'jog/src/data/typedefs'
+import type { AuthAction } from './auth/actionTypes'
+import type { AuthReduxState } from './auth/reducer'
 
-export type Action = {
-  type: 'DUMMY_ACTION',
-  dummy: number,
-} | {
-  type: 'RECEIVE_USER',
-  user: User | null
+export type Action = AuthAction
+
+export type Route = {
+  key: string,
+  routeName: string,
 }
 
 export type RootReduxState = {
-  dummy: number,
-  user: User | null,
+  nav: {
+    index: number,
+    routes: Route[],
+  },
+  auth: AuthReduxState,
 }
 
 export type Store = ReduxStore<RootReduxState, Action>;

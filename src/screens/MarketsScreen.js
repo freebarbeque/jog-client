@@ -1,20 +1,20 @@
 /* @flow */
 
 import React, { Component } from 'react'
-import { View, StyleSheet } from 'react-native'
+import { View, StyleSheet, Text, StatusBar } from 'react-native'
 import { connect } from 'react-redux'
 import type { Dispatch, RootReduxState } from 'jog/src/redux/typedefs'
 
-type LoginProps = {
+type MarketsProps = {
   dispatch: Dispatch,
 };
-type LoginState = {};
+type MarketsState = {};
 
-class Login extends Component {
-  props: LoginProps
-  state: LoginState
+class Markets extends Component {
+  props: MarketsProps
+  state: MarketsState
 
-  constructor(props: LoginProps) {
+  constructor(props: MarketsProps) {
     super(props)
     this.state = {}
   }
@@ -22,7 +22,10 @@ class Login extends Component {
   render() {
     return (
       <View style={styles.container}>
-        Login
+        <StatusBar barStyle="light-content" />
+        <Text>
+          Markets
+        </Text>
       </View>
     )
   }
@@ -38,9 +41,6 @@ const mapStateToProps = (state: RootReduxState) => ({
   ...state,
 })
 
-const mapDispatchToProps = (dispatch: Dispatch) => ({ dispatch })
-
 export default connect(
   mapStateToProps,
-  mapDispatchToProps,
-)(Login)
+)(Markets)
