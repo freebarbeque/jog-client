@@ -1,5 +1,5 @@
 // @flow
-import React from 'react'
+import React, { Component } from 'react'
 
 import { addNavigationHelpers } from 'react-navigation'
 import { Provider, connect } from 'react-redux'
@@ -18,11 +18,7 @@ const AppWithRootNavigationState = connect((state: RootReduxState) => ({
 
 const store = createStore()
 
-export default class ReduxExampleApp extends React.Component {
-
-  componentDidMount() {
-  }
-
+export default class JogApp extends Component {
   render() {
     return (
       <Provider store={store}>
