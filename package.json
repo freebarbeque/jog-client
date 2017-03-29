@@ -15,8 +15,8 @@
     "run:android": "react-native-scripts android",
     "run:ios": "react-native-scripts ios",
     "start": "react-native-scripts start",
-    "test": "node node_modules/jest/bin/jest.js",
-    "test:watch": "node node_modules/jest/bin/jest.js --watch"
+    "test": "jest",
+    "test:watch": "jest --watch"
   },
   "dependencies": {
     "@expo/ex-navigation": "^2.9.4",
@@ -45,6 +45,7 @@
     "eslint-plugin-jsx-a11y": "^4.0.0",
     "eslint-plugin-react": "^6.10.3",
     "flow-bin": "^0.38.0",
+    "jest-cli": "^19.0.2",
     "jest-expo": "^0.3.0",
     "react-native-scripts": "0.0.25",
     "react-test-renderer": "~15.4.1",
@@ -56,6 +57,27 @@
   "engineStrict": true,
   "private": true,
   "jest": {
-    "preset": "jest-expo"
+    "preset": "jest-expo",
+    "moduleFileExtensions": [
+      "jsx",
+      "js",
+      "json"
+    ],
+    "moduleNameMapper": {
+      "^.+\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/__tests__/config/stubs/CSSStub.js",
+      "^.+\\.css$": "<rootDir>/__tests__/config/stubs/CSSStub.js"
+    },
+    "setupFiles": [
+      "<rootDir>/__tests__/config/polyfills.js"
+    ],
+    "testPathIgnorePatterns": [
+      "<rootDir>/(build|docs|node_modules)/"
+    ],
+    "testEnvironment": "node",
+    "testRegex": ".*.test.js",
+    "verbose": true,
+    "transformIgnorePatterns": [
+      "node_modules/(?!react-navigation)/"
+    ]
   }
 }
