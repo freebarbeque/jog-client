@@ -1,11 +1,13 @@
 import React from 'react'
 import { TabNavigator } from 'react-navigation'
-import SettingsScreen from '../screens/SettingsScreen'
-import PoliciesScreen from '../screens/PoliciesScreen'
-import MarketsScreen from '../screens/MarketsScreen'
-import { BLUE, DARK_GRAY, PINK } from '../constants/palette'
-import { Logo } from '../components/images/index'
-import AuthButton from '../components/AuthButton'
+
+import SettingsScreen from 'jog/src/screens/SettingsScreen'
+import PoliciesScreen from 'jog/src/screens/PoliciesScreen'
+import MarketsScreen from 'jog/src/screens/MarketsScreen'
+import { BLUE, DARK_GRAY, PINK } from 'jog/src/constants/palette'
+import { Logo } from 'jog/src/components/images/index'
+import AuthButton from 'jog/src/components/AuthButton'
+import { MARGIN } from 'jog/src/constants/style'
 
 const tabNavigator = TabNavigator({
   Policies: { screen: PoliciesScreen },
@@ -28,8 +30,9 @@ const tabNavigator = TabNavigator({
     },
     labelStyle: {
       marginBottom: 6,
-      fontSize: 12,
+      fontSize: 14,
       fontWeight: 'bold',
+      fontFamily: 'WorkSans-Bold'
     },
     activeTintColor: PINK,
     inactiveTintColor: DARK_GRAY
@@ -42,12 +45,11 @@ tabNavigator.navigationOptions = {
   header: ({ state, setParams }) => {
     return {
       title: '',
-      left: <Logo style={{ marginLeft: 10, marginTop: 3 }} scale={0.2} />,
-      right: <AuthButton style={{ marginTop: 10, marginRight: 10 }} />,
+      left: <Logo style={{ marginLeft: MARGIN.large, position: 'relative', bottom: 4 }} scale={1} />,
+      right: <AuthButton style={{ marginRight: MARGIN.large }} />,
       style: { backgroundColor: BLUE }
     }
   }
 }
 
 export default tabNavigator
-

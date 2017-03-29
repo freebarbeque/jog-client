@@ -1,22 +1,42 @@
-import React, { PropTypes } from 'react'
+/* @flow */
+
+import React from 'react'
 import { Image } from 'react-native'
-import stylePropType from 'react-style-proptype'
+import SvgUri from 'react-native-svg-uri'
 
-// eslint-disable-next-line import/prefer-default-export
-export const Logo = ({ scale, style }) => (
-  <Image
-    style={{ height: 168 * scale, width: 300 * scale, ...style }}
-    source={require('./logo-placeholder.png')}
-  />
-)
-
-Logo.propTypes = {
-  scale: PropTypes.number,
-  style: stylePropType,
+type ImageProps = {
+  scale?: number,
+  style?: $Subtype<Object>,
 }
 
-Logo.defaultProps = {
-  scale: 1,
-  style: {},
+export const Logo = (props: ImageProps) => {
+  let { scale, style } = props
+  scale = scale || 1
+  style = style || {}
+
+  return (
+    <Image
+      style={[{ height: 39.752 * scale, width: 46.713 * scale }, style]}
+      source={require('./logo.png')}
+    />
+  )
 }
 
+Logo.defaultProps = { scale: 1, style: {} }
+
+export const Times = (props: ImageProps) => {
+  let { scale } = props
+  const { style } = props
+  scale = scale || 1
+
+  return (
+    <SvgUri
+      width={30 * scale}
+      height={30 * scale}
+      style={style}
+      source={require('./times.svg')}
+    />
+  )
+}
+
+Times.defaultProps = { scale: 1 }

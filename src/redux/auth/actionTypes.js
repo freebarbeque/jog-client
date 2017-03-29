@@ -1,10 +1,10 @@
 // @flow
 
-import type { User } from '../../data/typedefs'
+import type { FirebaseUser } from 'jog/src/types'
 
 export type ReceiveUserAction = {
   type: 'auth/RECEIVE_USER',
-  user: User | null
+  user: FirebaseUser | null
 }
 
 export type AuthAction = ReceiveUserAction

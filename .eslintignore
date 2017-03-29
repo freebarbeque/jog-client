@@ -1,1 +1,3 @@
 flow-typed/**/*.js
+flow/**/*.js
+globals.js

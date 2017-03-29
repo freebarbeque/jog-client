@@ -2,33 +2,36 @@
 
 import { createLogger } from 'redux-logger'
 import { createStore as _createStore, applyMiddleware } from 'redux'
-import { composeWithDevTools } from 'remote-redux-devtools'
+import createSagaMiddleware from 'redux-saga'
+// TODO - import freeze from 'redux-freeze'
 import env from 'jog/src/config/env.json'
 import reducer from 'jog/src/redux/reducer'
-
-import type { Store } from './typedefs'
+import type { Store } from 'jog/src/types'
+import authSaga from 'jog/src/redux/screens/auth/sagas'
 
 export default function createStore(): Store {
+  const sagaMiddleware = createSagaMiddleware()
+
   const middleware = [
+    sagaMiddleware
   ]
 
   const isDebug = env.environment === 'DEBUG'
 
   if (isDebug) {
     middleware.push(createLogger())
+    // TODO: Causes a strange error with XMLHTTPRequest: "the responseText property is only available if responseType..."
+    // middleware.push(freeze)
   }
 
-  const composeEnhancer = composeWithDevTools({
-    realtime: !isDebug
-  })
 
   const store = _createStore(
     reducer,
     undefined,
-    composeEnhancer(
-      applyMiddleware.apply(applyMiddleware, middleware),
-    )
+    applyMiddleware.apply(applyMiddleware, middleware),
   )
+
+  sagaMiddleware.run(authSaga)
 
   if (module.hot) {
     // Enable Webpack hot module replacement for reducers
