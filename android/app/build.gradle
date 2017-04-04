@@ -96,6 +96,7 @@ android {
             abiFilters "armeabi-v7a", "x86"
         }
     }
+
     splits {
         abi {
             reset()

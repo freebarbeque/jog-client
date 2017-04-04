@@ -17,7 +17,8 @@
     "test:watch": "jest --watch",
     "ios": "react-native run-ios",
     "android": "react-native run-android",
-    "supply:alpha": "fastlane supply --apk android/app/app-release.apk --track alpha --json_key $JOG_GP_JSON_KEY --package_name com.jog"
+    "deploy:android:alpha": "fastlane supply --apk android/app/app-release.apk --track alpha --json_key $JOG_GP_JSON_KEY --package_name com.jog",
+    "build:android": "./scripts/android-release.sh"
   },
   "dependencies": {
     "@expo/ex-navigation": "^2.9.4",
