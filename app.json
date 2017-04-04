@@ -6,7 +6,7 @@
     "version": "0.0.1",
     "slug": "jog",
     "android": {
-      "package": "com.todo.jogapp"
+      "package": "com.jog"
     }
   }
 }

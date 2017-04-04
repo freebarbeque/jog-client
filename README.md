@@ -66,4 +66,9 @@ TODO
 
 #### Play Store (Beta)
 
-TODO
+You must have fastlane installed in order to deploy to the Play Store
+
+```
+sudo gem install fastlane
+```
+
