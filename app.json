@@ -1,5 +1,12 @@
 {
   "expo": {
-    "sdkVersion": "15.0.0"
+    "sdkVersion": "15.0.0",
+    "name": "Jog",
+    "icon": "https://s3.amazonaws.com/exp-us-standard/rnplay/app-icon.png",
+    "version": "0.0.1",
+    "slug": "jog",
+    "android": {
+      "package": "com.todo.jogapp"
+    }
   }
 }
