@@ -77,6 +77,7 @@ class LabelledTextInput extends Component {
           ref={(e) => { this.input = e }}
           style={[styles.input, error ? styles.errorInput : {}, !editable ? styles.disabledInput : {}]}
           editable={editable}
+          underlineColorAndroid="rgba(0,0,0,0.0)"
           onChangeText={(text) => {
             // This is buggy as the tab appears before quickly being removed,
             // however this doesn't really matter as it's only for dev.

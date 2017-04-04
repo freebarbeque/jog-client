@@ -121,7 +121,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     paddingRight: 10
   },
-  logo: {
+  headerLogo: {
     marginTop: 3,
   },
   title: {

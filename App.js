@@ -2,7 +2,7 @@
 import 'jog/globals'
 import React, { Component } from 'react'
 import { Font } from 'expo'
-import { View, StatusBar } from 'react-native'
+import { View, StatusBar, Platform, StyleSheet } from 'react-native'
 
 import { addNavigationHelpers } from 'react-navigation'
 import { Provider, connect } from 'react-redux'
@@ -12,6 +12,7 @@ import type { ReduxState } from './src/types'
 import initialiseFirebase from './src/data'
 import { userSubscribe } from './src/data/auth'
 import { receiveUser } from './src/redux/auth/actions'
+import { BLUE } from './src/constants/palette'
 
 const AppWithRootNavigationState = connect((state: ReduxState) => ({
   nav: state.nav,
@@ -59,11 +60,25 @@ export default class JogApp extends Component {
   render() {
     return (
       <Provider store={store}>
-        <View style={{ flex: 1 }}>
-          <StatusBar barStyle="light-content" />
+        <View style={styles.container}>
+          <StatusBar
+            barStyle="light-content"
+            backgroundColor={BLUE}
+          />
           {this.state.fontLoaded ? <AppWithRootNavigationState /> : null}
         </View>
       </Provider>
     )
   }
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    ...Platform.select({
+      android: {
+        marginTop: StatusBar.currentHeight,
+      }
+    })
+  }
+})

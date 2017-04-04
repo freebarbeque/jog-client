@@ -23,7 +23,7 @@ const authNavigator = StackNavigator({
 
 const CancelButton = connect()((({ dispatch, navKey }) => (
   <TouchableOpacity
-    style={{ height: 30, width: 30, marginTop: 10, marginRight: 10 }}
+    style={{ height: 30, width: 30, marginRight: MARGIN.base }}
     onPress={() => dispatch(NavigationActions.back({ key: navKey }))}
   >
     <Times scale={1} />
@@ -36,7 +36,7 @@ authNavigator.navigationOptions = {
       title: null,
       left: (
         <Logo
-          style={{ marginLeft: MARGIN.large }}
+          style={{ marginLeft: MARGIN.large, marginBottom: MARGIN.base }}
           scale={1}
         />
       ),
