@@ -75,7 +75,11 @@ class LabelledTextInput extends Component {
         </View>
         <TextInput
           ref={(e) => { this.input = e }}
-          style={[styles.input, error ? styles.errorInput : {}, !editable ? styles.disabledInput : {}]}
+          style={[
+            styles.input,
+            error ? styles.errorInput : {},
+            !editable ? styles.disabledInput : {}
+          ]}
           editable={editable}
           underlineColorAndroid="rgba(0,0,0,0.0)"
           onChangeText={(text) => {
