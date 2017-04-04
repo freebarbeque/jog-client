@@ -1,16 +1,20 @@
 /* @flow */
 
 import React, { Component } from 'react'
-import { View, StyleSheet, Text } from 'react-native'
+import { View, StyleSheet } from 'react-native'
 import { connect } from 'react-redux'
-import type { Dispatch, RootReduxState } from 'jog/src/redux/typedefs'
+import type { ReduxState } from 'jog/src/types'
+import Text from 'jog/src/components/Text'
+import { BLUE } from 'jog/src/constants/palette'
 
 type SettingsProps = {
-  dispatch: Dispatch,
+  // dispatch: Dispatch,
+  // user: number,
 };
+
 type SettingsState = {};
 
-class Settings extends Component {
+class SettingsScreen extends Component {
   props: SettingsProps
   state: SettingsState
 
@@ -22,7 +26,7 @@ class Settings extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text>
+        <Text style={{ color: BLUE }}>
           Settings
         </Text>
       </View>
@@ -36,10 +40,10 @@ const styles = StyleSheet.create({
   },
 })
 
-const mapStateToProps = (state: RootReduxState) => ({
-  ...state,
+const mapStateToProps = (state: ReduxState) => ({
+  user: state.auth.user,
 })
 
 export default connect(
   mapStateToProps,
-)(Settings)
+)(SettingsScreen)

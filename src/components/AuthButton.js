@@ -2,38 +2,50 @@
 
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { Text, TouchableHighlight } from 'react-native'
+import { TouchableOpacity, View } from 'react-native'
 import { NavigationActions } from 'react-navigation'
 
-import type { RootReduxState } from 'jog/src/redux/typedefs'
-import type { User } from 'jog/src/data/typedefs'
+import type { ReduxState, FirebaseUser, Dispatch } from 'jog/src/types'
 import { WHITE } from 'jog/src/constants/palette'
+import { signOut } from 'jog/src/data/auth'
+import Text from 'jog/src/components/Text'
 
 type AuthButtonProps = {
-  user: User | null,
+  user: FirebaseUser | null,
   style: any,
-  dispatch: Function
+  dispatch: Dispatch
 }
 
 class AuthButton extends Component {
   props: AuthButtonProps
 
   handlePress = () => {
-    this.props.dispatch(NavigationActions.navigate({ routeName: 'Login' }))
+    if (this.props.user) {
+      signOut()
+    } else {
+      this.props.dispatch(NavigationActions.navigate({
+        routeName: 'Auth'
+      }))
+    }
   }
 
   render() {
     return (
-      <TouchableHighlight style={this.props.style} onPress={this.handlePress}>
-        <Text style={{ color: WHITE }}>
-          {this.props.user ? 'Sign Out' : 'Sign In'}
-        </Text>
-      </TouchableHighlight>
+      <TouchableOpacity
+        style={this.props.style}
+        onPress={this.handlePress}
+      >
+        <View>
+          <Text style={{ color: WHITE }}>
+            {this.props.user ? 'Sign Out' : 'Sign In'}
+          </Text>
+        </View>
+      </TouchableOpacity>
     )
   }
 }
 
-const mapStateToProps = (state: RootReduxState) => {
+const mapStateToProps = (state: ReduxState) => {
   const user = state.auth.user
 
   return {

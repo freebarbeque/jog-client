@@ -1,9 +1,11 @@
 /* @flow */
 
 import React, { Component } from 'react'
-import { View, StyleSheet, Text, StatusBar } from 'react-native'
+import { View, StyleSheet } from 'react-native'
 import { connect } from 'react-redux'
-import type { Dispatch, RootReduxState } from 'jog/src/redux/typedefs'
+import type { Dispatch, ReduxState } from 'jog/src/types'
+import Text from 'jog/src/components/Text'
+import { BLUE } from 'jog/src/constants/palette'
 
 type MarketsProps = {
   dispatch: Dispatch,
@@ -22,8 +24,7 @@ class Markets extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <StatusBar barStyle="light-content" />
-        <Text>
+        <Text style={{ color: BLUE }}>
           Markets
         </Text>
       </View>
@@ -37,7 +38,7 @@ const styles = StyleSheet.create({
   },
 })
 
-const mapStateToProps = (state: RootReduxState) => ({
+const mapStateToProps = (state: ReduxState) => ({
   ...state,
 })
 
