@@ -2,7 +2,6 @@
 
 import React from 'react'
 import { Image } from 'react-native'
-import SvgUri from 'react-native-svg-uri'
 
 type ImageProps = {
   scale?: number,
@@ -28,13 +27,12 @@ export const Times = (props: ImageProps) => {
   let { scale } = props
   const { style } = props
   scale = scale || 1
+  const size = 16 * scale
 
   return (
-    <SvgUri
-      width={30 * scale}
-      height={30 * scale}
-      style={style}
-      source={require('./times.svg')}
+    <Image
+      style={[{ height: size, width: size }, style]}
+      source={require('./times.png')}
     />
   )
 }
