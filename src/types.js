@@ -3,12 +3,13 @@
 import type { Store as ReduxStore, Dispatch as ReduxDispatch } from 'redux'
 import type { NavigationAction } from 'react-navigation'
 import type { AuthAction } from './redux/auth/actionTypes'
+import type { PoliciesAction } from './redux/policies/actionTypes'
 
 //
 // Redux
 //
 
-export type Action = AuthAction | NavigationAction
+export type Action = AuthAction | NavigationAction | PoliciesAction
 
 export type NavReduxState = {
   index: number,
@@ -30,10 +31,13 @@ export type ScreensReduxState = {
   auth: AuthScreensReduxState
 }
 
+export type PoliciesState = MotorPolicy[]
+
 export type ReduxState = {
   nav: NavReduxState,
   auth: AuthReduxState,
-  screens: ScreensReduxState
+  screens: ScreensReduxState,
+  policies: PoliciesState
 }
 
 export type Store = ReduxStore<ReduxState, Action>;

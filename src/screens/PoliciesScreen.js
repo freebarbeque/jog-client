@@ -3,29 +3,51 @@
 import React, { Component } from 'react'
 import { View, StyleSheet } from 'react-native'
 import { connect } from 'react-redux'
-import type { Dispatch, ReduxState } from 'jog/src/types'
+import type { Dispatch, ReduxState, FirebaseUser, MotorPolicy } from 'jog/src/types'
 import Text from 'jog/src/components/Text'
 import { BLUE } from 'jog/src/constants/palette'
+import { syncMotorPolicies, unsyncMotorPolicies } from 'jog/src/redux/policies/actions'
 
 type PoliciesProps = {
   dispatch: Dispatch,
+  user: FirebaseUser | null,
+  policies: MotorPolicy[],
 };
-type PoliciesState = {};
 
 class Policies extends Component {
   props: PoliciesProps
-  state: PoliciesState
 
-  constructor(props: PoliciesProps) {
-    super(props)
-    this.state = {}
+  componentDidMount() {
+    const user = this.props.user
+    if (user) {
+      this.props.dispatch(syncMotorPolicies(user.uid))
+    }
+  }
+
+  componentWillReceiveProps(props: PoliciesProps) {
+    const newUserId = props.user && props.user.uid
+    const priorUserId = this.props.user && this.props.user.uid
+
+    if (newUserId !== priorUserId) {
+      if (priorUserId) {
+        this.props.dispatch(unsyncMotorPolicies())
+      }
+      if (newUserId) {
+        this.props.dispatch(syncMotorPolicies(newUserId))
+      }
+    }
+  }
+
+  componentWillUnmount() {
+    this.props.dispatch(unsyncMotorPolicies())
   }
 
   render() {
+    const numPolicies = this.props.policies.length
     return (
       <View style={styles.container}>
         <Text style={{ color: BLUE }}>
-          Policies
+          You have {numPolicies} {numPolicies === 1 ? 'policy' : 'policies'}
         </Text>
       </View>
     )
@@ -39,7 +61,8 @@ const styles = StyleSheet.create({
 })
 
 const mapStateToProps = (state: ReduxState) => ({
-  ...state,
+  user: state.auth.user,
+  policies: state.policies
 })
 
 
