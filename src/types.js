@@ -75,40 +75,31 @@ export type FirebaseUser = {
 // Motor Policies
 //
 
-export type Conviction = {
-  date: number,
-  // Driving conviction codes: https://en.wikipedia.org/wiki/List_of_UK_driving_licence_endorsements
-  type: 'SP30' | 'AC10' | 'BA10'
-}
-
 // Describes a driver attached to a motor policy
 export type Driver = {
   firstNames: string,
   lastName: string,
-  dob: number,
-  main: boolean, // Is this the main driver on the policy?
-  convictions: Conviction[],
-  penaltyPoints: number,
-  licenseNumber: string,
-  licenseStartDate: string,
-  everSuspendend: boolean,
 }
 
-// /policies/${policyId}
-export type MotorPolicy = {
+export type Policy = {
   policyId: string, // Jogs identifier for the policy (guid?)
   policyNo: string, // I would assume this is the insurer's own identifier? I know some will have non-numeric characters
-  vehicleRegistration: string,
   expiryDate: number,
   startDate: number,
   jogCreatedDate: number, // Date added to jog as opposed to insurance start date
   companyId: string,
-  levelOfCover: 'comprehensive' | 'tpft' | 'third-party',
-  excess: number,
-  drivers: Driver[],
-  noClaimsBonus: number, // Num. years.
   documentPaths: string[], // Paths on firebase storage.
   uid: string, // Firebase user id.
+  excess: number,
+}
+
+// /policies/${policyId}
+export type MotorPolicy = Policy & {
+  type: 'motor',
+  vehicleRegistration: string,
+  levelOfCover: 'comprehensive' | 'tpft' | 'third-party',
+  drivers: Driver[],
+  noClaimsBonus: number, // Num. years.
   milesPerYear: number,
 }
 
