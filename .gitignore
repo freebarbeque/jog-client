@@ -4,3 +4,6 @@ npm-debug.*
 .DS_store
 .idea
 .tags
+android/app/build
+android/build
+android/.gradle

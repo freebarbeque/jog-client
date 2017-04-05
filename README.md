@@ -66,9 +66,25 @@ TODO
 
 #### Play Store (Beta)
 
-You must have fastlane installed in order to deploy to the Play Store
+##### Setup
 
-```
+```bash
+# install fastlane
 sudo gem install fastlane
+# create a private key for signing the APK
+keytool -genkey -v -keystore my-release-key.jks -keyalg RSA -keysize 2048 -validity 10000 -alias my-alias
+# configure environemnt variables
+set -x JOG_GP_JSON_KEY=/path/to/key.json
+set -x JOG_KEY_STORE=/path/to/key.jks
 ```
+
+##### Deploy
+
+```bash
+yarn build:android
+yarn deploy:android:alpha 
+```
+
+
+
 

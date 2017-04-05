@@ -1,8 +1,8 @@
 // @flow
 
+import { NavigationActions } from 'react-navigation'
 import { call, put, takeLatest } from 'redux-saga/effects'
 import * as authApi from 'jog/src/data/auth'
-import { NavigationActions } from 'react-navigation'
 
 import { setLoading, setLoginError, setRegisterError, setPasswordResetError } from './actions'
 import type { LoginAction, RegisterAction, PasswordResetAction } from './actions'
@@ -50,7 +50,7 @@ function* passwordReset(action: PasswordResetAction) {
   }
 }
 
-function* authSaga() {
+function* authSaga<T>() : Iterable<T> {
   // takeLatest does not allow concurrent login requests - the opposite of takeEvery
   yield takeLatest('screens/auth/LOGIN', login)
   yield takeLatest('screens/auth/REGISTER', register)
