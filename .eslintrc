@@ -96,6 +96,7 @@
     "$FlowIssue": false,
     "$FlowFixMe": false,
     "$FixMe": false,
+    "Iterable": false,
     "_": false
   }
 }

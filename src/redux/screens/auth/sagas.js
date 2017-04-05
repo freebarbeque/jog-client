@@ -3,7 +3,6 @@
 import { NavigationActions } from 'react-navigation'
 import { call, put, takeLatest } from 'redux-saga/effects'
 import * as authApi from 'jog/src/data/auth'
-import type { Action } from 'jog/src/types'
 
 import { setLoading, setLoginError, setRegisterError, setPasswordResetError } from './actions'
 import type { LoginAction, RegisterAction, PasswordResetAction } from './actions'
