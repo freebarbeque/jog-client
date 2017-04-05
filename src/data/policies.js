@@ -25,5 +25,7 @@ export async function getMotorPolicies(uid: string) : Promise<MotorPolicyMap> {
 }
 
 export function setMotorPolicy(policy: MotorPolicy) : Promise<void> {
-  return firebase.database().ref(`policies/${policy.id}`).set(policy)
+  const id = policy.id
+  if (id) { return firebase.database().ref(`policies/${id}`).set(policy) }
+  throw new TypeError('Policy does not have an id')
 }
