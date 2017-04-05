@@ -31,7 +31,7 @@ export type ScreensReduxState = {
   auth: AuthScreensReduxState
 }
 
-export type PoliciesState = MotorPolicy[]
+export type PoliciesState = Map<string, MotorPolicy>
 
 export type ReduxState = {
   nav: NavReduxState,
@@ -86,7 +86,7 @@ export type Driver = {
 }
 
 export type Policy = {
-  policyId: string, // Jogs identifier for the policy (guid?)
+  id: string, // Jogs identifier for the policy (guid?)
   policyNo: string, // I would assume this is the insurer's own identifier? I know some will have non-numeric characters
   expiryDate: number,
   startDate: number,
@@ -97,14 +97,19 @@ export type Policy = {
   excess: number,
 }
 
+export const LEVEL_OF_COVER = {
+  comprehensive: 'Comprehensive',
+  tpft: 'Third Party, Fire & Theft',
+  thirdParty: 'Third Party Only',
+}
+
 // /policies/${policyId}
 export type MotorPolicy = Policy & {
   type: 'motor',
   vehicleRegistration: string,
-  levelOfCover: 'comprehensive' | 'tpft' | 'third-party',
+  levelOfCover: $Keys<typeof LEVEL_OF_COVER>,
   drivers: Driver[],
   noClaimsBonus: number, // Num. years.
-  milesPerYear: number,
 }
 
 //

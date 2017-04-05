@@ -4,7 +4,7 @@ import type { MotorPolicy } from 'jog/src/types'
 
 export type ReceiveMotorPoliciesAction = {
   type: 'policies/RECEIVE_MOTOR_POLICIES',
-  policies: MotorPolicy[],
+  policies: Map<string, MotorPolicy>,
 }
 
 export type SyncMotorPoliciesAction = {

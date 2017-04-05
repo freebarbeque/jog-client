@@ -11,7 +11,7 @@ import { syncMotorPolicies, unsyncMotorPolicies } from 'jog/src/redux/policies/a
 type PoliciesProps = {
   dispatch: Dispatch,
   user: FirebaseUser | null,
-  policies: MotorPolicy[],
+  policies: Map<string, MotorPolicy>,
 };
 
 class Policies extends Component {
@@ -43,7 +43,7 @@ class Policies extends Component {
   }
 
   render() {
-    const numPolicies = this.props.policies.length
+    const numPolicies = this.props.policies.size
     return (
       <View style={styles.container}>
         <Text style={{ color: BLUE }}>

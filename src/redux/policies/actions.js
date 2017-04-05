@@ -8,7 +8,7 @@ import type {
   UnsyncMotorPoliciesAction
 } from './actionTypes'
 
-export function receiveMotorPolicies(policies: MotorPolicy[]) : ReceiveMotorPoliciesAction {
+export function receiveMotorPolicies(policies: Map<string, MotorPolicy>) : ReceiveMotorPoliciesAction {
   return {
     type: 'policies/RECEIVE_MOTOR_POLICIES',
     policies,

@@ -19,7 +19,10 @@ function policyEventChannel(uid: string) {
   return eventChannel((emitter) =>
     policyApi.syncMotorPolicies(
       uid,
-      (policies) => emitter(policies)
+      (policies) => {
+        console.log('emitter', emitter)
+        emitter(policies)
+      }
     )
   )
 }
