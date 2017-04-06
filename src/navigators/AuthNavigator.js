@@ -21,17 +21,8 @@ const authNavigator = StackNavigator({
   headerMode: 'none',
 })
 
-const CancelButton = connect()((({ dispatch, navKey }) => (
-  <TouchableOpacity
-    style={{ height: 30, width: 30, marginRight: MARGIN.base, marginTop: 15 }}
-    onPress={() => dispatch(NavigationActions.back({ key: navKey }))}
-  >
-    <Times scale={1} />
-  </TouchableOpacity>
-)))
-
 authNavigator.navigationOptions = {
-  header: ({ state }) => {
+  header: () => {
     return {
       title: null,
       left: (
@@ -40,14 +31,13 @@ authNavigator.navigationOptions = {
           scale={1}
         />
       ),
-      right: (
-        <CancelButton
-          navKey={state.key}
-        />
-      ),
       style: { backgroundColor: BLUE }
     }
   },
+  cardStack: {
+    // Should not be able to pull down to dismiss the auth modal.
+    gesturesEnabled: false
+  }
 }
 
 export default authNavigator

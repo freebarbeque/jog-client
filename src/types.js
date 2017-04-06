@@ -14,7 +14,8 @@ export type NavReduxState = {
 }
 
 export type AuthReduxState = {
-  user: FirebaseUser | null
+  user: FirebaseUser | null,
+  initialised: boolean,
 }
 
 export type AuthScreensReduxState = {

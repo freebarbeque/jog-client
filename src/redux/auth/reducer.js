@@ -3,7 +3,7 @@
 import type { AuthReduxState } from 'jog/src/types'
 import type { AuthAction } from './actionTypes'
 
-const DEFAULT_STATE = { user: null }
+const DEFAULT_STATE = { user: null, initialised: false }
 
 export default function reducer(
   state: AuthReduxState = DEFAULT_STATE,
@@ -13,6 +13,7 @@ export default function reducer(
     return {
       ...state,
       user: action.user,
+      initialised: true
     }
   }
   return state

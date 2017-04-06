@@ -22,11 +22,8 @@ class AuthButton extends Component {
   handlePress = () => {
     if (this.props.user) {
       signOut()
-    } else {
-      this.props.dispatch(NavigationActions.navigate({
-        routeName: 'Auth'
-      }))
     }
+    this.props.dispatch(NavigationActions.navigate({ routeName: 'Auth' }))
   }
 
   render() {
@@ -37,7 +34,7 @@ class AuthButton extends Component {
       >
         <View>
           <Text style={{ color: WHITE }}>
-            {this.props.user ? 'Sign Out' : 'Sign In'}
+            Sign Out
           </Text>
         </View>
       </TouchableOpacity>
@@ -52,6 +49,7 @@ const mapStateToProps = (state: ReduxState) => {
     user,
   }
 }
+
 export default connect(
   mapStateToProps,
 )(AuthButton)
