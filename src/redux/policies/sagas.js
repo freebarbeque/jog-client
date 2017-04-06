@@ -10,14 +10,14 @@ import {
 } from 'redux-saga/effects'
 import { eventChannel } from 'redux-saga'
 
-import * as policyApi from 'jog/src/data/policies'
+import { syncMotorPolicies } from 'jog/src/data/policies'
 
 import { receiveMotorPolicies } from './actions'
 import type { SyncMotorPoliciesAction } from './actionTypes'
 
 function policyEventChannel(uid: string) {
   return eventChannel((emitter) =>
-    policyApi.syncMotorPolicies(
+    syncMotorPolicies(
       uid,
       (policies) => {
         console.log('emitter', emitter)
@@ -27,20 +27,20 @@ function policyEventChannel(uid: string) {
   )
 }
 
-function* syncMotorPolicies({ uid }) {
-  const chan = yield call(
+function* syncMotorPoliciesTask({ uid }) {
+  const channel = yield call(
     policyEventChannel,
     uid
   )
   try {
     // eslint-disable-next-line no-constant-condition
     while (true) {
-      const policies = yield take(chan)
+      const policies = yield take(channel)
       yield put(receiveMotorPolicies(policies))
     }
   } finally {
     if (yield cancelled()) {
-      chan.close()
+      channel.close()
     }
   }
 }
@@ -51,7 +51,7 @@ export function* syncPoliciesSaga<T>() : Iterable<T> {
   // eslint-disable-next-line no-cond-assign
   while (action = yield take('policies/SYNC_MOTOR_POLICIES')) {
     // Start the sync in the background
-    const bgTask = yield fork(syncMotorPolicies, action)
+    const bgTask = yield fork(syncMotorPoliciesTask, action)
 
     // Wait for the sync to cancel
     yield take('policies/UNSYNC_MOTOR_POLICIES')

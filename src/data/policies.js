@@ -1,19 +1,14 @@
 // @flow
 
 import firebase from 'firebase'
+import { values } from 'lodash'
 import type { MotorPolicy } from 'jog/src/types'
 
 type MotorPolicyMap = Map<string, MotorPolicy>
 
 export function syncMotorPolicies(uid: string, cb: (policies: MotorPolicyMap) => void) : () => void {
   const ref = firebase.database().ref('policies').orderByChild('uid').equalTo(uid)
-  const listener = (snapshot) => {
-    const res = []
-    snapshot.forEach((childSnapshot) => {
-      res.push([childSnapshot.key, childSnapshot.val()])
-    })
-    cb(new Map(res))
-  }
+  const listener = (snapshot) => { cb(new Map(values(snapshot.val()))) }
   ref.on('value', listener)
   return () => ref.off('value', listener)
 }

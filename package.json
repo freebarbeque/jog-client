@@ -15,8 +15,6 @@
     "flow-typed": "flow-typed",
     "generate:policies": "babel-node scripts/mock/generateMockPolicies.js -b es2015",
     "ios": "react-native run-ios",
-    "run:android": "react-native-scripts android",
-    "run:ios": "react-native-scripts ios",
     "start": "react-native start",
     "test": "jest",
     "test:watch": "jest --watch"
