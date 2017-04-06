@@ -4,7 +4,9 @@ import type { Store as ReduxStore, Dispatch as ReduxDispatch } from 'redux'
 import type { NavigationAction } from 'react-navigation'
 import type { AuthAction } from './redux/auth/actionTypes'
 
-/* Redux */
+//
+// Redux
+//
 
 export type Action = AuthAction | NavigationAction
 
@@ -38,7 +40,9 @@ export type Store = ReduxStore<ReduxState, Action>;
 
 export type Dispatch = ReduxDispatch<Action>;
 
-/* Forms */
+//
+// Forms
+//
 
 export type FormField = {
   inputProps: $Subtype<Object>,
@@ -48,7 +52,12 @@ export type FormField = {
   validate?: (val: string) => string | null,
 }
 
-/* Firebase */
+export type ValuesMap = {[key: string] : string}
+export type ValidationErrorsMap = {[key: string]: string | null}
+
+//
+// Firebase
+//
 
 // https://firebase.google.com/docs/reference/js/firebase.User
 export type FirebaseUser = {
@@ -62,7 +71,46 @@ export type FirebaseUser = {
   uid: string,
 }
 
-/* react-navigation */
+//
+// Motor Policies
+//
+
+// Describes a driver attached to a motor policy
+export type Driver = {
+  firstName?: string,
+  lastName?: string,
+}
+
+export type Policy = {
+  id?: string, // Jogs identifier for the policy (guid?)
+  policyNo?: string, // I would assume this is the insurer's own identifier? I know some will have non-numeric characters
+  expiryDate?: number,
+  startDate?: number,
+  createdDate?: number, // Date added to jog as opposed to insurance start date
+  companyId?: string,
+  documentPaths?: string[], // Paths on firebase storage.
+  uid?: string, // Firebase user id.
+  excess?: number,
+}
+
+export const LEVEL_OF_COVER = {
+  comprehensive: 'Comprehensive',
+  tpft: 'Third Party, Fire & Theft',
+  thirdParty: 'Third Party Only',
+}
+
+// /policies/${policyId}
+export type MotorPolicy = Policy & {
+  type?: 'motor',
+  vehicleRegistration?: string,
+  levelOfCover?: $Keys<typeof LEVEL_OF_COVER>,
+  drivers?: Driver[],
+  noClaimsBonus?: number, // Num. years.
+}
+
+//
+// React Navigation
+//
 
 // navigation
 export type ReactNavigationProp = {
@@ -80,9 +128,3 @@ export type ReactNavProp = {
   routes: Route[]
 }
 
-//
-// Forms
-//
-
-export type ValuesMap = {[key: string] : string}
-export type ValidationErrorsMap = {[key: string]: string | null}
