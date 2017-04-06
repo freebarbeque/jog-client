@@ -81,7 +81,7 @@ export type FirebaseUser = {
 
 // Describes a driver attached to a motor policy
 export type Driver = {
-  firstNames?: string,
+  firstName?: string,
   lastName?: string,
 }
 
@@ -90,7 +90,7 @@ export type Policy = {
   policyNo?: string, // I would assume this is the insurer's own identifier? I know some will have non-numeric characters
   expiryDate?: number,
   startDate?: number,
-  jogCreatedDate?: number, // Date added to jog as opposed to insurance start date
+  createdDate?: number, // Date added to jog as opposed to insurance start date
   companyId?: string,
   documentPaths?: string[], // Paths on firebase storage.
   uid?: string, // Firebase user id.
