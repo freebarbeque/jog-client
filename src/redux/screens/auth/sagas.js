@@ -6,7 +6,7 @@ import { call, put, takeLatest } from 'redux-saga/effects'
 import * as authApi from 'jog/src/data/auth'
 
 import { setLoading, setLoginError, setRegisterError, setPasswordResetError } from './actions'
-import type { SendEmailVerificationEmailAction, LoginAction, RegisterAction, PasswordResetAction } from './actions'
+import type { LoginAction, RegisterAction, PasswordResetAction } from './actions'
 
 function* login(action: LoginAction) {
   const { email, password } = action
@@ -57,9 +57,9 @@ function* passwordReset(action: PasswordResetAction) {
   }
 }
 
-function* verificationEmail(action: SendEmailVerificationEmailAction) {
-  const { user } = action
+function* verificationEmail() {
   try {
+    const user = firebase.auth().currentUser
     yield put(setLoading(true))
     yield call(user.sendEmailVerification.bind(user))
     yield put(setLoading(false))

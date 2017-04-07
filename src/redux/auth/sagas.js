@@ -1,3 +1,5 @@
+// @flow
+
 import firebase from 'firebase'
 
 import {
@@ -10,10 +12,12 @@ import {
 } from 'redux-saga/effects'
 
 import { eventChannel } from 'redux-saga'
+import type { FirebaseUser } from 'jog/src/types'
+
 import { receiveUser } from './actions'
 
 // Creates an event channel that polls & throttles firebase.User.reload
-function userChannel(ms = 1000) {
+function userChannel(ms: number = 1000) {
   return eventChannel(
     (emit) => {
       let loading = false
@@ -24,7 +28,7 @@ function userChannel(ms = 1000) {
           const user = firebase.auth().currentUser
           if (user) {
             user.reload().then(() => {
-              if (!pollCancelled) emit(user)
+              if (!pollCancelled) emit(user.toJSON())
               loading = false
             })
           }
@@ -44,7 +48,7 @@ function* reloadUserTask() {
   try {
     // eslint-disable-next-line no-constant-condition
     while (true) {
-      const user = yield take(channel)
+      const user: FirebaseUser = yield take(channel)
       yield put(receiveUser(user))
     }
   } finally {
@@ -61,7 +65,7 @@ function* reloadUserTask() {
  * For the above reason we must call .reload on the user to refresh the properties.
  * This is used when waiting for email verification before hiding the auth modal.
  */
-function* pollSaga() {
+function* pollSaga<T>() : Iterable<T> {
   while (yield take('auth/POLL_REFRESH_USER')) {
     const bgTask = yield fork(reloadUserTask)
     yield take('auth/STOP_POLL_REFRESH_USER')

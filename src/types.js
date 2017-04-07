@@ -60,9 +60,7 @@ export type FirebaseUser = {
   photoURL: string | null,
   providerId: 'facebook.com' | 'google.com',
   refreshToken: string,
-  uid: string,
-  sendEmailVerification: () => Promise<void>,
-  reload: () => Promise<void>,
+  uid: string
 }
 
 /* react-navigation */

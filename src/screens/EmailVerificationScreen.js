@@ -24,8 +24,6 @@ type EmailVerificationScreenProps = {
   user: FirebaseUser | null,
   loading: boolean,
   nav: ReactNavProp,
-  // eslint-disable-next-line react/no-unused-prop-types
-  emailVerified: boolean,
 };
 
 class EmailVerificationScreen extends Component {
@@ -36,8 +34,8 @@ class EmailVerificationScreen extends Component {
   }
 
   componentWillReceiveProps(props: EmailVerificationScreenProps) {
-    const emailVerified = props.emailVerified
-    if (emailVerified) {
+    const user = props.user
+    if (user && user.emailVerified) {
       this.hideModal()
     }
   }
@@ -126,10 +124,6 @@ const styles = StyleSheet.create({
 const mapStateToProps = (state: ReduxState) => (
   {
     user: state.auth.user,
-    // Reduce performs a shallow reference check these properties before reloading the component.
-    // Given that we store the Firebase.User object in redux the component would not reload when the properties change.
-    // TODO: Maybe we should be storing a serialized version? Especially given that we want to use object.freeze...
-    emailVerified: state.auth.user && state.auth.user.emailVerified,
     loading: state.screens.auth.loading,
     nav: state.nav
   }
