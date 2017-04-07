@@ -17,7 +17,8 @@
     "ios": "react-native run-ios",
     "start": "react-native start",
     "test": "jest",
-    "test:watch": "jest --watch"
+    "test:watch": "jest --watch",
+    "postinstall": "remotedev-debugger --hostname localhost --port 5678 --injectserver"
   },
   "dependencies": {
     "@expo/ex-navigation": "^2.9.4",
@@ -40,7 +41,8 @@
     "redux-logger": "^3.0.0",
     "redux-persist": "^4.5.0",
     "redux-saga": "^0.14.4",
-    "remote-redux-devtools": "^0.5.7"
+    "remote-redux-devtools": "^0.5.7",
+    "remote-redux-devtools-on-debugger": "^0.7.0"
   },
   "devDependencies": {
     "babel-eslint": "^7.2.0",

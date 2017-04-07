@@ -1,9 +1,12 @@
 // @flow
 
 import { createLogger } from 'redux-logger'
-import { createStore as _createStore, applyMiddleware } from 'redux'
+import { createStore as _createStore, applyMiddleware, compose } from 'redux'
 import createSagaMiddleware from 'redux-saga'
-// TODO - import freeze from 'redux-freeze'
+import devTools from 'remote-redux-devtools'
+import freeze from 'redux-freeze'
+import { Platform } from 'react-native'
+
 import env from 'jog/src/config/env.json'
 import reducer from 'jog/src/redux/reducer'
 import type { Store } from 'jog/src/types'
@@ -22,15 +25,22 @@ export default function createStore(): Store {
 
   if (isDebug) {
     middleware.push(createLogger())
-    // TODO: Causes a strange error with XMLHTTPRequest: "the responseText property is only available if responseType..."
-    // middleware.push(freeze)
+    middleware.push(freeze)
   }
 
+  const enhancer = compose(
+    applyMiddleware(...middleware),
+    devTools({
+      name: Platform.OS,
+      hostname: 'localhost',
+      port: 5678
+    })
+  )
 
   const store = _createStore(
     reducer,
     undefined,
-    applyMiddleware.apply(applyMiddleware, middleware),
+    enhancer
   )
 
   sagaMiddleware.run(authScreenSaga)
