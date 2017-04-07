@@ -12,3 +12,4 @@ fastlane-privatekey.json
 *.jks
 *.ipa
 *.dSYM.zip
+Preview.html

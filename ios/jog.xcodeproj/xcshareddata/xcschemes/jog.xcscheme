@@ -66,6 +66,16 @@
                ReferencedContainer = "container:jog.xcodeproj">
             </BuildableReference>
          </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "278F9A711E96528A0093077E"
+               BuildableName = "jogUITests.xctest"
+               BlueprintName = "jogUITests"
+               ReferencedContainer = "container:jog.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
       <MacroExpansion>
          <BuildableReference
