@@ -3,7 +3,6 @@
   "version": "0.0.1",
   "scripts": {
     "android": "react-native run-android",
-    "build:android": ".",
     "ci": "yarn flow && yarn eslint && yarn test",
     "commit": "yarn flow && yarn fix && git commit -a",
     "deploy:android:alpha": "./scripts/deploy-android-alpha.sh",
