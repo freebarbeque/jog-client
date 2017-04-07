@@ -112,7 +112,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     marginTop: MARGIN.large,
     fontSize: 20,
-    fontWeight: '300'
+    fontWeight: '400'
   }
 })
 
