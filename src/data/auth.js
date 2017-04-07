@@ -43,7 +43,10 @@ export const signInAnonymously: () => Promise<void>
   = errorWrapper(() => firebase.auth().signInAnonymously())
 
 export const createUserWithEmailAndPassword: (string, string) => Promise<void>
-  = errorWrapper((email: string, password: string) => firebase.auth().createUserWithEmailAndPassword(email, password))
+  = errorWrapper(async (email: string, password: string) => {
+    const user = await firebase.auth().createUserWithEmailAndPassword(email, password)
+    await user.sendEmailVerification()
+  })
 
 export const signInWithEmailAndPassword: (string, string) => Promise<void>
   = errorWrapper((email, password) => firebase.auth().signInWithEmailAndPassword(email, password))
@@ -58,5 +61,6 @@ export const confirmPasswordReset : (code: string, password: string) => Promise<
   = errorWrapper((code: string, password: string) => firebase.auth().confirmPasswordReset(code, password))
 
 export function userSubscribe(callback: (user: FirebaseUser | null) => void): void {
-  firebase.auth().onAuthStateChanged(callback)
+  firebase.auth().onAuthStateChanged((u) => callback(u ? u.toJSON() : null))
 }
+

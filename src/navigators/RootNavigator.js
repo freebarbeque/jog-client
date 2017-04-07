@@ -4,8 +4,7 @@ import React, { Component } from 'react'
 import { addNavigationHelpers, NavigationActions, StackNavigator } from 'react-navigation'
 import FadeInView from 'react-native-fade-in-view'
 import { connect } from 'react-redux'
-
-import type { AuthReduxState, Dispatch, NavReduxState, ReduxState } from '../types'
+import type { AuthReduxState, Dispatch, NavReduxState, ReduxState, FirebaseUser } from '../types'
 import LoadingScreen from '../screens/LoadingScreen'
 import { BLUE } from '../constants/palette'
 
@@ -44,10 +43,7 @@ class RootNavigator extends Component {
     const auth = this.props.auth
     const { user, initialised } = auth
     if (initialised) {
-      if (!user) {
-        this.props.dispatch(NavigationActions.navigate({ routeName: 'Auth' }))
-      }
-      this.delayedInitialisation()
+      this.configureNavigationStack(user)
     }
   }
 
@@ -57,11 +53,24 @@ class RootNavigator extends Component {
     const authDidInitialise = !this.props.auth.initialised && initialised
 
     if (authDidInitialise) {
-      if (!user) {
-        this.props.dispatch(NavigationActions.navigate({ routeName: 'Auth' }))
-      }
-      this.delayedInitialisation()
+      this.configureNavigationStack(user)
     }
+  }
+
+  configureNavigationStack(user: FirebaseUser | null) {
+    if (!user) {
+      this.props.dispatch(NavigationActions.navigate({ routeName: 'Auth' }))
+    } else if (!user.emailVerified) {
+      this.props.dispatch(
+        NavigationActions.navigate({
+          routeName: 'Auth',
+          action: NavigationActions.navigate({
+            routeName: 'EmailVerification'
+          })
+        })
+      )
+    }
+    this.delayedInitialisation()
   }
 
   delayedInitialisation() {

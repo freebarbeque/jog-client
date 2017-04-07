@@ -1,7 +1,7 @@
 // @flow
 
 import type { FirebaseUser } from 'jog/src/types'
-import type { AuthAction } from './actionTypes'
+import type { AuthAction, PollRefreshUserAction, StopPollingRefreshUserAction } from './actionTypes'
 
 export function receiveUser(user: FirebaseUser | null): AuthAction {
   return {
@@ -10,3 +10,14 @@ export function receiveUser(user: FirebaseUser | null): AuthAction {
   }
 }
 
+export function pollRefreshUser() : PollRefreshUserAction {
+  return {
+    type: 'auth/POLL_REFRESH_USER'
+  }
+}
+
+export function stopPollingRefreshUser() : StopPollingRefreshUserAction {
+  return {
+    type: 'auth/STOP_POLL_REFRESH_USER'
+  }
+}
