@@ -9,6 +9,7 @@ import reducer from 'jog/src/redux/reducer'
 import type { Store } from 'jog/src/types'
 import authScreenSaga from 'jog/src/redux/screens/auth/sagas'
 import authSaga from 'jog/src/redux/auth/sagas'
+import { syncPoliciesSaga } from './policies/sagas'
 
 export default function createStore(): Store {
   const sagaMiddleware = createSagaMiddleware()
@@ -34,6 +35,7 @@ export default function createStore(): Store {
 
   sagaMiddleware.run(authScreenSaga)
   sagaMiddleware.run(authSaga)
+  sagaMiddleware.run(syncPoliciesSaga)
 
   if (module.hot) {
     // Enable Webpack hot module replacement for reducers
