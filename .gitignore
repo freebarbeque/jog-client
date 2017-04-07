@@ -7,3 +7,8 @@ npm-debug.*
 android/app/build
 android/build
 android/.gradle
+ios/jog.xcodeproj/project.xcworkspace/xcuserdata/*.xcuserdatad
+fastlane-privatekey.json
+*.jks
+*.ipa
+*.dSYM.zip
