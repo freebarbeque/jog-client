@@ -6,6 +6,7 @@ import { connect } from 'react-redux'
 import type { ReduxState } from 'jog/src/types'
 import Text from 'jog/src/components/Text'
 import { BLUE } from 'jog/src/constants/palette'
+import { MARGIN } from 'jog/src/constants/style'
 
 type SettingsProps = {
   // dispatch: Dispatch,
@@ -37,6 +38,7 @@ class SettingsScreen extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    margin: MARGIN.base
   },
 })
 
