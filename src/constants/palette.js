@@ -1,6 +1,6 @@
 // @flow
 
-export const BLUE = 'rgb(19, 23, 51)'
-export const PINK = 'rgb(255, 77, 98)'
-export const WHITE = 'rgb(250, 250, 250)'
-export const DARK_GRAY = 'rgb(84, 88, 107)'
+export const BLUE = '#131733'
+export const PINK = '#ff4d62'
+export const WHITE = '#fff'
+export const DARK_GRAY = '#797e9a'
