@@ -21,6 +21,7 @@
   },
   "dependencies": {
     "@expo/ex-navigation": "^2.9.4",
+    "async-throttle": "^1.1.0",
     "email-validator": "^1.0.7",
     "firebase": "^3.7.3",
     "lodash": "^4.17.4",
