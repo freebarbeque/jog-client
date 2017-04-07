@@ -11,3 +11,6 @@ ios/jog.xcodeproj/project.xcworkspace/xcuserdata/*.xcuserdatad/*
 jog.app.dSYM.zip
 *.ipa
 Preview.html
+android/fastlane.jks
+android/fastlane-privatekey.json
+
