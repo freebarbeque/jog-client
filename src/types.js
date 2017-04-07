@@ -61,6 +61,8 @@ export type FirebaseUser = {
   providerId: 'facebook.com' | 'google.com',
   refreshToken: string,
   uid: string,
+  sendEmailVerification: () => Promise<void>,
+  reload: () => Promise<void>,
 }
 
 /* react-navigation */

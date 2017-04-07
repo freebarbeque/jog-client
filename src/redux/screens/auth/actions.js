@@ -1,5 +1,5 @@
 // @flow
-import type { ValuesMap, ValidationErrorsMap } from 'jog/src/types'
+import type { ValuesMap, ValidationErrorsMap, FirebaseUser } from 'jog/src/types'
 
 export type LoginAction = {
   type: 'screens/auth/LOGIN',
@@ -12,7 +12,6 @@ export type RegisterAction = {
   name: string,
   email: string,
   password: string,
-  key: string
 }
 
 export type PasswordResetAction = {
@@ -54,6 +53,11 @@ type ClearAction = {
   type: 'screens/auth/CLEAR',
 }
 
+export type SendEmailVerificationEmailAction = {
+  type: 'screens/auth/SEND_VERIFICATION_EMAIL',
+  user: FirebaseUser
+}
+
 export type AuthAction
   = SetValuesAction |
   SetValidationErrors |
@@ -64,7 +68,8 @@ export type AuthAction
   LoginAction |
   RegisterAction |
   PasswordResetAction |
-  ClearAction
+  ClearAction |
+  SendEmailVerificationEmailAction
 
 export function login(email: string, password: string) : LoginAction {
   return {
@@ -81,13 +86,19 @@ export function passwordReset(email: string) : PasswordResetAction {
   }
 }
 
-export function register(name: string, email: string, password: string, key: string) : RegisterAction {
+export function emailVerification(user: FirebaseUser) : SendEmailVerificationEmailAction {
+  return {
+    type: 'screens/auth/SEND_VERIFICATION_EMAIL',
+    user,
+  }
+}
+
+export function register(name: string, email: string, password: string) : RegisterAction {
   return {
     type: 'screens/auth/REGISTER',
     name,
     email,
     password,
-    key,
   }
 }
 

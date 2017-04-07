@@ -1,11 +1,12 @@
 // @flow
 
 import { NavigationActions } from 'react-navigation'
+import firebase from 'firebase'
 import { call, put, takeLatest } from 'redux-saga/effects'
 import * as authApi from 'jog/src/data/auth'
 
 import { setLoading, setLoginError, setRegisterError, setPasswordResetError } from './actions'
-import type { LoginAction, RegisterAction, PasswordResetAction } from './actions'
+import type { SendEmailVerificationEmailAction, LoginAction, RegisterAction, PasswordResetAction } from './actions'
 
 function* login(action: LoginAction) {
   const { email, password } = action
@@ -14,7 +15,13 @@ function* login(action: LoginAction) {
     yield put(setLoginError(null))
     yield call(authApi.signInWithEmailAndPassword, email, password)
     yield put(setLoading(false))
-    yield put(NavigationActions.back())
+    const user = firebase.auth().currentUser
+    if (user.emailVerified) {
+      yield put(NavigationActions.back())
+    } else {
+      user.sendEmailVerification()
+      yield put(NavigationActions.navigate({ routeName: 'EmailVerification' }))
+    }
   } catch (e) {
     yield put(setLoading(false))
     yield put(setLoginError(e.message))
@@ -23,13 +30,13 @@ function* login(action: LoginAction) {
 
 function* register(action: RegisterAction) {
   // key refers to the key of the route that we will go back from e.g. in this case, the AuthNavigator which is a modal
-  const { email, password, key } = action
+  const { email, password } = action
   try {
     yield put(setLoading(true))
     yield put(setRegisterError(null))
     yield call(authApi.createUserWithEmailAndPassword, email, password)
     yield put(setLoading(false))
-    yield put(NavigationActions.back({ key }))
+    yield put(NavigationActions.navigate({ routeName: 'EmailVerification' }))
   } catch (e) {
     yield put(setLoading(false))
     yield put(setRegisterError(e.message))
@@ -50,11 +57,24 @@ function* passwordReset(action: PasswordResetAction) {
   }
 }
 
+function* verificationEmail(action: SendEmailVerificationEmailAction) {
+  const { user } = action
+  try {
+    yield put(setLoading(true))
+    yield call(user.sendEmailVerification.bind(user))
+    yield put(setLoading(false))
+  } catch (e) {
+    console.error('Error sending verification email', e, e.stack)
+    yield put(setLoading(false))
+  }
+}
+
 function* authSaga<T>() : Iterable<T> {
   // takeLatest does not allow concurrent login requests - the opposite of takeEvery
   yield takeLatest('screens/auth/LOGIN', login)
   yield takeLatest('screens/auth/REGISTER', register)
   yield takeLatest('screens/auth/PASSWORD_RESET', passwordReset)
+  yield takeLatest('screens/auth/SEND_VERIFICATION_EMAIL', verificationEmail)
 }
 
 export default authSaga

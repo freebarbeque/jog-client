@@ -7,7 +7,8 @@ import createSagaMiddleware from 'redux-saga'
 import env from 'jog/src/config/env.json'
 import reducer from 'jog/src/redux/reducer'
 import type { Store } from 'jog/src/types'
-import authSaga from 'jog/src/redux/screens/auth/sagas'
+import authScreenSaga from 'jog/src/redux/screens/auth/sagas'
+import authSaga from 'jog/src/redux/auth/sagas'
 
 export default function createStore(): Store {
   const sagaMiddleware = createSagaMiddleware()
@@ -31,6 +32,7 @@ export default function createStore(): Store {
     applyMiddleware.apply(applyMiddleware, middleware),
   )
 
+  sagaMiddleware.run(authScreenSaga)
   sagaMiddleware.run(authSaga)
 
   if (module.hot) {
