@@ -5,6 +5,9 @@ import LoginScreen from 'jog/src/screens/LoginScreen'
 import RegisterScreen from 'jog/src/screens/RegisterScreen'
 import ForgotPasswordScreen from 'jog/src/screens/PasswordResetScreen'
 import EmailVerificationScreen from 'jog/src/screens/EmailVerificationScreen'
+
+import { Logo } from 'jog/src/components/images/index'
+import { BLUE } from 'jog/src/constants/palette'
 import ConfirmPasswordResetScreen from 'jog/src/screens/ConfirmPasswordResetScreen'
 
 import { Logo } from 'jog/src/components/images/index'

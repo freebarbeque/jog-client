@@ -4,8 +4,7 @@ import React, { Component } from 'react'
 import { addNavigationHelpers, NavigationActions, StackNavigator } from 'react-navigation'
 import FadeInView from 'react-native-fade-in-view'
 import { connect } from 'react-redux'
-
-import type { AuthReduxState, Dispatch, FirebaseUser, NavReduxState, ReduxState } from '../types'
+import type { AuthReduxState, Dispatch, NavReduxState, ReduxState } from '../types'
 import LoadingScreen from '../screens/LoadingScreen'
 import { BLUE } from '../constants/palette'
 
