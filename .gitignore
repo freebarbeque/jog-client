@@ -8,3 +8,6 @@ android/app/build
 android/build
 android/.gradle
 ios/jog.xcodeproj/project.xcworkspace/xcuserdata/*.xcuserdatad/*
+jog.app.dSYM.zip
+*.ipa
+Preview.html
