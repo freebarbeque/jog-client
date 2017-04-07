@@ -3,23 +3,13 @@ import 'jog/globals'
 import React, { Component } from 'react'
 import { View, StatusBar, StyleSheet } from 'react-native'
 
-import { addNavigationHelpers } from 'react-navigation'
-import { Provider, connect } from 'react-redux'
-import RootNavigator from './src/navigators/RootNavigator'
+import { Provider } from 'react-redux'
 import createStore from './src/redux/createStore'
-import type { ReduxState } from './src/types'
 import initialiseFirebase from './src/data'
 import { userSubscribe } from './src/data/auth'
 import { receiveUser } from './src/redux/auth/actions'
-
-const AppWithRootNavigationState = connect((state: ReduxState) => ({
-  nav: state.nav,
-}))(({ dispatch, nav }) => {
-  console.log('nav', nav)
-  return (
-    <RootNavigator navigation={addNavigationHelpers({ dispatch, state: nav })} />
-  )
-})
+import { BLUE } from './src/constants/palette'
+import RootNavigator from './src/navigators/RootNavigator'
 
 initialiseFirebase()
 
@@ -40,7 +30,7 @@ export default class JogApp extends Component {
           <StatusBar
             barStyle="light-content"
           />
-          <AppWithRootNavigationState />
+          <RootNavigator />
         </View>
       </Provider>
     )
@@ -49,6 +39,7 @@ export default class JogApp extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1
+    flex: 1,
+    backgroundColor: BLUE
   }
 })
