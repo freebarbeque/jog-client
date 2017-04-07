@@ -6,6 +6,7 @@ import { connect } from 'react-redux'
 import type { Dispatch, ReduxState } from 'jog/src/types'
 import Text from 'jog/src/components/Text'
 import { BLUE } from 'jog/src/constants/palette'
+import { MARGIN } from 'jog/src/constants/style'
 
 type MarketsProps = {
   dispatch: Dispatch,
@@ -35,6 +36,7 @@ class Markets extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    margin: MARGIN.base
   },
 })
 

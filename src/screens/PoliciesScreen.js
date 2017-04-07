@@ -6,6 +6,7 @@ import { connect } from 'react-redux'
 import type { Dispatch, ReduxState, FirebaseUser, MotorPolicy } from 'jog/src/types'
 import Text from 'jog/src/components/Text'
 import { BLUE } from 'jog/src/constants/palette'
+import { MARGIN } from 'jog/src/constants/style'
 import { syncMotorPolicies, unsyncMotorPolicies } from 'jog/src/redux/policies/actions'
 
 type PoliciesProps = {
@@ -57,6 +58,7 @@ class Policies extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    margin: MARGIN.base
   },
 })
 

@@ -9,7 +9,6 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 import type {
   Dispatch,
   ReduxState,
-  ReactNavProp,
   ValuesMap,
   ValidationErrorsMap,
 } from 'jog/src/types'
@@ -25,7 +24,6 @@ import { emailField, nameField, validatedPasswordField } from 'jog/src/component
 
 type RegisterProps = {
   dispatch: Dispatch,
-  nav: ReactNavProp,
   values: ValuesMap,
   validationErrors: ValidationErrorsMap,
   registerError: string | null,
@@ -48,11 +46,7 @@ class RegisterScreen extends Component {
   handleSubmit = (values) => {
     // eslint-disable-next-line no-unused-vars
     const { name, email, password } = values // TODO: Do something with name
-    const nav = this.props.nav
-    // TODO: This is super ugly - there doesn't seem to be a way of setting the key yourself when navigating with react-navigation
-    const authRoute = _.find(nav.routes, ((route) => route.routeName === 'Auth'))
-    const rootRouteKey = authRoute.key
-    this.props.dispatch(register(name, email, password, rootRouteKey))
+    this.props.dispatch(register(name, email, password))
   }
 
   renderFormAccessory() {
@@ -124,7 +118,6 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = (state: ReduxState) => ({
   ...state.screens.auth,
-  nav: state.nav
 })
 
 export default connect(
