@@ -1,6 +1,9 @@
+import EnvironmentManager from 'react-native-env'
 import defaults from './default'
-/* eslint-disable global-require,import/no-commonjs */
-const environment = require('./env.json').environment
+
+const environment = EnvironmentManager.getSync('JogEnvironment')
+
+console.log('environment', environment)
 
 let config /* eslint no-var:0 import/no-mutable-exports:0*/
 if (environment === 'DEBUG') {
@@ -11,5 +14,5 @@ if (environment === 'DEBUG') {
   throw new Error(`No environment config found for environment: ${environment}`)
 }
 
-config = _.merge(defaults, config.default)
+config = _.merge(defaults, { ...config.default, environment, isDebug: environment === 'DEBUG' })
 export default config

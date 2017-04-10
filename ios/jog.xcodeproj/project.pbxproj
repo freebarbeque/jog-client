@@ -5,6 +5,7 @@
 	};
 	objectVersion = 46;
 	objects = {
+
 /* Begin PBXBuildFile section */
 		00C302E51ABCBA2D00DB3ED1 /* libRCTActionSheet.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302AC1ABCB8CE00DB3ED1 /* libRCTActionSheet.a */; };
 		00C302E71ABCBA2D00DB3ED1 /* libRCTGeolocation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302BA1ABCB90400DB3ED1 /* libRCTGeolocation.a */; };
@@ -22,6 +23,7 @@
 		1B2D0E5B85B340C78C708B84 /* MaterialCommunityIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A662C68CF9904A39BA081BF9 /* MaterialCommunityIcons.ttf */; };
 		1CA452A156E1478B91CFB757 /* Octicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 29A85038A90142A6A27FE1D6 /* Octicons.ttf */; };
 		1D196553E1CB4576A6105012 /* WorkSans-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A31A6F57856B4F298DAFA301 /* WorkSans-Black.ttf */; };
+		278D06FF1E9B6E0A0086AB49 /* RNEnvironmentManagerIOS.m in Sources */ = {isa = PBXBuildFile; fileRef = 278D06FE1E9B6E0A0086AB49 /* RNEnvironmentManagerIOS.m */; };
 		35898D9751DF4D34BF9E0274 /* FontAwesome.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0E4EF8E03C00401183BD7FA5 /* FontAwesome.ttf */; };
 		4638F7AB01F945A695F747C3 /* Foundation.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1CDA7AD145AB4FD0AF0A964B /* Foundation.ttf */; };
 		4B812DE9E3174B1DBCCC4D8B /* Entypo.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8F2A9E1670AA471F8BDF9AC7 /* Entypo.ttf */; };
@@ -250,6 +252,8 @@
 		1CDA7AD145AB4FD0AF0A964B /* Foundation.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Foundation.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Foundation.ttf"; sourceTree = "<group>"; };
 		2611B61A89794E34B505F387 /* Ionicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Ionicons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Ionicons.ttf"; sourceTree = "<group>"; };
 		27304002B90B46F4B9AA62E2 /* WorkSans-SemiBold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "WorkSans-SemiBold.ttf"; path = "../assets/fonts/WorkSans-SemiBold.ttf"; sourceTree = "<group>"; };
+		278D06FD1E9B6E0A0086AB49 /* RNEnvironmentManagerIOS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RNEnvironmentManagerIOS.h; sourceTree = "<group>"; };
+		278D06FE1E9B6E0A0086AB49 /* RNEnvironmentManagerIOS.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RNEnvironmentManagerIOS.m; sourceTree = "<group>"; };
 		29A85038A90142A6A27FE1D6 /* Octicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Octicons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Octicons.ttf"; sourceTree = "<group>"; };
 		5E91572D1DD0AC6500FF2AA8 /* RCTAnimation.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTAnimation.xcodeproj; path = "../node_modules/react-native/Libraries/NativeAnimation/RCTAnimation.xcodeproj"; sourceTree = "<group>"; };
 		5F01709CF9B843D187D2F424 /* WorkSans-Thin.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "WorkSans-Thin.ttf"; path = "../assets/fonts/WorkSans-Thin.ttf"; sourceTree = "<group>"; };
@@ -391,6 +395,15 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		278D06E21E9B6DFE0086AB49 /* EnvironmentManager */ = {
+			isa = PBXGroup;
+			children = (
+				278D06FD1E9B6E0A0086AB49 /* RNEnvironmentManagerIOS.h */,
+				278D06FE1E9B6E0A0086AB49 /* RNEnvironmentManagerIOS.m */,
+			);
+			name = EnvironmentManager;
+			sourceTree = "<group>";
+		};
 		49D5B75305814507B2BD49BD /* Resources */ = {
 			isa = PBXGroup;
 			children = (
@@ -438,6 +451,7 @@
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				278D06E21E9B6DFE0086AB49 /* EnvironmentManager */,
 				5E91572D1DD0AC6500FF2AA8 /* RCTAnimation.xcodeproj */,
 				146833FF1AC3E56700842450 /* React.xcodeproj */,
 				00C302A71ABCB8CE00DB3ED1 /* RCTActionSheet.xcodeproj */,
@@ -827,6 +841,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */,
+				278D06FF1E9B6E0A0086AB49 /* RNEnvironmentManagerIOS.m in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -853,7 +868,9 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_TEAM = 6T4T578YR3;
+				ENVIRONMENT = DEBUG;
 				INFOPLIST_FILE = jog/Info.plist;
+				INFOPLIST_PREPROCESS = YES;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
 					"$(inherited)",
@@ -875,7 +892,9 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 6T4T578YR3;
+				ENVIRONMENT = RELEASE;
 				INFOPLIST_FILE = jog/Info.plist;
+				INFOPLIST_PREPROCESS = YES;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
 					"$(inherited)",

@@ -3948,6 +3948,10 @@ react-native-drawer-layout@~1.1.5:
   dependencies:
     react-native-dismiss-keyboard "1.0.0"
 
+react-native-env@^0.0.6:
+  version "0.0.6"
+  resolved "https://registry.yarnpkg.com/react-native-env/-/react-native-env-0.0.6.tgz#52b4aa5fcb858c5df8ac24f2927377e583fef7b2"
+
 react-native-fade-in-view@^1.0.4:
   version "1.0.4"
   resolved "https://registry.yarnpkg.com/react-native-fade-in-view/-/react-native-fade-in-view-1.0.4.tgz#ce5614c74675fdc68419817c179e0abb5eaa58b6"
