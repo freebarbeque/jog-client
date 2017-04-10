@@ -15,9 +15,10 @@ import type {
 import { BLUE } from 'jog/src/constants/palette'
 import Text from 'jog/src/components/Text'
 import { MARGIN } from 'jog/src/constants/style'
+import { authNavigationHeader } from 'jog/src/constants/headers'
 import RoundedButton from 'jog/src/components/RoundedButton'
-import { emailVerification } from '../redux/screens/auth/actions'
-import { pollRefreshUser, stopPollingRefreshUser } from '../redux/auth/actions'
+import { emailVerification } from 'jog/src/redux/screens/auth/actions'
+import { pollRefreshUser, stopPollingRefreshUser } from 'jog/src/redux/auth/actions'
 
 type EmailVerificationScreenProps = {
   dispatch: Dispatch,
@@ -28,6 +29,10 @@ type EmailVerificationScreenProps = {
 
 class EmailVerificationScreen extends Component {
   props: EmailVerificationScreenProps
+
+  static navigationOptions = {
+    header: authNavigationHeader
+  }
 
   componentDidMount() {
     this.props.dispatch(pollRefreshUser())

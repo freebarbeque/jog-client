@@ -13,9 +13,9 @@ const styles = StyleSheet.create({
   }
 })
 
-const AccessoryButton = ({ label, style = {}, ...props }) => (
+const AccessoryButton = ({ label, style = {}, textStyle = {}, ...props }) => (
   <TouchableOpacity style={[styles.touchable, style]} {...props}>
-    <Text style={styles.text} weight="bold">{label.toUpperCase()}</Text>
+    <Text style={[styles.text, textStyle]} weight="bold">{label.toUpperCase()}</Text>
   </TouchableOpacity>
 )
 

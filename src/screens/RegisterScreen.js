@@ -17,6 +17,7 @@ import { setValues, setValidationErrors, register } from 'jog/src/redux/screens/
 import { BLUE } from 'jog/src/constants/palette'
 import Text from 'jog/src/components/Text'
 import { MARGIN } from 'jog/src/constants/style'
+import { authNavigationHeader } from 'jog/src/constants/headers'
 import Form from 'jog/src/components/Form'
 import AccessoryButton from 'jog/src/components/AccessoryButton'
 
@@ -32,6 +33,10 @@ type RegisterProps = {
 
 class RegisterScreen extends Component {
   props: RegisterProps
+
+  static navigationOptions = {
+    header: authNavigationHeader
+  }
 
   static formFields = [
     nameField,
