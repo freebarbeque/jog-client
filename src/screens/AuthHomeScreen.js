@@ -24,12 +24,6 @@ type AuthHomeProps = {
 class AuthHomeScreen extends Component {
   props: AuthHomeProps
 
-  static navigationOptions = {
-    header: {
-      visible: false
-    }
-  }
-
   componentWillUnmount() {
     this.props.dispatch(clear())
   }

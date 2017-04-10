@@ -10,7 +10,6 @@ import type {
 } from 'jog/src/types'
 
 import { BLUE } from 'jog/src/constants/palette'
-import { authNavigationHeader } from 'jog/src/constants/headers'
 import Text from 'jog/src/components/Text'
 import { MARGIN } from 'jog/src/constants/style'
 import RoundedButton from 'jog/src/components/RoundedButton'
@@ -21,10 +20,6 @@ type ConfirmPasswordResetScreenProps = {
 
 class ConfirmPasswordResetScreen extends Component {
   props: ConfirmPasswordResetScreenProps
-
-  static navigationOptions = {
-    header: authNavigationHeader
-  }
 
   goBack = () => {
     this.props.dispatch(NavigationActions.back())

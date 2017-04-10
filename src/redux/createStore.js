@@ -1,6 +1,6 @@
 // @flow
 
-import { createLogger } from 'redux-logger'
+// import { createLogger } from 'redux-logger'
 import { createStore as _createStore, applyMiddleware, compose } from 'redux'
 import createSagaMiddleware from 'redux-saga'
 import devTools from 'remote-redux-devtools'
@@ -23,7 +23,7 @@ export default function createStore(): Store {
   ]
 
   if (config.isDebug) {
-    middleware.push(createLogger())
+    // middleware.push(createLogger())
     middleware.push(freeze)
   }
 

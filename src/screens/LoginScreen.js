@@ -17,7 +17,6 @@ import type {
 import { setValues, setValidationErrors, clear, login } from 'jog/src/redux/screens/auth/actions'
 import { BLUE } from 'jog/src/constants/palette'
 import { MARGIN } from 'jog/src/constants/style'
-import { authNavigationHeader } from 'jog/src/constants/headers'
 import Text from 'jog/src/components/Text'
 import Form from 'jog/src/components/Form'
 import AccessoryButton from 'jog/src/components/AccessoryButton'
@@ -35,10 +34,6 @@ type LoginProps = {
 
 class LoginScreen extends Component {
   props: LoginProps
-
-  static navigationOptions = {
-    header: authNavigationHeader
-  }
 
   static formFields = [
     emailField,

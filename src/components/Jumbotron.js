@@ -43,7 +43,6 @@ const styles = StyleSheet.create({
   },
   jumbotron: {
     alignItems: 'center',
-    backgroundColor: 'rgba(255, 255, 255, 0.05)',
     paddingTop: MARGIN.large,
     paddingBottom: MARGIN.extraLarge
   },
