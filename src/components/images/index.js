@@ -105,7 +105,7 @@ export const Ellipses = (props: LogoProps) => {
 
   return (
     <Image
-      style={[{ height: 9 * scale, width: 36 * scale }, style]}
+      style={[{ height: 9 * scale, width: 39 * scale }, style]}
       source={require('./ellipses.png')}
     />
   )

@@ -1,7 +1,7 @@
 /* @flow */
 
 import React, { Component } from 'react'
-import { View, StyleSheet, TouchableOpacity } from 'react-native'
+import { View, StyleSheet, TouchableOpacity, ScrollView } from 'react-native'
 import { connect } from 'react-redux'
 import moment from 'moment'
 import firebase from 'firebase'
@@ -9,12 +9,14 @@ import firebase from 'firebase'
 import type { Dispatch, ReduxState, FirebaseUser, MotorPolicy } from 'jog/src/types'
 
 import Text from 'jog/src/components/Text'
-import { CREAM, PINK, BLUE } from 'jog/src/constants/palette'
+import { CREAM, PINK } from 'jog/src/constants/palette'
 import { MARGIN } from 'jog/src/constants/style'
 import { syncMotorPolicies, unsyncMotorPolicies } from 'jog/src/redux/policies/actions'
 import { Background } from 'jog/src/components/images'
 
-import PoliciesCard from './PoliciesCard'
+import AddPolicyMenu from './AddPolicyMenu'
+import MotorPolicyCard from './MotorPolicyCard'
+import AddMotorPolicyCard from './AddMotorPolicyCard'
 
 type PoliciesProps = {
   dispatch: Dispatch,
@@ -96,7 +98,7 @@ class Policies extends Component {
   renderNoPolicies() {
     return (
       <View style={styles.content}>
-        <PoliciesCard
+        <AddPolicyMenu
           onEmailPress={() => {}}
           onPhotographPress={() => {}}
           onManualPress={() => {}}
@@ -112,13 +114,24 @@ class Policies extends Component {
     )
   }
 
-  // eslint-disable-next-line class-methods-use-this
   renderPolicies() {
-    // const policies = this.state.policies
+    const policies = this.state.policies
+
     return (
-      <View style={styles.content}>
-        <Text style={{ color: BLUE }}>TODO</Text>
-      </View>
+      <ScrollView style={styles.content}>
+        {_.map(Array.from(policies), (p: MotorPolicy, idx: number) => {
+          return (
+            <MotorPolicyCard
+              key={p.id}
+              policy={p}
+              index={idx}
+              onMenuPress={() => {}}
+              onEditPress={() => {}}
+            />
+          )
+        })}
+        <AddMotorPolicyCard />
+      </ScrollView>
     )
   }
 

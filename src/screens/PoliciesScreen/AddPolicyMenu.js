@@ -5,14 +5,14 @@ import { Camera, Command, Mail } from '../../components/images/index'
 import { BLUE, DARK_GRAY, PINK, VERY_LIGHT_GRAY, WHITE } from '../../constants/palette'
 import { MARGIN } from '../../constants/style'
 
-export type PoliciesCardProps = {
+export type AddPolicyMenuProps = {
   onEmailPress: () => void,
   onPhotographPress: () => void,
   onManualPress: () => void,
 }
 
-export default class PoliciesCard extends Component {
-  props: PoliciesCardProps
+export default class AddPolicyMenu extends Component {
+  props: AddPolicyMenuProps
 
   render() {
     return (
