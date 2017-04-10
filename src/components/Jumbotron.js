@@ -1,0 +1,58 @@
+// @flow
+
+import React, { Component } from 'react'
+import { View, StyleSheet } from 'react-native'
+
+import { MARGIN } from '../constants/style'
+import { PINK } from '../constants/palette'
+
+import Text from './Text'
+
+export default class Jumbotron extends Component {
+  render() {
+    return (
+      <View style={styles.jumbotron}>
+        <Text style={styles.headerText}>
+          your
+        </Text>
+        <Text style={styles.headerText}>
+          insurance
+        </Text>
+        <Text style={styles.headerText}>
+          memory
+        </Text>
+        <View style={styles.divider} />
+        <Text style={styles.listText}>
+          store your policies
+        </Text>
+        <Text style={styles.listText}>
+          minimise your premiums
+        </Text>
+      </View>
+    )
+  }
+}
+
+const styles = StyleSheet.create({
+  divider: {
+    width: 25,
+    height: 4,
+    backgroundColor: PINK,
+    marginTop: MARGIN.large,
+    marginBottom: MARGIN.large
+  },
+  jumbotron: {
+    alignItems: 'center',
+    backgroundColor: 'rgba(255, 255, 255, 0.05)',
+    paddingTop: MARGIN.large,
+    paddingBottom: MARGIN.extraLarge
+  },
+  headerText: {
+    fontSize: 36,
+    fontWeight: '600',
+    lineHeight: 36,
+  },
+  listText: {
+    fontSize: 16
+  }
+})
