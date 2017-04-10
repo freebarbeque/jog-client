@@ -1,9 +1,11 @@
-import EnvironmentManager from 'react-native-env'
+import Config from 'react-native-config'
 import defaults from './default'
 
-const environment = EnvironmentManager.getSync('JogEnvironment')
+const environment = Config.JOG_ENVIRONMENT
 
-console.log('environment', environment)
+if (!environment) throw new Error('JOG_ENVIRONMENT must be defined.')
+
+console.log(`JOG_ENVIRONMENT=${environment}`)
 
 let config /* eslint no-var:0 import/no-mutable-exports:0*/
 if (environment === 'DEBUG') {
