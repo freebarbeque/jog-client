@@ -1,3 +1,4 @@
+import React from 'react'
 import { StackNavigator } from 'react-navigation'
 
 import LoginScreen from 'jog/src/screens/LoginScreen'
@@ -6,6 +7,10 @@ import ForgotPasswordScreen from 'jog/src/screens/PasswordResetScreen'
 import EmailVerificationScreen from 'jog/src/screens/EmailVerificationScreen'
 import ConfirmPasswordResetScreen from 'jog/src/screens/ConfirmPasswordResetScreen'
 import AuthHomeScreen from 'jog/src/screens/AuthHomeScreen'
+
+import { Logo } from '../components/images/index'
+import { MARGIN } from '../constants/style'
+import { BLUE } from '../constants/palette'
 
 const authNavigator = StackNavigator({
   Login: { screen: LoginScreen },
@@ -23,6 +28,20 @@ authNavigator.navigationOptions = {
   cardStack: {
     // Should not be able to pull down to dismiss the auth modal.
     gesturesEnabled: false
+  },
+  header: ({ state }) => {
+    const isHomeScreen = state.routes.length === 1 && state.routes[0].routeName === 'Home'
+
+    return isHomeScreen ? { visible: false } : {
+      title: null,
+      left: (
+        <Logo
+          style={{ marginLeft: MARGIN.large, marginBottom: MARGIN.base }}
+          scale={1}
+        />
+    ),
+      style: { backgroundColor: BLUE }
+    }
   }
 }
 

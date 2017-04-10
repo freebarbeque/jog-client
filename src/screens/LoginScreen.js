@@ -36,10 +36,6 @@ type LoginProps = {
 class LoginScreen extends Component {
   props: LoginProps
 
-  static navigationOptions = {
-    header: authNavigationHeader
-  }
-
   static formFields = [
     emailField,
     passwordField
