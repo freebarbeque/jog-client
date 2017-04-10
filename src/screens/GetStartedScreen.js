@@ -4,12 +4,11 @@ import React, { Component } from 'react'
 import { View, StyleSheet, TouchableOpacity } from 'react-native'
 import { connect } from 'react-redux'
 import { NavigationActions } from 'react-navigation'
-import Icon from 'react-native-vector-icons/FontAwesome'
 import type { Dispatch, ReduxState } from 'jog/src/types'
 import Text from 'jog/src/components/Text'
-import Jumbotron from '../components/Jumbotron'
-import { BLUE, PINK } from '../constants/palette'
-import { Background } from '../components/images/index'
+import Jumbotron from 'jog/src/components/Jumbotron'
+import { PINK } from 'jog/src/constants/palette'
+import { Background } from 'jog/src/components/images/index'
 
 type GetStartedScreenProps = {
   dispatch: Dispatch,

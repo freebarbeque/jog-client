@@ -3,12 +3,12 @@
 import React from 'react'
 import { Image } from 'react-native'
 
-type ImageProps = {
+type LogoProps = {
   scale?: number,
   style?: $Subtype<Object>,
 }
 
-export const Logo = (props: ImageProps) => {
+export const Logo = (props: LogoProps) => {
   let { scale, style } = props
   scale = scale || 1
   style = style || {}
@@ -23,9 +23,14 @@ export const Logo = (props: ImageProps) => {
 
 Logo.defaultProps = { scale: 1, style: {} }
 
+type BackgroundProps = {
+  style?: $Subtype<Object>,
+  children?: any,
+}
 
-export const Background = (props: ImageProps) => {
-  let { style, children } = props
+export const Background = (props: BackgroundProps) => {
+  let { style } = props
+  const { children } = props
   style = style || {}
 
   return (
