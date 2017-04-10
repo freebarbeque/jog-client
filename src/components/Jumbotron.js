@@ -1,7 +1,7 @@
 // @flow
 
 import React, { Component } from 'react'
-import { View, StyleSheet } from 'react-native'
+import { View, StyleSheet, Platform } from 'react-native'
 
 import { MARGIN } from '../constants/style'
 import { PINK } from '../constants/palette'
@@ -49,7 +49,14 @@ const styles = StyleSheet.create({
   headerText: {
     fontSize: 36,
     fontWeight: '600',
-    lineHeight: 36,
+    ...Platform.select({
+      android: {
+        lineHeight: 40
+      },
+      ios: {
+        lineHeight: 36
+      }
+    }),
     backgroundColor: 'transparent'
   },
   listText: {
