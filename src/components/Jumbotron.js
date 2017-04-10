@@ -50,8 +50,10 @@ const styles = StyleSheet.create({
     fontSize: 36,
     fontWeight: '600',
     lineHeight: 36,
+    backgroundColor: 'transparent'
   },
   listText: {
-    fontSize: 16
+    fontSize: 16,
+    backgroundColor: 'transparent'
   }
 })

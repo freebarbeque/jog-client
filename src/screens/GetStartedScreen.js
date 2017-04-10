@@ -9,6 +9,7 @@ import type { Dispatch, ReduxState } from 'jog/src/types'
 import Text from 'jog/src/components/Text'
 import Jumbotron from '../components/Jumbotron'
 import { BLUE, PINK } from '../constants/palette'
+import { Background } from '../components/images/index'
 
 type GetStartedScreenProps = {
   dispatch: Dispatch,
@@ -21,19 +22,14 @@ class GetStartedScreen extends Component {
     this.props.dispatch(NavigationActions.navigate({ routeName: 'Policies' }))
   }
 
+
   render() {
     return (
       <View style={styles.container}>
-        <View
-          style={{
-            flex: 1,
-            alignItems: 'center',
-            justifyContent: 'center',
-            backgroundColor: BLUE
-          }}
-        >
+        <Background style={styles.backgroundImage}>
+          <View style={styles.backgroundImageOverlay} />
           <Jumbotron />
-        </View>
+        </Background>
         <TouchableOpacity style={styles.button} onPress={this.handleGetStartedPress}>
           <View>
             <Text>
@@ -50,12 +46,27 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
+  backgroundImage: {
+    flex: 1,
+    resizeMode: 'cover',
+    width: null,
+    height: null,
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+  backgroundImageOverlay: {
+    width: '100%',
+    height: '100%',
+    backgroundColor: 'rgba(0,0,0,0.25)',
+    position: 'absolute',
+    top: 0,
+    left: 0
+  },
   button: {
     backgroundColor: PINK,
     height: 60,
     alignItems: 'center',
     justifyContent: 'center',
-
   }
 })
 

@@ -22,3 +22,20 @@ export const Logo = (props: ImageProps) => {
 }
 
 Logo.defaultProps = { scale: 1, style: {} }
+
+
+export const Background = (props: ImageProps) => {
+  let { style, children } = props
+  style = style || {}
+
+  return (
+    <Image
+      style={style}
+      source={require('./background.png')}
+    >
+      {children}
+    </Image>
+  )
+}
+
+Background.defaultProps = { style: {}, children: null }
