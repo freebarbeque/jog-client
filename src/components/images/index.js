@@ -23,6 +23,51 @@ export const Logo = (props: LogoProps) => {
 
 Logo.defaultProps = { scale: 1, style: {} }
 
+export const Camera = (props: LogoProps) => {
+  let { scale, style } = props
+  scale = scale || 1
+  style = style || {}
+
+  return (
+    <Image
+      style={[{ height: 28 * scale, width: 37 * scale }, style]}
+      source={require('./camera.png')}
+    />
+  )
+}
+
+Camera.defaultProps = { scale: 1, style: {} }
+
+export const Command = (props: LogoProps) => {
+  let { scale, style } = props
+  scale = scale || 1
+  style = style || {}
+
+  return (
+    <Image
+      style={[{ height: 25 * scale, width: 37 * scale }, style]}
+      source={require('./cmd.png')}
+    />
+  )
+}
+
+Command.defaultProps = { scale: 1, style: {} }
+
+export const Mail = (props: LogoProps) => {
+  let { scale, style } = props
+  scale = scale || 1
+  style = style || {}
+
+  return (
+    <Image
+      style={[{ height: 23 * scale, width: 37 * scale }, style]}
+      source={require('./mail.png')}
+    />
+  )
+}
+
+Mail.defaultProps = { scale: 1, style: {} }
+
 type BackgroundProps = {
   style?: $Subtype<Object>,
   children?: any,

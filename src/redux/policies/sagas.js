@@ -36,6 +36,7 @@ function* syncMotorPoliciesTask({ uid }) {
     // eslint-disable-next-line no-constant-condition
     while (true) {
       const policies = yield take(channel)
+      console.debug(`syncMotorPolicies{${uid}}:`, policies)
       yield put(receiveMotorPolicies(policies))
     }
   } finally {
