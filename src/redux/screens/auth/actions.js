@@ -5,6 +5,7 @@ export type LoginAction = {
   type: 'screens/auth/LOGIN',
   email: string,
   password: string,
+  key: string
 }
 
 export type RegisterAction = {
@@ -71,11 +72,12 @@ export type AuthAction
   ClearAction |
   SendEmailVerificationEmailAction
 
-export function login(email: string, password: string) : LoginAction {
+export function login(email: string, password: string, key: string) : LoginAction {
   return {
     type: 'screens/auth/LOGIN',
     email,
     password,
+    key
   }
 }
 

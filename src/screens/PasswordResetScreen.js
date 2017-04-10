@@ -18,6 +18,7 @@ import { setValues, setValidationErrors, passwordReset } from 'jog/src/redux/scr
 import { BLUE } from 'jog/src/constants/palette'
 import Text from 'jog/src/components/Text'
 import { MARGIN } from 'jog/src/constants/style'
+
 import { emailField } from 'jog/src/components/Form/fields'
 import AccessoryButton from 'jog/src/components/AccessoryButton'
 import Form from 'jog/src/components/Form/index'

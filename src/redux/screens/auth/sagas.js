@@ -9,7 +9,7 @@ import { setLoading, setLoginError, setRegisterError, setPasswordResetError } fr
 import type { LoginAction, RegisterAction, PasswordResetAction } from './actions'
 
 function* login(action: LoginAction) {
-  const { email, password } = action
+  const { email, password, key } = action
   try {
     yield put(setLoading(true))
     yield put(setLoginError(null))
@@ -17,7 +17,7 @@ function* login(action: LoginAction) {
     yield put(setLoading(false))
     const user = firebase.auth().currentUser
     if (user.emailVerified) {
-      yield put(NavigationActions.back())
+      yield put(NavigationActions.back({ key }))
     } else {
       user.sendEmailVerification()
       yield put(NavigationActions.navigate({ routeName: 'EmailVerification' }))
@@ -29,7 +29,7 @@ function* login(action: LoginAction) {
 }
 
 function* register(action: RegisterAction) {
-  // key refers to the key of the route that we will go back from e.g. in this case, the AuthNavigator which is a modal
+  // key refers to the key of the route that we will gEo back from e.g. in this case, the AuthNavigator which is a modal
   const { email, password } = action
   try {
     yield put(setLoading(true))
