@@ -4,9 +4,11 @@ import React, { Component } from 'react'
 import { View, StyleSheet, TouchableOpacity } from 'react-native'
 import { connect } from 'react-redux'
 import { NavigationActions } from 'react-navigation'
+import Icon from 'react-native-vector-icons/FontAwesome'
 import type { Dispatch, ReduxState } from 'jog/src/types'
 import Text from 'jog/src/components/Text'
 import Jumbotron from '../components/Jumbotron'
+import { BLUE, PINK } from '../constants/palette'
 
 type GetStartedScreenProps = {
   dispatch: Dispatch,
@@ -22,8 +24,17 @@ class GetStartedScreen extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <Jumbotron />
-        <TouchableOpacity onPress={this.handleGetStartedPress}>
+        <View
+          style={{
+            flex: 1,
+            alignItems: 'center',
+            justifyContent: 'center',
+            backgroundColor: BLUE
+          }}
+        >
+          <Jumbotron />
+        </View>
+        <TouchableOpacity style={styles.button} onPress={this.handleGetStartedPress}>
           <View>
             <Text>
               Add your motor policy to get started
@@ -39,6 +50,13 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
+  button: {
+    backgroundColor: PINK,
+    height: 60,
+    alignItems: 'center',
+    justifyContent: 'center',
+
+  }
 })
 
 const mapStateToProps = (state: ReduxState) => ({
