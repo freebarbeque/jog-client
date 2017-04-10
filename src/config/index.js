@@ -1,9 +1,7 @@
 import Config from 'react-native-config'
 import defaults from './default'
 
-const environment = Config.JOG_ENVIRONMENT
-
-if (!environment) throw new Error('JOG_ENVIRONMENT must be defined.')
+const environment = Config.JOG_ENVIRONMENT || 'DEBUG'
 
 console.log(`JOG_ENVIRONMENT=${environment}`)
 
