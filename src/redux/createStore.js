@@ -7,11 +7,12 @@ import devTools from 'remote-redux-devtools'
 import freeze from 'redux-freeze'
 import { Platform } from 'react-native'
 
-import env from 'jog/src/config/env.json'
 import reducer from 'jog/src/redux/reducer'
 import type { Store } from 'jog/src/types'
 import authScreenSaga from 'jog/src/redux/screens/auth/sagas'
 import authSaga from 'jog/src/redux/auth/sagas'
+import config from 'jog/src/config'
+
 import { syncPoliciesSaga } from './policies/sagas'
 
 export default function createStore(): Store {
@@ -21,9 +22,7 @@ export default function createStore(): Store {
     sagaMiddleware
   ]
 
-  const isDebug = env.environment === 'DEBUG'
-
-  if (isDebug) {
+  if (config.isDebug) {
     middleware.push(createLogger())
     middleware.push(freeze)
   }

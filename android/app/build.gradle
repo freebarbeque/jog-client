@@ -65,7 +65,14 @@ import com.android.build.OutputFile
  * ]
  */
 
+project.ext.envConfigFiles = [
+        debug: ".env.debug",
+        release: ".env.release",
+        anycustombuildlowercase: ".env",
+]
+
 apply from: "../../node_modules/react-native/react.gradle"
+apply from: "../dotenv.gradle"
 
 /**
  * Set this to true to create two separate APKs instead of one:
@@ -111,6 +118,7 @@ android {
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
         }
     }
+
     // applicationVariants are e.g. debug, release
     applicationVariants.all { variant ->
         variant.outputs.each { output ->
@@ -127,6 +135,7 @@ android {
 }
 
 dependencies {
+    compile project(':react-native-config')
     compile project(':react-native-vector-icons')
     compile fileTree(dir: "libs", include: ["*.jar"])
     compile "com.android.support:appcompat-v7:23.0.1"
