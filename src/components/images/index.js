@@ -68,6 +68,66 @@ export const Mail = (props: LogoProps) => {
 
 Mail.defaultProps = { scale: 1, style: {} }
 
+export const Admiral = (props: LogoProps) => {
+  let { scale, style } = props
+  scale = scale || 1
+  style = style || {}
+
+  return (
+    <Image
+      style={[{ height: 56 * scale, width: 74 * scale }, style]}
+      source={require('./admiral.png')}
+    />
+  )
+}
+
+Admiral.defaultProps = { scale: 1, style: {} }
+
+export const Car = (props: LogoProps) => {
+  let { scale, style } = props
+  scale = scale || 1
+  style = style || {}
+
+  return (
+    <Image
+      style={[{ height: 69 * scale, width: 169 * scale }, style]}
+      source={require('./car.png')}
+    />
+  )
+}
+
+Car.defaultProps = { scale: 1, style: {} }
+
+export const Ellipses = (props: LogoProps) => {
+  let { scale, style } = props
+  scale = scale || 1
+  style = style || {}
+
+  return (
+    <Image
+      style={[{ height: 9 * scale, width: 36 * scale }, style]}
+      source={require('./ellipses.png')}
+    />
+  )
+}
+
+Ellipses.defaultProps = { scale: 1, style: {} }
+
+export const Plus = (props: LogoProps) => {
+  let { scale, style } = props
+  scale = scale || 1
+  style = style || {}
+
+  return (
+    <Image
+      style={[{ height: 29 * scale, width: 30 * scale }, style]}
+      source={require('./plus.png')}
+    />
+  )
+}
+
+Plus.defaultProps = { scale: 1, style: {} }
+
 type BackgroundProps = {
   style?: $Subtype<Object>,
   children?: any,
