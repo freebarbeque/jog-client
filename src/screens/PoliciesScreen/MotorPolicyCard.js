@@ -1,11 +1,11 @@
 // @flow
 import React, { Component } from 'react'
-import type { MotorPolicy } from '../../types'
+// import type { MotorPolicy } from '../../types'
 import PolicyCard from './PolicyCard'
 import { Admiral, Car, Plus } from '../../components/images/index'
 
 export type MotorPolicyCardProps = {
-  policy: MotorPolicy,
+  // policy: MotorPolicy,
   onPress: () => void,
   index: number
 }

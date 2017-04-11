@@ -32,7 +32,7 @@ export type ScreensReduxState = {
   auth: AuthScreensReduxState
 }
 
-export type PoliciesState = Map<string, MotorPolicy>
+export type PoliciesState = {[id: string]: MotorPolicy}
 
 export type ReduxState = {
   nav: NavReduxState,

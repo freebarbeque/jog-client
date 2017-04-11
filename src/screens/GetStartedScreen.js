@@ -12,7 +12,6 @@ import { Background } from 'jog/src/components/images/index'
 
 type GetStartedScreenProps = {
   dispatch: Dispatch,
-  // policies: Map<string, MotorPolicy>,
 };
 
 class GetStartedScreen extends Component {

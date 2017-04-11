@@ -3,16 +3,16 @@
 import firebase from 'firebase'
 import type { MotorPolicy } from 'jog/src/types'
 
-type MotorPolicyMap = Map<string, MotorPolicy>
+type MotorPolicyMap = {[id: string]: MotorPolicy}
 
 export function syncMotorPolicies(uid: string, cb: (policies: MotorPolicyMap) => void) : () => void {
   const ref = firebase.database().ref('policies').orderByChild('uid').equalTo(uid)
   const listener = (snapshot) => {
     const val = snapshot.val()
     if (val) {
-      cb(new Map(Object.entries(val)))
+      cb(val)
     } else {
-      cb(new Map())
+      cb({})
     }
   }
   ref.on('value', listener)
@@ -22,7 +22,7 @@ export function syncMotorPolicies(uid: string, cb: (policies: MotorPolicyMap) =>
 export async function getMotorPolicies(uid: string) : Promise<MotorPolicyMap> {
   const ref = firebase.database().ref('policies').orderByChild('uid').equalTo(uid)
   const snapshot = await ref.once('value')
-  return new Map(snapshot.val())
+  return snapshot.val()
 }
 
 export function setMotorPolicy(policy: MotorPolicy) : Promise<void> {

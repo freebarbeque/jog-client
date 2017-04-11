@@ -2,7 +2,7 @@
 import React, { Component } from 'react'
 import { View, StyleSheet, TouchableOpacity } from 'react-native'
 import { BLUE, DARK_GRAY, VERY_LIGHT_GRAY, WHITE } from '../../constants/palette'
-import { Ellipses, Plus } from '../../components/images/index'
+import { Ellipses } from '../../components/images/index'
 import Text from '../../components/Text'
 import { MARGIN } from '../../constants/style'
 

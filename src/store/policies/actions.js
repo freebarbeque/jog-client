@@ -1,6 +1,6 @@
 // @ flow
 
-import type { MotorPolicy } from 'jog/src/types'
+import type { PoliciesState } from 'jog/src/types'
 
 import type {
   ReceiveMotorPoliciesAction,
@@ -8,7 +8,7 @@ import type {
   UnsyncMotorPoliciesAction
 } from './actionTypes'
 
-export function receiveMotorPolicies(policies: Map<string, MotorPolicy>) : ReceiveMotorPoliciesAction {
+export function receiveMotorPolicies(policies: PoliciesState) : ReceiveMotorPoliciesAction {
   return {
     type: 'policies/RECEIVE_MOTOR_POLICIES',
     policies,

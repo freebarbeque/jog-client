@@ -6,7 +6,7 @@ import { connect } from 'react-redux'
 import moment from 'moment'
 import firebase from 'firebase'
 
-import type { ReduxState, FirebaseUser, MotorPolicy } from 'jog/src/types'
+import type { ReduxState, FirebaseUser, MotorPolicy, PoliciesState } from 'jog/src/types'
 
 import Text from 'jog/src/components/Text'
 import { CREAM, PINK } from 'jog/src/constants/palette'
@@ -21,7 +21,7 @@ import { updatePolicies, clearPolicies } from '../../data/policies'
 
 type PoliciesProps = {
   user: FirebaseUser | null,
-  policies: Map<string, MotorPolicy>,
+  policies: PoliciesState,
 };
 
 class Policies extends Component {
@@ -111,7 +111,7 @@ class Policies extends Component {
             </Text>
           </TouchableOpacity>
         </View>
-        {_.map(Array.from(policies), (p: MotorPolicy, idx: number) => {
+        {_.map(_.values(policies), (p: MotorPolicy, idx: number) => {
           return (
             <MotorPolicyCard
               key={idx}
@@ -129,7 +129,7 @@ class Policies extends Component {
   }
 
   render() {
-    const numPolicies = this.props.policies.size
+    const numPolicies = _.keys(this.props.policies).length
 
     return (
       <View style={styles.container}>
