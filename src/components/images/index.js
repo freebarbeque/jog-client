@@ -68,21 +68,6 @@ export const Mail = (props: LogoProps) => {
 
 Mail.defaultProps = { scale: 1, style: {} }
 
-export const Admiral = (props: LogoProps) => {
-  let { scale, style } = props
-  scale = scale || 1
-  style = style || {}
-
-  return (
-    <Image
-      style={[{ height: 56 * scale, width: 74 * scale }, style]}
-      source={require('./admiral.png')}
-    />
-  )
-}
-
-Admiral.defaultProps = { scale: 1, style: {} }
-
 export const Car = (props: LogoProps) => {
   let { scale, style } = props
   scale = scale || 1
