@@ -21,7 +21,6 @@ class GetStartedScreen extends Component {
     this.props.dispatch(NavigationActions.navigate({ routeName: 'Policies' }))
   }
 
-
   render() {
     return (
       <View style={styles.container}>

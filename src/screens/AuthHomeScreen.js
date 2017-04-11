@@ -9,7 +9,7 @@ import type {
   Dispatch,
 } from 'jog/src/types'
 
-import { clear } from 'jog/src/redux/screens/auth/actions'
+import { clear } from 'jog/src/store/screens/auth/actions'
 import AccessoryButton from 'jog/src/components/AccessoryButton'
 import { BLUE } from '../constants/palette'
 import { MARGIN } from '../constants/style'

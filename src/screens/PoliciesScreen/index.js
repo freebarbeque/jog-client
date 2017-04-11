@@ -11,7 +11,6 @@ import type { Dispatch, ReduxState, FirebaseUser, MotorPolicy } from 'jog/src/ty
 import Text from 'jog/src/components/Text'
 import { CREAM, PINK } from 'jog/src/constants/palette'
 import { MARGIN } from 'jog/src/constants/style'
-import { syncMotorPolicies, unsyncMotorPolicies } from 'jog/src/redux/policies/actions'
 import { Background } from 'jog/src/components/images'
 
 import AddPolicyMenu from './AddPolicyMenu'
@@ -19,7 +18,6 @@ import MotorPolicyCard from './MotorPolicyCard'
 import AddMotorPolicyCard from './AddMotorPolicyCard'
 
 type PoliciesProps = {
-  dispatch: Dispatch,
   user: FirebaseUser | null,
 };
 
@@ -36,31 +34,6 @@ class Policies extends Component {
     this.state = {
       policies: new Map()
     }
-  }
-
-  componentDidMount() {
-    const user = this.props.user
-    if (user) {
-      this.props.dispatch(syncMotorPolicies(user.uid))
-    }
-  }
-
-  componentWillReceiveProps(props: PoliciesProps) {
-    const newUserId = props.user && props.user.uid
-    const priorUserId = this.props.user && this.props.user.uid
-
-    if (newUserId !== priorUserId) {
-      if (priorUserId) {
-        this.props.dispatch(unsyncMotorPolicies())
-      }
-      if (newUserId) {
-        this.props.dispatch(syncMotorPolicies(newUserId))
-      }
-    }
-  }
-
-  componentWillUnmount() {
-    this.props.dispatch(unsyncMotorPolicies())
   }
 
   // This would normally be wrapped up in a saga but it will be deleted soon so no point.
@@ -125,12 +98,13 @@ class Policies extends Component {
               key={p.id}
               policy={p}
               index={idx}
-              onMenuPress={() => {}}
-              onEditPress={() => {}}
+              onPress={() => {}}
             />
           )
         })}
-        <AddMotorPolicyCard />
+        <AddMotorPolicyCard
+          onPress={() => {}}
+        />
       </ScrollView>
     )
   }

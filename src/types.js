@@ -2,8 +2,8 @@
 
 import type { Store as ReduxStore, Dispatch as ReduxDispatch } from 'redux'
 import type { NavigationAction } from 'react-navigation'
-import type { AuthAction } from './redux/auth/actionTypes'
-import type { PoliciesAction } from './redux/policies/actionTypes'
+import type { AuthAction } from './store/auth/actionTypes'
+import type { PoliciesAction } from './store/policies/actionTypes'
 
 //
 // Redux

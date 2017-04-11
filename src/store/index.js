@@ -7,12 +7,13 @@ import devTools from 'remote-redux-devtools'
 import freeze from 'redux-freeze'
 import { Platform } from 'react-native'
 
-import reducer from 'jog/src/redux/reducer'
+import reducer from 'jog/src/store/reducer'
 import type { Store } from 'jog/src/types'
-import authScreenSaga from 'jog/src/redux/screens/auth/sagas'
-import authSaga from 'jog/src/redux/auth/sagas'
+import authScreenSaga from 'jog/src/store/screens/auth/sagas'
+import authSaga from 'jog/src/store/auth/sagas'
 import config from 'jog/src/config'
 
+import saga from './sagas'
 import { syncPoliciesSaga } from './policies/sagas'
 
 export default function createStore(): Store {
@@ -45,6 +46,7 @@ export default function createStore(): Store {
   sagaMiddleware.run(authScreenSaga)
   sagaMiddleware.run(authSaga)
   sagaMiddleware.run(syncPoliciesSaga)
+  sagaMiddleware.run(saga)
 
   if (module.hot) {
     // Enable Webpack hot module replacement for reducers
