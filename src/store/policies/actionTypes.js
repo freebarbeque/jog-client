@@ -1,10 +1,10 @@
 // @flow
 
-import type { PoliciesState } from 'jog/src/types'
+import type { MotorPolicyMap } from 'jog/src/types'
 
 export type ReceiveMotorPoliciesAction = {
   type: 'policies/RECEIVE_MOTOR_POLICIES',
-  policies: PoliciesState,
+  policies: MotorPolicyMap,
 }
 
 export type SyncMotorPoliciesAction = {

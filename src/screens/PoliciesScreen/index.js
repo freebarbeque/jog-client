@@ -129,7 +129,9 @@ class Policies extends Component {
   }
 
   render() {
-    const numPolicies = _.keys(this.props.policies).length
+    const policies = this.props.policies
+    console.log('policies', policies)
+    const numPolicies = _.keys(policies).length
 
     return (
       <View style={styles.container}>
@@ -189,7 +191,7 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = (state: ReduxState) => ({
   user: state.auth.user,
-  policies: state.policies
+  policies: state.policies.policies
 })
 
 export default connect(

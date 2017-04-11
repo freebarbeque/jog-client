@@ -1,9 +1,7 @@
 // @flow
 
 import firebase from 'firebase'
-import type { MotorPolicy } from 'jog/src/types'
-
-type MotorPolicyMap = {[id: string]: MotorPolicy}
+import type { MotorPolicy, MotorPolicyMap } from 'jog/src/types'
 
 export function syncMotorPolicies(uid: string, cb: (policies: MotorPolicyMap) => void) : () => void {
   const ref = firebase.database().ref('policies').orderByChild('uid').equalTo(uid)
