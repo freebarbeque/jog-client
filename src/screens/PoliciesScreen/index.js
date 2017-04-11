@@ -6,64 +6,69 @@ import { connect } from 'react-redux'
 import moment from 'moment'
 import firebase from 'firebase'
 
-import type { Dispatch, ReduxState, FirebaseUser, MotorPolicy } from 'jog/src/types'
+import type { ReduxState, FirebaseUser, MotorPolicy } from 'jog/src/types'
 
 import Text from 'jog/src/components/Text'
 import { CREAM, PINK } from 'jog/src/constants/palette'
 import { MARGIN } from 'jog/src/constants/style'
 import { Background } from 'jog/src/components/images'
+import uuid from 'uuid/v4'
 
 import AddPolicyMenu from './AddPolicyMenu'
 import MotorPolicyCard from './MotorPolicyCard'
 import AddMotorPolicyCard from './AddMotorPolicyCard'
+import { updatePolicies, clearPolicies } from '../../data/policies'
 
 type PoliciesProps = {
   user: FirebaseUser | null,
-};
-
-type PoliciesScreenState = {
   policies: Map<string, MotorPolicy>,
-}
+};
 
 class Policies extends Component {
   props: PoliciesProps
-  state: PoliciesScreenState
-
-  constructor(props: PoliciesProps) {
-    super(props)
-    this.state = {
-      policies: new Map()
-    }
-  }
 
   // This would normally be wrapped up in a saga but it will be deleted soon so no point.
   generateMockPolicies = () => {
     const user = this.props.user
     if (user) {
-      this.setState({
-        policies: new Map(Object.entries({
-          awesomepolicy: {
-            vehicleRegistration: 'Chrysler Pacifica',
-            levelOfCover: 'comprehensive',
-            id: 'awesomepolicy',
-            policyNo: '1234567',
-            expiryDate: moment().add({ days: 64 }).toDate().getTime(),
-            startDate: moment().subtract({ days: 100 }).toDate().getTime(),
-            uid: 'cHuC2t8V5DcvLxdNhbCqjYhBA672',
-            jogCreatedDate: firebase.database.ServerValue.TIMESTAMP,
-            companyId: 'admiral',
-            documentPaths: [],
-            excess: 400,
-            type: 'motor',
-            drivers: [
-              {
-                firstNames: 'Richard',
-                lastName: 'Gill'
-              }
-            ],
-            noClaimsBonus: 4,
+      const policies = {}
+      const guid = uuid()
+      policies[guid] = {
+        vehicleRegistration: 'Chrysler Pacifica',
+        levelOfCover: 'comprehensive',
+        id: guid,
+        policyNo: '1234567',
+        expiryDate: moment().add({ days: 64 }).toDate().getTime(),
+        startDate: moment().subtract({ days: 100 }).toDate().getTime(),
+        uid: user.uid,
+        jogCreatedDate: firebase.database.ServerValue.TIMESTAMP,
+        companyId: 'admiral',
+        documentPaths: [],
+        excess: 400,
+        type: 'motor',
+        drivers: [
+          {
+            firstNames: 'Richard',
+            lastName: 'Gill'
           }
-        }))
+        ],
+        noClaimsBonus: 4,
+      }
+      updatePolicies(policies).then(() => {
+        console.info('Added mock policies')
+      }).catch((err) => {
+        console.error('Error adding mock policies', err.stack)
+      })
+    }
+  }
+
+  clearMockPolicies = () => {
+    const user = this.props.user
+    if (user) {
+      clearPolicies(user.uid).then(() => {
+        console.info('Cleared mock policies')
+      }).catch((err) => {
+        console.error('Error adding mock policies', err.stack)
       })
     }
   }
@@ -88,14 +93,28 @@ class Policies extends Component {
   }
 
   renderPolicies() {
-    const policies = this.state.policies
+    const policies = this.props.policies
 
     return (
       <ScrollView style={styles.content}>
+        <View
+          style={{
+            width: '100%',
+            justifyContent: 'center',
+            alignItems: 'center',
+            marginBottom: MARGIN.large
+          }}
+        >
+          <TouchableOpacity style={styles.mockPoliciesButton} onPress={this.clearMockPolicies}>
+            <Text>
+              Clear Mock Policies
+            </Text>
+          </TouchableOpacity>
+        </View>
         {_.map(Array.from(policies), (p: MotorPolicy, idx: number) => {
           return (
             <MotorPolicyCard
-              key={p.id}
+              key={idx}
               policy={p}
               index={idx}
               onPress={() => {}}
@@ -110,7 +129,7 @@ class Policies extends Component {
   }
 
   render() {
-    const numPolicies = this.state.policies.size
+    const numPolicies = this.props.policies.size
 
     return (
       <View style={styles.container}>

@@ -31,9 +31,18 @@ export function setMotorPolicy(policy: MotorPolicy) : Promise<void> {
   throw new TypeError('Policy does not have an id')
 }
 
-export function setPolicies(uid: string, policies: {[id: string] : MotorPolicy}) : Promise<void> {
-  const key = `policies/${uid}`
-  console.debug(`firebase.set[${key}]`, policies)
-  const ref = firebase.database().ref(key)
-  return ref.set(policies)
+export function updatePolicies(policies: {[id: string] : MotorPolicy}) : Promise<void> {
+  const ref = firebase.database().ref('policies')
+  return ref.update(policies)
+}
+
+export async function clearPolicies(uid: string) : Promise<void> {
+  const policiesRef = firebase.database().ref('policies')
+  const ref = policiesRef.orderByChild('uid').equalTo(uid)
+  const snapshot = await ref.once('value')
+  const promises = []
+  snapshot.forEach((childSnapshot) => {
+    promises.push(policiesRef.child(childSnapshot.key).remove())
+  })
+  await Promise.all(promises)
 }

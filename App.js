@@ -21,6 +21,8 @@ export default class JogApp extends Component {
     const previousUser = null
 
     userSubscribe((newUser) => {
+      store.dispatch(receiveUser(newUser))
+
       const newUserId = newUser && newUser.uid
       const priorUserId = previousUser && previousUser.uid
 
@@ -32,8 +34,6 @@ export default class JogApp extends Component {
           store.dispatch({ type: 'SYNC_USER_DATA', uid: newUserId })
         }
       }
-
-      store.dispatch(receiveUser(newUser))
     })
   }
 

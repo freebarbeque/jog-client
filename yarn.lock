@@ -669,10 +669,6 @@ babel-plugin-transform-flow-strip-types@^6.21.0, babel-plugin-transform-flow-str
     babel-plugin-syntax-flow "^6.18.0"
     babel-runtime "^6.22.0"
 
-babel-plugin-transform-inline-environment-variables@^0.0.2:
-  version "0.0.2"
-  resolved "https://registry.yarnpkg.com/babel-plugin-transform-inline-environment-variables/-/babel-plugin-transform-inline-environment-variables-0.0.2.tgz#1372475c6c87f3c4ce6046587730ee041bc784b9"
-
 babel-plugin-transform-object-assign@^6.5.0:
   version "6.22.0"
   resolved "https://registry.yarnpkg.com/babel-plugin-transform-object-assign/-/babel-plugin-transform-object-assign-6.22.0.tgz#f99d2f66f1a0b0d498e346c5359684740caa20ba"
@@ -3956,10 +3952,6 @@ react-native-drawer-layout@~1.1.5:
   dependencies:
     react-native-dismiss-keyboard "1.0.0"
 
-react-native-env@^0.0.6:
-  version "0.0.6"
-  resolved "https://registry.yarnpkg.com/react-native-env/-/react-native-env-0.0.6.tgz#52b4aa5fcb858c5df8ac24f2927377e583fef7b2"
-
 react-native-fade-in-view@^1.0.4:
   version "1.0.4"
   resolved "https://registry.yarnpkg.com/react-native-fade-in-view/-/react-native-fade-in-view-1.0.4.tgz#ce5614c74675fdc68419817c179e0abb5eaa58b6"
@@ -5123,7 +5115,7 @@ uuid-js@^0.7.5:
   version "0.7.5"
   resolved "https://registry.yarnpkg.com/uuid-js/-/uuid-js-0.7.5.tgz#6c886d02a53d2d40dcf25d91a170b4a7b25b94d0"
 
-uuid@3.0.1, uuid@^3.0.0:
+uuid@3.0.1, uuid@^3.0.0, uuid@^3.0.1:
   version "3.0.1"
   resolved "https://registry.yarnpkg.com/uuid/-/uuid-3.0.1.tgz#6544bba2dfda8c1cf17e629a3a305e2bb1fee6c1"
 
