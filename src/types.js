@@ -4,12 +4,13 @@ import type { Store as ReduxStore, Dispatch as ReduxDispatch } from 'redux'
 import type { NavigationAction } from 'react-navigation'
 import type { AuthAction } from './store/auth/actionTypes'
 import type { PoliciesAction } from './store/policies/actionTypes'
+import type { InsurerActions } from './store/insurers/actionTypes'
 
 //
 // Redux
 //
 
-export type Action = AuthAction | NavigationAction | PoliciesAction
+export type Action = AuthAction | NavigationAction | PoliciesAction | InsurerActions
 
 export type NavReduxState = {
   index: number,
@@ -43,7 +44,8 @@ export type ReduxState = {
   nav: NavReduxState,
   auth: AuthReduxState,
   screens: ScreensReduxState,
-  policies: PoliciesState
+  policies: PoliciesState,
+  insurers: InsurersReduxState
 }
 
 export type Store = ReduxStore<ReduxState, Action>;
@@ -116,6 +118,22 @@ export type MotorPolicy = Policy & {
   levelOfCover?: $Keys<typeof LEVEL_OF_COVER>,
   drivers?: Driver[],
   noClaimsBonus?: number, // Num. years.
+}
+
+//
+// Insurers
+//
+
+export type Insurer = {
+  name?: string,
+  logo?: string
+}
+
+export type InsurerMap = {[id: string]: Insurer}
+
+export type InsurersReduxState = {
+  initialised: boolean,
+  insurers: InsurerMap
 }
 
 //

@@ -35,6 +35,8 @@ export default class JogApp extends Component {
         }
       }
     })
+
+    store.dispatch({ type: 'SYNC_DATA' })
   }
 
   render() {

@@ -1,6 +1,5 @@
 // @flow
 
-// import { createLogger } from 'redux-logger'
 import { createStore as _createStore, applyMiddleware, compose } from 'redux'
 import createSagaMiddleware from 'redux-saga'
 import devTools from 'remote-redux-devtools'
@@ -15,6 +14,7 @@ import config from 'jog/src/config'
 
 import saga from './sagas'
 import { syncPoliciesSaga } from './policies/sagas'
+import { syncInsurersSaga } from './insurers/sagas'
 
 export default function createStore(): Store {
   const sagaMiddleware = createSagaMiddleware()
@@ -46,6 +46,7 @@ export default function createStore(): Store {
   sagaMiddleware.run(authScreenSaga)
   sagaMiddleware.run(authSaga)
   sagaMiddleware.run(syncPoliciesSaga)
+  sagaMiddleware.run(syncInsurersSaga)
   sagaMiddleware.run(saga)
 
   if (module.hot) {

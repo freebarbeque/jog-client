@@ -6,7 +6,7 @@ import { connect } from 'react-redux'
 import moment from 'moment'
 import firebase from 'firebase'
 
-import type { ReduxState, FirebaseUser, MotorPolicy, PoliciesState } from 'jog/src/types'
+import type { ReduxState, FirebaseUser, MotorPolicy, PoliciesState, MotorPolicyMap } from 'jog/src/types'
 
 import Text from 'jog/src/components/Text'
 import { CREAM, PINK } from 'jog/src/constants/palette'
@@ -31,8 +31,8 @@ class Policies extends Component {
   generateMockPolicies = () => {
     const user = this.props.user
     if (user) {
-      const policies = {}
-      const guid = uuid()
+      const policies: MotorPolicyMap = {}
+      let guid = uuid()
       policies[guid] = {
         vehicleRegistration: 'Chrysler Pacifica',
         levelOfCover: 'comprehensive',
@@ -45,6 +45,28 @@ class Policies extends Component {
         companyId: 'admiral',
         documentPaths: [],
         excess: 400,
+        type: 'motor',
+        drivers: [
+          {
+            firstNames: 'Richard',
+            lastName: 'Gill'
+          }
+        ],
+        noClaimsBonus: 4,
+      }
+      guid = uuid()
+      policies[guid] = {
+        vehicleRegistration: 'Ford Focus',
+        levelOfCover: 'comprehensive',
+        id: guid,
+        policyNo: '1234568',
+        expiryDate: moment().add({ days: 64 }).toDate().getTime(),
+        startDate: moment().subtract({ days: 100 }).toDate().getTime(),
+        uid: user.uid,
+        jogCreatedDate: firebase.database.ServerValue.TIMESTAMP,
+        companyId: 'hastings',
+        documentPaths: [],
+        excess: 500,
         type: 'motor',
         drivers: [
           {

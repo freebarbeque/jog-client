@@ -103,6 +103,10 @@ const styles = StyleSheet.create({
   // companyLogo with overflow: hidden hides the shadow for some reason...
   companyLogoOverflowWrapper: {
     overflow: 'hidden',
+    height: 80,
+    width: 80,
+    alignItems: 'center',
+    justifyContent: 'center',
     borderRadius: 40,
   },
   nameText: {
