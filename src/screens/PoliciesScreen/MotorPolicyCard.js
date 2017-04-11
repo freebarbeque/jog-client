@@ -1,8 +1,7 @@
 // @flow
 import React, { Component } from 'react'
-// import type { MotorPolicy } from '../../types'
+import { Admiral, Car, Plus } from 'jog/src/components/images/index'
 import PolicyCard from './PolicyCard'
-import { Admiral, Car, Plus } from '../../components/images/index'
 
 export type MotorPolicyCardProps = {
   // policy: MotorPolicy,

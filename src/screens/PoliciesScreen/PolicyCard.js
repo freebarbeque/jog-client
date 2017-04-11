@@ -1,10 +1,10 @@
 // @flow
 import React, { Component } from 'react'
 import { View, StyleSheet, TouchableOpacity } from 'react-native'
-import { BLUE, DARK_GRAY, VERY_LIGHT_GRAY, WHITE } from '../../constants/palette'
-import { Ellipses } from '../../components/images/index'
-import Text from '../../components/Text'
-import { MARGIN } from '../../constants/style'
+import { BLUE, DARK_GRAY, VERY_LIGHT_GRAY, WHITE } from 'jog/src/constants/palette'
+import { Ellipses } from 'jog/src/components/images/index'
+import Text from 'jog/src/components/Text'
+import { MARGIN } from 'jog/src/constants/style'
 
 export type PolicyCardProps = {
   title: string,

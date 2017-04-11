@@ -12,12 +12,12 @@ import Text from 'jog/src/components/Text'
 import { CREAM, PINK } from 'jog/src/constants/palette'
 import { MARGIN } from 'jog/src/constants/style'
 import { Background } from 'jog/src/components/images'
+import { updatePolicies, clearPolicies } from 'jog/src/data/policies'
 import uuid from 'uuid/v4'
 
 import AddPolicyMenu from './AddPolicyMenu'
 import MotorPolicyCard from './MotorPolicyCard'
 import AddMotorPolicyCard from './AddMotorPolicyCard'
-import { updatePolicies, clearPolicies } from '../../data/policies'
 
 type PoliciesProps = {
   user: FirebaseUser | null,

@@ -1,7 +1,9 @@
 // @flow
 import React, { Component } from 'react'
+
+import { Plus } from 'jog/src/components/images/index'
+
 import PolicyCard from './PolicyCard'
-import { Plus } from '../../components/images/index'
 
 export type AddMotorPolicyCardProps = {
   onPress: () => void

@@ -1,9 +1,10 @@
 // @flow
 import React, { Component } from 'react'
 import { Text, TouchableOpacity, View, StyleSheet } from 'react-native'
-import { Camera, Command, Mail } from '../../components/images/index'
-import { BLUE, DARK_GRAY, PINK, VERY_LIGHT_GRAY, WHITE } from '../../constants/palette'
-import { MARGIN } from '../../constants/style'
+
+import { Camera, Command, Mail } from 'jog/src/components/images/index'
+import { BLUE, DARK_GRAY, PINK, VERY_LIGHT_GRAY, WHITE } from 'jog/src/constants/palette'
+import { MARGIN } from 'jog/src/constants/style'
 
 export type AddPolicyMenuProps = {
   onEmailPress: () => void,
