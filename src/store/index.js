@@ -9,7 +9,7 @@ import { Platform } from 'react-native'
 import reducer from 'jog/src/store/reducer'
 import type { Store } from 'jog/src/types'
 import authScreenSaga from 'jog/src/store/screens/auth/sagas'
-import authSaga from 'jog/src/store/auth/sagas'
+import { pollUserSaga, authSaga, userSyncSaga } from 'jog/src/store/auth/sagas'
 import config from 'jog/src/config'
 
 import saga from './sagas'
@@ -45,6 +45,8 @@ export default function createStore(): Store {
 
   sagaMiddleware.run(authScreenSaga)
   sagaMiddleware.run(authSaga)
+  sagaMiddleware.run(pollUserSaga)
+  sagaMiddleware.run(userSyncSaga)
   sagaMiddleware.run(syncPoliciesSaga)
   sagaMiddleware.run(syncInsurersSaga)
   sagaMiddleware.run(saga)

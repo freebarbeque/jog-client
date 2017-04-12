@@ -5,9 +5,9 @@ import { View, StyleSheet } from 'react-native'
 
 import { Car, Plus } from 'jog/src/components/images/index'
 import type { MotorPolicy, ReduxState, InsurerMap } from 'jog/src/types'
+import FirebaseImage from 'jog/src/components/FirebaseImage'
 
 import PolicyCard from './PolicyCard'
-import FirebaseImage from '../../components/FirebaseImage'
 
 export type MotorPolicyCardProps = {
   policy: MotorPolicy,

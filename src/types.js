@@ -5,12 +5,13 @@ import type { NavigationAction } from 'react-navigation'
 import type { AuthAction } from './store/auth/actionTypes'
 import type { PoliciesAction } from './store/policies/actionTypes'
 import type { InsurerActions } from './store/insurers/actionTypes'
+import type { BaseAction } from './store/actionTypes'
 
 //
 // Redux
 //
 
-export type Action = AuthAction | NavigationAction | PoliciesAction | InsurerActions
+export type Action = AuthAction | NavigationAction | PoliciesAction | InsurerActions | BaseAction
 
 export type NavReduxState = {
   index: number,

@@ -11,8 +11,16 @@ export type PollRefreshUserAction = {
   type: 'auth/POLL_REFRESH_USER',
 }
 
+export type SyncUserAction = {
+  type: 'auth/SYNC_USER',
+}
+
 export type StopPollingRefreshUserAction = {
   type: 'auth/STOP_POLL_REFRESH_USER'
 }
 
-export type AuthAction = ReceiveUserAction
+export type LogoutAction = {
+  type: 'auth/LOGOUT',
+}
+
+export type AuthAction = ReceiveUserAction | LogoutAction
