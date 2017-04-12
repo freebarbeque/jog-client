@@ -4,14 +4,13 @@ import React, { Component } from 'react'
 import { View, StyleSheet, TouchableOpacity, ScrollView } from 'react-native'
 import { connect } from 'react-redux'
 
-import type { ReduxState, FirebaseUser, MotorPolicy } from 'jog/src/types'
+import type { ReduxState, FirebaseUser, MotorPolicy, MotorPolicyMap } from 'jog/src/types'
 import Text from 'jog/src/components/Text'
 import { CREAM, PINK } from 'jog/src/constants/palette'
 import { MARGIN } from 'jog/src/constants/style'
 import { Background } from 'jog/src/components/images'
 import { clearPolicies } from 'jog/src/data/policies'
 import { selectPolicies } from 'jog/src/store/policies/selectors'
-import type { SelectedMotorPolicyMap } from 'jog/src/store/policies/selectors'
 import { generateMockPolicies } from 'jog/src/mock'
 
 import AddPolicyMenu from './AddPolicyMenu'
@@ -20,7 +19,7 @@ import AddMotorPolicyCard from './AddMotorPolicyCard'
 
 type PoliciesProps = {
   user: FirebaseUser | null,
-  policies: SelectedMotorPolicyMap,
+  policies: MotorPolicyMap,
 };
 
 class Policies extends Component {

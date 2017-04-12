@@ -94,7 +94,20 @@ export type Driver = {
   lastName?: string,
 }
 
-export type Policy = {
+export const LEVEL_OF_COVER = {
+  comprehensive: 'Comprehensive',
+  tpft: 'Third Party, Fire & Theft',
+  thirdParty: 'Third Party Only',
+}
+
+// TODO: Split this into generic Policy/MotorPolicy/SelectedMotorPolicy once react-native supports flow 0.42.x
+// /policies/${policyId}
+export type MotorPolicy = {
+  type?: 'motor',
+  vehicleRegistration?: string,
+  levelOfCover?: $Keys<typeof LEVEL_OF_COVER>,
+  drivers?: Driver[],
+  noClaimsBonus?: number, // Num. years.
   id?: string, // Jogs identifier for the policy (guid?)
   policyNo?: string, // I would assume this is the insurer's own identifier? I know some will have non-numeric characters
   expiryDate?: number,
@@ -104,21 +117,8 @@ export type Policy = {
   documentPaths?: string[], // Paths on firebase storage.
   uid?: string, // Firebase user id.
   excess?: number,
-}
-
-export const LEVEL_OF_COVER = {
-  comprehensive: 'Comprehensive',
-  tpft: 'Third Party, Fire & Theft',
-  thirdParty: 'Third Party Only',
-}
-
-// /policies/${policyId}
-export type MotorPolicy = Policy & {
-  type?: 'motor',
-  vehicleRegistration?: string,
-  levelOfCover?: $Keys<typeof LEVEL_OF_COVER>,
-  drivers?: Driver[],
-  noClaimsBonus?: number, // Num. years.
+  // reselect
+  companyLogo?: string | null
 }
 
 //
