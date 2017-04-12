@@ -115,10 +115,12 @@ export type MotorPolicy = {
   createdDate?: number, // Date added to jog as opposed to insurance start date
   companyId?: string,
   documentPaths?: string[], // Paths on firebase storage.
+  cost?: number,
   uid?: string, // Firebase user id.
   excess?: number,
   // reselect
-  companyLogo?: string | null
+  companyLogo?: string | null,
+  companyName?: string | null
 }
 
 //
@@ -145,6 +147,11 @@ export type InsurersReduxState = {
 export type ReactNavigationProp = {
   navigate: (routeName: string) => void,
   goBack: () => void,
+  state: {
+    params: {
+      [key: string]: any
+    }
+  }
 }
 
 export type Route = {
