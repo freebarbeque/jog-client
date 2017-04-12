@@ -5,15 +5,16 @@ import { View, StyleSheet, TouchableOpacity, ScrollView } from 'react-native'
 import { connect } from 'react-redux'
 import moment from 'moment'
 import firebase from 'firebase'
+import uuid from 'uuid/v4'
 
-import type { ReduxState, FirebaseUser, MotorPolicy, PoliciesState, MotorPolicyMap } from 'jog/src/types'
-
+import type { ReduxState, FirebaseUser, MotorPolicy, MotorPolicyMap } from 'jog/src/types'
 import Text from 'jog/src/components/Text'
 import { CREAM, PINK } from 'jog/src/constants/palette'
 import { MARGIN } from 'jog/src/constants/style'
 import { Background } from 'jog/src/components/images'
 import { updatePolicies, clearPolicies } from 'jog/src/data/policies'
-import uuid from 'uuid/v4'
+import { selectPolicies } from 'jog/src/store/policies/selectors'
+import type { SelectedMotorPolicyMap } from 'jog/src/store/policies/selectors'
 
 import AddPolicyMenu from './AddPolicyMenu'
 import MotorPolicyCard from './MotorPolicyCard'
@@ -21,7 +22,7 @@ import AddMotorPolicyCard from './AddMotorPolicyCard'
 
 type PoliciesProps = {
   user: FirebaseUser | null,
-  policies: PoliciesState,
+  policies: SelectedMotorPolicyMap,
 };
 
 class Policies extends Component {
@@ -213,7 +214,7 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = (state: ReduxState) => ({
   user: state.auth.user,
-  policies: state.policies.policies
+  policies: selectPolicies(state)
 })
 
 export default connect(
