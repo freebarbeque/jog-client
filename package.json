@@ -44,6 +44,7 @@
     "redux-saga": "^0.14.4",
     "remote-redux-devtools": "^0.5.7",
     "remote-redux-devtools-on-debugger": "^0.7.0",
+    "reselect": "^3.0.0",
     "uuid": "^3.0.1"
   },
   "devDependencies": {

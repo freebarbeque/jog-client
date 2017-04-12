@@ -9,9 +9,7 @@ type LogoProps = {
 }
 
 export const Logo = (props: LogoProps) => {
-  let { scale, style } = props
-  scale = scale || 1
-  style = style || {}
+  const { style = {}, scale = 1 } = props
 
   return (
     <Image
@@ -21,12 +19,8 @@ export const Logo = (props: LogoProps) => {
   )
 }
 
-Logo.defaultProps = { scale: 1, style: {} }
-
 export const Camera = (props: LogoProps) => {
-  let { scale, style } = props
-  scale = scale || 1
-  style = style || {}
+  const { style = {}, scale = 1 } = props
 
   return (
     <Image
@@ -36,12 +30,8 @@ export const Camera = (props: LogoProps) => {
   )
 }
 
-Camera.defaultProps = { scale: 1, style: {} }
-
 export const Command = (props: LogoProps) => {
-  let { scale, style } = props
-  scale = scale || 1
-  style = style || {}
+  const { style = {}, scale = 1 } = props
 
   return (
     <Image
@@ -51,12 +41,8 @@ export const Command = (props: LogoProps) => {
   )
 }
 
-Command.defaultProps = { scale: 1, style: {} }
-
 export const Mail = (props: LogoProps) => {
-  let { scale, style } = props
-  scale = scale || 1
-  style = style || {}
+  const { style = {}, scale = 1 } = props
 
   return (
     <Image
@@ -66,12 +52,8 @@ export const Mail = (props: LogoProps) => {
   )
 }
 
-Mail.defaultProps = { scale: 1, style: {} }
-
 export const Car = (props: LogoProps) => {
-  let { scale, style } = props
-  scale = scale || 1
-  style = style || {}
+  const { style = {}, scale = 1 } = props
 
   return (
     <Image
@@ -81,12 +63,8 @@ export const Car = (props: LogoProps) => {
   )
 }
 
-Car.defaultProps = { scale: 1, style: {} }
-
 export const Ellipses = (props: LogoProps) => {
-  let { scale, style } = props
-  scale = scale || 1
-  style = style || {}
+  const { style = {}, scale = 1 } = props
 
   return (
     <Image
@@ -96,12 +74,8 @@ export const Ellipses = (props: LogoProps) => {
   )
 }
 
-Ellipses.defaultProps = { scale: 1, style: {} }
-
 export const Plus = (props: LogoProps) => {
-  let { scale, style } = props
-  scale = scale || 1
-  style = style || {}
+  const { style = {}, scale = 1 } = props
 
   return (
     <Image
@@ -111,17 +85,13 @@ export const Plus = (props: LogoProps) => {
   )
 }
 
-Plus.defaultProps = { scale: 1, style: {} }
-
 type BackgroundProps = {
   style?: $Subtype<Object>,
   children?: any,
 }
 
 export const Background = (props: BackgroundProps) => {
-  let { style } = props
-  const { children } = props
-  style = style || {}
+  const { children = null, style = {} } = props
 
   return (
     <Image
@@ -132,5 +102,3 @@ export const Background = (props: BackgroundProps) => {
     </Image>
   )
 }
-
-Background.defaultProps = { style: {}, children: null }
