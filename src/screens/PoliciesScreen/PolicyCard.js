@@ -20,7 +20,6 @@ export default class PolicyCard extends Component {
   props: PolicyCardProps
 
   render() {
-    console.log('yo')
     return (
       <TouchableOpacity style={styles.card} onPress={this.props.onPress}>
         <View

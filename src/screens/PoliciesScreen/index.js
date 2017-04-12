@@ -3,18 +3,16 @@
 import React, { Component } from 'react'
 import { View, StyleSheet, TouchableOpacity, ScrollView } from 'react-native'
 import { connect } from 'react-redux'
-import moment from 'moment'
-import firebase from 'firebase'
-import uuid from 'uuid/v4'
 
-import type { ReduxState, FirebaseUser, MotorPolicy, MotorPolicyMap } from 'jog/src/types'
+import type { ReduxState, FirebaseUser, MotorPolicy } from 'jog/src/types'
 import Text from 'jog/src/components/Text'
 import { CREAM, PINK } from 'jog/src/constants/palette'
 import { MARGIN } from 'jog/src/constants/style'
 import { Background } from 'jog/src/components/images'
-import { updatePolicies, clearPolicies } from 'jog/src/data/policies'
+import { clearPolicies } from 'jog/src/data/policies'
 import { selectPolicies } from 'jog/src/store/policies/selectors'
 import type { SelectedMotorPolicyMap } from 'jog/src/store/policies/selectors'
+import { generateMockPolicies } from 'jog/src/mock'
 
 import AddPolicyMenu from './AddPolicyMenu'
 import MotorPolicyCard from './MotorPolicyCard'
@@ -27,63 +25,6 @@ type PoliciesProps = {
 
 class Policies extends Component {
   props: PoliciesProps
-
-  // This would normally be wrapped up in a saga but it will be deleted soon so no point.
-  generateMockPolicies = () => {
-    const user = this.props.user
-    if (user) {
-      const policies: MotorPolicyMap = {}
-      let guid = uuid()
-      policies[guid] = {
-        vehicleRegistration: 'Chrysler Pacifica',
-        levelOfCover: 'comprehensive',
-        id: guid,
-        policyNo: '1234567',
-        expiryDate: moment().add({ days: 64 }).toDate().getTime(),
-        startDate: moment().subtract({ days: 100 }).toDate().getTime(),
-        uid: user.uid,
-        jogCreatedDate: firebase.database.ServerValue.TIMESTAMP,
-        companyId: 'admiral',
-        documentPaths: [],
-        excess: 400,
-        type: 'motor',
-        drivers: [
-          {
-            firstNames: 'Richard',
-            lastName: 'Gill'
-          }
-        ],
-        noClaimsBonus: 4,
-      }
-      guid = uuid()
-      policies[guid] = {
-        vehicleRegistration: 'Ford Focus',
-        levelOfCover: 'comprehensive',
-        id: guid,
-        policyNo: '1234568',
-        expiryDate: moment().add({ days: 64 }).toDate().getTime(),
-        startDate: moment().subtract({ days: 100 }).toDate().getTime(),
-        uid: user.uid,
-        jogCreatedDate: firebase.database.ServerValue.TIMESTAMP,
-        companyId: 'hastings',
-        documentPaths: [],
-        excess: 500,
-        type: 'motor',
-        drivers: [
-          {
-            firstNames: 'Richard',
-            lastName: 'Gill'
-          }
-        ],
-        noClaimsBonus: 4,
-      }
-      updatePolicies(policies).then(() => {
-        console.info('Added mock policies')
-      }).catch((err) => {
-        console.error('Error adding mock policies', err.stack)
-      })
-    }
-  }
 
   clearMockPolicies = () => {
     const user = this.props.user
@@ -105,7 +46,7 @@ class Policies extends Component {
           onManualPress={() => {}}
         />
         <View style={{ width: '100%', justifyContent: 'center', alignItems: 'center', marginTop: MARGIN.large }}>
-          <TouchableOpacity style={styles.mockPoliciesButton} onPress={this.generateMockPolicies}>
+          <TouchableOpacity style={styles.mockPoliciesButton} onPress={() => this.props.user && generateMockPolicies(this.props.user.uid)}>
             <Text>
               Generate Mock Policies
             </Text>
