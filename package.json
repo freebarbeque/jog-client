@@ -81,7 +81,8 @@
       "^.+\\.css$": "<rootDir>/__tests__/config/stubs/CSSStub.js"
     },
     "setupFiles": [
-      "<rootDir>/__tests__/config/polyfills.js"
+      "<rootDir>/__tests__/config/polyfills.js",
+      "<rootDir>/__tests__/config/setup.js"
     ],
     "testPathIgnorePatterns": [
       "<rootDir>/(build|docs|node_modules)/"
