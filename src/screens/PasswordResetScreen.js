@@ -13,7 +13,7 @@ import type {
   ValidationErrorsMap,
 } from 'jog/src/types'
 
-import { setValues, setValidationErrors, passwordReset } from 'jog/src/redux/screens/auth/actions'
+import { setValues, setValidationErrors, passwordReset } from 'jog/src/store/screens/auth/actions'
 
 import { BLUE } from 'jog/src/constants/palette'
 import Text from 'jog/src/components/Text'

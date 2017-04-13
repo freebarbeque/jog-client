@@ -3,12 +3,13 @@ import { StyleSheet, Platform } from 'react-native'
 import { TabNavigator } from 'react-navigation'
 
 import SettingsScreen from 'jog/src/screens/SettingsScreen'
-import PoliciesScreen from 'jog/src/screens/PoliciesScreen'
 import MarketsScreen from 'jog/src/screens/MarketsScreen'
 import { BLUE, DARK_GRAY, PINK } from 'jog/src/constants/palette'
 import { Logo } from 'jog/src/components/images/index'
 import AuthButton from 'jog/src/components/AuthButton'
 import { MARGIN } from 'jog/src/constants/style'
+
+import PoliciesNavigator from './PoliciesNavigator'
 
 const styles = StyleSheet.create({
   headerLogo: {
@@ -39,11 +40,10 @@ const styles = StyleSheet.create({
 })
 
 const tabNavigator = TabNavigator({
-  Policies: { screen: PoliciesScreen },
+  Policies: { screen: PoliciesNavigator },
   Markets: { screen: MarketsScreen },
   Settings: { screen: SettingsScreen },
 }, {
-  initialRouteName: 'Policies',
   swipeEnabled: true,
   animationEnabled: false,
   tabBarPosition: 'top',

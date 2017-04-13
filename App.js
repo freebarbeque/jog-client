@@ -4,12 +4,11 @@ import React, { Component } from 'react'
 import { View, StatusBar, StyleSheet } from 'react-native'
 
 import { Provider } from 'react-redux'
-import createStore from './src/redux/createStore'
+import createStore from './src/store/index'
 import initialiseFirebase from './src/data'
-import { userSubscribe } from './src/data/auth'
-import { receiveUser } from './src/redux/auth/actions'
 import { BLUE } from './src/constants/palette'
 import RootNavigator from './src/navigators/RootNavigator'
+import { syncData } from './src/store/actions'
 
 initialiseFirebase()
 
@@ -17,10 +16,7 @@ const store = createStore()
 
 export default class JogApp extends Component {
   componentDidMount() {
-    // Sync authorisation state
-    userSubscribe((user) => {
-      store.dispatch(receiveUser(user))
-    })
+    store.dispatch(syncData())
   }
 
   render() {

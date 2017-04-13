@@ -6,7 +6,8 @@ import { Text } from 'react-native'
 import { WHITE } from 'jog/src/constants/palette'
 
 const DEFAULT_STYLE = {
-  color: WHITE
+  color: WHITE,
+  backgroundColor: 'transparent'
 }
 
 // If we eject from expo, we can improve on this loading the fonts manually

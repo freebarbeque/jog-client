@@ -9,12 +9,12 @@ import type {
   Dispatch,
 } from 'jog/src/types'
 
-import { clear } from 'jog/src/redux/screens/auth/actions'
+import { clear } from 'jog/src/store/screens/auth/actions'
 import AccessoryButton from 'jog/src/components/AccessoryButton'
-import { BLUE, PINK } from '../constants/palette'
-import Text from '../components/Text'
+import { BLUE } from '../constants/palette'
 import { MARGIN } from '../constants/style'
 import { Logo } from '../components/images/index'
+import Jumbotron from '../components/Jumbotron'
 
 type AuthHomeProps = {
   dispatch: Dispatch,
@@ -23,12 +23,6 @@ type AuthHomeProps = {
 
 class AuthHomeScreen extends Component {
   props: AuthHomeProps
-
-  static navigationOptions = {
-    header: {
-      visible: false
-    }
-  }
 
   componentWillUnmount() {
     this.props.dispatch(clear())
@@ -55,24 +49,7 @@ class AuthHomeScreen extends Component {
             scale={1.5}
           />
         </View>
-        <View style={styles.jumbotron}>
-          <Text style={styles.headerText}>
-            your
-          </Text>
-          <Text style={styles.headerText}>
-            insurance
-          </Text>
-          <Text style={styles.headerText}>
-            memory
-          </Text>
-          <View style={styles.divider} />
-          <Text style={styles.listText}>
-            store your policies
-          </Text>
-          <Text style={styles.listText}>
-            minimise your premiums
-          </Text>
-        </View>
+        <Jumbotron />
         <View style={styles.menu}>
           <AccessoryButton
             label="login"
@@ -100,26 +77,6 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     backgroundColor: BLUE,
-  },
-  divider: {
-    width: 25,
-    height: 4,
-    backgroundColor: PINK,
-    marginTop: MARGIN.large,
-    marginBottom: MARGIN.large
-  },
-  jumbotron: {
-    alignItems: 'center',
-    paddingTop: MARGIN.large,
-    paddingBottom: MARGIN.extraLarge
-  },
-  headerText: {
-    fontSize: 36,
-    fontWeight: '600',
-    lineHeight: 36,
-  },
-  listText: {
-    fontSize: 16
   },
   menu: {
     alignItems: 'center',
