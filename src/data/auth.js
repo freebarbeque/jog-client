@@ -60,7 +60,7 @@ export const sendPasswordResetEmail: (email: string) => Promise<void>
 export const confirmPasswordReset : (code: string, password: string) => Promise<void>
   = errorWrapper((code: string, password: string) => firebase.auth().confirmPasswordReset(code, password))
 
-export function userSubscribe(callback: (user: FirebaseUser | null) => void): void {
-  firebase.auth().onAuthStateChanged((u) => callback(u ? u.toJSON() : null))
+export function userSubscribe(callback: (user: FirebaseUser | null) => void): () => void {
+  return firebase.auth().onAuthStateChanged((u) => callback(u ? u.toJSON() : null))
 }
 

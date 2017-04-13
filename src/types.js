@@ -2,14 +2,16 @@
 
 import type { Store as ReduxStore, Dispatch as ReduxDispatch } from 'redux'
 import type { NavigationAction } from 'react-navigation'
-import type { AuthAction } from './redux/auth/actionTypes'
-import type { PoliciesAction } from './redux/policies/actionTypes'
+import type { AuthAction } from './store/auth/actionTypes'
+import type { PoliciesAction } from './store/policies/actionTypes'
+import type { InsurerActions } from './store/insurers/actionTypes'
+import type { BaseAction } from './store/actionTypes'
 
 //
 // Redux
 //
 
-export type Action = AuthAction | NavigationAction | PoliciesAction
+export type Action = AuthAction | NavigationAction | PoliciesAction | InsurerActions | BaseAction
 
 export type NavReduxState = {
   index: number,
@@ -32,13 +34,19 @@ export type ScreensReduxState = {
   auth: AuthScreensReduxState
 }
 
-export type PoliciesState = Map<string, MotorPolicy>
+export type MotorPolicyMap = {[id: string]: MotorPolicy}
+
+export type PoliciesState = {
+  initialised: boolean,
+  policies: MotorPolicyMap,
+}
 
 export type ReduxState = {
   nav: NavReduxState,
   auth: AuthReduxState,
   screens: ScreensReduxState,
-  policies: PoliciesState
+  policies: PoliciesState,
+  insurers: InsurersReduxState
 }
 
 export type Store = ReduxStore<ReduxState, Action>;
@@ -86,7 +94,20 @@ export type Driver = {
   lastName?: string,
 }
 
-export type Policy = {
+export const LEVEL_OF_COVER = {
+  comprehensive: 'Comprehensive',
+  tpft: 'Third Party, Fire & Theft',
+  thirdParty: 'Third Party Only',
+}
+
+// TODO: Split this into generic Policy/MotorPolicy/SelectedMotorPolicy once react-native supports flow 0.42.x
+// /policies/${policyId}
+export type MotorPolicy = {
+  type?: 'motor',
+  vehicleRegistration?: string,
+  levelOfCover?: $Keys<typeof LEVEL_OF_COVER>,
+  drivers?: Driver[],
+  noClaimsBonus?: number, // Num. years.
   id?: string, // Jogs identifier for the policy (guid?)
   policyNo?: string, // I would assume this is the insurer's own identifier? I know some will have non-numeric characters
   expiryDate?: number,
@@ -94,23 +115,28 @@ export type Policy = {
   createdDate?: number, // Date added to jog as opposed to insurance start date
   companyId?: string,
   documentPaths?: string[], // Paths on firebase storage.
+  cost?: number,
   uid?: string, // Firebase user id.
   excess?: number,
+  // reselect
+  companyLogo?: string | null,
+  companyName?: string | null
 }
 
-export const LEVEL_OF_COVER = {
-  comprehensive: 'Comprehensive',
-  tpft: 'Third Party, Fire & Theft',
-  thirdParty: 'Third Party Only',
+//
+// Insurers
+//
+
+export type Insurer = {
+  name?: string,
+  logo?: string
 }
 
-// /policies/${policyId}
-export type MotorPolicy = Policy & {
-  type?: 'motor',
-  vehicleRegistration?: string,
-  levelOfCover?: $Keys<typeof LEVEL_OF_COVER>,
-  drivers?: Driver[],
-  noClaimsBonus?: number, // Num. years.
+export type InsurerMap = {[id: string]: Insurer}
+
+export type InsurersReduxState = {
+  initialised: boolean,
+  insurers: InsurerMap
 }
 
 //
@@ -121,6 +147,11 @@ export type MotorPolicy = Policy & {
 export type ReactNavigationProp = {
   navigate: (routeName: string) => void,
   goBack: () => void,
+  state: {
+    params: {
+      [key: string]: any
+    }
+  }
 }
 
 export type Route = {

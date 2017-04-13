@@ -1,18 +1,16 @@
 // @flow
 
 import firebase from 'firebase'
-import type { MotorPolicy } from 'jog/src/types'
-
-type MotorPolicyMap = Map<string, MotorPolicy>
+import type { MotorPolicy, MotorPolicyMap } from 'jog/src/types'
 
 export function syncMotorPolicies(uid: string, cb: (policies: MotorPolicyMap) => void) : () => void {
   const ref = firebase.database().ref('policies').orderByChild('uid').equalTo(uid)
   const listener = (snapshot) => {
     const val = snapshot.val()
     if (val) {
-      cb(new Map(Object.entries(val)))
+      cb(val)
     } else {
-      cb(new Map())
+      cb({})
     }
   }
   ref.on('value', listener)
@@ -22,7 +20,7 @@ export function syncMotorPolicies(uid: string, cb: (policies: MotorPolicyMap) =>
 export async function getMotorPolicies(uid: string) : Promise<MotorPolicyMap> {
   const ref = firebase.database().ref('policies').orderByChild('uid').equalTo(uid)
   const snapshot = await ref.once('value')
-  return new Map(snapshot.val())
+  return snapshot.val()
 }
 
 export function setMotorPolicy(policy: MotorPolicy) : Promise<void> {
@@ -31,9 +29,18 @@ export function setMotorPolicy(policy: MotorPolicy) : Promise<void> {
   throw new TypeError('Policy does not have an id')
 }
 
-export function setPolicies(uid: string, policies: {[id: string] : MotorPolicy}) : Promise<void> {
-  const key = `policies/${uid}`
-  console.debug(`firebase.set[${key}]`, policies)
-  const ref = firebase.database().ref(key)
-  return ref.set(policies)
+export function updatePolicies(policies: {[id: string] : MotorPolicy}) : Promise<void> {
+  const ref = firebase.database().ref('policies')
+  return ref.update(policies)
+}
+
+export async function clearPolicies(uid: string) : Promise<void> {
+  const policiesRef = firebase.database().ref('policies')
+  const ref = policiesRef.orderByChild('uid').equalTo(uid)
+  const snapshot = await ref.once('value')
+  const promises = []
+  snapshot.forEach((childSnapshot) => {
+    promises.push(policiesRef.child(childSnapshot.key).remove())
+  })
+  await Promise.all(promises)
 }

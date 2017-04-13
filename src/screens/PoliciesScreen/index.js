@@ -1,94 +1,39 @@
 /* @flow */
 
 import React, { Component } from 'react'
-import { View, StyleSheet, TouchableOpacity } from 'react-native'
+import { View, StyleSheet, TouchableOpacity, ScrollView } from 'react-native'
 import { connect } from 'react-redux'
-import moment from 'moment'
-import firebase from 'firebase'
+import { NavigationActions } from 'react-navigation'
 
-import type { Dispatch, ReduxState, FirebaseUser, MotorPolicy } from 'jog/src/types'
-
+import type { ReduxState, FirebaseUser, MotorPolicy, MotorPolicyMap, Dispatch } from 'jog/src/types'
 import Text from 'jog/src/components/Text'
-import { CREAM, PINK, BLUE } from 'jog/src/constants/palette'
+import { CREAM, PINK } from 'jog/src/constants/palette'
 import { MARGIN } from 'jog/src/constants/style'
-import { syncMotorPolicies, unsyncMotorPolicies } from 'jog/src/redux/policies/actions'
 import { Background } from 'jog/src/components/images'
+import { clearPolicies } from 'jog/src/data/policies'
+import { selectPolicies } from 'jog/src/store/policies/selectors'
+import { generateMockPolicies } from 'jog/src/mock'
 
-import PoliciesCard from './PoliciesCard'
+import AddPolicyMenu from './AddPolicyMenu'
+import MotorPolicyCard from './MotorPolicyCard'
+import AddMotorPolicyCard from './AddMotorPolicyCard'
 
 type PoliciesProps = {
-  dispatch: Dispatch,
   user: FirebaseUser | null,
+  policies: MotorPolicyMap,
+  dispatch: Dispatch
 };
-
-type PoliciesScreenState = {
-  policies: Map<string, MotorPolicy>,
-}
 
 class Policies extends Component {
   props: PoliciesProps
-  state: PoliciesScreenState
 
-  constructor(props: PoliciesProps) {
-    super(props)
-    this.state = {
-      policies: new Map()
-    }
-  }
-
-  componentDidMount() {
+  clearMockPolicies = () => {
     const user = this.props.user
     if (user) {
-      this.props.dispatch(syncMotorPolicies(user.uid))
-    }
-  }
-
-  componentWillReceiveProps(props: PoliciesProps) {
-    const newUserId = props.user && props.user.uid
-    const priorUserId = this.props.user && this.props.user.uid
-
-    if (newUserId !== priorUserId) {
-      if (priorUserId) {
-        this.props.dispatch(unsyncMotorPolicies())
-      }
-      if (newUserId) {
-        this.props.dispatch(syncMotorPolicies(newUserId))
-      }
-    }
-  }
-
-  componentWillUnmount() {
-    this.props.dispatch(unsyncMotorPolicies())
-  }
-
-  // This would normally be wrapped up in a saga but it will be deleted soon so no point.
-  generateMockPolicies = () => {
-    const user = this.props.user
-    if (user) {
-      this.setState({
-        policies: new Map(Object.entries({
-          awesomepolicy: {
-            vehicleRegistration: 'Chrysler Pacifica',
-            levelOfCover: 'comprehensive',
-            id: 'awesomepolicy',
-            policyNo: '1234567',
-            expiryDate: moment().add({ days: 64 }).toDate().getTime(),
-            startDate: moment().subtract({ days: 100 }).toDate().getTime(),
-            uid: 'cHuC2t8V5DcvLxdNhbCqjYhBA672',
-            jogCreatedDate: firebase.database.ServerValue.TIMESTAMP,
-            companyId: 'admiral',
-            documentPaths: [],
-            excess: 400,
-            type: 'motor',
-            drivers: [
-              {
-                firstNames: 'Richard',
-                lastName: 'Gill'
-              }
-            ],
-            noClaimsBonus: 4,
-          }
-        }))
+      clearPolicies(user.uid).then(() => {
+        console.info('Cleared mock policies')
+      }).catch((err) => {
+        console.error('Error adding mock policies', err.stack)
       })
     }
   }
@@ -96,13 +41,16 @@ class Policies extends Component {
   renderNoPolicies() {
     return (
       <View style={styles.content}>
-        <PoliciesCard
+        <AddPolicyMenu
           onEmailPress={() => {}}
           onPhotographPress={() => {}}
           onManualPress={() => {}}
         />
         <View style={{ width: '100%', justifyContent: 'center', alignItems: 'center', marginTop: MARGIN.large }}>
-          <TouchableOpacity style={styles.mockPoliciesButton} onPress={this.generateMockPolicies}>
+          <TouchableOpacity
+            style={styles.mockPoliciesButton}
+            onPress={() => this.props.user && generateMockPolicies(this.props.user.uid)}
+          >
             <Text>
               Generate Mock Policies
             </Text>
@@ -112,18 +60,55 @@ class Policies extends Component {
     )
   }
 
-  // eslint-disable-next-line class-methods-use-this
   renderPolicies() {
-    // const policies = this.state.policies
+    const policies = this.props.policies
+
     return (
-      <View style={styles.content}>
-        <Text style={{ color: BLUE }}>TODO</Text>
-      </View>
+      <ScrollView style={styles.content}>
+        <View
+          style={{
+            width: '100%',
+            justifyContent: 'center',
+            alignItems: 'center',
+            marginBottom: MARGIN.large
+          }}
+        >
+          <TouchableOpacity style={styles.mockPoliciesButton} onPress={this.clearMockPolicies}>
+            <Text>
+              Clear Mock Policies
+            </Text>
+          </TouchableOpacity>
+        </View>
+        {_.map(_.values(policies), (policy: MotorPolicy, idx: number) => {
+          return (
+            <MotorPolicyCard
+              key={idx}
+              policy={policy}
+              index={idx}
+              onPress={() => {
+                this.props.dispatch(
+                  NavigationActions.navigate({
+                    routeName: 'PolicyDetails',
+                    params: {
+                      policyId: policy.id
+                    },
+                  })
+                )
+              }}
+            />
+          )
+        })}
+        <AddMotorPolicyCard
+          onPress={() => {}}
+        />
+      </ScrollView>
     )
   }
 
   render() {
-    const numPolicies = this.state.policies.size
+    const policies = this.props.policies
+    console.log('policies', policies)
+    const numPolicies = _.keys(policies).length
 
     return (
       <View style={styles.container}>
@@ -183,7 +168,7 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = (state: ReduxState) => ({
   user: state.auth.user,
-  policies: state.policies
+  policies: selectPolicies(state)
 })
 
 export default connect(

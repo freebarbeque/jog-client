@@ -16,8 +16,8 @@ import { BLUE } from 'jog/src/constants/palette'
 import Text from 'jog/src/components/Text'
 import { MARGIN } from 'jog/src/constants/style'
 import RoundedButton from 'jog/src/components/RoundedButton'
-import { emailVerification } from 'jog/src/redux/screens/auth/actions'
-import { pollRefreshUser, stopPollingRefreshUser } from 'jog/src/redux/auth/actions'
+import { emailVerification } from 'jog/src/store/screens/auth/actions'
+import { pollRefreshUser, stopPollingRefreshUser } from 'jog/src/store/auth/actions'
 
 type EmailVerificationScreenProps = {
   dispatch: Dispatch,

@@ -8,6 +8,7 @@ import {
   cancelled,
   cancel,
 } from 'redux-saga/effects'
+
 import { eventChannel } from 'redux-saga'
 
 import { syncMotorPolicies } from 'jog/src/data/policies'
@@ -20,7 +21,6 @@ function policyEventChannel(uid: string) {
     syncMotorPolicies(
       uid,
       (policies) => {
-        console.log('emitter', emitter)
         emitter(policies)
       }
     )
@@ -36,7 +36,6 @@ function* syncMotorPoliciesTask({ uid }) {
     // eslint-disable-next-line no-constant-condition
     while (true) {
       const policies = yield take(channel)
-      console.debug(`syncMotorPolicies{${uid}}:`, policies)
       yield put(receiveMotorPolicies(policies))
     }
   } finally {

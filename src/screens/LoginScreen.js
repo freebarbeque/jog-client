@@ -14,7 +14,7 @@ import type {
   NavReduxState
 } from 'jog/src/types'
 
-import { setValues, setValidationErrors, clear, login } from 'jog/src/redux/screens/auth/actions'
+import { setValues, setValidationErrors, clear, login } from 'jog/src/store/screens/auth/actions'
 import { BLUE } from 'jog/src/constants/palette'
 import { MARGIN } from 'jog/src/constants/style'
 import Text from 'jog/src/components/Text'

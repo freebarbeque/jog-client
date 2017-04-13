@@ -21,7 +21,6 @@ class GetStartedScreen extends Component {
     this.props.dispatch(NavigationActions.navigate({ routeName: 'Policies' }))
   }
 
-
   render() {
     return (
       <View style={styles.container}>
@@ -29,7 +28,10 @@ class GetStartedScreen extends Component {
           <View style={styles.backgroundImageOverlay} />
           <Jumbotron />
         </Background>
-        <TouchableOpacity style={styles.button} onPress={this.handleGetStartedPress}>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={this.handleGetStartedPress}
+        >
           <View>
             <Text>
               Add your motor policy to get started
