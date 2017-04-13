@@ -8,7 +8,7 @@ import Spinner from 'react-native-spinkit'
 
 import type { ReduxState, FirebaseUser, MotorPolicy, MotorPolicyMap, Dispatch } from 'jog/src/types'
 import Text from 'jog/src/components/Text'
-import { CREAM, PINK , BLUE } from 'jog/src/constants/palette'
+import { CREAM, PINK, BLUE } from 'jog/src/constants/palette'
 import { MARGIN } from 'jog/src/constants/style'
 import { Background } from 'jog/src/components/images'
 import { clearPolicies } from 'jog/src/data/policies'
