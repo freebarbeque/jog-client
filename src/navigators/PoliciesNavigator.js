@@ -1,22 +1,23 @@
-
 import { StackNavigator } from 'react-navigation'
 
 import PoliciesScreen from 'jog/src/screens/PoliciesScreen'
 import GetStartedScreen from 'jog/src/screens/GetStartedScreen'
+import PolicyDetailsScreen from 'jog/src/screens/PolicyDetailsScreen'
 
-const policiesNavigator = StackNavigator({
+const PoliciesStackNavigator = StackNavigator({
   Policies: { screen: PoliciesScreen },
-  GetStarted: { screen: GetStartedScreen }
+  GetStarted: { screen: GetStartedScreen },
+  PolicyDetails: { screen: PolicyDetailsScreen },
 }, {
   initialRouteName: 'GetStarted',
   headerMode: 'none',
 })
 
-policiesNavigator.navigationOptions = {
+PoliciesStackNavigator.navigationOptions = {
   cardStack: {
     // Should not be able to pull down to dismiss the auth modal.
     gesturesEnabled: false
   },
 }
 
-export default policiesNavigator
+export default PoliciesStackNavigator

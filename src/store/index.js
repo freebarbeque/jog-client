@@ -16,49 +16,53 @@ import saga from './sagas'
 import { syncPoliciesSaga } from './policies/sagas'
 import { syncInsurersSaga } from './insurers/sagas'
 
+let store = null
+
 export default function createStore(): Store {
-  const sagaMiddleware = createSagaMiddleware()
+  if (!store) {
+    const sagaMiddleware = createSagaMiddleware()
 
-  const middleware = [
-    sagaMiddleware
-  ]
+    const middleware = [
+      sagaMiddleware
+    ]
 
-  if (config.isDebug) {
-    // middleware.push(createLogger())
-    middleware.push(freeze)
-  }
+    if (config.isDebug) {
+      // middleware.push(createLogger())
+      middleware.push(freeze)
+    }
 
-  const enhancer = compose(
-    applyMiddleware(...middleware),
-    devTools({
-      name: Platform.OS,
-      hostname: 'localhost',
-      port: 5678
-    })
-  )
+    const enhancer = compose(
+      applyMiddleware(...middleware),
+      devTools({
+        name: Platform.OS,
+        hostname: 'localhost',
+        port: 5678
+      })
+    )
 
-  const store = _createStore(
-    reducer,
-    undefined,
-    enhancer
-  )
+    store = _createStore(
+      reducer,
+      undefined,
+      enhancer
+    )
 
-  sagaMiddleware.run(authScreenSaga)
-  sagaMiddleware.run(authSaga)
-  sagaMiddleware.run(pollUserSaga)
-  sagaMiddleware.run(userSyncSaga)
-  sagaMiddleware.run(syncPoliciesSaga)
-  sagaMiddleware.run(syncInsurersSaga)
-  sagaMiddleware.run(saga)
+    sagaMiddleware.run(authScreenSaga)
+    sagaMiddleware.run(authSaga)
+    sagaMiddleware.run(pollUserSaga)
+    sagaMiddleware.run(userSyncSaga)
+    sagaMiddleware.run(syncPoliciesSaga)
+    sagaMiddleware.run(syncInsurersSaga)
+    sagaMiddleware.run(saga)
 
-  if (module.hot) {
-    // Enable Webpack hot module replacement for reducers
-    // $FlowFixMe
-    module.hot.accept('./reducer', () => {
-      const nextRootReducer = require('./reducer')
+    if (module.hot) {
+      // Enable Webpack hot module replacement for reducers
       // $FlowFixMe
-      store.replaceReducer(nextRootReducer)
-    })
+      module.hot.accept('./reducer', () => {
+        const nextRootReducer = require('./reducer')
+        // $FlowFixMe
+        store.replaceReducer(nextRootReducer)
+      })
+    }
   }
 
   return store

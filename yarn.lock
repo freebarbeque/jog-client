@@ -2943,14 +2943,6 @@ jest-environment-node@^19.0.2:
     jest-mock "^19.0.0"
     jest-util "^19.0.2"
 
-jest-expo@^0.3.0:
-  version "0.3.0"
-  resolved "https://registry.yarnpkg.com/jest-expo/-/jest-expo-0.3.0.tgz#95a90bfdbde0f5521676814eed111f35100a64f2"
-  dependencies:
-    babel-jest "^19.0.0"
-    jest "^19.0.2"
-    react-test-renderer "~15.4.2"
-
 jest-file-exists@^19.0.0:
   version "19.0.0"
   resolved "https://registry.yarnpkg.com/jest-file-exists/-/jest-file-exists-19.0.0.tgz#cca2e587a11ec92e24cfeab3f8a94d657f3fceb8"
@@ -3001,6 +2993,10 @@ jest-message-util@^19.0.0:
 jest-mock@^19.0.0:
   version "19.0.0"
   resolved "https://registry.yarnpkg.com/jest-mock/-/jest-mock-19.0.0.tgz#67038641e9607ab2ce08ec4a8cb83aabbc899d01"
+
+jest-react-native@^18.0.0:
+  version "18.0.0"
+  resolved "https://registry.yarnpkg.com/jest-react-native/-/jest-react-native-18.0.0.tgz#77dd909f069324599f227c58c61c2e62168726ba"
 
 jest-regex-util@^19.0.0:
   version "19.0.0"
@@ -3073,12 +3069,6 @@ jest-validate@^19.0.2:
     jest-matcher-utils "^19.0.0"
     leven "^2.0.0"
     pretty-format "^19.0.0"
-
-jest@^19.0.2:
-  version "19.0.2"
-  resolved "https://registry.yarnpkg.com/jest/-/jest-19.0.2.tgz#b794faaf8ff461e7388f28beef559a54f20b2c10"
-  dependencies:
-    jest-cli "^19.0.2"
 
 jodid25519@^1.0.0:
   version "1.0.2"
@@ -4196,7 +4186,7 @@ react-style-proptype@^2.0.2:
   version "2.0.2"
   resolved "https://registry.yarnpkg.com/react-style-proptype/-/react-style-proptype-2.0.2.tgz#b4687990ac256deed89ee5777a3c58de5ac7bd15"
 
-react-test-renderer@~15.4.1, react-test-renderer@~15.4.2:
+react-test-renderer@~15.4.1:
   version "15.4.2"
   resolved "https://registry.yarnpkg.com/react-test-renderer/-/react-test-renderer-15.4.2.tgz#27e1dff5d26d0e830f99614c487622bc831416f3"
   dependencies:
