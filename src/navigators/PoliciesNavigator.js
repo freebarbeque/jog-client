@@ -1,15 +1,16 @@
 import { StackNavigator } from 'react-navigation'
 
 import PoliciesScreen from 'jog/src/screens/PoliciesScreen'
-import GetStartedScreen from 'jog/src/screens/GetStartedScreen'
+import AddPolicyScreen from 'jog/src/screens/AddPolicyScreen'
+
 import PolicyDetailsTabNavigator from './PolicyDetailsTabNavigator'
 
 const PoliciesStackNavigator = StackNavigator({
   Policies: { screen: PoliciesScreen },
-  GetStarted: { screen: GetStartedScreen },
   PolicyDetails: { screen: PolicyDetailsTabNavigator },
+  AddPolicy: { screen: AddPolicyScreen }
 }, {
-  initialRouteName: 'GetStarted',
+  initialRouteName: 'Policies',
   headerMode: 'none',
 })
 

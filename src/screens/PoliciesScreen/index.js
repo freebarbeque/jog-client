@@ -4,23 +4,24 @@ import React, { Component } from 'react'
 import { View, StyleSheet, TouchableOpacity, ScrollView } from 'react-native'
 import { connect } from 'react-redux'
 import { NavigationActions } from 'react-navigation'
+import Spinner from 'react-native-spinkit'
 
 import type { ReduxState, FirebaseUser, MotorPolicy, MotorPolicyMap, Dispatch } from 'jog/src/types'
 import Text from 'jog/src/components/Text'
-import { CREAM, PINK } from 'jog/src/constants/palette'
+import { CREAM, PINK , BLUE } from 'jog/src/constants/palette'
 import { MARGIN } from 'jog/src/constants/style'
 import { Background } from 'jog/src/components/images'
 import { clearPolicies } from 'jog/src/data/policies'
 import { selectPolicies } from 'jog/src/store/policies/selectors'
-import { generateMockPolicies } from 'jog/src/mock'
 
-import AddPolicyMenu from './AddPolicyMenu'
 import MotorPolicyCard from './MotorPolicyCard'
 import AddMotorPolicyCard from './AddMotorPolicyCard'
+import GetStartedScreen from '../GetStartedScreen'
 
 type PoliciesProps = {
   user: FirebaseUser | null,
   policies: MotorPolicyMap,
+  initialised: boolean,
   dispatch: Dispatch
 };
 
@@ -40,78 +41,22 @@ class Policies extends Component {
 
   renderNoPolicies() {
     return (
-      <View style={styles.content}>
-        <AddPolicyMenu
-          onEmailPress={() => {}}
-          onPhotographPress={() => {}}
-          onManualPress={() => {}}
-        />
-        <View style={{ width: '100%', justifyContent: 'center', alignItems: 'center', marginTop: MARGIN.large }}>
-          <TouchableOpacity
-            style={styles.mockPoliciesButton}
-            onPress={() => this.props.user && generateMockPolicies(this.props.user.uid)}
-          >
-            <Text>
-              Generate Mock Policies
-            </Text>
-          </TouchableOpacity>
-        </View>
-      </View>
+      <GetStartedScreen
+        onGetStartedPress={() => {
+          this.props.dispatch(NavigationActions.navigate({
+            routeName: 'AddPolicy'
+          }))
+        }}
+      />
     )
   }
 
   renderPolicies() {
     const policies = this.props.policies
-
-    return (
-      <ScrollView style={styles.content}>
-        <View
-          style={{
-            width: '100%',
-            justifyContent: 'center',
-            alignItems: 'center',
-            marginBottom: MARGIN.large
-          }}
-        >
-          <TouchableOpacity style={styles.mockPoliciesButton} onPress={this.clearMockPolicies}>
-            <Text>
-              Clear Mock Policies
-            </Text>
-          </TouchableOpacity>
-        </View>
-        {_.map(_.values(policies), (policy: MotorPolicy, idx: number) => {
-          return (
-            <MotorPolicyCard
-              key={idx}
-              policy={policy}
-              index={idx}
-              onPress={() => {
-                this.props.dispatch(
-                  NavigationActions.navigate({
-                    routeName: 'PolicyDetails',
-                    params: {
-                      policyId: policy.id
-                    },
-                  })
-                )
-              }}
-            />
-          )
-        })}
-        <AddMotorPolicyCard
-          onPress={() => {}}
-        />
-      </ScrollView>
-    )
-  }
-
-  render() {
-    const policies = this.props.policies
-    console.log('policies', policies)
     const numPolicies = _.keys(policies).length
 
     return (
-      <View style={styles.container}>
+      <View style={{ flex: 1 }}>
         <Background style={styles.backgroundImage}>
           <View style={styles.backgroundImageOverlay} />
           <View>
@@ -123,7 +68,73 @@ class Policies extends Component {
             </Text>}
           </View>
         </Background>
-        {numPolicies ? this.renderPolicies() : this.renderNoPolicies()}
+        <ScrollView style={styles.content}>
+          <View
+            style={{
+              width: '100%',
+              justifyContent: 'center',
+              alignItems: 'center',
+              marginBottom: MARGIN.large
+            }}
+          >
+            <TouchableOpacity style={styles.mockPoliciesButton} onPress={this.clearMockPolicies}>
+              <Text>
+              Clear Mock Policies
+            </Text>
+            </TouchableOpacity>
+          </View>
+          {_.map(_.values(policies), (policy: MotorPolicy, idx: number) => {
+            return (
+              <MotorPolicyCard
+                key={idx}
+                policy={policy}
+                index={idx}
+                onPress={() => {
+                  this.props.dispatch(
+                  NavigationActions.navigate({
+                    routeName: 'PolicyDetails',
+                    params: {
+                      policyId: policy.id
+                    },
+                  })
+                )
+                }}
+              />
+            )
+          })}
+          <AddMotorPolicyCard
+            onPress={() => {
+              this.props.dispatch(
+              NavigationActions.navigate({
+                routeName: 'AddPolicy',
+              })
+            )
+            }}
+          />
+        </ScrollView>
+      </View>
+    )
+  }
+
+  render() {
+    const policies = this.props.policies
+    const initialised = this.props.initialised
+    const numPolicies = _.keys(policies).length
+
+    if (initialised) {
+      return (
+        <View style={styles.container}>
+          {numPolicies ? this.renderPolicies() : this.renderNoPolicies()}
+        </View>
+      )
+    }
+
+    return (
+      <View style={[styles.content, { alignItems: 'center', justifyContent: 'center' }]}>
+        <Spinner type="Bounce" color={BLUE} size={60} />
+        <Text style={{ color: BLUE, marginTop: MARGIN.large }}>
+          Loading your policies...
+        </Text>
       </View>
     )
   }
@@ -168,7 +179,8 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = (state: ReduxState) => ({
   user: state.auth.user,
-  policies: selectPolicies(state)
+  policies: selectPolicies(state),
+  initialised: state.policies.initialised
 })
 
 export default connect(
