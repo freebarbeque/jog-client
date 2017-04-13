@@ -34,6 +34,8 @@
 ; Ignore react-native-fbads dependency of the expo sdk
 .*/node_modules/react-native-fbads/*
 
+.*/node_modules/react-navigation/*
+
 [include]
 
 [libs]
@@ -66,4 +68,4 @@ suppress_comment=\\(.\\|\n\\)*\\$FlowExpectedError
 unsafe.enable_getters_and_setters=true
 
 [version]
-^0.38.0
+^0.40.0

@@ -3,15 +3,15 @@
 import React, { Component } from 'react'
 import { View, StyleSheet, TouchableOpacity, ScrollView } from 'react-native'
 import { connect } from 'react-redux'
+import { NavigationActions } from 'react-navigation'
 
-import type { ReduxState, FirebaseUser, MotorPolicy } from 'jog/src/types'
+import type { ReduxState, FirebaseUser, MotorPolicy, MotorPolicyMap, Dispatch } from 'jog/src/types'
 import Text from 'jog/src/components/Text'
 import { CREAM, PINK } from 'jog/src/constants/palette'
 import { MARGIN } from 'jog/src/constants/style'
 import { Background } from 'jog/src/components/images'
 import { clearPolicies } from 'jog/src/data/policies'
 import { selectPolicies } from 'jog/src/store/policies/selectors'
-import type { SelectedMotorPolicyMap } from 'jog/src/store/policies/selectors'
 import { generateMockPolicies } from 'jog/src/mock'
 
 import AddPolicyMenu from './AddPolicyMenu'
@@ -20,7 +20,8 @@ import AddMotorPolicyCard from './AddMotorPolicyCard'
 
 type PoliciesProps = {
   user: FirebaseUser | null,
-  policies: SelectedMotorPolicyMap,
+  policies: MotorPolicyMap,
+  dispatch: Dispatch
 };
 
 class Policies extends Component {
@@ -46,7 +47,10 @@ class Policies extends Component {
           onManualPress={() => {}}
         />
         <View style={{ width: '100%', justifyContent: 'center', alignItems: 'center', marginTop: MARGIN.large }}>
-          <TouchableOpacity style={styles.mockPoliciesButton} onPress={() => this.props.user && generateMockPolicies(this.props.user.uid)}>
+          <TouchableOpacity
+            style={styles.mockPoliciesButton}
+            onPress={() => this.props.user && generateMockPolicies(this.props.user.uid)}
+          >
             <Text>
               Generate Mock Policies
             </Text>
@@ -75,13 +79,22 @@ class Policies extends Component {
             </Text>
           </TouchableOpacity>
         </View>
-        {_.map(_.values(policies), (p: MotorPolicy, idx: number) => {
+        {_.map(_.values(policies), (policy: MotorPolicy, idx: number) => {
           return (
             <MotorPolicyCard
               key={idx}
-              policy={p}
+              policy={policy}
               index={idx}
-              onPress={() => {}}
+              onPress={() => {
+                this.props.dispatch(
+                  NavigationActions.navigate({
+                    routeName: 'PolicyDetails',
+                    params: {
+                      policyId: policy.id
+                    },
+                  })
+                )
+              }}
             />
           )
         })}

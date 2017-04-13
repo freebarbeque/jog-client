@@ -63,6 +63,28 @@ export const Car = (props: LogoProps) => {
   )
 }
 
+export const CarOutline = (props: LogoProps) => {
+  const { style = {}, scale = 1 } = props
+
+  return (
+    <Image
+      style={[{ height: 41 * scale, width: 100 * scale }, style]}
+      source={require('./car-outline.png')}
+    />
+  )
+}
+
+export const Chevron = (props: LogoProps) => {
+  const { style = {}, scale = 1 } = props
+
+  return (
+    <Image
+      style={[{ height: 10 * scale, width: 12 * scale }, style]}
+      source={require('./chevron.png')}
+    />
+  )
+}
+
 export const Ellipses = (props: LogoProps) => {
   const { style = {}, scale = 1 } = props
 

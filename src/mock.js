@@ -21,10 +21,11 @@ export function generateMockPolicies(uid: string) {
     companyId: 'admiral',
     documentPaths: [],
     excess: 400,
+    cost: 1000,
     type: 'motor',
     drivers: [
       {
-        firstNames: 'Richard',
+        firstName: 'Richard',
         lastName: 'Gill'
       }
     ],
@@ -43,10 +44,11 @@ export function generateMockPolicies(uid: string) {
     companyId: 'hastings',
     documentPaths: [],
     excess: 500,
+    cost: 800,
     type: 'motor',
     drivers: [
       {
-        firstNames: 'Richard',
+        firstName: 'Richard',
         lastName: 'Gill'
       }
     ],

@@ -4,12 +4,12 @@ import { View, StyleSheet } from 'react-native'
 
 import { Car, Plus } from 'jog/src/components/images/index'
 import FirebaseImage from 'jog/src/components/FirebaseImage'
-import type { SelectedMotorPolicy } from 'jog/src/store/policies/selectors'
+import type { MotorPolicy } from 'jog/src/types'
 
 import PolicyCard from './PolicyCard'
 
 export type MotorPolicyCardProps = {
-  policy: SelectedMotorPolicy,
+  policy: MotorPolicy,
   onPress: () => void,
   index: number,
 }

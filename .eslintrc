@@ -20,6 +20,7 @@
     "react/prefer-stateless-function": "off",
     "react/jsx-filename-extension": "off",
     "react/require-default-props": "off",
+    "react/prop-types": "off",
     "react/sort-comp": [
       2,
       {
