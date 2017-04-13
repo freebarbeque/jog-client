@@ -101,7 +101,7 @@ export const Plus = (props: LogoProps) => {
 
   return (
     <Image
-      style={[{ height: 29 * scale, width: 30 * scale }, style]}
+      style={[{ height: 31 * scale, width: 31 * scale }, style]}
       source={require('./plus.png')}
     />
   )
