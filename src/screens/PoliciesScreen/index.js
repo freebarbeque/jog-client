@@ -3,17 +3,16 @@
 import React, { Component } from 'react'
 import { View, StyleSheet, TouchableOpacity, ScrollView } from 'react-native'
 import { connect } from 'react-redux'
-import moment from 'moment'
-import firebase from 'firebase'
+import { NavigationActions } from 'react-navigation'
 
-import type { ReduxState, FirebaseUser, MotorPolicy, PoliciesState, MotorPolicyMap } from 'jog/src/types'
-
+import type { ReduxState, FirebaseUser, MotorPolicy, MotorPolicyMap, Dispatch } from 'jog/src/types'
 import Text from 'jog/src/components/Text'
 import { CREAM, PINK } from 'jog/src/constants/palette'
 import { MARGIN } from 'jog/src/constants/style'
 import { Background } from 'jog/src/components/images'
-import { updatePolicies, clearPolicies } from 'jog/src/data/policies'
-import uuid from 'uuid/v4'
+import { clearPolicies } from 'jog/src/data/policies'
+import { selectPolicies } from 'jog/src/store/policies/selectors'
+import { generateMockPolicies } from 'jog/src/mock'
 
 import AddPolicyMenu from './AddPolicyMenu'
 import MotorPolicyCard from './MotorPolicyCard'
@@ -21,68 +20,12 @@ import AddMotorPolicyCard from './AddMotorPolicyCard'
 
 type PoliciesProps = {
   user: FirebaseUser | null,
-  policies: PoliciesState,
+  policies: MotorPolicyMap,
+  dispatch: Dispatch
 };
 
 class Policies extends Component {
   props: PoliciesProps
-
-  // This would normally be wrapped up in a saga but it will be deleted soon so no point.
-  generateMockPolicies = () => {
-    const user = this.props.user
-    if (user) {
-      const policies: MotorPolicyMap = {}
-      let guid = uuid()
-      policies[guid] = {
-        vehicleRegistration: 'Chrysler Pacifica',
-        levelOfCover: 'comprehensive',
-        id: guid,
-        policyNo: '1234567',
-        expiryDate: moment().add({ days: 64 }).toDate().getTime(),
-        startDate: moment().subtract({ days: 100 }).toDate().getTime(),
-        uid: user.uid,
-        jogCreatedDate: firebase.database.ServerValue.TIMESTAMP,
-        companyId: 'admiral',
-        documentPaths: [],
-        excess: 400,
-        type: 'motor',
-        drivers: [
-          {
-            firstNames: 'Richard',
-            lastName: 'Gill'
-          }
-        ],
-        noClaimsBonus: 4,
-      }
-      guid = uuid()
-      policies[guid] = {
-        vehicleRegistration: 'Ford Focus',
-        levelOfCover: 'comprehensive',
-        id: guid,
-        policyNo: '1234568',
-        expiryDate: moment().add({ days: 64 }).toDate().getTime(),
-        startDate: moment().subtract({ days: 100 }).toDate().getTime(),
-        uid: user.uid,
-        jogCreatedDate: firebase.database.ServerValue.TIMESTAMP,
-        companyId: 'hastings',
-        documentPaths: [],
-        excess: 500,
-        type: 'motor',
-        drivers: [
-          {
-            firstNames: 'Richard',
-            lastName: 'Gill'
-          }
-        ],
-        noClaimsBonus: 4,
-      }
-      updatePolicies(policies).then(() => {
-        console.info('Added mock policies')
-      }).catch((err) => {
-        console.error('Error adding mock policies', err.stack)
-      })
-    }
-  }
 
   clearMockPolicies = () => {
     const user = this.props.user
@@ -104,7 +47,10 @@ class Policies extends Component {
           onManualPress={() => {}}
         />
         <View style={{ width: '100%', justifyContent: 'center', alignItems: 'center', marginTop: MARGIN.large }}>
-          <TouchableOpacity style={styles.mockPoliciesButton} onPress={this.generateMockPolicies}>
+          <TouchableOpacity
+            style={styles.mockPoliciesButton}
+            onPress={() => this.props.user && generateMockPolicies(this.props.user.uid)}
+          >
             <Text>
               Generate Mock Policies
             </Text>
@@ -133,13 +79,22 @@ class Policies extends Component {
             </Text>
           </TouchableOpacity>
         </View>
-        {_.map(_.values(policies), (p: MotorPolicy, idx: number) => {
+        {_.map(_.values(policies), (policy: MotorPolicy, idx: number) => {
           return (
             <MotorPolicyCard
               key={idx}
-              policy={p}
+              policy={policy}
               index={idx}
-              onPress={() => {}}
+              onPress={() => {
+                this.props.dispatch(
+                  NavigationActions.navigate({
+                    routeName: 'PolicyDetails',
+                    params: {
+                      policyId: policy.id
+                    },
+                  })
+                )
+              }}
             />
           )
         })}
@@ -213,7 +168,7 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = (state: ReduxState) => ({
   user: state.auth.user,
-  policies: state.policies.policies
+  policies: selectPolicies(state)
 })
 
 export default connect(
