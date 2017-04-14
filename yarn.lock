@@ -4027,6 +4027,10 @@ react-native-keyboard-aware-scroll-view@^0.2.8:
   dependencies:
     react-timer-mixin "^0.13.3"
 
+react-native-spinkit@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/react-native-spinkit/-/react-native-spinkit-1.0.2.tgz#0d31b019556e038aa8e953038562550cb0ead8d2"
+
 react-native-svg-uri@^1.2.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/react-native-svg-uri/-/react-native-svg-uri-1.2.0.tgz#2e03023a35b044b9a65c9ddb843d5a3b2f23cb70"

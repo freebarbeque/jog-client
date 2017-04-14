@@ -1,7 +1,8 @@
 // @flow
 import 'jog/globals'
 import React, { Component } from 'react'
-import { View, StatusBar, StyleSheet } from 'react-native'
+import { View, StatusBar, StyleSheet, BackAndroid } from 'react-native'
+import { NavigationActions } from 'react-navigation'
 
 import { Provider } from 'react-redux'
 import createStore from './src/store/index'
@@ -17,6 +18,11 @@ const store = createStore()
 export default class JogApp extends Component {
   componentDidMount() {
     store.dispatch(syncData())
+
+    BackAndroid.addEventListener('hardwareBackPress', () => {
+      store.dispatch(NavigationActions.back())
+      return true
+    })
   }
 
   render() {

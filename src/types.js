@@ -156,7 +156,9 @@ export type ReactNavigationProp = {
 
 export type Route = {
   key: string,
-  routeName: string
+  index: number,
+  routeName: string,
+  routes: Route[]
 }
 
 // nav

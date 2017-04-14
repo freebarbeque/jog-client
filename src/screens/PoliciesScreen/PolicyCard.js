@@ -81,6 +81,7 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.4,
     shadowRadius: 3,
+    elevation: 4,
     marginBottom: MARGIN.large
   },
   companyLogo: {
@@ -88,12 +89,14 @@ const styles = StyleSheet.create({
     width: 80,
     borderRadius: 40,
     shadowColor: DARK_GRAY,
+    backgroundColor: WHITE,
     shadowOffset: {
       width: 0,
       height: 0
     },
     shadowOpacity: 0.4,
     shadowRadius: 3,
+    elevation: 4,
     justifyContent: 'center',
     alignItems: 'center',
     position: 'relative',
