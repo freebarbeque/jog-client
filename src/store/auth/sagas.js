@@ -93,6 +93,10 @@ function* logout() {
     yield call(signOut)
     yield put(unsyncUserData(user.uid))
     yield put(setLoading(false))
+  } else {
+    console.warn(
+      'Attempted to logout when no user was logged in. This indicates that the user was able to access the Sign Out button without being logged in.'
+    )
   }
   yield put(NavigationActions.navigate({ routeName: 'Auth' }))
 }

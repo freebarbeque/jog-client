@@ -44,7 +44,9 @@ class PolicyDetailsScreen extends Component {
   props: PolicyDetailsScreenProps
 
   render() {
-    const policyId = this.props.navigation.state.params.policyId
+    const navigationState = this.props.navigation.state
+    console.log('navigationState', navigationState)
+    const policyId = navigationState.params.policyId
 
     let policy: MotorPolicy
 

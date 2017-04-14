@@ -120,7 +120,8 @@ export type MotorPolicy = {
   excess?: number,
   // reselect
   companyLogo?: string | null,
-  companyName?: string | null
+  companyName?: string | null,
+  name?: string,
 }
 
 //
@@ -150,8 +151,10 @@ export type ReactNavigationProp = {
   state: {
     params: {
       [key: string]: any
-    }
-  }
+    },
+    key: string, // Unique key for the route
+    type: string
+  },
 }
 
 export type Route = {

@@ -10,9 +10,9 @@ import type { ReduxState, FirebaseUser, MotorPolicy, MotorPolicyMap, Dispatch } 
 import Text from 'jog/src/components/Text'
 import { CREAM, PINK, BLUE } from 'jog/src/constants/palette'
 import { MARGIN } from 'jog/src/constants/style'
-import { Background } from 'jog/src/components/images'
 import { clearPolicies } from 'jog/src/data/policies'
 import { selectPolicies } from 'jog/src/store/policies/selectors'
+import BackgroundHeader from 'jog/src/components/BackgroundHeader'
 
 import MotorPolicyCard from './MotorPolicyCard'
 import AddMotorPolicyCard from './AddMotorPolicyCard'
@@ -57,17 +57,10 @@ class Policies extends Component {
 
     return (
       <View style={{ flex: 1 }}>
-        <Background style={styles.backgroundImage}>
-          <View style={styles.backgroundImageOverlay} />
-          <View>
-            <Text style={styles.header}>
-              {numPolicies ? 'Dashboard' : 'Motor Policies'}
-            </Text>
-            {!numPolicies && <Text>
-              {"Let's get started"}
-            </Text>}
-          </View>
-        </Background>
+        <BackgroundHeader
+          headerText={numPolicies ? 'Dashboard' : 'Motor Policies'}
+          subheaderText={numPolicies ? "Let's get started" : null}
+        />
         <ScrollView style={styles.content}>
           <View
             style={{
@@ -94,7 +87,8 @@ class Policies extends Component {
                   NavigationActions.navigate({
                     routeName: 'PolicyDetails',
                     params: {
-                      policyId: policy.id
+                      policyId: policy.id,
+                      policyIndex: idx + 1,
                     },
                   })
                 )
@@ -144,30 +138,12 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
-  backgroundImage: {
-    height: 100,
-    resizeMode: 'cover',
-    width: null,
-    justifyContent: 'center',
-    padding: MARGIN.large
-  },
-  backgroundImageOverlay: {
-    width: '100%',
-    height: 100,
-    backgroundColor: 'rgba(0,0,0,0.25)',
-    position: 'absolute',
-    top: 0,
-    left: 0
-  },
   content: {
     flex: 1,
     backgroundColor: CREAM,
     padding: MARGIN.large
   },
 
-  header: {
-    fontSize: 20,
-  },
   mockPoliciesButton: {
     backgroundColor: PINK,
     height: 40,

@@ -30,6 +30,7 @@ export function generateMockPolicies(uid: string) {
       }
     ],
     noClaimsBonus: 4,
+    name: 'Admiral Multisaver'
   }
   guid = uuid()
   policies[guid] = {
@@ -53,6 +54,7 @@ export function generateMockPolicies(uid: string) {
       }
     ],
     noClaimsBonus: 4,
+    name: 'Hastings Multisaver'
   }
 
   return updatePolicies(policies).then(() => {
