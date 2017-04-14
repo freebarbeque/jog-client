@@ -2,24 +2,17 @@
 
 import React, { Component } from 'react'
 import { View, StyleSheet, TouchableOpacity } from 'react-native'
-import { connect } from 'react-redux'
-import { NavigationActions } from 'react-navigation'
-import type { Dispatch, ReduxState } from 'jog/src/types'
 import Text from 'jog/src/components/Text'
 import Jumbotron from 'jog/src/components/Jumbotron'
 import { PINK } from 'jog/src/constants/palette'
 import { Background } from 'jog/src/components/images/index'
 
 type GetStartedScreenProps = {
-  dispatch: Dispatch,
+  onGetStartedPress: () => void
 };
 
-class GetStartedScreen extends Component {
+export default class GetStartedScreen extends Component {
   props: GetStartedScreenProps
-
-  handleGetStartedPress = () => {
-    this.props.dispatch(NavigationActions.navigate({ routeName: 'Policies' }))
-  }
 
   render() {
     return (
@@ -30,7 +23,7 @@ class GetStartedScreen extends Component {
         </Background>
         <TouchableOpacity
           style={styles.button}
-          onPress={this.handleGetStartedPress}
+          onPress={this.props.onGetStartedPress}
         >
           <View>
             <Text>
@@ -71,10 +64,3 @@ const styles = StyleSheet.create({
   }
 })
 
-const mapStateToProps = (state: ReduxState) => ({
-  ...state,
-})
-
-export default connect(
-  mapStateToProps,
-)(GetStartedScreen)
