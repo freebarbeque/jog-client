@@ -135,6 +135,9 @@ android {
 }
 
 dependencies {
+    compile project(':react-native-filesystem')
+    compile project(':react-native-device-info')
+    compile project(':react-native-fetch-blob')
     compile project(':react-native-image-picker')
     compile project(':react-native-spinkit')
     compile project(':react-native-config')
