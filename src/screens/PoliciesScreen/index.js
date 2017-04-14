@@ -151,11 +151,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     padding: MARGIN.large
   },
-  content: {
-    flex: 1,
-    backgroundColor: CREAM,
-    padding: MARGIN.large
-  },
   backgroundImageOverlay: {
     width: '100%',
     height: 100,
@@ -164,6 +159,12 @@ const styles = StyleSheet.create({
     top: 0,
     left: 0
   },
+  content: {
+    flex: 1,
+    backgroundColor: CREAM,
+    padding: MARGIN.large
+  },
+
   header: {
     fontSize: 20,
   },

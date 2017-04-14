@@ -88,10 +88,12 @@ function* syncUserTask() {
 
 function* logout() {
   const user = firebase.auth().currentUser
-  yield put(setLoading(true))
-  yield call(signOut)
-  yield put(unsyncUserData(user.uid))
-  yield put(setLoading(false))
+  if (user) {
+    yield put(setLoading(true))
+    yield call(signOut)
+    yield put(unsyncUserData(user.uid))
+    yield put(setLoading(false))
+  }
   yield put(NavigationActions.navigate({ routeName: 'Auth' }))
 }
 
