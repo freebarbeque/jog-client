@@ -1,47 +1,60 @@
 // @flow
 import React from 'react'
-import { TabNavigator } from 'react-navigation'
-import { StyleSheet, View } from 'react-native'
+import { TabNavigator, NavigationActions } from 'react-navigation'
+import { StyleSheet, TouchableOpacity, View } from 'react-native'
 import { connect } from 'react-redux'
 
 import PolicyDetailsScreen from 'jog/src/screens/PolicyDetailsScreen'
 import PolicyDocumentsScreen from 'jog/src/screens/PolicyDocumentsScreen'
+
 import { BLUE, PINK, WHITE } from '../constants/palette'
-import { MARGIN } from '../constants/style'
-import type { Dispatch, MotorPolicy, ReactNavigationProp, ReduxState } from '../types'
+import type { Dispatch, MotorPolicy, ReactNavigationProp, ReduxState, Route } from '../types'
 import { selectPolicies } from '../store/policies/selectors'
 import BackgroundHeader from '../components/BackgroundHeader'
+import Text from '../components/Text'
+
+const ACTIVE_TAB_BORDER_WIDTH = 5
 
 const styles = StyleSheet.create({
+  nativeTabBar: {
+    // Hack the native tab bar away
+    // The other option is to add navigationOptions to every screen with tabBarVisible: false
+    height: 0,
+  },
+  tab: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: WHITE,
+  },
+  activeTab: {
+    borderBottomColor: PINK,
+    borderBottomWidth: ACTIVE_TAB_BORDER_WIDTH
+  },
   tabBar: {
     backgroundColor: WHITE,
     height: 53,
+    flexDirection: 'row'
   },
-  tabBarLabel: {
-    fontSize: 13,
-    fontWeight: '500',
-    fontFamily: 'WorkSans-Bold',
+  tabText: {
+    fontSize: 14,
+    fontWeight: '400',
+    color: 'rgb(126,130,142)'
   },
-  tab: {
+  activeTabText: {
+    fontWeight: '600',
+    color: BLUE,
+    // The border pushes the text up, so we counter-act this with a margin
+    marginTop: ACTIVE_TAB_BORDER_WIDTH
   },
-  backgroundImage: {
-    height: 100,
-    resizeMode: 'cover',
-    width: null,
-    justifyContent: 'center',
-    padding: MARGIN.large
-  },
-  backgroundImageOverlay: {
-    width: '100%',
-    height: 100,
-    backgroundColor: 'rgba(0,0,0,0.25)',
+  tabDivider: {
+    height: 30,
+    width: 1,
+    backgroundColor: 'rgb(204, 207, 211)',
     position: 'absolute',
-    top: 0,
-    left: 0
-  },
-  header: {
-    fontSize: 20,
-  },
+    left: 0,
+    top: 12,
+  }
 })
 
 const PolicyDetailsTabNavigator = TabNavigator(
@@ -57,7 +70,7 @@ const PolicyDetailsTabNavigator = TabNavigator(
     upperCaseLabel: false,
 
     tabBarOptions: {
-      style: styles.tabBar,
+      style: styles.nativeTabBar,
       labelStyle: styles.tabBarLabel,
       showIcon: false,
       activeTintColor: BLUE,
@@ -74,11 +87,6 @@ const PolicyDetailsTabNavigator = TabNavigator(
 
 )
 
-type PolicyDetailsNavigatorProps = {
-  dispatch: Dispatch,
-  navigation: ReactNavigationProp,
-}
-
 const PolicyDetailsNavigatorHeader = connect(
   (state: ReduxState) => ({ policies: selectPolicies(state) })
 )(
@@ -94,9 +102,14 @@ const PolicyDetailsNavigatorHeader = connect(
   }
 )
 
+type PolicyDetailsNavigatorProps = {
+  dispatch: Dispatch,
+  navigation: ReactNavigationProp,
+}
+
 // Subclassed to allow addition of custom header. The reason for this is that react-navigation
 // ignores the header property within navigationOptions on nested tab navigators.
-export class PolicyDetailsNavigator extends PolicyDetailsTabNavigator {
+class PolicyDetailsNavigator extends PolicyDetailsTabNavigator {
   props: PolicyDetailsNavigatorProps
 
   getPolicyId() : string {
@@ -119,6 +132,32 @@ export class PolicyDetailsNavigator extends PolicyDetailsTabNavigator {
     return policyIndex
   }
 
+  renderCustomTabs() {
+    // Here we are rendering the tabs using React Native as opposed to using native tabs which lack
+    // the customisation neccessary to match the designs across both android & iOS
+    const navigation = this.props.navigation
+    const routes = navigation.state.routes
+
+    return routes.map((r: Route, idx: number) => {
+      const routeName = r.routeName
+      const isActive = navigation.state.index === idx
+      return (
+        <TouchableOpacity
+          key={r.key}
+          style={[styles.tab, isActive ? styles.activeTab : {}]}
+          onPress={() => navigation.dispatch(NavigationActions.navigate({ routeName }))}
+        >
+          <Text
+            style={[styles.tabText, isActive ? styles.activeTabText : {}]}
+          >
+            {routeName}
+          </Text>
+          {idx ? <View style={styles.tabDivider} /> : null}
+        </TouchableOpacity>
+      )
+    })
+  }
+
   render() {
     return (
       <View style={{ flex: 1 }}>
@@ -126,6 +165,9 @@ export class PolicyDetailsNavigator extends PolicyDetailsTabNavigator {
           policyId={this.getPolicyId()}
           policyIndex={this.getPolicyIndex()}
         />
+        <View style={styles.tabBar}>
+          {this.renderCustomTabs()}
+        </View>
         {super.render()}
       </View>
     )

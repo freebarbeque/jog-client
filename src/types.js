@@ -147,13 +147,16 @@ export type InsurersReduxState = {
 // navigation
 export type ReactNavigationProp = {
   navigate: (routeName: string) => void,
+  dispatch: Dispatch,
   goBack: () => void,
   state: {
+    index: number,
     params: {
       [key: string]: any
     },
     key: string, // Unique key for the route
-    type: string
+    type: string,
+    routes: Route[]
   },
 }
 
