@@ -1,90 +1,51 @@
 /* @flow */
 
 import React, { Component } from 'react'
-import { View, StyleSheet, TouchableOpacity, Platform, NativeModules } from 'react-native'
+import { View, StyleSheet, TouchableOpacity } from 'react-native'
 import { connect } from 'react-redux'
-import DeviceInfo from 'react-native-device-info'
-import ImagePicker from 'react-native-image-picker'
-import RNFetchBlob from 'react-native-fetch-blob'
-import firebase from 'firebase'
 
-import type { ReduxState, FirebaseUser, ReactNavigationProp } from 'jog/src/types'
+import type { ReduxState, ReactNavigationProp, Dispatch } from 'jog/src/types'
 import Text from 'jog/src/components/Text'
 import { BLUE, CREAM } from 'jog/src/constants/palette'
 import { MARGIN } from 'jog/src/constants/style'
 import Panel from 'jog/src/components/Panel'
+import { uploadPolicyDocument } from 'jog/src/store/policies/actions'
+import { pickFile, useCamera } from '../../util/files'
 
-const DocumentPicker = NativeModules.RNDocumentPicker
 
 type PolicyDocumentsScreenProps = {
-  // dispatch: Dispatch,
-  user: FirebaseUser | null,
+  dispatch: Dispatch,
+  // Eslint barfs here for some reason... navigation is def being used.
+  // eslint-disable-next-line react/no-unused-prop-types
   navigation: ReactNavigationProp
 };
 
 class PolicyDocumentsScreen extends Component {
   props: PolicyDocumentsScreenProps
 
-  handleBrowseFilesPress = () => {
-    const user = this.props.user
-    if (user) {
-      const policyId = this.props.navigation.state.params.policyId
+  uploadFile = async (fn: () => Promise<string>) => {
+    const policyId = this.props.navigation.state.params.policyId
 
-      if (policyId) {
-        if (Platform.OS === 'ios') {
-          DocumentPicker.show({
-            filetype: [
-              'com.adobe.pdf',
-            ],
-          }, (error, url) => {
-            if (!error) {
-              // RNFetchBlob doesn't like the file:/// protocol.
-              const split = url.split('file:///')
-              const filePath = split[1]
-              const fileName = filePath.split('/').pop()
-
-              RNFetchBlob.fs.readFile(filePath, 'base64').then((data) => {
-                const storagePath = `/policyDocuments/${user.uid}/${policyId}/${fileName}`
-                console.debug(`Storing file at "${storagePath}"`)
-                const ref = firebase.storage().ref(storagePath)
-                ref.putString(data, 'base64').then(() => {
-                  console.log('Upload success')
-                }).catch((err) => {
-                  console.error('Upload failure', err)
-                })
-              }).catch((err) => {
-                // TODO: Handle errors
-                console.error(err)
-              })
-            } else {
-              // TODO: Handle errors
-            }
-          })
-        } else {
-          throw new Error('NYI: Android file picker')
-        }
-      } else {
-        throw new Error('policyId is not present in the navigation params, therefore cannot upload the policy document')
-      }
+    if (policyId) {
+      const uri = await fn()
+      this.props.dispatch(uploadPolicyDocument(uri, policyId))
     } else {
-      throw new Error('Should not be able to upload without a user being logged in...')
+      throw new Error('policyId is not present in the navigation params, therefore cannot upload the policy document')
     }
   }
 
-  handleUseCameraPress = () => { // TODO
-    const isSimulator = DeviceInfo.getModel() === 'Simulator'
-    // The simulator has no camera access
-    if (isSimulator) {
-      // eslint-disable-next-line no-unused-vars
-      ImagePicker.launchImageLibrary({}, (response) => {
+  handleBrowseFilesPress = () => {
+    this.uploadFile(pickFile).catch((err) => {
+      // TODO: Display error to user
+      console.error(err)
+    })
+  }
 
-      })
-    } else {
-      // eslint-disable-next-line no-unused-vars
-      ImagePicker.launchCamera({}, (response) => {
-
-      })
-    }
+  handleUseCameraPress = () => {
+    this.uploadFile(useCamera).catch((err) => {
+      // TODO: Display error to user
+      console.error(err)
+    })
   }
 
   render() {
