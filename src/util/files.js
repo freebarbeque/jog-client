@@ -6,14 +6,14 @@ import ImagePicker from 'react-native-image-picker'
 
 const DocumentPicker = NativeModules.RNDocumentPicker
 
-export function pickFile() : Promise<string> {
+export function pickFile(
+  fileTypes: string[] = ['public.image', 'com.adobe.pdf']
+) : Promise<string> {
   // TODO: Android support
   return new Promise((resolve, reject) => {
     if (Platform.OS === 'ios') {
       DocumentPicker.show({
-        filetype: [
-          'com.adobe.pdf',
-        ],
+        filetype: fileTypes,
       }, (error, url) => {
         if (error) reject(error)
         else resolve(url)

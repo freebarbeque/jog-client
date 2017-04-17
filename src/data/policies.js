@@ -44,3 +44,4 @@ export async function clearPolicies(uid: string) : Promise<void> {
   })
   await Promise.all(promises)
 }
+
