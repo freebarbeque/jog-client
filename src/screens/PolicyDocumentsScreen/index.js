@@ -1,23 +1,25 @@
 /* @flow */
 
 import React, { Component } from 'react'
-import { View, StyleSheet, TouchableOpacity } from 'react-native'
+import { ScrollView, View, StyleSheet, TouchableOpacity } from 'react-native'
 import { connect } from 'react-redux'
 
-import type { ReduxState, ReactNavigationProp, Dispatch } from 'jog/src/types'
+import type { ReduxState, ReactNavigationProp, Dispatch, MotorPolicyMap, PolicyDocument } from 'jog/src/types'
 import Text from 'jog/src/components/Text'
 import { BLUE, CREAM } from 'jog/src/constants/palette'
 import { MARGIN } from 'jog/src/constants/style'
 import Panel from 'jog/src/components/Panel'
 import { uploadPolicyDocument } from 'jog/src/store/policies/actions'
-import { pickFile, useCamera } from '../../util/files'
-
+import { pickFile, useCamera } from 'jog/src/util/files'
+import { selectPolicies } from 'jog/src/store/policies/selectors'
+import PolicyDocumentThumbnail from 'jog/src/components/PolicyDocumentThumbnail'
 
 type PolicyDocumentsScreenProps = {
   dispatch: Dispatch,
   // Eslint barfs here for some reason... navigation is def being used.
   // eslint-disable-next-line react/no-unused-prop-types
-  navigation: ReactNavigationProp
+  navigation: ReactNavigationProp,
+  policies: MotorPolicyMap,
 };
 
 class PolicyDocumentsScreen extends Component {
@@ -49,8 +51,22 @@ class PolicyDocumentsScreen extends Component {
   }
 
   render() {
+    const policyId = this.props.navigation.state.params.policyId
+    const policy = this.props.policies[policyId]
+    const documents = _.values(policy.documents)
+
     return (
-      <View style={styles.container}>
+      <ScrollView style={styles.container}>
+        <Panel style={styles.panel}>
+          <Text style={styles.header}>Scanned documents</Text>
+          <View style={{ flexDirection: 'row', flexWrap: 'wrap' }}>
+            {documents.map((d: PolicyDocument) => {
+              return (
+                <PolicyDocumentThumbnail document={d} style={{ width: '50%', marginBottom: MARGIN.large }} />
+              )
+            })}
+          </View>
+        </Panel>
         <Panel style={styles.panel}>
           <Text style={styles.header}>Upload documents</Text>
           <TouchableOpacity
@@ -72,7 +88,7 @@ class PolicyDocumentsScreen extends Component {
             </View>
           </TouchableOpacity>
         </Panel>
-      </View>
+      </ScrollView>
     )
   }
 }
@@ -118,7 +134,7 @@ const styles = StyleSheet.create({
 })
 
 const mapStateToProps = (state: ReduxState) => ({
-  user: state.auth.user,
+  policies: selectPolicies(state),
 })
 
 export default connect(

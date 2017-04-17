@@ -12,9 +12,11 @@ import {
 import { eventChannel } from 'redux-saga'
 import RNFetchBlob from 'react-native-fetch-blob'
 import firebase from 'firebase'
+import uuid from 'uuid/v4'
 
-import { syncMotorPolicies } from 'jog/src/data/policies'
+import { syncMotorPolicies, addPolicyDocument } from 'jog/src/data/policies'
 import { demandCurrentUser } from 'jog/src/data/auth'
+import { getFileMetadataFromURI } from 'jog/src/util/files'
 
 import { receiveMotorPolicies } from './actions'
 import type { SyncMotorPoliciesAction } from './actionTypes'
@@ -72,20 +74,32 @@ export function* syncPoliciesSaga<T>() : Iterable<T> {
 // Policy operations
 //
 
-function* uploadPolicyDocument({ fileUrl, policyId }) {
-  const split = fileUrl.split('file:///')
-  const path = split[1]
-  const fileName = path.split('/').pop()
-  const user = demandCurrentUser()
+function* uploadPolicyDocumentTask({ fileUrl, policyId }) {
+  const imageMetaData = getFileMetadataFromURI(fileUrl)
 
-  const data = yield call(RNFetchBlob.fs.readFile, path, 'base64')
-  const storagePath = `/policyDocuments/${user.uid}/${policyId}/${fileName}`
-  console.debug(`Storing file at "${storagePath}"`)
-  const ref = firebase.storage().ref(storagePath)
-  yield call(ref.putString.bind(ref), data, 'base64')
+  const user = demandCurrentUser()
+  const imageData = yield call(RNFetchBlob.fs.readFile, imageMetaData.path, 'base64')
+  const id = uuid()
+  const fileStoragePath = `/policyDocuments/${user.uid}/${policyId}/${id}.${imageMetaData.extension}`
+
+  const imageRef = firebase.storage().ref(fileStoragePath)
+  try {
+    yield call(imageRef.putString.bind(imageRef), imageData, 'base64')
+  } catch (e) { // TODO: Dispatch error for display to user
+    console.error('Error uploading image', e)
+    return
+  }
+  // Firebase storage does not have an API for listing files in folders and therefore we
+  // must store file data within the database.
+  yield call(addPolicyDocument, policyId, {
+    image: fileStoragePath,
+    name: imageMetaData.fileName,
+    extension: imageMetaData.extension,
+    id
+  })
 }
 
 export function* policyOperationsSaga<T>(): Iterable<T> {
-  yield takeLatest('policies/UPLOAD_POLICY_DOCUMENT', uploadPolicyDocument)
+  yield takeLatest('policies/UPLOAD_POLICY_DOCUMENT', uploadPolicyDocumentTask)
 }
 

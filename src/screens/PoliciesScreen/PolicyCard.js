@@ -88,8 +88,8 @@ const styles = StyleSheet.create({
     height: 80,
     width: 80,
     borderRadius: 40,
-    shadowColor: DARK_GRAY,
     backgroundColor: WHITE,
+    shadowColor: DARK_GRAY,
     shadowOffset: {
       width: 0,
       height: 0
