@@ -7,22 +7,27 @@ import { Platform, NativeModules } from 'react-native'
 import DeviceInfo from 'react-native-device-info'
 import ImagePicker from 'react-native-image-picker'
 
-const DocumentPicker = NativeModules.RNDocumentPicker
+const iOSFilePicker = NativeModules.RNDocumentPicker
+const androidFilePicker = NativeModules.FilePickerManager
 
-export function pickFile(
-  fileTypes: string[] = ['public.image', 'com.adobe.pdf']
-) : Promise<string> {
+export function pickFile() : Promise<string> {
   // TODO: Android support
   return new Promise((resolve, reject) => {
     if (Platform.OS === 'ios') {
-      DocumentPicker.show({
-        filetype: fileTypes,
+      iOSFilePicker.show({
+        filetype: ['public.image', 'com.adobe.pdf'],
       }, (error, url) => {
         if (error) reject(error)
         else resolve(url)
       })
     } else {
-      reject(new Error(`${Platform.OS} not yet supported`))
+      androidFilePicker.showFilePicker(null, (response) => {
+        if (response.error) {
+          reject(response.error)
+        } else {
+          resolve(`file://${response.path}`)
+        }
+      })
     }
   })
 }
@@ -31,11 +36,13 @@ export function useCamera() : Promise<string> {
   return new Promise((resolve, reject) => {
     const isSimulator = DeviceInfo.getModel() === 'Simulator'
     // The simulator has no camera access so use image library instead for testing
-    if (isSimulator) {
+    if (Platform.OS === 'ios' && isSimulator) {
       ImagePicker.launchImageLibrary({ noData: true }, (response) => {
         if (response.error) reject(response.error)
         else resolve(response.uri)
       })
+    } else if (Platform.OS === 'android' && isSimulator) {
+      pickFile().then(resolve).catch(reject)
     } else {
       ImagePicker.launchCamera({ noData: true }, (response) => {
         if (response.error) reject(response.error)

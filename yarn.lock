@@ -3997,10 +3997,6 @@ react-mixin@^3.0.5:
     object-assign "^4.0.1"
     smart-mixin "^2.0.0"
 
-react-native-asset-thumbnail@^0.0.4:
-  version "0.0.4"
-  resolved "https://registry.yarnpkg.com/react-native-asset-thumbnail/-/react-native-asset-thumbnail-0.0.4.tgz#c7496c1dfb2075680bf29759f6bd056762ab9a7e"
-
 react-native-config@^0.3.1:
   version "0.3.1"
   resolved "https://registry.yarnpkg.com/react-native-config/-/react-native-config-0.3.1.tgz#981d98eee2c4e467397cd9306f5b6958c501c6e8"
@@ -4039,6 +4035,10 @@ react-native-fetch-blob@^0.10.4:
   dependencies:
     base-64 "0.1.0"
     glob "^7.0.6"
+
+react-native-file-picker@^0.0.5:
+  version "0.0.5"
+  resolved "https://registry.yarnpkg.com/react-native-file-picker/-/react-native-file-picker-0.0.5.tgz#6a7b1b53d0ac4d7644ccfc44a572cc93e1ab3398"
 
 react-native-image-picker@^0.26.3:
   version "0.26.3"

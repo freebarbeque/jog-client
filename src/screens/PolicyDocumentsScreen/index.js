@@ -30,7 +30,7 @@ class PolicyDocumentsScreen extends Component {
 
     if (policyId) {
       const uri = await fn()
-      this.props.dispatch(uploadPolicyDocument(uri, policyId))
+      if (uri) this.props.dispatch(uploadPolicyDocument(uri, policyId))
     } else {
       throw new Error('policyId is not present in the navigation params, therefore cannot upload the policy document')
     }
@@ -54,6 +54,7 @@ class PolicyDocumentsScreen extends Component {
     const policyId = this.props.navigation.state.params.policyId
     const policy = this.props.policies[policyId]
     const documents = _.values(policy.documents)
+    console.log('documents', documents)
 
     return (
       <ScrollView style={styles.container}>
@@ -62,7 +63,11 @@ class PolicyDocumentsScreen extends Component {
           <View style={{ flexDirection: 'row', flexWrap: 'wrap' }}>
             {documents.map((d: PolicyDocument) => {
               return (
-                <PolicyDocumentThumbnail document={d} style={{ width: '50%', marginBottom: MARGIN.large }} />
+                <PolicyDocumentThumbnail
+                  key={d.id}
+                  document={d}
+                  style={{ width: '50%', marginBottom: MARGIN.large }}
+                />
               )
             })}
           </View>

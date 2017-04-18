@@ -3,7 +3,7 @@ package com.jog;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
-import com.benwixen.rnfilesystem.RNFileSystemPackage;
+import com.filepicker.FilePickerPackage;
 import com.learnium.RNDeviceInfo.RNDeviceInfo;
 import com.RNFetchBlob.RNFetchBlobPackage;
 import com.imagepicker.ImagePickerPackage;
@@ -29,7 +29,7 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
-            new RNFileSystemPackage(),
+            new FilePickerPackage(),
             new RNDeviceInfo(),
             new RNFetchBlobPackage(),
             new ImagePickerPackage(),
