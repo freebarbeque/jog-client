@@ -3,6 +3,8 @@ package com.jog;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import com.keyee.pdfview.PDFView;
+import com.reactnative.photoview.PhotoViewPackage;
 import com.lwansbrough.RCTCamera.RCTCameraPackage;
 import com.filepicker.FilePickerPackage;
 import com.learnium.RNDeviceInfo.RNDeviceInfo;
@@ -30,6 +32,8 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new PDFView(),
+            new PhotoViewPackage(),
             new RCTCameraPackage(),
             new FilePickerPackage(),
             new RNDeviceInfo(),

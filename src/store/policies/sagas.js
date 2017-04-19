@@ -13,7 +13,7 @@ import { eventChannel } from 'redux-saga'
 import RNFetchBlob from 'react-native-fetch-blob'
 import firebase from 'firebase'
 import uuid from 'uuid/v4'
-import base64 from 'base-64'
+import mime from 'react-native-mime-types'
 
 import { syncMotorPolicies, addPolicyDocument } from 'jog/src/data/policies'
 import { demandCurrentUser } from 'jog/src/data/auth'
@@ -81,7 +81,9 @@ function* uploadPolicyDocumentTask({ fileUrl, policyId }) {
   const user = demandCurrentUser()
 
   // Using base64 encoding is nice on the JS bridge. If using ascii or utf-8 it can be really slow.
-  const imageData = yield call(RNFetchBlob.fs.readFile, imageMetaData.path, 'base64')
+  const path = imageMetaData.path
+  console.debug(`Reading from ${path}`)
+  const imageData = yield call(RNFetchBlob.fs.readFile, path, 'base64')
 
   const id = uuid()
   const fileStoragePath = `/policyDocuments/${user.uid}/${policyId}/${id}.${imageMetaData.extension}`
@@ -89,7 +91,9 @@ function* uploadPolicyDocumentTask({ fileUrl, policyId }) {
   const imageRef = firebase.storage().ref(fileStoragePath)
   try {
     // For whatever reason, the firebase module claims the base64 data from RNFetchBlob is invalid so we decode it manually.
-    yield call(() => imageRef.putString(base64.decode(imageData), 'raw'))
+    const contentType = mime.lookup(imageMetaData.fileName)
+    console.log('contentType', contentType)
+    yield call(() => imageRef.putString(imageData, 'base64', { contentType }))
   } catch (e) { // TODO: Dispatch error for display to user
     console.error('Error uploading image', e)
     return

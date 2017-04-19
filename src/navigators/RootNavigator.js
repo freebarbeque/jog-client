@@ -10,10 +10,12 @@ import { BLUE } from '../constants/palette'
 
 import TabNavigator from './TabNavigator'
 import AuthNavigator from './AuthNavigator'
+import PolicyDocumentScreen from '../screens/PolicyDocumentScreen'
 
 export const RootStackNavigator = StackNavigator({
   Tabs: { screen: TabNavigator },
   Auth: { screen: AuthNavigator },
+  PolicyDocument: { screen: PolicyDocumentScreen },
 }, {
   initialRouteName: 'Tabs',
   mode: 'modal',

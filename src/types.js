@@ -121,7 +121,7 @@ export type MotorPolicy = {
   startDate?: number,
   createdDate?: number, // Date added to jog as opposed to insurance start date
   companyId?: string,
-  documents?: PolicyDocument[],
+  documents?: {[id: string] : PolicyDocument},
   cost?: number,
   uid?: string, // Firebase user id.
   excess?: number,

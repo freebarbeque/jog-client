@@ -41,7 +41,7 @@ export function useIOSCamera() : Promise<string> {
         else resolve(response.uri)
       })
     } else if (Platform.OS === 'ios') {
-      ImagePicker.launchCamera({ noData: true }, (response) => {
+      ImagePicker.showImagePicker({ noData: true }, (response) => {
         if (response.error) reject(response.error)
         else resolve(response.uri)
       })

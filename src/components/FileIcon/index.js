@@ -19,8 +19,8 @@ const IMAGE_FILES = {
   tiff: require('./tif.png'),
 }
 
-function getSource(extension) {
-  return IMAGE_FILES[extension] || require('./unknown.png')
+function getSource(extension: string) {
+  return IMAGE_FILES[extension.toLowerCase()] || require('./unknown.png')
 }
 
 export default class FileIcon extends Component {

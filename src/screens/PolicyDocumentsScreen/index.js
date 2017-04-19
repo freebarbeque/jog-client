@@ -3,6 +3,7 @@
 import React, { Component } from 'react'
 import { ScrollView, View, StyleSheet, TouchableOpacity, Platform } from 'react-native'
 import { connect } from 'react-redux'
+import { NavigationActions } from 'react-navigation'
 
 import type { ReduxState, ReactNavigationProp, Dispatch, MotorPolicyMap, PolicyDocument } from 'jog/src/types'
 import Text from 'jog/src/components/Text'
@@ -70,7 +71,7 @@ class PolicyDocumentsScreen extends Component {
 
     return (
       <ScrollView style={styles.container}>
-        <Panel style={styles.panel}>
+        {documents.length ? <Panel style={styles.panel}>
           <Text style={styles.header}>Scanned documents</Text>
           <View style={{ flexDirection: 'row', flexWrap: 'wrap' }}>
             {documents.map((d: PolicyDocument) => {
@@ -79,11 +80,24 @@ class PolicyDocumentsScreen extends Component {
                   key={d.id}
                   document={d}
                   style={{ width: `${100 / 3}%`, paddingBottom: MARGIN.large }}
+                  onPress={() => {
+                    const params = {
+                      documentId: d.id,
+                      policyId: policyId,
+                      documentName: d.name
+                    }
+                    this.props.dispatch(
+                      NavigationActions.navigate({
+                        routeName: 'PolicyDocument',
+                        params
+                      })
+                    )
+                  }}
                 />
               )
             })}
           </View>
-        </Panel>
+        </Panel> : null}
         <Panel style={styles.panel}>
           <Text style={styles.header}>Upload documents</Text>
           <TouchableOpacity
