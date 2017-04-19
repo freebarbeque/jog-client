@@ -105,5 +105,5 @@ const styles = StyleSheet.create({
     flex: 0,
     padding: 10,
     margin: 30
-  }
+  },
 })

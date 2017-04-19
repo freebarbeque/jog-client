@@ -31,10 +31,6 @@ export default class BackgroundHeader extends Component {
   }
 }
 
-//
-// Styles
-//
-
 const styles = StyleSheet.create({
   backgroundImageOverlay: {
     width: '100%',

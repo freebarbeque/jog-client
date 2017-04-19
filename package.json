@@ -99,7 +99,6 @@
     "testRegex": ".*.test.js",
     "verbose": true,
     "transformIgnorePatterns": [
-      "node_modules/(?!react-navigation)/",
       "node_modules/(?!react-navigation)/"
     ]
   },

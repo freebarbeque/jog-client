@@ -78,8 +78,6 @@ export function* syncPoliciesSaga<T>(): Iterable<T> {
 function* uploadPolicyDocumentTask({ fileUrl, policyId }) {
   const imageMetaData = getFileMetadataFromURI(fileUrl)
 
-  console.log('imageMetaData', imageMetaData)
-
   const user = demandCurrentUser()
 
   // Using base64 encoding is nice on the JS bridge. If using ascii or utf-8 it can be really slow.
@@ -91,7 +89,7 @@ function* uploadPolicyDocumentTask({ fileUrl, policyId }) {
   const imageRef = firebase.storage().ref(fileStoragePath)
   try {
     // For whatever reason, the firebase module claims the base64 data from RNFetchBlob is invalid so we decode it manually.
-    yield call(imageRef.putString.bind(imageRef), base64.decode(imageData), 'raw')
+    yield call(() => imageRef.putString(base64.decode(imageData), 'raw'))
   } catch (e) { // TODO: Dispatch error for display to user
     console.error('Error uploading image', e)
     return

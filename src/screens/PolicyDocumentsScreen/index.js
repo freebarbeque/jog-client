@@ -13,7 +13,7 @@ import { uploadPolicyDocument } from 'jog/src/store/policies/actions'
 import { pickFile, useIOSCamera } from 'jog/src/util/files'
 import { selectPolicies } from 'jog/src/store/policies/selectors'
 import PolicyDocumentThumbnail from 'jog/src/components/PolicyDocumentThumbnail'
-import CameraModal from '../../components/CameraModal'
+import CameraModal from 'jog/src/components/CameraModal'
 
 type PolicyDocumentsScreenProps = {
   // eslint-disable-next-line react/no-unused-prop-types

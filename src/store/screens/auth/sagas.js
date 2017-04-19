@@ -61,7 +61,7 @@ function* verificationEmail() {
   try {
     const user = firebase.auth().currentUser
     yield put(setLoading(true))
-    yield call(user.sendEmailVerification.bind(user))
+    yield call(() => user.sendEmailVerification(user))
     yield put(setLoading(false))
   } catch (e) {
     console.error('Error sending verification email', e, e.stack)
