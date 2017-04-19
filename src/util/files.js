@@ -1,5 +1,8 @@
-// @flow
+/*
+Provides a common interface to android & iOS files, camera & images
 
+@flow
+ */
 import { Platform, NativeModules } from 'react-native'
 import DeviceInfo from 'react-native-device-info'
 import ImagePicker from 'react-native-image-picker'
@@ -40,4 +43,24 @@ export function useCamera() : Promise<string> {
       })
     }
   })
+}
+
+export type FileMetaData = {
+  path: string,
+  uri: string,
+  fileName: string,
+  extension: string,
+}
+
+export function getFileMetadataFromURI(uri: string) : FileMetaData {
+  const split = uri.split('file:///')
+  const path = split[1]
+  const fileName = path.split('/').pop()
+  const extension = fileName.split('.').pop()
+  return {
+    path,
+    uri,
+    fileName,
+    extension
+  }
 }

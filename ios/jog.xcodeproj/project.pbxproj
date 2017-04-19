@@ -1061,12 +1061,14 @@
 					"$(SRCROOT)/../node_modules/react-native-device-info/RNDeviceInfo",
 					"$(SRCROOT)/../node_modules/react-native-document-picker/RNDocumentPicker",
 					"$(SRCROOT)/../node_modules/react-native-filesystem/ios/RNFileSystem",
+					"$(SRCROOT)/../node_modules/react-native-asset-thumbnail/RNAssetThumbnail",
 				);
 				INFOPLIST_FILE = jog/Info.plist;
 				INFOPLIST_PREPROCESS = YES;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/jog\"",
 					"\"$(SRCROOT)/jog\"",
 					"\"$(SRCROOT)/jog\"",
 					"\"$(SRCROOT)/jog\"",
@@ -1109,12 +1111,14 @@
 					"$(SRCROOT)/../node_modules/react-native-device-info/RNDeviceInfo",
 					"$(SRCROOT)/../node_modules/react-native-document-picker/RNDocumentPicker",
 					"$(SRCROOT)/../node_modules/react-native-filesystem/ios/RNFileSystem",
+					"$(SRCROOT)/../node_modules/react-native-asset-thumbnail/RNAssetThumbnail",
 				);
 				INFOPLIST_FILE = jog/Info.plist;
 				INFOPLIST_PREPROCESS = YES;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/jog\"",
 					"\"$(SRCROOT)/jog\"",
 					"\"$(SRCROOT)/jog\"",
 					"\"$(SRCROOT)/jog\"",
