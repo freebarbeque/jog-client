@@ -16,7 +16,14 @@ export type UnsyncMotorPoliciesAction = {
   type: 'polices/UNSYNC_MOTOR_POLICIES'
 }
 
+export type UploadPolicyDocumentAction = {
+  type: 'policies/UPLOAD_POLICY_DOCUMENT',
+  fileUrl: string,
+  policyId: string,
+}
+
 export type PoliciesAction
   = ReceiveMotorPoliciesAction |
   SyncMotorPoliciesAction |
-  UnsyncMotorPoliciesAction
+  UnsyncMotorPoliciesAction |
+  UploadPolicyDocumentAction

@@ -100,6 +100,13 @@ export const LEVEL_OF_COVER = {
   thirdParty: 'Third Party Only',
 }
 
+export type PolicyDocument = {
+  image: string,
+  name: string,
+  id: string,
+  extension: string
+}
+
 // TODO: Split this into generic Policy/MotorPolicy/SelectedMotorPolicy once react-native supports flow 0.42.x
 // /policies/${policyId}
 export type MotorPolicy = {
@@ -114,7 +121,7 @@ export type MotorPolicy = {
   startDate?: number,
   createdDate?: number, // Date added to jog as opposed to insurance start date
   companyId?: string,
-  documentPaths?: string[], // Paths on firebase storage.
+  documents?: PolicyDocument[],
   cost?: number,
   uid?: string, // Firebase user id.
   excess?: number,
@@ -147,13 +154,16 @@ export type InsurersReduxState = {
 // navigation
 export type ReactNavigationProp = {
   navigate: (routeName: string) => void,
+  dispatch: Dispatch,
   goBack: () => void,
   state: {
+    index: number,
     params: {
       [key: string]: any
     },
     key: string, // Unique key for the route
-    type: string
+    type: string,
+    routes: Route[]
   },
 }
 

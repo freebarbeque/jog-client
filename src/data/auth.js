@@ -64,3 +64,15 @@ export function userSubscribe(callback: (user: FirebaseUser | null) => void): ()
   return firebase.auth().onAuthStateChanged((u) => callback(u ? u.toJSON() : null))
 }
 
+/**
+ * This function returns the user if logged in or else throws an error.
+ *
+ * It's useful in scenarios where we need to assert that a user is logged in i.e. whereby
+ * the code should never be executed if there is no authenticated user.
+ * @returns {FirebaseUser}
+ */
+export function demandCurrentUser() : FirebaseUser {
+  const currentUser = firebase.auth().currentUser
+  if (currentUser) return currentUser.toJSON()
+  throw new Error('No user is logged in.')
+}
