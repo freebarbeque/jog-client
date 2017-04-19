@@ -5,7 +5,8 @@ import type { PoliciesAction } from './actionTypes'
 
 const DEFAULT_STATE = {
   initialised: false,
-  policies: {}
+  policies: {},
+
 }
 
 export default function reducer(state: PoliciesState = DEFAULT_STATE, action: PoliciesAction) : PoliciesState {

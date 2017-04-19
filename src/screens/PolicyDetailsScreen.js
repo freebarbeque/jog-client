@@ -13,6 +13,7 @@ import { selectPolicies } from '../store/policies/selectors'
 import { BLUE, CREAM, WHITE } from '../constants/palette'
 import { MARGIN } from '../constants/style'
 import { CarOutline, Chevron } from '../components/images/index'
+import Panel from '../components/Panel'
 
 const Field = (props) => (
   <View style={styles.fieldContainer}>
@@ -44,7 +45,9 @@ class PolicyDetailsScreen extends Component {
   props: PolicyDetailsScreenProps
 
   render() {
-    const policyId = this.props.navigation.state.params.policyId
+    const navigationState = this.props.navigation.state
+    console.log('navigationState', navigationState)
+    const policyId = navigationState.params.policyId
 
     let policy: MotorPolicy
 
@@ -59,7 +62,7 @@ class PolicyDetailsScreen extends Component {
 
     return (
       <ScrollView style={styles.scrollView}>
-        <View style={styles.panel}>
+        <Panel>
           <Field title="vehicle registration">
             {policy.vehicleRegistration}
           </Field>
@@ -92,7 +95,7 @@ class PolicyDetailsScreen extends Component {
           <View style={styles.carOutline}>
             <CarOutline scale={1.3} />
           </View>
-        </View>
+        </Panel>
         <View>
           <View style={styles.policyHeader}>
             <Text style={styles.policyHeaderText}>
@@ -140,8 +143,7 @@ const styles = StyleSheet.create({
     paddingRight: MARGIN.large
   },
   policyHeaderText: { fontSize: 16, color: BLUE, margin: MARGIN.large, flex: 1 },
-  scrollView: { backgroundColor: CREAM },
-  panel: { backgroundColor: WHITE, marginTop: MARGIN.base, marginBottom: MARGIN.base, padding: MARGIN.base },
+  scrollView: { backgroundColor: CREAM }
 })
 
 const mapStateToProps = (state) => ({ policies: selectPolicies(state) })

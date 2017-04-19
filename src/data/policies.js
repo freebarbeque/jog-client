@@ -1,7 +1,7 @@
 // @flow
 
 import firebase from 'firebase'
-import type { MotorPolicy, MotorPolicyMap } from 'jog/src/types'
+import type { MotorPolicy, MotorPolicyMap, PolicyDocument } from 'jog/src/types'
 
 export function syncMotorPolicies(uid: string, cb: (policies: MotorPolicyMap) => void) : () => void {
   const ref = firebase.database().ref('policies').orderByChild('uid').equalTo(uid)
@@ -43,4 +43,10 @@ export async function clearPolicies(uid: string) : Promise<void> {
     promises.push(policiesRef.child(childSnapshot.key).remove())
   })
   await Promise.all(promises)
+}
+
+export function addPolicyDocument(policyId: string, policyDocument: PolicyDocument) : Promise<void> {
+  const documentId = policyDocument.id
+  const policiesRef = firebase.database().ref('policies').child(policyId)
+  return policiesRef.child('documents').child(documentId).set(policyDocument)
 }

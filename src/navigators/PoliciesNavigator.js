@@ -3,7 +3,7 @@ import { StackNavigator } from 'react-navigation'
 import PoliciesScreen from 'jog/src/screens/PoliciesScreen'
 import AddPolicyScreen from 'jog/src/screens/AddPolicyScreen'
 
-import PolicyDetailsTabNavigator from './PolicyDetailsTabNavigator'
+import PolicyDetailsTabNavigator from './PolicyDetailsNavigator'
 
 const PoliciesStackNavigator = StackNavigator({
   Policies: { screen: PoliciesScreen },
