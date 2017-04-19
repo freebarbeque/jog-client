@@ -12,3 +12,4 @@ jest.mock('Linking', () => {
 // Stub modules so that the sanity test runs
 // If we ever actually have component tests, these will need to mocked out properly
 jest.mock('react-native-fetch-blob', () => 'react-native-fetch-blob')
+jest.mock('react-native-camera', () => 'react-native-camera')

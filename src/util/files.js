@@ -7,40 +7,46 @@ import { Platform, NativeModules } from 'react-native'
 import DeviceInfo from 'react-native-device-info'
 import ImagePicker from 'react-native-image-picker'
 
-const DocumentPicker = NativeModules.RNDocumentPicker
+const iOSFilePicker = NativeModules.RNDocumentPicker
+const androidFilePicker = NativeModules.FilePickerManager
 
-export function pickFile(
-  fileTypes: string[] = ['public.image', 'com.adobe.pdf']
-) : Promise<string> {
-  // TODO: Android support
+export function pickFile() : Promise<string> {
   return new Promise((resolve, reject) => {
     if (Platform.OS === 'ios') {
-      DocumentPicker.show({
-        filetype: fileTypes,
+      iOSFilePicker.show({
+        filetype: ['public.image', 'com.adobe.pdf'],
       }, (error, url) => {
         if (error) reject(error)
         else resolve(url)
       })
     } else {
-      reject(new Error(`${Platform.OS} not yet supported`))
+      androidFilePicker.showFilePicker(null, (response) => {
+        if (response.error) {
+          reject(response.error)
+        } else {
+          resolve(response.path)
+        }
+      })
     }
   })
 }
 
-export function useCamera() : Promise<string> {
+export function useIOSCamera() : Promise<string> {
   return new Promise((resolve, reject) => {
     const isSimulator = DeviceInfo.getModel() === 'Simulator'
     // The simulator has no camera access so use image library instead for testing
-    if (isSimulator) {
+    if (Platform.OS === 'ios' && isSimulator) {
       ImagePicker.launchImageLibrary({ noData: true }, (response) => {
         if (response.error) reject(response.error)
         else resolve(response.uri)
       })
-    } else {
+    } else if (Platform.OS === 'ios') {
       ImagePicker.launchCamera({ noData: true }, (response) => {
         if (response.error) reject(response.error)
         else resolve(response.uri)
       })
+    } else if (Platform.OS === 'android') {
+      throw new Error('This should not be used for android')
     }
   })
 }
@@ -53,8 +59,9 @@ export type FileMetaData = {
 }
 
 export function getFileMetadataFromURI(uri: string) : FileMetaData {
-  const split = uri.split('file:///')
-  const path = split[1]
+  const split = uri.split('file://')
+  // Android file browser doesn't use file:// prefix
+  const path = split[1] || split[0]
   const fileName = path.split('/').pop()
   const extension = fileName.split('.').pop()
   return {

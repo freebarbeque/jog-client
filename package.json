@@ -23,6 +23,7 @@
   "dependencies": {
     "@expo/ex-navigation": "^2.9.4",
     "async-throttle": "^1.1.0",
+    "base-64": "^0.1.0",
     "email-validator": "^1.0.7",
     "firebase": "^3.7.3",
     "jest-react-native": "^18.0.0",
@@ -30,11 +31,13 @@
     "moment": "^2.18.1",
     "react": "16.0.0-alpha.6",
     "react-native": "0.43.3",
+    "react-native-camera": "^0.6.0",
     "react-native-config": "^0.3.1",
     "react-native-device-info": "^0.10.2",
     "react-native-document-picker": "^1.0.2",
     "react-native-fade-in-view": "^1.0.4",
     "react-native-fetch-blob": "^0.10.4",
+    "react-native-file-picker": "^0.0.5",
     "react-native-image-picker": "^0.26.3",
     "react-native-keyboard-aware-scroll-view": "^0.2.8",
     "react-native-spinkit": "^1.0.2",
@@ -96,7 +99,6 @@
     "testRegex": ".*.test.js",
     "verbose": true,
     "transformIgnorePatterns": [
-      "node_modules/(?!react-navigation)/",
       "node_modules/(?!react-navigation)/"
     ]
   },
