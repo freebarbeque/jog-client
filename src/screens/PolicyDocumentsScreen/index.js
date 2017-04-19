@@ -78,7 +78,7 @@ class PolicyDocumentsScreen extends Component {
                 <PolicyDocumentThumbnail
                   key={d.id}
                   document={d}
-                  style={{ width: '50%', marginBottom: MARGIN.large }}
+                  style={{ width: `${100 / 3}%`, paddingBottom: MARGIN.large }}
                 />
               )
             })}
