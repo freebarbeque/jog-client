@@ -1,13 +1,16 @@
 /* @flow */
 
 import React, { Component } from 'react'
-import { View, StyleSheet, TouchableOpacity, Dimensions, Image, WebView } from 'react-native'
+import { View, StyleSheet, TouchableOpacity, Dimensions, Image, WebView, Platform } from 'react-native'
 import { connect } from 'react-redux'
 import { NavigationActions } from 'react-navigation'
 import firebase from 'firebase'
 
 import type { ReduxState, MotorPolicy, PolicyDocument, Dispatch, ReactNavigationProp } from 'jog/src/types'
 import PhotoView from 'react-native-photo-view'
+import RNFetchBlob from 'react-native-fetch-blob'
+import PDFView from 'react-native-pdf-view'
+
 import { selectPolicies } from '../store/policies/selectors'
 import { BLUE, CREAM, PINK } from '../constants/palette'
 import Text from '../components/Text'
@@ -27,7 +30,20 @@ type PolicyDocumentScreenProps = {
 type PolicyDocumentScreenState = {
   url: string | null,
   width: number | null,
-  height: number | null
+  height: number | null,
+  androidPdfLocation: string | null
+}
+
+const IS_ANDROID = Platform.OS === 'android'
+
+async function downloadDocument(url: string, fileName: string) : Promise<string> {
+  const DocumentDir = RNFetchBlob.fs.dirs.DocumentDir
+  const res = await RNFetchBlob.fetch('GET', url)
+  const base64str = res.data
+  const pdfLocation = `${DocumentDir}/${fileName}`
+  await RNFetchBlob.fs.writeFile(pdfLocation, base64str, 'base64')
+  console.debug(`Wrote ${url} to ${pdfLocation}`)
+  return pdfLocation
 }
 
 class PolicyDocumentScreen extends Component {
@@ -41,7 +57,7 @@ class PolicyDocumentScreen extends Component {
 
       return {
         title: (
-          <Text style={{ textAlign: 'center' }}>
+          <Text style={{ textAlign: 'center', marginLeft: MARGIN.base, marginRight: MARGIN.base }}>
             {params.documentName}
           </Text>
         ),
@@ -71,22 +87,24 @@ class PolicyDocumentScreen extends Component {
       url: null,
       width: null,
       height: null,
+      androidPdfLocation: null
     }
   }
 
   componentDidMount() {
-    this.downloadImage().catch((err) => {
+    this.getDocument().catch((err) => {
       console.error(err)
     })
   }
 
-  async downloadImage() {
+
+  async getDocument() {
     const document = this.props.document
     const path = document.image
     const ref = firebase.storage().ref(path)
     const url = await ref.getDownloadURL()
 
-    console.debug('Obtained firebase url', url)
+    console.debug(`Obtained download url for ${document.name}: ${url}`)
 
     if (document.extension !== 'pdf') {
       const { width, height } = await new Promise((resolve, reject) => {
@@ -95,50 +113,82 @@ class PolicyDocumentScreen extends Component {
 
       const displayWidth = Dimensions.get('window').width
       const displayHeight = (displayWidth / width) * height
-      const stateUpdates = { url, width: displayWidth, height: displayHeight }
+      const stateUpdates : Object = {
+        url,
+        width: displayWidth,
+        height: displayHeight,
+      }
 
       this.setState(stateUpdates)
     } else {
-      this.setState({ url })
+      const stateUpdates: Object = {
+        url,
+        androidPdfLocation: null
+      }
+
+      if (IS_ANDROID && document.extension === 'pdf') {
+        console.debug('We\'re on android therefore need to download the document to display it!')
+        stateUpdates.androidPdfLocation = await downloadDocument(url, document.name)
+      }
+
+      this.setState(stateUpdates)
     }
   }
 
   renderDocument() {
     const { document } = this.props
-    const { url, width, height } = this.state
+    const { url, width, height, androidPdfLocation } = this.state
 
+    const windowWidth = Dimensions.get('window').width
 
     if (document.extension === 'pdf') {
+      if (IS_ANDROID) {
+        return (
+          <PDFView
+            src={androidPdfLocation}
+            style={{ flex: 1, width: windowWidth }}
+          />
+        )
+      } else if (url) {
+        // PDFs won't render in the android webview so we use google drive instead.
+        const uri = IS_ANDROID ? `http://drive.google.com/viewerng/viewer?embedded=true&url=${url}` : url
+
+        return (
+          <WebView
+            source={{ uri }}
+            style={{ width: windowWidth, backgroundColor: CREAM }}
+            javaScriptEnabled={IS_ANDROID}
+            domStorageEnabled={IS_ANDROID}
+            scalesPageToFit
+            automaticallyAdjustContentInsets={false}
+          />
+        )
+      }
+    } else if (url) {
       return (
-        <WebView
+        <PhotoView
           source={{ uri: url }}
-          style={{ width: Dimensions.get('window').width, backgroundColor: CREAM }}
-          javaScriptEnabled={false}
-          domStorageEnabled={false}
-          scalesPageToFit
-          automaticallyAdjustContentInsets={false}
+          minimumZoomScale={0.5}
+          maximumZoomScale={3}
+          androidScaleType="center"
+          onLoad={() => console.log('Image loaded!')}
+          style={{ flex: 1, width, height }}
         />
       )
     }
-    return (
-      <PhotoView
-        source={{ uri: url }}
-        minimumZoomScale={0.5}
-        maximumZoomScale={3}
-        androidScaleType="center"
-        onLoad={() => console.log('Image loaded!')}
-        style={{ flex: 1, width, height }}
-      />
-    )
+    return null
   }
 
   render() {
-    const { url } = this.state
+    const { url, androidPdfLocation } = this.state
+
+    const isLoaded = url && (!IS_ANDROID || androidPdfLocation)
+    const name = this.props.document.name
 
     return (
       <View style={styles.container}>
         {
-          url ? this.renderDocument() : <Spinner text={`Loading ${this.props.document.name}`} />
+          isLoaded ? this.renderDocument() : <Spinner text={`Loading ${name}`} />
         }
       </View>
     )
