@@ -5,11 +5,11 @@ import { View, StyleSheet, TouchableOpacity, Dimensions, Image, WebView, Platfor
 import { connect } from 'react-redux'
 import { NavigationActions } from 'react-navigation'
 import firebase from 'firebase'
-
-import type { ReduxState, MotorPolicy, PolicyDocument, Dispatch, ReactNavigationProp } from 'jog/src/types'
 import PhotoView from 'react-native-photo-view'
 import RNFetchBlob from 'react-native-fetch-blob'
 import PDFView from 'react-native-pdf-view'
+
+import type { ReduxState, MotorPolicy, PolicyDocument, Dispatch, ReactNavigationProp } from 'jog/src/types'
 
 import { selectPolicies } from '../store/policies/selectors'
 import { BLUE, CREAM, PINK } from '../constants/palette'
