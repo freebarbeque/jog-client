@@ -1,7 +1,7 @@
 /* @flow */
 
 import React, { Component } from 'react'
-import { ScrollView, View, StyleSheet, TouchableOpacity } from 'react-native'
+import { ScrollView, View, StyleSheet, TouchableOpacity, Platform } from 'react-native'
 import { connect } from 'react-redux'
 
 import type { ReduxState, ReactNavigationProp, Dispatch, MotorPolicyMap, PolicyDocument } from 'jog/src/types'
@@ -10,13 +10,14 @@ import { BLUE, CREAM } from 'jog/src/constants/palette'
 import { MARGIN } from 'jog/src/constants/style'
 import Panel from 'jog/src/components/Panel'
 import { uploadPolicyDocument } from 'jog/src/store/policies/actions'
-import { pickFile, useCamera } from 'jog/src/util/files'
+import { pickFile, useIOSCamera } from 'jog/src/util/files'
 import { selectPolicies } from 'jog/src/store/policies/selectors'
 import PolicyDocumentThumbnail from 'jog/src/components/PolicyDocumentThumbnail'
+import CameraModal from '../../components/CameraModal'
 
 type PolicyDocumentsScreenProps = {
+  // eslint-disable-next-line react/no-unused-prop-types
   dispatch: Dispatch,
-  // Eslint barfs here for some reason... navigation is def being used.
   // eslint-disable-next-line react/no-unused-prop-types
   navigation: ReactNavigationProp,
   policies: MotorPolicyMap,
@@ -24,6 +25,7 @@ type PolicyDocumentsScreenProps = {
 
 class PolicyDocumentsScreen extends Component {
   props: PolicyDocumentsScreenProps
+  cameraModal: any
 
   uploadFile = async (fn: () => Promise<string>) => {
     const policyId = this.props.navigation.state.params.policyId
@@ -44,7 +46,18 @@ class PolicyDocumentsScreen extends Component {
   }
 
   handleUseCameraPress = () => {
-    this.uploadFile(useCamera).catch((err) => {
+    if (Platform.OS === 'ios') {
+      this.uploadFile(useIOSCamera).catch((err) => {
+        // TODO: Display error to user
+        console.error(err)
+      })
+    } else {
+      this.cameraModal.setModalVisible(true)
+    }
+  }
+
+  handleCapture = (path) => {
+    this.uploadFile(async () => path).catch((err) => {
       // TODO: Display error to user
       console.error(err)
     })
@@ -54,7 +67,6 @@ class PolicyDocumentsScreen extends Component {
     const policyId = this.props.navigation.state.params.policyId
     const policy = this.props.policies[policyId]
     const documents = _.values(policy.documents)
-    console.log('documents', documents)
 
     return (
       <ScrollView style={styles.container}>
@@ -93,6 +105,11 @@ class PolicyDocumentsScreen extends Component {
             </View>
           </TouchableOpacity>
         </Panel>
+        <CameraModal
+          ref={(e) => { this.cameraModal = e }}
+          onCapture={this.handleCapture}
+          onError={(error) => { console.error(error) }}
+        />
       </ScrollView>
     )
   }

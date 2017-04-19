@@ -13,6 +13,7 @@ import { eventChannel } from 'redux-saga'
 import RNFetchBlob from 'react-native-fetch-blob'
 import firebase from 'firebase'
 import uuid from 'uuid/v4'
+import base64 from 'base-64'
 
 import { syncMotorPolicies, addPolicyDocument } from 'jog/src/data/policies'
 import { demandCurrentUser } from 'jog/src/data/auth'
@@ -54,7 +55,7 @@ function* syncMotorPoliciesTask({ uid }) {
   }
 }
 
-export function* syncPoliciesSaga<T>() : Iterable<T> {
+export function* syncPoliciesSaga<T>(): Iterable<T> {
   let action: ?SyncMotorPoliciesAction
 
   // eslint-disable-next-line no-cond-assign
@@ -77,18 +78,27 @@ export function* syncPoliciesSaga<T>() : Iterable<T> {
 function* uploadPolicyDocumentTask({ fileUrl, policyId }) {
   const imageMetaData = getFileMetadataFromURI(fileUrl)
 
+  console.log('imageMetaData', imageMetaData)
+
   const user = demandCurrentUser()
+
+  // Using base64 encoding is nice on the JS bridge. If using ascii or utf-8 it can be really slow.
   const imageData = yield call(RNFetchBlob.fs.readFile, imageMetaData.path, 'base64')
+
   const id = uuid()
   const fileStoragePath = `/policyDocuments/${user.uid}/${policyId}/${id}.${imageMetaData.extension}`
 
   const imageRef = firebase.storage().ref(fileStoragePath)
   try {
-    yield call(imageRef.putString.bind(imageRef), imageData, 'base64')
+    // For whatever reason, the firebase module claims the base64 data from RNFetchBlob is invalid so we decode it manually.
+    yield call(imageRef.putString.bind(imageRef), base64.decode(imageData), 'raw')
   } catch (e) { // TODO: Dispatch error for display to user
     console.error('Error uploading image', e)
     return
   }
+
+  console.debug(`Stored at ${fileStoragePath}`)
+
   // Firebase storage does not have an API for listing files in folders and therefore we
   // must store file data within the database.
   yield call(addPolicyDocument, policyId, {

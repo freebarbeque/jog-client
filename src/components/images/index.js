@@ -30,6 +30,17 @@ export const Camera = (props: LogoProps) => {
   )
 }
 
+export const CameraWhite = (props: LogoProps) => {
+  const { style = {}, scale = 1 } = props
+
+  return (
+    <Image
+      style={[{ height: 47 * scale, width: 55 * scale }, style]}
+      source={require('./camera-white.png')}
+    />
+  )
+}
+
 export const Command = (props: LogoProps) => {
   const { style = {}, scale = 1 } = props
 
