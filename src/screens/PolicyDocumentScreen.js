@@ -150,12 +150,9 @@ class PolicyDocumentScreen extends Component {
           />
         )
       } else if (url) {
-        // PDFs won't render in the android webview so we use google drive instead.
-        const uri = IS_ANDROID ? `http://drive.google.com/viewerng/viewer?embedded=true&url=${url}` : url
-
         return (
           <WebView
-            source={{ uri }}
+            source={{ uri: url }}
             style={{ width: windowWidth, backgroundColor: CREAM }}
             javaScriptEnabled={IS_ANDROID}
             domStorageEnabled={IS_ANDROID}
