@@ -5,7 +5,8 @@ import type { MotorPolicyMap } from 'jog/src/types'
 import type {
   ReceiveMotorPoliciesAction,
   SyncMotorPoliciesAction,
-  UnsyncMotorPoliciesAction
+  UnsyncMotorPoliciesAction,
+  UploadPolicyDocumentAction
 } from './actionTypes'
 
 export function receiveMotorPolicies(policies: MotorPolicyMap) : ReceiveMotorPoliciesAction {
@@ -27,3 +28,12 @@ export function unsyncMotorPolicies() : UnsyncMotorPoliciesAction {
     type: 'policies/UNSYNC_MOTOR_POLICIES'
   }
 }
+
+export function uploadPolicyDocument(fileUrl, policyId): UploadPolicyDocumentAction {
+  return {
+    type: 'policies/UPLOAD_POLICY_DOCUMENT',
+    fileUrl,
+    policyId,
+  }
+}
+

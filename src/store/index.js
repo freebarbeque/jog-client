@@ -13,7 +13,7 @@ import { pollUserSaga, authSaga, userSyncSaga } from 'jog/src/store/auth/sagas'
 import config from 'jog/src/config'
 
 import saga from './sagas'
-import { syncPoliciesSaga } from './policies/sagas'
+import { syncPoliciesSaga, policyOperationsSaga } from './policies/sagas'
 import { syncInsurersSaga } from './insurers/sagas'
 
 let store = null
@@ -46,12 +46,18 @@ export default function createStore(): Store {
       enhancer
     )
 
+    // Auth sagas
     sagaMiddleware.run(authScreenSaga)
     sagaMiddleware.run(authSaga)
     sagaMiddleware.run(pollUserSaga)
     sagaMiddleware.run(userSyncSaga)
+
+    // General data
     sagaMiddleware.run(syncPoliciesSaga)
+    sagaMiddleware.run(policyOperationsSaga)
     sagaMiddleware.run(syncInsurersSaga)
+
+    // Global data
     sagaMiddleware.run(saga)
 
     if (module.hot) {
