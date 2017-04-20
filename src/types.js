@@ -6,12 +6,14 @@ import type { AuthAction } from './store/auth/actionTypes'
 import type { PoliciesAction } from './store/policies/actionTypes'
 import type { InsurerActions } from './store/insurers/actionTypes'
 import type { BaseAction } from './store/actionTypes'
+import type { LoadingReduxState } from './store/loading/reducer'
+import type { LoadingAction } from './store/loading/actionTypes'
 
 //
 // Redux
 //
 
-export type Action = AuthAction | NavigationAction | PoliciesAction | InsurerActions | BaseAction
+export type Action = AuthAction | NavigationAction | PoliciesAction | InsurerActions | BaseAction | LoadingAction
 
 export type NavReduxState = {
   index: number,
@@ -46,7 +48,8 @@ export type ReduxState = {
   auth: AuthReduxState,
   screens: ScreensReduxState,
   policies: PoliciesState,
-  insurers: InsurersReduxState
+  insurers: InsurersReduxState,
+  loading: LoadingReduxState,
 }
 
 export type Store = ReduxStore<ReduxState, Action>;

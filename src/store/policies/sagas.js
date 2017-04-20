@@ -21,6 +21,7 @@ import { getFileMetadataFromURI } from 'jog/src/util/files'
 
 import { receiveMotorPolicies } from './actions'
 import type { SyncMotorPoliciesAction } from './actionTypes'
+import { finishLoading, startLoading } from '../loading/actions'
 
 //
 // Sync policies
@@ -76,8 +77,8 @@ export function* syncPoliciesSaga<T>(): Iterable<T> {
 //
 
 function* uploadPolicyDocumentTask({ fileUrl, policyId }) {
+  yield put(startLoading('Loading document'))
   const imageMetaData = getFileMetadataFromURI(fileUrl)
-
   const user = demandCurrentUser()
 
   // Using base64 encoding is nice on the JS bridge. If using ascii or utf-8 it can be really slow.
@@ -88,6 +89,7 @@ function* uploadPolicyDocumentTask({ fileUrl, policyId }) {
   const id = uuid()
   const fileStoragePath = `/policyDocuments/${user.uid}/${policyId}/${id}.${imageMetaData.extension}`
 
+  yield put(startLoading('Uploading document'))
   const imageRef = firebase.storage().ref(fileStoragePath)
   try {
     // For whatever reason, the firebase module claims the base64 data from RNFetchBlob is invalid so we decode it manually.
@@ -101,6 +103,8 @@ function* uploadPolicyDocumentTask({ fileUrl, policyId }) {
 
   console.debug(`Stored at ${fileStoragePath}`)
 
+  yield put(startLoading('Uploading metadata'))
+
   // Firebase storage does not have an API for listing files in folders and therefore we
   // must store file data within the database.
   yield call(addPolicyDocument, policyId, {
@@ -109,14 +113,18 @@ function* uploadPolicyDocumentTask({ fileUrl, policyId }) {
     extension: imageMetaData.extension,
     id
   })
+
+  yield put(finishLoading())
 }
 
 function* deletePolicyDocumentTask({ policyId, documentId }) {
   const user = demandCurrentUser()
+  yield put(startLoading('Deleting document'))
   const document = yield call(() => getPolicyDocument(policyId, documentId))
   const fileStoragePath = `/policyDocuments/${user.uid}/${policyId}/${documentId}.${document.extension}`
   yield call(() => firebase.storage().ref(fileStoragePath).delete())
   yield call(() => removePolicyDocument(policyId, documentId))
+  yield put(finishLoading())
 }
 
 export function* policyOperationsSaga<T>(): Iterable<T> {

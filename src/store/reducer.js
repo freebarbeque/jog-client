@@ -6,13 +6,15 @@ import auth from './auth/reducer'
 import screens from './screens/reducer'
 import policies from './policies/reducer'
 import insurers from './insurers/reducer'
+import loading from './loading/reducer'
 
 const AppReducer = combineReducers({
   nav,
   auth,
   screens,
   policies,
-  insurers
+  insurers,
+  loading
 })
 
 export default AppReducer
