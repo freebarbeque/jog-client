@@ -92,13 +92,20 @@ const PolicyDetailsNavigatorHeader = connect(
 )(
   (props) => {
     const { policies, policyId, policyIndex } = props
-    const policy: MotorPolicy = policies[policyId]
-    return (
-      <BackgroundHeader
-        headerText={`Motor Policy ${policyIndex}`}
-        subheaderText={policy.name}
-      />
-    )
+
+    // If unmounting (e.g. on clear mock policies) or policies not loaded, policy can be null
+    const policy: MotorPolicy | null = policies[policyId]
+
+    if (policy) {
+      return (
+        <BackgroundHeader
+          headerText={`Motor Policy ${policyIndex}`}
+          subheaderText={policy.name}
+        />
+      )
+    }
+
+    return null
   }
 )
 
