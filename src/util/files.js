@@ -60,7 +60,7 @@ export type iOSImageResponse = {
   isVertical: boolean,
 }
 
-export function useIOSCamera() : Promise<iOSImageResponse> {
+export function useIOSCamera() : Promise<iOSImageResponse | null> {
   return new Promise((resolve, reject) => {
     const isSimulator = DeviceInfo.getModel() === 'Simulator'
     // The simulator has no camera access so use image library instead for testing
@@ -68,6 +68,8 @@ export function useIOSCamera() : Promise<iOSImageResponse> {
       console.log('response', response)
       if (response.error) {
         reject(response.error)
+      } else if (response.didCancel) {
+        resolve(null)
       } else {
         let extension
         let fileName

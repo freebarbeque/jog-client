@@ -44,17 +44,18 @@ class PolicyDocumentsScreen extends Component {
 
   handleUseCameraPress = () => {
     if (Platform.OS === 'ios') {
-      useIOSCamera().then((response: iOSImageResponse) => {
-        console.log('response', response)
-        const path = response.uri.split('file://').pop()
+      useIOSCamera().then((response: iOSImageResponse | null) => {
+        if (response) { // If no response, user cancelled.
+          const path = response.uri.split('file://').pop()
 
-        const policyId = this.props.navigation.state.params.policyId
-        this.props.dispatch(uploadPolicyDocument({
-          fileUrl: path,
-          policyId,
-          extension: response.extension,
-          fileName: response.fileName
-        }))
+          const policyId = this.props.navigation.state.params.policyId
+          this.props.dispatch(uploadPolicyDocument({
+            fileUrl: path,
+            policyId,
+            extension: response.extension,
+            fileName: response.fileName
+          }))
+        }
       }).catch((err) => {
         this.props.dispatch(declareError(err))
       })
