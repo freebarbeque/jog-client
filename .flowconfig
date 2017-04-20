@@ -36,6 +36,8 @@
 
 .*/node_modules/react-navigation/*
 
+.*/node_modules/react-native-firestack/*
+
 [include]
 
 [libs]

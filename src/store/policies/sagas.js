@@ -10,14 +10,12 @@ import {
   takeLatest
 } from 'redux-saga/effects'
 import { eventChannel } from 'redux-saga'
-import RNFetchBlob from 'react-native-fetch-blob'
 import firebase from 'firebase'
 import uuid from 'uuid/v4'
 import mime from 'react-native-mime-types'
 
 import { syncMotorPolicies, addPolicyDocument, removePolicyDocument, getPolicyDocument } from 'jog/src/data/policies'
 import { demandCurrentUser } from 'jog/src/data/auth'
-import { getFileMetadataFromURI } from 'jog/src/util/files'
 
 import { receiveMotorPolicies } from './actions'
 import type { SyncMotorPoliciesAction, UploadPolicyDocumentAction } from './actionTypes'

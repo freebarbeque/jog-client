@@ -97,24 +97,3 @@ export function useIOSCamera() : Promise<iOSImageResponse | null> {
     }
   })
 }
-
-export type FileMetaData = {
-  path: string,
-  uri: string,
-  fileName: string,
-  extension: string,
-}
-
-export function getFileMetadataFromURI(uri: string) : FileMetaData {
-  const split = uri.split('file://')
-  // Android file browser doesn't use file:// prefix
-  const path = split[1] || split[0]
-  const fileName = path.split('/').pop()
-  const extension = fileName.split('.').pop()
-  return {
-    path,
-    uri,
-    fileName,
-    extension
-  }
-}

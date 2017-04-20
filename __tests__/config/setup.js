@@ -1,4 +1,5 @@
 /* globals jest */
+
 jest.mock('Linking', () => {
   return {
     addEventListener: jest.fn(),
@@ -13,3 +14,4 @@ jest.mock('Linking', () => {
 // If we ever actually have component tests, these will need to mocked out properly
 jest.mock('react-native-fetch-blob', () => 'react-native-fetch-blob')
 jest.mock('react-native-camera', () => 'react-native-camera')
+jest.mock('react-native-firestack', () => (function fakeConstructor() { this.x = 1 }))
