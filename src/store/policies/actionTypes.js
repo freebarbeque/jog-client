@@ -19,6 +19,8 @@ export type UnsyncMotorPoliciesAction = {
 export type UploadPolicyDocumentAction = {
   type: 'policies/UPLOAD_POLICY_DOCUMENT',
   fileUrl: string,
+  extension: string,
+  fileName: string,
   policyId: string,
 }
 

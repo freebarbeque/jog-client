@@ -20,9 +20,10 @@ import { demandCurrentUser } from 'jog/src/data/auth'
 import { getFileMetadataFromURI } from 'jog/src/util/files'
 
 import { receiveMotorPolicies } from './actions'
-import type { SyncMotorPoliciesAction } from './actionTypes'
+import type { SyncMotorPoliciesAction, UploadPolicyDocumentAction } from './actionTypes'
 import { finishLoading, startLoading } from '../loading/actions'
 import { declareError } from '../errors/actions'
+import { getFirestack } from '../../data/index'
 
 //
 // Sync policies
@@ -77,36 +78,26 @@ export function* syncPoliciesSaga<T>(): Iterable<T> {
 // Policy operations
 //
 
-function* uploadPolicyDocumentTask({ fileUrl, policyId }) {
+function* uploadPolicyDocumentTask(action: UploadPolicyDocumentAction) {
+  const { fileUrl, policyId, extension, fileName } = action
+
   yield put(startLoading('Loading document'))
-  const imageMetaData = getFileMetadataFromURI(fileUrl)
   const user = demandCurrentUser()
 
-  // Using base64 encoding is nice on the JS bridge. If using ascii or utf-8 it can be really slow.
-  const path = imageMetaData.path
-  console.debug(`Reading from ${path}`)
-
-  let imageData
-  try {
-    imageData = yield call(RNFetchBlob.fs.readFile, path, 'base64')
-  } catch (e) {
-    console.debug('Error loading document', e.code || e.message)
-    yield put(declareError('Unable to load document'))
-    return
-  }
-
   const id = uuid()
-  const fileStoragePath = `/policyDocuments/${user.uid}/${policyId}/${id}.${imageMetaData.extension}`
+  const fileStoragePath = `/policyDocuments/${user.uid}/${policyId}/${id}.${extension}`
 
   yield put(startLoading('Uploading document'))
-  const imageRef = firebase.storage().ref(fileStoragePath)
+
   try {
     // For whatever reason, the firebase module claims the base64 data from RNFetchBlob is invalid so we decode it manually.
-    const contentType = mime.lookup(imageMetaData.fileName)
-    console.log('contentType', contentType)
-    yield call(() => imageRef.putString(imageData, 'base64', { contentType }))
-  } catch (e) { // TODO: Dispatch error for display to user
-    console.debug('Error uploading image', e.code || e.message)
+    const contentType = mime.lookup(fileName)
+    yield call(() => getFirestack().storage.uploadFile(fileStoragePath, fileUrl, {
+      contentType,
+      contentEncoding: 'base64'
+    }))
+  } catch (e) {
+    console.debug('Error uploading image', e.message)
     yield put(declareError('Unable to upload document'))
     return
   }
@@ -120,12 +111,12 @@ function* uploadPolicyDocumentTask({ fileUrl, policyId }) {
     // must store file data within the database.
     yield call(() => addPolicyDocument(policyId, {
       image: fileStoragePath,
-      name: imageMetaData.fileName,
-      extension: imageMetaData.extension,
+      name: fileName,
+      extension: extension,
       id
     }))
   } catch (e) {
-    console.debug('Error uploading file metadata', e.code || e.message)
+    console.debug('Error uploading file metadata', e.message)
     yield put(declareError('Unable to upload file metadata'))
     return
   }
@@ -147,7 +138,7 @@ function* deletePolicyDocumentTask({ policyId, documentId }) {
   try {
     yield call(() => removePolicyDocument(policyId, documentId))
   } catch (e) {
-    console.debug('Error deleting file metadata', e.code || e.message)
+    console.debug('Error deleting file metadata', e.message)
     yield put(declareError('Unable to delete file metadata'))
     return
   }

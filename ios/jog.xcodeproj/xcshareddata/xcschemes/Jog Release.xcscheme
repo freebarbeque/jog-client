@@ -115,7 +115,7 @@
       <EnvironmentVariables>
          <EnvironmentVariable
             key = "JOG_ENVIRONMENT"
-            value = "release"
+            value = "RELEASE"
             isEnabled = "YES">
          </EnvironmentVariable>
       </EnvironmentVariables>

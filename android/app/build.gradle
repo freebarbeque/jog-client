@@ -135,6 +135,7 @@ android {
 }
 
 dependencies {
+    compile project(':react-native-firestack')
     compile project(':react-native-pdf-view')
     compile project(':react-native-photo-view')
     compile project(':react-native-camera')

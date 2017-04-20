@@ -3,6 +3,7 @@ package com.jog;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import io.fullstack.firestack.FirestackPackage;
 import com.keyee.pdfview.PDFView;
 import com.reactnative.photoview.PhotoViewPackage;
 import com.lwansbrough.RCTCamera.RCTCameraPackage;
@@ -32,6 +33,7 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new FirestackPackage(),
             new PDFView(),
             new PhotoViewPackage(),
             new RCTCameraPackage(),

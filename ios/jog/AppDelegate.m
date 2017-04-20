@@ -11,6 +11,7 @@
 
 #import <React/RCTBundleURLProvider.h>
 #import <React/RCTRootView.h>
+@import Firebase;
 
 @implementation AppDelegate
 
@@ -31,6 +32,21 @@
   rootViewController.view = rootView;
   self.window.rootViewController = rootViewController;
   [self.window makeKeyAndVisible];
+  NSDictionary *environment = [[NSProcessInfo processInfo] environment];
+  NSString* jogEnv = environment[@"JOG_ENVIRONMENT"];
+  
+  NSLog(@"JOG_ENVIRONMENT is %@",jogEnv);
+  
+  NSBundle* bundle = [NSBundle mainBundle];
+  
+  FIROptions* options;
+  if ([jogEnv isEqualToString:@"DEBUG"]) {
+    options = [[FIROptions new] initWithContentsOfFile:[bundle pathForResource:@"GoogleService-Info.dev" ofType:@"plist"]];
+  } else if ([jogEnv isEqualToString:@"RELEASE"]) {
+    options = [[FIROptions new] initWithContentsOfFile:[bundle pathForResource:@"GoogleService-Info.prod" ofType:@"plist"]];
+  }
+  
+  [FIRApp configureWithOptions:options];
   return YES;
 }
 

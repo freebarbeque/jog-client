@@ -13,3 +13,5 @@ fastlane-privatekey.json
 *.ipa
 *.dSYM.zip
 Preview.html
+Podfile.lock
+Pods
