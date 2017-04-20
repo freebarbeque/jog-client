@@ -1,7 +1,7 @@
 /* @flow */
 
 import React, { Component } from 'react'
-import { View, StyleSheet } from 'react-native'
+import { View, StyleSheet, Dimensions } from 'react-native'
 import { Background } from './images/index'
 import { MARGIN } from '../constants/style'
 import Text from './Text'
@@ -33,7 +33,7 @@ export default class BackgroundHeader extends Component {
 
 const styles = StyleSheet.create({
   backgroundImageOverlay: {
-    width: '100%',
+    width: Dimensions.get('window').width,
     height: 100,
     backgroundColor: 'rgba(0,0,0,0.25)',
     position: 'absolute',
