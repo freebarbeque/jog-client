@@ -17,12 +17,13 @@ import Text from '../components/Text'
 import { MARGIN } from '../constants/style'
 import { Cancel } from '../components/images/index'
 import Spinner from '../components/Spinner'
+import { deletePolicyDocument } from '../store/policies/actions'
 
 type PolicyDocumentScreenProps = {
   dispatch: Dispatch,
   // eslint-disable-next-line react/no-unused-prop-types
   policy: MotorPolicy,
-  document: PolicyDocument,
+  document?: PolicyDocument,
   // eslint-disable-next-line react/no-unused-prop-types
   navigation: ReactNavigationProp,
 };
@@ -55,10 +56,12 @@ class PolicyDocumentScreen extends Component {
       const { state, dispatch } = props
       const { params } = state
 
+      const { documentName, policyId, documentId } = params
+
       return {
         title: (
           <Text style={{ textAlign: 'center', marginLeft: MARGIN.base, marginRight: MARGIN.base }}>
-            {params.documentName}
+            {documentName}
           </Text>
         ),
         left: (
@@ -70,7 +73,13 @@ class PolicyDocumentScreen extends Component {
           </TouchableOpacity>
         ),
         right: (
-          <TouchableOpacity style={styles.headerDeleteButton}>
+          <TouchableOpacity
+            style={styles.headerDeleteButton}
+            onPress={() => {
+              dispatch(NavigationActions.back())
+              dispatch(deletePolicyDocument(policyId, documentId))
+            }}
+          >
             <Text style={{ fontWeight: '500' }}>
               DELETE
             </Text>
@@ -100,38 +109,41 @@ class PolicyDocumentScreen extends Component {
 
   async getDocument() {
     const document = this.props.document
-    const path = document.image
-    const ref = firebase.storage().ref(path)
-    const url = await ref.getDownloadURL()
 
-    console.debug(`Obtained download url for ${document.name}: ${url}`)
+    if (document) {
+      const path = document.image
+      const ref = firebase.storage().ref(path)
+      const url = await ref.getDownloadURL()
 
-    if (document.extension !== 'pdf') {
-      const { width, height } = await new Promise((resolve, reject) => {
-        Image.getSize(url, (fullWidth, fullHeight) => { resolve({ width: fullWidth, height: fullHeight }) }, reject)
-      })
+      console.debug(`Obtained download url for ${document.name}: ${url}`)
 
-      const displayWidth = Dimensions.get('window').width
-      const displayHeight = (displayWidth / width) * height
-      const stateUpdates : Object = {
-        url,
-        width: displayWidth,
-        height: displayHeight,
+      if (document.extension !== 'pdf') {
+        const { width, height } = await new Promise((resolve, reject) => {
+          Image.getSize(url, (fullWidth, fullHeight) => { resolve({ width: fullWidth, height: fullHeight }) }, reject)
+        })
+
+        const displayWidth = Dimensions.get('window').width
+        const displayHeight = (displayWidth / width) * height
+        const stateUpdates : Object = {
+          url,
+          width: displayWidth,
+          height: displayHeight,
+        }
+
+        this.setState(stateUpdates)
+      } else {
+        const stateUpdates: Object = {
+          url,
+          androidPdfLocation: null
+        }
+
+        if (IS_ANDROID && document.extension === 'pdf') {
+          console.debug('We\'re on android therefore need to download the document to display it!')
+          stateUpdates.androidPdfLocation = await downloadDocument(url, document.name)
+        }
+
+        this.setState(stateUpdates)
       }
-
-      this.setState(stateUpdates)
-    } else {
-      const stateUpdates: Object = {
-        url,
-        androidPdfLocation: null
-      }
-
-      if (IS_ANDROID && document.extension === 'pdf') {
-        console.debug('We\'re on android therefore need to download the document to display it!')
-        stateUpdates.androidPdfLocation = await downloadDocument(url, document.name)
-      }
-
-      this.setState(stateUpdates)
     }
   }
 
@@ -141,46 +153,49 @@ class PolicyDocumentScreen extends Component {
 
     const windowWidth = Dimensions.get('window').width
 
-    if (document.extension === 'pdf') {
-      if (IS_ANDROID) {
-        return (
-          <PDFView
-            src={androidPdfLocation}
-            style={{ flex: 1, width: windowWidth }}
-          />
-        )
+    if (document) {
+      if (document.extension === 'pdf') {
+        if (IS_ANDROID) {
+          return (
+            <PDFView
+              src={androidPdfLocation}
+              style={{ flex: 1, width: windowWidth }}
+            />
+          )
+        } else if (url) {
+          return (
+            <WebView
+              source={{ uri: url }}
+              style={{ width: windowWidth, backgroundColor: CREAM }}
+              javaScriptEnabled={IS_ANDROID}
+              domStorageEnabled={IS_ANDROID}
+              scalesPageToFit
+              automaticallyAdjustContentInsets={false}
+            />
+          )
+        }
       } else if (url) {
         return (
-          <WebView
+          <PhotoView
             source={{ uri: url }}
-            style={{ width: windowWidth, backgroundColor: CREAM }}
-            javaScriptEnabled={IS_ANDROID}
-            domStorageEnabled={IS_ANDROID}
-            scalesPageToFit
-            automaticallyAdjustContentInsets={false}
+            minimumZoomScale={0.5}
+            maximumZoomScale={3}
+            androidScaleType="center"
+            onLoad={() => console.log('Image loaded!')}
+            style={{ flex: 1, width, height }}
           />
         )
       }
-    } else if (url) {
-      return (
-        <PhotoView
-          source={{ uri: url }}
-          minimumZoomScale={0.5}
-          maximumZoomScale={3}
-          androidScaleType="center"
-          onLoad={() => console.log('Image loaded!')}
-          style={{ flex: 1, width, height }}
-        />
-      )
     }
+
     return null
   }
 
   render() {
     const { url, androidPdfLocation } = this.state
-
+    const { document } = this.props
     const isLoaded = url && (!IS_ANDROID || androidPdfLocation)
-    const name = this.props.document.name
+    const name = document ? document.name : ''
 
     return (
       <View style={styles.container}>
@@ -223,10 +238,11 @@ const mergeProps = (state: ReduxState, { dispatch }, ownProps: PolicyDocumentScr
   if (policy) {
     const documents = policy.documents
     let document
+
     if (documents) {
       document = documents[documentId]
     }
-    if (!document) throw new Error(`Policy does not have a document with id ${documentId}`)
+
     return {
       dispatch,
       policy,

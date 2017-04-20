@@ -1,8 +1,9 @@
-// @ flow
+// @flow
 
-import type { MotorPolicyMap } from 'jog/src/types'
+import type { MotorPolicyMap, MotorPolicy, PolicyDocument } from 'jog/src/types'
 
 import type {
+  DeletePolicyDocumentAction,
   ReceiveMotorPoliciesAction,
   SyncMotorPoliciesAction,
   UnsyncMotorPoliciesAction,
@@ -29,7 +30,7 @@ export function unsyncMotorPolicies() : UnsyncMotorPoliciesAction {
   }
 }
 
-export function uploadPolicyDocument(fileUrl, policyId): UploadPolicyDocumentAction {
+export function uploadPolicyDocument(fileUrl: string, policyId: string): UploadPolicyDocumentAction {
   return {
     type: 'policies/UPLOAD_POLICY_DOCUMENT',
     fileUrl,
@@ -37,3 +38,10 @@ export function uploadPolicyDocument(fileUrl, policyId): UploadPolicyDocumentAct
   }
 }
 
+export function deletePolicyDocument(policyId: string, documentId: string): DeletePolicyDocumentAction {
+  return {
+    type: 'policies/DELETE_POLICY_DOCUMENT',
+    documentId,
+    policyId,
+  }
+}

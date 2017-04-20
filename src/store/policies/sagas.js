@@ -15,7 +15,7 @@ import firebase from 'firebase'
 import uuid from 'uuid/v4'
 import mime from 'react-native-mime-types'
 
-import { syncMotorPolicies, addPolicyDocument } from 'jog/src/data/policies'
+import { syncMotorPolicies, addPolicyDocument, removePolicyDocument, getPolicyDocument } from 'jog/src/data/policies'
 import { demandCurrentUser } from 'jog/src/data/auth'
 import { getFileMetadataFromURI } from 'jog/src/util/files'
 
@@ -111,7 +111,16 @@ function* uploadPolicyDocumentTask({ fileUrl, policyId }) {
   })
 }
 
+function* deletePolicyDocumentTask({ policyId, documentId }) {
+  const user = demandCurrentUser()
+  const document = yield call(() => getPolicyDocument(policyId, documentId))
+  const fileStoragePath = `/policyDocuments/${user.uid}/${policyId}/${documentId}.${document.extension}`
+  yield call(() => firebase.storage().ref(fileStoragePath).delete())
+  yield call(() => removePolicyDocument(policyId, documentId))
+}
+
 export function* policyOperationsSaga<T>(): Iterable<T> {
   yield takeLatest('policies/UPLOAD_POLICY_DOCUMENT', uploadPolicyDocumentTask)
+  yield takeLatest('policies/DELETE_POLICY_DOCUMENT', deletePolicyDocumentTask)
 }
 
