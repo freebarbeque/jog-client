@@ -7,6 +7,7 @@ import screens from './screens/reducer'
 import policies from './policies/reducer'
 import insurers from './insurers/reducer'
 import loading from './loading/reducer'
+import errors from './errors/reducer'
 
 const AppReducer = combineReducers({
   nav,
@@ -14,7 +15,8 @@ const AppReducer = combineReducers({
   screens,
   policies,
   insurers,
-  loading
+  loading,
+  errors
 })
 
 export default AppReducer

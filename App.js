@@ -10,7 +10,7 @@ import initialiseFirebase from './src/data'
 import { BLUE } from './src/constants/palette'
 import RootNavigator from './src/navigators/RootNavigator'
 import { syncData } from './src/store/actions'
-import LoadingModal from './src/components/LoadingModal'
+import ActionModal from './src/components/ActionModal'
 
 initialiseFirebase()
 
@@ -34,7 +34,7 @@ export default class JogApp extends Component {
             barStyle="light-content"
           />
           <RootNavigator />
-          <LoadingModal />
+          <ActionModal />
         </View>
       </Provider>
     )

@@ -22,6 +22,7 @@ import { getFileMetadataFromURI } from 'jog/src/util/files'
 import { receiveMotorPolicies } from './actions'
 import type { SyncMotorPoliciesAction } from './actionTypes'
 import { finishLoading, startLoading } from '../loading/actions'
+import { declareError } from '../errors/actions'
 
 //
 // Sync policies
@@ -84,7 +85,15 @@ function* uploadPolicyDocumentTask({ fileUrl, policyId }) {
   // Using base64 encoding is nice on the JS bridge. If using ascii or utf-8 it can be really slow.
   const path = imageMetaData.path
   console.debug(`Reading from ${path}`)
-  const imageData = yield call(RNFetchBlob.fs.readFile, path, 'base64')
+
+  let imageData
+  try {
+    imageData = yield call(RNFetchBlob.fs.readFile, path, 'base64')
+  } catch (e) {
+    console.debug('Error loading document', e.code || e.message)
+    yield put(declareError('Unable to load document'))
+    return
+  }
 
   const id = uuid()
   const fileStoragePath = `/policyDocuments/${user.uid}/${policyId}/${id}.${imageMetaData.extension}`
@@ -97,7 +106,8 @@ function* uploadPolicyDocumentTask({ fileUrl, policyId }) {
     console.log('contentType', contentType)
     yield call(() => imageRef.putString(imageData, 'base64', { contentType }))
   } catch (e) { // TODO: Dispatch error for display to user
-    console.error('Error uploading image', e)
+    console.debug('Error uploading image', e.code || e.message)
+    yield put(declareError('Unable to upload document'))
     return
   }
 
@@ -105,14 +115,20 @@ function* uploadPolicyDocumentTask({ fileUrl, policyId }) {
 
   yield put(startLoading('Uploading metadata'))
 
-  // Firebase storage does not have an API for listing files in folders and therefore we
-  // must store file data within the database.
-  yield call(addPolicyDocument, policyId, {
-    image: fileStoragePath,
-    name: imageMetaData.fileName,
-    extension: imageMetaData.extension,
-    id
-  })
+  try {
+    // Firebase storage does not have an API for listing files in folders and therefore we
+    // must store file data within the database.
+    yield call(() => addPolicyDocument(policyId, {
+      image: fileStoragePath,
+      name: imageMetaData.fileName,
+      extension: imageMetaData.extension,
+      id
+    }))
+  } catch (e) {
+    console.debug('Error uploading file metadata', e.code || e.message)
+    yield put(declareError('Unable to upload file metadata'))
+    return
+  }
 
   yield put(finishLoading())
 }
@@ -122,8 +138,19 @@ function* deletePolicyDocumentTask({ policyId, documentId }) {
   yield put(startLoading('Deleting document'))
   const document = yield call(() => getPolicyDocument(policyId, documentId))
   const fileStoragePath = `/policyDocuments/${user.uid}/${policyId}/${documentId}.${document.extension}`
-  yield call(() => firebase.storage().ref(fileStoragePath).delete())
-  yield call(() => removePolicyDocument(policyId, documentId))
+  try {
+    yield call(() => firebase.storage().ref(fileStoragePath).delete())
+  } catch (e) {
+    yield put(declareError('Unable to delete file'))
+    return
+  }
+  try {
+    yield call(() => removePolicyDocument(policyId, documentId))
+  } catch (e) {
+    console.debug('Error deleting file metadata', e.code || e.message)
+    yield put(declareError('Unable to delete file metadata'))
+    return
+  }
   yield put(finishLoading())
 }
 
