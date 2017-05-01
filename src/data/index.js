@@ -12,7 +12,7 @@ export default function initialiseFirebase() {
   if (!initialised) {
     firebase.initializeApp(config.firebase)
     initialised = true
-    firestack = new Firestack(config.firestack)
+    firestack = new Firestack()
   }
 }
 
