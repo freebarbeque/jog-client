@@ -129,6 +129,16 @@ export const Cancel = (props: LogoProps) => {
   )
 }
 
+export const Warning = (props: LogoProps) => {
+  const { style = {}, scale = 1 } = props
+
+  return (
+    <Image
+      style={[{ height: 69 * scale, width: 75 * scale }, style]}
+      source={require('./warning.png')}
+    />
+  )
+}
 
 type BackgroundProps = {
   style?: $Subtype<Object>,
