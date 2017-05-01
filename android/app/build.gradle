@@ -135,7 +135,7 @@ android {
 }
 
 dependencies {
-    compile project(':react-native-firestack')
+    compile(project(':react-native-firestack')){ exclude group: 'com.google.android.gms' }
     compile project(':react-native-pdf-view')
     compile project(':react-native-photo-view')
     compile project(':react-native-camera')
@@ -157,3 +157,5 @@ task copyDownloadableDepsToLibs(type: Copy) {
     from configurations.compile
     into 'libs'
 }
+
+apply plugin: 'com.google.gms.google-services'

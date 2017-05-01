@@ -25,6 +25,8 @@
 		1CA452A156E1478B91CFB757 /* Octicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 29A85038A90142A6A27FE1D6 /* Octicons.ttf */; };
 		1D196553E1CB4576A6105012 /* WorkSans-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A31A6F57856B4F298DAFA301 /* WorkSans-Black.ttf */; };
 		253660B813844B2CB4DFEECA /* libRCTCamera.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 239632C4BA7E4E92AEF681B6 /* libRCTCamera.a */; };
+		27AF63871EAB52B90007B03D /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 27AF63861EAB52B90007B03D /* AdSupport.framework */; };
+		27AF63BF1EAB55A40007B03D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 27AF63BE1EAB55A40007B03D /* GoogleService-Info.plist */; };
 		27D4292A1EA9094300F99378 /* GoogleService-Info.dev.plist in Resources */ = {isa = PBXBuildFile; fileRef = 27D429291EA9094300F99378 /* GoogleService-Info.dev.plist */; };
 		27D4294E1EA913D500F99378 /* GoogleService-Info.prod.plist in Resources */ = {isa = PBXBuildFile; fileRef = 27D4294D1EA913D500F99378 /* GoogleService-Info.prod.plist */; };
 		35898D9751DF4D34BF9E0274 /* FontAwesome.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0E4EF8E03C00401183BD7FA5 /* FontAwesome.ttf */; };
@@ -322,6 +324,8 @@
 		239632C4BA7E4E92AEF681B6 /* libRCTCamera.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRCTCamera.a; sourceTree = "<group>"; };
 		2611B61A89794E34B505F387 /* Ionicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Ionicons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Ionicons.ttf"; sourceTree = "<group>"; };
 		27304002B90B46F4B9AA62E2 /* WorkSans-SemiBold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "WorkSans-SemiBold.ttf"; path = "../assets/fonts/WorkSans-SemiBold.ttf"; sourceTree = "<group>"; };
+		27AF63861EAB52B90007B03D /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
+		27AF63BE1EAB55A40007B03D /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		27D429291EA9094300F99378 /* GoogleService-Info.dev.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.dev.plist"; sourceTree = "<group>"; };
 		27D4294D1EA913D500F99378 /* GoogleService-Info.prod.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.prod.plist"; sourceTree = "<group>"; };
 		27E7225B1EA0E64E00A4F249 /* jog.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = jog.entitlements; path = jog/jog.entitlements; sourceTree = "<group>"; };
@@ -366,6 +370,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				27AF63871EAB52B90007B03D /* AdSupport.framework in Frameworks */,
 				146834051AC3E58100842450 /* libReact.a in Frameworks */,
 				5E9157361DD0AC6A00FF2AA8 /* libRCTAnimation.a in Frameworks */,
 				00C302E51ABCBA2D00DB3ED1 /* libRCTActionSheet.a in Frameworks */,
@@ -438,6 +443,7 @@
 		0F742CD149152C9FC9AC887B /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				27AF63861EAB52B90007B03D /* AdSupport.framework */,
 				10C7CCA89C3BFAF1B0E1F202 /* Pods_jog.framework */,
 			);
 			name = Frameworks;
@@ -464,6 +470,7 @@
 		13B07FAE1A68108700A75B9A /* jog */ = {
 			isa = PBXGroup;
 			children = (
+				27AF63BE1EAB55A40007B03D /* GoogleService-Info.plist */,
 				27D429291EA9094300F99378 /* GoogleService-Info.dev.plist */,
 				27D4294D1EA913D500F99378 /* GoogleService-Info.prod.plist */,
 				27E7225B1EA0E64E00A4F249 /* jog.entitlements */,
@@ -683,6 +690,8 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "jog" */;
 			buildPhases = (
+				27AF63E41EAB5BA80007B03D /* Increment build number */,
+				27AF63E21EAB562F0007B03D /* Configure Google Service Plist */,
 				2662E4434497D1185D018F15 /* [CP] Check Pods Manifest.lock */,
 				13B07F871A680F5B00A75B9A /* Sources */,
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
@@ -1084,6 +1093,7 @@
 				4638F7AB01F945A695F747C3 /* Foundation.ttf in Resources */,
 				91046F8A29904A25A1F217D2 /* Ionicons.ttf in Resources */,
 				27D4292A1EA9094300F99378 /* GoogleService-Info.dev.plist in Resources */,
+				27AF63BF1EAB55A40007B03D /* GoogleService-Info.plist in Resources */,
 				1B2D0E5B85B340C78C708B84 /* MaterialCommunityIcons.ttf in Resources */,
 				87A13B4596384991967A6126 /* MaterialIcons.ttf in Resources */,
 				1CA452A156E1478B91CFB757 /* Octicons.ttf in Resources */,
@@ -1124,6 +1134,34 @@
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
+		};
+		27AF63E21EAB562F0007B03D /* Configure Google Service Plist */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Configure Google Service Plist";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if [ \"$JOG_ENVIRONMENT\" == \"RELEASE\" ]; then\n  cp \"${SRCROOT}/GoogleService-Info.prod.plist\" \"${SRCROOT}/GoogleService-Info.plist\"\nelif [ \"$JOG_ENVIRONMENT\" == \"DEBUG\" ]; then\n  cp \"${SRCROOT}/GoogleService-Info.dev.plist\" \"${SRCROOT}/GoogleService-Info.plist\"\nelse\n  echo \"JOG_ENVIRONMENT is not set!\"\n  exit 1\nfi";
+		};
+		27AF63E41EAB5BA80007B03D /* Increment build number */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Increment build number";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "buildNumber=$(/usr/libexec/PlistBuddy -c \"Print CFBundleVersion\" \"${PROJECT_DIR}/${INFOPLIST_FILE}\")\nbuildNumber=$(($buildNumber + 1))\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $buildNumber\" \"${PROJECT_DIR}/${INFOPLIST_FILE}\"";
 		};
 		64A2096D14030B1EA31BE467 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1217,6 +1255,7 @@
 				);
 				INFOPLIST_FILE = jog/Info.plist;
 				INFOPLIST_PREPROCESS = YES;
+				JOG_ENVIRONMENT = DEBUG;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1286,6 +1325,7 @@
 				);
 				INFOPLIST_FILE = jog/Info.plist;
 				INFOPLIST_PREPROCESS = YES;
+				JOG_ENVIRONMENT = RELEASE;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",

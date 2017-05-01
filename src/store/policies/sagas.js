@@ -87,15 +87,19 @@ function* uploadPolicyDocumentTask(action: UploadPolicyDocumentAction) {
 
   yield put(startLoading('Uploading document'))
 
+
   try {
     // For whatever reason, the firebase module claims the base64 data from RNFetchBlob is invalid so we decode it manually.
     const contentType = mime.lookup(fileName)
+
+    console.debug(`Uploading document at ${fileUrl} to ${fileStoragePath} with content-type ${contentType}`)
+
     yield call(() => getFirestack().storage.uploadFile(fileStoragePath, fileUrl, {
       contentType,
       contentEncoding: 'base64'
     }))
   } catch (e) {
-    console.debug('Error uploading image', e.message)
+    console.debug('Error uploading image', e)
     yield put(declareError('Unable to upload document'))
     return
   }
@@ -114,7 +118,7 @@ function* uploadPolicyDocumentTask(action: UploadPolicyDocumentAction) {
       id
     }))
   } catch (e) {
-    console.debug('Error uploading file metadata', e.message)
+    console.debug('Error uploading file metadata', e)
     yield put(declareError('Unable to upload file metadata'))
     return
   }
@@ -136,7 +140,7 @@ function* deletePolicyDocumentTask({ policyId, documentId }) {
   try {
     yield call(() => removePolicyDocument(policyId, documentId))
   } catch (e) {
-    console.debug('Error deleting file metadata', e.message)
+    console.debug('Error deleting file metadata', e)
     yield put(declareError('Unable to delete file metadata'))
     return
   }
