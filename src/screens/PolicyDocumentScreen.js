@@ -118,12 +118,15 @@ class PolicyDocumentScreen extends Component {
       console.debug(`Obtained download url for ${document.name}: ${url}`)
 
       if (document.extension !== 'pdf') {
+        console.debug('Fetching image width and height')
         const { width, height } = await new Promise((resolve, reject) => {
           Image.getSize(url, (fullWidth, fullHeight) => { resolve({ width: fullWidth, height: fullHeight }) }, reject)
         })
+        console.debug('Fetched image width and height', width, height)
 
         const displayWidth = Dimensions.get('window').width
         const displayHeight = (displayWidth / width) * height
+
         const stateUpdates : Object = {
           url,
           width: displayWidth,
@@ -175,6 +178,7 @@ class PolicyDocumentScreen extends Component {
           )
         }
       } else if (url) {
+        console.log('rendering PhotoView', url)
         return (
           <PhotoView
             source={{ uri: url }}
@@ -194,7 +198,11 @@ class PolicyDocumentScreen extends Component {
   render() {
     const { url, androidPdfLocation } = this.state
     const { document } = this.props
-    const isLoaded = url && (!IS_ANDROID || androidPdfLocation)
+
+    const isPdf = document && document.extension === 'pdf'
+
+    const isLoaded = url && (!IS_ANDROID || isPdf && androidPdfLocation || !isPdf)
+
     const name = document ? document.name : ''
 
     return (
