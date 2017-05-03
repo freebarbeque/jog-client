@@ -1,7 +1,7 @@
 /* @flow */
 
 import React, { Component } from 'react'
-import { View, StyleSheet, TouchableOpacity, Dimensions, Image, WebView, Platform } from 'react-native'
+import { View, StyleSheet, TouchableOpacity, Dimensions, Image, WebView } from 'react-native'
 import { connect } from 'react-redux'
 import { NavigationActions } from 'react-navigation'
 import firebase from 'firebase'
@@ -18,6 +18,7 @@ import { MARGIN } from '../constants/style'
 import { Cancel } from '../components/images/index'
 import Spinner from '../components/Spinner'
 import { deletePolicyDocument } from '../store/policies/actions'
+import { isAndroid } from '../util/system'
 
 type PolicyDocumentScreenProps = {
   dispatch: Dispatch,
@@ -34,8 +35,6 @@ type PolicyDocumentScreenState = {
   height: number | null,
   androidPdfLocation: string | null
 }
-
-const IS_ANDROID = Platform.OS === 'android'
 
 async function downloadDocument(url: string, fileName: string) : Promise<string> {
   const DocumentDir = RNFetchBlob.fs.dirs.DocumentDir
@@ -140,8 +139,7 @@ class PolicyDocumentScreen extends Component {
           androidPdfLocation: null
         }
 
-        if (IS_ANDROID && document.extension === 'pdf') {
-          console.debug('We\'re on android therefore need to download the document to display it!')
+        if (isAndroid() && document.extension === 'pdf') {
           stateUpdates.androidPdfLocation = await downloadDocument(url, document.name)
         }
 
@@ -158,7 +156,7 @@ class PolicyDocumentScreen extends Component {
 
     if (document) {
       if (document.extension === 'pdf') {
-        if (IS_ANDROID) {
+        if (isAndroid()) {
           return (
             <PDFView
               src={androidPdfLocation}
@@ -170,8 +168,8 @@ class PolicyDocumentScreen extends Component {
             <WebView
               source={{ uri: url }}
               style={{ width: windowWidth, backgroundColor: CREAM }}
-              javaScriptEnabled={IS_ANDROID}
-              domStorageEnabled={IS_ANDROID}
+              javaScriptEnabled={false}
+              domStorageEnabled={false}
               scalesPageToFit
               automaticallyAdjustContentInsets={false}
             />
@@ -201,7 +199,7 @@ class PolicyDocumentScreen extends Component {
 
     const isPdf = document && document.extension === 'pdf'
 
-    const isLoaded = url && (!IS_ANDROID || isPdf && androidPdfLocation || !isPdf)
+    const isLoaded = url && (!isAndroid() || isPdf && androidPdfLocation || !isPdf)
 
     const name = document ? document.name : ''
 
