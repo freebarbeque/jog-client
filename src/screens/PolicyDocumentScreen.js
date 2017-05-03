@@ -1,13 +1,11 @@
 /* @flow */
 
 import React, { Component } from 'react'
-import { View, StyleSheet, TouchableOpacity, Dimensions, Image, WebView } from 'react-native'
+import { View, StyleSheet, TouchableOpacity, Dimensions, Image } from 'react-native'
 import { connect } from 'react-redux'
 import { NavigationActions } from 'react-navigation'
 import firebase from 'firebase'
 import PhotoView from 'react-native-photo-view'
-import RNFetchBlob from 'react-native-fetch-blob'
-import PDFView from 'react-native-pdf-view'
 
 import type { ReduxState, MotorPolicy, PolicyDocument, Dispatch, ReactNavigationProp } from 'jog/src/types'
 
@@ -18,7 +16,7 @@ import { MARGIN } from '../constants/style'
 import { Cancel } from '../components/images/index'
 import Spinner from '../components/Spinner'
 import { deletePolicyDocument } from '../store/policies/actions'
-import { isAndroid } from '../util/system'
+import PDFViewer from '../components/PDFViewer'
 
 type PolicyDocumentScreenProps = {
   dispatch: Dispatch,
@@ -33,17 +31,6 @@ type PolicyDocumentScreenState = {
   url: string | null,
   width: number | null,
   height: number | null,
-  androidPdfLocation: string | null
-}
-
-async function downloadDocument(url: string, fileName: string) : Promise<string> {
-  const DocumentDir = RNFetchBlob.fs.dirs.DocumentDir
-  const res = await RNFetchBlob.fetch('GET', url)
-  const base64str = res.data
-  const pdfLocation = `${DocumentDir}/${fileName}`
-  await RNFetchBlob.fs.writeFile(pdfLocation, base64str, 'base64')
-  console.debug(`Wrote ${url} to ${pdfLocation}`)
-  return pdfLocation
 }
 
 class PolicyDocumentScreen extends Component {
@@ -95,7 +82,6 @@ class PolicyDocumentScreen extends Component {
       url: null,
       width: null,
       height: null,
-      androidPdfLocation: null
     }
   }
 
@@ -136,11 +122,6 @@ class PolicyDocumentScreen extends Component {
       } else {
         const stateUpdates: Object = {
           url,
-          androidPdfLocation: null
-        }
-
-        if (isAndroid() && document.extension === 'pdf') {
-          stateUpdates.androidPdfLocation = await downloadDocument(url, document.name)
         }
 
         this.setState(stateUpdates)
@@ -150,31 +131,17 @@ class PolicyDocumentScreen extends Component {
 
   renderDocument() {
     const { document } = this.props
-    const { url, width, height, androidPdfLocation } = this.state
-
-    const windowWidth = Dimensions.get('window').width
+    const { url, width, height } = this.state
+    const name = document ? document.name : ''
 
     if (document) {
-      if (document.extension === 'pdf') {
-        if (isAndroid()) {
-          return (
-            <PDFView
-              src={androidPdfLocation}
-              style={{ flex: 1, width: windowWidth }}
-            />
-          )
-        } else if (url) {
-          return (
-            <WebView
-              source={{ uri: url }}
-              style={{ width: windowWidth, backgroundColor: CREAM }}
-              javaScriptEnabled={false}
-              domStorageEnabled={false}
-              scalesPageToFit
-              automaticallyAdjustContentInsets={false}
-            />
-          )
-        }
+      if (document.extension === 'pdf' && url) {
+        return (
+          <PDFViewer
+            url={url}
+            fileName={document.name}
+          />
+        )
       } else if (url) {
         console.log('rendering PhotoView', url)
         return (
@@ -190,24 +157,13 @@ class PolicyDocumentScreen extends Component {
       }
     }
 
-    return null
+    return <Spinner text={`Loading ${name}`} />
   }
 
   render() {
-    const { url, androidPdfLocation } = this.state
-    const { document } = this.props
-
-    const isPdf = document && document.extension === 'pdf'
-
-    const isLoaded = url && (!isAndroid() || isPdf && androidPdfLocation || !isPdf)
-
-    const name = document ? document.name : ''
-
     return (
       <View style={styles.container}>
-        {
-          isLoaded ? this.renderDocument() : <Spinner text={`Loading ${name}`} />
-        }
+        {this.renderDocument()}
       </View>
     )
   }
