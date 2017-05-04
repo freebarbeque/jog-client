@@ -14,7 +14,6 @@ const DEFAULT_STATE = {
 
 export default function reducer(state: ErrorsReduxState = DEFAULT_STATE, action: ErrorAction) {
   if (action.type === 'errors/DECLARE') {
-    console.log('yooo')
     return {
       error: true,
       text: action.text

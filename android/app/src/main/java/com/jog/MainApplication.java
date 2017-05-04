@@ -2,6 +2,7 @@ package com.jog;
 
 import android.app.Application;
 
+import com.facebook.react.BuildConfig;
 import com.facebook.react.ReactApplication;
 import io.fullstack.firestack.FirestackPackage;
 import com.keyee.pdfview.PDFView;
