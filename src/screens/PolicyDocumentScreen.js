@@ -1,11 +1,9 @@
 /* @flow */
 
 import React, { Component } from 'react'
-import { View, StyleSheet, TouchableOpacity, Dimensions, Image } from 'react-native'
+import { View, StyleSheet, TouchableOpacity } from 'react-native'
 import { connect } from 'react-redux'
 import { NavigationActions } from 'react-navigation'
-import firebase from 'firebase'
-import PhotoView from 'react-native-photo-view'
 
 import type { ReduxState, MotorPolicy, PolicyDocument, Dispatch, ReactNavigationProp } from 'jog/src/types'
 
@@ -16,7 +14,7 @@ import { MARGIN } from '../constants/style'
 import { Cancel } from '../components/images/index'
 import Spinner from '../components/Spinner'
 import { deletePolicyDocument } from '../store/policies/actions'
-import PDFViewer from '../components/PDFViewer'
+import DocumentViewer from '../components/DocumentViewer'
 
 type PolicyDocumentScreenProps = {
   dispatch: Dispatch,
@@ -27,15 +25,8 @@ type PolicyDocumentScreenProps = {
   navigation: ReactNavigationProp,
 };
 
-type PolicyDocumentScreenState = {
-  url: string | null,
-  width: number | null,
-  height: number | null,
-}
-
 class PolicyDocumentScreen extends Component {
   props: PolicyDocumentScreenProps
-  state: PolicyDocumentScreenState
 
   static navigationOptions = {
     header: (props) => {
@@ -76,85 +67,14 @@ class PolicyDocumentScreen extends Component {
     }
   }
 
-  constructor(props) {
-    super(props)
-    this.state = {
-      url: null,
-      width: null,
-      height: null,
-    }
-  }
-
-  componentDidMount() {
-    this.getDocument().catch((err) => {
-      console.error(err)
-    })
-  }
-
-
-  async getDocument() {
-    const document = this.props.document
-
-    if (document) {
-      const path = document.image
-      const ref = firebase.storage().ref(path)
-      const url = await ref.getDownloadURL()
-
-      console.debug(`Obtained download url for ${document.name}: ${url}`)
-
-      if (document.extension !== 'pdf') {
-        console.debug('Fetching image width and height')
-        const { width, height } = await new Promise((resolve, reject) => {
-          Image.getSize(url, (fullWidth, fullHeight) => { resolve({ width: fullWidth, height: fullHeight }) }, reject)
-        })
-        console.debug('Fetched image width and height', width, height)
-
-        const displayWidth = Dimensions.get('window').width
-        const displayHeight = (displayWidth / width) * height
-
-        const stateUpdates : Object = {
-          url,
-          width: displayWidth,
-          height: displayHeight,
-        }
-
-        this.setState(stateUpdates)
-      } else {
-        const stateUpdates: Object = {
-          url,
-        }
-
-        this.setState(stateUpdates)
-      }
-    }
-  }
-
   renderDocument() {
     const { document } = this.props
-    const { url, width, height } = this.state
     const name = document ? document.name : ''
 
     if (document) {
-      if (document.extension === 'pdf' && url) {
-        return (
-          <PDFViewer
-            url={url}
-            fileName={document.name}
-          />
-        )
-      } else if (url) {
-        console.log('rendering PhotoView', url)
-        return (
-          <PhotoView
-            source={{ uri: url }}
-            minimumZoomScale={0.5}
-            maximumZoomScale={3}
-            androidScaleType="center"
-            onLoad={() => console.log('Image loaded!')}
-            style={{ flex: 1, width, height }}
-          />
-        )
-      }
+      return (
+        <DocumentViewer document={document} />
+      )
     }
 
     return <Spinner text={`Loading ${name}`} />

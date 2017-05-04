@@ -18,15 +18,6 @@ type PDFViewerState = {
   androidPdfLocation: string | null,
 }
 
-async function downloadDocument(url: string, fileName: string) : Promise<string> {
-  const DocumentDir = RNFetchBlob.fs.dirs.DocumentDir
-  const res = await RNFetchBlob.fetch('GET', url)
-  const base64str = res.data
-  const pdfLocation = `${DocumentDir}/${fileName}`
-  await RNFetchBlob.fs.writeFile(pdfLocation, base64str, 'base64')
-  console.debug(`Wrote ${url} to ${pdfLocation}`)
-  return pdfLocation
-}
 
 export default class PDFViewer extends Component {
   props: PDFViewerProps
@@ -40,14 +31,33 @@ export default class PDFViewer extends Component {
   }
 
   componentDidMount() {
-    const { url, fileName } = this.props
+    const { url } = this.props
 
-    if (isAndroid()) {
-      console.log('url', url)
-      downloadDocument(url, fileName).then((androidPdfLocation) => {
-        this.setState({ androidPdfLocation })
+    if (isAndroid() && url) {
+      this.fetchDocument().catch((err) => {
+        console.error('Error fetching document', err)
       })
     }
+  }
+
+  componentDidUpdate(nextProps: PDFViewerProps) {
+    if (this.props.url !== nextProps.url) {
+      this.fetchDocument().catch((err) => {
+        console.error('Error refetching document', err)
+      })
+    }
+  }
+
+  async fetchDocument() {
+    const { url, fileName } = this.props
+
+    const DocumentDir = RNFetchBlob.fs.dirs.DocumentDir
+    const res = await RNFetchBlob.fetch('GET', url)
+    const base64str = res.data
+    const androidPdfLocation = `${DocumentDir}/${fileName}`
+    await RNFetchBlob.fs.writeFile(androidPdfLocation, base64str, 'base64')
+    console.debug(`Wrote ${url} to ${androidPdfLocation}`)
+    this.setState({ androidPdfLocation })
   }
 
   render() {
