@@ -1,13 +1,9 @@
 /* @flow */
 
 import React, { Component } from 'react'
-import { View, StyleSheet, TouchableOpacity, Dimensions, Image, WebView, Platform } from 'react-native'
+import { View, StyleSheet, TouchableOpacity } from 'react-native'
 import { connect } from 'react-redux'
 import { NavigationActions } from 'react-navigation'
-import firebase from 'firebase'
-import PhotoView from 'react-native-photo-view'
-import RNFetchBlob from 'react-native-fetch-blob'
-import PDFView from 'react-native-pdf-view'
 
 import type { ReduxState, MotorPolicy, PolicyDocument, Dispatch, ReactNavigationProp } from 'jog/src/types'
 
@@ -18,6 +14,7 @@ import { MARGIN } from '../constants/style'
 import { Cancel } from '../components/images/index'
 import Spinner from '../components/Spinner'
 import { deletePolicyDocument } from '../store/policies/actions'
+import DocumentViewer from '../components/DocumentViewer'
 
 type PolicyDocumentScreenProps = {
   dispatch: Dispatch,
@@ -28,28 +25,8 @@ type PolicyDocumentScreenProps = {
   navigation: ReactNavigationProp,
 };
 
-type PolicyDocumentScreenState = {
-  url: string | null,
-  width: number | null,
-  height: number | null,
-  androidPdfLocation: string | null
-}
-
-const IS_ANDROID = Platform.OS === 'android'
-
-async function downloadDocument(url: string, fileName: string) : Promise<string> {
-  const DocumentDir = RNFetchBlob.fs.dirs.DocumentDir
-  const res = await RNFetchBlob.fetch('GET', url)
-  const base64str = res.data
-  const pdfLocation = `${DocumentDir}/${fileName}`
-  await RNFetchBlob.fs.writeFile(pdfLocation, base64str, 'base64')
-  console.debug(`Wrote ${url} to ${pdfLocation}`)
-  return pdfLocation
-}
-
 class PolicyDocumentScreen extends Component {
   props: PolicyDocumentScreenProps
-  state: PolicyDocumentScreenState
 
   static navigationOptions = {
     header: (props) => {
@@ -90,118 +67,23 @@ class PolicyDocumentScreen extends Component {
     }
   }
 
-  constructor(props) {
-    super(props)
-    this.state = {
-      url: null,
-      width: null,
-      height: null,
-      androidPdfLocation: null
-    }
-  }
-
-  componentDidMount() {
-    this.getDocument().catch((err) => {
-      console.error(err)
-    })
-  }
-
-
-  async getDocument() {
-    const document = this.props.document
-
-    if (document) {
-      const path = document.image
-      const ref = firebase.storage().ref(path)
-      const url = await ref.getDownloadURL()
-
-      console.debug(`Obtained download url for ${document.name}: ${url}`)
-
-      if (document.extension !== 'pdf') {
-        const { width, height } = await new Promise((resolve, reject) => {
-          Image.getSize(url, (fullWidth, fullHeight) => { resolve({ width: fullWidth, height: fullHeight }) }, reject)
-        })
-
-        const displayWidth = Dimensions.get('window').width
-        const displayHeight = (displayWidth / width) * height
-        const stateUpdates : Object = {
-          url,
-          width: displayWidth,
-          height: displayHeight,
-        }
-
-        this.setState(stateUpdates)
-      } else {
-        const stateUpdates: Object = {
-          url,
-          androidPdfLocation: null
-        }
-
-        if (IS_ANDROID && document.extension === 'pdf') {
-          console.debug('We\'re on android therefore need to download the document to display it!')
-          stateUpdates.androidPdfLocation = await downloadDocument(url, document.name)
-        }
-
-        this.setState(stateUpdates)
-      }
-    }
-  }
-
   renderDocument() {
     const { document } = this.props
-    const { url, width, height, androidPdfLocation } = this.state
-
-    const windowWidth = Dimensions.get('window').width
+    const name = document ? document.name : ''
 
     if (document) {
-      if (document.extension === 'pdf') {
-        if (IS_ANDROID) {
-          return (
-            <PDFView
-              src={androidPdfLocation}
-              style={{ flex: 1, width: windowWidth }}
-            />
-          )
-        } else if (url) {
-          return (
-            <WebView
-              source={{ uri: url }}
-              style={{ width: windowWidth, backgroundColor: CREAM }}
-              javaScriptEnabled={IS_ANDROID}
-              domStorageEnabled={IS_ANDROID}
-              scalesPageToFit
-              automaticallyAdjustContentInsets={false}
-            />
-          )
-        }
-      } else if (url) {
-        return (
-          <PhotoView
-            source={{ uri: url }}
-            minimumZoomScale={0.5}
-            maximumZoomScale={3}
-            androidScaleType="center"
-            onLoad={() => console.log('Image loaded!')}
-            style={{ flex: 1, width, height }}
-          />
-        )
-      }
+      return (
+        <DocumentViewer document={document} />
+      )
     }
 
-    return null
+    return <Spinner text={`Loading ${name}`} />
   }
 
   render() {
-    const { url, androidPdfLocation } = this.state
-    const { document } = this.props
-    const isLoaded = url && (!IS_ANDROID || androidPdfLocation)
-    const name = document ? document.name : ''
-
     return (
       <View style={styles.container}>
-        {
-          isLoaded ? this.renderDocument() : <Spinner text={`Loading ${name}`} />
-        }
+        {this.renderDocument()}
       </View>
     )
   }

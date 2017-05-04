@@ -30,11 +30,17 @@ export function unsyncMotorPolicies() : UnsyncMotorPoliciesAction {
   }
 }
 
-export function uploadPolicyDocument(fileUrl: string, policyId: string): UploadPolicyDocumentAction {
+type UploadPolicyDocumentOptions = {
+  fileUrl: string,
+  extension: string,
+  fileName: string,
+  policyId: string,
+}
+
+export function uploadPolicyDocument(opts: UploadPolicyDocumentOptions): UploadPolicyDocumentAction {
   return {
     type: 'policies/UPLOAD_POLICY_DOCUMENT',
-    fileUrl,
-    policyId,
+    ...opts
   }
 }
 
