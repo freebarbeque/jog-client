@@ -6,12 +6,23 @@ import type { AuthAction } from './store/auth/actionTypes'
 import type { PoliciesAction } from './store/policies/actionTypes'
 import type { InsurerActions } from './store/insurers/actionTypes'
 import type { BaseAction } from './store/actionTypes'
+import type { LoadingReduxState } from './store/loading/reducer'
+import type { LoadingAction } from './store/loading/actionTypes'
+import type { ErrorsReduxState } from './store/errors/reducer'
+import type { ErrorAction } from './store/errors/actionTypes'
 
 //
 // Redux
 //
 
-export type Action = AuthAction | NavigationAction | PoliciesAction | InsurerActions | BaseAction
+export type Action =
+  AuthAction |
+  NavigationAction |
+  PoliciesAction |
+  InsurerActions |
+  BaseAction |
+  LoadingAction |
+  ErrorAction
 
 export type NavReduxState = {
   index: number,
@@ -46,7 +57,9 @@ export type ReduxState = {
   auth: AuthReduxState,
   screens: ScreensReduxState,
   policies: PoliciesState,
-  insurers: InsurersReduxState
+  insurers: InsurersReduxState,
+  loading: LoadingReduxState,
+  errors: ErrorsReduxState,
 }
 
 export type Store = ReduxStore<ReduxState, Action>;
@@ -121,7 +134,7 @@ export type MotorPolicy = {
   startDate?: number,
   createdDate?: number, // Date added to jog as opposed to insurance start date
   companyId?: string,
-  documents?: PolicyDocument[],
+  documents?: {[id: string] : PolicyDocument},
   cost?: number,
   uid?: string, // Firebase user id.
   excess?: number,

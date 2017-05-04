@@ -10,17 +10,18 @@ import {
   takeLatest
 } from 'redux-saga/effects'
 import { eventChannel } from 'redux-saga'
-import RNFetchBlob from 'react-native-fetch-blob'
 import firebase from 'firebase'
 import uuid from 'uuid/v4'
-import base64 from 'base-64'
+import mime from 'react-native-mime-types'
 
-import { syncMotorPolicies, addPolicyDocument } from 'jog/src/data/policies'
+import { syncMotorPolicies, addPolicyDocument, removePolicyDocument, getPolicyDocument } from 'jog/src/data/policies'
 import { demandCurrentUser } from 'jog/src/data/auth'
-import { getFileMetadataFromURI } from 'jog/src/util/files'
 
 import { receiveMotorPolicies } from './actions'
-import type { SyncMotorPoliciesAction } from './actionTypes'
+import type { SyncMotorPoliciesAction, UploadPolicyDocumentAction } from './actionTypes'
+import { finishLoading, startLoading } from '../loading/actions'
+import { declareError } from '../errors/actions'
+import { getFirestack } from '../../data/index'
 
 //
 // Sync policies
@@ -75,39 +76,79 @@ export function* syncPoliciesSaga<T>(): Iterable<T> {
 // Policy operations
 //
 
-function* uploadPolicyDocumentTask({ fileUrl, policyId }) {
-  const imageMetaData = getFileMetadataFromURI(fileUrl)
+function* uploadPolicyDocumentTask(action: UploadPolicyDocumentAction) {
+  const { fileUrl, policyId, extension, fileName } = action
 
+  yield put(startLoading('Loading document'))
   const user = demandCurrentUser()
 
-  // Using base64 encoding is nice on the JS bridge. If using ascii or utf-8 it can be really slow.
-  const imageData = yield call(RNFetchBlob.fs.readFile, imageMetaData.path, 'base64')
-
   const id = uuid()
-  const fileStoragePath = `/policyDocuments/${user.uid}/${policyId}/${id}.${imageMetaData.extension}`
+  const fileStoragePath = `/policyDocuments/${user.uid}/${policyId}/${id}.${extension}`
 
-  const imageRef = firebase.storage().ref(fileStoragePath)
+  yield put(startLoading('Uploading document'))
+
+
   try {
     // For whatever reason, the firebase module claims the base64 data from RNFetchBlob is invalid so we decode it manually.
-    yield call(() => imageRef.putString(base64.decode(imageData), 'raw'))
-  } catch (e) { // TODO: Dispatch error for display to user
-    console.error('Error uploading image', e)
+    const contentType = mime.lookup(fileName)
+
+    console.debug(`Uploading document at ${fileUrl} to ${fileStoragePath} with content-type ${contentType}`)
+
+    yield call(() => getFirestack().storage.uploadFile(fileStoragePath, fileUrl, {
+      contentType,
+      contentEncoding: 'base64'
+    }))
+  } catch (e) {
+    console.debug('Error uploading image', e)
+    yield put(declareError('Unable to upload document'))
     return
   }
 
   console.debug(`Stored at ${fileStoragePath}`)
 
-  // Firebase storage does not have an API for listing files in folders and therefore we
-  // must store file data within the database.
-  yield call(addPolicyDocument, policyId, {
-    image: fileStoragePath,
-    name: imageMetaData.fileName,
-    extension: imageMetaData.extension,
-    id
-  })
+  yield put(startLoading('Uploading metadata'))
+
+  try {
+    // Firebase storage does not have an API for listing files in folders and therefore we
+    // must store file data within the database.
+    yield call(() => addPolicyDocument(policyId, {
+      image: fileStoragePath,
+      name: fileName,
+      extension: extension,
+      id
+    }))
+  } catch (e) {
+    console.debug('Error uploading file metadata', e)
+    yield put(declareError('Unable to upload file metadata'))
+    return
+  }
+
+  yield put(finishLoading())
+}
+
+function* deletePolicyDocumentTask({ policyId, documentId }) {
+  const user = demandCurrentUser()
+  yield put(startLoading('Deleting document'))
+  const document = yield call(() => getPolicyDocument(policyId, documentId))
+  const fileStoragePath = `/policyDocuments/${user.uid}/${policyId}/${documentId}.${document.extension}`
+  try {
+    yield call(() => firebase.storage().ref(fileStoragePath).delete())
+  } catch (e) {
+    yield put(declareError('Unable to delete file'))
+    return
+  }
+  try {
+    yield call(() => removePolicyDocument(policyId, documentId))
+  } catch (e) {
+    console.debug('Error deleting file metadata', e)
+    yield put(declareError('Unable to delete file metadata'))
+    return
+  }
+  yield put(finishLoading())
 }
 
 export function* policyOperationsSaga<T>(): Iterable<T> {
   yield takeLatest('policies/UPLOAD_POLICY_DOCUMENT', uploadPolicyDocumentTask)
+  yield takeLatest('policies/DELETE_POLICY_DOCUMENT', deletePolicyDocumentTask)
 }
 

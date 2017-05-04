@@ -1,7 +1,7 @@
 /* @flow */
 
 import React, { Component } from 'react'
-import { View, StyleSheet } from 'react-native'
+import { View, StyleSheet, TouchableOpacity } from 'react-native'
 
 import type { PolicyDocument } from '../types'
 import { BLUE, DARK_GRAY } from '../constants/palette'
@@ -13,6 +13,7 @@ import Text from './Text'
 type PolicyDocumentThumbnailProps = {
   document: PolicyDocument,
   style?: any,
+  onPress?: () => void,
 };
 
 export default class PolicyDocumentThumbnail extends Component {
@@ -20,7 +21,7 @@ export default class PolicyDocumentThumbnail extends Component {
 
   render() {
     return (
-      <View style={[styles.container, this.props.style || {}]}>
+      <TouchableOpacity style={[styles.container, this.props.style || {}]} onPress={this.props.onPress}>
         <View style={styles.thumbnail}>
           <View style={styles.iconContainer}>
             <FileIcon extension={this.props.document.extension} />
@@ -29,7 +30,7 @@ export default class PolicyDocumentThumbnail extends Component {
         <Text style={styles.name} ellipsizeMode="tail" numberOfLines={1}>
           {this.props.document.name}
         </Text>
-      </View>
+      </TouchableOpacity>
     )
   }
 }

@@ -4,15 +4,15 @@ import React, { Component } from 'react'
 import { View, StyleSheet, TouchableOpacity, ScrollView } from 'react-native'
 import { connect } from 'react-redux'
 import { NavigationActions } from 'react-navigation'
-import Spinner from 'react-native-spinkit'
 
 import type { ReduxState, FirebaseUser, MotorPolicy, MotorPolicyMap, Dispatch } from 'jog/src/types'
 import Text from 'jog/src/components/Text'
-import { CREAM, PINK, BLUE } from 'jog/src/constants/palette'
+import { CREAM, PINK } from 'jog/src/constants/palette'
 import { MARGIN } from 'jog/src/constants/style'
 import { clearPolicies } from 'jog/src/data/policies'
 import { selectPolicies } from 'jog/src/store/policies/selectors'
 import BackgroundHeader from 'jog/src/components/BackgroundHeader'
+import Spinner from 'jog/src/components/Spinner'
 
 import MotorPolicyCard from './MotorPolicyCard'
 import AddMotorPolicyCard from './AddMotorPolicyCard'
@@ -125,10 +125,7 @@ class Policies extends Component {
 
     return (
       <View style={[styles.content, { alignItems: 'center', justifyContent: 'center' }]}>
-        <Spinner type="Bounce" color={BLUE} size={60} />
-        <Text style={{ color: BLUE, marginTop: MARGIN.large }}>
-          Loading your policies...
-        </Text>
+        <Spinner text="Loading your policies..." />
       </View>
     )
   }

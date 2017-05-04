@@ -50,3 +50,16 @@ export function addPolicyDocument(policyId: string, policyDocument: PolicyDocume
   const policiesRef = firebase.database().ref('policies').child(policyId)
   return policiesRef.child('documents').child(documentId).set(policyDocument)
 }
+
+export function removePolicyDocument(policyId: string, documentId: string) : Promise<void> {
+  const policiesRef = firebase.database().ref('policies').child(policyId)
+  return policiesRef.child('documents').child(documentId).remove()
+}
+
+export async function getPolicyDocument(policyId: string, documentId: string) : Promise<PolicyDocument> {
+  const policiesRef = firebase.database().ref('policies').child(policyId)
+  const snapshot = await policiesRef.child('documents').child(documentId).once('value')
+  const document = snapshot.val()
+  document.id = snapshot.key
+  return document
+}

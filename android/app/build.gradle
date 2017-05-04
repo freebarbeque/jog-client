@@ -135,6 +135,9 @@ android {
 }
 
 dependencies {
+    compile(project(':react-native-firestack')){ exclude group: 'com.google.android.gms' }
+    compile project(':react-native-pdf-view')
+    compile project(':react-native-photo-view')
     compile project(':react-native-camera')
     compile project(':react-native-file-picker')
     compile project(':react-native-device-info')
@@ -153,4 +156,25 @@ dependencies {
 task copyDownloadableDepsToLibs(type: Copy) {
     from configurations.compile
     into 'libs'
+}
+
+apply plugin: 'com.google.gms.google-services'
+
+task switchToDebug(type: Copy) {
+    description = 'Switches to DEBUG google-services.json'
+    from "src/debug"
+    include "google-services.json"
+    into "."
+}
+
+task switchToRelease(type: Copy) {
+    description = 'Switches to RELEASE google-services.json'
+    from "src/release"
+    include "google-services.json"
+    into "."
+}
+
+afterEvaluate {
+    processDebugGoogleServices.dependsOn switchToDebug
+    processReleaseGoogleServices.dependsOn switchToRelease
 }

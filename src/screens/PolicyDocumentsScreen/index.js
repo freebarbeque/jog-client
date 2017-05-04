@@ -3,6 +3,7 @@
 import React, { Component } from 'react'
 import { ScrollView, View, StyleSheet, TouchableOpacity, Platform } from 'react-native'
 import { connect } from 'react-redux'
+import { NavigationActions } from 'react-navigation'
 
 import type { ReduxState, ReactNavigationProp, Dispatch, MotorPolicyMap, PolicyDocument } from 'jog/src/types'
 import Text from 'jog/src/components/Text'
@@ -14,6 +15,8 @@ import { pickFile, useIOSCamera } from 'jog/src/util/files'
 import { selectPolicies } from 'jog/src/store/policies/selectors'
 import PolicyDocumentThumbnail from 'jog/src/components/PolicyDocumentThumbnail'
 import CameraModal from 'jog/src/components/CameraModal'
+import type { iOSImageResponse } from '../../util/files'
+import { declareError } from '../../store/errors/actions'
 
 type PolicyDocumentsScreenProps = {
   // eslint-disable-next-line react/no-unused-prop-types
@@ -27,40 +30,51 @@ class PolicyDocumentsScreen extends Component {
   props: PolicyDocumentsScreenProps
   cameraModal: any
 
-  uploadFile = async (fn: () => Promise<string>) => {
-    const policyId = this.props.navigation.state.params.policyId
-
-    if (policyId) {
-      const uri = await fn()
-      if (uri) this.props.dispatch(uploadPolicyDocument(uri, policyId))
-    } else {
-      throw new Error('policyId is not present in the navigation params, therefore cannot upload the policy document')
-    }
-  }
-
   handleBrowseFilesPress = () => {
-    this.uploadFile(pickFile).catch((err) => {
-      // TODO: Display error to user
-      console.error(err)
+    pickFile().then((resp) => {
+      const policyId = this.props.navigation.state.params.policyId
+      this.props.dispatch(uploadPolicyDocument({
+        fileUrl: resp.url,
+        policyId,
+        extension: resp.extension,
+        fileName: resp.fileName
+      }))
     })
   }
 
   handleUseCameraPress = () => {
     if (Platform.OS === 'ios') {
-      this.uploadFile(useIOSCamera).catch((err) => {
-        // TODO: Display error to user
-        console.error(err)
+      useIOSCamera().then((response: iOSImageResponse | null) => {
+        if (response) { // If no response, user cancelled.
+          const path = response.uri.split('file://').pop()
+
+          const policyId = this.props.navigation.state.params.policyId
+          this.props.dispatch(uploadPolicyDocument({
+            fileUrl: path,
+            policyId,
+            extension: response.extension,
+            fileName: response.fileName
+          }))
+        }
+      }).catch((err) => {
+        this.props.dispatch(declareError(err))
       })
     } else {
       this.cameraModal.setModalVisible(true)
     }
   }
 
-  handleCapture = (path) => {
-    this.uploadFile(async () => path).catch((err) => {
-      // TODO: Display error to user
-      console.error(err)
-    })
+  handleCapture = (fileUrl) => {
+    const policyId = this.props.navigation.state.params.policyId
+    const fileName = fileUrl.split('/').pop()
+    const extension = fileName.split('.').pop().toLowerCase()
+
+    this.props.dispatch(uploadPolicyDocument({
+      fileUrl,
+      policyId,
+      extension,
+      fileName
+    }))
   }
 
   render() {
@@ -70,7 +84,7 @@ class PolicyDocumentsScreen extends Component {
 
     return (
       <ScrollView style={styles.container}>
-        <Panel style={styles.panel}>
+        {!_.isEmpty(documents) ? <Panel style={styles.panel}>
           <Text style={styles.header}>Scanned documents</Text>
           <View style={{ flexDirection: 'row', flexWrap: 'wrap' }}>
             {documents.map((d: PolicyDocument) => {
@@ -79,11 +93,24 @@ class PolicyDocumentsScreen extends Component {
                   key={d.id}
                   document={d}
                   style={{ width: `${100 / 3}%`, paddingBottom: MARGIN.large }}
+                  onPress={() => {
+                    const params = {
+                      documentId: d.id,
+                      policyId: policyId,
+                      documentName: d.name
+                    }
+                    this.props.dispatch(
+                      NavigationActions.navigate({
+                        routeName: 'PolicyDocument',
+                        params
+                      })
+                    )
+                  }}
                 />
               )
             })}
           </View>
-        </Panel>
+        </Panel> : null}
         <Panel style={styles.panel}>
           <Text style={styles.header}>Upload documents</Text>
           <TouchableOpacity
