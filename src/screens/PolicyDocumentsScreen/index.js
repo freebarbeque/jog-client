@@ -84,7 +84,7 @@ class PolicyDocumentsScreen extends Component {
 
     return (
       <ScrollView style={styles.container}>
-        {documents.length ? <Panel style={styles.panel}>
+        {!_.isEmpty(documents) ? <Panel style={styles.panel}>
           <Text style={styles.header}>Scanned documents</Text>
           <View style={{ flexDirection: 'row', flexWrap: 'wrap' }}>
             {documents.map((d: PolicyDocument) => {
