@@ -87,10 +87,6 @@ export default class CameraModal extends Component {
   }
 }
 
-//
-// Styles
-//
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,

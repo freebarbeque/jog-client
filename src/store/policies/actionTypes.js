@@ -13,17 +13,26 @@ export type SyncMotorPoliciesAction = {
 }
 
 export type UnsyncMotorPoliciesAction = {
-  type: 'polices/UNSYNC_MOTOR_POLICIES'
+  type: 'policies/UNSYNC_MOTOR_POLICIES'
 }
 
 export type UploadPolicyDocumentAction = {
   type: 'policies/UPLOAD_POLICY_DOCUMENT',
   fileUrl: string,
+  extension: string,
+  fileName: string,
   policyId: string,
+}
+
+export type DeletePolicyDocumentAction = {
+  type: 'policies/DELETE_POLICY_DOCUMENT',
+  policyId: string,
+  documentId: string,
 }
 
 export type PoliciesAction
   = ReceiveMotorPoliciesAction |
   SyncMotorPoliciesAction |
   UnsyncMotorPoliciesAction |
-  UploadPolicyDocumentAction
+  UploadPolicyDocumentAction |
+  DeletePolicyDocumentAction

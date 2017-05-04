@@ -20,6 +20,7 @@ type FirebaseImageState = {
 export default class FirebaseImage extends Component {
   props: FirebaseImageProps
   state: FirebaseImageState
+  unmounting: boolean
 
   constructor(props: FirebaseImageProps) {
     super(props)
@@ -30,10 +31,15 @@ export default class FirebaseImage extends Component {
     this.downloadImage(this.props.imagePath)
   }
 
+
   componentWillReceiveProps(props: FirebaseImageProps) {
     if (props.imagePath !== this.props.imagePath) {
       this.downloadImage(props.imagePath)
     }
+  }
+
+  componentWillUnmount() {
+    this.unmounting = true
   }
 
   downloadImage(imagePath: string | null) {
@@ -43,10 +49,13 @@ export default class FirebaseImage extends Component {
       this.setState({ imageUrl: null, dimensions: null })
       ref.getDownloadURL().then((url) => {
         Image.getSize(url, (width, height) => {
-          this.setState({
-            dimensions: { width, height },
-            imageUrl: url
-          })
+          // TODO: Is there a nicer way of doing this? I'd love to know. Some kind of cancellable promise would be better? Or move to redux?
+          if (!this.unmounting) {
+            this.setState({
+              dimensions: { width, height },
+              imageUrl: url
+            })
+          }
           if (imagePath) console.debug(`Received ${imagePath} from firebase storage: ${url}`)
         })
       })
