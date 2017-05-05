@@ -33,6 +33,7 @@ export default class Form extends Component {
 
   validateField(f: FormField): string | null {
     if (f.validate) {
+      // $FlowFixMe
       return f.validate(this.props.values[f.key])
     }
     return null
@@ -41,7 +42,9 @@ export default class Form extends Component {
   validate(): { [key: string]: string | null } {
     const validationErrors = {}
     this.props.fields.forEach((f: FormField) => {
-      validationErrors[f.key] = this.validateField(f)
+      const key = f.key
+      // $FlowFixMe
+      validationErrors[key] = this.validateField(f)
     })
 
     return validationErrors
@@ -51,7 +54,9 @@ export default class Form extends Component {
     const error = this.validateField(f)
     if (error) {
       const validationErrors = { ...this.props.validationErrors }
-      validationErrors[f.key] = error
+      const key = f.key
+      // $FlowFixMe
+      validationErrors[key] = error
       this.props.onValidationErrorsChanged(validationErrors)
     }
   }
@@ -71,8 +76,9 @@ export default class Form extends Component {
   renderField = (f: FormField, idx: number) => {
     const numFields = this.props.fields.length
     const isLastField = idx === numFields - 1
-
+    // $FlowFixMe
     const fieldError = this.props.validationErrors[f.key]
+    const k = f.key
 
     return (
       <LabelledTextInput
@@ -82,12 +88,17 @@ export default class Form extends Component {
         onChangeText={(value) => {
           const newValues = { ...this.props.values }
           const validationErrors = { ...this.props.validationErrors }
-          newValues[f.key] = value
-          validationErrors[f.key] = null
+          // $FlowFixMe
+          newValues[k] = value
+          // $FlowFixMe
+          validationErrors[k] = null
           this.props.onValuesChanged(newValues)
           this.props.onValidationErrorsChanged(validationErrors)
         }}
-        value={this.props.values[f.key]}
+        value={
+          // $FlowFixMe
+          this.props.values[k]
+        }
         onBlur={() => this.handleBlur(f)}
         error={fieldError}
         editable={!this.props.disabled}
@@ -124,7 +135,11 @@ export default class Form extends Component {
         />
         {error &&
         <Text style={styles.errorText}>
-          <Icon name="exclamation-triangle" color={PINK} size={14} />
+          <Icon
+            name="exclamation-triangle"
+            color={PINK}
+            size={14}
+          />
           {`  ${error}`}
         </Text>}
       </View>
