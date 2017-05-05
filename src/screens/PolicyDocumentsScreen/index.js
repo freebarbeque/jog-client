@@ -33,8 +33,10 @@ class PolicyDocumentsScreen extends Component {
   handleBrowseFilesPress = () => {
     pickFile().then((resp) => {
       const policyId = this.props.navigation.state.params.policyId
+      const fileUrl = resp.url
+      console.log('fileUrl', fileUrl)
       this.props.dispatch(uploadPolicyDocument({
-        fileUrl: resp.url,
+        fileUrl,
         policyId,
         extension: resp.extension,
         fileName: resp.fileName

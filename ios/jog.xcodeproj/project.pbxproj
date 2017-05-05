@@ -690,9 +690,9 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "jog" */;
 			buildPhases = (
+				2662E4434497D1185D018F15 /* [CP] Check Pods Manifest.lock */,
 				27AF63E41EAB5BA80007B03D /* Increment build number */,
 				27AF63E21EAB562F0007B03D /* Configure Google Service Plist */,
-				2662E4434497D1185D018F15 /* [CP] Check Pods Manifest.lock */,
 				13B07F871A680F5B00A75B9A /* Sources */,
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
