@@ -11,21 +11,13 @@ import { MARGIN } from 'jog/src/constants/style'
 import { Camera, Command, Mail } from '../components/images/index'
 import { generateMockPolicies } from '../mock'
 
-type SettingsProps = {
+type AddPolicyScreenProps = {
   dispatch: Dispatch,
   user: FirebaseUser | null,
 };
 
-type SettingsState = {};
-
-class SettingsScreen extends Component {
-  props: SettingsProps
-  state: SettingsState
-
-  constructor(props: SettingsProps) {
-    super(props)
-    this.state = {}
-  }
+class AddPolicyScreen extends Component {
+  props: AddPolicyScreenProps
 
   render() {
     return (
@@ -56,7 +48,11 @@ class SettingsScreen extends Component {
           </TouchableOpacity>
           <TouchableOpacity
             style={[styles.cardButton, { borderBottomWidth: 0 }]}
-            onPress={() => {}}
+            onPress={() => {
+              this.props.dispatch(NavigationActions.navigate({
+                routeName: 'ManualAddPolicy'
+              }))
+            }}
           >
             <Text style={styles.cardButtonText}>
               Manual entry
@@ -140,4 +136,4 @@ const mapStateToProps = (state: ReduxState) => ({
 
 export default connect(
   mapStateToProps,
-)(SettingsScreen)
+)(AddPolicyScreen)
