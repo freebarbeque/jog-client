@@ -24,11 +24,13 @@ export function pickFile() : Promise<PickFileResponse> {
       }, (error, url) => {
         if (error) reject(error)
         else {
-          const path = url.split('file://').pop()
+          const decodedUrl = decodeURIComponent(url)
+          const path = decodedUrl.split('file://').pop()
           const extension = path.split('.').pop().toLowerCase()
           const fileName = path.split('/').pop()
+
           resolve({
-            url: path,
+            url: decodedUrl,
             extension,
             fileName
           })
@@ -39,7 +41,7 @@ export function pickFile() : Promise<PickFileResponse> {
         if (response.error) {
           reject(response.error)
         } else {
-          const url = response.path
+          const url = decodeURIComponent(response.path)
           const extension = url.split('.').pop().toLowerCase()
           const fileName = url.split('/').pop()
           resolve({ url, extension, fileName })

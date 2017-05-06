@@ -87,7 +87,6 @@ function* uploadPolicyDocumentTask(action: UploadPolicyDocumentAction) {
 
   yield put(startLoading('Uploading document'))
 
-
   try {
     // For whatever reason, the firebase module claims the base64 data from RNFetchBlob is invalid so we decode it manually.
     const contentType = mime.lookup(fileName)

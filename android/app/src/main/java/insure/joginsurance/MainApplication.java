@@ -1,26 +1,27 @@
-package com.jog;
+package insure.joginsurance;
 
 import android.app.Application;
 
+import com.RNFetchBlob.RNFetchBlobPackage;
 import com.facebook.react.BuildConfig;
 import com.facebook.react.ReactApplication;
-import io.fullstack.firestack.FirestackPackage;
-import com.keyee.pdfview.PDFView;
-import com.reactnative.photoview.PhotoViewPackage;
-import com.lwansbrough.RCTCamera.RCTCameraPackage;
-import com.filepicker.FilePickerPackage;
-import com.learnium.RNDeviceInfo.RNDeviceInfo;
-import com.RNFetchBlob.RNFetchBlobPackage;
-import com.imagepicker.ImagePickerPackage;
-import com.react.rnspinkit.RNSpinkitPackage;
-import com.lugg.ReactNativeConfig.ReactNativeConfigPackage;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;
 import com.facebook.soloader.SoLoader;
+import com.filepicker.FilePickerPackage;
+import com.imagepicker.ImagePickerPackage;
+import com.keyee.pdfview.PDFView;
+import com.learnium.RNDeviceInfo.RNDeviceInfo;
+import com.lugg.ReactNativeConfig.ReactNativeConfigPackage;
+import com.lwansbrough.RCTCamera.RCTCameraPackage;
+import com.react.rnspinkit.RNSpinkitPackage;
+import com.reactnative.photoview.PhotoViewPackage;
 
 import java.util.Arrays;
 import java.util.List;
+
+import io.fullstack.firestack.FirestackPackage;
 
 public class MainApplication extends Application implements ReactApplication {
 
