@@ -17,6 +17,7 @@ import { deletePolicyDocument } from '../store/policies/actions'
 import DocumentViewer from '../components/DocumentViewer'
 
 type PolicyDocumentScreenProps = {
+  // eslint-disable-next-line react/no-unused-prop-types
   dispatch: Dispatch,
   // eslint-disable-next-line react/no-unused-prop-types
   policy: MotorPolicy,
@@ -28,42 +29,39 @@ type PolicyDocumentScreenProps = {
 class PolicyDocumentScreen extends Component {
   props: PolicyDocumentScreenProps
 
-  static navigationOptions = {
-    header: (props) => {
-      const { state, dispatch } = props
-      const { params } = state
+  static navigationOptions = ({ navigation }) => {
+    const { state, dispatch } = navigation
+    const { params } = state
+    const { documentName, policyId, documentId } = params
 
-      const { documentName, policyId, documentId } = params
-
-      return {
-        title: (
-          <Text style={{ textAlign: 'center', marginLeft: MARGIN.base, marginRight: MARGIN.base }}>
-            {documentName}
+    return {
+      headerTitle: (
+        <Text style={{ textAlign: 'center', marginLeft: MARGIN.base, marginRight: MARGIN.base }}>
+          {documentName}
+        </Text>
+      ),
+      headerLeft: (
+        <TouchableOpacity
+          style={{ marginLeft: MARGIN.base }}
+          onPress={() => dispatch(NavigationActions.back())}
+        >
+          <Cancel />
+        </TouchableOpacity>
+      ),
+      headerRight: (
+        <TouchableOpacity
+          style={styles.headerDeleteButton}
+          onPress={() => {
+            dispatch(NavigationActions.back())
+            dispatch(deletePolicyDocument(policyId, documentId))
+          }}
+        >
+          <Text style={{ fontWeight: '500' }}>
+            DELETE
           </Text>
-        ),
-        left: (
-          <TouchableOpacity
-            style={{ marginLeft: MARGIN.base }}
-            onPress={() => dispatch(NavigationActions.back())}
-          >
-            <Cancel />
-          </TouchableOpacity>
-        ),
-        right: (
-          <TouchableOpacity
-            style={styles.headerDeleteButton}
-            onPress={() => {
-              dispatch(NavigationActions.back())
-              dispatch(deletePolicyDocument(policyId, documentId))
-            }}
-          >
-            <Text style={{ fontWeight: '500' }}>
-              DELETE
-            </Text>
-          </TouchableOpacity>
-        ),
-        style: { backgroundColor: BLUE }
-      }
+        </TouchableOpacity>
+      ),
+      headerStyle: { backgroundColor: BLUE }
     }
   }
 

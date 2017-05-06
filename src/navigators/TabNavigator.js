@@ -66,16 +66,13 @@ const tabNavigator = TabNavigator({
   }
 })
 
-tabNavigator.navigationOptions = {
-  title: null,
-  // eslint-disable-next-line no-unused-vars
-  header: ({ state, setParams }) => {
-    return {
-      title: '',
-      left: <Logo style={styles.headerLogo} scale={1} />,
-      right: <AuthButton style={styles.headerAuthButton} />,
-      style: { backgroundColor: BLUE }
-    }
+tabNavigator.navigationOptions = () => {
+  return {
+    title: null,
+    headerTitle: '',
+    headerLeft: <Logo style={styles.headerLogo} scale={1} />,
+    headerRight: <AuthButton style={styles.headerAuthButton} />,
+    headerStyle: { backgroundColor: BLUE }
   }
 }
 

@@ -24,25 +24,34 @@ const authNavigator = StackNavigator({
   headerMode: 'none',
 })
 
-authNavigator.navigationOptions = {
-  cardStack: {
-    // Should not be able to pull down to dismiss the auth modal.
-    gesturesEnabled: false
-  },
-  header: ({ state }) => {
-    const isHomeScreen = state.routes.length === 1 && state.routes[0].routeName === 'Home'
+authNavigator.navigationOptions = ({ navigation }) => {
+  const routes = navigation.state.routes
+  const isHomeScreen = routes.length === 1 && routes[0].routeName === 'Home'
 
-    return isHomeScreen ? { visible: false } : {
-      title: null,
-      left: (
+  let opts = {
+    cardStack: {
+      // Should not be able to pull down to dismiss the auth modal.
+      gesturesEnabled: false
+    }
+  }
+
+  if (isHomeScreen) {
+    opts.header = null
+  } else {
+    opts = {
+      ...opts,
+      headerTitle: null,
+      headerLeft: (
         <Logo
           style={{ marginLeft: MARGIN.large, marginBottom: MARGIN.base }}
           scale={1}
         />
-    ),
-      style: { backgroundColor: BLUE }
+      ),
+      headerStyle: { backgroundColor: BLUE }
     }
   }
+
+  return opts
 }
 
 export default authNavigator

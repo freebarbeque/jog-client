@@ -5,11 +5,11 @@ import { BLUE } from './palette'
 
 export const authNavigationHeader = {
   title: null,
-  left: (
+  headerLeft: (
     <Logo
       style={{ marginLeft: MARGIN.large, marginBottom: MARGIN.base }}
       scale={1}
     />
   ),
-  style: { backgroundColor: BLUE }
+  headerStyle: { backgroundColor: BLUE }
 }

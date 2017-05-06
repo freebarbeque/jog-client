@@ -14,11 +14,11 @@ const PoliciesStackNavigator = StackNavigator({
   headerMode: 'none',
 })
 
-PoliciesStackNavigator.navigationOptions = {
+PoliciesStackNavigator.navigationOptions = () => ({
   cardStack: {
     // Should not be able to pull down to dismiss the auth modal.
     gesturesEnabled: false
   },
-}
+})
 
 export default PoliciesStackNavigator
