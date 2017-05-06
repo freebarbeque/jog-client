@@ -7,6 +7,11 @@ target 'jog' do
 
   # Pods for jog
 
+  target 'jogTests' do
+    inherit! :search_paths
+    # Pods for testing
+  end
+
 end
 source 'https://github.com/CocoaPods/Specs.git'
 use_frameworks!

@@ -14,11 +14,10 @@
 .*/Libraries/react-native/React.js
 .*/Libraries/react-native/ReactNative.js
 
+.*/node_modules/react-navigation/.*/__tests__/.*
 .*/node_modules/react-native-fbads/*
 .*/node_modules/react-navigation/*
-.*/node_modules/react-navigation/.*/__tests__/.*
 .*/node_modules/react-native-firestack/*
-.*/node_modules/react-native-keyboard-aware-scroll-view
 
 [include]
 

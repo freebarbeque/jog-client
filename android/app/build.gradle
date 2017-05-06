@@ -58,7 +58,7 @@ import com.android.build.OutputFile
  *   inputExcludes: ["android/**", "ios/**"],
  *
  *   // override which node gets called and with what additional arguments
- *   nodeExecutableAndArgs: ["node"]
+ *   nodeExecutableAndArgs: ["node"],
  *
  *   // supply additional arguments to the packager
  *   extraPackagerArgs: []
@@ -97,13 +97,12 @@ android {
         applicationId "insure.joginsurance"
         minSdkVersion 16
         targetSdkVersion 22
-        versionCode 9
+        versionCode 11
         versionName "0.0.1"
         ndk {
             abiFilters "armeabi-v7a", "x86"
         }
     }
-
     splits {
         abi {
             reset()
@@ -118,7 +117,6 @@ android {
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
         }
     }
-
     // applicationVariants are e.g. debug, release
     applicationVariants.all { variant ->
         variant.outputs.each { output ->
@@ -135,17 +133,17 @@ android {
 }
 
 dependencies {
-    compile(project(':react-native-firestack'))
-    compile project(':react-native-pdf-view')
-    compile project(':react-native-photo-view')
-    compile project(':react-native-camera')
-    compile project(':react-native-file-picker')
-    compile project(':react-native-device-info')
-    compile project(':react-native-fetch-blob')
-    compile project(':react-native-image-picker')
-    compile project(':react-native-spinkit')
-    compile project(':react-native-config')
     compile project(':react-native-vector-icons')
+    compile project(':react-native-spinkit')
+    compile project(':react-native-photo-view')
+    compile project(':react-native-pdf-view')
+    compile project(':react-native-image-picker')
+    compile project(':react-native-firestack')
+    compile project(':react-native-file-picker')
+    compile project(':react-native-fetch-blob')
+    compile project(':react-native-device-info')
+    compile project(':react-native-config')
+    compile project(':react-native-camera')
     compile fileTree(dir: "libs", include: ["*.jar"])
     compile "com.android.support:appcompat-v7:23.0.1"
     compile "com.facebook.react:react-native:+"  // From node_modules
