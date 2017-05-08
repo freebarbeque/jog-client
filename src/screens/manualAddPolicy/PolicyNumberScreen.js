@@ -11,7 +11,8 @@ import type {
 
 import AddPolicyScreenContainer from '../../components/AddPolicyScreenContainer'
 import type { ManualPolicyUpdate } from '../../store/screens/addManualPolicy/actions'
-import { updateManualPolicy, clearManualPolicy } from '../../store/screens/addManualPolicy/actions'
+import { updateManualPolicy } from '../../store/screens/addManualPolicy/actions'
+import TextInput from '../../components/TextInput'
 
 type PolicyNumberScreenProps = {
   dispatch: Dispatch,
@@ -20,10 +21,6 @@ type PolicyNumberScreenProps = {
 
 class PolicyNumberScreen extends Component {
   props: PolicyNumberScreenProps
-
-  componentWillUnmount() {
-    this.props.dispatch(clearManualPolicy())
-  }
 
   handleNextPress = () => {
     this.props.dispatch(NavigationActions.navigate({ routeName: 'PolicyDate' }))
@@ -41,7 +38,13 @@ class PolicyNumberScreen extends Component {
         title="What's your policy number?"
         onNextPress={this.handleNextPress}
         onPrevPress={() => this.props.dispatch(NavigationActions.back())}
-      />
+      >
+        <TextInput
+          value={this.props.policy.policyNo}
+          onChangeText={(text) => this.props.dispatch(updateManualPolicy({ policyNo: text }))}
+          editable
+        />
+      </AddPolicyScreenContainer>
     )
   }
 }

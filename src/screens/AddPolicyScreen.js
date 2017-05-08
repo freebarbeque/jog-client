@@ -10,6 +10,7 @@ import { BLUE, CREAM, WHITE, VERY_LIGHT_GRAY, DARK_GRAY, PINK } from 'jog/src/co
 import { MARGIN } from 'jog/src/constants/style'
 import { Camera, Command, Mail } from '../components/images/index'
 import { generateMockPolicies } from '../mock'
+import { clearManualPolicy } from '../store/screens/addManualPolicy/actions'
 
 type AddPolicyScreenProps = {
   dispatch: Dispatch,
@@ -49,6 +50,7 @@ class AddPolicyScreen extends Component {
           <TouchableOpacity
             style={[styles.cardButton, { borderBottomWidth: 0 }]}
             onPress={() => {
+              this.props.dispatch(clearManualPolicy())
               this.props.dispatch(NavigationActions.navigate({
                 routeName: 'ManualAddPolicy'
               }))

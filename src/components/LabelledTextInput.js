@@ -1,13 +1,14 @@
 // A Text Input with a label.
 
 import React, { Component, PropTypes } from 'react'
-import { TextInput, View, StyleSheet } from 'react-native'
+import { View, StyleSheet } from 'react-native'
 import Icon from 'react-native-vector-icons/FontAwesome'
 
 import { WHITE, PINK } from 'jog/src/constants/palette'
 import { MARGIN } from 'jog/src/constants/style'
 
 import Text from './Text'
+import TextInput from './TextInput'
 
 const styles = StyleSheet.create({
   container: {
@@ -74,14 +75,8 @@ class LabelledTextInput extends Component {
           </View>}
         </View>
         <TextInput
-          ref={(e) => { this.input = e }}
-          style={[
-            styles.input,
-            error ? styles.errorInput : {},
-            !editable ? styles.disabledInput : {}
-          ]}
+          ref={(e) => { this.input = e.input }}
           editable={editable}
-          underlineColorAndroid="rgba(0,0,0,0.0)"
           onChangeText={(text) => {
             // This is buggy as the tab appears before quickly being removed,
             // however this doesn't really matter as it's only for dev.
