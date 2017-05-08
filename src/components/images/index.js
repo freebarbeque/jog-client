@@ -96,6 +96,17 @@ export const Chevron = (props: LogoProps) => {
   )
 }
 
+export const Dropdown = (props: LogoProps) => {
+  const { style = {}, scale = 1 } = props
+
+  return (
+    <Image
+      style={[{ height: 10 * scale, width: 17 * scale }, style]}
+      source={require('./dropdown.png')}
+    />
+  )
+}
+
 export const Ellipses = (props: LogoProps) => {
   const { style = {}, scale = 1 } = props
 

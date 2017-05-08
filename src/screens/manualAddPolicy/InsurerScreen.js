@@ -6,25 +6,58 @@ import { connect } from 'react-redux'
 import type {
   Dispatch,
   ReduxState,
-  NavReduxState
+  InsurerMap,
+  Insurer
 } from 'jog/src/types'
 
 import AddPolicyScreenContainer from '../../components/AddPolicyScreenContainer'
-import Text from '../../components/Text'
+import Picker from '../../components/Picker'
+import type { ManualPolicyUpdate } from '../../store/screens/addManualPolicy/actions'
+import { updateManualPolicy } from '../../store/screens/addManualPolicy/actions'
 
 type InsurerScreenProps = {
   dispatch: Dispatch,
-  nav: NavReduxState
+  insurers: InsurerMap,
+  policy: ManualPolicyUpdate,
 };
 
 class InsurerScreen extends Component {
   props: InsurerScreenProps
 
+
   handleNextPress = () => {
     // TODO
   }
 
+  onChange = ({ value }) => {
+    this.props.dispatch(updateManualPolicy({ companyId: value }))
+  }
+
   render() {
+    const options = [
+      ..._.map(this.props.insurers, (insurer: Insurer, id: string) => {
+        return ({
+          label: insurer.name,
+          value: id
+        })
+      }),
+      {
+        label: 'Other',
+        value: 'other',
+      }
+    ]
+
+    const companyId = this.props.policy.companyId
+    let company
+
+    if (companyId) {
+      if (companyId === 'other') {
+        company = { name: 'Other' }
+      } else {
+        company = this.props.insurers[companyId]
+      }
+    }
+
     return (
       <AddPolicyScreenContainer
         enableNextButton={false}
@@ -32,14 +65,20 @@ class InsurerScreen extends Component {
         title={'Who is your insurer?'}
         onNextPress={this.handleNextPress}
       >
-        <Text >Yo!</Text>
+        <Picker
+          onChange={this.onChange}
+          value={company ? { value: companyId, label: company.name } : null}
+          placeholder="Insurer"
+          options={options}
+        />
       </AddPolicyScreenContainer>
     )
   }
 }
 
 const mapStateToProps = (state: ReduxState) => ({
-  nav: state.nav
+  insurers: state.insurers.insurers,
+  policy: state.screens.addManualPolicy
 })
 
 export default connect(

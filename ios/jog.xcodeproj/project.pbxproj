@@ -53,6 +53,7 @@
 		AE540494782042AFA24B7FD7 /* WorkSans-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0D8EC88E2C66445AA0078CC6 /* WorkSans-Regular.ttf */; };
 		BF9CD0949F5644F9892D9247 /* Foundation.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2071C6F2302C40AD8A6A71F4 /* Foundation.ttf */; };
 		C1C7FCDB72C04325BF1BF136 /* Ionicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3BFF4AF61D9C44ED91CE595E /* Ionicons.ttf */; };
+		DD8380B87DAD452FAA32EECA /* libRCTBEEPickerManager.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3001F5E5165F456AA46EA423 /* libRCTBEEPickerManager.a */; };
 		E1A7A46071C145069878C885 /* libRNVectorIcons.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C77DAA98BA934543BD1956DC /* libRNVectorIcons.a */; };
 		E424378D2AB24DA49B4586DE /* libRNDocumentPicker.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3269B4A3BE8D49CABA7555FC /* libRNDocumentPicker.a */; };
 		E5FE42B5E0724885B0A1BF64 /* EvilIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 04C3C5B64EA048D8995641F3 /* EvilIcons.ttf */; };
@@ -122,6 +123,13 @@
 			proxyType = 2;
 			remoteGlobalIDString = 83CBBA2E1A601D0E00E9B192;
 			remoteInfo = React;
+		};
+		273B6B8F1EBF2EFA0031BD6C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2AD595BC1CEF4F38A0462061 /* RCTBEEPickerManager.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 17D41E551D7EE0CA0031415E;
+			remoteInfo = RCTBEEPickerManager;
 		};
 		27D88CAD1EBDD39500B640B5 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -346,6 +354,8 @@
 		27D88E141EBDD78000B640B5 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		27D88E151EBDD78000B640B5 /* GoogleService-Info.prod.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.prod.plist"; sourceTree = "<group>"; };
 		27D88E1B1EBDDA0A00B640B5 /* jog.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = jog.entitlements; path = jog/jog.entitlements; sourceTree = "<group>"; };
+		2AD595BC1CEF4F38A0462061 /* RCTBEEPickerManager.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RCTBEEPickerManager.xcodeproj; path = "../node_modules/react-native-picker/ios/RCTBEEPickerManager.xcodeproj"; sourceTree = "<group>"; };
+		3001F5E5165F456AA46EA423 /* libRCTBEEPickerManager.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRCTBEEPickerManager.a; sourceTree = "<group>"; };
 		30A123DC93FE414BADBC0D53 /* SimpleLineIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = SimpleLineIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/SimpleLineIcons.ttf"; sourceTree = "<group>"; };
 		30C4494F54DFD98FD1D7A628 /* Pods_jogTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_jogTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3269B4A3BE8D49CABA7555FC /* libRNDocumentPicker.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNDocumentPicker.a; sourceTree = "<group>"; };
@@ -421,6 +431,7 @@
 				641EA3E384FA46AFB20494E6 /* libRNImagePicker.a in Frameworks */,
 				A5FE5D068841466EAAE86918 /* libRNSpinkit.a in Frameworks */,
 				E1A7A46071C145069878C885 /* libRNVectorIcons.a in Frameworks */,
+				DD8380B87DAD452FAA32EECA /* libRCTBEEPickerManager.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -533,6 +544,14 @@
 				3DAD3EAB1DF850E9000B6D8A /* libcxxreact.a */,
 				3DAD3EAD1DF850E9000B6D8A /* libjschelpers.a */,
 				3DAD3EAF1DF850E9000B6D8A /* libjschelpers.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		273B6B8C1EBF2EFA0031BD6C /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				273B6B901EBF2EFA0031BD6C /* libRCTBEEPickerManager.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -677,6 +696,7 @@
 				8C3367147045491FAFA9DE4A /* RNImagePicker.xcodeproj */,
 				C21ACF50978145E3A4528A49 /* RNSpinkit.xcodeproj */,
 				752F6938030A4E3D8F43554E /* RNVectorIcons.xcodeproj */,
+				2AD595BC1CEF4F38A0462061 /* RCTBEEPickerManager.xcodeproj */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -832,6 +852,10 @@
 					ProjectRef = 5E91572D1DD0AC6500FF2AA8 /* RCTAnimation.xcodeproj */;
 				},
 				{
+					ProductGroup = 273B6B8C1EBF2EFA0031BD6C /* Products */;
+					ProjectRef = 2AD595BC1CEF4F38A0462061 /* RCTBEEPickerManager.xcodeproj */;
+				},
+				{
 					ProductGroup = 27D88C9E1EBDD39500B640B5 /* Products */;
 					ProjectRef = 907B8E699847415E8C2BED52 /* RCTCamera.xcodeproj */;
 				},
@@ -963,6 +987,13 @@
 			fileType = archive.ar;
 			path = libReact.a;
 			remoteRef = 146834031AC3E56700842450 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		273B6B901EBF2EFA0031BD6C /* libRCTBEEPickerManager.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRCTBEEPickerManager.a;
+			remoteRef = 273B6B8F1EBF2EFA0031BD6C /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		27D88CAE1EBDD39500B640B5 /* libFirestack.a */ = {
@@ -1398,12 +1429,18 @@
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
 					"$(SRCROOT)/../node_modules/react-native-file-picker/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-pdf-view/RNPDFView",
+					"$(SRCROOT)/../node_modules/react-native-file-picker/ios/**",
+					"$(SRCROOT)/../node_modules/react-native-pdf-view/RNPDFView",
+					"$(SRCROOT)/../node_modules/react-native-picker/ios/RCTBEEPickerManager",
 				);
 				INFOPLIST_FILE = jogTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
@@ -1451,12 +1488,18 @@
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
 					"$(SRCROOT)/../node_modules/react-native-file-picker/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-pdf-view/RNPDFView",
+					"$(SRCROOT)/../node_modules/react-native-file-picker/ios/**",
+					"$(SRCROOT)/../node_modules/react-native-pdf-view/RNPDFView",
+					"$(SRCROOT)/../node_modules/react-native-picker/ios/RCTBEEPickerManager",
 				);
 				INFOPLIST_FILE = jogTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
@@ -1506,6 +1549,9 @@
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
 					"$(SRCROOT)/../node_modules/react-native-file-picker/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-pdf-view/RNPDFView",
+					"$(SRCROOT)/../node_modules/react-native-file-picker/ios/**",
+					"$(SRCROOT)/../node_modules/react-native-pdf-view/RNPDFView",
+					"$(SRCROOT)/../node_modules/react-native-picker/ios/RCTBEEPickerManager",
 				);
 				INFOPLIST_FILE = jog/Info.plist;
 				INFOPLIST_PREPROCESS = YES;
@@ -1548,6 +1594,9 @@
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
 					"$(SRCROOT)/../node_modules/react-native-file-picker/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-pdf-view/RNPDFView",
+					"$(SRCROOT)/../node_modules/react-native-file-picker/ios/**",
+					"$(SRCROOT)/../node_modules/react-native-pdf-view/RNPDFView",
+					"$(SRCROOT)/../node_modules/react-native-picker/ios/RCTBEEPickerManager",
 				);
 				INFOPLIST_FILE = jog/Info.plist;
 				INFOPLIST_PREPROCESS = YES;

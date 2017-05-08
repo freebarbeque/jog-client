@@ -10,6 +10,7 @@ import type { LoadingReduxState } from './store/loading/reducer'
 import type { LoadingAction } from './store/loading/actionTypes'
 import type { ErrorsReduxState } from './store/errors/reducer'
 import type { ErrorAction } from './store/errors/actionTypes'
+import type { AddManualPolicyAction, ManualPolicyUpdate } from './store/screens/addManualPolicy/actions'
 
 //
 // Redux
@@ -22,7 +23,8 @@ export type Action =
   InsurerActions |
   BaseAction |
   LoadingAction |
-  ErrorAction
+  ErrorAction |
+  AddManualPolicyAction
 
 export type NavReduxState = {
   index: number,
@@ -42,7 +44,8 @@ export type AuthScreensReduxState = {
 }
 
 export type ScreensReduxState = {
-  auth: AuthScreensReduxState
+  auth: AuthScreensReduxState,
+  addManualPolicy: ManualPolicyUpdate,
 }
 
 export type MotorPolicyMap = {[id: string]: MotorPolicy}
