@@ -12,8 +12,8 @@ import type {
 
 import AddPolicyScreenContainer from '../../components/AddPolicyScreenContainer'
 import Picker from '../../components/Picker'
-import type { clearManualPolicy, ManualPolicyUpdate } from '../../store/screens/addManualPolicy/actions'
-import { updateManualPolicy } from '../../store/screens/addManualPolicy/actions'
+import type { ManualPolicyUpdate } from '../../store/screens/addManualPolicy/actions'
+import { updateManualPolicy, clearManualPolicy } from '../../store/screens/addManualPolicy/actions'
 
 type InsurerScreenProps = {
   dispatch: Dispatch,
