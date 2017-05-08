@@ -10,6 +10,7 @@ import type { FormField } from 'jog/src/types'
 import { emailValidator } from 'jog/src/screens/validators'
 
 export const emailField : FormField = {
+  type: 'text',
   inputProps: {
     autoCapitalize: 'none',
     autoCorrect: false,
@@ -22,6 +23,7 @@ export const emailField : FormField = {
 }
 
 export const passwordField : FormField = {
+  type: 'text',
   inputProps: {
     secureTextEntry: true,
     blurOnSubmit: true,
@@ -42,6 +44,7 @@ export const validatedPasswordField = {
 }
 
 export const nameField : FormField = {
+  type: 'text',
   inputProps: {
     autoCapitalize: 'none',
     autoCorrect: false,

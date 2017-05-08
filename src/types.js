@@ -73,13 +73,23 @@ export type Dispatch = ReduxDispatch<Action>;
 // Forms
 //
 
-export type FormField = {
+export type TextFormField = {
+  type: 'text',
   inputProps: $Subtype<Object>,
   label: string,
   key: string,
   // The validation function should return an error if invalid or null if valid.
   validate?: (val: string) => string | null,
 }
+
+export type OptionsFormField = {
+  type: 'options',
+  label: string,
+  key: string,
+  options: {value: string, label: string}[]
+}
+
+export type FormField = TextFormField | OptionsFormField
 
 export type ValuesMap = {[key: string] : string}
 export type ValidationErrorsMap = {[key: string]: string | null}

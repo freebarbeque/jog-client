@@ -8,10 +8,12 @@ import { BLUE, DARK_GRAY, WHITE } from '../constants/palette'
 import { MARGIN } from '../constants/style'
 import Text from './Text'
 
+export type PickerOption = {label: string, value: string}
+
 type PickerProps = {
-  value?: {label: string, value: string} | null,
-  onChange: (value: string) => void,
-  options: {label: string, value: string}[],
+  value?: PickerOption | null,
+  onChange: (value: PickerOption) => void,
+  options: PickerOption[],
   placeholder: string,
   titleText: string,
 };

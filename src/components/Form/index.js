@@ -13,7 +13,8 @@ import { MARGIN } from 'jog/src/constants/style'
 import LabelledTextInput from '../LabelledTextInput'
 import RoundedButton from '../RoundedButton'
 import Text from '../Text'
-
+import Picker from '../Picker'
+import type { PickerOption } from '../Picker'
 
 type FormProps = {
   fields: FormField[],
@@ -74,34 +75,53 @@ export default class Form extends Component {
 
     const fieldError = this.props.validationErrors[f.key]
 
-    return (
-      <LabelledTextInput
-        ref={`${idx}`}
-        key={f.label}
-        label={f.label}
-        onChangeText={(value) => {
-          const newValues = { ...this.props.values }
-          const validationErrors = { ...this.props.validationErrors }
-          newValues[f.key] = value
-          validationErrors[f.key] = null
-          this.props.onValuesChanged(newValues)
-          this.props.onValidationErrorsChanged(validationErrors)
-        }}
-        value={this.props.values[f.key]}
-        onBlur={() => this.handleBlur(f)}
-        error={fieldError}
-        editable={!this.props.disabled}
-        returnKeyType={isLastField ? 'done' : 'next'}
-        onSubmitEditing={() => {
-          if (isLastField) {
-            this.handleSubmit()
-          } else {
-            this.refs[`${idx + 1}`].focus()
-          }
-        }}
-        {...f.inputProps}
-      />
-    )
+    const value = this.props.values[f.key]
+
+    if (f.type === 'text') {
+      return (
+        <LabelledTextInput
+          ref={`${idx}`}
+          key={f.label}
+          label={f.label}
+          onChangeText={(value) => {
+            const newValues = { ...this.props.values }
+            const validationErrors = { ...this.props.validationErrors }
+            newValues[f.key] = value
+            validationErrors[f.key] = null
+            this.props.onValuesChanged(newValues)
+            this.props.onValidationErrorsChanged(validationErrors)
+          }}
+          value={value}
+          onBlur={() => this.handleBlur(f)}
+          error={fieldError}
+          editable={!this.props.disabled}
+          returnKeyType={isLastField ? 'done' : 'next'}
+          onSubmitEditing={() => {
+            if (isLastField) {
+              this.handleSubmit()
+            } else {
+              this.refs[`${idx + 1}`].focus()
+            }
+          }}
+          {...f.inputProps}
+        />
+      )
+    } else if (f.type === 'options') {
+      return (
+        <Picker
+          onChange={(o: PickerOption) => {
+            const newValues = { ...this.props.values }
+            newValues[f.key] = o.value
+            this.props.onValuesChanged(newValues)
+          }}
+          value={value ? f.options.find((o) => o.value === value) : null}
+          placeholder="Insurer"
+          options={f.options}
+        />
+      )
+    }
+
+    throw new Error(`Unknown field type ${f.type}`)
   }
 
   render() {
