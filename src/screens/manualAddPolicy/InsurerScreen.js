@@ -12,7 +12,7 @@ import type {
 
 import AddPolicyScreenContainer from '../../components/AddPolicyScreenContainer'
 import Picker from '../../components/Picker'
-import type { ManualPolicyUpdate } from '../../store/screens/addManualPolicy/actions'
+import type { clearManualPolicy, ManualPolicyUpdate } from '../../store/screens/addManualPolicy/actions'
 import { updateManualPolicy } from '../../store/screens/addManualPolicy/actions'
 
 type InsurerScreenProps = {
@@ -24,6 +24,9 @@ type InsurerScreenProps = {
 class InsurerScreen extends Component {
   props: InsurerScreenProps
 
+  componentWillUnmount() {
+    this.props.dispatch(clearManualPolicy())
+  }
 
   handleNextPress = () => {
     // TODO
