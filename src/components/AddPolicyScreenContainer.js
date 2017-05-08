@@ -90,7 +90,8 @@ const styles = StyleSheet.create({
     backgroundColor: BLUE,
   },
   header: {
-    marginTop: MARGIN.xxl
+    marginTop: MARGIN.xxl,
+    marginBottom: MARGIN.base,
   },
   content: {
     flex: 1,

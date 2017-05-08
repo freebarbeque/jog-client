@@ -2,6 +2,7 @@
 
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import { NavigationActions } from 'react-navigation'
 
 import type {
   Dispatch,
@@ -29,7 +30,7 @@ class InsurerScreen extends Component {
   }
 
   handleNextPress = () => {
-    // TODO
+    this.props.dispatch(NavigationActions.navigate({ routeName: 'PolicyNumber' }))
   }
 
   onChange = ({ value }) => {
@@ -63,8 +64,8 @@ class InsurerScreen extends Component {
 
     return (
       <AddPolicyScreenContainer
-        enableNextButton={false}
-        enablePrevButton={false}
+        showNextButton={true}
+        showPrevButton={false}
         title={'Who is your insurer?'}
         onNextPress={this.handleNextPress}
       >
