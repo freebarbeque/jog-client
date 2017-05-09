@@ -12,6 +12,7 @@ import type {
 import AddPolicyScreenContainer from '../../components/AddPolicyScreenContainer'
 import type { ManualPolicyUpdate } from '../../store/screens/addManualPolicy/actions'
 import { updateManualPolicy, clearManualPolicy } from '../../store/screens/addManualPolicy/actions'
+import DatePicker from '../../components/DatePicker'
 
 type PolicyDateScreenProps = {
   dispatch: Dispatch,
@@ -29,8 +30,8 @@ class PolicyDateScreen extends Component {
     this.props.dispatch(NavigationActions.navigate({ routeName: 'Cost' }))
   }
 
-  onChange = ({ value }) => {
-    this.props.dispatch(updateManualPolicy({ companyId: value }))
+  onChange = (expiryDate) => {
+    this.props.dispatch(updateManualPolicy({ expiryDate }))
   }
 
   render() {
@@ -41,7 +42,12 @@ class PolicyDateScreen extends Component {
         title="What date does the policy expire?"
         onNextPress={this.handleNextPress}
         onPrevPress={() => this.props.dispatch(NavigationActions.back())}
-      />
+      >
+        <DatePicker
+          date={this.props.policy.expiryDate}
+          onDateChange={this.onChange}
+        />
+      </AddPolicyScreenContainer>
     )
   }
 }

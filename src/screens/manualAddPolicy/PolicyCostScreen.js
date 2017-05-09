@@ -12,6 +12,7 @@ import type {
 import AddPolicyScreenContainer from '../../components/AddPolicyScreenContainer'
 import type { ManualPolicyUpdate } from '../../store/screens/addManualPolicy/actions'
 import { updateManualPolicy, clearManualPolicy } from '../../store/screens/addManualPolicy/actions'
+import AccessoryTextInput from '../../components/AccessoryTextInput'
 
 type PolicyCostScreenProps = {
   dispatch: Dispatch,
@@ -41,7 +42,14 @@ class PolicyCostScreen extends Component {
         title="How much does your policy cost per year?"
         onNextPress={this.handleNextPress}
         onPrevPress={() => this.props.dispatch(NavigationActions.back())}
-      />
+      >
+        <AccessoryTextInput
+          value={this.props.policy.policyNo}
+          onChangeText={(text) => this.props.dispatch(updateManualPolicy({ policyNo: text }))}
+          editable
+          accessory="£"
+        />
+      </AddPolicyScreenContainer>
     )
   }
 }

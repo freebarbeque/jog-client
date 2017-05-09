@@ -75,7 +75,7 @@ class LabelledTextInput extends Component {
           </View>}
         </View>
         <TextInput
-          ref={(e) => { this.input = e.input }}
+          ref={(e) => { this.input = e ? e.input : null }}
           editable={editable}
           onChangeText={(text) => {
             // This is buggy as the tab appears before quickly being removed,

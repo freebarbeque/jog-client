@@ -143,8 +143,8 @@ export type MotorPolicy = {
   noClaimsBonus?: number, // Num. years.
   id?: string, // Jogs identifier for the policy (guid?)
   policyNo?: string, // I would assume this is the insurer's own identifier? I know some will have non-numeric characters
-  expiryDate?: number,
-  startDate?: number,
+  expiryDate?: string,
+  startDate?: string,
   createdDate?: number, // Date added to jog as opposed to insurance start date
   companyId?: string,
   documents?: {[id: string] : PolicyDocument},
