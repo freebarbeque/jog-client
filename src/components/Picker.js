@@ -73,7 +73,7 @@ export default class Picker extends Component {
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
-    height: 50,
+    height: 60,
     backgroundColor: WHITE,
     borderRadius: 4,
   },
@@ -83,7 +83,7 @@ const styles = StyleSheet.create({
     paddingLeft: MARGIN.large
   },
   dropdown: {
-    height: 50,
+    height: 60,
     width: 50,
     alignItems: 'center',
     justifyContent: 'center',

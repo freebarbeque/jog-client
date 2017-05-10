@@ -60,6 +60,8 @@ class PolicyDetailsScreen extends Component {
 
     const expiryDate = moment(policy.expiryDate)
 
+    const drivers = policy.drivers || []
+
     return (
       <ScrollView style={styles.scrollView}>
         <Panel>
@@ -110,7 +112,7 @@ class PolicyDetailsScreen extends Component {
             £{policy.excess} p/a
           </Row>
           <Row title="drivers">
-            {policy.drivers.map((d) => `${d.firstName} ${d.lastName}`).join(', ')}
+            {drivers.map((d) => `${d.firstName} ${d.lastName}`).join(', ')}
           </Row>
           <Row title="no claims bonus">
             {policy.noClaimsBonus} Yrs

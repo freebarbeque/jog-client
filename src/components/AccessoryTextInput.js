@@ -33,6 +33,8 @@ const styles = StyleSheet.create({
     height: 60,
     flexDirection: 'row',
     backgroundColor: WHITE,
+    borderRadius: 8,
+    overflow: 'hidden'
   },
   accessoryContainer: {
     height: 60,

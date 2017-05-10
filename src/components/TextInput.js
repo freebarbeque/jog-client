@@ -10,7 +10,6 @@ const styles = StyleSheet.create({
     paddingLeft: MARGIN.large,
     paddingRight: MARGIN.large,
     fontSize: 20,
-    // borderRadius: 8,
     borderWidth: 2,
     borderStyle: 'solid',
     borderColor: 'transparent',

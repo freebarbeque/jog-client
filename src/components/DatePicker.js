@@ -5,6 +5,7 @@ import { StyleSheet, TouchableOpacity, View } from 'react-native'
 import DatePicker from 'react-native-datepicker'
 import { BLUE, WHITE } from '../constants/palette'
 import Text from './Text'
+import moment from 'moment'
 
 type JogDatePickerProps = {
   date: string,
@@ -32,13 +33,13 @@ export default class JogDatePicker extends Component {
   }
 
   render() {
-    const date = this.props.date
+    const date = moment(this.props.date, 'DD/MM/YYYY').format('MMM DD YYYY')
 
     let day = ''
     let month = ''
     let year = ''
 
-    const split = date ? date.split('/') : null
+    const split = date ? date.split(' ') : null
 
     if (split) {
       day = split[0]
@@ -73,7 +74,7 @@ export default class JogDatePicker extends Component {
         {/* DatePicker is hidden due to not being customisable enough to implement the designs */}
         <DatePicker
           ref={(e) => { this.picker = e }}
-          date={date}
+          date={this.props.date}
           format="DD/MM/YYYY"
           confirmBtnText="Confirm"
           cancelBtnText="Cancel"
