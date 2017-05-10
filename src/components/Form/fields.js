@@ -5,11 +5,11 @@ Fields encapsulate text input properties and validation.
 @flow
  */
 
-import type { FormField } from 'jog/src/types'
 
 import { emailValidator } from 'jog/src/screens/validators'
+import type { TextFormField } from '../../types'
 
-export const emailField : FormField = {
+export const emailField : TextFormField = {
   type: 'text',
   inputProps: {
     autoCapitalize: 'none',
@@ -22,7 +22,7 @@ export const emailField : FormField = {
   validate: emailValidator
 }
 
-export const passwordField : FormField = {
+export const passwordField : TextFormField = {
   type: 'text',
   inputProps: {
     secureTextEntry: true,
@@ -38,12 +38,13 @@ export const passwordField : FormField = {
   }
 }
 
-export const validatedPasswordField = {
+export const validatedPasswordField: TextFormField = {
   ...passwordField,
+  type: 'text',
   validate: (password: string) => password && password.length >= 8 ? null : 'Must be at least 8 characters long'
 }
 
-export const nameField : FormField = {
+export const nameField : TextFormField = {
   type: 'text',
   inputProps: {
     autoCapitalize: 'none',

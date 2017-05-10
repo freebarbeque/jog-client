@@ -13,7 +13,7 @@ import type { ManualPolicyUpdate, SavePolicyAction } from './actions'
 import { setMotorPolicy } from '../../../data/policies'
 import { finishLoading, startLoading } from '../../loading/actions'
 import { declareError } from '../../errors/actions'
-import { MotorPolicy } from '../../../types'
+import type { MotorPolicy } from '../../../types'
 import { demandCurrentUser } from '../../../data/auth'
 
 function* savePolicyTask(action: SavePolicyAction) {

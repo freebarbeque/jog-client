@@ -22,13 +22,13 @@ type FinishedScreenProps = {
 class FinishedScreen extends Component {
   props: FinishedScreenProps
 
+  handleFinishPress = () => {}
+
   render() {
     return (
       <View style={styles.container}>
-        <Text style={styles.text}>Thanks, we've set up a basic account for you.</Text>
-        <View style={styles.content}>
-          {this.props.children}
-        </View>
+        <Text style={styles.text}>{"Thanks, we've set up a basic account for you."}</Text>
+        <View style={styles.content} />
         <View style={{ height: 40, flexDirection: 'row', marginBottom: MARGIN.extraLarge }}>
           <NavigationButton title="Finish" onPress={this.handleFinishPress} />
         </View>

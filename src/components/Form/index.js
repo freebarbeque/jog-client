@@ -33,8 +33,9 @@ export default class Form extends Component {
   props: FormProps
 
   validateField(f: FormField): string | null {
-    if (f.validate) {
-      return f.validate(this.props.values[f.key])
+    if (f.type === 'text' && f.validate) {
+      const value = this.props.values[f.key]
+      return f.validate(value)
     }
     return null
   }
@@ -83,10 +84,10 @@ export default class Form extends Component {
           ref={`${idx}`}
           key={f.label}
           label={f.label}
-          onChangeText={(value) => {
+          onChangeText={(text) => {
             const newValues = { ...this.props.values }
             const validationErrors = { ...this.props.validationErrors }
-            newValues[f.key] = value
+            newValues[f.key] = text
             validationErrors[f.key] = null
             this.props.onValuesChanged(newValues)
             this.props.onValidationErrorsChanged(validationErrors)

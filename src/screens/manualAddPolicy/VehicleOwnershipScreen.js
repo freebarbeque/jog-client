@@ -11,7 +11,7 @@ import type {
 
 import AddPolicyScreenContainer from '../../components/AddPolicyScreenContainer'
 import type { ManualPolicyUpdate } from '../../store/screens/addManualPolicy/actions'
-import { updateManualPolicy, savePolicy } from '../../store/screens/addManualPolicy/actions'
+import { updateManualPolicy, savePolicy, motorPolicyOwnership } from '../../store/screens/addManualPolicy/actions'
 import RadioInput from '../../components/RadioInput'
 import { MARGIN } from '../../constants/style'
 
@@ -29,7 +29,7 @@ class VehicleOwnershipScreen extends Component {
   }
 
   handleChange = (ownership) => {
-    this.props.dispatch(updateManualPolicy({ ownership }))
+    this.props.dispatch(updateManualPolicy({ ownership: motorPolicyOwnership[ownership] }))
   }
 
   render() {
@@ -39,7 +39,7 @@ class VehicleOwnershipScreen extends Component {
         showPrevButton
         title="Is your vehicle:"
         onNextPress={this.handleNextPress}
-        onPrevPress={() => this.props.dispatch(NavigationActions.back())}
+        onPrevPress={() => { this.props.dispatch(NavigationActions.back()) }}
         disableNextButton={!this.props.policy.ownership}
       >
         <RadioInput

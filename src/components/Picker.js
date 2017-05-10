@@ -15,7 +15,7 @@ type PickerProps = {
   onChange: (value: PickerOption) => void,
   options: PickerOption[],
   placeholder: string,
-  titleText: string,
+  titleText?: string,
 };
 
 type PickerState = {};

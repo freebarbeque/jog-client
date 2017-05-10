@@ -15,14 +15,14 @@ type AddPolicyScreenContainerProps = {
   onPrevPress?: () => void,
   onNextPress?: () => void,
   onSkipPress?: () => void,
-  children: any,
+  children?: any,
   showPrevButton?: boolean,
   showNextButton?: boolean,
   showSkipButton?: boolean,
   disableNextButton?: boolean,
 }
 
-export const NavigationButton = (props) => {
+export const NavigationButton = (props: $Subtype<Object>) => {
   const { variation, disabled, title, ...rest } = props
   const extraStyle = variation === 'pink' ? styles.pinkButton : styles.grayButton
   const extraTextStyle = variation === 'pink' ? styles.pinkButtonText : styles.grayButtonText

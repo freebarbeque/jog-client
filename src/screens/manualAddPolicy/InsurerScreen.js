@@ -14,7 +14,7 @@ import type {
 import AddPolicyScreenContainer from '../../components/AddPolicyScreenContainer'
 import Picker from '../../components/Picker'
 import type { ManualPolicyUpdate } from '../../store/screens/addManualPolicy/actions'
-import { updateManualPolicy, clearManualPolicy } from '../../store/screens/addManualPolicy/actions'
+import { updateManualPolicy } from '../../store/screens/addManualPolicy/actions'
 
 type InsurerScreenProps = {
   dispatch: Dispatch,
@@ -58,8 +58,6 @@ class InsurerScreen extends Component {
       }
     }
 
-    console.log('company', company)
-
     return (
       <AddPolicyScreenContainer
         showNextButton
@@ -70,7 +68,7 @@ class InsurerScreen extends Component {
       >
         <Picker
           onChange={this.onChange}
-          value={company ? { value: companyId, label: company.name } : null}
+          value={company && companyId && company.name ? { value: companyId, label: company.name } : null}
           placeholder="Insurer"
           options={options}
         />

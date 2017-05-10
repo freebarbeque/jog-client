@@ -11,7 +11,7 @@ import type {
 
 import AddPolicyScreenContainer from '../../components/AddPolicyScreenContainer'
 import type { ManualPolicyUpdate } from '../../store/screens/addManualPolicy/actions'
-import { updateManualPolicy, clearManualPolicy } from '../../store/screens/addManualPolicy/actions'
+import { updateManualPolicy } from '../../store/screens/addManualPolicy/actions'
 import TextInput from '../../components/TextInput'
 
 type LicensePlateScreenProps = {
@@ -33,7 +33,7 @@ class LicensePlateScreen extends Component {
         showPrevButton
         title="What is your license plate no."
         onNextPress={this.handleNextPress}
-        onPrevPress={() => this.props.dispatch(NavigationActions.back())}
+        onPrevPress={() => { this.props.dispatch(NavigationActions.back()) }}
         disableNextButton={!this.props.policy.vehicleRegistration}
       >
         <TextInput

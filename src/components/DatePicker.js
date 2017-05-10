@@ -16,6 +16,7 @@ type JogDatePickerState = {};
 export default class JogDatePicker extends Component {
   props: JogDatePickerProps
   state: JogDatePickerState
+  picker: any
 
   constructor(props: JogDatePickerProps) {
     super(props)

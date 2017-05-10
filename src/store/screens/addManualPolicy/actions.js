@@ -1,13 +1,19 @@
 // @flow
 
-export type MotorPolicyOwnership = 'owned' | 'leased' | 'financed'
+export const motorPolicyOwnership = {
+  owned: 'owned',
+  leased: 'leased',
+  financed: 'financed'
+}
+
+export type MotorPolicyOwnership = $Keys<typeof motorPolicyOwnership>
 
 export type ManualPolicyUpdate = {
   vehicleRegistration?: string,
   ownership?: MotorPolicyOwnership,
   noClaimsBonus?: number,
   policyNo?: string,
-  expiryDate?: number,
+  expiryDate?: string,
   companyId?: string,
   cost?: string,
 }

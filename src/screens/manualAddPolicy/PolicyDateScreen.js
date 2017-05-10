@@ -11,7 +11,7 @@ import type {
 
 import AddPolicyScreenContainer from '../../components/AddPolicyScreenContainer'
 import type { ManualPolicyUpdate } from '../../store/screens/addManualPolicy/actions'
-import { updateManualPolicy, clearManualPolicy } from '../../store/screens/addManualPolicy/actions'
+import { updateManualPolicy } from '../../store/screens/addManualPolicy/actions'
 import DatePicker from '../../components/DatePicker'
 
 type PolicyDateScreenProps = {
@@ -37,7 +37,7 @@ class PolicyDateScreen extends Component {
         showPrevButton
         title="What date does the policy expire?"
         onNextPress={this.handleNextPress}
-        onPrevPress={() => this.props.dispatch(NavigationActions.back())}
+        onPrevPress={() => { this.props.dispatch(NavigationActions.back()) }}
         disableNextButton={!this.props.policy.expiryDate}
       >
         <DatePicker

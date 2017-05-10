@@ -8,6 +8,7 @@ import { MARGIN } from '../constants/style'
 
 type RadioInputProps = {
   options: {
+    // eslint-disable-next-line react/no-unused-prop-types
     label: string,
     value: string,
   }[],
