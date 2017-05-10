@@ -9,12 +9,12 @@ import uuid from 'uuid/v4'
 import moment from 'moment'
 import { NavigationActions } from 'react-navigation'
 
+import { setMotorPolicy } from 'jog/src/data/policies'
+import { declareError } from 'jog/src/store/errors/actions'
+import type { MotorPolicy } from 'jog/src/types'
+import { demandCurrentUser } from 'jog/src/data/auth'
+
 import type { ManualPolicyUpdate, SavePolicyAction } from './actions'
-import { setMotorPolicy } from '../../../data/policies'
-import { finishLoading, startLoading } from '../../loading/actions'
-import { declareError } from '../../errors/actions'
-import type { MotorPolicy } from '../../../types'
-import { demandCurrentUser } from '../../../data/auth'
 
 function* savePolicyTask(action: SavePolicyAction) {
   const policyUpdate: ManualPolicyUpdate = action.policy
@@ -31,15 +31,12 @@ function* savePolicyTask(action: SavePolicyAction) {
   policy.noClaimsBonus = 0
   policy.id = uuid()
 
-  yield put(startLoading('Saving policy'))
   try {
     yield call(() => setMotorPolicy(policy))
   } catch (e) {
     console.debug('Error saving policy', e)
     yield put(declareError('Unable to save policy'))
     return
-  } finally {
-    yield put(finishLoading())
   }
 
   yield put(NavigationActions.navigate({ routeName: 'Finished' }))

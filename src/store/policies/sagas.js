@@ -16,12 +16,12 @@ import mime from 'react-native-mime-types'
 
 import { syncMotorPolicies, addPolicyDocument, removePolicyDocument, getPolicyDocument } from 'jog/src/data/policies'
 import { demandCurrentUser } from 'jog/src/data/auth'
+import { getFirestack } from 'jog/src/data'
 
 import { receiveMotorPolicies } from './actions'
 import type { SyncMotorPoliciesAction, UploadPolicyDocumentAction } from './actionTypes'
 import { finishLoading, startLoading } from '../loading/actions'
 import { declareError } from '../errors/actions'
-import { getFirestack } from '../../data/index'
 
 //
 // Sync policies

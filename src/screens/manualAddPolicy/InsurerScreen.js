@@ -10,11 +10,10 @@ import type {
   InsurerMap,
   Insurer
 } from 'jog/src/types'
-
-import AddPolicyScreenContainer from '../../components/AddPolicyScreenContainer'
-import Picker from '../../components/Picker'
-import type { ManualPolicyUpdate } from '../../store/screens/addManualPolicy/actions'
-import { updateManualPolicy } from '../../store/screens/addManualPolicy/actions'
+import AddPolicyScreenContainer from 'jog/src/components/AddPolicyScreenContainer'
+import Picker from 'jog/src/components/Picker'
+import type { ManualPolicyUpdate } from 'jog/src/store/screens/addManualPolicy/actions'
+import { updateManualPolicy } from 'jog/src/store/screens/addManualPolicy/actions'
 
 type InsurerScreenProps = {
   dispatch: Dispatch,

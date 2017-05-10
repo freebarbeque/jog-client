@@ -9,10 +9,10 @@ import type {
   ReduxState,
 } from 'jog/src/types'
 
-import AddPolicyScreenContainer from '../../components/AddPolicyScreenContainer'
-import type { ManualPolicyUpdate } from '../../store/screens/addManualPolicy/actions'
-import { updateManualPolicy } from '../../store/screens/addManualPolicy/actions'
-import TextInput from '../../components/TextInput'
+import AddPolicyScreenContainer from 'jog/src/components/AddPolicyScreenContainer'
+import type { ManualPolicyUpdate } from 'jog/src/store/screens/addManualPolicy/actions'
+import { updateManualPolicy } from 'jog/src/store/screens/addManualPolicy/actions'
+import TextInput from 'jog/src/components/TextInput'
 
 type PolicyNumberScreenProps = {
   dispatch: Dispatch,

@@ -3,19 +3,15 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { View, StyleSheet } from 'react-native'
-
-import type {
-  Dispatch,
-  ReduxState,
-} from 'jog/src/types'
 import { NavigationActions } from 'react-navigation'
 
-import Text from '../../components/Text'
-import { BLUE } from '../../constants/palette'
-import { MARGIN } from '../../constants/style'
-import { CarOutline } from '../../components/images/index'
-import { NavigationButton } from '../../components/AddPolicyScreenContainer'
-import { NavReduxState } from '../../types'
+import type { Dispatch, ReduxState, NavReduxState } from 'jog/src/types'
+
+import Text from 'jog/src/components/Text'
+import { BLUE } from 'jog/src/constants/palette'
+import { MARGIN } from 'jog/src/constants/style'
+import { CarOutline } from 'jog/src/components/images/index'
+import { NavigationButton } from 'jog/src/components/AddPolicyScreenContainer'
 
 type FinishedScreenProps = {
   dispatch: Dispatch,

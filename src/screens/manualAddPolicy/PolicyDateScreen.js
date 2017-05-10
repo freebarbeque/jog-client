@@ -9,10 +9,10 @@ import type {
   ReduxState,
 } from 'jog/src/types'
 
-import AddPolicyScreenContainer from '../../components/AddPolicyScreenContainer'
-import type { ManualPolicyUpdate } from '../../store/screens/addManualPolicy/actions'
-import { updateManualPolicy } from '../../store/screens/addManualPolicy/actions'
-import DatePicker from '../../components/DatePicker'
+import AddPolicyScreenContainer from 'jog/src/components/AddPolicyScreenContainer'
+import type { ManualPolicyUpdate } from 'jog/src/store/screens/addManualPolicy/actions'
+import { updateManualPolicy } from 'jog/src/store/screens/addManualPolicy/actions'
+import DatePicker from 'jog/src/components/DatePicker'
 
 type PolicyDateScreenProps = {
   dispatch: Dispatch,

@@ -3,9 +3,10 @@
 import React, { Component } from 'react'
 import { StyleSheet, TouchableOpacity, View } from 'react-native'
 import DatePicker from 'react-native-datepicker'
+import moment from 'moment'
+
 import { BLUE, WHITE } from '../constants/palette'
 import Text from './Text'
-import moment from 'moment'
 
 type JogDatePickerProps = {
   date: string,

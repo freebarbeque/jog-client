@@ -9,11 +9,11 @@ import type {
   ReduxState,
 } from 'jog/src/types'
 
-import AddPolicyScreenContainer from '../../components/AddPolicyScreenContainer'
-import type { ManualPolicyUpdate } from '../../store/screens/addManualPolicy/actions'
-import { updateManualPolicy, savePolicy, motorPolicyOwnership } from '../../store/screens/addManualPolicy/actions'
-import RadioInput from '../../components/RadioInput'
-import { MARGIN } from '../../constants/style'
+import AddPolicyScreenContainer from 'jog/src/components/AddPolicyScreenContainer'
+import type { ManualPolicyUpdate } from 'jog/src/store/screens/addManualPolicy/actions'
+import { updateManualPolicy, savePolicy, motorPolicyOwnership } from 'jog/src/store/screens/addManualPolicy/actions'
+import RadioInput from 'jog/src/components/RadioInput'
+import { MARGIN } from 'jog/src/constants/style'
 
 type VehicleOwnershipScreenProps = {
   dispatch: Dispatch,
