@@ -8,21 +8,35 @@ import type {
   Dispatch,
   ReduxState,
 } from 'jog/src/types'
+import { NavigationActions } from 'react-navigation'
 
 import Text from '../../components/Text'
 import { BLUE } from '../../constants/palette'
 import { MARGIN } from '../../constants/style'
 import { CarOutline } from '../../components/images/index'
 import { NavigationButton } from '../../components/AddPolicyScreenContainer'
+import { NavReduxState } from '../../types'
 
 type FinishedScreenProps = {
   dispatch: Dispatch,
+  nav: NavReduxState
 };
 
 class FinishedScreen extends Component {
   props: FinishedScreenProps
 
-  handleFinishPress = () => {}
+  hideModal = () => {
+    const routes = this.props.nav.routes
+    const manualAddPolicyRoute = _.find(routes, ((route) => route.routeName === 'ManualAddPolicy'))
+    const key = manualAddPolicyRoute.key
+    this.props.dispatch(NavigationActions.back({ key }))
+    // Back to the list of policies
+    this.props.dispatch(NavigationActions.back())
+  }
+
+  handleFinishPress = () => {
+    this.hideModal()
+  }
 
   render() {
     return (
@@ -41,7 +55,8 @@ class FinishedScreen extends Component {
 }
 
 const mapStateToProps = (state: ReduxState) => ({
-  user: state.auth.user
+  user: state.auth.user,
+  nav: state.nav
 })
 
 export default connect(
