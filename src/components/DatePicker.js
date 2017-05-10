@@ -39,7 +39,7 @@ export default class JogDatePicker extends Component {
     let month = ''
     let year = ''
 
-    const split = date ? date.split(' ') : null
+    const split = this.props.date ? date.split(' ') : null
 
     if (split) {
       day = split[0]
