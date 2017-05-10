@@ -15,6 +15,7 @@ import config from 'jog/src/config'
 import saga from './sagas'
 import { syncPoliciesSaga, policyOperationsSaga } from './policies/sagas'
 import { syncInsurersSaga } from './insurers/sagas'
+import { addPolicySaga } from './screens/addManualPolicy/sagas'
 
 let store = null
 
@@ -56,6 +57,8 @@ export default function createStore(): Store {
     sagaMiddleware.run(syncPoliciesSaga)
     sagaMiddleware.run(policyOperationsSaga)
     sagaMiddleware.run(syncInsurersSaga)
+
+    sagaMiddleware.run(addPolicySaga)
 
     // Global data
     sagaMiddleware.run(saga)

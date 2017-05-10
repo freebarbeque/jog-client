@@ -22,9 +22,6 @@ type FinishedScreenProps = {
 class FinishedScreen extends Component {
   props: FinishedScreenProps
 
-  handleFinishPress = () => {
-  }
-
   render() {
     return (
       <View style={styles.container}>

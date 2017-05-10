@@ -27,6 +27,7 @@ export default class RadioInput extends Component {
         <View>
           {options.map((o) => (
             <TouchableOpacity
+              key={o.value}
               style={styles.touchable}
               onPress={() => onChange(o.value)}
             >

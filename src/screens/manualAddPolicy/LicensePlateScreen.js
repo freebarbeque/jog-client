@@ -39,6 +39,8 @@ class LicensePlateScreen extends Component {
         <TextInput
           value={this.props.policy.vehicleRegistration}
           onChangeText={(text) => this.props.dispatch(updateManualPolicy({ vehicleRegistration: text }))}
+          autoCapitalize="none"
+          autoCorrect={false}
           editable
         />
       </AddPolicyScreenContainer>

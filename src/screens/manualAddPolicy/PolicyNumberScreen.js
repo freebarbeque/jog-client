@@ -43,6 +43,8 @@ class PolicyNumberScreen extends Component {
         <TextInput
           value={this.props.policy.policyNo}
           onChangeText={(text) => this.props.dispatch(updateManualPolicy({ policyNo: text }))}
+          autoCapitalize="none"
+          autoCorrect={false}
           editable
         />
       </AddPolicyScreenContainer>

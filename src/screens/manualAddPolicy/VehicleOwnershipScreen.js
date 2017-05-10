@@ -11,7 +11,7 @@ import type {
 
 import AddPolicyScreenContainer from '../../components/AddPolicyScreenContainer'
 import type { ManualPolicyUpdate } from '../../store/screens/addManualPolicy/actions'
-import { updateManualPolicy, clearManualPolicy } from '../../store/screens/addManualPolicy/actions'
+import { updateManualPolicy, savePolicy } from '../../store/screens/addManualPolicy/actions'
 import RadioInput from '../../components/RadioInput'
 import { MARGIN } from '../../constants/style'
 
@@ -24,7 +24,8 @@ class VehicleOwnershipScreen extends Component {
   props: VehicleOwnershipScreenProps
 
   handleNextPress = () => {
-    this.props.dispatch(NavigationActions.navigate({ routeName: 'Finished' }))
+    const policy = this.props.policy
+    this.props.dispatch(savePolicy(policy))
   }
 
   handleChange = (ownership) => {

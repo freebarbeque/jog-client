@@ -43,6 +43,8 @@ class PolicyCostScreen extends Component {
           onChangeText={(text) => this.props.dispatch(updateManualPolicy({ cost: text }))}
           editable
           accessory="£"
+          autoCapitalize="none"
+          autoCorrect={false}
           keyboardType="numeric"
         />
       </AddPolicyScreenContainer>

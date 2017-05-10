@@ -21,7 +21,12 @@ export type ClearManualPolicy = {
   type: 'addManualPolicy/CLEAR_MANUAL_POLICY',
 }
 
-export type AddManualPolicyAction = UpdateManualPolicy | ClearManualPolicy
+export type SavePolicyAction = {
+  type: 'addManualPolicy/SAVE_POLICY',
+  policy: ManualPolicyUpdate
+}
+
+export type AddManualPolicyAction = UpdateManualPolicy | ClearManualPolicy | SavePolicyAction
 
 export function updateManualPolicy(update: ManualPolicyUpdate) : UpdateManualPolicy {
   return {
@@ -36,3 +41,9 @@ export function clearManualPolicy() : ClearManualPolicy {
   }
 }
 
+export function savePolicy(policy: ManualPolicyUpdate) : SavePolicyAction {
+  return {
+    type: 'addManualPolicy/SAVE_POLICY',
+    policy,
+  }
+}
