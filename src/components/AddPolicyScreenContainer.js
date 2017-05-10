@@ -22,7 +22,7 @@ type AddPolicyScreenContainerProps = {
   disableNextButton?: boolean,
 }
 
-const NavigationButton = (props) => {
+export const NavigationButton = (props) => {
   const { variation, disabled, title, ...rest } = props
   const extraStyle = variation === 'pink' ? styles.pinkButton : styles.grayButton
   const extraTextStyle = variation === 'pink' ? styles.pinkButtonText : styles.grayButtonText
