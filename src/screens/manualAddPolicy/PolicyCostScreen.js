@@ -36,6 +36,7 @@ class PolicyCostScreen extends Component {
         title="How much does your policy cost per year?"
         onNextPress={this.handleNextPress}
         onPrevPress={() => this.props.dispatch(NavigationActions.back())}
+        disableNextButton={!this.props.policy.cost}
       >
         <AccessoryTextInput
           value={cost}

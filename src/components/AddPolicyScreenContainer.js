@@ -19,21 +19,31 @@ type AddPolicyScreenContainerProps = {
   showPrevButton?: boolean,
   showNextButton?: boolean,
   showSkipButton?: boolean,
+  disableNextButton?: boolean,
 }
 
 const NavigationButton = (props) => {
-  const extraStyle = props.variation === 'pink' ? styles.pinkButton : styles.grayButton
-  const extraTextStyle = props.variation === 'pink' ? styles.pinkButtonText : styles.grayButtonText
+  const { variation, disabled, title, ...rest } = props
+  const extraStyle = variation === 'pink' ? styles.pinkButton : styles.grayButton
+  const extraTextStyle = variation === 'pink' ? styles.pinkButtonText : styles.grayButtonText
+
+  // The button is wrapped in a container because there is a strange bug where opacity is ignored
+  // after the initial render of TouchableOpacity
 
   return (
-    <TouchableOpacity
-      style={[styles.button, extraStyle]}
-      {...props}
+    <View
+      style={[styles.buttonContainer, { opacity: disabled ? 0.5 : 1 }]}
     >
-      <Text style={[styles.buttonText, extraTextStyle]}>
-        {props.title}
-      </Text>
-    </TouchableOpacity>
+      <TouchableOpacity
+        style={[styles.button, extraStyle]}
+        disabled={disabled}
+        {...rest}
+      >
+        <Text style={[styles.buttonText, extraTextStyle]}>
+          {title}
+        </Text>
+      </TouchableOpacity>
+    </View>
   )
 }
 
@@ -54,31 +64,32 @@ export default class AddPolicyScreenContainer extends Component {
     showPrevButton: true,
     showNextButton: true,
     showSkipButton: false,
+    disableNextButton: false,
   }
 
   render() {
     return (
-        <View style={styles.container}>
-          <View style={styles.header}>
-            <Text style={styles.entryText}>
+      <View style={styles.container}>
+        <View style={styles.header}>
+          <Text style={styles.entryText}>
             POLICY ENTRY
           </Text>
-            <Text style={styles.title}>
-              {this.props.title}
-            </Text>
-          </View>
-          <View style={styles.content}>
-            {this.props.children}
-          </View>
-          <View style={styles.buttonRow}>
-            {this.props.showPrevButton ? <NavigationButton variation="gray" title="Prev" onPress={this.props.onPrevPress} /> : null}
-            {this.props.showSkipButton ? <NavigationButton variation="gray" title="Skip this step" onPress={this.props.onSkipPress} /> : null}
-            {this.props.showNextButton ? <NavigationButton title="Next" onPress={this.props.onNextPress} /> : null}
-          </View>
-          <View style={styles.footer}>
-            <CarOutline scale={1.1} />
-          </View>
+          <Text style={styles.title}>
+            {this.props.title}
+          </Text>
         </View>
+        <View style={styles.content}>
+          {this.props.children}
+        </View>
+        <View style={styles.buttonRow}>
+          {this.props.showPrevButton ? <NavigationButton variation="gray" title="Prev" onPress={this.props.onPrevPress} /> : null}
+          {this.props.showSkipButton ? <NavigationButton variation="gray" title="Skip this step" onPress={this.props.onSkipPress} /> : null}
+          {this.props.showNextButton ? <NavigationButton title="Next" onPress={this.props.onNextPress} disabled={this.props.disableNextButton} /> : null }
+        </View>
+        <View style={styles.footer}>
+          <CarOutline scale={1.1} />
+        </View>
+      </View>
     )
   }
 }
@@ -120,6 +131,13 @@ const styles = StyleSheet.create({
   },
   pinkButton: {
     backgroundColor: PINK,
+  },
+  buttonContainer: {
+    flex: 1,
+    margin: MARGIN.base,
+    borderRadius: 20,
+    justifyContent: 'center',
+    height: 60,
   },
   button: {
     height: 40,

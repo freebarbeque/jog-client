@@ -38,6 +38,7 @@ class PolicyDateScreen extends Component {
         title="What date does the policy expire?"
         onNextPress={this.handleNextPress}
         onPrevPress={() => this.props.dispatch(NavigationActions.back())}
+        disableNextButton={!this.props.policy.expiryDate}
       >
         <DatePicker
           date={this.props.policy.expiryDate}

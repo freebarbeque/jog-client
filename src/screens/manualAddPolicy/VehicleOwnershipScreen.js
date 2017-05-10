@@ -39,6 +39,7 @@ class VehicleOwnershipScreen extends Component {
         title="Is your vehicle:"
         onNextPress={this.handleNextPress}
         onPrevPress={() => this.props.dispatch(NavigationActions.back())}
+        disableNextButton={!this.props.policy.ownership}
       >
         <RadioInput
           style={{ marginTop: MARGIN.base }}

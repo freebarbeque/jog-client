@@ -34,6 +34,7 @@ class LicensePlateScreen extends Component {
         title="What is your license plate no."
         onNextPress={this.handleNextPress}
         onPrevPress={() => this.props.dispatch(NavigationActions.back())}
+        disableNextButton={!this.props.policy.vehicleRegistration}
       >
         <TextInput
           value={this.props.policy.vehicleRegistration}

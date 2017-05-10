@@ -58,12 +58,15 @@ class InsurerScreen extends Component {
       }
     }
 
+    console.log('company', company)
+
     return (
       <AddPolicyScreenContainer
-        showNextButton={true}
+        showNextButton
         showPrevButton={false}
         title={'Who is your insurer?'}
         onNextPress={this.handleNextPress}
+        disableNextButton={!company}
       >
         <Picker
           onChange={this.onChange}

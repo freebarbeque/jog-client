@@ -38,6 +38,7 @@ class PolicyNumberScreen extends Component {
         title="What's your policy number?"
         onNextPress={this.handleNextPress}
         onPrevPress={() => this.props.dispatch(NavigationActions.back())}
+        disableNextButton={!this.props.policy.policyNo}
       >
         <TextInput
           value={this.props.policy.policyNo}
