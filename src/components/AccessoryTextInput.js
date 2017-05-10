@@ -1,5 +1,6 @@
 import React from 'react'
 import { View, StyleSheet } from 'react-native'
+import PropTypes from 'prop-types'
 
 import TextInput from './TextInput'
 import Text from './Text'
@@ -15,7 +16,7 @@ const AccessoryTextInput = (props) => {
         </Text>
       </View>
       <TextInput
-        style={{ flex: 1, height: 60 }}
+        style={styles.textInput}
         {...rest}
       />
     </View>
@@ -23,6 +24,7 @@ const AccessoryTextInput = (props) => {
 }
 
 AccessoryTextInput.propTypes = {
+  accessory: PropTypes.string,
   ...TextInput.propTypes
 }
 
@@ -43,6 +45,14 @@ const styles = StyleSheet.create({
   },
   accessoryText: {
     color: BLUE
+  },
+  textInput: {
+    flex: 1,
+    height: 62,
+    position: 'relative',
+    bottom: 1,
+    borderWidth: 0,
+    borderColor: WHITE
   }
 })
 

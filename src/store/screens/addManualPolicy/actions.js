@@ -1,13 +1,15 @@
 // @flow
 
+export type MotorPolicyOwnership = 'owned' | 'leased' | 'financed'
+
 export type ManualPolicyUpdate = {
   vehicleRegistration?: string,
-  finance?: 'owned' | 'leased' | 'financed',
+  ownership?: MotorPolicyOwnership,
   noClaimsBonus?: number,
   policyNo?: string,
   expiryDate?: number,
   companyId?: string,
-  cost?: number,
+  cost?: string,
 }
 
 export type UpdateManualPolicy = {

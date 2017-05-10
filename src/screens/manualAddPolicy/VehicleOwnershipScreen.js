@@ -12,6 +12,8 @@ import type {
 import AddPolicyScreenContainer from '../../components/AddPolicyScreenContainer'
 import type { ManualPolicyUpdate } from '../../store/screens/addManualPolicy/actions'
 import { updateManualPolicy, clearManualPolicy } from '../../store/screens/addManualPolicy/actions'
+import RadioInput from '../../components/RadioInput'
+import { MARGIN } from '../../constants/style'
 
 type VehicleOwnershipScreenProps = {
   dispatch: Dispatch,
@@ -21,16 +23,12 @@ type VehicleOwnershipScreenProps = {
 class VehicleOwnershipScreen extends Component {
   props: VehicleOwnershipScreenProps
 
-  componentWillUnmount() {
-    this.props.dispatch(clearManualPolicy())
-  }
-
   handleNextPress = () => {
     this.props.dispatch(NavigationActions.navigate({ routeName: 'Finished' }))
   }
 
-  onChange = ({ value }) => {
-    this.props.dispatch(updateManualPolicy({ companyId: value }))
+  handleChange = (ownership) => {
+    this.props.dispatch(updateManualPolicy({ ownership }))
   }
 
   render() {
@@ -41,7 +39,18 @@ class VehicleOwnershipScreen extends Component {
         title="Is your vehicle:"
         onNextPress={this.handleNextPress}
         onPrevPress={() => this.props.dispatch(NavigationActions.back())}
-      />
+      >
+        <RadioInput
+          style={{ marginTop: MARGIN.base }}
+          options={[
+            { value: 'owned', label: 'Owned' },
+            { value: 'leased', label: 'Leased' },
+            { value: 'financed', label: 'Financed' },
+          ]}
+          value={this.props.policy.ownership}
+          onChange={this.handleChange}
+        />
+      </AddPolicyScreenContainer>
     )
   }
 }

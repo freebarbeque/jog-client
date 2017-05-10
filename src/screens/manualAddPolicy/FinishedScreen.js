@@ -22,10 +22,6 @@ type FinishedScreenProps = {
 class FinishedScreen extends Component {
   props: FinishedScreenProps
 
-  componentWillUnmount() {
-    this.props.dispatch(clearManualPolicy())
-  }
-
   handleNextPress = () => {
     // TODO
   }

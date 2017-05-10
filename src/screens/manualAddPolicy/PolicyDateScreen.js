@@ -22,10 +22,6 @@ type PolicyDateScreenProps = {
 class PolicyDateScreen extends Component {
   props: PolicyDateScreenProps
 
-  componentWillUnmount() {
-    this.props.dispatch(clearManualPolicy())
-  }
-
   handleNextPress = () => {
     this.props.dispatch(NavigationActions.navigate({ routeName: 'Cost' }))
   }

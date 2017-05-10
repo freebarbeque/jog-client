@@ -14,7 +14,7 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     borderStyle: 'solid',
     borderColor: 'transparent',
-    overflow: 'hidden'
+    fontFamily: 'WorkSans-Regular'
   },
   disabledInput: {
     opacity: 0.5,

@@ -25,10 +25,6 @@ type InsurerScreenProps = {
 class InsurerScreen extends Component {
   props: InsurerScreenProps
 
-  componentWillUnmount() {
-    this.props.dispatch(clearManualPolicy())
-  }
-
   handleNextPress = () => {
     this.props.dispatch(NavigationActions.navigate({ routeName: 'PolicyNumber' }))
   }

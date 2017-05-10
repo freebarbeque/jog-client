@@ -12,6 +12,7 @@ import type {
 import AddPolicyScreenContainer from '../../components/AddPolicyScreenContainer'
 import type { ManualPolicyUpdate } from '../../store/screens/addManualPolicy/actions'
 import { updateManualPolicy, clearManualPolicy } from '../../store/screens/addManualPolicy/actions'
+import TextInput from '../../components/TextInput'
 
 type LicensePlateScreenProps = {
   dispatch: Dispatch,
@@ -21,16 +22,8 @@ type LicensePlateScreenProps = {
 class LicensePlateScreen extends Component {
   props: LicensePlateScreenProps
 
-  componentWillUnmount() {
-    this.props.dispatch(clearManualPolicy())
-  }
-
   handleNextPress = () => {
     this.props.dispatch(NavigationActions.navigate({ routeName: 'VehicleOwnership' }))
-  }
-
-  onChange = ({ value }) => {
-    this.props.dispatch(updateManualPolicy({ companyId: value }))
   }
 
   render() {
@@ -41,7 +34,13 @@ class LicensePlateScreen extends Component {
         title="What is your license plate no."
         onNextPress={this.handleNextPress}
         onPrevPress={() => this.props.dispatch(NavigationActions.back())}
-      />
+      >
+        <TextInput
+          value={this.props.policy.vehicleRegistration}
+          onChangeText={(text) => this.props.dispatch(updateManualPolicy({ vehicleRegistration: text }))}
+          editable
+        />
+      </AddPolicyScreenContainer>
     )
   }
 }

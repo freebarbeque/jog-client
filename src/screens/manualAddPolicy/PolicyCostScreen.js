@@ -22,19 +22,13 @@ type PolicyCostScreenProps = {
 class PolicyCostScreen extends Component {
   props: PolicyCostScreenProps
 
-  componentWillUnmount() {
-    this.props.dispatch(clearManualPolicy())
-  }
-
   handleNextPress = () => {
     this.props.dispatch(NavigationActions.navigate({ routeName: 'LicensePlate' }))
   }
 
-  onChange = ({ value }) => {
-    this.props.dispatch(updateManualPolicy({ companyId: value }))
-  }
-
   render() {
+    const cost = this.props.policy.cost || ''
+
     return (
       <AddPolicyScreenContainer
         showNextButton
@@ -44,10 +38,11 @@ class PolicyCostScreen extends Component {
         onPrevPress={() => this.props.dispatch(NavigationActions.back())}
       >
         <AccessoryTextInput
-          value={this.props.policy.policyNo}
-          onChangeText={(text) => this.props.dispatch(updateManualPolicy({ policyNo: text }))}
+          value={cost}
+          onChangeText={(text) => this.props.dispatch(updateManualPolicy({ cost: text }))}
           editable
           accessory="£"
+          keyboardType="numeric"
         />
       </AddPolicyScreenContainer>
     )
