@@ -11,6 +11,10 @@ import { BLUE, WHITE } from 'jog/src/constants/palette'
 import { MARGIN } from 'jog/src/constants/style'
 import { setActiveSection } from '../../store/screens/settings/actions'
 import AnimatedChevron from './AnimatedChevron'
+import SettingsProfileSection from './SettingsProfileSection'
+import SettingsPrivacyPolicySection from './SettingsPrivacyPolicySection'
+import SettingsTermsAndConditionsSection from './SettingsTermsAndConditionsSection'
+import SettingsAboutUsSection from './SettingsAboutUsSection'
 
 type SettingsProps = {
   dispatch: Dispatch,
@@ -19,8 +23,17 @@ type SettingsProps = {
 
 type SettingsState = {};
 
-const ACCORDION_SECTIONS = ['My profile', 'About us', 'Terms and conditions', 'Privacy policy']
+type AccordionSection = {
+  title: string,
+  component: Component
+}
 
+const ACCORDION_SECTIONS: AccordionSection[] = [
+  { title: 'My profile', component: SettingsProfileSection },
+  { title: 'About us', component: SettingsAboutUsSection },
+  { title: 'Terms and conditions', component: SettingsTermsAndConditionsSection },
+  { title: 'Privacy policy', component: SettingsPrivacyPolicySection }
+]
 
 class SettingsScreen extends Component {
   props: SettingsProps
@@ -31,7 +44,7 @@ class SettingsScreen extends Component {
     this.state = {}
   }
 
-  renderHeader = (content: any, index: number, isActive: boolean) => {
+  renderHeader = (section: AccordionSection, index: number, isActive: boolean) => {
     const isFirst = index === 0
     const isLast = index === ACCORDION_SECTIONS.length - 1
 
@@ -39,19 +52,16 @@ class SettingsScreen extends Component {
     return (
       <View style={[styles.policyHeader, { borderTopWidth: isFirst ? 2 : 1, borderBottomWidth: isLast ? 2 : 1 }]}>
         <Text style={styles.policyHeaderText}>
-          {content}
+          {section.title}
         </Text>
         <AnimatedChevron rotation={isActive ? 'up' : 'down'} />
       </View>
     )
   }
 
-  renderContent = (content: any, index: number, isActive: boolean) => {
-    return (
-      <View>
-        <Text>TODO</Text>
-      </View>
-    )
+  renderContent = (section: AccordionSection) => {
+    const Comp = section.component
+    return <Comp />
   }
 
   render() {
