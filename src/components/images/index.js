@@ -151,6 +151,17 @@ export const Warning = (props: LogoProps) => {
   )
 }
 
+export const AddProfilePicture = (props: LogoProps) => {
+  const { style = {}, scale = 1 } = props
+
+  return (
+    <Image
+      style={[{ height: 77 * scale, width: 77 * scale }, style]}
+      source={require('./AddProfilePicture.png')}
+    />
+  )
+}
+
 type BackgroundProps = {
   style?: $Subtype<Object>,
   children?: any,

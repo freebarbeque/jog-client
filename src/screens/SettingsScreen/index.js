@@ -15,6 +15,7 @@ import SettingsProfileSection from './SettingsProfileSection'
 import SettingsPrivacyPolicySection from './SettingsPrivacyPolicySection'
 import SettingsTermsAndConditionsSection from './SettingsTermsAndConditionsSection'
 import SettingsAboutUsSection from './SettingsAboutUsSection'
+import { CREAM } from '../../constants/palette'
 
 type SettingsProps = {
   dispatch: Dispatch,
@@ -49,8 +50,18 @@ class SettingsScreen extends Component {
     const isLast = index === ACCORDION_SECTIONS.length - 1
 
     // Must wrap in a View to avoid setNativeProps error on TouchableOpacity used by react-collapsible
+    const extraPolicyHeaderStyles = {
+      borderTopWidth: isFirst ? 2 : 1,
+      borderBottomWidth: isActive ? 0 : (isLast ? 2 : 1),
+    }
+
     return (
-      <View style={[styles.policyHeader, { borderTopWidth: isFirst ? 2 : 1, borderBottomWidth: isLast ? 2 : 1 }]}>
+      <View
+        style={[
+          styles.policyHeader,
+          extraPolicyHeaderStyles
+        ]}
+      >
         <Text style={styles.policyHeaderText}>
           {section.title}
         </Text>
@@ -82,7 +93,8 @@ class SettingsScreen extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    margin: MARGIN.base
+    padding: MARGIN.base,
+    backgroundColor: CREAM,
   },
   policyHeader: {
     backgroundColor: WHITE,
