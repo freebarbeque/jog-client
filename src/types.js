@@ -13,6 +13,7 @@ import type { ErrorAction } from './store/errors/actionTypes'
 import type {
   AddManualPolicyAction, ManualPolicyUpdate, MotorPolicyOwnership
 } from './store/screens/addManualPolicy/actions'
+import type { SettingsScreenReduxState } from './store/screens/settings/reducer'
 
 //
 // Redux
@@ -48,6 +49,7 @@ export type AuthScreensReduxState = {
 export type ScreensReduxState = {
   auth: AuthScreensReduxState,
   addManualPolicy: ManualPolicyUpdate,
+  settings: SettingsScreenReduxState,
 }
 
 export type MotorPolicyMap = {[id: string]: MotorPolicy}
