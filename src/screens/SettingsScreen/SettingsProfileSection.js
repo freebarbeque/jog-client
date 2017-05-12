@@ -3,7 +3,7 @@
 import React, { Component } from 'react'
 import { View, StyleSheet, TouchableOpacity, Linking } from 'react-native'
 import { connect } from 'react-redux'
-import type { ReduxState, Dispatch, FirebaseUser } from 'jog/src/types'
+import type { ReduxState, Dispatch, FirebaseUser, UserDetails } from 'jog/src/types'
 import Text from '../../components/Text'
 import { AddProfilePicture, Chevron } from '../../components/images/index'
 import { BLUE, PINK, VERY_LIGHT_GRAY, WHITE } from '../../constants/palette'
@@ -11,7 +11,8 @@ import { MARGIN } from '../../constants/style'
 
 type SettingsProfileSectionProps = {
   dispatch: Dispatch,
-  user: FirebaseUser
+  user: FirebaseUser,
+  userDetails: UserDetails | null,
 };
 
 type SettingsProfileSectionState = {};
@@ -41,6 +42,10 @@ class SettingsProfileSection extends Component {
   }
 
   render() {
+    const userDetails = this.props.userDetails || {}
+    const address = userDetails.address
+    const hasAddress = address && (address.line1 || address.line2 || address.city)
+
     return (
       <View style={styles.container}>
         <View style={styles.header}>
@@ -50,27 +55,29 @@ class SettingsProfileSection extends Component {
         </View>
         <View style={styles.content}>
           <Field title="First name">
-            John
+            {userDetails.firstName || '-'}
           </Field>
           <Field title="Surname">
-            Doe
+            {userDetails.lastName || '-'}
           </Field>
           <Field title="Date of birth">
-            01. 01. 1980
+            {userDetails.dob || '-'}
           </Field>
           <Field title="Address">
-            <Text style={styles.fieldValue}>
-              {'XXXX\n'}
-            </Text>
-            <Text style={styles.fieldValue}>
-              {'XXXXXXX\n'}
-            </Text>
-            <Text style={styles.fieldValue}>
-              {'XXXXXX'}
-            </Text>
+            {hasAddress ? <View>
+              {address.line1 ? <Text style={styles.fieldValue}>
+                {`${address.line1}\n`}
+              </Text> : null}
+              {address.line2 ? <Text style={styles.fieldValue}>
+                {`${address.line2}\n`}
+              </Text> : null}
+              {address.city ? <Text style={styles.fieldValue}>
+                {`${address.city}\n`}
+              </Text> : null}
+            </View> : <Text style={styles.fieldValue}>-</Text>}
           </Field>
           <Field title="Post code" style={{ borderBottomColor: 'transparent' }}>
-            XXXX
+            {address && address.postCode ? address.postCode : '-'}
           </Field>
           <TouchableOpacity style={styles.support} onPress={SettingsProfileSection.handleSupportPress}>
             <View style={{ flex: 1 }}>
@@ -146,6 +153,7 @@ const styles = StyleSheet.create({
 const mapStateToProps = (state: ReduxState) => {
   return {
     user: state.auth.user,
+    userDetails: state.auth.details
   }
 }
 

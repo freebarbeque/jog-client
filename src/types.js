@@ -125,6 +125,7 @@ export type UserDetails = {
     postCode?: string,
   },
   dob?: string,
+  profilePhotoURL?: string,
 }
 
 //
