@@ -3,7 +3,7 @@
 import type { AuthReduxState } from 'jog/src/types'
 import type { AuthAction } from './actionTypes'
 
-const DEFAULT_STATE = { user: null, initialised: false }
+const DEFAULT_STATE = { user: null, details: null, initialised: false }
 
 export default function reducer(
   state: AuthReduxState = DEFAULT_STATE,
@@ -14,6 +14,11 @@ export default function reducer(
       ...state,
       user: action.user,
       initialised: true
+    }
+  } else if (action.type === 'auth/RECEIVE_USER_DETAILS') {
+    return {
+      ...state,
+      details: action.details
     }
   }
   return state

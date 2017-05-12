@@ -18,9 +18,10 @@ import { signOut, userSubscribe } from 'jog/src/data/auth'
 
 import { setLoading } from '../screens/auth/actions'
 
-import { receiveUser } from './actions'
+import { receiveUser, receiveUserDetails } from './actions'
 import type { SyncUserAction } from './actionTypes'
 import { syncUserData, unsyncUserData } from '../actions'
+import { syncUserDetails } from '../../data/user'
 
 const throttle = createThrottle(1)
 
@@ -45,13 +46,36 @@ function createUserPollChannel(ms: number = 1000) {
 }
 
 function createUserSubscribeChannel() {
-  return eventChannel((emit) =>
-    userSubscribe(
-      (user) => {
-        emit({ user: user })
+  return eventChannel((emit) => {
+    let user = null
+    let details = null
+    let unsubscribeDetails = null
+
+    const unsubscribeUser = userSubscribe(
+      (newUser) => {
+        const uid = user && user.uid
+        const newUid = newUser && newUser.uid
+
+        if (uid !== newUid) {
+          if (unsubscribeDetails) unsubscribeDetails()
+          if (newUid) {
+            unsubscribeDetails = syncUserDetails(newUid, (newDetails) => {
+              details = newDetails
+              emit({ user, details })
+            })
+          }
+        }
+
+        user = newUser
+        emit({ user, details })
       }
     )
-  )
+
+    return () => {
+      unsubscribeUser()
+      if (unsubscribeDetails) unsubscribeDetails()
+    }
+  })
 }
 
 function* reloadUserTask() {
@@ -75,8 +99,9 @@ function* syncUserTask() {
   try {
     // eslint-disable-next-line no-constant-condition
     while (true) {
-      const { user } = yield take(channel)
+      const { user, details } = yield take(channel)
       yield put(receiveUser(user))
+      yield put(receiveUserDetails(details))
       if (user) { yield put(syncUserData(user.uid)) }
     }
   } finally {

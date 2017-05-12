@@ -1,14 +1,26 @@
 // @flow
 
-import type { FirebaseUser } from 'jog/src/types'
+import type { FirebaseUser, UserDetails } from 'jog/src/types'
+
 import type {
-  AuthAction, LogoutAction, PollRefreshUserAction, StopPollingRefreshUserAction, SyncUserAction
+  AuthAction,
+  LogoutAction,
+  PollRefreshUserAction,
+  StopPollingRefreshUserAction,
+  SyncUserAction,
 } from './actionTypes'
 
 export function receiveUser(user: FirebaseUser | null): AuthAction {
   return {
     type: 'auth/RECEIVE_USER',
     user,
+  }
+}
+
+export function receiveUserDetails(details: UserDetails): AuthAction {
+  return {
+    type: 'auth/RECEIVE_USER_DETAILS',
+    details,
   }
 }
 

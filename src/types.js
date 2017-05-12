@@ -36,6 +36,7 @@ export type NavReduxState = {
 
 export type AuthReduxState = {
   user: FirebaseUser | null,
+  details: UserDetails | null,
   initialised: boolean,
 }
 
