@@ -1,16 +1,22 @@
 /* @flow */
 
 import React, { Component } from 'react'
-import { View, StyleSheet, TouchableOpacity, Linking } from 'react-native'
+import { View, StyleSheet, TouchableOpacity, Linking, Platform, Image } from 'react-native'
 import { connect } from 'react-redux'
 import type { ReduxState, Dispatch, FirebaseUser, UserDetails } from 'jog/src/types'
-import Text from '../../components/Text'
-import { AddProfilePicture, Chevron } from '../../components/images/index'
-import { BLUE, PINK, VERY_LIGHT_GRAY, WHITE } from '../../constants/palette'
-import { MARGIN } from '../../constants/style'
+import Text from 'jog/src/components/Text'
+import { AddProfilePicture, Chevron } from 'jog/src/components/images/index'
+import { BLUE, PINK, VERY_LIGHT_GRAY, WHITE } from 'jog/src/constants/palette'
+import { MARGIN } from 'jog/src/constants/style'
+import CameraModal from 'jog/src/components/CameraModal'
+import { useIOSCamera } from 'jog/src/util/files'
+import type { iOSImageResponse } from 'jog/src/util/files'
+import { declareError } from 'jog/src/store/errors/actions'
+import { updateUserProfilePicture } from 'jog/src/store/auth/actions'
 
 type SettingsProfileSectionProps = {
   dispatch: Dispatch,
+  // eslint-disable-next-line react/no-unused-prop-types
   user: FirebaseUser,
   userDetails: UserDetails | null,
 };
@@ -31,6 +37,7 @@ const Field = (props) => (
 class SettingsProfileSection extends Component {
   props: SettingsProfileSectionProps
   state: SettingsProfileSectionState
+  cameraModal: CameraModal
 
   static handleSupportPress() {
     Linking.openURL('mailto:support@jog.com?subject=Support')
@@ -41,6 +48,24 @@ class SettingsProfileSection extends Component {
     this.state = {}
   }
 
+  handleProfilePicturePress = () => {
+    if (Platform.OS === 'ios') {
+      useIOSCamera().then((response: iOSImageResponse | null) => {
+        if (response) { // If no response, user cancelled.
+          this.props.dispatch(updateUserProfilePicture(response.uri))
+        }
+      }).catch((err) => {
+        this.props.dispatch(declareError(err))
+      })
+    } else {
+      this.cameraModal.setModalVisible(true)
+    }
+  }
+
+  handleCapture = (fileUrl) => {
+    this.props.dispatch(updateUserProfilePicture(fileUrl))
+  }
+
   render() {
     const userDetails = this.props.userDetails || {}
     const address = userDetails.address
@@ -49,8 +74,8 @@ class SettingsProfileSection extends Component {
     return (
       <View style={styles.container}>
         <View style={styles.header}>
-          <TouchableOpacity>
-            <AddProfilePicture />
+          <TouchableOpacity onPress={this.handleProfilePicturePress}>
+            {userDetails.profilePhotoURL ? <Image source={{ uri: userDetails.profilePhotoURL }} style={styles.profilePhoto} /> : <AddProfilePicture />}
           </TouchableOpacity>
         </View>
         <View style={styles.content}>
@@ -64,7 +89,7 @@ class SettingsProfileSection extends Component {
             {userDetails.dob || '-'}
           </Field>
           <Field title="Address">
-            {hasAddress ? <View>
+            {address && hasAddress ? <Text>
               {address.line1 ? <Text style={styles.fieldValue}>
                 {`${address.line1}\n`}
               </Text> : null}
@@ -72,9 +97,9 @@ class SettingsProfileSection extends Component {
                 {`${address.line2}\n`}
               </Text> : null}
               {address.city ? <Text style={styles.fieldValue}>
-                {`${address.city}\n`}
+                {`${address.city}`}
               </Text> : null}
-            </View> : <Text style={styles.fieldValue}>-</Text>}
+            </Text> : <Text style={styles.fieldValue}>-</Text>}
           </Field>
           <Field title="Post code" style={{ borderBottomColor: 'transparent' }}>
             {address && address.postCode ? address.postCode : '-'}
@@ -97,6 +122,11 @@ class SettingsProfileSection extends Component {
             </View>
           </TouchableOpacity>
         </View>
+        <CameraModal
+          ref={(e) => { this.cameraModal = e }}
+          onCapture={this.handleCapture}
+          onError={(error) => { console.error(error) }}
+        />
       </View>
     )
   }
@@ -147,7 +177,8 @@ const styles = StyleSheet.create({
     paddingLeft: MARGIN.large,
     paddingRight: MARGIN.large,
     flexDirection: 'row'
-  }
+  },
+  profilePhoto: { width: 77, height: 77, borderRadius: 77 / 2 }
 })
 
 const mapStateToProps = (state: ReduxState) => {

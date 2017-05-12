@@ -59,6 +59,7 @@
     "import/no-unresolved": [0],
     "import/no-commonjs": [2],
     "no-console": [0],
+    "no-nested-ternary": [0],
     "space-before-function-paren": [2, "never"],
     "space-return-throw-case": [0],
     "object-shorthand": [0],

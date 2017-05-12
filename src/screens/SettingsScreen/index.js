@@ -7,15 +7,15 @@ import Accordion from 'react-native-collapsible/Accordion'
 
 import type { ReduxState, Dispatch } from 'jog/src/types'
 import Text from 'jog/src/components/Text'
-import { BLUE, WHITE } from 'jog/src/constants/palette'
+import { BLUE, WHITE, CREAM } from 'jog/src/constants/palette'
 import { MARGIN } from 'jog/src/constants/style'
-import { setActiveSection } from '../../store/screens/settings/actions'
+import { setActiveSection } from 'jog/src/store/screens/settings/actions'
+
 import AnimatedChevron from './AnimatedChevron'
 import SettingsProfileSection from './SettingsProfileSection'
 import SettingsPrivacyPolicySection from './SettingsPrivacyPolicySection'
 import SettingsTermsAndConditionsSection from './SettingsTermsAndConditionsSection'
 import SettingsAboutUsSection from './SettingsAboutUsSection'
-import { CREAM } from '../../constants/palette'
 
 type SettingsProps = {
   dispatch: Dispatch,
@@ -26,7 +26,7 @@ type SettingsState = {};
 
 type AccordionSection = {
   title: string,
-  component: Component
+  component: any
 }
 
 const ACCORDION_SECTIONS: AccordionSection[] = [

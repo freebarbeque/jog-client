@@ -4,7 +4,7 @@ import React, { Component } from 'react'
 import { View, StyleSheet } from 'react-native'
 import { connect } from 'react-redux'
 import type { ReduxState, Dispatch } from 'jog/src/types'
-import Text from '../../components/Text'
+import Text from 'jog/src/components/Text'
 
 type SettingsAboutUsSectionProps = {
   dispatch: Dispatch,

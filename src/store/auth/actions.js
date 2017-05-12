@@ -24,6 +24,20 @@ export function receiveUserDetails(details: UserDetails): AuthAction {
   }
 }
 
+export function updateUserDetails(details: UserDetails): AuthAction {
+  return {
+    type: 'auth/UPDATE_USER_DETAILS',
+    details
+  }
+}
+
+export function updateUserProfilePicture(fileUrl: string): AuthAction {
+  return {
+    type: 'auth/UPDATE_USER_PROFILE_PICTURE',
+    fileUrl
+  }
+}
+
 export function pollRefreshUser() : PollRefreshUserAction {
   return {
     type: 'auth/POLL_REFRESH_USER'

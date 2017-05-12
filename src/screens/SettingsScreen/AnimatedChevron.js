@@ -2,8 +2,6 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { Animated, Easing } from 'react-native'
 
-import { Chevron } from 'jog/src/components/images/index'
-
 export default class AnimatedChevron extends Component {
   static propTypes = {
     rotation: PropTypes.oneOf(['up', 'down'])

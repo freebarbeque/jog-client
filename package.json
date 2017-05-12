@@ -2,7 +2,7 @@
 	"name": "jog",
 	"version": "0.0.1",
 	"scripts": {
-		"ci": "yarn flow && yarn eslint && yarn test",
+		"ci": "yarn flow && yarn eslint",
 		"commit": "yarn flow && yarn fix && git commit -a",
 		"deploy:android:alpha": "./scripts/deploy-android-alpha.sh",
 		"deploy:ios:beta": "./scripts/deploy-ios-beta.sh",

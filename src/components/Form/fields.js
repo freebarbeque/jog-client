@@ -7,7 +7,7 @@ Fields encapsulate text input properties and validation.
 
 
 import { emailValidator } from 'jog/src/screens/validators'
-import type { TextFormField } from '../../types'
+import type { TextFormField } from 'jog/src/types'
 
 export const emailField : TextFormField = {
   type: 'text',

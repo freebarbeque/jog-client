@@ -13,15 +13,20 @@ import {
 import { eventChannel } from 'redux-saga'
 import createThrottle from 'async-throttle'
 import { NavigationActions } from 'react-navigation'
+import mime from 'react-native-mime-types'
+import uuid from 'uuid/v4'
 
-import { signOut, userSubscribe } from 'jog/src/data/auth'
+import { signOut, userSubscribe, demandCurrentUser } from 'jog/src/data/auth'
+import { syncUserDetails, updateCurrentUserDetails } from 'jog/src/data/user'
+import { finishLoading, startLoading } from 'jog/src/store/loading/actions'
+import { getFirestack } from 'jog/src/data'
+import { declareError } from 'jog/src/store/errors/actions'
+import { setLoading } from 'jog/src/store/screens/auth/actions'
 
-import { setLoading } from '../screens/auth/actions'
 
 import { receiveUser, receiveUserDetails } from './actions'
-import type { SyncUserAction } from './actionTypes'
+import type { SyncUserAction, UpdateUserDetails, UpdateUserProfilePicture } from './actionTypes'
 import { syncUserData, unsyncUserData } from '../actions'
-import { syncUserDetails } from '../../data/user'
 
 const throttle = createThrottle(1)
 
@@ -62,6 +67,21 @@ function createUserSubscribeChannel() {
             unsubscribeDetails = syncUserDetails(newUid, (newDetails) => {
               details = newDetails
               emit({ user, details })
+              const profilePhoto = details.profilePhoto
+              console.log('profilePhoto', profilePhoto)
+              if (profilePhoto) {
+                const ref = firebase.storage().ref(profilePhoto)
+                ref.getDownloadURL().then((url) => {
+                  console.log('profilePhoto', profilePhoto, url)
+                  details = {
+                    ...details,
+                    profilePhotoURL: url
+                  }
+                  emit({ user, details })
+                }).catch((err) => {
+                  console.warn('Error downloading profile photo', err)
+                })
+              }
             })
           }
         }
@@ -126,6 +146,37 @@ function* logout() {
   yield put(NavigationActions.navigate({ routeName: 'Auth' }))
 }
 
+function* updateUserDetailsTask(action: UpdateUserDetails) {
+  const details = action.details
+  yield put(startLoading('Updating details'))
+  yield call(() => updateCurrentUserDetails(details))
+  yield put(finishLoading())
+}
+
+function* updateUserProfilePictureTask(action: UpdateUserProfilePicture) {
+  const fileUrl = action.fileUrl
+  const fileName = _.last(fileUrl.split('/'))
+  const extension = _.last(fileName.split('.'))
+  const contentType = mime.lookup(fileName)
+  const id = uuid()
+  const user = demandCurrentUser()
+  const fileStoragePath = `/profilePhotos/${user.uid}/${id}.${extension}`
+
+  try {
+    yield call(() => getFirestack().storage.uploadFile(fileStoragePath, fileUrl, {
+      contentType,
+      contentEncoding: 'base64'
+    }))
+    yield call(() => updateCurrentUserDetails({ profilePhoto: fileStoragePath }))
+  } catch (e) {
+    console.debug('Error uploading image', e)
+    yield put(declareError('Unable to upload document'))
+    return
+  }
+
+  yield put(finishLoading())
+}
+
 /**
  * Unfortunately, firebase.auth().onAuthStateChanged only fires when the user changes but not when
  * user properties change.
@@ -143,6 +194,8 @@ export function* pollUserSaga<T>(): Iterable<T> {
 
 export function* authSaga<T>(): Iterable<T> {
   yield takeLatest('auth/LOGOUT', logout)
+  yield takeLatest('auth/UPDATE_USER_DETAILS', updateUserDetailsTask)
+  yield takeLatest('auth/UPDATE_USER_PROFILE_PICTURE', updateUserProfilePictureTask)
 }
 
 export function* userSyncSaga<T>(): Iterable<T> {

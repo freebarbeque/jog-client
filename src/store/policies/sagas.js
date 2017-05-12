@@ -17,6 +17,7 @@ import mime from 'react-native-mime-types'
 import { syncMotorPolicies, addPolicyDocument, removePolicyDocument, getPolicyDocument } from 'jog/src/data/policies'
 import { demandCurrentUser } from 'jog/src/data/auth'
 import { getFirestack } from 'jog/src/data'
+import { updateCurrentUserDetails } from 'jog/src/data/user'
 
 import { receiveMotorPolicies } from './actions'
 import type { SyncMotorPoliciesAction, UploadPolicyDocumentAction } from './actionTypes'
@@ -97,6 +98,8 @@ function* uploadPolicyDocumentTask(action: UploadPolicyDocumentAction) {
       contentType,
       contentEncoding: 'base64'
     }))
+
+    yield call(() => updateCurrentUserDetails({ profilePhoto: fileStoragePath }))
   } catch (e) {
     console.debug('Error uploading image', e)
     yield put(declareError('Unable to upload document'))

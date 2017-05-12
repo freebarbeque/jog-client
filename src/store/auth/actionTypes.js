@@ -12,6 +12,15 @@ export type ReceiveUserDetails = {
   details: UserDetails | null
 }
 
+export type UpdateUserDetails = {
+  type: 'auth/UPDATE_USER_DETAILS',
+  details: UserDetails
+}
+
+export type UpdateUserProfilePicture = {
+  type: 'auth/UPDATE_USER_PROFILE_PICTURE',
+  fileUrl: string,
+}
 
 export type PollRefreshUserAction = {
   type: 'auth/POLL_REFRESH_USER',
@@ -29,4 +38,4 @@ export type LogoutAction = {
   type: 'auth/LOGOUT',
 }
 
-export type AuthAction = ReceiveUserAction | LogoutAction | ReceiveUserDetails
+export type AuthAction = ReceiveUserAction | LogoutAction | ReceiveUserDetails | UpdateUserDetails | UpdateUserProfilePicture
