@@ -114,6 +114,18 @@ export type FirebaseUser = {
   uid: string
 }
 
+export type UserDetails = {
+  firstName?: string,
+  lastName?: string,
+  address?: {
+    line1?: string,
+    line2?: string,
+    city?: string,
+    postCode?: string,
+  },
+  dob?: string,
+}
+
 //
 // Motor Policies
 //
