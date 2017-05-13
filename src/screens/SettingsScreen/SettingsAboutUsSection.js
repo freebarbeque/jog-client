@@ -6,7 +6,7 @@ import { connect } from 'react-redux'
 import type { ReduxState, Dispatch } from 'jog/src/types'
 import Text from 'jog/src/components/Text'
 import { VERY_LIGHT_GRAY, BLUE } from 'jog/src/constants/palette'
-import { MARGIN } from '../../constants/style'
+import { MARGIN } from 'jog/src/constants/style'
 
 type SettingsAboutUsSectionProps = {
   dispatch: Dispatch,
@@ -27,7 +27,14 @@ class SettingsAboutUsSection extends Component {
     return (
       <View style={styles.container}>
         <Text style={{ color: BLUE }}>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean libero felis, condimentum vel dui eu, vulputate aliquam arcu. Donec vestibulum mi et metus pellentesque, et convallis nulla mollis. Donec non tincidunt tellus. Curabitur suscipit lacus nec turpis pulvinar venenatis. Nunc finibus in neque ac tempus. Vestibulum accumsan quis lectus vel fermentum. Aenean facilisis elit id efficitur ornare. Donec volutpat odio ac dui sagittis lobortis. In posuere quis nulla ut maximus. Phasellus volutpat molestie leo, in ultricies mi pulvinar at. Vivamus blandit interdum tellus nec ultrices. Morbi aliquet neque sed erat varius venenatis. Nam non bibendum diam. Nam id nunc tempus, faucibus tellus ornare, egestas felis. Etiam tincidunt dignissim tellus, condimentum rhoncus massa placerat sed. Nunc auctor odio a arcu fermentum, et pretium felis commodo.
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean libero felis, condimentum vel dui eu, vulputate aliquam arcu.
+          Donec vestibulum mi et metus pellentesque, et convallis nulla mollis. Donec non tincidunt tellus.
+          Curabitur suscipit lacus nec turpis pulvinar venenatis. Nunc finibus in neque ac tempus.
+          Vestibulum accumsan quis lectus vel fermentum. Aenean facilisis elit id efficitur ornare.
+          Donec volutpat odio ac dui sagittis lobortis. In posuere quis nulla ut maximus.
+          Phasellus volutpat molestie leo, in ultricies mi pulvinar at. Vivamus blandit interdum tellus nec ultrices.
+          Morbi aliquet neque sed erat varius venenatis. Nam non bibendum diam. Nam id nunc tempus, faucibus tellus ornare, egestas felis.
+          Etiam tincidunt dignissim tellus, condimentum rhoncus massa placerat sed. Nunc auctor odio a arcu fermentum, et pretium felis commodo.
         </Text>
       </View>
     )
