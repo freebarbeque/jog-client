@@ -1,7 +1,7 @@
 /* @flow */
 
 import React, { Component } from 'react'
-import { View, StyleSheet } from 'react-native'
+import { View, ScrollView, StyleSheet } from 'react-native'
 import { connect } from 'react-redux'
 import Accordion from 'react-native-collapsible/Accordion'
 
@@ -77,7 +77,7 @@ class SettingsScreen extends Component {
 
   render() {
     return (
-      <View style={styles.container}>
+      <ScrollView style={styles.container}>
         <Accordion
           sections={ACCORDION_SECTIONS}
           renderHeader={this.renderHeader}
@@ -85,7 +85,7 @@ class SettingsScreen extends Component {
           activeSection={this.props.activeSection}
           onChange={(index: number) => { this.props.dispatch(setActiveSection(index)) }}
         />
-      </View>
+      </ScrollView>
     )
   }
 }
