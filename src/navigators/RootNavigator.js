@@ -4,6 +4,9 @@ import React, { Component } from 'react'
 import { addNavigationHelpers, NavigationActions, StackNavigator } from 'react-navigation'
 import FadeInView from 'react-native-fade-in-view'
 import { connect } from 'react-redux'
+
+import EmailPolicyScreen from 'jog/src/screens/EmailPolicyScreen'
+
 import type { AuthReduxState, Dispatch, NavReduxState, ReduxState, FirebaseUser } from '../types'
 import LoadingScreen from '../screens/LoadingScreen'
 import { BLUE } from '../constants/palette'
@@ -18,6 +21,7 @@ export const RootStackNavigator = StackNavigator({
   Auth: { screen: AuthNavigator },
   ManualAddPolicy: { screen: AddPolicyNavigator },
   PolicyDocument: { screen: PolicyDocumentScreen },
+  EmailPolicy: { screen: EmailPolicyScreen },
 }, {
   initialRouteName: 'Tabs',
   mode: 'modal',

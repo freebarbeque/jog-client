@@ -26,7 +26,11 @@ class AddPolicyScreen extends Component {
         <View style={styles.card}>
           <TouchableOpacity
             style={styles.cardButton}
-            onPress={() => {}}
+            onPress={() => {
+              this.props.dispatch(NavigationActions.navigate({
+                routeName: 'EmailPolicy'
+              }))
+            }}
           >
             <View style={{ flex: 1, height: '100%', justifyContent: 'center' }}>
               <Text style={styles.recommendedText}>
@@ -40,7 +44,6 @@ class AddPolicyScreen extends Component {
           </TouchableOpacity>
           <TouchableOpacity
             style={styles.cardButton}
-            onPress={() => {}}
           >
             <Text style={styles.cardButtonText}>
               Photograph your policy
