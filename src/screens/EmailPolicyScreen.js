@@ -1,7 +1,7 @@
 /* @flow */
 
 import React, { Component } from 'react'
-import { TouchableOpacity, View, StyleSheet, Linking } from 'react-native'
+import { TouchableOpacity, View, StyleSheet } from 'react-native'
 import { NavigationActions } from 'react-navigation'
 import Hyperlink from 'react-native-hyperlink'
 import Text from '../components/Text'
