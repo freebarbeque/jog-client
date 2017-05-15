@@ -63,7 +63,7 @@ class LabelledTextInput extends Component {
     const { label = '', error = null, editable, onChangeText, ...props } = this.props
     return (
       <View style={styles.container}>
-        <View style={{ flexDirection: 'row' }}>
+        <View style={{ flexDirection: 'row', marginBottom: MARGIN.base }}>
           {label && <Text style={styles.label} weight="bold">
             {label.toUpperCase()}
           </Text>}

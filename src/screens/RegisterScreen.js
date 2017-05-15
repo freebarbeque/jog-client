@@ -35,7 +35,7 @@ class RegisterScreen extends Component {
   props: RegisterProps
 
   static navigationOptions = {
-    header: authNavigationHeader
+    ...authNavigationHeader
   }
 
   static formFields = [
