@@ -10,7 +10,8 @@ let firestack = null
 
 export default function initialiseFirebase() {
   if (!initialised) {
-    firebase.initializeApp(config.firebase)
+    const firebaseOptions = config.firebase
+    firebase.initializeApp(firebaseOptions)
     initialised = true
     firestack = new Firestack()
   }
