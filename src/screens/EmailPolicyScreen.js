@@ -4,6 +4,7 @@ import React, { Component } from 'react'
 import { TouchableOpacity, View, StyleSheet } from 'react-native'
 import { NavigationActions } from 'react-navigation'
 import Hyperlink from 'react-native-hyperlink'
+
 import Text from '../components/Text'
 import { MARGIN } from '../constants/style'
 import { BLUE } from '../constants/palette'
@@ -19,13 +20,13 @@ export default class EmailPolicyScreen extends Component {
       ),
       headerLeft: (
         <Logo
-          style={{ marginLeft: MARGIN.base, marginBottom: MARGIN.base }}
+          style={{ marginLeft: MARGIN.large, marginBottom: MARGIN.base, marginTop: MARGIN.base }}
           scale={1}
         />
       ),
       headerRight: (
         <TouchableOpacity
-          style={{ marginRight: MARGIN.base }}
+          style={{ marginRight: MARGIN.large, marginTop: MARGIN.base }}
           onPress={() => dispatch(NavigationActions.back())}
         >
           <Cancel />
@@ -58,7 +59,7 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: BLUE,
     flex: 1,
-    padding: MARGIN.base
+    padding: MARGIN.large,
   },
 
   hyperlinkText: {
