@@ -82,7 +82,7 @@ class PolicyDetailsScreen extends Component {
           </Field>
 
           <Field title="cost">
-            £{policy.cost} p/a
+            {policy.cost ? `£${policy.cost} p/a` : '-'}
           </Field>
 
           <View style={styles.daysRemainingContainer}>
@@ -106,16 +106,16 @@ class PolicyDetailsScreen extends Component {
             <Chevron />
           </View>
           <Row title="level of cover">
-            {LEVEL_OF_COVER[policy.levelOfCover]}
+            {policy.levelOfCover ? LEVEL_OF_COVER[policy.levelOfCover] : '-'}
           </Row>
           <Row title="excess">
-            £{policy.excess} p/a
+            {policy.excess ? `£${policy.excess} p/a` : '-'}
           </Row>
           <Row title="drivers">
-            {drivers.map((d) => `${d.firstName} ${d.lastName}`).join(', ')}
+            {drivers && drivers.length ? drivers.map((d) => `${d.firstName} ${d.lastName}`).join(', ') : '-'}
           </Row>
           <Row title="no claims bonus">
-            {policy.noClaimsBonus} Yrs
+            {policy.noClaimsBonus ? `${policy.noClaimsBonus} Yrs` : '-'}
           </Row>
         </View>
       </ScrollView>

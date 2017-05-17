@@ -62,20 +62,20 @@ class Policies extends Component {
           subheaderText={numPolicies ? "Let's get started" : null}
         />
         <ScrollView style={styles.content}>
-          <View
-            style={{
-              width: '100%',
-              justifyContent: 'center',
-              alignItems: 'center',
-              marginBottom: MARGIN.large
-            }}
-          >
-            <TouchableOpacity style={styles.mockPoliciesButton} onPress={this.clearMockPolicies}>
-              <Text>
-              Clear Mock Policies
-            </Text>
-            </TouchableOpacity>
-          </View>
+          {/*<View*/}
+            {/*style={{*/}
+              {/*width: '100%',*/}
+              {/*justifyContent: 'center',*/}
+              {/*alignItems: 'center',*/}
+              {/*marginBottom: MARGIN.large*/}
+            {/*}}*/}
+          {/*>*/}
+            {/*<TouchableOpacity style={styles.mockPoliciesButton} onPress={this.clearMockPolicies}>*/}
+              {/*<Text>*/}
+              {/*Clear Mock Policies*/}
+            {/*</Text>*/}
+            {/*</TouchableOpacity>*/}
+          {/*</View>*/}
           {_.map(_.values(policies), (policy: MotorPolicy, idx: number) => {
             return (
               <MotorPolicyCard
