@@ -2,7 +2,8 @@
 
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { View, TouchableOpacity, StyleSheet } from 'react-native'
+import { View, TouchableOpacity, StyleSheet, Dimensions } from 'react-native'
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 
 import Text from './Text'
 import { BLUE, PINK, WHITE } from '../constants/palette'
@@ -20,6 +21,10 @@ type AddPolicyScreenContainerProps = {
   showNextButton?: boolean,
   showSkipButton?: boolean,
   disableNextButton?: boolean,
+}
+
+type AddPolicyScreenContainerState = {
+  keyboardHeight: number
 }
 
 export const NavigationButton = (props: $Subtype<Object>) => {
@@ -59,7 +64,7 @@ NavigationButton.defaultProps = {
 
 export default class AddPolicyScreenContainer extends Component {
   props: AddPolicyScreenContainerProps
-
+  state: AddPolicyScreenContainerState
   static defaultProps = {
     showPrevButton: true,
     showNextButton: true,
@@ -67,29 +72,45 @@ export default class AddPolicyScreenContainer extends Component {
     disableNextButton: false,
   }
 
+  constructor(props: AddPolicyScreenContainerProps) {
+    super(props)
+    this.state = {
+      keyboardHeight: 0
+    }
+  }
+
   render() {
     return (
-      <View style={styles.container}>
-        <View style={styles.header}>
-          <Text style={styles.entryText}>
-            POLICY ENTRY
-          </Text>
-          <Text style={styles.title}>
-            {this.props.title}
-          </Text>
+      <KeyboardAwareScrollView
+        style={styles.container}
+        contentContainerStyle={{ flex: 1 }}
+        onKeyboardWillShow={(frames: Object) => { this.setState({ keyboardHeight: frames.endCoordinates.height }) }}
+        onKeyboardWillHide={() => { this.setState({ keyboardHeight: 0 }) }}
+      >
+        <View style={{ flex: 1, paddingBottom: 10 }}>
+          <View style={styles.header}>
+            <Text style={styles.entryText}>
+              POLICY ENTRY
+            </Text>
+            <Text style={styles.title}>
+              {this.props.title}
+            </Text>
+          </View>
+          <View style={{ flex: 1 }}>
+            {this.props.children}
+          </View>
+          <View style={{ paddingBottom: this.state.keyboardHeight ? 90 : 0 }}>
+            <View style={styles.buttonRow}>
+              {this.props.showPrevButton ? <NavigationButton variation="gray" title="Prev" onPress={this.props.onPrevPress} /> : null}
+              {this.props.showSkipButton ? <NavigationButton variation="gray" title="Skip this step" onPress={this.props.onSkipPress} /> : null}
+              {this.props.showNextButton ? <NavigationButton title="Next" onPress={this.props.onNextPress} disabled={this.props.disableNextButton} /> : null }
+            </View>
+            <View style={styles.footer}>
+              <CarOutline scale={1.1} />
+            </View>
+          </View>
         </View>
-        <View style={styles.content}>
-          {this.props.children}
-        </View>
-        <View style={styles.buttonRow}>
-          {this.props.showPrevButton ? <NavigationButton variation="gray" title="Prev" onPress={this.props.onPrevPress} /> : null}
-          {this.props.showSkipButton ? <NavigationButton variation="gray" title="Skip this step" onPress={this.props.onSkipPress} /> : null}
-          {this.props.showNextButton ? <NavigationButton title="Next" onPress={this.props.onNextPress} disabled={this.props.disableNextButton} /> : null }
-        </View>
-        <View style={styles.footer}>
-          <CarOutline scale={1.1} />
-        </View>
-      </View>
+      </KeyboardAwareScrollView>
     )
   }
 }
@@ -99,13 +120,11 @@ const styles = StyleSheet.create({
     padding: MARGIN.large,
     flex: 1,
     backgroundColor: BLUE,
+    flexDirection: 'column',
   },
   header: {
     marginTop: MARGIN.xxl,
     marginBottom: MARGIN.base,
-  },
-  content: {
-    flex: 1,
   },
   footer: {
     justifyContent: 'center',
