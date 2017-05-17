@@ -41,7 +41,7 @@ const styles = StyleSheet.create({
 
 const tabNavigator = TabNavigator({
   Policies: { screen: PoliciesNavigator },
-  Markets: { screen: MarketsScreen },
+  // Markets: { screen: MarketsScreen },
   Settings: { screen: SettingsScreen },
 }, {
   swipeEnabled: true,
@@ -50,7 +50,7 @@ const tabNavigator = TabNavigator({
   tabBarOptions: {
     order: [
       'Policies',
-      'Markets',
+      // 'Markets',
       'Settings'
     ],
     style: styles.tabBar,
