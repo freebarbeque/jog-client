@@ -1,0 +1,6 @@
+{
+  "projects": {
+    "default": "jog-dev",
+    "prod": "jog-prod"
+  }
+}
