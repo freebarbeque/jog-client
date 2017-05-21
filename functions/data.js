@@ -58,6 +58,20 @@ export function fetchExpiredPolicies() {
   })
 }
 
+export function fetchFCMToken(uid) {
+  return new Promise(function (resolve, reject) {
+    admin.database().ref(`users/${uid}`).once('value', function (snapshot) {
+      const user = snapshot.val()
+      if (user) {
+        const token = user.fcmToken
+        resolve(token)
+      } else {
+        reject(new Error("No such user with id " + uid))
+      }
+    })
+  })
+}
+
 export function setPolicies(policies) {
   return admin.database().ref('policies').set(policies)
 }
