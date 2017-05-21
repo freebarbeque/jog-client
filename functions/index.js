@@ -1,36 +1,20 @@
 const functions = require('firebase-functions')
 const admin = require('firebase-admin')
+const moment = require('moment')
+const _ = require('lodash')
 
-/**
- * Notify the user that their policy will expire soon.
- * @param {string} uid
- * @param {MotorPolicy} policy
- */
-function notifyExpiry(uid, policy) {
-  const payload = {
-    notification: {
-      title: "Policy expiration",
-      body: `Your motor policy will expire soon.`
-    },
-    data: {
-      policy: policy.id,
-    }
-  };
+const data= require('./data')
 
-  admin.database().ref(`users/${uid}`).once('value', function (snapshot) {
-    const user = snapshot.val()
-    if (user) {
-      const token = user.fcmToken
-      admin.messaging().sendToDevice(token, payload).catch(function (err) {
-        console.log('[ERROR] Unable to send notification', err)
+exports.hourly_job = functions.pubsub.topic('hourly-tick').onPublish(
+  function () {
+    data.fetchExpiredPolicies().then(function (policies) {
+      policies.map(function (p) {
+        const days = moment().diff(moment(p.expiryDate), 'days')
+
       })
-    } else {
-      console.log('[ERROR] No such user', uid)
-    }
-  })
-}
+    })
+    data.fetchExpiringPolicies().then(function (policies) {
 
-
-exports.hourly_job = functions.pubsub.topic('hourly-tick').onPublish((event) => {
-    console.log("This job is run every hour!")
-  });
+    })
+  }
+);
