@@ -24,10 +24,11 @@ export function receiveUserDetails(details: UserDetails): AuthAction {
   }
 }
 
-export function updateUserDetails(details: UserDetails): AuthAction {
+export function updateUserDetails(details: UserDetails, silent: boolean = false): AuthAction {
   return {
     type: 'auth/UPDATE_USER_DETAILS',
-    details
+    details,
+    silent
   }
 }
 

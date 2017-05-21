@@ -14,7 +14,8 @@ export type ReceiveUserDetails = {
 
 export type UpdateUserDetails = {
   type: 'auth/UPDATE_USER_DETAILS',
-  details: UserDetails
+  details: UserDetails,
+  silent?: boolean,
 }
 
 export type UpdateUserProfilePicture = {

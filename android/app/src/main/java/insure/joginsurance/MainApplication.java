@@ -3,6 +3,7 @@ package insure.joginsurance;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import com.evollu.react.fcm.FIRMessagingPackage;
 import com.beefe.picker.PickerViewPackage;
 import insure.joginsurance.BuildConfig;
 import com.oblador.vectoricons.VectorIconsPackage;
@@ -36,6 +37,7 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new FIRMessagingPackage(),
             new PickerViewPackage(),
             new VectorIconsPackage(),
             new RNSpinkitPackage(),

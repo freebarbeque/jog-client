@@ -27,6 +27,7 @@ import { setLoading } from 'jog/src/store/screens/auth/actions'
 import { receiveUser, receiveUserDetails } from './actions'
 import type { SyncUserAction, UpdateUserDetails, UpdateUserProfilePicture } from './actionTypes'
 import { syncUserData, unsyncUserData } from '../actions'
+import { subscribePushNotifications, unsubscribePushNotifications } from '../push/actions'
 
 const throttle = createThrottle(1)
 
@@ -122,7 +123,15 @@ function* syncUserTask() {
       const { user, details } = yield take(channel)
       yield put(receiveUser(user))
       yield put(receiveUserDetails(details))
-      if (user) { yield put(syncUserData(user.uid)) }
+
+      if (user) {
+        // Ensure only one push notification subscription at a time.
+        yield put(unsubscribePushNotifications())
+        yield put(subscribePushNotifications())
+        yield put(syncUserData(user.uid))
+      } else {
+        yield put(unsubscribePushNotifications())
+      }
     }
   } finally {
     if (yield cancelled()) {
@@ -148,9 +157,10 @@ function* logout() {
 
 function* updateUserDetailsTask(action: UpdateUserDetails) {
   const details = action.details
-  yield put(startLoading('Updating details'))
+  const silent = action.silent
+  if (!silent) yield put(startLoading('Updating details'))
   yield call(() => updateCurrentUserDetails(details))
-  yield put(finishLoading())
+  if (!silent) yield put(finishLoading())
 }
 
 function* updateUserProfilePictureTask(action: UpdateUserProfilePicture) {
