@@ -128,6 +128,7 @@ export type UserDetails = {
   profilePhoto?: string,
   // Computed
   profilePhotoURL?: string,
+  fcmToken?: string | null,
 }
 
 //
