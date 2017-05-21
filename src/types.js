@@ -176,7 +176,11 @@ export type MotorPolicy = {
   companyLogo?: string | null,
   companyName?: string | null,
   name?: string,
-  ownership?: MotorPolicyOwnership
+  ownership?: MotorPolicyOwnership,
+  notifications?: {
+    expiry?: number,
+    expired?: number,
+  }
 }
 
 //

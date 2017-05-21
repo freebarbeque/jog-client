@@ -8,6 +8,29 @@ admin.initializeApp({
   databaseURL: config.firebase.databaseURL
 });
 
+export function markExpiryNotificationSent(policyId, days) {
+  return new Promise(function (resolve, reject) {
+    const ref = admin.database().ref('policies').child(policyId).child('notifications').child('expiry')
+    ref.set(days).then(() => resolve()).catch(reject)
+  })
+}
+
+export function markExpiredNotificationSent(policyId, days) {
+  return new Promise(function (resolve, reject) {
+    const ref = admin.database().ref('policies').child(policyId).child('notifications').child('expired')
+    ref.set(days).then(() => resolve()).catch(reject)
+  })
+}
+
+export function fetchPolicy(policyId) {
+  return new Promise(function (resolve, reject) {
+    admin.database().ref('policies').child(policyId).once('value', function (snapshot) {
+      const policy = snapshot.val()
+      resolve(policy)
+    })
+  })
+}
+
 /**
  * Selects all policies that will expiry within the next 30 days
  * @returns {Promise}
