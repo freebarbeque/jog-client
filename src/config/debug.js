@@ -1,12 +1,12 @@
-const apiKey = 'AIzaSyCQJfzrHhPIOKlqsiGJx-TuM2dvcluacYY'
-const databaseURL = 'https://jog-dev.firebaseio.com'
-const storageBucket = 'jog-dev.appspot.com'
-const messagingSenderId = '766819384419'
+const apiKey = 'AIzaSyCiGNJ7RbnRaYpyK05rOnqMyt0xmVCe920'
+const databaseURL = 'https://jog-dev-10fe9.firebaseio.com'
+const storageBucket = 'jog-dev-10fe9.appspot.com'
+const messagingSenderId = '98399119405'
 
 export default {
   firebase: {
     apiKey,
-    authDomain: 'jog-dev.firebaseapp.com',
+    authDomain: 'jog-dev-10fe9.firebaseapp.com',
     databaseURL,
     storageBucket,
     messagingSenderId,
