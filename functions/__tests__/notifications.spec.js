@@ -12,6 +12,7 @@ import * as data from '../data'
 import type {MotorPolicy} from '../../src/types'
 import {LEVEL_OF_COVER} from '../../src/types'
 import {setUser} from '../data'
+import {setInsurers} from '../data'
 
 let push = require('../push')
 let functions = require('firebase-functions')
@@ -39,6 +40,14 @@ function generatePolicy(expiryDate, notifications = {}) {
 
 beforeEach(async function () {
   await setUser('xyz', {name: 'Richard', fcmToken: 'abc123'})
+  await setInsurers({
+    admiral: {
+      name: 'Admiral'
+    },
+    hastings: {
+      name: 'Hastings'
+    }
+  })
 })
 
 describe('policy selection', function () {
@@ -236,8 +245,9 @@ describe('notification body', function () {
       await data.setPolicies(mockPolicies)
       let policy = _.values(mockPolicies)[0]
 
-      const body = push.constructExpiryNotificationBody(policy, 5)
+      const body = push.constructExpiryNotificationBody(policy, {name: 'Admiral'}, 5)
       expect(body).toEqual(expect.stringContaining('5 days'))
+      expect(body).toEqual(expect.stringContaining('Admiral'))
     })
 
     it('days equal to 1 constructed correctly', async () => {
@@ -247,9 +257,10 @@ describe('notification body', function () {
       await data.setPolicies(mockPolicies)
       let policy = _.values(mockPolicies)[0]
 
-      const body = push.constructExpiryNotificationBody(policy, 1)
+      const body = push.constructExpiryNotificationBody(policy, {name: 'Admiral'}, 1)
       console.log('body', body)
       expect(body).toEqual(expect.stringContaining('1 day'))
+      expect(body).toEqual(expect.stringContaining('Admiral'))
       expect(body).not.toEqual(expect.stringContaining('1 days'))
     })
   })
@@ -262,8 +273,9 @@ describe('notification body', function () {
       await data.setPolicies(mockPolicies)
       let policy = _.values(mockPolicies)[0]
 
-      const body = push.constructExpiredNotificationBody(policy, 5)
+      const body = push.constructExpiredNotificationBody(policy, {name: 'Admiral'}, 5)
       expect(body).toEqual(expect.stringContaining('5 days'))
+      expect(body).toEqual(expect.stringContaining('Admiral'))
     })
 
     it('days equal to 1 constructed correctly', async () => {
@@ -273,9 +285,10 @@ describe('notification body', function () {
       await data.setPolicies(mockPolicies)
       let policy = _.values(mockPolicies)[0]
 
-      const body = push.constructExpiredNotificationBody(policy, 1)
+      const body = push.constructExpiredNotificationBody(policy, {name: 'Admiral'}, 1)
       console.log('body', body)
       expect(body).toEqual(expect.stringContaining('1 day'))
+      expect(body).toEqual(expect.stringContaining('Admiral'))
       expect(body).not.toEqual(expect.stringContaining('1 days'))
     })
   })
@@ -312,6 +325,10 @@ it("notifications function", async () => {
   await hourly_job(fakeEvent)
 
   expect(sendToDeviceMock.mock.calls).toHaveLength(4)
+
+  sendToDeviceMock.mock.calls.forEach(call => {
+    expect(call[1].notification.body).toEqual(expect.stringContaining('Admiral'))
+  })
 
   messagingMock.mockClear()
   sendToDeviceMock.mockClear()

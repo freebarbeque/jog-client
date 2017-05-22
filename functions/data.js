@@ -118,12 +118,24 @@ function fetchFCMToken (uid) {
   })
 }
 
+function fetchInsurer(insurerId) {
+  return admin.database().ref('insurers').child(insurerId).once('value').then(function (snapshot) {
+    const insurer = snapshot.val()
+    insurer.id = snapshot.key
+    return insurer
+  })
+}
+
 function setPolicies (policies) {
   return admin.database().ref('policies').set(policies)
 }
 
 function setUser(uid, user) {
   return admin.database().ref('users').child(uid).set(user)
+}
+
+function setInsurers(insurers) {
+  return admin.database().ref('insurers').set(insurers)
 }
 
 module.exports = {
@@ -135,6 +147,8 @@ module.exports = {
   fetchExpiredPolicies,
   fetchExpiringPolicies,
   fetchPolicy,
+  fetchInsurer,
   markExpiredNotificationSent,
   markExpiryNotificationSent,
+  setInsurers
 }

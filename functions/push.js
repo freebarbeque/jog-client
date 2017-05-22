@@ -7,28 +7,29 @@ const admin = require('firebase-admin')
 const moment = require('moment')
 
 const data = require('./data')
+import {fetchInsurer} from './data'
 
-function constructExpiryNotificationBody(policy, days) {
+function constructExpiryNotificationBody (policy, insurer, days) {
   let body
   if (days === 0) {
-    body = "Your motor policy will expire today"
+    body = `Your motor policy ${insurer ? `with ${insurer.name} ` : ''}will expire today`
   } else {
-    body = "Your motor policy will expire in " + days.toString() + " day" + (days === 1 ? '' : 's')
+    body = `Your motor policy with ${insurer ? `with ${insurer.name} ` : ''}will expire in ` + days.toString() + " day" + (days === 1 ? '' : 's')
   }
   return body
 }
 
-function constructExpiredNotificationBody(policy, days) {
+function constructExpiredNotificationBody (policy, insurer, days) {
   let body
   if (days === 0) {
-    body = "Your motor policy expire"
+    body = `Your motor policy ${insurer ? `with ${insurer.name} ` : ''}expired`
   } else {
-    body = "Your motor policy expired " + days.toString() + " day" + (days === 1 ? '' : 's') + " ago."
+    body = `Your motor policy with ${insurer ? `with ${insurer.name} ` : ''}expired ` + days.toString() + " day" + (days === 1 ? '' : 's') + " ago."
   }
   return body
 }
 
-function sendNotification(policy, title, body) {
+function sendNotification (policy, title, body) {
   return data.fetchFCMToken(policy.uid).then(function (token) {
     if (token) {
       const messaging = admin.messaging()
@@ -52,24 +53,27 @@ function sendNotification(policy, title, body) {
 function notifyExpiry (policy) {
   const days = moment(policy.expiryDate).diff(moment(), 'days')
 
-  return sendNotification(
-    policy,
-    "Policy Expiry",
-    constructExpiryNotificationBody(policy, days)
-  ).then(() => {
-    return data.markExpiryNotificationSent(policy.id, days)
+  return fetchInsurer(policy.companyId).then(function (insurer) {
+    return sendNotification(
+      policy,
+      "Policy Expiry",
+      constructExpiryNotificationBody(policy, insurer, days)
+    ).then(() => {
+      return data.markExpiryNotificationSent(policy.id, days)
+    })
   })
 }
 
 function notifyExpired (policy) {
   const days = moment().diff(moment(policy.expiryDate), 'days')
-
-  return sendNotification(
-    policy,
-    "Policy Expired",
-    constructExpiredNotificationBody(policy, days)
-  ).then(() => {
-    return data.markExpiredNotificationSent(policy.id, days)
+  return fetchInsurer(policy.companyId).then(function (insurer) {
+    return sendNotification(
+      policy,
+      "Policy Expired",
+      constructExpiredNotificationBody(policy, insurer, days)
+    ).then(() => {
+      return data.markExpiredNotificationSent(policy.id, days)
+    })
   })
 }
 
