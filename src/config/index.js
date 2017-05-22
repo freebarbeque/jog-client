@@ -4,7 +4,7 @@ const Config = require('react-native-config')
 const _ = require('lodash')
 const defaults = require('./default')
 
-const environment = process.env.JOG_ENVIRONMENT || Config.JOG_ENVIRONMENT || 'DEBUG'
+const environment = Config.JOG_ENVIRONMENT || 'DEBUG'
 
 console.log(`JOG_ENVIRONMENT=${environment}`)
 
@@ -13,11 +13,11 @@ if (environment === 'DEBUG') {
   config = require('./debug')
 } else if (environment === 'RELEASE') {
   config = require('./release')
-} else if (environment === 'TEST') {
-  config = require('./test')
 } else {
   throw new Error(`No environment config found for environment: ${environment}`)
 }
 
+
 config = _.merge(defaults, { ...config.default, environment, isDebug: environment === 'DEBUG' })
-module.exports = config
+
+export default config

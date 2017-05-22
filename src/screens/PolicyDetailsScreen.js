@@ -74,7 +74,7 @@ class PolicyDetailsScreen extends Component {
           </Field>
 
           <Field title="insurance company">
-            {policy.companyName}
+            {policy.companyName || 'Other'}
           </Field>
 
           <Field title="policy no.">

@@ -8,10 +8,7 @@ const moment = require('moment')
 
 const data = require('./data')
 
-const db = admin.database()
-const messaging = admin.messaging()
-
-export function constructExpiryNotificationBody(policy, days) {
+function constructExpiryNotificationBody(policy, days) {
   let body
   if (days === 0) {
     body = "Your motor policy will expire today"
@@ -21,7 +18,7 @@ export function constructExpiryNotificationBody(policy, days) {
   return body
 }
 
-export function constructExpiredNotificationBody(policy, days) {
+function constructExpiredNotificationBody(policy, days) {
   let body
   if (days === 0) {
     body = "Your motor policy expire"
@@ -31,10 +28,11 @@ export function constructExpiredNotificationBody(policy, days) {
   return body
 }
 
-export function sendNotification(policy, title, body) {
+function sendNotification(policy, title, body) {
   return data.fetchFCMToken(policy.uid).then(function (token) {
     if (token) {
-      return messaging.sendToDevice(token, {
+      const messaging = admin.messaging()
+      const opts = {
         notification: {
           title,
           body
@@ -42,25 +40,43 @@ export function sendNotification(policy, title, body) {
         data: {
           policy: policy.id
         }
-      })
+      }
+      console.log(`Sending notification to user ${policy.uid} using token ${token}`, opts)
+      return messaging.sendToDevice(token, opts)
     } else {
       throw new Error('User with id ' + policy.uid + ' does not have an FCM token')
     }
   })
 }
 
-export function notifyExpiry (policy, days) {
+function notifyExpiry (policy) {
+  const days = moment(policy.expiryDate).diff(moment(), 'days')
+
   return sendNotification(
     policy,
     "Policy Expiry",
     constructExpiryNotificationBody(policy, days)
-  )
+  ).then(() => {
+    return data.markExpiryNotificationSent(policy.id, days)
+  })
 }
 
-export function notifyExpired (policy, days) {
+function notifyExpired (policy) {
+  const days = moment().diff(moment(policy.expiryDate), 'days')
+
   return sendNotification(
     policy,
     "Policy Expired",
     constructExpiredNotificationBody(policy, days)
-  )
+  ).then(() => {
+    return data.markExpiredNotificationSent(policy.id, days)
+  })
+}
+
+module.exports = {
+  notifyExpired,
+  notifyExpiry,
+  sendNotification,
+  constructExpiredNotificationBody,
+  constructExpiryNotificationBody
 }

@@ -7,18 +7,22 @@ import moment from 'moment'
 import _ from 'lodash'
 import uuid from 'uuid/v4'
 
-import * as data from '../functions/data'
-import type {MotorPolicy} from '../src/types'
-import {LEVEL_OF_COVER} from '../src/types'
-import {constructExpiredNotificationBody, constructExpiryNotificationBody} from '../functions/push'
+import * as data from '../data'
+
+import type {MotorPolicy} from '../../src/types'
+import {LEVEL_OF_COVER} from '../../src/types'
+import {setUser} from '../data'
+
+let push = require('../push')
+let functions = require('firebase-functions')
 
 jasmine.DEFAULT_TIMEOUT_INTERVAL = 10000;
 
 function generatePolicy(expiryDate, notifications = {}) {
-  const id = uuid()
   const ret = {}
+  const id = uuid()
   ret[id] = {
-    id: id,
+    id,
     type: 'motor',
     vehicleRegistration: 'WR09GKA',
     levelOfCover: LEVEL_OF_COVER.comprehensive,
@@ -27,12 +31,15 @@ function generatePolicy(expiryDate, notifications = {}) {
     cost: 123,
     expiryDate: expiryDate,
     startDate: moment().subtract(340, 'days').toDate().getTime(),
+    uid: 'xyz',
     notifications
   }
   return ret
 }
 
-
+beforeEach(async function () {
+  await setUser('xyz', {name: 'Richard', fcmToken: 'abc123'})
+})
 
 describe('policy selection', function () {
   it('expire within 30 days', async () => {
@@ -126,6 +133,7 @@ describe('policy selection', function () {
         expect(filteredPolicies).toHaveLength(0)
       })
     })
+
     describe('expired', function () {
       it("one policy already notified at 30 days difference", async () => {
         const mockPolicies: {[id: string]: MotorPolicy} = {
@@ -228,7 +236,7 @@ describe('notification body', function () {
       await data.setPolicies(mockPolicies)
       let policy = _.values(mockPolicies)[0]
 
-      const body = constructExpiryNotificationBody(policy, 5)
+      const body = push.constructExpiryNotificationBody(policy, 5)
       expect(body).toEqual(expect.stringContaining('5 days'))
     })
 
@@ -239,7 +247,7 @@ describe('notification body', function () {
       await data.setPolicies(mockPolicies)
       let policy = _.values(mockPolicies)[0]
 
-      const body = constructExpiryNotificationBody(policy, 1)
+      const body = push.constructExpiryNotificationBody(policy, 1)
       console.log('body', body)
       expect(body).toEqual(expect.stringContaining('1 day'))
       expect(body).not.toEqual(expect.stringContaining('1 days'))
@@ -254,7 +262,7 @@ describe('notification body', function () {
       await data.setPolicies(mockPolicies)
       let policy = _.values(mockPolicies)[0]
 
-      const body = constructExpiredNotificationBody(policy, 5)
+      const body = push.constructExpiredNotificationBody(policy, 5)
       expect(body).toEqual(expect.stringContaining('5 days'))
     })
 
@@ -265,7 +273,7 @@ describe('notification body', function () {
       await data.setPolicies(mockPolicies)
       let policy = _.values(mockPolicies)[0]
 
-      const body = constructExpiredNotificationBody(policy, 1)
+      const body = push.constructExpiredNotificationBody(policy, 1)
       console.log('body', body)
       expect(body).toEqual(expect.stringContaining('1 day'))
       expect(body).not.toEqual(expect.stringContaining('1 days'))
@@ -273,5 +281,44 @@ describe('notification body', function () {
   })
 })
 
+it("notifications function", async () => {
+  const mockPolicies: {[id: string]: MotorPolicy} = {
+    ...generatePolicy(moment().subtract(5, 'days').toDate().getTime()),
+    ...generatePolicy(moment().subtract(20, 'days').toDate().getTime()),
+    ...generatePolicy(moment().subtract(14, 'days').toDate().getTime()),
+    ...generatePolicy(moment().subtract(30, 'days').toDate().getTime()),
+    ...generatePolicy(moment().add(21, 'days').toDate().getTime()),
+    ...generatePolicy(moment().add(26, 'days').toDate().getTime()),
+    ...generatePolicy(moment().add(41, 'days').toDate().getTime()),
+  }
+  await data.setPolicies(mockPolicies)
 
+  const fakeEvent = {
+    data: new functions.database.DeltaSnapshot(null, null, null, 'input'),
+  }
 
+  const admin = require('firebase-admin')
+  const messagingMock = jest.fn()
+  const sendToDeviceMock = jest.fn().mockReturnValue(Promise.resolve())
+
+  messagingMock.mockReturnValue({
+    sendToDevice: sendToDeviceMock
+  });
+
+  const oldMessaging = admin.messaging
+  admin.messaging = messagingMock
+
+  const hourly_job = require('../index').hourly_job
+  await hourly_job(fakeEvent)
+
+  expect(sendToDeviceMock.mock.calls).toHaveLength(4)
+
+  messagingMock.mockClear()
+  sendToDeviceMock.mockClear()
+
+  await hourly_job(fakeEvent)
+
+  expect(sendToDeviceMock.mock.calls).toHaveLength(0)
+
+  admin.messaging = oldMessaging
+})

@@ -4,7 +4,29 @@
   "dependencies": {
     "firebase-admin": "~4.2.1",
     "firebase-functions": "^0.5.7",
+    "lodash": "^4.17.4",
     "moment": "^2.18.1"
+  },
+  "devDependencies": {
+    "jest": "19.0.2"
+  },
+  "scripts": {
+    "test": "JOG_ENVIRONMENT=TEST jest --forceExit"
+  },
+  "jest": {
+    "moduleFileExtensions": [
+      "js",
+      "json"
+    ],
+    "setupFiles": [
+      "<rootDir>/__tests__/polyfills.js"
+    ],
+    "testPathIgnorePatterns": [
+      "<rootDir>/(build|docs|node_modules)/"
+    ],
+    "testEnvironment": "node",
+    "testRegex": ".*.spec.js",
+    "verbose": true
   },
   "private": true
 }

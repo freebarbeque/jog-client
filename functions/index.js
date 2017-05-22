@@ -1,20 +1,32 @@
 const functions = require('firebase-functions')
-const admin = require('firebase-admin')
-const moment = require('moment')
-const _ = require('lodash')
 
-const data= require('./data')
+const data = require('./data')
+const push = require('./push')
 
 exports.hourly_job = functions.pubsub.topic('hourly-tick').onPublish(
   function () {
-    data.fetchExpiredPolicies().then(function (policies) {
-      policies.map(function (p) {
-        const days = moment().diff(moment(p.expiryDate), 'days')
-
-      })
-    })
-    data.fetchExpiringPolicies().then(function (policies) {
-
-    })
+    return Promise.all(
+      [
+        data.fetchExpiredPolicies().then(function (policies) {
+          const filteredPolicies = data.filterExpiredPolicies(policies)
+          console.log(`Processing expired notifications for ${filteredPolicies.length} policies`)
+          return Promise.all(
+            filteredPolicies.map(function (policy) {
+              console.log('notifyExpired', policy)
+              return push.notifyExpired(policy)
+            })
+          )
+        }),
+        data.fetchExpiringPolicies().then(function (policies) {
+          const filteredPolicies = data.filterExpiringPolicies(policies)
+          console.log(`Processing expiry notifications for ${filteredPolicies.length} policies`)
+          return Promise.all(
+            filteredPolicies.map(function (policy) {
+              return push.notifyExpiry(policy)
+            })
+          )
+        })
+      ]
+    )
   }
 );

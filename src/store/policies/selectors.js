@@ -16,8 +16,9 @@ export const selectPolicies : () => MotorPolicyMap = createSelector(
         const companyId = p.companyId
         if (companyId) {
           const insurer = insurers[companyId]
-          const companyLogo = insurer.logo || null
-          const companyName = insurer.name || null
+
+          const companyLogo = insurer && insurer.logo || null
+          const companyName = insurer && insurer.name || null
 
           selectedPolicies[id] = {
             ...p,

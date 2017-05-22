@@ -21,6 +21,4 @@ export default {
     debug: false,
     googleAppID: '1:122459291249:ios:2820eacc6be6be9a'
   },
-  // eslint-disable-next-line import/no-commonjs
-  serviceAccount: require('./service-account-test.json')
 }
