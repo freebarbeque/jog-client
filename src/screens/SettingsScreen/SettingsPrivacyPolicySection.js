@@ -22,17 +22,17 @@ class SettingsPrivacyPolicySection extends Component {
   constructor(props: SettingsPrivacyPolicySectionProps) {
     super(props)
     this.state = {
-      webViewHeight: 100 // default height, can be anything
+      webviewHeight: 100 // default height, can be anything
     }
   }
 
   updateWebViewHeight = (event) => {
   // jsEvaluationValue contains result of injected JS
-    this.setState({ webViewHeight: parseInt(event.jsEvaluationValue, 10) })
+    this.setState({ webviewHeight: parseInt(event.jsEvaluationValue, 10) })
   }
 
   render() {
-    const height = this.state.webViewHeight
+    const height = this.state.webviewHeight
 
     return (
       <View style={styles.container}>

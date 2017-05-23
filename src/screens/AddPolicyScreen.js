@@ -4,17 +4,16 @@ import React, { Component } from 'react'
 import { View, StyleSheet, TouchableOpacity } from 'react-native'
 import { NavigationActions } from 'react-navigation'
 import { connect } from 'react-redux'
-import type { ReduxState, Dispatch, FirebaseUser } from 'jog/src/types'
+import type { ReduxState, Dispatch } from 'jog/src/types'
 import Text from 'jog/src/components/Text'
 import { BLUE, CREAM, WHITE, VERY_LIGHT_GRAY, DARK_GRAY, PINK } from 'jog/src/constants/palette'
 import { MARGIN } from 'jog/src/constants/style'
 import { Camera, Command, Mail } from '../components/images/index'
-import { generateMockPolicies } from '../mock'
 import { clearManualPolicy } from '../store/screens/addManualPolicy/actions'
 
 type AddPolicyScreenProps = {
   dispatch: Dispatch,
-  user: FirebaseUser | null,
+  // user: FirebaseUser | null,
 };
 
 class AddPolicyScreen extends Component {

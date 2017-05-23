@@ -16,6 +16,7 @@ import SettingsProfileSection from './SettingsProfileSection'
 import SettingsPrivacyPolicySection from './SettingsPrivacyPolicySection'
 import SettingsTermsAndConditionsSection from './SettingsTermsAndConditionsSection'
 import SettingsAboutUsSection from './SettingsAboutUsSection'
+import SettingsNotificationsSection from './SettingsNotificationsSection'
 
 type SettingsProps = {
   dispatch: Dispatch,
@@ -31,6 +32,7 @@ type AccordionSection = {
 
 const ACCORDION_SECTIONS: AccordionSection[] = [
   { title: 'My profile', component: SettingsProfileSection },
+  { title: 'Notifications', component: SettingsNotificationsSection },
   { title: 'About us', component: SettingsAboutUsSection },
   { title: 'Terms and conditions', component: SettingsTermsAndConditionsSection },
   { title: 'Privacy policy', component: SettingsPrivacyPolicySection }

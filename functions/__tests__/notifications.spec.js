@@ -1,5 +1,5 @@
 /*
- globals it, expect, jasmine
+ globals it, expect, jasmine, describe
  @flow
  */
 
@@ -17,6 +17,7 @@ import {setInsurers} from '../data'
 let push = require('../push')
 let functions = require('firebase-functions')
 
+// $FlowFixMe
 jasmine.DEFAULT_TIMEOUT_INTERVAL = 10000;
 
 function generatePolicy(expiryDate, notifications = {}) {
@@ -52,19 +53,19 @@ beforeEach(async function () {
 
 describe('policy selection', function () {
   it('expire within 30 days', async () => {
-    const mockPolicies: {[id: string]: MotorPolicy} = {
+    const mockPolicies = {
       ...generatePolicy(moment().add(5, 'days').toDate().getTime()),
       ...generatePolicy(moment().add(40, 'days').toDate().getTime()),
       ...generatePolicy(moment().subtract(3, 'days').toDate().getTime()),
     }
 
     await data.setPolicies(mockPolicies)
-    const policies: MotorPolicy[] = await data.fetchExpiringPolicies()
+    const policies = await data.fetchExpiringPolicies()
     expect(policies).toHaveLength(1)
   })
 
   it('expired policies', async () => {
-    const mockPolicies: {[id: string]: MotorPolicy} = {
+    const mockPolicies = {
       ...generatePolicy(moment().add(5, 'days').toDate().getTime()),
       ...generatePolicy(moment().add(40, 'days').toDate().getTime()),
       ...generatePolicy(moment().subtract(3, 'days').toDate().getTime()),
@@ -72,136 +73,136 @@ describe('policy selection', function () {
     }
 
     await data.setPolicies(mockPolicies)
-    const policies: MotorPolicy[] = await data.fetchExpiredPolicies()
+    const policies = await data.fetchExpiredPolicies()
     expect(policies).toHaveLength(2)
   })
 
   describe("filtering", function () {
     describe('expiry', function () {
       it("one policy already notified at 30 days difference", async () => {
-        const mockPolicies: {[id: string]: MotorPolicy} = {
+        const mockPolicies = {
           ...generatePolicy(moment().add(31, 'days').toDate().getTime()),
           ...generatePolicy(moment().add(31, 'days').toDate().getTime(), {expiry: 30})
         }
 
         await data.setPolicies(mockPolicies)
-        const policies: MotorPolicy[] = await data.fetchExpiringPolicies()
+        const policies = await data.fetchExpiringPolicies()
         expect(policies).toHaveLength(2)
-        const filteredPolicies: MotorPolicy[] = data.filterExpiringPolicies(policies)
+        const filteredPolicies = data.filterExpiringPolicies(policies)
         expect(filteredPolicies).toHaveLength(1)
       })
 
       it("one policy already notified at 20 days difference", async () => {
-        const mockPolicies: {[id: string]: MotorPolicy} = {
+        const mockPolicies = {
           ...generatePolicy(moment().add(21, 'days').toDate().getTime()),
           ...generatePolicy(moment().add(21, 'days').toDate().getTime(), {expiry: 20})
         }
 
         await data.setPolicies(mockPolicies)
-        const policies: MotorPolicy[] = await data.fetchExpiringPolicies()
+        const policies = await data.fetchExpiringPolicies()
         expect(policies).toHaveLength(2)
-        const filteredPolicies: MotorPolicy[] = data.filterExpiringPolicies(policies)
+        const filteredPolicies = data.filterExpiringPolicies(policies)
         expect(filteredPolicies).toHaveLength(1)
       })
 
       it("one policy already notified at 5 days difference", async () => {
-        const mockPolicies: {[id: string]: MotorPolicy} = {
+        const mockPolicies = {
           ...generatePolicy(moment().add(6, 'days').toDate().getTime()),
           ...generatePolicy(moment().add(6, 'days').toDate().getTime(), {expiry: 5})
         }
 
         await data.setPolicies(mockPolicies)
-        const policies: MotorPolicy[] = await data.fetchExpiringPolicies()
+        const policies = await data.fetchExpiringPolicies()
         expect(policies).toHaveLength(2)
-        const filteredPolicies: MotorPolicy[] = data.filterExpiringPolicies(policies)
+        const filteredPolicies = data.filterExpiringPolicies(policies)
         expect(filteredPolicies).toHaveLength(1)
       })
 
       it("one policy already notified at 0 days difference", async () => {
-        const mockPolicies: {[id: string]: MotorPolicy} = {
+        const mockPolicies = {
           ...generatePolicy(moment().add(1, 'days').toDate().getTime()),
           ...generatePolicy(moment().add(1, 'days').toDate().getTime(), {expiry: 0})
         }
 
         await data.setPolicies(mockPolicies)
-        const policies: MotorPolicy[] = await data.fetchExpiringPolicies()
+        const policies = await data.fetchExpiringPolicies()
         expect(policies).toHaveLength(2)
-        const filteredPolicies: MotorPolicy[] = data.filterExpiringPolicies(policies)
+        const filteredPolicies = data.filterExpiringPolicies(policies)
         expect(filteredPolicies).toHaveLength(1)
       })
 
       it("19 days difference", async () => {
-        const mockPolicies: {[id: string]: MotorPolicy} = {
+        const mockPolicies = {
           ...generatePolicy(moment().add(20, 'days').toDate().getTime()),
         }
 
         await data.setPolicies(mockPolicies)
-        const policies: MotorPolicy[] = await data.fetchExpiringPolicies()
+        const policies = await data.fetchExpiringPolicies()
         expect(policies).toHaveLength(1)
-        const filteredPolicies: MotorPolicy[] = data.filterExpiringPolicies(policies)
+        const filteredPolicies = data.filterExpiringPolicies(policies)
         expect(filteredPolicies).toHaveLength(0)
       })
     })
 
     describe('expired', function () {
       it("one policy already notified at 30 days difference", async () => {
-        const mockPolicies: {[id: string]: MotorPolicy} = {
+        const mockPolicies = {
           ...generatePolicy(moment().subtract(30, 'days').toDate().getTime()),
           ...generatePolicy(moment().subtract(30, 'days').toDate().getTime(), {expired: 30})
         }
 
         await data.setPolicies(mockPolicies)
-        const policies: MotorPolicy[] = await data.fetchExpiredPolicies()
+        const policies = await data.fetchExpiredPolicies()
         expect(policies).toHaveLength(2)
-        const filteredPolicies: MotorPolicy[] = data.filterExpiredPolicies(policies)
+        const filteredPolicies = data.filterExpiredPolicies(policies)
         expect(filteredPolicies).toHaveLength(1)
       })
 
       it("one policy already notified at 20 days difference", async () => {
-        const mockPolicies: {[id: string]: MotorPolicy} = {
+        const mockPolicies = {
           ...generatePolicy(moment().subtract(20, 'days').toDate().getTime()),
           ...generatePolicy(moment().subtract(20, 'days').toDate().getTime(), {expired: 20})
         }
 
         await data.setPolicies(mockPolicies)
-        const policies: MotorPolicy[] = await data.fetchExpiredPolicies()
+        const policies = await data.fetchExpiredPolicies()
         expect(policies).toHaveLength(2)
-        const filteredPolicies: MotorPolicy[] = data.filterExpiredPolicies(policies)
+        const filteredPolicies = data.filterExpiredPolicies(policies)
         expect(filteredPolicies).toHaveLength(1)
       })
 
       it("one policy already notified at 5 days difference", async () => {
-        const mockPolicies: {[id: string]: MotorPolicy} = {
+        const mockPolicies = {
           ...generatePolicy(moment().subtract(5, 'days').toDate().getTime()),
           ...generatePolicy(moment().subtract(5, 'days').toDate().getTime(), {expired: 5})
         }
 
         await data.setPolicies(mockPolicies)
-        const policies: MotorPolicy[] = await data.fetchExpiredPolicies()
+        const policies = await data.fetchExpiredPolicies()
         expect(policies).toHaveLength(2)
-        const filteredPolicies: MotorPolicy[] = data.filterExpiredPolicies(policies)
+        const filteredPolicies = data.filterExpiredPolicies(policies)
         expect(filteredPolicies).toHaveLength(1)
       })
 
       it("0 days difference", async () => {
-        const mockPolicies: {[id: string]: MotorPolicy} = {
+        const mockPolicies = {
           ...generatePolicy(moment().toDate().getTime()),
         }
 
         await data.setPolicies(mockPolicies)
-        const policies: MotorPolicy[] = await data.fetchExpiredPolicies()
+        const policies = await data.fetchExpiredPolicies()
         expect(policies).toHaveLength(0)
       })
 
       it("19 days difference", async () => {
-        const mockPolicies: {[id: string]: MotorPolicy} = {
+        const mockPolicies = {
           ...generatePolicy(moment().subtract(19, 'days').toDate().getTime()),
         }
 
         await data.setPolicies(mockPolicies)
-        const policies: MotorPolicy[] = await data.fetchExpiredPolicies()
+        const policies = await data.fetchExpiredPolicies()
         expect(policies).toHaveLength(1)
-        const filteredPolicies: MotorPolicy[] = data.filterExpiredPolicies(policies)
+        const filteredPolicies = data.filterExpiredPolicies(policies)
         expect(filteredPolicies).toHaveLength(0)
       })
     })
@@ -210,7 +211,7 @@ describe('policy selection', function () {
 
 describe('mark notifications sent', function () {
   it('expiry', async () => {
-    const mockPolicies: {[id: string]: MotorPolicy} = {
+    const mockPolicies = {
       ...generatePolicy(moment().add(5, 'days').toDate().getTime())
     }
     await data.setPolicies(mockPolicies)
@@ -223,7 +224,7 @@ describe('mark notifications sent', function () {
   })
 
   it('expired', async () => {
-    const mockPolicies: {[id: string]: MotorPolicy} = {
+    const mockPolicies = {
       ...generatePolicy(moment().subtract(5, 'days').toDate().getTime())
     }
     await data.setPolicies(mockPolicies)
@@ -239,7 +240,7 @@ describe('mark notifications sent', function () {
 describe('notification body', function () {
   describe('expiry', function() {
     it('days greater than 1 constructed correctly', async () => {
-      const mockPolicies: {[id: string]: MotorPolicy} = {
+      const mockPolicies = {
         ...generatePolicy(moment().add(5, 'days').toDate().getTime())
       }
       await data.setPolicies(mockPolicies)
@@ -251,7 +252,7 @@ describe('notification body', function () {
     })
 
     it('days equal to 1 constructed correctly', async () => {
-      const mockPolicies: {[id: string]: MotorPolicy} = {
+      const mockPolicies = {
         ...generatePolicy(moment().add(1, 'days').toDate().getTime())
       }
       await data.setPolicies(mockPolicies)
@@ -267,7 +268,7 @@ describe('notification body', function () {
 
   describe('expired', function() {
     it('days greater than 1 constructed correctly', async () => {
-      const mockPolicies: {[id: string]: MotorPolicy} = {
+      const mockPolicies = {
         ...generatePolicy(moment().subtract(5, 'days').toDate().getTime())
       }
       await data.setPolicies(mockPolicies)
@@ -279,7 +280,7 @@ describe('notification body', function () {
     })
 
     it('days equal to 1 constructed correctly', async () => {
-      const mockPolicies: {[id: string]: MotorPolicy} = {
+      const mockPolicies = {
         ...generatePolicy(moment().subtract(1, 'days').toDate().getTime())
       }
       await data.setPolicies(mockPolicies)
@@ -295,7 +296,7 @@ describe('notification body', function () {
 })
 
 it("notifications function", async () => {
-  const mockPolicies: {[id: string]: MotorPolicy} = {
+  const mockPolicies = {
     ...generatePolicy(moment().subtract(5, 'days').toDate().getTime()),
     ...generatePolicy(moment().subtract(20, 'days').toDate().getTime()),
     ...generatePolicy(moment().subtract(14, 'days').toDate().getTime()),

@@ -11,14 +11,15 @@ import {
   fork,
   cancelled,
   cancel,
-  takeLatest
+  takeEvery
 } from 'redux-saga/effects'
 
 import { eventChannel } from 'redux-saga'
 
 import { updateUserDetails } from '../auth/actions'
 
-import { SubscribePushTokenAction } from './actionTypes'
+import type { SubscribePushNotificationsAction } from './actionTypes'
+import * as actions from './actions'
 
 function createPushNotificationsChannel() {
   return eventChannel((emit) => {
@@ -65,7 +66,7 @@ export function* subscribePushNotifications<T>(): Iterable<T> {
   try {
     // eslint-disable-next-line no-constant-condition
     while (true) {
-      const { token, notification } = yield take(channel)
+      const { token, notification } = (yield take(channel)) || {}
       if (token) {
         console.log('Received push token', token)
         yield put(updateUserDetails({ fcmToken: token }, true))
@@ -83,13 +84,28 @@ export function* subscribePushNotifications<T>(): Iterable<T> {
     }
   } finally {
     if (yield cancelled()) {
-      channel.close()
+      if (channel) channel.close()
     }
   }
 }
 
+function* enablePushNotificationsTask<T>(): Iterable<T> {
+  yield put(updateUserDetails({ enableNotifications: true }))
+  yield put(actions.subscribePushNotifications())
+}
+
+function* disablePushNotificationsTask<T>(): Iterable<T> {
+  yield put(updateUserDetails({ enableNotifications: false }))
+  yield put(actions.unsubscribePushNotifications())
+}
+
 export function* pushNotificationSaga<T>(): Iterable<T> {
-  let action: ?SubscribePushTokenAction
+  yield takeEvery('push/ENABLE_PUSH_NOTIFICATIONS', enablePushNotificationsTask)
+  yield takeEvery('push/DISABLE_PUSH_NOTIFICATIONS', disablePushNotificationsTask)
+}
+
+export function* pushNotificationSubscriptionSaga<T>(): Iterable<T> {
+  let action: ?SubscribePushNotificationsAction
 
   // eslint-disable-next-line no-cond-assign
   while (action = yield take('push/SUBSCRIBE_PUSH_NOTIFICATIONS')) {

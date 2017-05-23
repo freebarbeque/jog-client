@@ -20,6 +20,8 @@
 .*/node_modules/react-native-firestack/*
 .*/node_modules/react-native-keyboard-aware-scroll-view/*
 
+.*/functions/__tests__/.*
+
 [include]
 
 [libs]
