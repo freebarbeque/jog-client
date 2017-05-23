@@ -3,7 +3,7 @@ import { StyleSheet, Platform } from 'react-native'
 import { TabNavigator } from 'react-navigation'
 
 import SettingsScreen from 'jog/src/screens/SettingsScreen'
-import MarketsScreen from 'jog/src/screens/MarketsScreen'
+// import MarketsScreen from 'jog/src/screens/MarketsScreen'
 import { BLUE, DARK_GRAY, PINK } from 'jog/src/constants/palette'
 import { Logo } from 'jog/src/components/images/index'
 import AuthButton from 'jog/src/components/AuthButton'
@@ -41,7 +41,7 @@ const styles = StyleSheet.create({
 
 const tabNavigator = TabNavigator({
   Policies: { screen: PoliciesNavigator },
-  Markets: { screen: MarketsScreen },
+  // Markets: { screen: MarketsScreen },
   Settings: { screen: SettingsScreen },
 }, {
   swipeEnabled: true,
@@ -50,7 +50,7 @@ const tabNavigator = TabNavigator({
   tabBarOptions: {
     order: [
       'Policies',
-      'Markets',
+      // 'Markets',
       'Settings'
     ],
     style: styles.tabBar,

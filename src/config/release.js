@@ -20,5 +20,5 @@ export default {
     bundleID: 'insure.jog',
     debug: false,
     googleAppID: '1:122459291249:ios:2820eacc6be6be9a'
-  }
+  },
 }

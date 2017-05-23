@@ -1,12 +1,11 @@
 /* @flow */
 
 import React, { Component } from 'react'
-import { View, StyleSheet, TouchableOpacity, ScrollView } from 'react-native'
+import { View, StyleSheet, ScrollView } from 'react-native'
 import { connect } from 'react-redux'
 import { NavigationActions } from 'react-navigation'
 
 import type { ReduxState, FirebaseUser, MotorPolicy, MotorPolicyMap, Dispatch } from 'jog/src/types'
-import Text from 'jog/src/components/Text'
 import { CREAM, PINK } from 'jog/src/constants/palette'
 import { MARGIN } from 'jog/src/constants/style'
 import { clearPolicies } from 'jog/src/data/policies'
@@ -62,20 +61,6 @@ class Policies extends Component {
           subheaderText={numPolicies ? "Let's get started" : null}
         />
         <ScrollView style={styles.content}>
-          <View
-            style={{
-              width: '100%',
-              justifyContent: 'center',
-              alignItems: 'center',
-              marginBottom: MARGIN.large
-            }}
-          >
-            <TouchableOpacity style={styles.mockPoliciesButton} onPress={this.clearMockPolicies}>
-              <Text>
-              Clear Mock Policies
-            </Text>
-            </TouchableOpacity>
-          </View>
           {_.map(_.values(policies), (policy: MotorPolicy, idx: number) => {
             return (
               <MotorPolicyCard

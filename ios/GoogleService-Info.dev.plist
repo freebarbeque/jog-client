@@ -7,21 +7,21 @@
 	<key>AD_UNIT_ID_FOR_INTERSTITIAL_TEST</key>
 	<string>ca-app-pub-3940256099942544/4411468910</string>
 	<key>CLIENT_ID</key>
-	<string>766819384419-jvfmnmrifnpuce3t4gmut153ntqvo7ne.apps.googleusercontent.com</string>
+	<string>98399119405-urs7h22icrbru96jmhi3rcfi48dsvibh.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.766819384419-jvfmnmrifnpuce3t4gmut153ntqvo7ne</string>
+	<string>com.googleusercontent.apps.98399119405-urs7h22icrbru96jmhi3rcfi48dsvibh</string>
 	<key>API_KEY</key>
-	<string>AIzaSyCk9Ap7fWlm3s9t0o28CEn0pdJG5PuLW28</string>
+	<string>AIzaSyDiqyWDaCK8e9G2plgP7cTmIL7ZAD-eong</string>
 	<key>GCM_SENDER_ID</key>
-	<string>766819384419</string>
+	<string>98399119405</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
 	<string>insure.jog</string>
 	<key>PROJECT_ID</key>
-	<string>jog-dev</string>
+	<string>jog-dev-10fe9</string>
 	<key>STORAGE_BUCKET</key>
-	<string>jog-dev.appspot.com</string>
+	<string>jog-dev-10fe9.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<true/>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -33,8 +33,8 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true/>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:766819384419:ios:2820eacc6be6be9a</string>
+	<string>1:98399119405:ios:2820eacc6be6be9a</string>
 	<key>DATABASE_URL</key>
-	<string>https://jog-dev.firebaseio.com</string>
+	<string>https://jog-dev-10fe9.firebaseio.com</string>
 </dict>
 </plist>

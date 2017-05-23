@@ -1,7 +1,7 @@
 // @flow
 import 'jog/globals'
 import React, { Component } from 'react'
-import { View, StatusBar, StyleSheet, BackAndroid } from 'react-native'
+import { View, StatusBar, StyleSheet, BackHandler } from 'react-native'
 import { NavigationActions } from 'react-navigation'
 
 import { Provider } from 'react-redux'
@@ -16,11 +16,14 @@ initialiseFirebase()
 
 const store = createStore()
 
+// $FlowFixMe
+console.ignoredYellowBox = ['Remote debugger is in a background tab']
+
 export default class JogApp extends Component {
   componentDidMount() {
     store.dispatch(syncData())
 
-    BackAndroid.addEventListener('hardwareBackPress', () => {
+    BackHandler.addEventListener('hardwareBackPress', () => {
       store.dispatch(NavigationActions.back())
       return true
     })
