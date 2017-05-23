@@ -14,8 +14,8 @@
 		"flow-typed": "flow-typed",
 		"generate:policies": "NODE_PATH=../ babel-node scripts/mock/generateMockPolicies.js -b es2015",
 		"start": "node node_modules/react-native/local-cli/cli.js start",
-		"test": "JOG_ENVIRONMENT=TEST jest",
-		"test:watch": "jest --watch",
+		"test": "echo \"No tests yet \"",
+		"test:watch": "echo \"No tests yet \"",
 		"postinstall": "remotedev-debugger --hostname localhost --port 5678 --injectserver"
 	},
 	"dependencies": {
