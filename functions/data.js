@@ -109,7 +109,7 @@ function fetchFCMToken (uid) {
     admin.database().ref(`users/${uid}`).once('value', function (snapshot) {
       const user = snapshot.val()
       if (user) {
-        const token = user.fcmToken
+        const token = user.enableNotifications ? user.fcmToken : null
         resolve(token)
       } else {
         reject(new Error("No such user with id " + uid))
@@ -134,6 +134,10 @@ function setUser(uid, user) {
   return admin.database().ref('users').child(uid).set(user)
 }
 
+function updateUser(uid, user) {
+  return admin.database().ref('users').child(uid).update(user)
+}
+
 function setInsurers(insurers) {
   return admin.database().ref('insurers').set(insurers)
 }
@@ -141,6 +145,7 @@ function setInsurers(insurers) {
 module.exports = {
   setPolicies,
   setUser,
+  updateUser,
   fetchFCMToken,
   filterExpiredPolicies,
   filterExpiringPolicies,

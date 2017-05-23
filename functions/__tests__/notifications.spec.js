@@ -40,7 +40,11 @@ function generatePolicy(expiryDate, notifications = {}) {
 }
 
 beforeEach(async function () {
-  await setUser('xyz', {name: 'Richard', fcmToken: 'abc123'})
+  await setUser('xyz', {
+    name: 'Richard',
+    fcmToken: 'abc123',
+    enableNotifications: true,
+  })
   await setInsurers({
     admiral: {
       name: 'Admiral'
@@ -295,48 +299,91 @@ describe('notification body', function () {
   })
 })
 
-it("notifications function", async () => {
-  const mockPolicies = {
-    ...generatePolicy(moment().subtract(5, 'days').toDate().getTime()),
-    ...generatePolicy(moment().subtract(20, 'days').toDate().getTime()),
-    ...generatePolicy(moment().subtract(14, 'days').toDate().getTime()),
-    ...generatePolicy(moment().subtract(30, 'days').toDate().getTime()),
-    ...generatePolicy(moment().add(21, 'days').toDate().getTime()),
-    ...generatePolicy(moment().add(26, 'days').toDate().getTime()),
-    ...generatePolicy(moment().add(41, 'days').toDate().getTime()),
-  }
-  await data.setPolicies(mockPolicies)
+describe("notifications", function () {
+  it("user with notifications enabled", async () => {
+    const mockPolicies = {
+      ...generatePolicy(moment().subtract(5, 'days').toDate().getTime()),
+      ...generatePolicy(moment().subtract(20, 'days').toDate().getTime()),
+      ...generatePolicy(moment().subtract(14, 'days').toDate().getTime()),
+      ...generatePolicy(moment().subtract(30, 'days').toDate().getTime()),
+      ...generatePolicy(moment().add(21, 'days').toDate().getTime()),
+      ...generatePolicy(moment().add(26, 'days').toDate().getTime()),
+      ...generatePolicy(moment().add(41, 'days').toDate().getTime()),
+    }
+    await data.setPolicies(mockPolicies)
 
-  const fakeEvent = {
-    data: new functions.database.DeltaSnapshot(null, null, null, 'input'),
-  }
+    const fakeEvent = {
+      data: new functions.database.DeltaSnapshot(null, null, null, 'input'),
+    }
 
-  const admin = require('firebase-admin')
-  const messagingMock = jest.fn()
-  const sendToDeviceMock = jest.fn().mockReturnValue(Promise.resolve())
+    const admin = require('firebase-admin')
+    const messagingMock = jest.fn()
+    const sendToDeviceMock = jest.fn().mockReturnValue(Promise.resolve())
 
-  messagingMock.mockReturnValue({
-    sendToDevice: sendToDeviceMock
-  });
+    messagingMock.mockReturnValue({
+      sendToDevice: sendToDeviceMock
+    });
 
-  const oldMessaging = admin.messaging
-  admin.messaging = messagingMock
+    const oldMessaging = admin.messaging
+    admin.messaging = messagingMock
 
-  const hourly_job = require('../index').hourly_job
-  await hourly_job(fakeEvent)
+    const hourly_job = require('../index').hourly_job
+    await hourly_job(fakeEvent)
 
-  expect(sendToDeviceMock.mock.calls).toHaveLength(4)
+    expect(sendToDeviceMock.mock.calls).toHaveLength(4)
 
-  sendToDeviceMock.mock.calls.forEach(call => {
-    expect(call[1].notification.body).toEqual(expect.stringContaining('Admiral'))
+    sendToDeviceMock.mock.calls.forEach(call => {
+      expect(call[1].notification.body).toEqual(expect.stringContaining('Admiral'))
+    })
+
+    messagingMock.mockClear()
+    sendToDeviceMock.mockClear()
+
+    await hourly_job(fakeEvent)
+
+    expect(sendToDeviceMock.mock.calls).toHaveLength(0)
+
+    admin.messaging = oldMessaging
   })
 
-  messagingMock.mockClear()
-  sendToDeviceMock.mockClear()
+  it("user with notifications disabled", async () => {
+    await data.updateUser('xyz', {
+      enableNotifications: false,
+    })
+    const mockPolicies = {
+      ...generatePolicy(moment().subtract(5, 'days').toDate().getTime()),
+      ...generatePolicy(moment().subtract(20, 'days').toDate().getTime()),
+      ...generatePolicy(moment().subtract(14, 'days').toDate().getTime()),
+      ...generatePolicy(moment().subtract(30, 'days').toDate().getTime()),
+      ...generatePolicy(moment().add(21, 'days').toDate().getTime()),
+      ...generatePolicy(moment().add(26, 'days').toDate().getTime()),
+      ...generatePolicy(moment().add(41, 'days').toDate().getTime()),
+    }
 
-  await hourly_job(fakeEvent)
+    await data.setPolicies(mockPolicies)
 
-  expect(sendToDeviceMock.mock.calls).toHaveLength(0)
+    const fakeEvent = {
+      data: new functions.database.DeltaSnapshot(null, null, null, 'input'),
+    }
 
-  admin.messaging = oldMessaging
+    const admin = require('firebase-admin')
+    const messagingMock = jest.fn()
+    const sendToDeviceMock = jest.fn().mockReturnValue(Promise.resolve())
+
+    messagingMock.mockReturnValue({
+      sendToDevice: sendToDeviceMock
+    });
+
+    const oldMessaging = admin.messaging
+    admin.messaging = messagingMock
+
+    const hourly_job = require('../index').hourly_job
+    await hourly_job(fakeEvent)
+
+    // Notifications for the user are now disabled.
+    expect(sendToDeviceMock.mock.calls).toHaveLength(0)
+
+    admin.messaging = oldMessaging
+  })
 })
+

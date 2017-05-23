@@ -30,7 +30,8 @@ function constructExpiredNotificationBody (policy, insurer, days) {
 }
 
 function sendNotification (policy, title, body) {
-  return data.fetchFCMToken(policy.uid).then(function (token) {
+  const uid = policy.uid
+  return data.fetchFCMToken(uid).then(function (token) {
     if (token) {
       const messaging = admin.messaging()
       const opts = {
@@ -45,7 +46,8 @@ function sendNotification (policy, title, body) {
       console.log(`Sending notification to user ${policy.uid} using token ${token}`, opts)
       return messaging.sendToDevice(token, opts)
     } else {
-      throw new Error('User with id ' + policy.uid + ' does not have an FCM token')
+      console.log(`User ${uid} does not have notifications enabled therefore not sending notification for ${policy.id}`)
+      return Promise.resolve()
     }
   })
 }
