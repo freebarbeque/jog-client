@@ -65,24 +65,6 @@ class AddPolicyScreen extends Component {
           </TouchableOpacity>
 
         </View>
-        {/* <View style={{ width: '100%', justifyContent: 'center', alignItems: 'center', marginTop: MARGIN.large }}>*/}
-        {/* <TouchableOpacity*/}
-        {/* style={styles.mockPoliciesButton}*/}
-        {/* onPress={() => {*/}
-        {/* if (this.props.user) {*/}
-        {/* generateMockPolicies(this.props.user.uid).then(() => {*/}
-        {/* this.props.dispatch(*/}
-        {/* NavigationActions.back()*/}
-        {/* )*/}
-        {/* })*/}
-        {/* }*/}
-        {/* }}*/}
-        {/* >*/}
-        {/* <Text>*/}
-        {/* Generate Mock Policies*/}
-        {/* </Text>*/}
-        {/* </TouchableOpacity>*/}
-        {/* </View>*/}
       </View>
     )
   }
