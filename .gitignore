@@ -61,6 +61,3 @@ ios/jog.xcworkspace/xcuserdata/*.xcuserdatad
 android/app/app-release.apk
 android/fastlane-privatekey.json
 android/my-release-key.jks
-
-*.pyc
-appengine/lib
