@@ -22,20 +22,23 @@ class SettingsTermsAndConditionsSection extends Component {
   constructor(props: SettingsTermsAndConditionsSectionProps) {
     super(props)
     this.state = {
-      webViewHeight: 100 // default height, can be anything
+      webviewHeight: 100 // default height, can be anything
     }
   }
 
   updateWebViewHeight = (event) => {
     // jsEvaluationValue contains result of injected JS
-    this.setState({ webViewHeight: parseInt(event.jsEvaluationValue, 10) })
+    const webviewHeight = parseInt(event.jsEvaluationValue, 10)
+    this.setState({ webviewHeight })
   }
 
   render() {
+    const webviewHeight = this.state.webviewHeight
+
     return (
       <View style={styles.container}>
         <WebView
-          style={{ width: '100%', height: this.state.webViewHeight, backgroundColor: VERY_LIGHT_GRAY }}
+          style={{ width: '100%', height: webviewHeight, backgroundColor: VERY_LIGHT_GRAY }}
           source={require('./terms.html')}
           injectedJavaScript="document.body.scrollHeight;"
           scrollEnabled={false}

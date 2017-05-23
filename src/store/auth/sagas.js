@@ -127,7 +127,7 @@ function* syncUserTask() {
       if (user) {
         // Ensure only one push notification subscription at a time.
         yield put(unsubscribePushNotifications())
-        yield put(subscribePushNotifications())
+        if (details && details.enableNotifications) yield put(subscribePushNotifications())
         yield put(syncUserData(user.uid))
       } else {
         yield put(unsubscribePushNotifications())
