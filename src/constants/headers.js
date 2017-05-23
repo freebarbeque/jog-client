@@ -11,5 +11,5 @@ export const authNavigationHeader = {
       scale={1}
     />
   ),
-  headerStyle: { backgroundColor: BLUE }
+  headerStyle: { backgroundColor: BLUE },
 }

@@ -9,19 +9,22 @@ export type ErrorsReduxState = {
 
 const DEFAULT_STATE = {
   error: false,
-  text: ''
+  text: '',
 }
 
-export default function reducer(state: ErrorsReduxState = DEFAULT_STATE, action: ErrorAction) {
+export default function reducer(
+  state: ErrorsReduxState = DEFAULT_STATE,
+  action: ErrorAction,
+) {
   if (action.type === 'errors/DECLARE') {
     return {
       error: true,
-      text: action.text
+      text: action.text,
     }
   } else if (action.type === 'errors/CLEAR') {
     return {
       error: false,
-      text: ''
+      text: '',
     }
   }
   return state

@@ -16,7 +16,7 @@ const AppReducer = combineReducers({
   policies,
   insurers,
   loading,
-  errors
+  errors,
 })
 
 export default AppReducer

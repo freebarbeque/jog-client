@@ -15,12 +15,14 @@ export default class EmailPolicyScreen extends Component {
     const { dispatch } = navigation
 
     return {
-      headerTitle: (
-        <View />
-      ),
+      headerTitle: <View />,
       headerLeft: (
         <Logo
-          style={{ marginLeft: MARGIN.large, marginBottom: MARGIN.base, marginTop: MARGIN.base }}
+          style={{
+            marginLeft: MARGIN.large,
+            marginBottom: MARGIN.base,
+            marginTop: MARGIN.base,
+          }}
           scale={1}
         />
       ),
@@ -32,7 +34,7 @@ export default class EmailPolicyScreen extends Component {
           <Cancel />
         </TouchableOpacity>
       ),
-      headerStyle: { backgroundColor: BLUE }
+      headerStyle: { backgroundColor: BLUE },
     }
   }
 
@@ -43,12 +45,22 @@ export default class EmailPolicyScreen extends Component {
         <Hyperlink
           style={{ flexDirection: 'row', flexWrap: 'wrap' }}
           linkStyle={styles.hyperlinkText}
-          linkText={(url) => url === mailto ? 'policies@jog.com' : ''}
+          linkText={url => (url === mailto ? 'policies@jog.com' : '')}
         >
-          <Text>Please email {mailto} from the email address associated with your account, attaching all relevant policy documents.</Text>
+          <Text>
+            Please email
+            {' '}
+            {mailto}
+            {' '}
+            from the email address associated with your account, attaching all relevant policy documents.
+          </Text>
         </Hyperlink>
         <View style={{ marginTop: MARGIN.base }}>
-          <Text>{'Once your policy is added to your account you\'ll receive an email in return.'}</Text>
+          <Text>
+            {
+              "Once your policy is added to your account you'll receive an email in return."
+            }
+          </Text>
         </View>
       </View>
     )
@@ -65,5 +77,5 @@ const styles = StyleSheet.create({
   hyperlinkText: {
     textDecorationLine: 'underline',
     textDecorationStyle: 'solid',
-  }
+  },
 })

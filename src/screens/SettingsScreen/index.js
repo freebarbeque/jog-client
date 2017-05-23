@@ -14,28 +14,32 @@ import { setActiveSection } from 'jog/src/store/screens/settings/actions'
 import AnimatedChevron from './AnimatedChevron'
 import SettingsProfileSection from './SettingsProfileSection'
 import SettingsPrivacyPolicySection from './SettingsPrivacyPolicySection'
-import SettingsTermsAndConditionsSection from './SettingsTermsAndConditionsSection'
+import SettingsTermsAndConditionsSection
+  from './SettingsTermsAndConditionsSection'
 import SettingsAboutUsSection from './SettingsAboutUsSection'
 import SettingsNotificationsSection from './SettingsNotificationsSection'
 
 type SettingsProps = {
   dispatch: Dispatch,
-  activeSection: number | null
-};
+  activeSection: number | null,
+}
 
-type SettingsState = {};
+type SettingsState = {}
 
 type AccordionSection = {
   title: string,
-  component: any
+  component: any,
 }
 
 const ACCORDION_SECTIONS: AccordionSection[] = [
   { title: 'My profile', component: SettingsProfileSection },
   { title: 'Notifications', component: SettingsNotificationsSection },
   { title: 'About us', component: SettingsAboutUsSection },
-  { title: 'Terms and conditions', component: SettingsTermsAndConditionsSection },
-  { title: 'Privacy policy', component: SettingsPrivacyPolicySection }
+  {
+    title: 'Terms and conditions',
+    component: SettingsTermsAndConditionsSection,
+  },
+  { title: 'Privacy policy', component: SettingsPrivacyPolicySection },
 ]
 
 class SettingsScreen extends Component {
@@ -47,23 +51,22 @@ class SettingsScreen extends Component {
     this.state = {}
   }
 
-  renderHeader = (section: AccordionSection, index: number, isActive: boolean) => {
+  renderHeader = (
+    section: AccordionSection,
+    index: number,
+    isActive: boolean,
+  ) => {
     const isFirst = index === 0
     const isLast = index === ACCORDION_SECTIONS.length - 1
 
     // Must wrap in a View to avoid setNativeProps error on TouchableOpacity used by react-collapsible
     const extraPolicyHeaderStyles = {
       borderTopWidth: isFirst ? 2 : 1,
-      borderBottomWidth: isActive ? 0 : (isLast ? 2 : 1),
+      borderBottomWidth: isActive ? 0 : isLast ? 2 : 1,
     }
 
     return (
-      <View
-        style={[
-          styles.policyHeader,
-          extraPolicyHeaderStyles
-        ]}
-      >
+      <View style={[styles.policyHeader, extraPolicyHeaderStyles]}>
         <Text style={styles.policyHeaderText}>
           {section.title}
         </Text>
@@ -85,7 +88,9 @@ class SettingsScreen extends Component {
           renderHeader={this.renderHeader}
           renderContent={this.renderContent}
           activeSection={this.props.activeSection}
-          onChange={(index: number) => { this.props.dispatch(setActiveSection(index)) }}
+          onChange={(index: number) => {
+            this.props.dispatch(setActiveSection(index))
+          }}
         />
       </ScrollView>
     )
@@ -117,15 +122,13 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: BLUE,
     margin: MARGIN.large,
-    flex: 1
+    flex: 1,
   },
 })
 
 const mapStateToProps = (state: ReduxState) => ({
   user: state.auth.user,
-  activeSection: state.screens.settings.activeSection
+  activeSection: state.screens.settings.activeSection,
 })
 
-export default connect(
-  mapStateToProps,
-)(SettingsScreen)
+export default connect(mapStateToProps)(SettingsScreen)

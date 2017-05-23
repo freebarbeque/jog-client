@@ -4,17 +4,24 @@ import React, { Component } from 'react'
 import { View, StyleSheet, Dimensions } from 'react-native'
 import { connect } from 'react-redux'
 import { NavigationActions } from 'react-navigation'
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
+import {
+  KeyboardAwareScrollView,
+} from 'react-native-keyboard-aware-scroll-view'
 
 import type {
   Dispatch,
   ReduxState,
   ValuesMap,
   ValidationErrorsMap,
-  NavReduxState
+  NavReduxState,
 } from 'jog/src/types'
 
-import { setValues, setValidationErrors, clear, login } from 'jog/src/store/screens/auth/actions'
+import {
+  setValues,
+  setValidationErrors,
+  clear,
+  login,
+} from 'jog/src/store/screens/auth/actions'
 import { BLUE } from 'jog/src/constants/palette'
 import { MARGIN } from 'jog/src/constants/style'
 import Text from 'jog/src/components/Text'
@@ -29,37 +36,38 @@ type LoginProps = {
   validationErrors: ValidationErrorsMap,
   loginError: string | null,
   loading: boolean,
-  nav: NavReduxState
-};
+  nav: NavReduxState,
+}
 
 class LoginScreen extends Component {
   props: LoginProps
 
-  static formFields = [
-    emailField,
-    passwordField
-  ]
+  static formFields = [emailField, passwordField]
 
   componentWillUnmount() {
     this.props.dispatch(clear())
   }
 
   handleForgotPasswordPress = () => {
-    this.props.dispatch(NavigationActions.navigate({
-      routeName: 'ForgotPassword'
-    }))
+    this.props.dispatch(
+      NavigationActions.navigate({
+        routeName: 'ForgotPassword',
+      }),
+    )
   }
 
   handleRegisterNowPress = () => {
-    this.props.dispatch(NavigationActions.navigate({
-      routeName: 'Register'
-    }))
+    this.props.dispatch(
+      NavigationActions.navigate({
+        routeName: 'Register',
+      }),
+    )
   }
 
   handleSubmit = (values: ValuesMap) => {
     const { email, password } = values
     const routes = this.props.nav.routes
-    const authRoute = _.find(routes, ((route) => route.routeName === 'Auth'))
+    const authRoute = _.find(routes, route => route.routeName === 'Auth')
     const key = authRoute.key
     this.props.dispatch(login(email, password, key))
   }
@@ -88,9 +96,16 @@ class LoginScreen extends Component {
 
     return (
       <KeyboardAwareScrollView style={styles.container}>
-        <View style={{ flexDirection: 'column', flex: 1, width: windowWidth, justifyContent: 'center' }}>
+        <View
+          style={{
+            flexDirection: 'column',
+            flex: 1,
+            width: windowWidth,
+            justifyContent: 'center',
+          }}
+        >
           <View>
-            <View style={{ justifyContent: 'center', alignItems: 'center', }}>
+            <View style={{ justifyContent: 'center', alignItems: 'center' }}>
               <Text style={styles.title}>
                 Sign in
               </Text>
@@ -104,8 +119,12 @@ class LoginScreen extends Component {
               disabled={this.props.loading}
               values={this.props.values}
               validationErrors={this.props.validationErrors}
-              onValuesChanged={(values) => { this.props.dispatch(setValues(values)) }}
-              onValidationErrorsChanged={(errors) => { this.props.dispatch(setValidationErrors(errors)) }}
+              onValuesChanged={values => {
+                this.props.dispatch(setValues(values))
+              }}
+              onValidationErrorsChanged={errors => {
+                this.props.dispatch(setValidationErrors(errors))
+              }}
             />
           </View>
         </View>
@@ -119,12 +138,12 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: BLUE,
     paddingTop: 20,
-    flexDirection: 'column'
+    flexDirection: 'column',
   },
   header: {
     paddingLeft: 10,
     flexDirection: 'row',
-    paddingRight: 10
+    paddingRight: 10,
   },
   headerLogo: {
     marginTop: 3,
@@ -133,15 +152,13 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     marginTop: MARGIN.large,
     fontSize: 20,
-    fontWeight: '400'
-  }
+    fontWeight: '400',
+  },
 })
 
 const mapStateToProps = (state: ReduxState) => ({
   ...state.screens.auth,
-  nav: state.nav
+  nav: state.nav,
 })
 
-export default connect(
-  mapStateToProps,
-)(LoginScreen)
+export default connect(mapStateToProps)(LoginScreen)

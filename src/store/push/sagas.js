@@ -1,7 +1,11 @@
 // @flow
 
-
-import FCM, { FCMEvent, RemoteNotificationResult, WillPresentNotificationResult, NotificationType } from 'react-native-fcm'
+import FCM, {
+  FCMEvent,
+  RemoteNotificationResult,
+  WillPresentNotificationResult,
+  NotificationType,
+} from 'react-native-fcm'
 import { Platform } from 'react-native'
 
 import {
@@ -11,7 +15,7 @@ import {
   fork,
   cancelled,
   cancel,
-  takeEvery
+  takeEvery,
 } from 'redux-saga/effects'
 
 import { eventChannel } from 'redux-saga'
@@ -22,35 +26,38 @@ import type { SubscribePushNotificationsAction } from './actionTypes'
 import * as actions from './actions'
 
 function createPushNotificationsChannel() {
-  return eventChannel((emit) => {
+  return eventChannel(emit => {
     let refreshTokenListener = null
 
-    FCM.getFCMToken().then((token) => emit({ token }))
+    FCM.getFCMToken().then(token => emit({ token }))
 
-    const notificationListener = FCM.on(FCMEvent.Notification, async (notification) => {
-      emit({ notification })
+    const notificationListener = FCM.on(
+      FCMEvent.Notification,
+      async notification => {
+        emit({ notification })
 
-      if (Platform.OS === 'ios') {
-        // eslint-disable-next-line
-        switch (notification._notificationType) {
-          case NotificationType.Remote:
-            notification.finish(RemoteNotificationResult.NewData) // other types available: RemoteNotificationResult.NewData, RemoteNotificationResult.ResultFailed
-            break
-          case NotificationType.NotificationResponse:
-            notification.finish()
-            break
-          case NotificationType.WillPresent:
-            notification.finish(WillPresentNotificationResult.All) // other types available: WillPresentNotificationResult.None
-            break
-          default:
-            break
+        if (Platform.OS === 'ios') {
+          // eslint-disable-next-line
+          switch (notification._notificationType) {
+            case NotificationType.Remote:
+              notification.finish(RemoteNotificationResult.NewData) // other types available: RemoteNotificationResult.NewData, RemoteNotificationResult.ResultFailed
+              break
+            case NotificationType.NotificationResponse:
+              notification.finish()
+              break
+            case NotificationType.WillPresent:
+              notification.finish(WillPresentNotificationResult.All) // other types available: WillPresentNotificationResult.None
+              break
+            default:
+              break
+          }
         }
-      }
 
-      refreshTokenListener = FCM.on(FCMEvent.RefreshToken, (token) => {
-        emit({ token })
-      })
-    })
+        refreshTokenListener = FCM.on(FCMEvent.RefreshToken, token => {
+          emit({ token })
+        })
+      },
+    )
 
     return () => {
       if (refreshTokenListener) this.refreshTokenListener.remove()
@@ -101,14 +108,17 @@ function* disablePushNotificationsTask<T>(): Iterable<T> {
 
 export function* pushNotificationSaga<T>(): Iterable<T> {
   yield takeEvery('push/ENABLE_PUSH_NOTIFICATIONS', enablePushNotificationsTask)
-  yield takeEvery('push/DISABLE_PUSH_NOTIFICATIONS', disablePushNotificationsTask)
+  yield takeEvery(
+    'push/DISABLE_PUSH_NOTIFICATIONS',
+    disablePushNotificationsTask,
+  )
 }
 
 export function* pushNotificationSubscriptionSaga<T>(): Iterable<T> {
   let action: ?SubscribePushNotificationsAction
 
   // eslint-disable-next-line no-cond-assign
-  while (action = yield take('push/SUBSCRIBE_PUSH_NOTIFICATIONS')) {
+  while ((action = yield take('push/SUBSCRIBE_PUSH_NOTIFICATIONS'))) {
     const bgTask = yield fork(subscribePushNotifications, action)
     yield take('push/UNSUBSCRIBE_PUSH_NOTIFICATIONS')
     yield cancel(bgTask)

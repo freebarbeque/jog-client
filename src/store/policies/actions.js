@@ -7,26 +7,28 @@ import type {
   ReceiveMotorPoliciesAction,
   SyncMotorPoliciesAction,
   UnsyncMotorPoliciesAction,
-  UploadPolicyDocumentAction
+  UploadPolicyDocumentAction,
 } from './actionTypes'
 
-export function receiveMotorPolicies(policies: MotorPolicyMap) : ReceiveMotorPoliciesAction {
+export function receiveMotorPolicies(
+  policies: MotorPolicyMap,
+): ReceiveMotorPoliciesAction {
   return {
     type: 'policies/RECEIVE_MOTOR_POLICIES',
     policies,
   }
 }
 
-export function syncMotorPolicies(uid: string) : SyncMotorPoliciesAction {
+export function syncMotorPolicies(uid: string): SyncMotorPoliciesAction {
   return {
     type: 'policies/SYNC_MOTOR_POLICIES',
-    uid
+    uid,
   }
 }
 
-export function unsyncMotorPolicies() : UnsyncMotorPoliciesAction {
+export function unsyncMotorPolicies(): UnsyncMotorPoliciesAction {
   return {
-    type: 'policies/UNSYNC_MOTOR_POLICIES'
+    type: 'policies/UNSYNC_MOTOR_POLICIES',
   }
 }
 
@@ -37,14 +39,19 @@ type UploadPolicyDocumentOptions = {
   policyId: string,
 }
 
-export function uploadPolicyDocument(opts: UploadPolicyDocumentOptions): UploadPolicyDocumentAction {
+export function uploadPolicyDocument(
+  opts: UploadPolicyDocumentOptions,
+): UploadPolicyDocumentAction {
   return {
     type: 'policies/UPLOAD_POLICY_DOCUMENT',
-    ...opts
+    ...opts,
   }
 }
 
-export function deletePolicyDocument(policyId: string, documentId: string): DeletePolicyDocumentAction {
+export function deletePolicyDocument(
+  policyId: string,
+  documentId: string,
+): DeletePolicyDocumentAction {
   return {
     type: 'policies/DELETE_POLICY_DOCUMENT',
     documentId,

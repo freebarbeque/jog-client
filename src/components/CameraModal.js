@@ -1,12 +1,7 @@
 /* @flow */
 
 import React, { Component } from 'react'
-import {
-  Modal,
-  StyleSheet,
-  TouchableOpacity,
-  View
-} from 'react-native'
+import { Modal, StyleSheet, TouchableOpacity, View } from 'react-native'
 
 import Camera from 'react-native-camera'
 import { WHITE } from '../constants/palette'
@@ -17,10 +12,10 @@ import { MARGIN } from '../constants/style'
 type CameraModalProps = {
   onCapture: (data: string) => void,
   onError: (error: any) => void,
-};
+}
 type CameraModalState = {
-  modalVisible: boolean
-};
+  modalVisible: boolean,
+}
 
 export default class CameraModal extends Component {
   props: CameraModalProps
@@ -30,19 +25,20 @@ export default class CameraModal extends Component {
   constructor(props: CameraModalProps) {
     super(props)
     this.state = {
-      modalVisible: false
+      modalVisible: false,
     }
   }
 
   takePicture = () => {
     const options = {}
     // options.location = ...
-    this.camera.capture({ metadata: options })
-      .then((data) => {
+    this.camera
+      .capture({ metadata: options })
+      .then(data => {
         this.props.onCapture(data.path)
         this.setModalVisible(false)
       })
-      .catch((err) => this.props.onError(err))
+      .catch(err => this.props.onError(err))
   }
 
   setModalVisible(visible: boolean) {
@@ -59,25 +55,20 @@ export default class CameraModal extends Component {
           onRequestClose={() => this.setModalVisible(false)}
         >
           <View style={{ height: 40, backgroundColor: 'black' }}>
-            <TouchableOpacity
-              onPress={() => this.setModalVisible(false)}
-            >
+            <TouchableOpacity onPress={() => this.setModalVisible(false)}>
               <Text style={{ color: WHITE, marginLeft: MARGIN.large }}>
                 Cancel
               </Text>
             </TouchableOpacity>
           </View>
           <Camera
-            ref={(cam) => {
+            ref={cam => {
               this.camera = cam
             }}
             style={styles.preview}
             aspect={Camera.constants.Aspect.fill}
           >
-            <TouchableOpacity
-              style={styles.capture}
-              onPress={this.takePicture}
-            >
+            <TouchableOpacity style={styles.capture} onPress={this.takePicture}>
               <CameraWhite scale={0.8} />
             </TouchableOpacity>
           </Camera>
@@ -100,6 +91,6 @@ const styles = StyleSheet.create({
   capture: {
     flex: 0,
     padding: 10,
-    margin: 30
+    margin: 30,
   },
 })

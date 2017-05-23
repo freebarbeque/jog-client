@@ -1,11 +1,15 @@
 // @flow
-import type { ValuesMap, ValidationErrorsMap, FirebaseUser } from 'jog/src/types'
+import type {
+  ValuesMap,
+  ValidationErrorsMap,
+  FirebaseUser,
+} from 'jog/src/types'
 
 export type LoginAction = {
   type: 'screens/auth/LOGIN',
   email: string,
   password: string,
-  key: string
+  key: string,
 }
 
 export type RegisterAction = {
@@ -32,7 +36,7 @@ type SetValidationErrors = {
 
 type SetLoadingAction = {
   type: 'screens/auth/SET_LOADING',
-  loading: boolean
+  loading: boolean,
 }
 
 type SetLoginErrorAction = {
@@ -56,46 +60,56 @@ type ClearAction = {
 
 export type SendEmailVerificationEmailAction = {
   type: 'screens/auth/SEND_VERIFICATION_EMAIL',
-  user: FirebaseUser
+  user: FirebaseUser,
 }
 
-export type AuthAction
-  = SetValuesAction |
-  SetValidationErrors |
-  SetLoadingAction |
-  SetLoginErrorAction |
-  SetRegisterErrorAction |
-  SetPasswordResetErrorAction |
-  LoginAction |
-  RegisterAction |
-  PasswordResetAction |
-  ClearAction |
-  SendEmailVerificationEmailAction
+export type AuthAction =
+  | SetValuesAction
+  | SetValidationErrors
+  | SetLoadingAction
+  | SetLoginErrorAction
+  | SetRegisterErrorAction
+  | SetPasswordResetErrorAction
+  | LoginAction
+  | RegisterAction
+  | PasswordResetAction
+  | ClearAction
+  | SendEmailVerificationEmailAction
 
-export function login(email: string, password: string, key: string) : LoginAction {
+export function login(
+  email: string,
+  password: string,
+  key: string,
+): LoginAction {
   return {
     type: 'screens/auth/LOGIN',
     email,
     password,
-    key
+    key,
   }
 }
 
-export function passwordReset(email: string) : PasswordResetAction {
+export function passwordReset(email: string): PasswordResetAction {
   return {
     type: 'screens/auth/PASSWORD_RESET',
-    email
+    email,
   }
 }
 
-export function emailVerification(user: FirebaseUser) : SendEmailVerificationEmailAction {
+export function emailVerification(
+  user: FirebaseUser,
+): SendEmailVerificationEmailAction {
   return {
     type: 'screens/auth/SEND_VERIFICATION_EMAIL',
     user,
   }
 }
 
-export function register(name: string, email: string, password: string) : RegisterAction {
+export function register(
+  name: string,
+  email: string,
+  password: string,
+): RegisterAction {
   return {
     type: 'screens/auth/REGISTER',
     name,
@@ -107,21 +121,23 @@ export function register(name: string, email: string, password: string) : Regist
 export function setValues(values: ValuesMap): SetValuesAction {
   return {
     type: 'screens/auth/SET_VALUES',
-    values
+    values,
   }
 }
 
-export function setValidationErrors(validationErrors: ValidationErrorsMap): SetValidationErrors {
+export function setValidationErrors(
+  validationErrors: ValidationErrorsMap,
+): SetValidationErrors {
   return {
     type: 'screens/auth/SET_VALIDATION_ERRORS',
-    validationErrors
+    validationErrors,
   }
 }
 
 export function setLoading(loading: boolean): SetLoadingAction {
   return {
     type: 'screens/auth/SET_LOADING',
-    loading
+    loading,
   }
 }
 
@@ -132,14 +148,18 @@ export function setLoginError(loginError: string | null): SetLoginErrorAction {
   }
 }
 
-export function setRegisterError(registerError: string | null): SetRegisterErrorAction {
+export function setRegisterError(
+  registerError: string | null,
+): SetRegisterErrorAction {
   return {
     type: 'screens/auth/SET_REGISTER_ERROR',
     registerError,
   }
 }
 
-export function setPasswordResetError(passwordResetError: string | null): SetPasswordResetErrorAction {
+export function setPasswordResetError(
+  passwordResetError: string | null,
+): SetPasswordResetErrorAction {
   return {
     type: 'screens/auth/SET_PASSWORD_RESET_ERROR',
     passwordResetError,

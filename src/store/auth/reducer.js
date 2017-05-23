@@ -8,17 +8,17 @@ const DEFAULT_STATE = { user: null, details: null, initialised: false }
 export default function reducer(
   state: AuthReduxState = DEFAULT_STATE,
   action: AuthAction,
-) : AuthReduxState {
+): AuthReduxState {
   if (action.type === 'auth/RECEIVE_USER') {
     return {
       ...state,
       user: action.user,
-      initialised: true
+      initialised: true,
     }
   } else if (action.type === 'auth/RECEIVE_USER_DETAILS') {
     return {
       ...state,
-      details: action.details
+      details: action.details,
     }
   }
   return state

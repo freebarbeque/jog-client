@@ -7,20 +7,28 @@ import {
   fork,
   cancelled,
   cancel,
-  takeLatest
+  takeLatest,
 } from 'redux-saga/effects'
 import { eventChannel } from 'redux-saga'
 import firebase from 'firebase'
 import uuid from 'uuid/v4'
 import mime from 'react-native-mime-types'
 
-import { syncMotorPolicies, addPolicyDocument, removePolicyDocument, getPolicyDocument } from 'jog/src/data/policies'
+import {
+  syncMotorPolicies,
+  addPolicyDocument,
+  removePolicyDocument,
+  getPolicyDocument,
+} from 'jog/src/data/policies'
 import { demandCurrentUser } from 'jog/src/data/auth'
 import { getFirestack } from 'jog/src/data'
 import { updateCurrentUserDetails } from 'jog/src/data/user'
 
 import { receiveMotorPolicies } from './actions'
-import type { SyncMotorPoliciesAction, UploadPolicyDocumentAction } from './actionTypes'
+import type {
+  SyncMotorPoliciesAction,
+  UploadPolicyDocumentAction,
+} from './actionTypes'
 import { finishLoading, startLoading } from '../loading/actions'
 import { declareError } from '../errors/actions'
 
@@ -29,21 +37,15 @@ import { declareError } from '../errors/actions'
 //
 
 function policyEventChannel(uid: string) {
-  return eventChannel((emitter) =>
-    syncMotorPolicies(
-      uid,
-      (policies) => {
-        emitter(policies)
-      }
-    )
+  return eventChannel(emitter =>
+    syncMotorPolicies(uid, policies => {
+      emitter(policies)
+    }),
   )
 }
 
 function* syncMotorPoliciesTask({ uid }) {
-  const channel = yield call(
-    policyEventChannel,
-    uid
-  )
+  const channel = yield call(policyEventChannel, uid)
   try {
     // eslint-disable-next-line no-constant-condition
     while (true) {
@@ -61,7 +63,7 @@ export function* syncPoliciesSaga<T>(): Iterable<T> {
   let action: ?SyncMotorPoliciesAction
 
   // eslint-disable-next-line no-cond-assign
-  while (action = yield take('policies/SYNC_MOTOR_POLICIES')) {
+  while ((action = yield take('policies/SYNC_MOTOR_POLICIES'))) {
     // Start the sync in the background
     const bgTask = yield fork(syncMotorPoliciesTask, action)
 
@@ -92,14 +94,20 @@ function* uploadPolicyDocumentTask(action: UploadPolicyDocumentAction) {
     // For whatever reason, the firebase module claims the base64 data from RNFetchBlob is invalid so we decode it manually.
     const contentType = mime.lookup(fileName)
 
-    console.debug(`Uploading document at ${fileUrl} to ${fileStoragePath} with content-type ${contentType}`)
+    console.debug(
+      `Uploading document at ${fileUrl} to ${fileStoragePath} with content-type ${contentType}`,
+    )
 
-    yield call(() => getFirestack().storage.uploadFile(fileStoragePath, fileUrl, {
-      contentType,
-      contentEncoding: 'base64'
-    }))
+    yield call(() =>
+      getFirestack().storage.uploadFile(fileStoragePath, fileUrl, {
+        contentType,
+        contentEncoding: 'base64',
+      }),
+    )
 
-    yield call(() => updateCurrentUserDetails({ profilePhoto: fileStoragePath }))
+    yield call(() =>
+      updateCurrentUserDetails({ profilePhoto: fileStoragePath }),
+    )
   } catch (e) {
     console.debug('Error uploading image', e)
     yield put(declareError('Unable to upload document'))
@@ -113,12 +121,14 @@ function* uploadPolicyDocumentTask(action: UploadPolicyDocumentAction) {
   try {
     // Firebase storage does not have an API for listing files in folders and therefore we
     // must store file data within the database.
-    yield call(() => addPolicyDocument(policyId, {
-      image: fileStoragePath,
-      name: fileName,
-      extension: extension,
-      id
-    }))
+    yield call(() =>
+      addPolicyDocument(policyId, {
+        image: fileStoragePath,
+        name: fileName,
+        extension: extension,
+        id,
+      }),
+    )
   } catch (e) {
     console.debug('Error uploading file metadata', e)
     yield put(declareError('Unable to upload file metadata'))
@@ -153,4 +163,3 @@ export function* policyOperationsSaga<T>(): Iterable<T> {
   yield takeLatest('policies/UPLOAD_POLICY_DOCUMENT', uploadPolicyDocumentTask)
   yield takeLatest('policies/DELETE_POLICY_DOCUMENT', deletePolicyDocumentTask)
 }
-

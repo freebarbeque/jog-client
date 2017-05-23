@@ -4,21 +4,25 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { NavigationActions } from 'react-navigation'
 
-import type {
-  Dispatch,
-  ReduxState,
-} from 'jog/src/types'
+import type { Dispatch, ReduxState } from 'jog/src/types'
 
-import AddPolicyScreenContainer from 'jog/src/components/AddPolicyScreenContainer'
-import type { ManualPolicyUpdate } from 'jog/src/store/screens/addManualPolicy/actions'
-import { updateManualPolicy, savePolicy, motorPolicyOwnership } from 'jog/src/store/screens/addManualPolicy/actions'
+import AddPolicyScreenContainer
+  from 'jog/src/components/AddPolicyScreenContainer'
+import type {
+  ManualPolicyUpdate,
+} from 'jog/src/store/screens/addManualPolicy/actions'
+import {
+  updateManualPolicy,
+  savePolicy,
+  motorPolicyOwnership,
+} from 'jog/src/store/screens/addManualPolicy/actions'
 import RadioInput from 'jog/src/components/RadioInput'
 import { MARGIN } from 'jog/src/constants/style'
 
 type VehicleOwnershipScreenProps = {
   dispatch: Dispatch,
   policy: ManualPolicyUpdate,
-};
+}
 
 class VehicleOwnershipScreen extends Component {
   props: VehicleOwnershipScreenProps
@@ -28,8 +32,10 @@ class VehicleOwnershipScreen extends Component {
     this.props.dispatch(savePolicy(policy))
   }
 
-  handleChange = (ownership) => {
-    this.props.dispatch(updateManualPolicy({ ownership: motorPolicyOwnership[ownership] }))
+  handleChange = ownership => {
+    this.props.dispatch(
+      updateManualPolicy({ ownership: motorPolicyOwnership[ownership] }),
+    )
   }
 
   render() {
@@ -39,7 +45,9 @@ class VehicleOwnershipScreen extends Component {
         showPrevButton
         title="Is your vehicle:"
         onNextPress={this.handleNextPress}
-        onPrevPress={() => { this.props.dispatch(NavigationActions.back()) }}
+        onPrevPress={() => {
+          this.props.dispatch(NavigationActions.back())
+        }}
         disableNextButton={!this.props.policy.ownership}
       >
         <RadioInput
@@ -58,9 +66,7 @@ class VehicleOwnershipScreen extends Component {
 }
 
 const mapStateToProps = (state: ReduxState) => ({
-  policy: state.screens.addManualPolicy
+  policy: state.screens.addManualPolicy,
 })
 
-export default connect(
-  mapStateToProps,
-)(VehicleOwnershipScreen)
+export default connect(mapStateToProps)(VehicleOwnershipScreen)

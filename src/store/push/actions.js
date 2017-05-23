@@ -1,27 +1,32 @@
 // @flow
 
-import type { SubscribePushNotificationsAction, UnsubscribePushNotificationsAction, EnablePushNotifications, DisablePushNotifications } from './actionTypes'
+import type {
+  SubscribePushNotificationsAction,
+  UnsubscribePushNotificationsAction,
+  EnablePushNotifications,
+  DisablePushNotifications,
+} from './actionTypes'
 
-export function subscribePushNotifications() : SubscribePushNotificationsAction {
+export function subscribePushNotifications(): SubscribePushNotificationsAction {
   return {
-    type: 'push/SUBSCRIBE_PUSH_NOTIFICATIONS'
+    type: 'push/SUBSCRIBE_PUSH_NOTIFICATIONS',
   }
 }
 
-export function unsubscribePushNotifications() : UnsubscribePushNotificationsAction {
+export function unsubscribePushNotifications(): UnsubscribePushNotificationsAction {
   return {
-    type: 'push/UNSUBSCRIBE_PUSH_NOTIFICATIONS'
+    type: 'push/UNSUBSCRIBE_PUSH_NOTIFICATIONS',
   }
 }
 
-export function enablePushNotifications() : EnablePushNotifications {
+export function enablePushNotifications(): EnablePushNotifications {
   return {
-    type: 'push/ENABLE_PUSH_NOTIFICATIONS'
+    type: 'push/ENABLE_PUSH_NOTIFICATIONS',
   }
 }
 
-export function disablePushNotifications() : DisablePushNotifications {
+export function disablePushNotifications(): DisablePushNotifications {
   return {
-    type: 'push/DISABLE_PUSH_NOTIFICATIONS'
+    type: 'push/DISABLE_PUSH_NOTIFICATIONS',
   }
 }

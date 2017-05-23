@@ -8,7 +8,7 @@ import {
   fork,
   cancelled,
   cancel,
-  takeLatest
+  takeLatest,
 } from 'redux-saga/effects'
 import { eventChannel } from 'redux-saga'
 import createThrottle from 'async-throttle'
@@ -23,74 +23,80 @@ import { getFirestack } from 'jog/src/data'
 import { declareError } from 'jog/src/store/errors/actions'
 import { setLoading } from 'jog/src/store/screens/auth/actions'
 
-
 import { receiveUser, receiveUserDetails } from './actions'
-import type { SyncUserAction, UpdateUserDetails, UpdateUserProfilePicture } from './actionTypes'
+import type {
+  SyncUserAction,
+  UpdateUserDetails,
+  UpdateUserProfilePicture,
+} from './actionTypes'
 import { syncUserData, unsyncUserData } from '../actions'
-import { subscribePushNotifications, unsubscribePushNotifications } from '../push/actions'
+import {
+  subscribePushNotifications,
+  unsubscribePushNotifications,
+} from '../push/actions'
 
 const throttle = createThrottle(1)
 
 // Creates an event channel that polls & throttles firebase.User.reload
 function createUserPollChannel(ms: number = 1000) {
-  return eventChannel(
-    (emit) => {
-      const interval = setInterval(
-        () => (
-          throttle(
-            async () => {
-              const user = firebase.auth().currentUser
-              await user.reload()
-              emit(user.toJSON())
-            }
-          )
-      ), ms)
+  return eventChannel(emit => {
+    const interval = setInterval(
+      () =>
+        throttle(async () => {
+          const user = firebase.auth().currentUser
+          await user.reload()
+          emit(user.toJSON())
+        }),
+      ms,
+    )
 
-      return () => { clearInterval(interval) }
+    return () => {
+      clearInterval(interval)
     }
-  )
+  })
 }
 
 function createUserSubscribeChannel() {
-  return eventChannel((emit) => {
+  return eventChannel(emit => {
     let user = null
     let details = null
     let unsubscribeDetails = null
 
-    const unsubscribeUser = userSubscribe(
-      (newUser) => {
-        const uid = user && user.uid
-        const newUid = newUser && newUser.uid
+    const unsubscribeUser = userSubscribe(newUser => {
+      const uid = user && user.uid
+      const newUid = newUser && newUser.uid
 
-        if (uid !== newUid) {
-          if (unsubscribeDetails) unsubscribeDetails()
-          if (newUid) {
-            unsubscribeDetails = syncUserDetails(newUid, (newDetails) => {
-              details = newDetails
-              emit({ user, details })
-              const profilePhoto = details.profilePhoto
-              console.log('profilePhoto', profilePhoto)
-              if (profilePhoto) {
-                const ref = firebase.storage().ref(profilePhoto)
-                ref.getDownloadURL().then((url) => {
+      if (uid !== newUid) {
+        if (unsubscribeDetails) unsubscribeDetails()
+        if (newUid) {
+          unsubscribeDetails = syncUserDetails(newUid, newDetails => {
+            details = newDetails
+            emit({ user, details })
+            const profilePhoto = details.profilePhoto
+            console.log('profilePhoto', profilePhoto)
+            if (profilePhoto) {
+              const ref = firebase.storage().ref(profilePhoto)
+              ref
+                .getDownloadURL()
+                .then(url => {
                   console.log('profilePhoto', profilePhoto, url)
                   details = {
                     ...details,
-                    profilePhotoURL: url
+                    profilePhotoURL: url,
                   }
                   emit({ user, details })
-                }).catch((err) => {
+                })
+                .catch(err => {
                   console.warn('Error downloading profile photo', err)
                 })
-              }
-            })
-          }
+            }
+          })
         }
-
-        user = newUser
-        emit({ user, details })
       }
-    )
+
+      user = newUser
+      emit({ user, details })
+    })
 
     return () => {
       unsubscribeUser()
@@ -127,7 +133,8 @@ function* syncUserTask() {
       if (user) {
         // Ensure only one push notification subscription at a time.
         yield put(unsubscribePushNotifications())
-        if (details && details.enableNotifications) yield put(subscribePushNotifications())
+        if (details && details.enableNotifications)
+          yield put(subscribePushNotifications())
         yield put(syncUserData(user.uid))
       } else {
         yield put(unsubscribePushNotifications())
@@ -149,7 +156,7 @@ function* logout() {
     yield put(setLoading(false))
   } else {
     console.warn(
-      'Attempted to logout when no user was logged in. This indicates that the user was able to access the Sign Out button without being logged in.'
+      'Attempted to logout when no user was logged in. This indicates that the user was able to access the Sign Out button without being logged in.',
     )
   }
   yield put(NavigationActions.navigate({ routeName: 'Auth' }))
@@ -173,11 +180,15 @@ function* updateUserProfilePictureTask(action: UpdateUserProfilePicture) {
   const fileStoragePath = `/profilePhotos/${user.uid}/${id}.${extension}`
 
   try {
-    yield call(() => getFirestack().storage.uploadFile(fileStoragePath, fileUrl, {
-      contentType,
-      contentEncoding: 'base64'
-    }))
-    yield call(() => updateCurrentUserDetails({ profilePhoto: fileStoragePath }))
+    yield call(() =>
+      getFirestack().storage.uploadFile(fileStoragePath, fileUrl, {
+        contentType,
+        contentEncoding: 'base64',
+      }),
+    )
+    yield call(() =>
+      updateCurrentUserDetails({ profilePhoto: fileStoragePath }),
+    )
   } catch (e) {
     console.debug('Error uploading image', e)
     yield put(declareError('Unable to upload document'))
@@ -205,14 +216,17 @@ export function* pollUserSaga<T>(): Iterable<T> {
 export function* authSaga<T>(): Iterable<T> {
   yield takeLatest('auth/LOGOUT', logout)
   yield takeLatest('auth/UPDATE_USER_DETAILS', updateUserDetailsTask)
-  yield takeLatest('auth/UPDATE_USER_PROFILE_PICTURE', updateUserProfilePictureTask)
+  yield takeLatest(
+    'auth/UPDATE_USER_PROFILE_PICTURE',
+    updateUserProfilePictureTask,
+  )
 }
 
 export function* userSyncSaga<T>(): Iterable<T> {
   let action: ?SyncUserAction
 
   // eslint-disable-next-line no-cond-assign
-  while (action = yield take('auth/SYNC_USER')) {
+  while ((action = yield take('auth/SYNC_USER'))) {
     yield fork(syncUserTask, action)
   }
 }

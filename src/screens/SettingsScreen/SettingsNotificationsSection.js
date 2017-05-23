@@ -11,10 +11,10 @@ import { updateUserDetails } from '../../store/auth/actions'
 
 type SettingsNotificationsProps = {
   dispatch: Dispatch,
-  userDetails: UserDetails
-};
+  userDetails: UserDetails,
+}
 
-type SettingsNotificationsState = {};
+type SettingsNotificationsState = {}
 
 class SettingsNotificationsSection extends Component {
   props: SettingsNotificationsProps
@@ -33,14 +33,23 @@ class SettingsNotificationsSection extends Component {
         <Text style={{ color: BLUE }}>
           When notifications are enabled, Jog will send you reminders when your policy is due to expire or has already expired.
         </Text>
-        <View style={{ marginTop: MARGIN.base, flexDirection: 'row', alignItems: 'center' }}>
+        <View
+          style={{
+            marginTop: MARGIN.base,
+            flexDirection: 'row',
+            alignItems: 'center',
+          }}
+        >
           <Text style={{ color: BLUE }}>
             Enable Notifications
           </Text>
           <View style={{ flex: 1 }} />
           <Switch
             value={userDetails.enableNotifications}
-            onValueChange={(value) => this.props.dispatch(updateUserDetails({ enableNotifications: value }, true))}
+            onValueChange={value =>
+              this.props.dispatch(
+                updateUserDetails({ enableNotifications: value }, true),
+              )}
           />
         </View>
       </View>
@@ -52,16 +61,14 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: VERY_LIGHT_GRAY,
-    padding: MARGIN.large
-  }
+    padding: MARGIN.large,
+  },
 })
 
 const mapStateToProps = (state: ReduxState) => {
   return {
-    userDetails: state.auth.details
+    userDetails: state.auth.details,
   }
 }
 
-export default connect(
-  mapStateToProps,
-)(SettingsNotificationsSection)
+export default connect(mapStateToProps)(SettingsNotificationsSection)

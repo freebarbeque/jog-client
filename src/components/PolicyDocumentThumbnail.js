@@ -14,14 +14,17 @@ type PolicyDocumentThumbnailProps = {
   document: PolicyDocument,
   style?: any,
   onPress?: () => void,
-};
+}
 
 export default class PolicyDocumentThumbnail extends Component {
   props: PolicyDocumentThumbnailProps
 
   render() {
     return (
-      <TouchableOpacity style={[styles.container, this.props.style || {}]} onPress={this.props.onPress}>
+      <TouchableOpacity
+        style={[styles.container, this.props.style || {}]}
+        onPress={this.props.onPress}
+      >
         <View style={styles.thumbnail}>
           <View style={styles.iconContainer}>
             <FileIcon extension={this.props.document.extension} />
@@ -52,7 +55,7 @@ const styles = StyleSheet.create({
     shadowColor: DARK_GRAY,
     shadowOffset: {
       width: 2,
-      height: 2
+      height: 2,
     },
     shadowOpacity: 0.4,
     shadowRadius: 3,
@@ -63,10 +66,10 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
     fontSize: 11,
     marginLeft: 20,
-    marginRight: 20
+    marginRight: 20,
   },
   iconContainer: {
     height: '50%',
     width: '50%',
-  }
+  },
 })

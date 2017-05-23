@@ -13,11 +13,11 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     borderStyle: 'solid',
     borderColor: 'transparent',
-    fontFamily: 'WorkSans-Regular'
+    fontFamily: 'WorkSans-Regular',
   },
   disabledInput: {
     opacity: 0.5,
-  }
+  },
 })
 
 export default class JogTextInput extends React.Component {
@@ -26,7 +26,9 @@ export default class JogTextInput extends React.Component {
 
     return (
       <TextInput
-        ref={(e) => { this.input = e }}
+        ref={e => {
+          this.input = e
+        }}
         style={[styles.input, style || {}]}
         editable={editable}
         underlineColorAndroid="rgba(0,0,0,0.0)"

@@ -5,7 +5,13 @@ import { View, StyleSheet, TouchableOpacity } from 'react-native'
 import { connect } from 'react-redux'
 import { NavigationActions } from 'react-navigation'
 
-import type { ReduxState, MotorPolicy, PolicyDocument, Dispatch, ReactNavigationProp } from 'jog/src/types'
+import type {
+  ReduxState,
+  MotorPolicy,
+  PolicyDocument,
+  Dispatch,
+  ReactNavigationProp,
+} from 'jog/src/types'
 
 import { selectPolicies } from '../store/policies/selectors'
 import { BLUE, CREAM, PINK } from '../constants/palette'
@@ -24,7 +30,7 @@ type PolicyDocumentScreenProps = {
   document?: PolicyDocument,
   // eslint-disable-next-line react/no-unused-prop-types
   navigation: ReactNavigationProp,
-};
+}
 
 class PolicyDocumentScreen extends Component {
   props: PolicyDocumentScreenProps
@@ -36,7 +42,13 @@ class PolicyDocumentScreen extends Component {
 
     return {
       headerTitle: (
-        <Text style={{ textAlign: 'center', marginLeft: MARGIN.base, marginRight: MARGIN.base }}>
+        <Text
+          style={{
+            textAlign: 'center',
+            marginLeft: MARGIN.base,
+            marginRight: MARGIN.base,
+          }}
+        >
           {documentName}
         </Text>
       ),
@@ -61,7 +73,7 @@ class PolicyDocumentScreen extends Component {
           </Text>
         </TouchableOpacity>
       ),
-      headerStyle: { backgroundColor: BLUE }
+      headerStyle: { backgroundColor: BLUE },
     }
   }
 
@@ -70,9 +82,7 @@ class PolicyDocumentScreen extends Component {
     const name = document ? document.name : ''
 
     if (document) {
-      return (
-        <DocumentViewer document={document} />
-      )
+      return <DocumentViewer document={document} />
     }
 
     return <Spinner text={`Loading ${name}`} />
@@ -92,7 +102,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: CREAM,
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   headerDeleteButton: {
     backgroundColor: PINK,
@@ -101,19 +111,29 @@ const styles = StyleSheet.create({
     borderRadius: 4,
     justifyContent: 'center',
     alignItems: 'center',
-    marginRight: MARGIN.base
-  }
+    marginRight: MARGIN.base,
+  },
 })
 
-const mapStateToProps = (state: ReduxState) => (state)
+const mapStateToProps = (state: ReduxState) => state
 
-const mergeProps = (state: ReduxState, { dispatch }, ownProps: PolicyDocumentScreenProps) => {
+const mergeProps = (
+  state: ReduxState,
+  { dispatch },
+  ownProps: PolicyDocumentScreenProps,
+) => {
   const policies = selectPolicies(state)
   const navigationParams = ownProps.navigation.state.params
   const policyId = navigationParams.policyId
-  if (!policyId) throw new Error('Must pass policyId to PolicyDocumentScreen via navigation params')
+  if (!policyId)
+    throw new Error(
+      'Must pass policyId to PolicyDocumentScreen via navigation params',
+    )
   const documentId = navigationParams.documentId
-  if (!documentId) throw new Error('Must pass documentId to PolicyDocumentScreen via navigation params')
+  if (!documentId)
+    throw new Error(
+      'Must pass documentId to PolicyDocumentScreen via navigation params',
+    )
   const policy = policies[policyId]
   if (policy) {
     const documents = policy.documents
@@ -133,8 +153,4 @@ const mergeProps = (state: ReduxState, { dispatch }, ownProps: PolicyDocumentScr
 }
 
 // $FlowFixMe
-export default connect(
-  mapStateToProps,
-  null,
-  mergeProps
-)(PolicyDocumentScreen)
+export default connect(mapStateToProps, null, mergeProps)(PolicyDocumentScreen)

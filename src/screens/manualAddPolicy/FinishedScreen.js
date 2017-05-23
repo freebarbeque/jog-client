@@ -15,15 +15,18 @@ import { NavigationButton } from 'jog/src/components/AddPolicyScreenContainer'
 
 type FinishedScreenProps = {
   dispatch: Dispatch,
-  nav: NavReduxState
-};
+  nav: NavReduxState,
+}
 
 class FinishedScreen extends Component {
   props: FinishedScreenProps
 
   hideModal = () => {
     const routes = this.props.nav.routes
-    const manualAddPolicyRoute = _.find(routes, ((route) => route.routeName === 'ManualAddPolicy'))
+    const manualAddPolicyRoute = _.find(
+      routes,
+      route => route.routeName === 'ManualAddPolicy',
+    )
     const key = manualAddPolicyRoute.key
     this.props.dispatch(NavigationActions.back({ key }))
     // Back to the list of policies
@@ -37,9 +40,17 @@ class FinishedScreen extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text style={styles.text}>{"Thanks, we've set up a basic account for you."}</Text>
+        <Text style={styles.text}>
+          {"Thanks, we've set up a basic account for you."}
+        </Text>
         <View style={styles.content} />
-        <View style={{ height: 40, flexDirection: 'row', marginBottom: MARGIN.extraLarge }}>
+        <View
+          style={{
+            height: 40,
+            flexDirection: 'row',
+            marginBottom: MARGIN.extraLarge,
+          }}
+        >
           <NavigationButton title="Finish" onPress={this.handleFinishPress} />
         </View>
         <View style={styles.footer}>
@@ -52,12 +63,10 @@ class FinishedScreen extends Component {
 
 const mapStateToProps = (state: ReduxState) => ({
   user: state.auth.user,
-  nav: state.nav
+  nav: state.nav,
 })
 
-export default connect(
-  mapStateToProps,
-)(FinishedScreen)
+export default connect(mapStateToProps)(FinishedScreen)
 
 const styles = StyleSheet.create({
   container: {
@@ -68,7 +77,7 @@ const styles = StyleSheet.create({
   text: {
     textAlign: 'center',
     fontSize: 21,
-    marginTop: MARGIN.extraLarge
+    marginTop: MARGIN.extraLarge,
   },
   content: {
     flex: 1,

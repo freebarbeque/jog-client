@@ -1,7 +1,12 @@
 // @flow
 import React, { Component } from 'react'
 import { View, StyleSheet, TouchableOpacity } from 'react-native'
-import { BLUE, DARK_GRAY, VERY_LIGHT_GRAY, WHITE } from 'jog/src/constants/palette'
+import {
+  BLUE,
+  DARK_GRAY,
+  VERY_LIGHT_GRAY,
+  WHITE,
+} from 'jog/src/constants/palette'
 import { Ellipses } from 'jog/src/components/images/index'
 import Text from 'jog/src/components/Text'
 import { MARGIN } from 'jog/src/constants/style'
@@ -28,18 +33,26 @@ export default class PolicyCard extends Component {
             height: 161,
             justifyContent: 'center',
             alignItems: 'center',
-            position: 'relative'
+            position: 'relative',
           }}
         >
           {this.props.topImage}
-          {this.props.onMenuPress ? <TouchableOpacity
-            onPress={this.props.onMenuPress}
-            style={{ position: 'absolute', top: MARGIN.base, right: MARGIN.base }}
-          >
-            <Ellipses />
-          </TouchableOpacity> : null}
+          {this.props.onMenuPress
+            ? <TouchableOpacity
+                onPress={this.props.onMenuPress}
+                style={{
+                  position: 'absolute',
+                  top: MARGIN.base,
+                  right: MARGIN.base,
+                }}
+              >
+                <Ellipses />
+              </TouchableOpacity>
+            : null}
         </View>
-        <View style={{ padding: MARGIN.base, height: 104, alignItems: 'center' }}>
+        <View
+          style={{ padding: MARGIN.base, height: 104, alignItems: 'center' }}
+        >
           <View style={styles.companyLogo}>
             <View style={styles.companyLogoOverflowWrapper}>
               {this.props.image}
@@ -56,10 +69,15 @@ export default class PolicyCard extends Component {
             height: 58,
             flexDirection: 'row',
             alignItems: 'center',
-            padding: MARGIN.base
+            padding: MARGIN.base,
           }}
         >
-          <Text style={[styles.descriptionText, { textAlign: this.props.bottomImage ? 'left' : 'center' }]}>
+          <Text
+            style={[
+              styles.descriptionText,
+              { textAlign: this.props.bottomImage ? 'left' : 'center' },
+            ]}
+          >
             {this.props.description}
           </Text>
           {this.props.bottomImage}
@@ -77,12 +95,12 @@ const styles = StyleSheet.create({
     shadowColor: DARK_GRAY,
     shadowOffset: {
       width: 0,
-      height: 0
+      height: 0,
     },
     shadowOpacity: 0.4,
     shadowRadius: 3,
     elevation: 4,
-    marginBottom: MARGIN.large
+    marginBottom: MARGIN.large,
   },
   companyLogo: {
     height: 80,
@@ -92,7 +110,7 @@ const styles = StyleSheet.create({
     shadowColor: DARK_GRAY,
     shadowOffset: {
       width: 0,
-      height: 0
+      height: 0,
     },
     shadowOpacity: 0.4,
     shadowRadius: 3,
@@ -100,7 +118,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     position: 'relative',
-    bottom: 50
+    bottom: 50,
   },
   // companyLogo with overflow: hidden hides the shadow for some reason...
   companyLogoOverflowWrapper: {
@@ -116,12 +134,12 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     fontSize: 17,
     position: 'relative',
-    bottom: 20
+    bottom: 20,
   },
   descriptionText: {
     color: BLUE,
     fontWeight: '400',
     fontSize: 13.28,
     flex: 1,
-  }
+  },
 })

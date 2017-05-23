@@ -4,7 +4,7 @@ import type { InsurerMap } from 'jog/src/types'
 
 export type ReceiveInsurers = {
   type: 'insurers/RECEIVE_INSURERS',
-  insurers: InsurerMap
+  insurers: InsurerMap,
 }
 
 export type SyncInsurers = {

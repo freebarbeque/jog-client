@@ -1,5 +1,11 @@
 import React, { PropTypes } from 'react'
-import { TouchableOpacity, View, Dimensions, StyleSheet, ActivityIndicator } from 'react-native'
+import {
+  TouchableOpacity,
+  View,
+  Dimensions,
+  StyleSheet,
+  ActivityIndicator,
+} from 'react-native'
 import { PINK, WHITE } from 'jog/src/constants/palette'
 import { MARGIN } from 'jog/src/constants/style'
 
@@ -22,7 +28,7 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
-  }
+  },
 })
 
 const RoundedButton = ({ label, style = {}, loading, ...props }) => (
@@ -30,12 +36,13 @@ const RoundedButton = ({ label, style = {}, loading, ...props }) => (
     <TouchableOpacity style={[styles.touchable]} disabled={loading} {...props}>
       <View style={{ flexDirection: 'row' }}>
         <Text>{label}</Text>
-        {loading && <ActivityIndicator
-          animating
-          color={WHITE}
-          style={{ height: 20, marginLeft: MARGIN.base }}
-          size="small"
-        />}
+        {loading &&
+          <ActivityIndicator
+            animating
+            color={WHITE}
+            style={{ height: 20, marginLeft: MARGIN.base }}
+            size="small"
+          />}
       </View>
     </TouchableOpacity>
   </View>
@@ -43,7 +50,7 @@ const RoundedButton = ({ label, style = {}, loading, ...props }) => (
 
 RoundedButton.propTypes = {
   label: PropTypes.string,
-  ...TouchableOpacity.propTypes
+  ...TouchableOpacity.propTypes,
 }
 
 export default RoundedButton

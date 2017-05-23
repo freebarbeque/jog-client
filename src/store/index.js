@@ -24,9 +24,7 @@ export default function createStore(): Store {
   if (!store) {
     const sagaMiddleware = createSagaMiddleware()
 
-    const middleware = [
-      sagaMiddleware
-    ]
+    const middleware = [sagaMiddleware]
 
     if (config.isDebug) {
       // middleware.push(createLogger())
@@ -38,15 +36,11 @@ export default function createStore(): Store {
       devTools({
         name: Platform.OS,
         hostname: 'localhost',
-        port: 5678
-      })
+        port: 5678,
+      }),
     )
 
-    store = _createStore(
-      reducer,
-      undefined,
-      enhancer
-    )
+    store = _createStore(reducer, undefined, enhancer)
 
     // Auth sagas
     sagaMiddleware.run(authScreenSaga)

@@ -27,7 +27,7 @@ type FormProps = {
   values: ValuesMap,
   onValidationErrorsChanged: (errors: ValidationErrorsMap) => void,
   onValuesChanged: (errors: ValuesMap) => void,
-};
+}
 
 export default class Form extends Component {
   props: FormProps
@@ -84,7 +84,7 @@ export default class Form extends Component {
           ref={`${idx}`}
           key={f.label}
           label={f.label}
-          onChangeText={(text) => {
+          onChangeText={text => {
             const newValues = { ...this.props.values }
             const validationErrors = { ...this.props.validationErrors }
             newValues[f.key] = text
@@ -115,7 +115,7 @@ export default class Form extends Component {
             newValues[f.key] = o.value
             this.props.onValuesChanged(newValues)
           }}
-          value={value ? f.options.find((o) => o.value === value) : null}
+          value={value ? f.options.find(o => o.value === value) : null}
           placeholder="Insurer"
           options={f.options}
         />
@@ -126,13 +126,17 @@ export default class Form extends Component {
   }
 
   render() {
-    const { accessory, fields, buttonLabel, error, disabled, ...props } = this.props
+    const {
+      accessory,
+      fields,
+      buttonLabel,
+      error,
+      disabled,
+      ...props
+    } = this.props
 
     return (
-      <View
-        style={styles.container}
-        {...props}
-      >
+      <View style={styles.container} {...props}>
         {fields.map(this.renderField)}
         <View style={styles.accessory}>
           {accessory && accessory}
@@ -144,10 +148,10 @@ export default class Form extends Component {
           loading={disabled}
         />
         {error &&
-        <Text style={styles.errorText}>
-          <Icon name="exclamation-triangle" color={PINK} size={14} />
-          {`  ${error}`}
-        </Text>}
+          <Text style={styles.errorText}>
+            <Icon name="exclamation-triangle" color={PINK} size={14} />
+            {`  ${error}`}
+          </Text>}
       </View>
     )
   }
@@ -156,17 +160,17 @@ export default class Form extends Component {
 const styles = StyleSheet.create({
   container: {
     marginTop: MARGIN.extraLarge,
-    marginBottom: MARGIN.extraLarge
+    marginBottom: MARGIN.extraLarge,
   },
   errorText: {
     color: PINK,
     textAlign: 'center',
     marginLeft: MARGIN.large,
     marginRight: MARGIN.large,
-    marginTop: MARGIN.base
+    marginTop: MARGIN.base,
   },
   accessory: { marginLeft: MARGIN.large, marginRight: MARGIN.large },
   button: {
-    marginTop: MARGIN.xxl
-  }
+    marginTop: MARGIN.xxl,
+  },
 })

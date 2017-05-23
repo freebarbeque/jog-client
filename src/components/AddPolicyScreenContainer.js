@@ -3,13 +3,14 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { View, TouchableOpacity, StyleSheet } from 'react-native'
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
+import {
+  KeyboardAwareScrollView,
+} from 'react-native-keyboard-aware-scroll-view'
 
 import Text from './Text'
 import { BLUE, PINK, WHITE } from '../constants/palette'
 import { MARGIN } from '../constants/style'
 import { CarOutline } from './images/index'
-
 
 type AddPolicyScreenContainerProps = {
   title: string,
@@ -24,21 +25,23 @@ type AddPolicyScreenContainerProps = {
 }
 
 type AddPolicyScreenContainerState = {
-  keyboardHeight: number
+  keyboardHeight: number,
 }
 
 export const NavigationButton = (props: $Subtype<Object>) => {
   const { variation, disabled, title, ...rest } = props
-  const extraStyle = variation === 'pink' ? styles.pinkButton : styles.grayButton
-  const extraTextStyle = variation === 'pink' ? styles.pinkButtonText : styles.grayButtonText
+  const extraStyle = variation === 'pink'
+    ? styles.pinkButton
+    : styles.grayButton
+  const extraTextStyle = variation === 'pink'
+    ? styles.pinkButtonText
+    : styles.grayButtonText
 
   // The button is wrapped in a container because there is a strange bug where opacity is ignored
   // after the initial render of TouchableOpacity
 
   return (
-    <View
-      style={[styles.buttonContainer, { opacity: disabled ? 0.5 : 1 }]}
-    >
+    <View style={[styles.buttonContainer, { opacity: disabled ? 0.5 : 1 }]}>
       <TouchableOpacity
         style={[styles.button, extraStyle]}
         disabled={disabled}
@@ -55,11 +58,11 @@ export const NavigationButton = (props: $Subtype<Object>) => {
 NavigationButton.propTypes = {
   ...TouchableOpacity.propTypes,
   title: PropTypes.string.isRequired,
-  variation: PropTypes.oneOf(['gray', 'pink'])
+  variation: PropTypes.oneOf(['gray', 'pink']),
 }
 
 NavigationButton.defaultProps = {
-  variation: 'pink'
+  variation: 'pink',
 }
 
 export default class AddPolicyScreenContainer extends Component {
@@ -75,7 +78,7 @@ export default class AddPolicyScreenContainer extends Component {
   constructor(props: AddPolicyScreenContainerProps) {
     super(props)
     this.state = {
-      keyboardHeight: 0
+      keyboardHeight: 0,
     }
   }
 
@@ -84,8 +87,12 @@ export default class AddPolicyScreenContainer extends Component {
       <KeyboardAwareScrollView
         style={styles.container}
         contentContainerStyle={{ flex: 1 }}
-        onKeyboardWillShow={(frames: Object) => { this.setState({ keyboardHeight: frames.endCoordinates.height }) }}
-        onKeyboardWillHide={() => { this.setState({ keyboardHeight: 0 }) }}
+        onKeyboardWillShow={(frames: Object) => {
+          this.setState({ keyboardHeight: frames.endCoordinates.height })
+        }}
+        onKeyboardWillHide={() => {
+          this.setState({ keyboardHeight: 0 })
+        }}
       >
         <View style={{ flex: 1, paddingBottom: 10 }}>
           <View style={styles.header}>
@@ -101,9 +108,27 @@ export default class AddPolicyScreenContainer extends Component {
           </View>
           <View style={{ paddingBottom: this.state.keyboardHeight ? 90 : 0 }}>
             <View style={styles.buttonRow}>
-              {this.props.showPrevButton ? <NavigationButton variation="gray" title="Prev" onPress={this.props.onPrevPress} /> : null}
-              {this.props.showSkipButton ? <NavigationButton variation="gray" title="Skip this step" onPress={this.props.onSkipPress} /> : null}
-              {this.props.showNextButton ? <NavigationButton title="Next" onPress={this.props.onNextPress} disabled={this.props.disableNextButton} /> : null }
+              {this.props.showPrevButton
+                ? <NavigationButton
+                    variation="gray"
+                    title="Prev"
+                    onPress={this.props.onPrevPress}
+                  />
+                : null}
+              {this.props.showSkipButton
+                ? <NavigationButton
+                    variation="gray"
+                    title="Skip this step"
+                    onPress={this.props.onSkipPress}
+                  />
+                : null}
+              {this.props.showNextButton
+                ? <NavigationButton
+                    title="Next"
+                    onPress={this.props.onNextPress}
+                    disabled={this.props.disableNextButton}
+                  />
+                : null}
             </View>
             <View style={styles.footer}>
               <CarOutline scale={1.1} />
@@ -135,15 +160,15 @@ const styles = StyleSheet.create({
   entryText: {
     fontSize: 11,
     color: PINK,
-    textAlign: 'center'
+    textAlign: 'center',
   },
   title: {
     fontSize: 24,
     textAlign: 'center',
-    marginTop: MARGIN.small
+    marginTop: MARGIN.small,
   },
   buttonRow: {
-    flexDirection: 'row'
+    flexDirection: 'row',
   },
   grayButton: {
     backgroundColor: WHITE,
@@ -168,14 +193,13 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     textAlign: 'center',
-    fontSize: 14
+    fontSize: 14,
   },
   pinkButtonText: {
     color: WHITE,
-    textAlign: 'center'
+    textAlign: 'center',
   },
   grayButtonText: {
-    color: 'rgb(109,109,109)'
-  }
+    color: 'rgb(109,109,109)',
+  },
 })
-

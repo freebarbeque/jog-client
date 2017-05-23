@@ -30,7 +30,7 @@ const styles = StyleSheet.create({
     borderRadius: 4,
     borderWidth: 2,
     borderStyle: 'solid',
-    borderColor: 'transparent'
+    borderColor: 'transparent',
   },
   errorInput: {
     borderColor: PINK,
@@ -41,7 +41,7 @@ const styles = StyleSheet.create({
   },
   disabledInput: {
     opacity: 0.5,
-  }
+  },
 })
 
 class LabelledTextInput extends Component {
@@ -60,24 +60,41 @@ class LabelledTextInput extends Component {
   }
 
   render() {
-    const { label = '', error = null, editable, onChangeText, ...props } = this.props
+    const {
+      label = '',
+      error = null,
+      editable,
+      onChangeText,
+      ...props
+    } = this.props
     return (
       <View style={styles.container}>
         <View style={{ flexDirection: 'row', marginBottom: MARGIN.base }}>
-          {label && <Text style={styles.label} weight="bold">
-            {label.toUpperCase()}
-          </Text>}
+          {label &&
+            <Text style={styles.label} weight="bold">
+              {label.toUpperCase()}
+            </Text>}
           <View style={{ flex: 1 }} />
-          {error && <View>
-            <Text style={styles.errorText}>
-              {error} <Icon name="exclamation-triangle" size={11} color={PINK} style={{ marginLeft: MARGIN.base }} />
-            </Text>
-          </View>}
+          {error &&
+            <View>
+              <Text style={styles.errorText}>
+                {error}
+                {' '}
+                <Icon
+                  name="exclamation-triangle"
+                  size={11}
+                  color={PINK}
+                  style={{ marginLeft: MARGIN.base }}
+                />
+              </Text>
+            </View>}
         </View>
         <TextInput
-          ref={(e) => { this.input = e ? e.input : null }}
+          ref={e => {
+            this.input = e ? e.input : null
+          }}
           editable={editable}
-          onChangeText={(text) => {
+          onChangeText={text => {
             // This is buggy as the tab appears before quickly being removed,
             // however this doesn't really matter as it's only for dev.
             // Unlikely to use the tab character on actual devices.
@@ -94,6 +111,5 @@ class LabelledTextInput extends Component {
     )
   }
 }
-
 
 export default LabelledTextInput

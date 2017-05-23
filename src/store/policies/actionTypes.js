@@ -9,11 +9,11 @@ export type ReceiveMotorPoliciesAction = {
 
 export type SyncMotorPoliciesAction = {
   type: 'policies/SYNC_MOTOR_POLICIES',
-  uid: string
+  uid: string,
 }
 
 export type UnsyncMotorPoliciesAction = {
-  type: 'policies/UNSYNC_MOTOR_POLICIES'
+  type: 'policies/UNSYNC_MOTOR_POLICIES',
 }
 
 export type UploadPolicyDocumentAction = {
@@ -30,9 +30,9 @@ export type DeletePolicyDocumentAction = {
   documentId: string,
 }
 
-export type PoliciesAction
-  = ReceiveMotorPoliciesAction |
-  SyncMotorPoliciesAction |
-  UnsyncMotorPoliciesAction |
-  UploadPolicyDocumentAction |
-  DeletePolicyDocumentAction
+export type PoliciesAction =
+  | ReceiveMotorPoliciesAction
+  | SyncMotorPoliciesAction
+  | UnsyncMotorPoliciesAction
+  | UploadPolicyDocumentAction
+  | DeletePolicyDocumentAction

@@ -7,7 +7,7 @@ import { WHITE } from 'jog/src/constants/palette'
 
 const DEFAULT_STYLE = {
   color: WHITE,
-  backgroundColor: 'transparent'
+  backgroundColor: 'transparent',
 }
 
 // If we eject from expo, we can improve on this loading the fonts manually
@@ -20,13 +20,17 @@ const FONT_MAP = {
   medium: 'Medium',
   regular: 'Regular',
   'semi-bold': 'SemiBold',
-  thin: 'Thin'
+  thin: 'Thin',
 }
 
 const JogText = ({ style, children, weight, ...props }) => {
   return (
     <Text
-      style={[DEFAULT_STYLE, style, { fontFamily: `WorkSans-${FONT_MAP[weight]}` }]}
+      style={[
+        DEFAULT_STYLE,
+        style,
+        { fontFamily: `WorkSans-${FONT_MAP[weight]}` },
+      ]}
       {...props}
     >
       {children}
@@ -36,11 +40,11 @@ const JogText = ({ style, children, weight, ...props }) => {
 
 JogText.propTypes = {
   ...Text.propTypes,
-  weight: PropTypes.oneOf(_.keys(FONT_MAP))
+  weight: PropTypes.oneOf(_.keys(FONT_MAP)),
 }
 
 JogText.defaultProps = {
-  weight: 'regular'
+  weight: 'regular',
 }
 
 export default JogText

@@ -3,23 +3,31 @@
 import type { AuthScreensReduxState } from 'jog/src/types'
 import type { AuthAction } from './actions'
 
-const DEFAULT_STATE = { values: {}, validationErrors: {}, loading: false, errors: {} }
+const DEFAULT_STATE = {
+  values: {},
+  validationErrors: {},
+  loading: false,
+  errors: {},
+}
 
-export default function reducer(state: AuthScreensReduxState = DEFAULT_STATE, action: AuthAction): AuthScreensReduxState {
+export default function reducer(
+  state: AuthScreensReduxState = DEFAULT_STATE,
+  action: AuthAction,
+): AuthScreensReduxState {
   if (action.type === 'screens/auth/SET_VALUES') {
     return {
       ...state,
-      values: action.values
+      values: action.values,
     }
   } else if (action.type === 'screens/auth/SET_VALIDATION_ERRORS') {
     return {
       ...state,
-      validationErrors: action.validationErrors
+      validationErrors: action.validationErrors,
     }
   } else if (action.type === 'screens/auth/SET_LOADING') {
     return {
       ...state,
-      loading: action.loading
+      loading: action.loading,
     }
   } else if (action.type === 'screens/auth/CLEAR') {
     return DEFAULT_STATE

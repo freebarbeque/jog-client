@@ -16,28 +16,31 @@ export type PickFileResponse = {
   fileName: string,
 }
 
-export function pickFile() : Promise<PickFileResponse> {
+export function pickFile(): Promise<PickFileResponse> {
   return new Promise((resolve, reject) => {
     if (Platform.OS === 'ios') {
-      iOSFilePicker.show({
-        filetype: ['public.image', 'com.adobe.pdf'],
-      }, (error, url) => {
-        if (error) reject(error)
-        else {
-          const decodedUrl = decodeURIComponent(url)
-          const path = decodedUrl.split('file://').pop()
-          const extension = path.split('.').pop().toLowerCase()
-          const fileName = path.split('/').pop()
+      iOSFilePicker.show(
+        {
+          filetype: ['public.image', 'com.adobe.pdf'],
+        },
+        (error, url) => {
+          if (error) reject(error)
+          else {
+            const decodedUrl = decodeURIComponent(url)
+            const path = decodedUrl.split('file://').pop()
+            const extension = path.split('.').pop().toLowerCase()
+            const fileName = path.split('/').pop()
 
-          resolve({
-            url: decodedUrl,
-            extension,
-            fileName
-          })
-        }
-      })
+            resolve({
+              url: decodedUrl,
+              extension,
+              fileName,
+            })
+          }
+        },
+      )
     } else {
-      androidFilePicker.showFilePicker(null, (response) => {
+      androidFilePicker.showFilePicker(null, response => {
         if (response.error) {
           reject(response.error)
         } else {
@@ -62,11 +65,11 @@ export type iOSImageResponse = {
   isVertical: boolean,
 }
 
-export function useIOSCamera() : Promise<iOSImageResponse | null> {
+export function useIOSCamera(): Promise<iOSImageResponse | null> {
   return new Promise((resolve, reject) => {
     const isSimulator = DeviceInfo.getModel() === 'Simulator'
     // The simulator has no camera access so use image library instead for testing
-    const responseHandler = (response) => {
+    const responseHandler = response => {
       console.log('response', response)
       if (response.error) {
         reject(response.error)
@@ -85,7 +88,7 @@ export function useIOSCamera() : Promise<iOSImageResponse | null> {
         resolve({
           ...response,
           extension,
-          fileName
+          fileName,
         })
       }
     }

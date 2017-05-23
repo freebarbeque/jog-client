@@ -4,28 +4,30 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { NavigationActions } from 'react-navigation'
 
-import type {
-  Dispatch,
-  ReduxState,
-  InsurerMap,
-  Insurer
-} from 'jog/src/types'
-import AddPolicyScreenContainer from 'jog/src/components/AddPolicyScreenContainer'
+import type { Dispatch, ReduxState, InsurerMap, Insurer } from 'jog/src/types'
+import AddPolicyScreenContainer
+  from 'jog/src/components/AddPolicyScreenContainer'
 import Picker from 'jog/src/components/Picker'
-import type { ManualPolicyUpdate } from 'jog/src/store/screens/addManualPolicy/actions'
-import { updateManualPolicy } from 'jog/src/store/screens/addManualPolicy/actions'
+import type {
+  ManualPolicyUpdate,
+} from 'jog/src/store/screens/addManualPolicy/actions'
+import {
+  updateManualPolicy,
+} from 'jog/src/store/screens/addManualPolicy/actions'
 
 type InsurerScreenProps = {
   dispatch: Dispatch,
   insurers: InsurerMap,
   policy: ManualPolicyUpdate,
-};
+}
 
 class InsurerScreen extends Component {
   props: InsurerScreenProps
 
   handleNextPress = () => {
-    this.props.dispatch(NavigationActions.navigate({ routeName: 'PolicyNumber' }))
+    this.props.dispatch(
+      NavigationActions.navigate({ routeName: 'PolicyNumber' }),
+    )
   }
 
   onChange = ({ value }) => {
@@ -35,15 +37,15 @@ class InsurerScreen extends Component {
   render() {
     const options = [
       ..._.map(this.props.insurers, (insurer: Insurer, id: string) => {
-        return ({
+        return {
           label: insurer.name,
-          value: id
-        })
+          value: id,
+        }
       }),
       {
         label: 'Other',
         value: 'other',
-      }
+      },
     ]
 
     const companyId = this.props.policy.companyId
@@ -67,7 +69,11 @@ class InsurerScreen extends Component {
       >
         <Picker
           onChange={this.onChange}
-          value={company && companyId && company.name ? { value: companyId, label: company.name } : null}
+          value={
+            company && companyId && company.name
+              ? { value: companyId, label: company.name }
+              : null
+          }
           placeholder="Insurer"
           options={options}
         />
@@ -78,9 +84,7 @@ class InsurerScreen extends Component {
 
 const mapStateToProps = (state: ReduxState) => ({
   insurers: state.insurers.insurers,
-  policy: state.screens.addManualPolicy
+  policy: state.screens.addManualPolicy,
 })
 
-export default connect(
-  mapStateToProps,
-)(InsurerScreen)
+export default connect(mapStateToProps)(InsurerScreen)

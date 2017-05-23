@@ -39,28 +39,28 @@ const styles = StyleSheet.create({
     height: 4,
     backgroundColor: PINK,
     marginTop: MARGIN.large,
-    marginBottom: MARGIN.large
+    marginBottom: MARGIN.large,
   },
   jumbotron: {
     alignItems: 'center',
     paddingTop: MARGIN.large,
-    paddingBottom: MARGIN.extraLarge
+    paddingBottom: MARGIN.extraLarge,
   },
   headerText: {
     fontSize: 36,
     fontWeight: '600',
     ...Platform.select({
       android: {
-        lineHeight: 40
+        lineHeight: 40,
       },
       ios: {
-        lineHeight: 36
-      }
+        lineHeight: 36,
+      },
     }),
-    backgroundColor: 'transparent'
+    backgroundColor: 'transparent',
   },
   listText: {
     fontSize: 16,
-    backgroundColor: 'transparent'
-  }
+    backgroundColor: 'transparent',
+  },
 })

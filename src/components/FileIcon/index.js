@@ -5,8 +5,8 @@ import React, { Component } from 'react'
 import { Image } from 'react-native'
 
 type FileIconProps = {
-  extension: string
-};
+  extension: string,
+}
 
 const IMAGE_FILES = {
   jpg: require('./jpg.png'),
@@ -29,8 +29,10 @@ export default class FileIcon extends Component {
   render() {
     const { extension } = this.props
     return (
-      <Image source={getSource(extension)} style={{ width: '100%', height: '100%' }} />
+      <Image
+        source={getSource(extension)}
+        style={{ width: '100%', height: '100%' }}
+      />
     )
   }
 }
-

@@ -4,20 +4,22 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { NavigationActions } from 'react-navigation'
 
-import type {
-  Dispatch,
-  ReduxState,
-} from 'jog/src/types'
+import type { Dispatch, ReduxState } from 'jog/src/types'
 
-import AddPolicyScreenContainer from 'jog/src/components/AddPolicyScreenContainer'
-import type { ManualPolicyUpdate } from 'jog/src/store/screens/addManualPolicy/actions'
-import { updateManualPolicy } from 'jog/src/store/screens/addManualPolicy/actions'
+import AddPolicyScreenContainer
+  from 'jog/src/components/AddPolicyScreenContainer'
+import type {
+  ManualPolicyUpdate,
+} from 'jog/src/store/screens/addManualPolicy/actions'
+import {
+  updateManualPolicy,
+} from 'jog/src/store/screens/addManualPolicy/actions'
 import DatePicker from 'jog/src/components/DatePicker'
 
 type PolicyDateScreenProps = {
   dispatch: Dispatch,
   policy: ManualPolicyUpdate,
-};
+}
 
 class PolicyDateScreen extends Component {
   props: PolicyDateScreenProps
@@ -26,7 +28,7 @@ class PolicyDateScreen extends Component {
     this.props.dispatch(NavigationActions.navigate({ routeName: 'Cost' }))
   }
 
-  onChange = (expiryDate) => {
+  onChange = expiryDate => {
     this.props.dispatch(updateManualPolicy({ expiryDate }))
   }
 
@@ -37,7 +39,9 @@ class PolicyDateScreen extends Component {
         showPrevButton
         title="What date does the policy expire?"
         onNextPress={this.handleNextPress}
-        onPrevPress={() => { this.props.dispatch(NavigationActions.back()) }}
+        onPrevPress={() => {
+          this.props.dispatch(NavigationActions.back())
+        }}
         disableNextButton={!this.props.policy.expiryDate}
       >
         <DatePicker
@@ -50,9 +54,7 @@ class PolicyDateScreen extends Component {
 }
 
 const mapStateToProps = (state: ReduxState) => ({
-  policy: state.screens.addManualPolicy
+  policy: state.screens.addManualPolicy,
 })
 
-export default connect(
-  mapStateToProps,
-)(PolicyDateScreen)
+export default connect(mapStateToProps)(PolicyDateScreen)

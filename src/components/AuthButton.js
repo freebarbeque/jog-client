@@ -11,7 +11,7 @@ import { logout } from '../store/auth/actions'
 
 type AuthButtonProps = {
   style: any,
-  dispatch: Dispatch
+  dispatch: Dispatch,
 }
 
 class AuthButton extends Component {
@@ -23,10 +23,7 @@ class AuthButton extends Component {
 
   render() {
     return (
-      <TouchableOpacity
-        style={this.props.style}
-        onPress={this.handlePress}
-      >
+      <TouchableOpacity style={this.props.style} onPress={this.handlePress}>
         <View>
           <Text style={{ color: WHITE }}>
             Sign Out

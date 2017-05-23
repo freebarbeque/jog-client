@@ -5,23 +5,24 @@ import { DARK_GRAY } from 'jog/src/constants/palette'
 import Text from './Text'
 
 const styles = StyleSheet.create({
-  touchable: {
-  },
+  touchable: {},
   text: {
     color: DARK_GRAY,
     fontWeight: '700',
-  }
+  },
 })
 
 const AccessoryButton = ({ label, style = {}, textStyle = {}, ...props }) => (
   <TouchableOpacity style={[styles.touchable, style]} {...props}>
-    <Text style={[styles.text, textStyle]} weight="bold">{label.toUpperCase()}</Text>
+    <Text style={[styles.text, textStyle]} weight="bold">
+      {label.toUpperCase()}
+    </Text>
   </TouchableOpacity>
 )
 
 AccessoryButton.propTypes = {
   label: PropTypes.string,
-  ...TouchableOpacity.propTypes
+  ...TouchableOpacity.propTypes,
 }
 
 export default AccessoryButton

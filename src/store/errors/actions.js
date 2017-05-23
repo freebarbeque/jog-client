@@ -2,16 +2,15 @@
 
 import type { DeclareErrorAction, ClearErrorAction } from './actionTypes'
 
-export function declareError(text: string) : DeclareErrorAction {
+export function declareError(text: string): DeclareErrorAction {
   return {
     type: 'errors/DECLARE',
-    text
+    text,
   }
 }
 
-export function clearError() : ClearErrorAction {
+export function clearError(): ClearErrorAction {
   return {
     type: 'errors/CLEAR',
   }
 }
-

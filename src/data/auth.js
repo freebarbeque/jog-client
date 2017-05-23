@@ -17,12 +17,13 @@ const errors = {
 
 // Decorates firebase calls converting errors into user readable errors and warning when this
 // is impossible.
-function errorWrapper(fn: Function): ((...args: *) => Promise<*>) {
+function errorWrapper(fn: Function): (...args: *) => Promise<*> {
   return async function decoratedFirebaseCall(...args: any[]) {
     try {
       await fn(...args)
     } catch (err) {
-      if (err.code) { // Is this a firebase error?
+      if (err.code) {
+        // Is this a firebase error?
         const errorMessage = errors[err.code]
         if (errorMessage) {
           err.message = errorMessage
@@ -39,29 +40,50 @@ function errorWrapper(fn: Function): ((...args: *) => Promise<*>) {
   }
 }
 
-export const signInAnonymously: () => Promise<void>
-  = errorWrapper(() => firebase.auth().signInAnonymously())
+export const signInAnonymously: () => Promise<void> = errorWrapper(() =>
+  firebase.auth().signInAnonymously(),
+)
 
-export const createUserWithEmailAndPassword: (string, string) => Promise<void>
-  = errorWrapper(async (email: string, password: string) => {
-    const user = await firebase.auth().createUserWithEmailAndPassword(email, password)
-    await user.sendEmailVerification()
-  })
+export const createUserWithEmailAndPassword: (
+  string,
+  string,
+) => Promise<void> = errorWrapper(async (email: string, password: string) => {
+  const user = await firebase
+    .auth()
+    .createUserWithEmailAndPassword(email, password)
+  await user.sendEmailVerification()
+})
 
-export const signInWithEmailAndPassword: (string, string) => Promise<void>
-  = errorWrapper((email, password) => firebase.auth().signInWithEmailAndPassword(email, password))
+export const signInWithEmailAndPassword: (
+  string,
+  string,
+) => Promise<void> = errorWrapper((email, password) =>
+  firebase.auth().signInWithEmailAndPassword(email, password),
+)
 
-export const signOut: () => Promise<void>
-  = errorWrapper(() => firebase.auth().signOut())
+export const signOut: () => Promise<void> = errorWrapper(() =>
+  firebase.auth().signOut(),
+)
 
-export const sendPasswordResetEmail: (email: string) => Promise<void>
-  = errorWrapper((email: string) => firebase.auth().sendPasswordResetEmail(email))
+export const sendPasswordResetEmail: (
+  email: string,
+) => Promise<void> = errorWrapper((email: string) =>
+  firebase.auth().sendPasswordResetEmail(email),
+)
 
-export const confirmPasswordReset : (code: string, password: string) => Promise<void>
-  = errorWrapper((code: string, password: string) => firebase.auth().confirmPasswordReset(code, password))
+export const confirmPasswordReset: (
+  code: string,
+  password: string,
+) => Promise<void> = errorWrapper((code: string, password: string) =>
+  firebase.auth().confirmPasswordReset(code, password),
+)
 
-export function userSubscribe(callback: (user: FirebaseUser | null) => void): () => void {
-  return firebase.auth().onAuthStateChanged((u) => callback(u ? u.toJSON() : null))
+export function userSubscribe(
+  callback: (user: FirebaseUser | null) => void,
+): () => void {
+  return firebase
+    .auth()
+    .onAuthStateChanged(u => callback(u ? u.toJSON() : null))
 }
 
 /**
@@ -71,7 +93,7 @@ export function userSubscribe(callback: (user: FirebaseUser | null) => void): ()
  * the code should never be executed if there is no authenticated user.
  * @returns {FirebaseUser}
  */
-export function demandCurrentUser() : FirebaseUser {
+export function demandCurrentUser(): FirebaseUser {
   const currentUser = firebase.auth().currentUser
   if (currentUser) return currentUser.toJSON()
   throw new Error('No user is logged in.')

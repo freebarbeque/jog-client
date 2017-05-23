@@ -1,9 +1,15 @@
 // @flow
 
 import { createSelector } from 'reselect'
-import type { PoliciesState, ReduxState, InsurersReduxState, MotorPolicy, MotorPolicyMap } from 'jog/src/types'
+import type {
+  PoliciesState,
+  ReduxState,
+  InsurersReduxState,
+  MotorPolicy,
+  MotorPolicyMap,
+} from 'jog/src/types'
 
-export const selectPolicies : () => MotorPolicyMap = createSelector(
+export const selectPolicies: () => MotorPolicyMap = createSelector(
   (state: ReduxState) => state.policies,
   (state: ReduxState) => state.insurers,
   (policiesState: PoliciesState, insurersState: InsurersReduxState) => {
@@ -17,17 +23,17 @@ export const selectPolicies : () => MotorPolicyMap = createSelector(
         if (companyId) {
           const insurer = insurers[companyId]
 
-          const companyLogo = insurer && insurer.logo || null
-          const companyName = insurer && insurer.name || null
+          const companyLogo = (insurer && insurer.logo) || null
+          const companyName = (insurer && insurer.name) || null
 
           selectedPolicies[id] = {
             ...p,
             companyLogo,
-            companyName
+            companyName,
           }
         }
       })
     }
     return selectedPolicies
-  }
+  },
 )

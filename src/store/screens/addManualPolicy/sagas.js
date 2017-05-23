@@ -1,10 +1,6 @@
 // @flow
 
-import {
-  takeLatest,
-  call,
-  put
-} from 'redux-saga/effects'
+import { takeLatest, call, put } from 'redux-saga/effects'
 import uuid from 'uuid/v4'
 import moment from 'moment'
 import { NavigationActions } from 'react-navigation'
@@ -24,7 +20,9 @@ function* savePolicyTask(action: SavePolicyAction) {
   policy.vehicleRegistration = policyUpdate.vehicleRegistration
   policy.noClaimsBonus = policyUpdate.noClaimsBonus
   policy.policyNo = policyUpdate.policyNo
-  policy.expiryDate = moment(policyUpdate.expiryDate, 'DD/MM/YYYY').toDate().getTime()
+  policy.expiryDate = moment(policyUpdate.expiryDate, 'DD/MM/YYYY')
+    .toDate()
+    .getTime()
   policy.companyId = policyUpdate.companyId
   policy.cost = parseFloat(policyUpdate.cost)
   policy.uid = demandCurrentUser().uid

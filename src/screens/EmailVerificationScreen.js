@@ -17,14 +17,17 @@ import Text from 'jog/src/components/Text'
 import { MARGIN } from 'jog/src/constants/style'
 import RoundedButton from 'jog/src/components/RoundedButton'
 import { emailVerification } from 'jog/src/store/screens/auth/actions'
-import { pollRefreshUser, stopPollingRefreshUser } from 'jog/src/store/auth/actions'
+import {
+  pollRefreshUser,
+  stopPollingRefreshUser,
+} from 'jog/src/store/auth/actions'
 
 type EmailVerificationScreenProps = {
   dispatch: Dispatch,
   user: FirebaseUser | null,
   loading: boolean,
   nav: ReactNavProp,
-};
+}
 
 class EmailVerificationScreen extends Component {
   props: EmailVerificationScreenProps
@@ -44,10 +47,9 @@ class EmailVerificationScreen extends Component {
     this.props.dispatch(stopPollingRefreshUser())
   }
 
-
   hideModal = () => {
     const routes = this.props.nav.routes
-    const authRoute = _.find(routes, ((route) => route.routeName === 'Auth'))
+    const authRoute = _.find(routes, route => route.routeName === 'Auth')
     const key = authRoute.key
     this.props.dispatch(NavigationActions.back({ key }))
   }
@@ -65,14 +67,21 @@ class EmailVerificationScreen extends Component {
 
     return (
       <View style={styles.container}>
-        <View style={{ flexDirection: 'column', flex: 1, width: windowWidth, justifyContent: 'center' }}>
+        <View
+          style={{
+            flexDirection: 'column',
+            flex: 1,
+            width: windowWidth,
+            justifyContent: 'center',
+          }}
+        >
           <View>
-            <View style={{ justifyContent: 'center', alignItems: 'center', }}>
+            <View style={{ justifyContent: 'center', alignItems: 'center' }}>
               <Text style={styles.title}>
                 Email Verification
               </Text>
             </View>
-            <View style={{ justifyContent: 'center', alignItems: 'center', }}>
+            <View style={{ justifyContent: 'center', alignItems: 'center' }}>
               <Text style={styles.description}>
                 We just sent you a verification email. Click the link to activate your account
               </Text>
@@ -95,12 +104,12 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: BLUE,
     paddingTop: 20,
-    flexDirection: 'column'
+    flexDirection: 'column',
   },
   header: {
     paddingLeft: 10,
     flexDirection: 'row',
-    paddingRight: 10
+    paddingRight: 10,
   },
   headerLogo: {
     marginTop: 3,
@@ -109,7 +118,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     marginTop: MARGIN.large,
     fontSize: 20,
-    fontWeight: '400'
+    fontWeight: '400',
   },
   description: {
     textAlign: 'center',
@@ -118,15 +127,13 @@ const styles = StyleSheet.create({
     fontWeight: '400',
     marginLeft: MARGIN.large,
     marginRight: MARGIN.large,
-  }
+  },
 })
 
-const mapStateToProps = (state: ReduxState) => (
-  {
-    user: state.auth.user,
-    loading: state.screens.auth.loading,
-    nav: state.nav
-  }
-)
+const mapStateToProps = (state: ReduxState) => ({
+  user: state.auth.user,
+  loading: state.screens.auth.loading,
+  nav: state.nav,
+})
 
 export default connect(mapStateToProps)(EmailVerificationScreen)

@@ -22,14 +22,14 @@ export default class MotorPolicyCard extends Component {
       <PolicyCard
         title={`Motor Policy ${this.props.index + 1}`}
         description="Add more details to complete this policy"
-        image={(
+        image={
           <View style={styles.imageWrapper}>
             <FirebaseImage
               width={46}
               imagePath={this.props.policy.companyLogo}
             />
           </View>
-        )}
+        }
         topImage={<Car />}
         bottomImage={<Plus />}
         onPress={this.props.onPress}
@@ -41,6 +41,6 @@ export default class MotorPolicyCard extends Component {
 const styles = StyleSheet.create({
   imageWrapper: {
     alignItems: 'center',
-    justifyContent: 'center'
-  }
+    justifyContent: 'center',
+  },
 })

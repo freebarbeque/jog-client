@@ -1,13 +1,23 @@
 // @flow
 
 import React, { Component } from 'react'
-import { addNavigationHelpers, NavigationActions, StackNavigator } from 'react-navigation'
+import {
+  addNavigationHelpers,
+  NavigationActions,
+  StackNavigator,
+} from 'react-navigation'
 import FadeInView from 'react-native-fade-in-view'
 import { connect } from 'react-redux'
 
 import EmailPolicyScreen from 'jog/src/screens/EmailPolicyScreen'
 
-import type { AuthReduxState, Dispatch, NavReduxState, ReduxState, FirebaseUser } from '../types'
+import type {
+  AuthReduxState,
+  Dispatch,
+  NavReduxState,
+  ReduxState,
+  FirebaseUser,
+} from '../types'
 import LoadingScreen from '../screens/LoadingScreen'
 import { BLUE } from '../constants/palette'
 
@@ -16,17 +26,20 @@ import AuthNavigator from './AuthNavigator'
 import PolicyDocumentScreen from '../screens/PolicyDocumentScreen'
 import AddPolicyNavigator from './AddPolicyNavigator'
 
-export const RootStackNavigator = StackNavigator({
-  Tabs: { screen: TabNavigator },
-  Auth: { screen: AuthNavigator },
-  ManualAddPolicy: { screen: AddPolicyNavigator },
-  PolicyDocument: { screen: PolicyDocumentScreen },
-  EmailPolicy: { screen: EmailPolicyScreen },
-}, {
-  initialRouteName: 'Tabs',
-  mode: 'modal',
-  headerMode: 'screen',
-})
+export const RootStackNavigator = StackNavigator(
+  {
+    Tabs: { screen: TabNavigator },
+    Auth: { screen: AuthNavigator },
+    ManualAddPolicy: { screen: AddPolicyNavigator },
+    PolicyDocument: { screen: PolicyDocumentScreen },
+    EmailPolicy: { screen: EmailPolicyScreen },
+  },
+  {
+    initialRouteName: 'Tabs',
+    mode: 'modal',
+    headerMode: 'screen',
+  },
+)
 
 type RootNavigatorProps = {
   dispatch: Dispatch,
@@ -73,9 +86,9 @@ class RootNavigator extends Component {
         NavigationActions.navigate({
           routeName: 'Auth',
           action: NavigationActions.navigate({
-            routeName: 'EmailVerification'
-          })
-        })
+            routeName: 'EmailVerification',
+          }),
+        }),
       )
     }
     this.delayedInitialisation()
@@ -86,7 +99,7 @@ class RootNavigator extends Component {
     // there is no property you can pass to the navigate action above that disables the animation!
     setTimeout(() => {
       this.setState({
-        initialised: true
+        initialised: true,
       })
     }, 300)
   }
@@ -99,18 +112,18 @@ class RootNavigator extends Component {
     if (initialised) {
       return (
         <FadeInView style={{ flex: 1, backgroundColor: BLUE }} duration={300}>
-          <RootStackNavigator navigation={addNavigationHelpers({ dispatch, state: nav })} />
+          <RootStackNavigator
+            navigation={addNavigationHelpers({ dispatch, state: nav })}
+          />
         </FadeInView>
       )
     }
 
-    return (
-      <LoadingScreen />
-    )
+    return <LoadingScreen />
   }
 }
 
 export default connect((state: ReduxState) => ({
   nav: state.nav,
-  auth: state.auth
+  auth: state.auth,
 }))(RootNavigator)

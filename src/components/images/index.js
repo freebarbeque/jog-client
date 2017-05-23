@@ -171,10 +171,7 @@ export const Background = (props: BackgroundProps) => {
   const { children = null, style = {} } = props
 
   return (
-    <Image
-      style={style}
-      source={require('./background.png')}
-    >
+    <Image style={style} source={require('./background.png')}>
       {children}
     </Image>
   )

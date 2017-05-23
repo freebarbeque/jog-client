@@ -11,7 +11,9 @@ import type { LoadingAction } from './store/loading/actionTypes'
 import type { ErrorsReduxState } from './store/errors/reducer'
 import type { ErrorAction } from './store/errors/actionTypes'
 import type {
-  AddManualPolicyAction, ManualPolicyUpdate, MotorPolicyOwnership
+  AddManualPolicyAction,
+  ManualPolicyUpdate,
+  MotorPolicyOwnership,
 } from './store/screens/addManualPolicy/actions'
 import type { SettingsScreenReduxState } from './store/screens/settings/reducer'
 
@@ -20,18 +22,18 @@ import type { SettingsScreenReduxState } from './store/screens/settings/reducer'
 //
 
 export type Action =
-  AuthAction |
-  NavigationAction |
-  PoliciesAction |
-  InsurerActions |
-  BaseAction |
-  LoadingAction |
-  ErrorAction |
-  AddManualPolicyAction
+  | AuthAction
+  | NavigationAction
+  | PoliciesAction
+  | InsurerActions
+  | BaseAction
+  | LoadingAction
+  | ErrorAction
+  | AddManualPolicyAction
 
 export type NavReduxState = {
   index: number,
-  routes: Route[]
+  routes: Route[],
 }
 
 export type AuthReduxState = {
@@ -44,7 +46,7 @@ export type AuthScreensReduxState = {
   values: ValuesMap,
   validationErrors: ValidationErrorsMap,
   loading: boolean,
-  errors: {[key: string]: string},
+  errors: { [key: string]: string },
 }
 
 export type ScreensReduxState = {
@@ -53,7 +55,7 @@ export type ScreensReduxState = {
   settings: SettingsScreenReduxState,
 }
 
-export type MotorPolicyMap = {[id: string]: MotorPolicy}
+export type MotorPolicyMap = { [id: string]: MotorPolicy }
 
 export type PoliciesState = {
   initialised: boolean,
@@ -70,9 +72,9 @@ export type ReduxState = {
   errors: ErrorsReduxState,
 }
 
-export type Store = ReduxStore<ReduxState, Action>;
+export type Store = ReduxStore<ReduxState, Action>
 
-export type Dispatch = ReduxDispatch<Action>;
+export type Dispatch = ReduxDispatch<Action>
 
 //
 // Forms
@@ -91,13 +93,13 @@ export type OptionsFormField = {
   type: 'options',
   label: string,
   key: string,
-  options: {value: string, label: string}[]
+  options: { value: string, label: string }[],
 }
 
 export type FormField = TextFormField | OptionsFormField
 
-export type ValuesMap = {[key: string] : string}
-export type ValidationErrorsMap = {[key: string]: string | null}
+export type ValuesMap = { [key: string]: string }
+export type ValidationErrorsMap = { [key: string]: string | null }
 
 //
 // Firebase
@@ -112,7 +114,7 @@ export type FirebaseUser = {
   photoURL: string | null,
   providerId: 'facebook.com' | 'google.com',
   refreshToken: string,
-  uid: string
+  uid: string,
 }
 
 export type UserDetails = {
@@ -152,7 +154,7 @@ export type PolicyDocument = {
   image: string,
   name: string,
   id: string,
-  extension: string
+  extension: string,
 }
 
 // TODO: Split this into generic Policy/MotorPolicy/SelectedMotorPolicy once react-native supports flow 0.42.x
@@ -169,7 +171,7 @@ export type MotorPolicy = {
   startDate?: number,
   createdDate?: number, // Date added to jog as opposed to insurance start date
   companyId?: string,
-  documents?: {[id: string] : PolicyDocument},
+  documents?: { [id: string]: PolicyDocument },
   cost?: number,
   uid?: string, // Firebase user id.
   excess?: number,
@@ -181,7 +183,7 @@ export type MotorPolicy = {
   notifications?: {
     expiry?: number,
     expired?: number,
-  }
+  },
 }
 
 //
@@ -190,14 +192,14 @@ export type MotorPolicy = {
 
 export type Insurer = {
   name?: string,
-  logo?: string
+  logo?: string,
 }
 
-export type InsurerMap = {[id: string]: Insurer}
+export type InsurerMap = { [id: string]: Insurer }
 
 export type InsurersReduxState = {
   initialised: boolean,
-  insurers: InsurerMap
+  insurers: InsurerMap,
 }
 
 //
@@ -212,11 +214,11 @@ export type ReactNavigationProp = {
   state: {
     index: number,
     params: {
-      [key: string]: any
+      [key: string]: any,
     },
     key: string, // Unique key for the route
     type: string,
-    routes: Route[]
+    routes: Route[],
   },
 }
 
@@ -224,11 +226,10 @@ export type Route = {
   key: string,
   index: number,
   routeName: string,
-  routes: Route[]
+  routes: Route[],
 }
 
 // nav
 export type ReactNavProp = {
-  routes: Route[]
+  routes: Route[],
 }
-

@@ -8,7 +8,7 @@ import { BLUE, DARK_GRAY, WHITE } from '../constants/palette'
 import { MARGIN } from '../constants/style'
 import Text from './Text'
 
-export type PickerOption = {label: string, value: string}
+export type PickerOption = { label: string, value: string }
 
 type PickerProps = {
   value?: PickerOption | null,
@@ -16,9 +16,9 @@ type PickerProps = {
   options: PickerOption[],
   placeholder: string,
   titleText?: string,
-};
+}
 
-type PickerState = {};
+type PickerState = {}
 
 export default class Picker extends Component {
   props: PickerProps
@@ -34,14 +34,16 @@ export default class Picker extends Component {
   }
 
   handlePress = () => {
-    const pickerData = this.props.options.map((o) => o.label)
+    const pickerData = this.props.options.map(o => o.label)
 
     RNPicker.init({
       pickerData,
       selectedValue: this.props.value ? [this.props.value.label] : [],
-      onPickerConfirm: (data) => {
-        const option = this.props.options.find((o) => o.label === data[0])
-        if (option) { this.props.onChange(option) }
+      onPickerConfirm: data => {
+        const option = this.props.options.find(o => o.label === data[0])
+        if (option) {
+          this.props.onChange(option)
+        }
       },
       pickerTitleText: this.props.titleText,
       pickerConfirmBtnText: 'Confirm',
@@ -56,7 +58,9 @@ export default class Picker extends Component {
     return (
       <TouchableOpacity style={styles.container} onPress={this.handlePress}>
         <View style={styles.content}>
-          <Text style={value ? styles.selectedText : styles.placeholderText}>{value ? value.label : this.props.placeholder}</Text>
+          <Text style={value ? styles.selectedText : styles.placeholderText}>
+            {value ? value.label : this.props.placeholder}
+          </Text>
         </View>
         <View style={styles.dropdown}>
           <Dropdown />
@@ -80,7 +84,7 @@ const styles = StyleSheet.create({
   content: {
     flex: 1,
     justifyContent: 'center',
-    paddingLeft: MARGIN.large
+    paddingLeft: MARGIN.large,
   },
   dropdown: {
     height: 60,
@@ -92,10 +96,10 @@ const styles = StyleSheet.create({
   },
   selectedText: {
     fontSize: 16,
-    color: BLUE
+    color: BLUE,
   },
   placeholderText: {
     fontSize: 16,
     color: DARK_GRAY,
-  }
+  },
 })

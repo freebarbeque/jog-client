@@ -7,11 +7,14 @@ export type SyncUserDataAction = {
 
 export type UnsyncUserDataAction = {
   type: 'UNSYNC_USER_DATA',
-  uid: string
+  uid: string,
 }
 
 export type SyncDataAction = {
-  type: 'SYNC_DATA'
+  type: 'SYNC_DATA',
 }
 
-export type BaseAction = SyncUserDataAction | UnsyncUserDataAction | SyncDataAction
+export type BaseAction =
+  | SyncUserDataAction
+  | UnsyncUserDataAction
+  | SyncDataAction

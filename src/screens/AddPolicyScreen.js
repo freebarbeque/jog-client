@@ -6,7 +6,14 @@ import { NavigationActions } from 'react-navigation'
 import { connect } from 'react-redux'
 import type { ReduxState, Dispatch } from 'jog/src/types'
 import Text from 'jog/src/components/Text'
-import { BLUE, CREAM, WHITE, VERY_LIGHT_GRAY, DARK_GRAY, PINK } from 'jog/src/constants/palette'
+import {
+  BLUE,
+  CREAM,
+  WHITE,
+  VERY_LIGHT_GRAY,
+  DARK_GRAY,
+  PINK,
+} from 'jog/src/constants/palette'
 import { MARGIN } from 'jog/src/constants/style'
 import { Camera, Command, Mail } from '../components/images/index'
 import { clearManualPolicy } from '../store/screens/addManualPolicy/actions'
@@ -14,7 +21,7 @@ import { clearManualPolicy } from '../store/screens/addManualPolicy/actions'
 type AddPolicyScreenProps = {
   dispatch: Dispatch,
   // user: FirebaseUser | null,
-};
+}
 
 class AddPolicyScreen extends Component {
   props: AddPolicyScreenProps
@@ -26,9 +33,11 @@ class AddPolicyScreen extends Component {
           <TouchableOpacity
             style={styles.cardButton}
             onPress={() => {
-              this.props.dispatch(NavigationActions.navigate({
-                routeName: 'EmailPolicy'
-              }))
+              this.props.dispatch(
+                NavigationActions.navigate({
+                  routeName: 'EmailPolicy',
+                }),
+              )
             }}
           >
             <View style={{ flex: 1, height: '100%', justifyContent: 'center' }}>
@@ -41,9 +50,7 @@ class AddPolicyScreen extends Component {
             </View>
             <Mail />
           </TouchableOpacity>
-          <TouchableOpacity
-            style={styles.cardButton}
-          >
+          <TouchableOpacity style={styles.cardButton}>
             <Text style={styles.cardButtonText}>
               Photograph your policy
             </Text>
@@ -53,9 +60,11 @@ class AddPolicyScreen extends Component {
             style={[styles.cardButton, { borderBottomWidth: 0 }]}
             onPress={() => {
               this.props.dispatch(clearManualPolicy())
-              this.props.dispatch(NavigationActions.navigate({
-                routeName: 'ManualAddPolicy'
-              }))
+              this.props.dispatch(
+                NavigationActions.navigate({
+                  routeName: 'ManualAddPolicy',
+                }),
+              )
             }}
           >
             <Text style={styles.cardButtonText}>
@@ -74,7 +83,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: CREAM,
-    padding: MARGIN.large
+    padding: MARGIN.large,
   },
   card: {
     backgroundColor: WHITE,
@@ -83,10 +92,10 @@ const styles = StyleSheet.create({
     shadowColor: DARK_GRAY,
     shadowOffset: {
       width: 0,
-      height: 0
+      height: 0,
     },
     shadowOpacity: 0.4,
-    shadowRadius: 3
+    shadowRadius: 3,
   },
   cardButton: {
     paddingLeft: MARGIN.large,
@@ -95,12 +104,12 @@ const styles = StyleSheet.create({
     borderBottomColor: VERY_LIGHT_GRAY,
     flexDirection: 'row',
     alignItems: 'center',
-    height: 65
+    height: 65,
   },
   cardButtonText: {
     color: BLUE,
     fontSize: 16,
-    flex: 1
+    flex: 1,
   },
   recommendedText: {
     color: PINK,
@@ -112,14 +121,12 @@ const styles = StyleSheet.create({
     borderRadius: 4,
     width: 200,
     justifyContent: 'center',
-    alignItems: 'center'
-  }
+    alignItems: 'center',
+  },
 })
 
 const mapStateToProps = (state: ReduxState) => ({
   user: state.auth.user,
 })
 
-export default connect(
-  mapStateToProps,
-)(AddPolicyScreen)
+export default connect(mapStateToProps)(AddPolicyScreen)

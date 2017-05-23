@@ -3,14 +3,14 @@
 import type { InsurerMap } from 'jog/src/types'
 import type { ReceiveInsurers, SyncInsurers } from './actionTypes'
 
-export function receiveInsurers(insurers: InsurerMap) : ReceiveInsurers {
+export function receiveInsurers(insurers: InsurerMap): ReceiveInsurers {
   return {
     type: 'insurers/RECEIVE_INSURERS',
-    insurers
+    insurers,
   }
 }
 
-export function syncInsurers() : SyncInsurers {
+export function syncInsurers(): SyncInsurers {
   return {
     type: 'insurers/SYNC_INSURERS',
   }

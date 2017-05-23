@@ -3,7 +3,7 @@
 export const motorPolicyOwnership = {
   owned: 'owned',
   leased: 'leased',
-  financed: 'financed'
+  financed: 'financed',
 }
 
 export type MotorPolicyOwnership = $Keys<typeof motorPolicyOwnership>
@@ -20,7 +20,7 @@ export type ManualPolicyUpdate = {
 
 export type UpdateManualPolicy = {
   type: 'addManualPolicy/UPDATE_MANUAL_POLICY',
-  update: ManualPolicyUpdate
+  update: ManualPolicyUpdate,
 }
 
 export type ClearManualPolicy = {
@@ -29,25 +29,30 @@ export type ClearManualPolicy = {
 
 export type SavePolicyAction = {
   type: 'addManualPolicy/SAVE_POLICY',
-  policy: ManualPolicyUpdate
+  policy: ManualPolicyUpdate,
 }
 
-export type AddManualPolicyAction = UpdateManualPolicy | ClearManualPolicy | SavePolicyAction
+export type AddManualPolicyAction =
+  | UpdateManualPolicy
+  | ClearManualPolicy
+  | SavePolicyAction
 
-export function updateManualPolicy(update: ManualPolicyUpdate) : UpdateManualPolicy {
+export function updateManualPolicy(
+  update: ManualPolicyUpdate,
+): UpdateManualPolicy {
   return {
     type: 'addManualPolicy/UPDATE_MANUAL_POLICY',
-    update
+    update,
   }
 }
 
-export function clearManualPolicy() : ClearManualPolicy {
+export function clearManualPolicy(): ClearManualPolicy {
   return {
     type: 'addManualPolicy/CLEAR_MANUAL_POLICY',
   }
 }
 
-export function savePolicy(policy: ManualPolicyUpdate) : SavePolicyAction {
+export function savePolicy(policy: ManualPolicyUpdate): SavePolicyAction {
   return {
     type: 'addManualPolicy/SAVE_POLICY',
     policy,

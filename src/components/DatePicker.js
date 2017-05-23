@@ -10,10 +10,10 @@ import Text from './Text'
 
 type JogDatePickerProps = {
   date: string,
-  onDateChange: (date: string) => void
-};
+  onDateChange: (date: string) => void,
+}
 
-type JogDatePickerState = {};
+type JogDatePickerState = {}
 
 export default class JogDatePicker extends Component {
   props: JogDatePickerProps
@@ -50,10 +50,7 @@ export default class JogDatePicker extends Component {
 
     return (
       <View>
-        <TouchableOpacity
-          onPress={this.hackyPickerPress}
-          style={styles.button}
-        >
+        <TouchableOpacity onPress={this.hackyPickerPress} style={styles.button}>
           <View style={{ flex: 1, flexDirection: 'row' }}>
             <View style={styles.segment}>
               <Text style={styles.segmentText}>
@@ -74,7 +71,9 @@ export default class JogDatePicker extends Component {
         </TouchableOpacity>
         {/* DatePicker is hidden due to not being customisable enough to implement the designs */}
         <DatePicker
-          ref={(e) => { this.picker = e }}
+          ref={e => {
+            this.picker = e
+          }}
           date={this.props.date}
           format="DD/MM/YYYY"
           confirmBtnText="Confirm"
@@ -90,8 +89,8 @@ export default class JogDatePicker extends Component {
               left: 0,
               height: 0,
               width: 0,
-              opacity: 0
-            }
+              opacity: 0,
+            },
           }}
           onDateChange={this.props.onDateChange}
         />
@@ -109,7 +108,7 @@ const styles = StyleSheet.create({
     height: 60,
     backgroundColor: WHITE,
     borderRadius: 8,
-    overflow: 'hidden'
+    overflow: 'hidden',
   },
   segment: {
     flex: 1,
@@ -117,10 +116,10 @@ const styles = StyleSheet.create({
     borderRightColor: BLUE,
     height: 60,
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
   },
   segmentText: {
     fontSize: 16,
-    color: BLUE
-  }
+    color: BLUE,
+  },
 })

@@ -1,11 +1,23 @@
 /* @flow */
 
 import React, { Component } from 'react'
-import { ScrollView, View, StyleSheet, TouchableOpacity, Platform } from 'react-native'
+import {
+  ScrollView,
+  View,
+  StyleSheet,
+  TouchableOpacity,
+  Platform,
+} from 'react-native'
 import { connect } from 'react-redux'
 import { NavigationActions } from 'react-navigation'
 
-import type { ReduxState, ReactNavigationProp, Dispatch, MotorPolicyMap, PolicyDocument } from 'jog/src/types'
+import type {
+  ReduxState,
+  ReactNavigationProp,
+  Dispatch,
+  MotorPolicyMap,
+  PolicyDocument,
+} from 'jog/src/types'
 import Text from 'jog/src/components/Text'
 import { BLUE, CREAM } from 'jog/src/constants/palette'
 import { MARGIN } from 'jog/src/constants/style'
@@ -24,59 +36,68 @@ type PolicyDocumentsScreenProps = {
   // eslint-disable-next-line react/no-unused-prop-types
   navigation: ReactNavigationProp,
   policies: MotorPolicyMap,
-};
+}
 
 class PolicyDocumentsScreen extends Component {
   props: PolicyDocumentsScreenProps
   cameraModal: any
 
   handleBrowseFilesPress = () => {
-    pickFile().then((resp) => {
+    pickFile().then(resp => {
       const policyId = this.props.navigation.state.params.policyId
       const fileUrl = resp.url
       console.log('fileUrl', fileUrl)
-      this.props.dispatch(uploadPolicyDocument({
-        fileUrl,
-        policyId,
-        extension: resp.extension,
-        fileName: resp.fileName
-      }))
+      this.props.dispatch(
+        uploadPolicyDocument({
+          fileUrl,
+          policyId,
+          extension: resp.extension,
+          fileName: resp.fileName,
+        }),
+      )
     })
   }
 
   handleUseCameraPress = () => {
     if (Platform.OS === 'ios') {
-      useIOSCamera().then((response: iOSImageResponse | null) => {
-        if (response) { // If no response, user cancelled.
-          const path = response.uri.split('file://').pop()
+      useIOSCamera()
+        .then((response: iOSImageResponse | null) => {
+          if (response) {
+            // If no response, user cancelled.
+            const path = response.uri.split('file://').pop()
 
-          const policyId = this.props.navigation.state.params.policyId
-          this.props.dispatch(uploadPolicyDocument({
-            fileUrl: path,
-            policyId,
-            extension: response.extension,
-            fileName: response.fileName
-          }))
-        }
-      }).catch((err) => {
-        this.props.dispatch(declareError(err))
-      })
+            const policyId = this.props.navigation.state.params.policyId
+            this.props.dispatch(
+              uploadPolicyDocument({
+                fileUrl: path,
+                policyId,
+                extension: response.extension,
+                fileName: response.fileName,
+              }),
+            )
+          }
+        })
+        .catch(err => {
+          this.props.dispatch(declareError(err))
+        })
     } else {
       this.cameraModal.setModalVisible(true)
     }
   }
 
-  handleCapture = (fileUrl) => {
+  handleCapture = fileUrl => {
     const policyId = this.props.navigation.state.params.policyId
     const fileName = fileUrl.split('/').pop()
     const extension = fileName.split('.').pop().toLowerCase()
 
-    this.props.dispatch(uploadPolicyDocument({
-      fileUrl,
-      policyId,
-      extension,
-      fileName
-    }))
+    this.props.dispatch(
+      uploadPolicyDocument({
+        fileUrl,
+        policyId,
+        extension,
+        fileName,
+      }),
+    )
   }
 
   render() {
@@ -86,33 +107,38 @@ class PolicyDocumentsScreen extends Component {
 
     return (
       <ScrollView style={styles.container}>
-        {!_.isEmpty(documents) ? <Panel style={styles.panel}>
-          <Text style={styles.header}>Scanned documents</Text>
-          <View style={{ flexDirection: 'row', flexWrap: 'wrap' }}>
-            {documents.map((d: PolicyDocument) => {
-              return (
-                <PolicyDocumentThumbnail
-                  key={d.id}
-                  document={d}
-                  style={{ width: `${100 / 3}%`, paddingBottom: MARGIN.large }}
-                  onPress={() => {
-                    const params = {
-                      documentId: d.id,
-                      policyId: policyId,
-                      documentName: d.name
-                    }
-                    this.props.dispatch(
-                      NavigationActions.navigate({
-                        routeName: 'PolicyDocument',
-                        params
-                      })
-                    )
-                  }}
-                />
-              )
-            })}
-          </View>
-        </Panel> : null}
+        {!_.isEmpty(documents)
+          ? <Panel style={styles.panel}>
+              <Text style={styles.header}>Scanned documents</Text>
+              <View style={{ flexDirection: 'row', flexWrap: 'wrap' }}>
+                {documents.map((d: PolicyDocument) => {
+                  return (
+                    <PolicyDocumentThumbnail
+                      key={d.id}
+                      document={d}
+                      style={{
+                        width: `${100 / 3}%`,
+                        paddingBottom: MARGIN.large,
+                      }}
+                      onPress={() => {
+                        const params = {
+                          documentId: d.id,
+                          policyId: policyId,
+                          documentName: d.name,
+                        }
+                        this.props.dispatch(
+                          NavigationActions.navigate({
+                            routeName: 'PolicyDocument',
+                            params,
+                          }),
+                        )
+                      }}
+                    />
+                  )
+                })}
+              </View>
+            </Panel>
+          : null}
         <Panel style={styles.panel}>
           <Text style={styles.header}>Upload documents</Text>
           <TouchableOpacity
@@ -135,9 +161,13 @@ class PolicyDocumentsScreen extends Component {
           </TouchableOpacity>
         </Panel>
         <CameraModal
-          ref={(e) => { this.cameraModal = e }}
+          ref={e => {
+            this.cameraModal = e
+          }}
           onCapture={this.handleCapture}
-          onError={(error) => { console.error(error) }}
+          onError={error => {
+            console.error(error)
+          }}
         />
       </ScrollView>
     )
@@ -147,13 +177,13 @@ class PolicyDocumentsScreen extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: CREAM
+    backgroundColor: CREAM,
   },
   header: {
     fontSize: 16,
     color: BLUE,
     textAlign: 'center',
-    marginBottom: MARGIN.large
+    marginBottom: MARGIN.large,
   },
   camera: {
     height: 130,
@@ -162,11 +192,11 @@ const styles = StyleSheet.create({
     borderStyle: 'dashed',
     borderColor: 'rgb(164,169,174)',
     borderWidth: 1,
-    borderRadius: 14
+    borderRadius: 14,
   },
   cameraText: {
     fontSize: 16,
-    color: 'rgb(164,169,174)'
+    color: 'rgb(164,169,174)',
   },
   panel: {
     padding: MARGIN.extraLarge,
@@ -176,18 +206,16 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgb(224, 225, 226)',
     alignItems: 'center',
     justifyContent: 'center',
-    marginTop: MARGIN.large
+    marginTop: MARGIN.large,
   },
   browseFilesButtonText: {
     color: BLUE,
-    fontSize: 16
-  }
+    fontSize: 16,
+  },
 })
 
 const mapStateToProps = (state: ReduxState) => ({
   policies: selectPolicies(state),
 })
 
-export default connect(
-  mapStateToProps,
-)(PolicyDocumentsScreen)
+export default connect(mapStateToProps)(PolicyDocumentsScreen)

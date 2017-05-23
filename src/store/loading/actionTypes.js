@@ -6,7 +6,7 @@ export type StartLoadingAction = {
 }
 
 export type FinishLoadingAction = {
-  type: 'loading/FINISH'
+  type: 'loading/FINISH',
 }
 
 export type LoadingAction = StartLoadingAction | FinishLoadingAction

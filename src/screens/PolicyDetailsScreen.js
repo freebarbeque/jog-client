@@ -15,7 +15,7 @@ import { MARGIN } from '../constants/style'
 import { CarOutline, Chevron } from '../components/images/index'
 import Panel from '../components/Panel'
 
-const Field = (props) => (
+const Field = props => (
   <View style={styles.fieldContainer}>
     <Text style={styles.fieldTitle}>
       {props.title.toUpperCase()}
@@ -26,7 +26,7 @@ const Field = (props) => (
   </View>
 )
 
-const Row = (props) => {
+const Row = props => {
   return (
     <View style={styles.rowContainer}>
       <Field title={props.title}>
@@ -38,7 +38,7 @@ const Row = (props) => {
 
 type PolicyDetailsScreenProps = {
   policies: MotorPolicy,
-  navigation: ReactNavigationProp
+  navigation: ReactNavigationProp,
 }
 
 class PolicyDetailsScreen extends Component {
@@ -55,7 +55,9 @@ class PolicyDetailsScreen extends Component {
     if (typeof policyId === 'string') {
       policy = this.props.policies[policyId]
     } else {
-      throw new TypeError('PolicyDetailsScreen was expecting a policyId of type string in the navigation params.')
+      throw new TypeError(
+        'PolicyDetailsScreen was expecting a policyId of type string in the navigation params.',
+      )
     }
 
     const expiryDate = moment(policy.expiryDate)
@@ -112,7 +114,9 @@ class PolicyDetailsScreen extends Component {
             {policy.excess ? `£${policy.excess} p/a` : '-'}
           </Row>
           <Row title="drivers">
-            {drivers && drivers.length ? drivers.map((d) => `${d.firstName} ${d.lastName}`).join(', ') : '-'}
+            {drivers && drivers.length
+              ? drivers.map(d => `${d.firstName} ${d.lastName}`).join(', ')
+              : '-'}
           </Row>
           <Row title="no claims bonus">
             {policy.noClaimsBonus ? `${policy.noClaimsBonus} Yrs` : '-'}
@@ -124,30 +128,57 @@ class PolicyDetailsScreen extends Component {
 }
 
 const styles = StyleSheet.create({
-  fieldContainer: { marginLeft: MARGIN.base, marginRight: MARGIN.base, marginTop: MARGIN.base },
+  fieldContainer: {
+    marginLeft: MARGIN.base,
+    marginRight: MARGIN.base,
+    marginTop: MARGIN.base,
+  },
   fieldTitle: { color: 'rgb(164,169,174)', fontSize: 11, fontWeight: '600' },
   fieldValue: { color: BLUE, fontSize: 16 },
   rowContainer: {
     borderBottomColor: 'rgb(203,203,203)',
     borderBottomWidth: 1,
     backgroundColor: 'rgb(240,240,240)',
-    height: 48
+    height: 48,
   },
-  daysRemainingContainer: { position: 'absolute', top: MARGIN.large, right: MARGIN.large },
-  daysRemainingTitle: { color: 'rgb(164,169,174)', fontSize: 11, fontWeight: '600' },
-  daysRemainingValue: { color: BLUE, fontSize: 58, fontWeight: '300', textAlign: 'center', marginTop: -6 },
-  carOutline: { position: 'absolute', bottom: MARGIN.large, right: MARGIN.large },
+  daysRemainingContainer: {
+    position: 'absolute',
+    top: MARGIN.large,
+    right: MARGIN.large,
+  },
+  daysRemainingTitle: {
+    color: 'rgb(164,169,174)',
+    fontSize: 11,
+    fontWeight: '600',
+  },
+  daysRemainingValue: {
+    color: BLUE,
+    fontSize: 58,
+    fontWeight: '300',
+    textAlign: 'center',
+    marginTop: -6,
+  },
+  carOutline: {
+    position: 'absolute',
+    bottom: MARGIN.large,
+    right: MARGIN.large,
+  },
   policyHeader: {
     backgroundColor: WHITE,
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-    paddingRight: MARGIN.large
+    paddingRight: MARGIN.large,
   },
-  policyHeaderText: { fontSize: 16, color: BLUE, margin: MARGIN.large, flex: 1 },
-  scrollView: { backgroundColor: CREAM }
+  policyHeaderText: {
+    fontSize: 16,
+    color: BLUE,
+    margin: MARGIN.large,
+    flex: 1,
+  },
+  scrollView: { backgroundColor: CREAM },
 })
 
-const mapStateToProps = (state) => ({ policies: selectPolicies(state) })
+const mapStateToProps = state => ({ policies: selectPolicies(state) })
 
 export default connect(mapStateToProps)(PolicyDetailsScreen)

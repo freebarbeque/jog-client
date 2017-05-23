@@ -26,11 +26,11 @@ export function generateMockPolicies(uid: string) {
     drivers: [
       {
         firstName: 'Richard',
-        lastName: 'Gill'
-      }
+        lastName: 'Gill',
+      },
     ],
     noClaimsBonus: 4,
-    name: 'Admiral Multisaver'
+    name: 'Admiral Multisaver',
   }
   guid = uuid()
   policies[guid] = {
@@ -50,16 +50,18 @@ export function generateMockPolicies(uid: string) {
     drivers: [
       {
         firstName: 'Richard',
-        lastName: 'Gill'
-      }
+        lastName: 'Gill',
+      },
     ],
     noClaimsBonus: 4,
-    name: 'Hastings Multisaver'
+    name: 'Hastings Multisaver',
   }
 
-  return updatePolicies(policies).then(() => {
-    console.info('Added mock policies')
-  }).catch((err) => {
-    console.error('Error adding mock policies', err.stack)
-  })
+  return updatePolicies(policies)
+    .then(() => {
+      console.info('Added mock policies')
+    })
+    .catch(err => {
+      console.error('Error adding mock policies', err.stack)
+    })
 }

@@ -4,7 +4,9 @@ import React, { Component } from 'react'
 import { View, StyleSheet, Dimensions } from 'react-native'
 import { connect } from 'react-redux'
 import { NavigationActions } from 'react-navigation'
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
+import {
+  KeyboardAwareScrollView,
+} from 'react-native-keyboard-aware-scroll-view'
 
 import type {
   Dispatch,
@@ -13,7 +15,11 @@ import type {
   ValidationErrorsMap,
 } from 'jog/src/types'
 
-import { setValues, setValidationErrors, passwordReset } from 'jog/src/store/screens/auth/actions'
+import {
+  setValues,
+  setValidationErrors,
+  passwordReset,
+} from 'jog/src/store/screens/auth/actions'
 
 import { BLUE } from 'jog/src/constants/palette'
 import Text from 'jog/src/components/Text'
@@ -29,20 +35,18 @@ type PasswordResetScreenProps = {
   validationErrors: ValidationErrorsMap,
   passwordResetError: string | null,
   loading: boolean,
-};
+}
 
 class PasswordResetScreen extends Component {
   props: PasswordResetScreenProps
 
-  static formFields = [
-    emailField
-  ]
+  static formFields = [emailField]
 
   handleLoginPress = () => {
     this.props.dispatch(NavigationActions.back())
   }
 
-  handleSubmit = (values) => {
+  handleSubmit = values => {
     const { email } = values
     this.props.dispatch(passwordReset(email))
   }
@@ -65,9 +69,16 @@ class PasswordResetScreen extends Component {
 
     return (
       <KeyboardAwareScrollView style={styles.container}>
-        <View style={{ flexDirection: 'column', flex: 1, width: windowWidth, justifyContent: 'center' }}>
+        <View
+          style={{
+            flexDirection: 'column',
+            flex: 1,
+            width: windowWidth,
+            justifyContent: 'center',
+          }}
+        >
           <View>
-            <View style={{ justifyContent: 'center', alignItems: 'center', }}>
+            <View style={{ justifyContent: 'center', alignItems: 'center' }}>
               <Text style={styles.title}>
                 Password Reset
               </Text>
@@ -80,8 +91,12 @@ class PasswordResetScreen extends Component {
               error={this.props.passwordResetError}
               values={this.props.values}
               validationErrors={this.props.validationErrors}
-              onValuesChanged={(values) => { this.props.dispatch(setValues(values)) }}
-              onValidationErrorsChanged={(errors) => { this.props.dispatch(setValidationErrors(errors)) }}
+              onValuesChanged={values => {
+                this.props.dispatch(setValues(values))
+              }}
+              onValidationErrorsChanged={errors => {
+                this.props.dispatch(setValidationErrors(errors))
+              }}
               disabled={this.props.loading}
             />
           </View>
@@ -96,12 +111,12 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: BLUE,
     paddingTop: 20,
-    flexDirection: 'column'
+    flexDirection: 'column',
   },
   header: {
     paddingLeft: 10,
     flexDirection: 'row',
-    paddingRight: 10
+    paddingRight: 10,
   },
   headerLogo: {
     marginTop: 3,
@@ -110,8 +125,8 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     marginTop: MARGIN.large,
     fontSize: 20,
-    fontWeight: '400'
-  }
+    fontWeight: '400',
+  },
 })
 
 const mapStateToProps = (state: ReduxState) => ({

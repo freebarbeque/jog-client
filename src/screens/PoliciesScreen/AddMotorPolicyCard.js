@@ -6,7 +6,7 @@ import { Plus } from 'jog/src/components/images/index'
 import PolicyCard from './PolicyCard'
 
 export type AddMotorPolicyCardProps = {
-  onPress: () => void
+  onPress: () => void,
 }
 
 export default class AddMotorPolicyCard extends Component {
@@ -23,4 +23,3 @@ export default class AddMotorPolicyCard extends Component {
     )
   }
 }
-

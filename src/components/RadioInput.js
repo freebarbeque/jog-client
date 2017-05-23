@@ -15,7 +15,7 @@ type RadioInputProps = {
   value: string,
   onChange: (value: string) => void,
   style?: any,
-};
+}
 
 export default class RadioInput extends Component {
   props: RadioInputProps
@@ -26,7 +26,7 @@ export default class RadioInput extends Component {
     return (
       <View style={[styles.container, style || {}]}>
         <View>
-          {options.map((o) => (
+          {options.map(o => (
             <TouchableOpacity
               key={o.value}
               style={styles.touchable}
@@ -39,7 +39,7 @@ export default class RadioInput extends Component {
                 {o.label}
               </Text>
             </TouchableOpacity>
-        ))}
+          ))}
         </View>
       </View>
     )
@@ -52,7 +52,7 @@ export default class RadioInput extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    alignItems: 'center'
+    alignItems: 'center',
   },
   radio: {
     width: 26,
@@ -61,20 +61,20 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: WHITE,
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   innerRadio: {
     backgroundColor: PINK,
     height: 16,
     width: 16,
-    borderRadius: 16
+    borderRadius: 16,
   },
   label: {
     fontSize: 21,
-    marginLeft: MARGIN.base
+    marginLeft: MARGIN.base,
   },
   touchable: {
     flexDirection: 'row',
-    marginBottom: MARGIN.base
-  }
+    marginBottom: MARGIN.base,
+  },
 })

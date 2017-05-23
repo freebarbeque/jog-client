@@ -4,26 +4,30 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { NavigationActions } from 'react-navigation'
 
-import type {
-  Dispatch,
-  ReduxState,
-} from 'jog/src/types'
+import type { Dispatch, ReduxState } from 'jog/src/types'
 
-import AddPolicyScreenContainer from 'jog/src/components/AddPolicyScreenContainer'
-import type { ManualPolicyUpdate } from 'jog/src/store/screens/addManualPolicy/actions'
-import { updateManualPolicy } from 'jog/src/store/screens/addManualPolicy/actions'
+import AddPolicyScreenContainer
+  from 'jog/src/components/AddPolicyScreenContainer'
+import type {
+  ManualPolicyUpdate,
+} from 'jog/src/store/screens/addManualPolicy/actions'
+import {
+  updateManualPolicy,
+} from 'jog/src/store/screens/addManualPolicy/actions'
 import AccessoryTextInput from 'jog/src/components/AccessoryTextInput'
 
 type PolicyCostScreenProps = {
   dispatch: Dispatch,
   policy: ManualPolicyUpdate,
-};
+}
 
 class PolicyCostScreen extends Component {
   props: PolicyCostScreenProps
 
   handleNextPress = () => {
-    this.props.dispatch(NavigationActions.navigate({ routeName: 'LicensePlate' }))
+    this.props.dispatch(
+      NavigationActions.navigate({ routeName: 'LicensePlate' }),
+    )
   }
 
   render() {
@@ -35,12 +39,15 @@ class PolicyCostScreen extends Component {
         showPrevButton
         title="How much does your policy cost per year?"
         onNextPress={this.handleNextPress}
-        onPrevPress={() => { this.props.dispatch(NavigationActions.back()) }}
+        onPrevPress={() => {
+          this.props.dispatch(NavigationActions.back())
+        }}
         disableNextButton={!this.props.policy.cost}
       >
         <AccessoryTextInput
           value={cost}
-          onChangeText={(text) => this.props.dispatch(updateManualPolicy({ cost: text }))}
+          onChangeText={text =>
+            this.props.dispatch(updateManualPolicy({ cost: text }))}
           editable
           accessory="£"
           autoCapitalize="none"
@@ -53,9 +60,7 @@ class PolicyCostScreen extends Component {
 }
 
 const mapStateToProps = (state: ReduxState) => ({
-  policy: state.screens.addManualPolicy
+  policy: state.screens.addManualPolicy,
 })
 
-export default connect(
-  mapStateToProps,
-)(PolicyCostScreen)
+export default connect(mapStateToProps)(PolicyCostScreen)

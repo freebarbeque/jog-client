@@ -19,7 +19,7 @@ function* syncNonUserDependantData() {
   yield put(syncUser())
 }
 
-export default function* saga() : Iterable {
+export default function* saga(): Iterable {
   yield takeLatest('SYNC_USER_DATA', syncUserData)
   yield takeLatest('SYNC_DATA', syncNonUserDependantData)
   yield takeLatest('UNSYNC_USER_DATA', unsyncUserData)

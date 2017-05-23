@@ -4,20 +4,22 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { NavigationActions } from 'react-navigation'
 
-import type {
-  Dispatch,
-  ReduxState,
-} from 'jog/src/types'
+import type { Dispatch, ReduxState } from 'jog/src/types'
 
-import AddPolicyScreenContainer from 'jog/src/components/AddPolicyScreenContainer'
-import type { ManualPolicyUpdate } from 'jog/src/store/screens/addManualPolicy/actions'
-import { updateManualPolicy } from 'jog/src/store/screens/addManualPolicy/actions'
+import AddPolicyScreenContainer
+  from 'jog/src/components/AddPolicyScreenContainer'
+import type {
+  ManualPolicyUpdate,
+} from 'jog/src/store/screens/addManualPolicy/actions'
+import {
+  updateManualPolicy,
+} from 'jog/src/store/screens/addManualPolicy/actions'
 import TextInput from 'jog/src/components/TextInput'
 
 type PolicyNumberScreenProps = {
   dispatch: Dispatch,
   policy: ManualPolicyUpdate,
-};
+}
 
 class PolicyNumberScreen extends Component {
   props: PolicyNumberScreenProps
@@ -37,12 +39,15 @@ class PolicyNumberScreen extends Component {
         showPrevButton
         title="What's your policy number?"
         onNextPress={this.handleNextPress}
-        onPrevPress={() => { this.props.dispatch(NavigationActions.back()) }}
+        onPrevPress={() => {
+          this.props.dispatch(NavigationActions.back())
+        }}
         disableNextButton={!this.props.policy.policyNo}
       >
         <TextInput
           value={this.props.policy.policyNo}
-          onChangeText={(text) => this.props.dispatch(updateManualPolicy({ policyNo: text }))}
+          onChangeText={text =>
+            this.props.dispatch(updateManualPolicy({ policyNo: text }))}
           autoCapitalize="none"
           autoCorrect={false}
           style={{ borderRadius: 8, overflow: 'hidden' }}
@@ -54,9 +59,7 @@ class PolicyNumberScreen extends Component {
 }
 
 const mapStateToProps = (state: ReduxState) => ({
-  policy: state.screens.addManualPolicy
+  policy: state.screens.addManualPolicy,
 })
 
-export default connect(
-  mapStateToProps,
-)(PolicyNumberScreen)
+export default connect(mapStateToProps)(PolicyNumberScreen)

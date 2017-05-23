@@ -2,15 +2,14 @@
 
 import type { FinishLoadingAction, StartLoadingAction } from './actionTypes'
 
-export function startLoading(text: string) : StartLoadingAction {
+export function startLoading(text: string): StartLoadingAction {
   return {
     type: 'loading/START',
-    text
+    text,
   }
 }
 
-
-export function finishLoading() : FinishLoadingAction {
+export function finishLoading(): FinishLoadingAction {
   return {
     type: 'loading/FINISH',
   }

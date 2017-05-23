@@ -8,7 +8,13 @@ import PolicyDetailsScreen from 'jog/src/screens/PolicyDetailsScreen'
 import PolicyDocumentsScreen from 'jog/src/screens/PolicyDocumentsScreen'
 
 import { BLUE, PINK, WHITE } from '../constants/palette'
-import type { Dispatch, MotorPolicy, ReactNavigationProp, ReduxState, Route } from '../types'
+import type {
+  Dispatch,
+  MotorPolicy,
+  ReactNavigationProp,
+  ReduxState,
+  Route,
+} from '../types'
 import { selectPolicies } from '../store/policies/selectors'
 import BackgroundHeader from '../components/BackgroundHeader'
 import Text from '../components/Text'
@@ -29,23 +35,23 @@ const styles = StyleSheet.create({
   },
   activeTab: {
     borderBottomColor: PINK,
-    borderBottomWidth: ACTIVE_TAB_BORDER_WIDTH
+    borderBottomWidth: ACTIVE_TAB_BORDER_WIDTH,
   },
   tabBar: {
     backgroundColor: WHITE,
     height: 53,
-    flexDirection: 'row'
+    flexDirection: 'row',
   },
   tabText: {
     fontSize: 14,
     fontWeight: '400',
-    color: 'rgb(126,130,142)'
+    color: 'rgb(126,130,142)',
   },
   activeTabText: {
     fontWeight: '600',
     color: BLUE,
     // The border pushes the text up, so we counter-act this with a margin
-    marginTop: ACTIVE_TAB_BORDER_WIDTH
+    marginTop: ACTIVE_TAB_BORDER_WIDTH,
   },
   tabDivider: {
     height: 30,
@@ -54,7 +60,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     left: 0,
     top: 12,
-  }
+  },
 })
 
 const PolicyDetailsTabNavigator = TabNavigator(
@@ -77,37 +83,34 @@ const PolicyDetailsTabNavigator = TabNavigator(
       inactiveTintColor: 'rgb(126,130,142)',
       indicatorStyle: {
         height: 5,
-        backgroundColor: PINK
+        backgroundColor: PINK,
       },
       // Android only (defaults to uppercase)
       upperCaseLabel: false,
-      tabStyle: styles.tab
-    }
-  }
-
+      tabStyle: styles.tab,
+    },
+  },
 )
 
-const PolicyDetailsNavigatorHeader = connect(
-  (state: ReduxState) => ({ policies: selectPolicies(state) })
-)(
-  (props) => {
-    const { policies, policyId, policyIndex } = props
+const PolicyDetailsNavigatorHeader = connect((state: ReduxState) => ({
+  policies: selectPolicies(state),
+}))(props => {
+  const { policies, policyId, policyIndex } = props
 
-    // If unmounting (e.g. on clear mock policies) or policies not loaded, policy can be null
-    const policy: MotorPolicy | null = policies[policyId]
+  // If unmounting (e.g. on clear mock policies) or policies not loaded, policy can be null
+  const policy: MotorPolicy | null = policies[policyId]
 
-    if (policy) {
-      return (
-        <BackgroundHeader
-          headerText={`Motor Policy ${policyIndex}`}
-          subheaderText={policy.name}
-        />
-      )
-    }
-
-    return null
+  if (policy) {
+    return (
+      <BackgroundHeader
+        headerText={`Motor Policy ${policyIndex}`}
+        subheaderText={policy.name}
+      />
+    )
   }
-)
+
+  return null
+})
 
 type PolicyDetailsNavigatorProps = {
   dispatch: Dispatch,
@@ -119,22 +122,26 @@ type PolicyDetailsNavigatorProps = {
 class PolicyDetailsNavigator extends PolicyDetailsTabNavigator {
   props: PolicyDetailsNavigatorProps
 
-  getPolicyId() : string {
+  getPolicyId(): string {
     const params = this.props.navigation.state.params
     const policyId = params.policyId
     if (!policyId) {
       // policyId must be passed to params when executing Navigations.navigate
-      throw new Error('policyId is missing from the route parameters when attempting to render PolicyDetailsNavigator')
+      throw new Error(
+        'policyId is missing from the route parameters when attempting to render PolicyDetailsNavigator',
+      )
     }
     return policyId
   }
 
-  getPolicyIndex() : string {
+  getPolicyIndex(): string {
     const params = this.props.navigation.state.params
     const policyIndex = params.policyIndex
     if (policyIndex === undefined) {
       // policyId must be passed to params when executing Navigations.navigate
-      throw new Error('policyIndex is missing from the route parameters when attempting to render PolicyDetailsNavigator')
+      throw new Error(
+        'policyIndex is missing from the route parameters when attempting to render PolicyDetailsNavigator',
+      )
     }
     return policyIndex
   }
@@ -152,11 +159,10 @@ class PolicyDetailsNavigator extends PolicyDetailsTabNavigator {
         <TouchableOpacity
           key={r.key}
           style={[styles.tab, isActive ? styles.activeTab : {}]}
-          onPress={() => navigation.dispatch(NavigationActions.navigate({ routeName }))}
+          onPress={() =>
+            navigation.dispatch(NavigationActions.navigate({ routeName }))}
         >
-          <Text
-            style={[styles.tabText, isActive ? styles.activeTabText : {}]}
-          >
+          <Text style={[styles.tabText, isActive ? styles.activeTabText : {}]}>
             {routeName}
           </Text>
           {idx ? <View style={styles.tabDivider} /> : null}

@@ -11,11 +11,11 @@ import ImageViewer from './ImageViewer'
 
 type DocumentViewerProps = {
   document: PolicyDocument,
-};
+}
 
 type DocumentViewerState = {
   url: string | null,
-};
+}
 
 export default class DocumentViewer extends Component {
   props: DocumentViewerProps
@@ -24,12 +24,12 @@ export default class DocumentViewer extends Component {
   constructor(props: DocumentViewerProps) {
     super(props)
     this.state = {
-      url: null
+      url: null,
     }
   }
 
   componentDidMount() {
-    this.getDocument().catch((err) => {
+    this.getDocument().catch(err => {
       console.error(err)
     })
   }
@@ -57,20 +57,10 @@ export default class DocumentViewer extends Component {
 
     if (document) {
       if (document.extension === 'pdf' && url) {
-        return (
-          <PDFViewer
-            url={url}
-            fileName={document.name}
-          />
-        )
+        return <PDFViewer url={url} fileName={document.name} />
       } else if (url) {
         console.log('rendering PhotoView', url)
-        return (
-          <ImageViewer
-            uri={url}
-            fileName={document.name}
-          />
-        )
+        return <ImageViewer uri={url} fileName={document.name} />
       }
     }
 

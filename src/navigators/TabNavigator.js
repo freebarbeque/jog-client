@@ -15,10 +15,10 @@ const styles = StyleSheet.create({
   headerLogo: {
     marginLeft: MARGIN.large,
     position: 'relative',
-    bottom: 4
+    bottom: 4,
   },
   headerAuthButton: {
-    marginRight: MARGIN.large
+    marginRight: MARGIN.large,
   },
   tabBar: {
     backgroundColor: BLUE,
@@ -27,44 +27,47 @@ const styles = StyleSheet.create({
         height: 50,
       },
       ios: {
-        height: 30
-      }
-    })
+        height: 30,
+      },
+    }),
   },
   tabBarLabel: {
     marginBottom: 6,
     fontSize: 14,
     fontWeight: 'bold',
-    fontFamily: 'WorkSans-Bold'
-  }
+    fontFamily: 'WorkSans-Bold',
+  },
 })
 
-const tabNavigator = TabNavigator({
-  Policies: { screen: PoliciesNavigator },
-  // Markets: { screen: MarketsScreen },
-  Settings: { screen: SettingsScreen },
-}, {
-  swipeEnabled: true,
-  animationEnabled: false,
-  tabBarPosition: 'top',
-  tabBarOptions: {
-    order: [
-      'Policies',
-      // 'Markets',
-      'Settings'
-    ],
-    style: styles.tabBar,
-    labelStyle: styles.tabBarLabel,
-    activeTintColor: PINK,
-    inactiveTintColor: DARK_GRAY,
-    // Android only (defaults to uppercase)
-    upperCaseLabel: false,
-    // This is the line at the bottom of the selected tab on android
-    indicatorStyle: {
-      height: 0,
-    }
-  }
-})
+const tabNavigator = TabNavigator(
+  {
+    Policies: { screen: PoliciesNavigator },
+    // Markets: { screen: MarketsScreen },
+    Settings: { screen: SettingsScreen },
+  },
+  {
+    swipeEnabled: true,
+    animationEnabled: false,
+    tabBarPosition: 'top',
+    tabBarOptions: {
+      order: [
+        'Policies',
+        // 'Markets',
+        'Settings',
+      ],
+      style: styles.tabBar,
+      labelStyle: styles.tabBarLabel,
+      activeTintColor: PINK,
+      inactiveTintColor: DARK_GRAY,
+      // Android only (defaults to uppercase)
+      upperCaseLabel: false,
+      // This is the line at the bottom of the selected tab on android
+      indicatorStyle: {
+        height: 0,
+      },
+    },
+  },
+)
 
 tabNavigator.navigationOptions = () => {
   return {
@@ -72,7 +75,7 @@ tabNavigator.navigationOptions = () => {
     headerTitle: '',
     headerLeft: <Logo style={styles.headerLogo} scale={1} />,
     headerRight: <AuthButton style={styles.headerAuthButton} />,
-    headerStyle: { backgroundColor: BLUE }
+    headerStyle: { backgroundColor: BLUE },
   }
 }
 

@@ -18,7 +18,6 @@ type PDFViewerState = {
   androidPdfLocation: string | null,
 }
 
-
 export default class PDFViewer extends Component {
   props: PDFViewerProps
   state: PDFViewerState
@@ -34,7 +33,7 @@ export default class PDFViewer extends Component {
     const { url } = this.props
 
     if (isAndroid() && url) {
-      this.fetchDocument().catch((err) => {
+      this.fetchDocument().catch(err => {
         console.error('Error fetching document', err)
       })
     }
@@ -42,7 +41,7 @@ export default class PDFViewer extends Component {
 
   componentDidUpdate(nextProps: PDFViewerProps) {
     if (this.props.url !== nextProps.url) {
-      this.fetchDocument().catch((err) => {
+      this.fetchDocument().catch(err => {
         console.error('Error refetching document', err)
       })
     }
@@ -87,11 +86,7 @@ export default class PDFViewer extends Component {
         )
       }
     } else {
-      return (
-        <Spinner
-          text={`Loading ${fileName}`}
-        />
-      )
+      return <Spinner text={`Loading ${fileName}`} />
     }
 
     return null

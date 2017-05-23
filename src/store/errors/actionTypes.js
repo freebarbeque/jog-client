@@ -6,7 +6,7 @@ export type DeclareErrorAction = {
 }
 
 export type ClearErrorAction = {
-  type: 'errors/CLEAR'
+  type: 'errors/CLEAR',
 }
 
 export type ErrorAction = DeclareErrorAction | ClearErrorAction

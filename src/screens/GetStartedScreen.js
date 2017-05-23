@@ -8,8 +8,8 @@ import { PINK } from 'jog/src/constants/palette'
 import { Background } from 'jog/src/components/images/index'
 
 type GetStartedScreenProps = {
-  onGetStartedPress: () => void
-};
+  onGetStartedPress: () => void,
+}
 
 export default class GetStartedScreen extends Component {
   props: GetStartedScreenProps
@@ -46,7 +46,7 @@ const styles = StyleSheet.create({
     width: null,
     height: null,
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
   },
   backgroundImageOverlay: {
     width: '100%',
@@ -54,13 +54,12 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(0,0,0,0.25)',
     position: 'absolute',
     top: 0,
-    left: 0
+    left: 0,
   },
   button: {
     backgroundColor: PINK,
     height: 60,
     alignItems: 'center',
     justifyContent: 'center',
-  }
+  },
 })
-

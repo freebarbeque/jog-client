@@ -8,7 +8,7 @@ import settings from './settings/reducer'
 const ScreensReducer = combineReducers({
   auth,
   addManualPolicy,
-  settings
+  settings,
 })
 
 export default ScreensReducer

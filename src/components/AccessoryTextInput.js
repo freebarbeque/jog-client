@@ -6,7 +6,7 @@ import TextInput from './TextInput'
 import Text from './Text'
 import { BLUE, WHITE } from '../constants/palette'
 
-const AccessoryTextInput = (props) => {
+const AccessoryTextInput = props => {
   const { accessory, ...rest } = props
   return (
     <View style={styles.container}>
@@ -15,17 +15,14 @@ const AccessoryTextInput = (props) => {
           {accessory}
         </Text>
       </View>
-      <TextInput
-        style={styles.textInput}
-        {...rest}
-      />
+      <TextInput style={styles.textInput} {...rest} />
     </View>
   )
 }
 
 AccessoryTextInput.propTypes = {
   accessory: PropTypes.string,
-  ...TextInput.propTypes
+  ...TextInput.propTypes,
 }
 
 const styles = StyleSheet.create({
@@ -34,7 +31,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     backgroundColor: WHITE,
     borderRadius: 8,
-    overflow: 'hidden'
+    overflow: 'hidden',
   },
   accessoryContainer: {
     height: 60,
@@ -43,10 +40,10 @@ const styles = StyleSheet.create({
     width: 40,
     backgroundColor: WHITE,
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   accessoryText: {
-    color: BLUE
+    color: BLUE,
   },
   textInput: {
     flex: 1,
@@ -54,9 +51,8 @@ const styles = StyleSheet.create({
     position: 'relative',
     bottom: 1,
     borderWidth: 0,
-    borderColor: WHITE
-  }
+    borderColor: WHITE,
+  },
 })
 
 export default AccessoryTextInput
-

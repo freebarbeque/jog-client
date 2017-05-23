@@ -24,7 +24,7 @@ export default class ImageViewer extends Component {
     super(props)
     this.state = {
       width: null,
-      height: null
+      height: null,
     }
   }
 
@@ -43,42 +43,37 @@ export default class ImageViewer extends Component {
     // Force loading state
     this.setState({
       width: null,
-      height: null
+      height: null,
     })
 
-    Image.getSize(
-      this.props.uri,
-      (width, height) => {
-        const displayWidth = Dimensions.get('window').width
-        const displayHeight = (displayWidth / width) * height
+    Image.getSize(this.props.uri, (width, height) => {
+      const displayWidth = Dimensions.get('window').width
+      const displayHeight = displayWidth / width * height
 
-        this.setState({
-          width: displayWidth,
-          height: displayHeight
-        })
-      }
-    )
+      this.setState({
+        width: displayWidth,
+        height: displayHeight,
+      })
+    })
   }
 
   render() {
     const isLoaded = this.props.uri && this.state.width && this.state.height
     const fileName = this.props.fileName
 
-    return isLoaded ? (
-      <PhotoView
-        source={{ uri: this.props.uri }}
-        minimumZoomScale={0.5}
-        maximumZoomScale={3}
-        androidScaleType="center"
-        onLoad={() => console.log('Image loaded!')}
-        style={{
-          flex: 1,
-          width: this.state.width,
-          height: this.state.height,
-        }}
-      />
-    ) : <Spinner
-      text={`Loading ${fileName}`}
-    />
+    return isLoaded
+      ? <PhotoView
+          source={{ uri: this.props.uri }}
+          minimumZoomScale={0.5}
+          maximumZoomScale={3}
+          androidScaleType="center"
+          onLoad={() => console.log('Image loaded!')}
+          style={{
+            flex: 1,
+            width: this.state.width,
+            height: this.state.height,
+          }}
+        />
+      : <Spinner text={`Loading ${fileName}`} />
   }
 }

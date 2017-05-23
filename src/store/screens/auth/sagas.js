@@ -5,8 +5,17 @@ import firebase from 'firebase'
 import { call, put, takeLatest } from 'redux-saga/effects'
 import * as authApi from 'jog/src/data/auth'
 
-import { setLoading, setLoginError, setRegisterError, setPasswordResetError } from './actions'
-import type { LoginAction, RegisterAction, PasswordResetAction } from './actions'
+import {
+  setLoading,
+  setLoginError,
+  setRegisterError,
+  setPasswordResetError,
+} from './actions'
+import type {
+  LoginAction,
+  RegisterAction,
+  PasswordResetAction,
+} from './actions'
 
 function* login(action: LoginAction) {
   const { email, password, key } = action
@@ -69,7 +78,7 @@ function* verificationEmail() {
   }
 }
 
-function* authSaga<T>() : Iterable<T> {
+function* authSaga<T>(): Iterable<T> {
   // takeLatest does not allow concurrent login requests - the opposite of takeEvery
   yield takeLatest('screens/auth/LOGIN', login)
   yield takeLatest('screens/auth/REGISTER', register)

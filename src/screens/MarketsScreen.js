@@ -10,8 +10,8 @@ import { MARGIN } from 'jog/src/constants/style'
 
 type MarketsProps = {
   dispatch: Dispatch,
-};
-type MarketsState = {};
+}
+type MarketsState = {}
 
 class Markets extends Component {
   props: MarketsProps
@@ -36,7 +36,7 @@ class Markets extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    margin: MARGIN.base
+    margin: MARGIN.base,
   },
 })
 
@@ -44,6 +44,4 @@ const mapStateToProps = (state: ReduxState) => ({
   ...state,
 })
 
-export default connect(
-  mapStateToProps,
-)(Markets)
+export default connect(mapStateToProps)(Markets)

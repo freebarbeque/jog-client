@@ -7,10 +7,10 @@ import { MARGIN } from 'jog/src/constants/style'
 
 type AutoHeightWebViewProps = {
   source: any,
-};
+}
 type AutoHeightWebViewState = {
-  webviewHeight: number
-};
+  webviewHeight: number,
+}
 
 export default class AutoHeightWebView extends Component {
   props: AutoHeightWebViewProps
@@ -19,11 +19,11 @@ export default class AutoHeightWebView extends Component {
   constructor(props: AutoHeightWebViewProps) {
     super(props)
     this.state = {
-      webviewHeight: 100 // default height, can be anything
+      webviewHeight: 100, // default height, can be anything
     }
   }
 
-  updateWebViewHeight = (event) => {
+  updateWebViewHeight = event => {
     // jsEvaluationValue contains result of injected JS
     this.setState({ webviewHeight: parseInt(event.jsEvaluationValue, 10) })
   }
@@ -55,10 +55,10 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: VERY_LIGHT_GRAY,
     padding: MARGIN.base,
-    flexDirection: 'row'
+    flexDirection: 'row',
   },
   text: {
     color: BLUE,
-    marginBottom: MARGIN.base
-  }
+    marginBottom: MARGIN.base,
+  },
 })

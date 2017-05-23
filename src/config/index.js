@@ -17,7 +17,10 @@ if (environment === 'DEBUG') {
   throw new Error(`No environment config found for environment: ${environment}`)
 }
 
-
-config = _.merge(defaults, { ...config.default, environment, isDebug: environment === 'DEBUG' })
+config = _.merge(defaults, {
+  ...config.default,
+  environment,
+  isDebug: environment === 'DEBUG',
+})
 
 export default config

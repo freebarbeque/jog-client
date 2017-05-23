@@ -2,10 +2,7 @@
 
 import React, { Component } from 'react'
 
-import {
-  Modal, TouchableWithoutFeedback,
-  View
-} from 'react-native'
+import { Modal, TouchableWithoutFeedback, View } from 'react-native'
 
 import { connect } from 'react-redux'
 import FadeInView from 'react-native-fade-in-view'
@@ -26,10 +23,10 @@ type ActionModalProps = {
   },
   errors: {
     error: boolean,
-    text: string
+    text: string,
   },
-  dispatch: Dispatch
-};
+  dispatch: Dispatch,
+}
 
 class ActionModal extends Component {
   props: ActionModalProps
@@ -49,15 +46,13 @@ class ActionModal extends Component {
         visible={this.props.loading.loading || this.props.errors.error}
         onRequestClose={() => {}}
       >
-        <TouchableWithoutFeedback
-          onPress={this.handlePress}
-        >
+        <TouchableWithoutFeedback onPress={this.handlePress}>
           <View
             style={{
               backgroundColor: 'rgba(0,0,0,0.6)',
               flex: 1,
               alignItems: 'center',
-              justifyContent: 'center'
+              justifyContent: 'center',
             }}
           >
             <View
@@ -67,25 +62,37 @@ class ActionModal extends Component {
                 width: 240,
                 height: 150,
                 justifyContent: 'center',
-                alignItems: 'center'
+                alignItems: 'center',
               }}
             >
-              {
-                this.props.errors.error ? (
-                  <FadeInView style={{ justifyContent: 'center', alignItems: 'center' }} duration={300}>
+              {this.props.errors.error
+                ? <FadeInView
+                    style={{ justifyContent: 'center', alignItems: 'center' }}
+                    duration={300}
+                  >
                     <Warning />
-                    <Text style={{ color: BLUE, marginTop: MARGIN.large, textAlign: 'center' }}>
+                    <Text
+                      style={{
+                        color: BLUE,
+                        marginTop: MARGIN.large,
+                        textAlign: 'center',
+                      }}
+                    >
                       {this.props.errors.text}
                     </Text>
                   </FadeInView>
-                ) : (
-                  <FadeInView style={{ justifyContent: 'center', alignItems: 'center' }} duration={300}>
+                : <FadeInView
+                    style={{ justifyContent: 'center', alignItems: 'center' }}
+                    duration={300}
+                  >
                     <Spinner
-                      text={this.props.errors.error ? this.props.errors.text : this.props.loading.text}
+                      text={
+                        this.props.errors.error
+                          ? this.props.errors.text
+                          : this.props.loading.text
+                      }
                     />
-                  </FadeInView>
-                )
-              }
+                  </FadeInView>}
             </View>
           </View>
         </TouchableWithoutFeedback>
@@ -94,6 +101,9 @@ class ActionModal extends Component {
   }
 }
 
-const mapStateToProps = (state: ReduxState) => ({ loading: state.loading, errors: state.errors })
+const mapStateToProps = (state: ReduxState) => ({
+  loading: state.loading,
+  errors: state.errors,
+})
 
 export default connect(mapStateToProps)(ActionModal)

@@ -4,7 +4,9 @@ import React, { Component } from 'react'
 import { View, StyleSheet, Dimensions } from 'react-native'
 import { connect } from 'react-redux'
 import { NavigationActions } from 'react-navigation'
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
+import {
+  KeyboardAwareScrollView,
+} from 'react-native-keyboard-aware-scroll-view'
 
 import type {
   Dispatch,
@@ -13,7 +15,11 @@ import type {
   ValidationErrorsMap,
 } from 'jog/src/types'
 
-import { setValues, setValidationErrors, register } from 'jog/src/store/screens/auth/actions'
+import {
+  setValues,
+  setValidationErrors,
+  register,
+} from 'jog/src/store/screens/auth/actions'
 import { BLUE } from 'jog/src/constants/palette'
 import Text from 'jog/src/components/Text'
 import { MARGIN } from 'jog/src/constants/style'
@@ -21,7 +27,11 @@ import { authNavigationHeader } from 'jog/src/constants/headers'
 import Form from 'jog/src/components/Form'
 import AccessoryButton from 'jog/src/components/AccessoryButton'
 
-import { emailField, nameField, validatedPasswordField } from 'jog/src/components/Form/fields'
+import {
+  emailField,
+  nameField,
+  validatedPasswordField,
+} from 'jog/src/components/Form/fields'
 
 type RegisterProps = {
   dispatch: Dispatch,
@@ -29,26 +39,22 @@ type RegisterProps = {
   validationErrors: ValidationErrorsMap,
   registerError: string | null,
   loading: boolean,
-};
+}
 
 class RegisterScreen extends Component {
   props: RegisterProps
 
   static navigationOptions = {
-    ...authNavigationHeader
+    ...authNavigationHeader,
   }
 
-  static formFields = [
-    nameField,
-    emailField,
-    validatedPasswordField
-  ]
+  static formFields = [nameField, emailField, validatedPasswordField]
 
   handleLoginPress = () => {
     this.props.dispatch(NavigationActions.back())
   }
 
-  handleSubmit = (values) => {
+  handleSubmit = values => {
     // eslint-disable-next-line no-unused-vars
     const { name, email, password } = values // TODO: Do something with name
     this.props.dispatch(register(name, email, password))
@@ -72,11 +78,18 @@ class RegisterScreen extends Component {
 
     return (
       <KeyboardAwareScrollView style={styles.container}>
-        <View style={{ flexDirection: 'column', flex: 1, width: windowWidth, justifyContent: 'center' }}>
+        <View
+          style={{
+            flexDirection: 'column',
+            flex: 1,
+            width: windowWidth,
+            justifyContent: 'center',
+          }}
+        >
           <View>
-            <View style={{ justifyContent: 'center', alignItems: 'center', }}>
+            <View style={{ justifyContent: 'center', alignItems: 'center' }}>
               <Text style={styles.title}>
-               Register
+                Register
               </Text>
             </View>
             <Form
@@ -88,8 +101,12 @@ class RegisterScreen extends Component {
               disabled={this.props.loading}
               values={this.props.values}
               validationErrors={this.props.validationErrors}
-              onValuesChanged={(values) => { this.props.dispatch(setValues(values)) }}
-              onValidationErrorsChanged={(errors) => { this.props.dispatch(setValidationErrors(errors)) }}
+              onValuesChanged={values => {
+                this.props.dispatch(setValues(values))
+              }}
+              onValidationErrorsChanged={errors => {
+                this.props.dispatch(setValidationErrors(errors))
+              }}
             />
           </View>
         </View>
@@ -103,12 +120,12 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: BLUE,
     paddingTop: 20,
-    flexDirection: 'column'
+    flexDirection: 'column',
   },
   header: {
     paddingLeft: 10,
     flexDirection: 'row',
-    paddingRight: 10
+    paddingRight: 10,
   },
   headerLogo: {
     marginTop: 3,
@@ -117,14 +134,12 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     marginTop: MARGIN.large,
     fontSize: 20,
-    fontWeight: '400'
-  }
+    fontWeight: '400',
+  },
 })
 
 const mapStateToProps = (state: ReduxState) => ({
   ...state.screens.auth,
 })
 
-export default connect(
-  mapStateToProps,
-)(RegisterScreen)
+export default connect(mapStateToProps)(RegisterScreen)

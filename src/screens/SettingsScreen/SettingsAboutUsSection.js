@@ -10,9 +10,9 @@ import { MARGIN } from 'jog/src/constants/style'
 
 type SettingsAboutUsSectionProps = {
   dispatch: Dispatch,
-};
+}
 
-type SettingsAboutUsSectionState = {};
+type SettingsAboutUsSectionState = {}
 
 class SettingsAboutUsSection extends Component {
   props: SettingsAboutUsSectionProps
@@ -45,16 +45,14 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: VERY_LIGHT_GRAY,
-    padding: MARGIN.large
-  }
+    padding: MARGIN.large,
+  },
 })
 
 const mapStateToProps = (state: ReduxState) => {
   return {
-    ...state
+    ...state,
   }
 }
 
-export default connect(
-  mapStateToProps,
-)(SettingsAboutUsSection)
+export default connect(mapStateToProps)(SettingsAboutUsSection)

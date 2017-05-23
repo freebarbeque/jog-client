@@ -5,7 +5,13 @@ import { View, StyleSheet, ScrollView } from 'react-native'
 import { connect } from 'react-redux'
 import { NavigationActions } from 'react-navigation'
 
-import type { ReduxState, FirebaseUser, MotorPolicy, MotorPolicyMap, Dispatch } from 'jog/src/types'
+import type {
+  ReduxState,
+  FirebaseUser,
+  MotorPolicy,
+  MotorPolicyMap,
+  Dispatch,
+} from 'jog/src/types'
 import { CREAM, PINK } from 'jog/src/constants/palette'
 import { MARGIN } from 'jog/src/constants/style'
 import { clearPolicies } from 'jog/src/data/policies'
@@ -21,8 +27,8 @@ type PoliciesProps = {
   user: FirebaseUser | null,
   policies: MotorPolicyMap,
   initialised: boolean,
-  dispatch: Dispatch
-};
+  dispatch: Dispatch,
+}
 
 class Policies extends Component {
   props: PoliciesProps
@@ -30,11 +36,13 @@ class Policies extends Component {
   clearMockPolicies = () => {
     const user = this.props.user
     if (user) {
-      clearPolicies(user.uid).then(() => {
-        console.info('Cleared mock policies')
-      }).catch((err) => {
-        console.error('Error adding mock policies', err.stack)
-      })
+      clearPolicies(user.uid)
+        .then(() => {
+          console.info('Cleared mock policies')
+        })
+        .catch(err => {
+          console.error('Error adding mock policies', err.stack)
+        })
     }
   }
 
@@ -42,9 +50,11 @@ class Policies extends Component {
     return (
       <GetStartedScreen
         onGetStartedPress={() => {
-          this.props.dispatch(NavigationActions.navigate({
-            routeName: 'AddPolicy'
-          }))
+          this.props.dispatch(
+            NavigationActions.navigate({
+              routeName: 'AddPolicy',
+            }),
+          )
         }}
       />
     )
@@ -69,14 +79,14 @@ class Policies extends Component {
                 index={idx}
                 onPress={() => {
                   this.props.dispatch(
-                  NavigationActions.navigate({
-                    routeName: 'PolicyDetails',
-                    params: {
-                      policyId: policy.id,
-                      policyIndex: idx + 1,
-                    },
-                  })
-                )
+                    NavigationActions.navigate({
+                      routeName: 'PolicyDetails',
+                      params: {
+                        policyId: policy.id,
+                        policyIndex: idx + 1,
+                      },
+                    }),
+                  )
                 }}
               />
             )
@@ -84,10 +94,10 @@ class Policies extends Component {
           <AddMotorPolicyCard
             onPress={() => {
               this.props.dispatch(
-              NavigationActions.navigate({
-                routeName: 'AddPolicy',
-              })
-            )
+                NavigationActions.navigate({
+                  routeName: 'AddPolicy',
+                }),
+              )
             }}
           />
         </ScrollView>
@@ -109,7 +119,12 @@ class Policies extends Component {
     }
 
     return (
-      <View style={[styles.content, { alignItems: 'center', justifyContent: 'center' }]}>
+      <View
+        style={[
+          styles.content,
+          { alignItems: 'center', justifyContent: 'center' },
+        ]}
+      >
         <Spinner text="Loading your policies..." />
       </View>
     )
@@ -123,7 +138,7 @@ const styles = StyleSheet.create({
   content: {
     flex: 1,
     backgroundColor: CREAM,
-    padding: MARGIN.large
+    padding: MARGIN.large,
   },
 
   mockPoliciesButton: {
@@ -132,16 +147,14 @@ const styles = StyleSheet.create({
     borderRadius: 4,
     width: 200,
     justifyContent: 'center',
-    alignItems: 'center'
-  }
+    alignItems: 'center',
+  },
 })
 
 const mapStateToProps = (state: ReduxState) => ({
   user: state.auth.user,
   policies: selectPolicies(state),
-  initialised: state.policies.initialised
+  initialised: state.policies.initialised,
 })
 
-export default connect(
-  mapStateToProps,
-)(Policies)
+export default connect(mapStateToProps)(Policies)
