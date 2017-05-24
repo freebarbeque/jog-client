@@ -16,6 +16,7 @@ import type {
   MotorPolicyOwnership,
 } from './store/screens/addManualPolicy/actions'
 import type { SettingsScreenReduxState } from './store/screens/settings/reducer'
+import type { PushNotificationsReduxState } from './store/push/reducer'
 
 //
 // Redux
@@ -70,6 +71,7 @@ export type ReduxState = {
   insurers: InsurersReduxState,
   loading: LoadingReduxState,
   errors: ErrorsReduxState,
+  push: PushNotificationsReduxState
 }
 
 export type Store = ReduxStore<ReduxState, Action>

@@ -151,6 +151,17 @@ export const Warning = (props: LogoProps) => {
   )
 }
 
+export const Notification = (props: LogoProps) => {
+  const { style = {}, scale = 1 } = props
+
+  return (
+    <Image
+      style={[{ height: 581 * scale, width: 864 * scale }, style]}
+      source={require('./notification.png')}
+    />
+  )
+}
+
 export const AddProfilePicture = (props: LogoProps) => {
   const { style = {}, scale = 1 } = props
 

@@ -6,6 +6,7 @@ import FCM, {
   WillPresentNotificationResult,
   NotificationType,
 } from 'react-native-fcm'
+
 import { Platform } from 'react-native'
 
 import {
@@ -24,6 +25,7 @@ import { updateUserDetails } from '../auth/actions'
 
 import type { SubscribePushNotificationsAction } from './actionTypes'
 import * as actions from './actions'
+import {hidePushNotificationsModal} from './actions'
 
 function createPushNotificationsChannel() {
   return eventChannel(emit => {
@@ -70,6 +72,8 @@ export function* subscribePushNotifications<T>(): Iterable<T> {
   yield call(() => FCM.requestPermissions()) // For iOS
 
   const channel = yield call(createPushNotificationsChannel)
+  yield put(hidePushNotificationsModal())
+
   try {
     // eslint-disable-next-line no-constant-condition
     while (true) {
@@ -97,12 +101,12 @@ export function* subscribePushNotifications<T>(): Iterable<T> {
 }
 
 function* enablePushNotificationsTask<T>(): Iterable<T> {
-  yield put(updateUserDetails({ enableNotifications: true }))
+  yield put(updateUserDetails({ enableNotifications: true }, true))
   yield put(actions.subscribePushNotifications())
 }
 
 function* disablePushNotificationsTask<T>(): Iterable<T> {
-  yield put(updateUserDetails({ enableNotifications: false }))
+  yield put(updateUserDetails({ enableNotifications: false }, true))
   yield put(actions.unsubscribePushNotifications())
 }
 

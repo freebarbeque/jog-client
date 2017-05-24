@@ -8,6 +8,7 @@ import Text from 'jog/src/components/Text'
 import { VERY_LIGHT_GRAY, BLUE } from 'jog/src/constants/palette'
 import { MARGIN } from 'jog/src/constants/style'
 import { updateUserDetails } from '../../store/auth/actions'
+import {disablePushNotifications, enablePushNotifications, showPushNotificationsModal} from '../../store/push/actions'
 
 type SettingsNotificationsProps = {
   dispatch: Dispatch,
@@ -46,10 +47,17 @@ class SettingsNotificationsSection extends Component {
           <View style={{ flex: 1 }} />
           <Switch
             value={userDetails.enableNotifications}
-            onValueChange={value =>
-              this.props.dispatch(
-                updateUserDetails({ enableNotifications: value }, true),
-              )}
+            onValueChange={value => {
+              if (value) {
+                this.props.dispatch(
+                  showPushNotificationsModal()
+                )
+              } else {
+                this.props.dispatch(
+                  disablePushNotifications()
+                )
+              }
+            }}
           />
         </View>
       </View>

@@ -11,6 +11,7 @@ import { BLUE } from './src/constants/palette'
 import RootNavigator from './src/navigators/RootNavigator'
 import { syncData } from './src/store/actions'
 import ActionModal from './src/components/ActionModal'
+import EnablePushNotificationsModal from './src/components/EnablePushNotificationsModal'
 
 initialiseFirebase()
 
@@ -38,6 +39,7 @@ export default class JogApp extends Component {
           />
           <RootNavigator />
           <ActionModal />
+          <EnablePushNotificationsModal />
         </View>
       </Provider>
     )

@@ -16,7 +16,7 @@ import saga from './sagas'
 import { syncPoliciesSaga, policyOperationsSaga } from './policies/sagas'
 import { syncInsurersSaga } from './insurers/sagas'
 import { addPolicySaga } from './screens/addManualPolicy/sagas'
-import { pushNotificationSubscriptionSaga } from './push/sagas'
+import { pushNotificationSaga, pushNotificationSubscriptionSaga } from './push/sagas'
 
 let store = null
 
@@ -54,7 +54,9 @@ export default function createStore(): Store {
     sagaMiddleware.run(syncInsurersSaga)
 
     sagaMiddleware.run(addPolicySaga)
+
     sagaMiddleware.run(pushNotificationSubscriptionSaga)
+    sagaMiddleware.run(pushNotificationSaga)
 
     // Global data
     sagaMiddleware.run(saga)
