@@ -2,7 +2,7 @@
 
 import React, { Component } from 'react'
 
-import {Modal, TouchableOpacity, TouchableWithoutFeedback, View} from 'react-native'
+import {Modal, TouchableOpacity, TouchableWithoutFeedback, View, StyleSheet} from 'react-native'
 
 import { connect } from 'react-redux'
 
@@ -35,22 +35,10 @@ class EnablePushNotificationsModal extends Component {
       >
         <TouchableWithoutFeedback onPress={this.handlePress}>
           <View
-            style={{
-              backgroundColor: 'rgba(0,0,0,0.6)',
-              flex: 1,
-              alignItems: 'center',
-              justifyContent: 'center',
-            }}
+            style={styles.container}
           >
             <View
-              style={{
-                backgroundColor: 'rgba(255,255,255,0.95)',
-                borderRadius: 6,
-                width: 300,
-                height: 400,
-                justifyContent: 'center',
-                padding: MARGIN.large
-              }}
+              style={styles.content}
             >
               <Text style={{color: BLUE, fontWeight: '700', textAlign: 'center'}}>
                 Notifications
@@ -66,15 +54,7 @@ class EnablePushNotificationsModal extends Component {
               </View>
               <View style={{flexDirection: 'row'}}>
                 <TouchableOpacity
-                  style={{
-                  backgroundColor: PINK,
-                  height: 40,
-                  borderRadius: 8,
-                  minWidth: 120,
-                  flexDirection: 'column',
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                }}
+                  style={styles.cancelButton}
                   onPress={() => this.props.dispatch(hidePushNotificationsModal())}
                 >
                   <Text>
@@ -83,15 +63,7 @@ class EnablePushNotificationsModal extends Component {
                 </TouchableOpacity>
                 <View style={{flex: 1}}/>
                 <TouchableOpacity
-                  style={{
-                    backgroundColor: GREEN,
-                    height: 40,
-                    borderRadius: 8,
-                    minWidth: 120,
-                    flexDirection: 'column',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                  }}
+                  style={styles.confirmButton}
                   onPress={() => this.props.dispatch(enablePushNotifications())}
                 >
                   <Text>
@@ -106,6 +78,41 @@ class EnablePushNotificationsModal extends Component {
     )
   }
 }
+
+const styles = StyleSheet.create({
+  confirmButton: {
+    backgroundColor: GREEN,
+    height: 40,
+    borderRadius: 8,
+    minWidth: 120,
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  cancelButton: {
+    backgroundColor: PINK,
+    height: 40,
+    borderRadius: 8,
+    minWidth: 120,
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  content: {
+    backgroundColor: 'rgba(255,255,255,0.95)',
+    borderRadius: 6,
+    width: 300,
+    height: 400,
+    justifyContent: 'center',
+    padding: MARGIN.large
+  },
+  container: {
+    backgroundColor: 'rgba(0,0,0,0.6)',
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+  }
+})
 
 const mapStateToProps = (state: ReduxState) => {
   return {
