@@ -9,6 +9,7 @@ import { VERY_LIGHT_GRAY, BLUE } from 'jog/src/constants/palette'
 import { MARGIN } from 'jog/src/constants/style'
 import { updateUserDetails } from '../../store/auth/actions'
 import {disablePushNotifications, enablePushNotifications, showPushNotificationsModal} from '../../store/push/actions'
+import {isAndroid} from '../../util/system'
 
 type SettingsNotificationsProps = {
   dispatch: Dispatch,
@@ -49,9 +50,15 @@ class SettingsNotificationsSection extends Component {
             value={userDetails.enableNotifications}
             onValueChange={value => {
               if (value) {
-                this.props.dispatch(
-                  showPushNotificationsModal()
-                )
+                if (isAndroid()) {
+                  this.props.dispatch(
+                    enablePushNotifications()
+                  )
+                } else {
+                  this.props.dispatch(
+                    showPushNotificationsModal()
+                  )
+                }
               } else {
                 this.props.dispatch(
                   disablePushNotifications()
