@@ -4,6 +4,8 @@ import React, { Component } from 'react'
 import { View, StyleSheet, WebView } from 'react-native'
 import { BLUE, VERY_LIGHT_GRAY } from 'jog/src/constants/palette'
 import { MARGIN } from 'jog/src/constants/style'
+import AndroidAutoHeightWebView from 'react-native-webview-autoheight';
+import {isAndroid} from '../util/system'
 
 type AutoHeightWebViewProps = {
   source: any,
@@ -25,22 +27,41 @@ export default class AutoHeightWebView extends Component {
 
   updateWebViewHeight = event => {
     // jsEvaluationValue contains result of injected JS
-    this.setState({ webviewHeight: parseInt(event.jsEvaluationValue, 10) })
+    const height = event.jsEvaluationValue // Only available on iOS!
+    this.setState({
+      webviewHeight: parseInt(height, 10)
+    })
   }
 
-  render() {
+  renderIOS() {
     const height = this.state.webviewHeight
 
     return (
+      <WebView
+        style={{ width: '100%', height, backgroundColor: VERY_LIGHT_GRAY }}
+        source={this.props.source}
+        injectedJavaScript="document.body.scrollHeight;"
+        onNavigationStateChange={this.updateWebViewHeight}
+        automaticallyAdjustContentInsets
+      />
+    )
+  }
+
+  renderAndroid() {
+    return (
+      <AndroidAutoHeightWebView
+        source={this.props.source}
+        automaticallyAdjustContentInsets
+        style={{width: '100%', backgroundColor: VERY_LIGHT_GRAY}}
+        startInLoadingState
+      />
+    )
+  }
+
+  render() {
+    return (
       <View style={styles.container}>
-        <WebView
-          style={{ width: '100%', height, backgroundColor: VERY_LIGHT_GRAY }}
-          source={this.props.source}
-          injectedJavaScript="document.body.scrollHeight;"
-          scrollEnabled={false}
-          onNavigationStateChange={this.updateWebViewHeight}
-          automaticallyAdjustContentInsets
-        />
+        {isAndroid() ? this.renderAndroid() : this.renderIOS()}
       </View>
     )
   }

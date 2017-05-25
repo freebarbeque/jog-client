@@ -4411,6 +4411,10 @@ react-native-vector-icons@^4.0.0:
     prop-types "^15.5.8"
     yargs "^6.3.0"
 
+react-native-webview-autoheight@^1.0.4:
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/react-native-webview-autoheight/-/react-native-webview-autoheight-1.0.4.tgz#13e21664eb11d9b9952d047de363920e082a1820"
+
 react-native@0.44.0:
   version "0.44.0"
   resolved "https://registry.yarnpkg.com/react-native/-/react-native-0.44.0.tgz#06427a30053f2d555c60fe0b9afcc6c778db09de"

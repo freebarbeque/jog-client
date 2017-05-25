@@ -18,7 +18,10 @@ initialiseFirebase()
 const store = createStore()
 
 // $FlowFixMe
-console.ignoredYellowBox = ['Remote debugger is in a background tab']
+console.ignoredYellowBox = [
+  'Remote debugger is in a background tab',
+  'Setting a timer for a long period'
+]
 
 export default class JogApp extends Component {
   componentDidMount() {
