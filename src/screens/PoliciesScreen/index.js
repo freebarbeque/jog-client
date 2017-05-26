@@ -4,6 +4,7 @@ import React, { Component } from 'react'
 import { View, StyleSheet, ScrollView } from 'react-native'
 import { connect } from 'react-redux'
 import { NavigationActions } from 'react-navigation'
+import _ from 'lodash'
 
 import type {
   ReduxState,

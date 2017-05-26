@@ -18,15 +18,18 @@ export default class MotorPolicyCard extends Component {
   props: MotorPolicyCardProps
 
   render() {
+    const policy = this.props.policy
+    const description = policy.complete ? "Add more details" : "Add more details to complete this policy"
+
     return (
       <PolicyCard
         title={`Motor Policy ${this.props.index + 1}`}
-        description="Add more details to complete this policy"
+        description={description}
         image={
           <View style={styles.imageWrapper}>
             <FirebaseImage
               width={46}
-              imagePath={this.props.policy.companyLogo}
+              imagePath={policy.companyLogo}
             />
           </View>
         }
