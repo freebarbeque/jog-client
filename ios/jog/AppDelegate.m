@@ -13,6 +13,8 @@
 #import <React/RCTRootView.h>
 #import "RNFIRMessaging.h"
 
+#import <React/RCTLinkingManager.h>
+
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
@@ -60,6 +62,17 @@ didReceiveLocalNotification:(UILocalNotification *)notification {
 didReceiveRemoteNotification:(nonnull NSDictionary *)userInfo
 fetchCompletionHandler:(nonnull void (^)(UIBackgroundFetchResult))completionHandler{
   [RNFIRMessaging didReceiveRemoteNotification:userInfo fetchCompletionHandler:completionHandler];
+}
+
+- (BOOL)application:(UIApplication *)application
+            openURL:(NSURL *)url
+  sourceApplication:(NSString *)sourceApplication
+         annotation:(id)annotation
+{
+  return [RCTLinkingManager application:application
+                                openURL:url
+                      sourceApplication:sourceApplication
+                             annotation:annotation];
 }
 
 @end
