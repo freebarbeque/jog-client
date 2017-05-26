@@ -25,6 +25,7 @@ import { useIOSCamera } from 'jog/src/util/files'
 import type { iOSImageResponse } from 'jog/src/util/files'
 import { declareError } from 'jog/src/store/errors/actions'
 import { updateUserProfilePicture } from 'jog/src/store/auth/actions'
+import BigRedFullWidthButton from '../../components/BigRedFullWidthButton'
 
 type SettingsProfileSectionProps = {
   dispatch: Dispatch,
@@ -133,26 +134,20 @@ class SettingsProfileSection extends Component {
           <Field title="Post code" style={{ borderBottomColor: 'transparent' }}>
             {address && address.postCode ? address.postCode : '-'}
           </Field>
-          <TouchableOpacity
-            style={styles.support}
+          <BigRedFullWidthButton
             onPress={SettingsProfileSection.handleSupportPress}
           >
-            <View style={{ flex: 1 }}>
-              <View>
-                <Text style={{ fontWeight: '600', fontSize: 11 }}>
-                  TO MAKE PROFILE CHANGES EMAIL:
-                </Text>
-              </View>
-              <View>
-                <Text style={{ fontSize: 14 }}>
-                  support@jog.com
-                </Text>
-              </View>
+            <View>
+              <Text style={{ fontWeight: '600', fontSize: 11 }}>
+                TO MAKE PROFILE CHANGES EMAIL:
+              </Text>
             </View>
             <View>
-              <Chevron style={{ transform: [{ rotate: '270deg' }] }} />
+              <Text style={{ fontSize: 14 }}>
+                support@jog.com
+              </Text>
             </View>
-          </TouchableOpacity>
+          </BigRedFullWidthButton>
         </View>
         <CameraModal
           ref={e => {
@@ -205,14 +200,6 @@ const styles = StyleSheet.create({
   },
   content: {
     backgroundColor: VERY_LIGHT_GRAY,
-  },
-  support: {
-    backgroundColor: PINK,
-    height: 60,
-    alignItems: 'center',
-    paddingLeft: MARGIN.large,
-    paddingRight: MARGIN.large,
-    flexDirection: 'row',
   },
   profilePhoto: { width: 77, height: 77, borderRadius: 77 / 2 },
 })

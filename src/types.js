@@ -186,6 +186,7 @@ export type MotorPolicy = {
     expiry?: number,
     expired?: number,
   },
+  complete?: boolean,
 }
 
 //

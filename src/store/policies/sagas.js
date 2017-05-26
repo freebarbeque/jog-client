@@ -109,7 +109,7 @@ function* uploadPolicyDocumentTask(action: UploadPolicyDocumentAction) {
       updateCurrentUserDetails({ profilePhoto: fileStoragePath }),
     )
   } catch (e) {
-    console.debug('Error uploading image', e)
+    console.warn('Error uploading image', e)
     yield put(declareError('Unable to upload document'))
     return
   }

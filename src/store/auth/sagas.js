@@ -190,7 +190,7 @@ function* updateUserProfilePictureTask(action: UpdateUserProfilePicture) {
       updateCurrentUserDetails({ profilePhoto: fileStoragePath }),
     )
   } catch (e) {
-    console.debug('Error uploading image', e)
+    console.warn('Error uploading image', e, e.stack)
     yield put(declareError('Unable to upload document'))
     return
   }

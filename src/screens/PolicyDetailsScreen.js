@@ -4,16 +4,19 @@ import React, { Component } from 'react'
 import { ScrollView, View, StyleSheet } from 'react-native'
 import { connect } from 'react-redux'
 import moment from 'moment'
+import {NavigationActions} from 'react-navigation'
+import _ from 'lodash'
 
 import Text from 'jog/src/components/Text'
 
-import type { MotorPolicy, ReactNavigationProp } from '../types'
+import type {Dispatch, MotorPolicy, ReactNavigationProp} from '../types'
 import { LEVEL_OF_COVER } from '../types'
 import { selectPolicies } from '../store/policies/selectors'
-import { BLUE, CREAM, WHITE } from '../constants/palette'
+import {BLUE, CREAM, WHITE, YELLOW} from '../constants/palette'
 import { MARGIN } from '../constants/style'
 import { CarOutline, Chevron } from '../components/images/index'
 import Panel from '../components/Panel'
+import BigRedFullWidthButton from '../components/BigRedFullWidthButton'
 
 const Field = props => (
   <View style={styles.fieldContainer}>
@@ -39,14 +42,18 @@ const Row = props => {
 type PolicyDetailsScreenProps = {
   policies: MotorPolicy,
   navigation: ReactNavigationProp,
+  dispatch: Dispatch
 }
 
 class PolicyDetailsScreen extends Component {
   props: PolicyDetailsScreenProps
 
-  render() {
+  handleDocumentUploadPress = () => {
+    this.props.dispatch(NavigationActions.navigate({routeName: 'Documents'}))
+  }
+
+  getPolicy() : ?MotorPolicy {
     const navigationState = this.props.navigation.state
-    console.log('navigationState', navigationState)
     const policyId = navigationState.params.policyId
 
     let policy: MotorPolicy
@@ -59,6 +66,42 @@ class PolicyDetailsScreen extends Component {
         'PolicyDetailsScreen was expecting a policyId of type string in the navigation params.',
       )
     }
+
+    return policy
+  }
+
+  renderPolicyDocumentsButton() {
+    let policy = this.getPolicy()
+
+    if (policy && !policy.complete && _.values(policy.documents).length) {
+      return (
+        <BigRedFullWidthButton
+          style={{marginTop: MARGIN.base, backgroundColor: YELLOW}}
+          onPress={this.handleDocumentUploadPress}
+        >
+          <Text style={{color: BLUE}}>
+            {"We're currently processing your policy documents."}
+          </Text>
+        </BigRedFullWidthButton>
+      )
+    } else if (policy && !policy.complete) {
+      return (
+        <BigRedFullWidthButton
+          style={{marginTop: MARGIN.base}}
+          onPress={this.handleDocumentUploadPress}
+        >
+          <Text>
+            Please upload your policy documentation for a profile
+          </Text>
+        </BigRedFullWidthButton>
+      )
+    }
+
+    return null
+  }
+
+  render() {
+    let policy: ?MotorPolicy = this.getPolicy()
 
     const expiryDate = moment(policy.expiryDate)
 
@@ -122,6 +165,7 @@ class PolicyDetailsScreen extends Component {
             {policy.noClaimsBonus ? `${policy.noClaimsBonus} Yrs` : '-'}
           </Row>
         </View>
+        {this.renderPolicyDocumentsButton()}
       </ScrollView>
     )
   }
