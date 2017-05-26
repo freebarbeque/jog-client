@@ -46,7 +46,7 @@ class AuthHomeScreen extends Component {
     return (
       <View style={styles.container}>
         <View style={{ alignItems: 'center' }}>
-          <Logo style={{ marginBottom: MARGIN.large }} scale={1.5} />
+          <Logo style={{ marginBottom: MARGIN.base }} scale={1.5} />
         </View>
         <Jumbotron />
         <View style={styles.menu}>

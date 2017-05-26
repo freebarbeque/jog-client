@@ -14,6 +14,7 @@ import PoliciesNavigator from './PoliciesNavigator'
 const styles = StyleSheet.create({
   headerLogo: {
     marginLeft: MARGIN.large,
+    marginTop: MARGIN.base,
     position: 'relative',
     bottom: 4,
   },

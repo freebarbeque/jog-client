@@ -47,7 +47,7 @@ authNavigator.navigationOptions = ({ navigation }) => {
       headerTitle: null,
       headerLeft: (
         <Logo
-          style={{ marginLeft: MARGIN.large, marginBottom: MARGIN.base }}
+          style={{ marginLeft: MARGIN.large,  marginTop: MARGIN.base }}
           scale={1}
         />
       ),

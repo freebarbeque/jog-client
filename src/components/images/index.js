@@ -13,7 +13,7 @@ export const Logo = (props: LogoProps) => {
 
   return (
     <Image
-      style={[{ height: 39.752 * scale, width: 46.713 * scale }, style]}
+      style={[{ height: 23 * scale, width: 47 * scale }, style]}
       source={require('./logo.png')}
     />
   )
