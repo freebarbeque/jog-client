@@ -68,7 +68,10 @@ class PasswordResetScreen extends Component {
     const windowWidth = window.width
 
     return (
-      <KeyboardAwareScrollView style={styles.container}>
+      <KeyboardAwareScrollView
+        style={styles.container}
+        keyboardShouldPersistTaps={true}
+      >
         <View
           style={{
             flexDirection: 'column',

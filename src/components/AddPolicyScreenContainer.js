@@ -93,6 +93,7 @@ export default class AddPolicyScreenContainer extends Component {
         onKeyboardWillHide={() => {
           this.setState({ keyboardHeight: 0 })
         }}
+        keyboardShouldPersistTaps={true}
       >
         <View style={{ flex: 1, paddingBottom: 10 }}>
           <View style={styles.header}>
