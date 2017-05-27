@@ -6,8 +6,11 @@ import FCM, {
   WillPresentNotificationResult,
   NotificationType,
 } from 'react-native-fcm'
-
+import _ from 'lodash'
+import { NavigationActions } from 'react-navigation'
 import { Platform } from 'react-native'
+
+
 
 import {
   call,
@@ -26,6 +29,9 @@ import { updateUserDetails } from '../auth/actions'
 import type { SubscribePushNotificationsAction } from './actionTypes'
 import * as actions from './actions'
 import {hidePushNotificationsModal} from './actions'
+import {getStore} from '../index'
+
+import type {ReduxState} from '../../types'
 
 function createPushNotificationsChannel() {
   return eventChannel(emit => {
@@ -83,13 +89,24 @@ export function* subscribePushNotifications<T>(): Iterable<T> {
         yield put(updateUserDetails({ fcmToken: token }, true))
       } else if (notification) {
         console.log('Received notification', notification)
-        // TODO: Do something with the notification?
-        if (notification.local_notification) {
-          // this is a local notification
-        }
 
-        if (notification.opened_from_tray) {
-          // app is open/resumed because user clicked banner
+        const wasTapped = notification._notificationType === 'notification_response'
+        if (wasTapped || notification.opened_from_tray) {
+          const policyId = notification.policy
+          if (policyId) {
+            const state: ReduxState = getStore().getState()
+            const policyIndex = _.findIndex(state.policies.policies, p => p.id === policyId)
+
+            yield put(
+              NavigationActions.navigate({
+                routeName: 'PolicyDetails',
+                params: {
+                  policyId,
+                  policyIndex
+                },
+              }),
+            )
+          }
         }
       }
     }

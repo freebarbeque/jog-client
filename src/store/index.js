@@ -74,3 +74,8 @@ export default function createStore(): Store {
 
   return store
 }
+
+export function getStore(): Store {
+  if (!store) throw new Error('Store not initialised')
+  return store
+}
