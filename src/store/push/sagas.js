@@ -43,9 +43,9 @@ function createPushNotificationsChannel() {
 
     FCM.getFCMToken().then(token => emit({ token }))
 
-    // For android, this will return a notification if the app was closed but opened by tapping a notification.
-    if (!processedInitialNotification && isAndroid()) {
+    if (!processedInitialNotification) {
       FCM.getInitialNotification().then((notification) => {
+        console.log('initial notification', notification)
         if (!processedInitialNotification) {
           processedInitialNotification = true
           if (notification) {
@@ -134,7 +134,8 @@ function* receivePushNotificationTask<T>(action: ReceivePushNotification): Itera
 
   const wasTapped = notification._notificationType === 'notification_response'
   const policyId = notification.policy
-  if (wasTapped || notification.opened_from_tray) {
+  const iOSTappedNotificationWhenAppClosed = (!isAndroid() && !notification._notificationType)
+  if (wasTapped || notification.opened_from_tray || iOSTappedNotificationWhenAppClosed) {
     if (policyId) {
       const state: ReduxState = getStore().getState()
       const policyIndex = _.findIndex(state.policies.policies, p => p.id === policyId)

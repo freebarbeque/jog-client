@@ -1,27 +1,58 @@
 {
   "project_info": {
-    "project_number": "98399119405",
-    "firebase_url": "https://jog-dev-10fe9.firebaseio.com",
-    "project_id": "jog-dev-10fe9",
-    "storage_bucket": "jog-dev-10fe9.appspot.com"
+    "project_number": "122459291249",
+    "firebase_url": "https://jog-prod.firebaseio.com",
+    "project_id": "jog-prod",
+    "storage_bucket": "jog-prod.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:98399119405:android:b5c9bffc55ca7d20",
+        "mobilesdk_app_id": "1:122459291249:android:2820eacc6be6be9a",
+        "android_client_info": {
+          "package_name": "insure.jog"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "122459291249-2dr0fekvk14m864gqml52c5g3diol8qe.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAehPXL5SvCH59BmsO1Dvl1--Gc6kw4WOk"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:122459291249:android:b5c9bffc55ca7d20",
         "android_client_info": {
           "package_name": "insure.joginsurance"
         }
       },
       "oauth_client": [
         {
-          "client_id": "98399119405-2ek6j8d4o6s2hibh1v83vauuruh3qsch.apps.googleusercontent.com",
+          "client_id": "122459291249-2dr0fekvk14m864gqml52c5g3diol8qe.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyCwJ_2PQH3zXAhQdEqG7ap0bIOgJYJ3i5s"
+          "current_key": "AIzaSyAehPXL5SvCH59BmsO1Dvl1--Gc6kw4WOk"
         }
       ],
       "services": {
