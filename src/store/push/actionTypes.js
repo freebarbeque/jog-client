@@ -24,10 +24,16 @@ export type HidePushNotificationsModal = {
   type: 'push/HIDE_PUSH_NOTIFICATIONS_MODAL',
 }
 
+export type ReceivePushNotification = {
+  type: 'push/RECEIVE_PUSH_NOTIFICATION',
+  notification: Object,
+}
+
 export type PushAction =
   | SubscribePushNotificationsAction
   | UnsubscribePushNotificationsAction
   | EnablePushNotifications
   | DisablePushNotifications
-| ShowPushNotificationsModal
-| HidePushNotificationsModal
+  | ShowPushNotificationsModal
+  | HidePushNotificationsModal
+  | ReceivePushNotification

@@ -8,9 +8,6 @@ import FCM, {
 } from 'react-native-fcm'
 import _ from 'lodash'
 import { NavigationActions } from 'react-navigation'
-import { Platform } from 'react-native'
-
-
 
 import {
   call,
@@ -22,16 +19,23 @@ import {
   takeEvery,
 } from 'redux-saga/effects'
 
+import uuid from 'uuid/v4'
+
 import { eventChannel } from 'redux-saga'
 
 import { updateUserDetails } from '../auth/actions'
 
-import type { SubscribePushNotificationsAction } from './actionTypes'
+import type { SubscribePushNotificationsAction, ReceivePushNotification } from './actionTypes'
 import * as actions from './actions'
 import {hidePushNotificationsModal} from './actions'
 import {getStore} from '../index'
 
 import type {ReduxState} from '../../types'
+import {receivePushNotification} from './actions'
+import {isAndroid} from '../../util/system'
+
+// FCM doesn't clear the initial notification once you've received it, and there is no way to clear it.
+let processedInitialNotification = false
 
 function createPushNotificationsChannel() {
   return eventChannel(emit => {
@@ -39,12 +43,26 @@ function createPushNotificationsChannel() {
 
     FCM.getFCMToken().then(token => emit({ token }))
 
+    // For android, this will return a notification if the app was closed but opened by tapping a notification.
+    if (!processedInitialNotification && isAndroid()) {
+      FCM.getInitialNotification().then((notification) => {
+        if (!processedInitialNotification) {
+          processedInitialNotification = true
+          if (notification) {
+            // Sadly this doesn't work at the moment.
+            FCM.removeAllDeliveredNotifications()
+            emit({ notification })
+          }
+        }
+      })
+    }
+
     const notificationListener = FCM.on(
       FCMEvent.Notification,
       async notification => {
         emit({ notification })
 
-        if (Platform.OS === 'ios') {
+        if (!isAndroid()) {
           // eslint-disable-next-line
           switch (notification._notificationType) {
             case NotificationType.Remote:
@@ -68,7 +86,7 @@ function createPushNotificationsChannel() {
     )
 
     return () => {
-      if (refreshTokenListener) this.refreshTokenListener.remove()
+      if (refreshTokenListener) refreshTokenListener.remove()
       if (notificationListener) notificationListener.remove()
     }
   })
@@ -88,31 +106,14 @@ export function* subscribePushNotifications<T>(): Iterable<T> {
         console.log('Received push token', token)
         yield put(updateUserDetails({ fcmToken: token }, true))
       } else if (notification) {
-        console.log('Received notification', notification)
-
-        const wasTapped = notification._notificationType === 'notification_response'
-        if (wasTapped || notification.opened_from_tray) {
-          const policyId = notification.policy
-          if (policyId) {
-            const state: ReduxState = getStore().getState()
-            const policyIndex = _.findIndex(state.policies.policies, p => p.id === policyId)
-
-            yield put(
-              NavigationActions.navigate({
-                routeName: 'PolicyDetails',
-                params: {
-                  policyId,
-                  policyIndex
-                },
-              }),
-            )
-          }
-        }
+        yield put(receivePushNotification(notification))
       }
     }
   } finally {
     if (yield cancelled()) {
-      if (channel) channel.close()
+      if (channel) {
+        channel.close()
+      }
     }
   }
 }
@@ -127,11 +128,73 @@ function* disablePushNotificationsTask<T>(): Iterable<T> {
   yield put(actions.unsubscribePushNotifications())
 }
 
+function* receivePushNotificationTask<T>(action: ReceivePushNotification): Iterable<T> {
+  const notification = action.notification
+  console.log('Received notification', notification)
+
+  const wasTapped = notification._notificationType === 'notification_response'
+  const policyId = notification.policy
+  if (wasTapped || notification.opened_from_tray) {
+    if (policyId) {
+      const state: ReduxState = getStore().getState()
+      const policyIndex = _.findIndex(state.policies.policies, p => p.id === policyId)
+
+      yield put(
+        NavigationActions.navigate({
+          routeName: 'PolicyDetails',
+          params: {
+            policyId,
+            policyIndex
+          },
+        }),
+      )
+    }
+  } else {
+    // This ensures that the notification is presented even if the app is open on android.
+    // This is the default behaviour on iOS
+    if (isAndroid() && !notification.local_notification) {
+      if (!notification.opened_from_tray) {
+        FCM.presentLocalNotification({
+          id: uuid(),
+          title: notification.fcm.title,
+          body: notification.fcm.body,
+          sound: "default",
+          priority: "high",
+          click_action: "OPEN_POLICY_DETAILS",
+          show_in_foreground: true,
+          policy: notification.policy
+        });
+      }
+    } else if (notification.local_notification && notification.opened_from_tray) {
+      if (policyId) {
+        const state: ReduxState = getStore().getState()
+        const policyIndex = _.findIndex(state.policies.policies, p => p.id === policyId)
+
+        yield put(
+          NavigationActions.navigate({
+            routeName: 'PolicyDetails',
+            params: {
+              policyId,
+              policyIndex
+            },
+          }),
+        )
+      }
+    }
+  }
+
+
+}
+
 export function* pushNotificationSaga<T>(): Iterable<T> {
   yield takeEvery('push/ENABLE_PUSH_NOTIFICATIONS', enablePushNotificationsTask)
   yield takeEvery(
     'push/DISABLE_PUSH_NOTIFICATIONS',
     disablePushNotificationsTask,
+  )
+  yield takeEvery(
+    'push/RECEIVE_PUSH_NOTIFICATION',
+    receivePushNotificationTask
   )
 }
 

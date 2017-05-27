@@ -34,6 +34,8 @@ import {
   subscribePushNotifications,
   unsubscribePushNotifications,
 } from '../push/actions'
+import {getStore} from '../index'
+import type {ReduxState} from '../../types'
 
 const throttle = createThrottle(1)
 
@@ -127,14 +129,23 @@ function* syncUserTask() {
     // eslint-disable-next-line no-constant-condition
     while (true) {
       const { user, details } = yield take(channel)
+
+      const state: ReduxState = getStore().getState()
+      const previousDetails = state.auth.details
+
       yield put(receiveUser(user))
       yield put(receiveUserDetails(details))
 
       if (user) {
         // Ensure only one push notification subscription at a time.
-        yield put(unsubscribePushNotifications())
-        if (details && details.enableNotifications)
-          yield put(subscribePushNotifications())
+        if (details && details.enableNotifications) {
+          const shouldSubscribeToPushNotifs = !previousDetails || !previousDetails.enableNotifications
+          if (shouldSubscribeToPushNotifs) {
+            yield put(subscribePushNotifications())
+          }
+        } else {
+          yield put(unsubscribePushNotifications())
+        }
         yield put(syncUserData(user.uid))
       } else {
         yield put(unsubscribePushNotifications())

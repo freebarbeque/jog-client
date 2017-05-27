@@ -6,7 +6,8 @@ import type {
   EnablePushNotifications,
   DisablePushNotifications,
   ShowPushNotificationsModal,
-  HidePushNotificationsModal
+  HidePushNotificationsModal,
+  ReceivePushNotification
 } from './actionTypes'
 
 export function subscribePushNotifications(): SubscribePushNotificationsAction {
@@ -44,3 +45,11 @@ export function hidePushNotificationsModal(): HidePushNotificationsModal {
     type: 'push/HIDE_PUSH_NOTIFICATIONS_MODAL'
   }
 }
+
+export function receivePushNotification(notification: Object): ReceivePushNotification {
+  return {
+    type: 'push/RECEIVE_PUSH_NOTIFICATION',
+    notification
+  }
+}
+
