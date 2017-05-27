@@ -68,6 +68,8 @@ function createUserSubscribeChannel() {
       const uid = user && user.uid
       const newUid = newUser && newUser.uid
 
+      user = newUser
+
       if (uid !== newUid) {
         if (unsubscribeDetails) unsubscribeDetails()
         if (newUid) {
@@ -96,7 +98,6 @@ function createUserSubscribeChannel() {
         }
       }
 
-      user = newUser
       emit({ user, details })
     })
 
@@ -139,15 +140,20 @@ function* syncUserTask() {
       if (user) {
         // Ensure only one push notification subscription at a time.
         if (details && details.enableNotifications) {
-          const shouldSubscribeToPushNotifs = !previousDetails || !previousDetails.enableNotifications
-          if (shouldSubscribeToPushNotifs) {
+          const wasUnsubscribed = !previousDetails || !previousDetails.enableNotifications
+          if (wasUnsubscribed) {
             yield put(subscribePushNotifications())
           }
+        } else if (details) {
+          console.log('Unsubscribing from push notifications as user disabled push notifications')
+          yield put(unsubscribePushNotifications())
         } else {
+          console.log('Unsubscribing from push notifications as there are no user details')
           yield put(unsubscribePushNotifications())
         }
         yield put(syncUserData(user.uid))
       } else {
+        console.log('Unsubscribing from push notifications as no user logged in')
         yield put(unsubscribePushNotifications())
       }
     }

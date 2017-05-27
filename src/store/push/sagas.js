@@ -160,7 +160,7 @@ function* receivePushNotificationTask<T>(action: ReceivePushNotification): Itera
           body: notification.fcm.body,
           sound: "default",
           priority: "high",
-          click_action: "OPEN_POLICY_DETAILS",
+          click_action: "fcm.action.OPEN_POLICY_DETAILS",
           show_in_foreground: true,
           policy: notification.policy
         });
