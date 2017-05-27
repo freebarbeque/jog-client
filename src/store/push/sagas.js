@@ -128,26 +128,34 @@ function* disablePushNotificationsTask<T>(): Iterable<T> {
   yield put(actions.unsubscribePushNotifications())
 }
 
+function getPolicyIndex(policyId) {
+  const state: ReduxState = getStore().getState()
+  const policyIndex = _.findIndex(state.policies.policies, p => p.id === policyId)
+  return policyIndex
+}
+
+function navigateToPolicyDetails(policyId) {
+  return NavigationActions.navigate({
+    routeName: 'PolicyDetails',
+    params: {
+      policyId,
+      policyIndex: getPolicyIndex(policyId)
+    },
+  })
+}
+
 function* receivePushNotificationTask<T>(action: ReceivePushNotification): Iterable<T> {
   const notification = action.notification
-  console.log('Received notification', notification)
+
+  console.log('received notification', notification)
 
   const wasTapped = notification._notificationType === 'notification_response'
   const policyId = notification.policy
   const iOSTappedNotificationWhenAppClosed = (!isAndroid() && !notification._notificationType)
   if (wasTapped || notification.opened_from_tray || iOSTappedNotificationWhenAppClosed) {
     if (policyId) {
-      const state: ReduxState = getStore().getState()
-      const policyIndex = _.findIndex(state.policies.policies, p => p.id === policyId)
-
       yield put(
-        NavigationActions.navigate({
-          routeName: 'PolicyDetails',
-          params: {
-            policyId,
-            policyIndex
-          },
-        }),
+        navigateToPolicyDetails(policyId)
       )
     }
   } else {
@@ -168,17 +176,8 @@ function* receivePushNotificationTask<T>(action: ReceivePushNotification): Itera
       }
     } else if (notification.local_notification && notification.opened_from_tray) {
       if (policyId) {
-        const state: ReduxState = getStore().getState()
-        const policyIndex = _.findIndex(state.policies.policies, p => p.id === policyId)
-
         yield put(
-          NavigationActions.navigate({
-            routeName: 'PolicyDetails',
-            params: {
-              policyId,
-              policyIndex
-            },
-          }),
+          navigateToPolicyDetails(policyId)
         )
       }
     }
