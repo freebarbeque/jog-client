@@ -1,10 +1,12 @@
 /* eslint-disable import/no-commonjs */
 
-const Config = require('react-native-config')
-const _ = require('lodash')
-const defaults = require('./default')
+import Config from 'react-native-config'
+import _ from 'lodash'
+import defaults from './default'
 
-const environment = Config.JOG_ENVIRONMENT || 'DEBUG'
+const environment = Config.JOG_ENVIRONMENT
+
+if (!environment) throw new Error('JOG_ENVIRONMENT is not defined')
 
 console.log(`JOG_ENVIRONMENT=${environment}`)
 

@@ -1,7 +1,5 @@
 package insure.joginsurance;
 
-import android.content.Intent;
-
 import com.facebook.react.ReactActivity;
 
 public class MainActivity extends ReactActivity {
@@ -13,11 +11,5 @@ public class MainActivity extends ReactActivity {
     @Override
     protected String getMainComponentName() {
         return "jog";
-    }
-
-    @Override
-    public void onNewIntent(Intent intent) {
-        super.onNewIntent(intent);
-        this.setIntent(intent);
     }
 }

@@ -158,8 +158,6 @@ task copyDownloadableDepsToLibs(type: Copy) {
     into 'libs'
 }
 
-apply plugin: 'com.google.gms.google-services'
-
 task switchToDebug(type: Copy) {
     description = 'Switches to DEBUG google-services.json'
     from "src/debug"
@@ -178,3 +176,5 @@ afterEvaluate {
     processDebugGoogleServices.dependsOn switchToDebug
     processReleaseGoogleServices.dependsOn switchToRelease
 }
+
+apply plugin: 'com.google.gms.google-services'
