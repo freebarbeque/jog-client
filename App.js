@@ -32,22 +32,6 @@ export default class JogApp extends Component {
       store.dispatch(NavigationActions.back())
       return true
     })
-
-    AppState.addEventListener('change', this._handleAppStateChange);
-  }
-
-  componentWillUnmount() {
-    console.log('unmounting')
-    AppState.removeEventListener('change', this._handleAppStateChange);
-  }
-
-  _handleAppStateChange = (nextAppState) => {
-    if (nextAppState === 'active') {
-      console.log('App has come to the foreground!')
-      FCM.getInitialNotification().then((notif) => {
-        console.log('Foreground notif', notif)
-      })
-    }
   }
 
   render() {
