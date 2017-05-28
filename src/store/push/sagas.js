@@ -130,7 +130,8 @@ function* disablePushNotificationsTask<T>(): Iterable<T> {
 
 function getPolicyIndex(policyId) {
   const state: ReduxState = getStore().getState()
-  const policyIndex = _.findIndex(state.policies.policies, p => p.id === policyId)
+  const policies = state.policies.policies
+  const policyIndex = _.findIndex(_.values(policies), p => p.id === policyId) + 1
   return policyIndex
 }
 
@@ -146,9 +147,6 @@ function navigateToPolicyDetails(policyId) {
 
 function* receivePushNotificationTask<T>(action: ReceivePushNotification): Iterable<T> {
   const notification = action.notification
-
-  console.log('received notification', notification)
-
   const wasTapped = notification._notificationType === 'notification_response'
   const policyId = notification.policy
   const iOSTappedNotificationWhenAppClosed = (!isAndroid() && !notification._notificationType)

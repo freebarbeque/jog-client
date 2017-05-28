@@ -130,6 +130,7 @@ export type UserDetails = {
   },
   dob?: string,
   profilePhoto?: string,
+  os?: 'android' | 'ios',
   // Computed
   profilePhotoURL?: string,
   fcmToken?: string | null,
