@@ -30,7 +30,7 @@ import * as actions from './actions'
 import {hidePushNotificationsModal} from './actions'
 import {getStore} from '../index'
 
-import type {ReduxState} from '../../types'
+import type {NavReduxState, ReduxState, Route} from '../../types'
 import {receivePushNotification} from './actions'
 import {isAndroid} from '../../util/system'
 
@@ -135,6 +135,24 @@ function getPolicyIndex(policyId) {
   return policyIndex
 }
 
+function _policyDetailsScreenShowing(policyId, route) {
+  const isPolicyDetails = route.routeName === 'PolicyDetails' && _.get(route, ['params', 'policyId']) === policyId
+  if (isPolicyDetails) {
+    return true
+  } else if (route.index !== undefined && route.routes) {
+    return _policyDetailsScreenShowing(policyId, route.routes[route.index])
+  }
+
+  return false
+}
+
+function policyDetailsScreenShowing(policyId) {
+  const navState : NavReduxState = getStore().getState().nav
+  const index = navState.index
+  const route = navState.routes[index]
+  return _policyDetailsScreenShowing(policyId, route)
+}
+
 function navigateToPolicyDetails(policyId) {
   return NavigationActions.navigate({
     routeName: 'PolicyDetails',
@@ -149,9 +167,8 @@ function* receivePushNotificationTask<T>(action: ReceivePushNotification): Itera
   const notification = action.notification
   const wasTapped = notification._notificationType === 'notification_response'
   const policyId = notification.policy
-  const iOSTappedNotificationWhenAppClosed = (!isAndroid() && !notification._notificationType)
-  if (wasTapped || notification.opened_from_tray || iOSTappedNotificationWhenAppClosed) {
-    if (policyId) {
+  if (wasTapped || notification.opened_from_tray) {
+    if (policyId && !policyDetailsScreenShowing(policyId)) {
       yield put(
         navigateToPolicyDetails(policyId)
       )
@@ -173,7 +190,7 @@ function* receivePushNotificationTask<T>(action: ReceivePushNotification): Itera
         });
       }
     } else if (notification.local_notification && notification.opened_from_tray) {
-      if (policyId) {
+      if (policyId && !policyDetailsScreenShowing(policyId)) {
         yield put(
           navigateToPolicyDetails(policyId)
         )

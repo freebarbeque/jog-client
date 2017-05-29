@@ -228,9 +228,10 @@ export type ReactNavigationProp = {
 
 export type Route = {
   key: string,
-  index: number,
+  index?: number,
   routeName: string,
   routes: Route[],
+  params: {[key: string]: mixed}
 }
 
 // nav
