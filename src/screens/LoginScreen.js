@@ -97,7 +97,7 @@ class LoginScreen extends Component {
     return (
       <KeyboardAwareScrollView
         style={styles.container}
-        keyboardShouldPersistTaps={true}
+        keyboardShouldPersistTaps="always"
       >
         <View
           style={{
