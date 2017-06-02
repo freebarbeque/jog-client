@@ -1,5 +1,6 @@
 import React from 'react'
 import { StackNavigator } from 'react-navigation'
+import {TouchableOpacity} from 'react-native'
 
 import InsurerScreen from 'jog/src/screens/manualAddPolicy/InsurerScreen'
 import PolicyNumberScreen from '../screens/manualAddPolicy/PolicyNumberScreen'
@@ -10,7 +11,7 @@ import VehicleOwnershipScreen
   from '../screens/manualAddPolicy/VehicleOwnershipScreen'
 import FinishedScreen from '../screens/manualAddPolicy/FinishedScreen'
 
-import { Logo } from '../components/images/index'
+import {Cancel, Logo} from '../components/images/index'
 import { MARGIN } from '../constants/style'
 import { BLUE } from '../constants/palette'
 
@@ -31,7 +32,7 @@ const AddPolicyNavigator = StackNavigator(
   },
 )
 
-AddPolicyNavigator.navigationOptions = () => {
+AddPolicyNavigator.navigationOptions = (navigation) => {
   const opts = {
     cardStack: {
       // Should not be able to pull down to dismiss the modal.
@@ -43,6 +44,14 @@ AddPolicyNavigator.navigationOptions = () => {
         style={{ marginLeft: MARGIN.large, marginBottom: MARGIN.base }}
         scale={1}
       />
+    ),
+    headerRight: (
+      <TouchableOpacity
+        style={{ marginRight: MARGIN.large, marginTop: MARGIN.base }}
+        onPress={() => navigation.navigation.goBack()}
+      >
+        <Cancel />
+      </TouchableOpacity>
     ),
     headerStyle: { backgroundColor: BLUE },
   }
