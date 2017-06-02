@@ -178,10 +178,12 @@ function* receivePushNotificationTask<T>(action: ReceivePushNotification): Itera
     // This is the default behaviour on iOS
     if (isAndroid() && !notification.local_notification) {
       if (!notification.opened_from_tray) {
+        const { body, title } = notification.fcm
+
         FCM.presentLocalNotification({
           id: uuid(),
-          title: notification.fcm.title,
-          body: notification.fcm.body,
+          title,
+          body,
           sound: "default",
           priority: "high",
           click_action: "fcm.action.OPEN_POLICY_DETAILS",
@@ -197,8 +199,6 @@ function* receivePushNotificationTask<T>(action: ReceivePushNotification): Itera
       }
     }
   }
-
-
 }
 
 export function* pushNotificationSaga<T>(): Iterable<T> {

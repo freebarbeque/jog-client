@@ -97,8 +97,8 @@ android {
         applicationId "insure.joginsurance"
         minSdkVersion 16
         targetSdkVersion 22
-        versionCode 12
-        versionName "0.0.1"
+        versionCode 13
+        versionName "0.1"
         ndk {
             abiFilters "armeabi-v7a", "x86"
         }

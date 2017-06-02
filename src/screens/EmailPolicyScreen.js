@@ -46,7 +46,7 @@ class EmailPolicyScreen extends Component {
   props: EmailPolicyScreenProps
 
   render() {
-    const mailto = 'mailto:policies@jog.com'
+    const mailto = 'mailto:policies@jog.insure'
     return (
       <View style={styles.container}>
         <Text>
@@ -55,7 +55,7 @@ class EmailPolicyScreen extends Component {
         <Hyperlink
           style={{ flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'center' }}
           linkStyle={styles.hyperlinkText}
-          linkText={url => (url === mailto ? 'policies@jog.com' : '')}
+          linkText={url => (url === mailto ? 'policies@jog.insure' : '')}
         >
           <Text style={styles.email}>{mailto}</Text>
         </Hyperlink>

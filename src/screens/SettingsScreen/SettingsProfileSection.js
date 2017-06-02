@@ -144,7 +144,7 @@ class SettingsProfileSection extends Component {
             </View>
             <View>
               <Text style={{ fontSize: 14 }}>
-                support@jog.com
+                support@jog.insure
               </Text>
             </View>
           </BigRedFullWidthButton>
