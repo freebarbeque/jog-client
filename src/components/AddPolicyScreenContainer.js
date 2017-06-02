@@ -92,7 +92,7 @@ export default class AddPolicyScreenContainer extends Component {
     Keyboard.removeListener('keyboardDidHide', this.handleKeyboardDidHide)
   }
 
-  handleKeyboardDidShow = (e) => {
+  handleKeyboardDidShow = e => {
     this.setState({ keyboardHeight: e.endCoordinates.height })
   }
 
@@ -119,7 +119,10 @@ export default class AddPolicyScreenContainer extends Component {
     return (
       <KeyboardAwareScrollView
         style={styles.container}
-        contentContainerStyle={{ flex: 1, minHeight: this.state.keyboardHeight ? 334 : undefined }}
+        contentContainerStyle={{
+          flex: 1,
+          minHeight: this.state.keyboardHeight ? 334 : undefined,
+        }}
         keyboardShouldPersistTaps="always"
       >
         <View
@@ -134,7 +137,7 @@ export default class AddPolicyScreenContainer extends Component {
             {this.props.title}
           </Text>
         </View>
-        <View style={{flex: 1}}>
+        <View style={{ flex: 1 }}>
           {this.props.children}
         </View>
         <View style={styles.buttonRow}>

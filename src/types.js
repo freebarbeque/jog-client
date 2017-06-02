@@ -71,7 +71,7 @@ export type ReduxState = {
   insurers: InsurersReduxState,
   loading: LoadingReduxState,
   errors: ErrorsReduxState,
-  push: PushNotificationsReduxState
+  push: PushNotificationsReduxState,
 }
 
 export type Store = ReduxStore<ReduxState, Action>
@@ -231,7 +231,7 @@ export type Route = {
   index?: number,
   routeName: string,
   routes: Route[],
-  params: {[key: string]: mixed}
+  params: { [key: string]: mixed },
 }
 
 // nav

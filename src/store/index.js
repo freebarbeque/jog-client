@@ -16,7 +16,10 @@ import saga from './sagas'
 import { syncPoliciesSaga, policyOperationsSaga } from './policies/sagas'
 import { syncInsurersSaga } from './insurers/sagas'
 import { addPolicySaga } from './screens/addManualPolicy/sagas'
-import { pushNotificationSaga, pushNotificationSubscriptionSaga } from './push/sagas'
+import {
+  pushNotificationSaga,
+  pushNotificationSubscriptionSaga,
+} from './push/sagas'
 
 let store = null
 

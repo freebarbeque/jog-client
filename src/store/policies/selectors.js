@@ -23,7 +23,8 @@ function policyIsComplete(policy: MotorPolicy): boolean {
     policy.policyNo &&
     policy.levelOfCover &&
     policy.vehicleRegistration &&
-    policy.noClaimsBonus !== undefined && policy.noClaimsBonus !== null &&
+    policy.noClaimsBonus !== undefined &&
+    policy.noClaimsBonus !== null &&
     policy.expiryDate &&
     _.values(policy.documents).length &&
     policy.excess &&
@@ -53,7 +54,7 @@ export const selectPolicies: () => MotorPolicyMap = createSelector(
             ...p,
             companyLogo,
             companyName,
-            complete: policyIsComplete(p)
+            complete: policyIsComplete(p),
           }
         }
       })

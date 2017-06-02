@@ -7,7 +7,7 @@ export type PushNotificationsReduxState = {
 }
 
 const DEFAULT_STATE = {
-  showModal: false
+  showModal: false,
 }
 
 export default function reducer(
@@ -16,11 +16,11 @@ export default function reducer(
 ) {
   if (action.type === 'push/SHOW_PUSH_NOTIFICATIONS_MODAL') {
     return {
-      showModal: true
+      showModal: true,
     }
   } else if (action.type === 'push/HIDE_PUSH_NOTIFICATIONS_MODAL') {
     return {
-      showModal: false
+      showModal: false,
     }
   }
   return state

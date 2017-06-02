@@ -25,14 +25,17 @@ import { eventChannel } from 'redux-saga'
 
 import { updateUserDetails } from '../auth/actions'
 
-import type { SubscribePushNotificationsAction, ReceivePushNotification } from './actionTypes'
+import type {
+  SubscribePushNotificationsAction,
+  ReceivePushNotification,
+} from './actionTypes'
 import * as actions from './actions'
-import {hidePushNotificationsModal} from './actions'
-import {getStore} from '../index'
+import { hidePushNotificationsModal } from './actions'
+import { getStore } from '../index'
 
-import type {NavReduxState, ReduxState, Route} from '../../types'
-import {receivePushNotification} from './actions'
-import {isAndroid} from '../../util/system'
+import type { NavReduxState, ReduxState, Route } from '../../types'
+import { receivePushNotification } from './actions'
+import { isAndroid } from '../../util/system'
 
 // FCM doesn't clear the initial notification once you've received it, and there is no way to clear it.
 let processedInitialNotification = false
@@ -44,7 +47,7 @@ function createPushNotificationsChannel() {
     FCM.getFCMToken().then(token => emit({ token }))
 
     if (!processedInitialNotification) {
-      FCM.getInitialNotification().then((notification) => {
+      FCM.getInitialNotification().then(notification => {
         console.log('initial notification', notification)
         if (!processedInitialNotification) {
           processedInitialNotification = true
@@ -131,12 +134,15 @@ function* disablePushNotificationsTask<T>(): Iterable<T> {
 function getPolicyIndex(policyId) {
   const state: ReduxState = getStore().getState()
   const policies = state.policies.policies
-  const policyIndex = _.findIndex(_.values(policies), p => p.id === policyId) + 1
+  const policyIndex =
+    _.findIndex(_.values(policies), p => p.id === policyId) + 1
   return policyIndex
 }
 
 function _policyDetailsScreenShowing(policyId, route) {
-  const isPolicyDetails = route.routeName === 'PolicyDetails' && _.get(route, ['params', 'policyId']) === policyId
+  const isPolicyDetails =
+    route.routeName === 'PolicyDetails' &&
+    _.get(route, ['params', 'policyId']) === policyId
   if (isPolicyDetails) {
     return true
   } else if (route.index !== undefined && route.routes) {
@@ -147,7 +153,7 @@ function _policyDetailsScreenShowing(policyId, route) {
 }
 
 function policyDetailsScreenShowing(policyId) {
-  const navState : NavReduxState = getStore().getState().nav
+  const navState: NavReduxState = getStore().getState().nav
   const index = navState.index
   const route = navState.routes[index]
   return _policyDetailsScreenShowing(policyId, route)
@@ -158,20 +164,20 @@ function navigateToPolicyDetails(policyId) {
     routeName: 'PolicyDetails',
     params: {
       policyId,
-      policyIndex: getPolicyIndex(policyId)
+      policyIndex: getPolicyIndex(policyId),
     },
   })
 }
 
-function* receivePushNotificationTask<T>(action: ReceivePushNotification): Iterable<T> {
+function* receivePushNotificationTask<T>(
+  action: ReceivePushNotification,
+): Iterable<T> {
   const notification = action.notification
   const wasTapped = notification._notificationType === 'notification_response'
   const policyId = notification.policy
   if (wasTapped || notification.opened_from_tray) {
     if (policyId && !policyDetailsScreenShowing(policyId)) {
-      yield put(
-        navigateToPolicyDetails(policyId)
-      )
+      yield put(navigateToPolicyDetails(policyId))
     }
   } else {
     // This ensures that the notification is presented even if the app is open on android.
@@ -184,18 +190,19 @@ function* receivePushNotificationTask<T>(action: ReceivePushNotification): Itera
           id: uuid(),
           title,
           body,
-          sound: "default",
-          priority: "high",
-          click_action: "fcm.action.OPEN_POLICY_DETAILS",
+          sound: 'default',
+          priority: 'high',
+          click_action: 'fcm.action.OPEN_POLICY_DETAILS',
           show_in_foreground: true,
-          policy: notification.policy
-        });
+          policy: notification.policy,
+        })
       }
-    } else if (notification.local_notification && notification.opened_from_tray) {
+    } else if (
+      notification.local_notification &&
+      notification.opened_from_tray
+    ) {
       if (policyId && !policyDetailsScreenShowing(policyId)) {
-        yield put(
-          navigateToPolicyDetails(policyId)
-        )
+        yield put(navigateToPolicyDetails(policyId))
       }
     }
   }
@@ -207,10 +214,7 @@ export function* pushNotificationSaga<T>(): Iterable<T> {
     'push/DISABLE_PUSH_NOTIFICATIONS',
     disablePushNotificationsTask,
   )
-  yield takeEvery(
-    'push/RECEIVE_PUSH_NOTIFICATION',
-    receivePushNotificationTask
-  )
+  yield takeEvery('push/RECEIVE_PUSH_NOTIFICATION', receivePushNotificationTask)
 }
 
 export function* pushNotificationSubscriptionSaga<T>(): Iterable<T> {

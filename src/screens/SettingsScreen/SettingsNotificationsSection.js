@@ -8,8 +8,12 @@ import Text from 'jog/src/components/Text'
 import { VERY_LIGHT_GRAY, BLUE } from 'jog/src/constants/palette'
 import { MARGIN } from 'jog/src/constants/style'
 import { updateUserDetails } from '../../store/auth/actions'
-import {disablePushNotifications, enablePushNotifications, showPushNotificationsModal} from '../../store/push/actions'
-import {isAndroid} from '../../util/system'
+import {
+  disablePushNotifications,
+  enablePushNotifications,
+  showPushNotificationsModal,
+} from '../../store/push/actions'
+import { isAndroid } from '../../util/system'
 
 type SettingsNotificationsProps = {
   dispatch: Dispatch,
@@ -51,18 +55,12 @@ class SettingsNotificationsSection extends Component {
             onValueChange={value => {
               if (value) {
                 if (isAndroid()) {
-                  this.props.dispatch(
-                    enablePushNotifications()
-                  )
+                  this.props.dispatch(enablePushNotifications())
                 } else {
-                  this.props.dispatch(
-                    showPushNotificationsModal()
-                  )
+                  this.props.dispatch(showPushNotificationsModal())
                 }
               } else {
-                this.props.dispatch(
-                  disablePushNotifications()
-                )
+                this.props.dispatch(disablePushNotifications())
               }
             }}
           />

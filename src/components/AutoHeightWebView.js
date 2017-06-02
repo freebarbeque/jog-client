@@ -4,8 +4,8 @@ import React, { Component } from 'react'
 import { View, StyleSheet, WebView } from 'react-native'
 import { BLUE, VERY_LIGHT_GRAY } from 'jog/src/constants/palette'
 import { MARGIN } from 'jog/src/constants/style'
-import AndroidAutoHeightWebView from 'react-native-webview-autoheight';
-import {isAndroid} from '../util/system'
+import AndroidAutoHeightWebView from 'react-native-webview-autoheight'
+import { isAndroid } from '../util/system'
 
 type AutoHeightWebViewProps = {
   source: any,
@@ -29,7 +29,7 @@ export default class AutoHeightWebView extends Component {
     // jsEvaluationValue contains result of injected JS
     const height = event.jsEvaluationValue // Only available on iOS!
     this.setState({
-      webviewHeight: parseInt(height, 10)
+      webviewHeight: parseInt(height, 10),
     })
   }
 
@@ -52,7 +52,7 @@ export default class AutoHeightWebView extends Component {
       <AndroidAutoHeightWebView
         source={this.props.source}
         automaticallyAdjustContentInsets
-        style={{width: '100%', backgroundColor: VERY_LIGHT_GRAY}}
+        style={{ width: '100%', backgroundColor: VERY_LIGHT_GRAY }}
         startInLoadingState
       />
     )

@@ -34,8 +34,8 @@ import {
   subscribePushNotifications,
   unsubscribePushNotifications,
 } from '../push/actions'
-import {getStore} from '../index'
-import type {ReduxState} from '../../types'
+import { getStore } from '../index'
+import type { ReduxState } from '../../types'
 
 const throttle = createThrottle(1)
 
@@ -140,20 +140,27 @@ function* syncUserTask() {
       if (user) {
         // Ensure only one push notification subscription at a time.
         if (details && details.enableNotifications) {
-          const wasUnsubscribed = !previousDetails || !previousDetails.enableNotifications
+          const wasUnsubscribed =
+            !previousDetails || !previousDetails.enableNotifications
           if (wasUnsubscribed) {
             yield put(subscribePushNotifications())
           }
         } else if (details) {
-          console.log('Unsubscribing from push notifications as user disabled push notifications')
+          console.log(
+            'Unsubscribing from push notifications as user disabled push notifications',
+          )
           yield put(unsubscribePushNotifications())
         } else {
-          console.log('Unsubscribing from push notifications as there are no user details')
+          console.log(
+            'Unsubscribing from push notifications as there are no user details',
+          )
           yield put(unsubscribePushNotifications())
         }
         yield put(syncUserData(user.uid))
       } else {
-        console.log('Unsubscribing from push notifications as no user logged in')
+        console.log(
+          'Unsubscribing from push notifications as no user logged in',
+        )
         yield put(unsubscribePushNotifications())
       }
     }

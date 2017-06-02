@@ -90,10 +90,12 @@ class RegisterScreen extends Component {
           }}
         >
           <View>
-            <View style={{
-              justifyContent: 'center',
-              alignItems: 'center',
-            }}>
+            <View
+              style={{
+                justifyContent: 'center',
+                alignItems: 'center',
+              }}
+            >
               <Text style={styles.title}>
                 Register
               </Text>

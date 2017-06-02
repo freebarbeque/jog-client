@@ -1,11 +1,11 @@
 // @flow
 
-import React, {Component} from 'react'
-import {StyleSheet, TouchableOpacity, View} from 'react-native'
+import React, { Component } from 'react'
+import { StyleSheet, TouchableOpacity, View } from 'react-native'
 
-import {PINK} from '../constants/palette'
-import {MARGIN} from '../constants/style'
-import {Chevron} from './images/index'
+import { PINK } from '../constants/palette'
+import { MARGIN } from '../constants/style'
+import { Chevron } from './images/index'
 
 export default class BigRedFullWidthButton extends Component {
   props: {
@@ -24,9 +24,11 @@ export default class BigRedFullWidthButton extends Component {
         <View style={styles.content}>
           {this.props.children}
         </View>
-        {!this.props.hideChevron ? <View>
-          <Chevron style={styles.chevron} />
-        </View> : null}
+        {!this.props.hideChevron
+          ? <View>
+              <Chevron style={styles.chevron} />
+            </View>
+          : null}
       </TouchableOpacity>
     )
   }
@@ -42,12 +44,14 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   chevron: {
-    transform: [{
-      rotate: '270deg',
-    }]
+    transform: [
+      {
+        rotate: '270deg',
+      },
+    ],
   },
   content: {
     flex: 1,
-    marginRight: MARGIN.base
-  }
+    marginRight: MARGIN.base,
+  },
 })
