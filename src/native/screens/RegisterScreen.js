@@ -4,9 +4,7 @@ import React, { Component } from 'react'
 import { View, StyleSheet, Dimensions } from 'react-native'
 import { connect } from 'react-redux'
 import { NavigationActions } from 'react-navigation'
-import {
-  KeyboardAwareScrollView,
-} from 'react-native-keyboard-aware-scroll-view'
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 
 import type {
   Dispatch,

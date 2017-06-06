@@ -10,12 +10,10 @@ import PolicyNumberScreen from '../screens/manualAddPolicy/PolicyNumberScreen'
 import PolicyDateScreen from '../screens/manualAddPolicy/PolicyDateScreen'
 import PolicyCostScreen from '../screens/manualAddPolicy/PolicyCostScreen'
 import LicensePlateScreen from '../screens/manualAddPolicy/LicensePlateScreen'
-import VehicleOwnershipScreen
-  from '../screens/manualAddPolicy/VehicleOwnershipScreen'
+import VehicleOwnershipScreen from '../screens/manualAddPolicy/VehicleOwnershipScreen'
 import FinishedScreen from '../screens/manualAddPolicy/FinishedScreen'
 
 import { Cancel, Logo } from '../components/images'
-
 
 const AddPolicyNavigator = StackNavigator(
   {

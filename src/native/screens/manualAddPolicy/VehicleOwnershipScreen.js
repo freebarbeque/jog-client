@@ -6,11 +6,8 @@ import { NavigationActions } from 'react-navigation'
 
 import type { Dispatch, ReduxState } from 'jog/src/types'
 
-import AddPolicyScreenContainer
-  from 'jog/src/native/components/AddPolicyScreenContainer'
-import type {
-  ManualPolicyUpdate,
-} from 'jog/src/common/store/screens/addManualPolicy/actions'
+import AddPolicyScreenContainer from 'jog/src/native/components/AddPolicyScreenContainer'
+import type { ManualPolicyUpdate } from 'jog/src/common/store/screens/addManualPolicy/actions'
 import {
   updateManualPolicy,
   savePolicy,

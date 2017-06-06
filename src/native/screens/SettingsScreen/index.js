@@ -14,8 +14,7 @@ import { setActiveSection } from 'jog/src/common/store/screens/settings/actions'
 import AnimatedChevron from './AnimatedChevron'
 import SettingsProfileSection from './SettingsProfileSection'
 import SettingsPrivacyPolicySection from './SettingsPrivacyPolicySection'
-import SettingsTermsAndConditionsSection
-  from './SettingsTermsAndConditionsSection'
+import SettingsTermsAndConditionsSection from './SettingsTermsAndConditionsSection'
 import SettingsAboutUsSection from './SettingsAboutUsSection'
 import SettingsNotificationsSection from './SettingsNotificationsSection'
 

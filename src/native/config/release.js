@@ -16,7 +16,8 @@ export default {
     databaseURL,
     storageBucket,
     GCMSenderID: messagingSenderId,
-    clientID: '122459291249-m1utl9kf630im11aeatmgf55usniersj.apps.googleusercontent.com',
+    clientID:
+      '122459291249-m1utl9kf630im11aeatmgf55usniersj.apps.googleusercontent.com',
     bundleID: 'insure.jog',
     debug: false,
     googleAppID: '1:122459291249:ios:2820eacc6be6be9a',

@@ -83,7 +83,8 @@ class EmailVerificationScreen extends Component {
             </View>
             <View style={{ justifyContent: 'center', alignItems: 'center' }}>
               <Text style={styles.description}>
-                We just sent you a verification email. Click the link to activate your account
+                We just sent you a verification email. Click the link to
+                activate your account
               </Text>
             </View>
           </View>

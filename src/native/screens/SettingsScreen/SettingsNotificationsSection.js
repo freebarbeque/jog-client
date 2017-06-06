@@ -7,7 +7,6 @@ import type { ReduxState, Dispatch, UserDetails } from 'jog/src/types'
 import Text from 'jog/src/native/components/Text'
 import { VERY_LIGHT_GRAY, BLUE } from 'jog/src/common/constants/palette'
 import { MARGIN } from 'jog/src/common/constants/style'
-import { updateUserDetails } from 'jog/src/common/store/auth/actions'
 import {
   disablePushNotifications,
   enablePushNotifications,
@@ -37,7 +36,8 @@ class SettingsNotificationsSection extends Component {
     return (
       <View style={styles.container}>
         <Text style={{ color: BLUE }}>
-          When notifications are enabled, Jog will send you reminders when your policy is due to expire or has already expired.
+          When notifications are enabled, Jog will send you reminders when your
+          policy is due to expire or has already expired.
         </Text>
         <View
           style={{

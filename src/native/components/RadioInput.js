@@ -27,7 +27,7 @@ export default class RadioInput extends Component {
     return (
       <View style={[styles.container, style || {}]}>
         <View>
-          {options.map(o => (
+          {options.map(o =>
             <TouchableOpacity
               key={o.value}
               style={styles.touchable}
@@ -39,8 +39,8 @@ export default class RadioInput extends Component {
               <Text style={styles.label}>
                 {o.label}
               </Text>
-            </TouchableOpacity>
-          ))}
+            </TouchableOpacity>,
+          )}
         </View>
       </View>
     )

@@ -101,6 +101,7 @@ export default class Form extends Component {
             if (isLastField) {
               this.handleSubmit()
             } else {
+              // eslint-disable-next-line
               this.refs[`${idx + 1}`].focus()
             }
           }}

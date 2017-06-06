@@ -6,14 +6,9 @@ import { NavigationActions } from 'react-navigation'
 
 import type { Dispatch, ReduxState } from 'jog/src/types'
 
-import AddPolicyScreenContainer
-  from 'jog/src/native/components/AddPolicyScreenContainer'
-import type {
-  ManualPolicyUpdate,
-} from 'jog/src/common/store/screens/addManualPolicy/actions'
-import {
-  updateManualPolicy,
-} from 'jog/src/common/store/screens/addManualPolicy/actions'
+import AddPolicyScreenContainer from 'jog/src/native/components/AddPolicyScreenContainer'
+import type { ManualPolicyUpdate } from 'jog/src/common/store/screens/addManualPolicy/actions'
+import { updateManualPolicy } from 'jog/src/common/store/screens/addManualPolicy/actions'
 import DatePicker from 'jog/src/native/components/DatePicker'
 
 type PolicyDateScreenProps = {

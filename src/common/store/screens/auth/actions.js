@@ -148,18 +148,14 @@ export function setLoginError(loginError: string | null): SetLoginErrorAction {
   }
 }
 
-export function setRegisterError(
-  registerError: string | null,
-): SetRegisterErrorAction {
+export function setRegisterError(registerError: string | null): SetRegisterErrorAction {
   return {
     type: 'screens/auth/SET_REGISTER_ERROR',
     registerError,
   }
 }
 
-export function setPasswordResetError(
-  passwordResetError: string | null,
-): SetPasswordResetErrorAction {
+export function setPasswordResetError(passwordResetError: string | null): SetPasswordResetErrorAction {
   return {
     type: 'screens/auth/SET_PASSWORD_RESET_ERROR',
     passwordResetError,

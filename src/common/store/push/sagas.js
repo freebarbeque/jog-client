@@ -24,6 +24,7 @@ import uuid from 'uuid/v4'
 import { eventChannel } from 'redux-saga'
 
 import { isAndroid } from 'jog/src/native/util/system'
+import type { NavReduxState, ReduxState } from 'jog/src/types'
 
 import { updateUserDetails } from '../auth/actions'
 
@@ -32,11 +33,7 @@ import type {
   ReceivePushNotification,
 } from './actionTypes'
 import * as actions from './actions'
-import { hidePushNotificationsModal } from './actions'
 import { getStore } from '../index'
-
-import type { NavReduxState, ReduxState, Route } from 'jog/src/types'
-import { receivePushNotification } from './actions'
 
 // FCM doesn't clear the initial notification once you've received it, and there is no way to clear it.
 let processedInitialNotification = false
@@ -100,7 +97,7 @@ export function* subscribePushNotifications<T>(): Iterable<T> {
   yield call(() => FCM.requestPermissions()) // For iOS
 
   const channel = yield call(createPushNotificationsChannel)
-  yield put(hidePushNotificationsModal())
+  yield put(actions.hidePushNotificationsModal())
 
   try {
     // eslint-disable-next-line no-constant-condition
@@ -110,7 +107,7 @@ export function* subscribePushNotifications<T>(): Iterable<T> {
         console.log('Received push token', token)
         yield put(updateUserDetails({ fcmToken: token }, true))
       } else if (notification) {
-        yield put(receivePushNotification(notification))
+        yield put(actions.receivePushNotification(notification))
       }
     }
   } finally {
@@ -180,31 +177,26 @@ function* receivePushNotificationTask<T>(
     if (policyId && !policyDetailsScreenShowing(policyId)) {
       yield put(navigateToPolicyDetails(policyId))
     }
-  } else {
+  } else if (isAndroid() && !notification.local_notification) {
     // This ensures that the notification is presented even if the app is open on android.
     // This is the default behaviour on iOS
-    if (isAndroid() && !notification.local_notification) {
-      if (!notification.opened_from_tray) {
-        const { body, title } = notification.fcm
+    if (!notification.opened_from_tray) {
+      const { body, title } = notification.fcm
 
-        FCM.presentLocalNotification({
-          id: uuid(),
-          title,
-          body,
-          sound: 'default',
-          priority: 'high',
-          click_action: 'fcm.action.OPEN_POLICY_DETAILS',
-          show_in_foreground: true,
-          policy: notification.policy,
-        })
-      }
-    } else if (
-      notification.local_notification &&
-      notification.opened_from_tray
-    ) {
-      if (policyId && !policyDetailsScreenShowing(policyId)) {
-        yield put(navigateToPolicyDetails(policyId))
-      }
+      FCM.presentLocalNotification({
+        id: uuid(),
+        title,
+        body,
+        sound: 'default',
+        priority: 'high',
+        click_action: 'fcm.action.OPEN_POLICY_DETAILS',
+        show_in_foreground: true,
+        policy: notification.policy,
+      })
+    }
+  } else if (notification.local_notification && notification.opened_from_tray) {
+    if (policyId && !policyDetailsScreenShowing(policyId)) {
+      yield put(navigateToPolicyDetails(policyId))
     }
   }
 }

@@ -6,17 +6,20 @@ import { NavigationActions } from 'react-navigation'
 import Hyperlink from 'react-native-hyperlink'
 import { connect } from 'react-redux'
 
-import Text from '../components/Text'
 import { MARGIN } from 'jog/src/common/constants/style'
 import { BLUE } from 'jog/src/common/constants/palette'
-import { Cancel, Logo } from '../components/images'
 import type { ReduxState, FirebaseUser } from 'jog/src/types'
+
+import { Cancel, Logo } from '../components/images'
+import Text from '../components/Text'
 
 type EmailPolicyScreenProps = {
   user: FirebaseUser,
 }
 
 class EmailPolicyScreen extends Component {
+  props: EmailPolicyScreenProps
+
   static navigationOptions = ({ navigation }) => {
     const { dispatch } = navigation
 
@@ -43,8 +46,6 @@ class EmailPolicyScreen extends Component {
     }
   }
 
-  props: EmailPolicyScreenProps
-
   render() {
     const mailto = 'mailto:policies@jog.insure'
     return (
@@ -52,7 +53,8 @@ class EmailPolicyScreen extends Component {
         <Text>
           Using the address associated with your account (
           {this.props.user.email}
-          ) please send an email to the address below, attaching all relevant policy documents
+          ) please send an email to the address below, attaching all relevant
+          policy documents
         </Text>
         <Hyperlink
           style={{

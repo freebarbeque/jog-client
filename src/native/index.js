@@ -21,7 +21,7 @@ const store = createStore()
 // $FlowFixMe
 console.ignoredYellowBox = [
   'Remote debugger is in a background tab',
-  'Setting a timer for a long period'
+  'Setting a timer for a long period',
 ]
 
 export default class JogApp extends Component {
@@ -38,9 +38,7 @@ export default class JogApp extends Component {
     return (
       <Provider store={store}>
         <View style={styles.container}>
-          <StatusBar
-            barStyle="light-content"
-          />
+          <StatusBar barStyle="light-content" />
           <RootNavigator />
           <ActionModal />
           <EnablePushNotificationsModal />
@@ -53,6 +51,6 @@ export default class JogApp extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: BLUE
-  }
+    backgroundColor: BLUE,
+  },
 })

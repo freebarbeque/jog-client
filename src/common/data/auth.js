@@ -7,12 +7,15 @@ const errors = {
   'auth/invalid-email': 'Invalid email address supplied.',
   'auth/wrong-password': 'Please check your password and try again.',
   'auth/expired-action-code': 'That code has expired. Please try again.',
-  'auth/invalid-action-code': 'That code is either invalid or has already been used.',
+  'auth/invalid-action-code':
+    'That code is either invalid or has already been used.',
   'auth/user-disabled': 'This user account has been disabled.',
   'auth/user-not-found': 'A user with that email does not exist.',
   'auth/weak-password': 'Your password is too weak.',
-  'auth/email-already-in-use': 'An account with that email address already exists.',
-  'auth/operation-not-allowed': 'Email/password authentication is currently disabled.',
+  'auth/email-already-in-use':
+    'An account with that email address already exists.',
+  'auth/operation-not-allowed':
+    'Email/password authentication is currently disabled.',
 }
 
 // Decorates firebase calls converting errors into user readable errors and warning when this

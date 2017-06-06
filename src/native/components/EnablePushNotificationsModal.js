@@ -13,7 +13,6 @@ import {
 import { connect } from 'react-redux'
 
 import type { Dispatch, ReduxState } from 'jog/src/types'
-import Text from './Text'
 import { BLUE, GREEN, PINK } from 'jog/src/common/constants/palette'
 import { MARGIN } from 'jog/src/common/constants/style'
 import {
@@ -21,8 +20,8 @@ import {
   hidePushNotificationsModal,
 } from 'jog/src/common/store/push/actions'
 
+import Text from './Text'
 import { Notification } from './images/index'
-
 
 type EnablePushNotificationsModalProps = {
   dispatch: Dispatch,
@@ -51,7 +50,8 @@ class EnablePushNotificationsModal extends Component {
                 Notifications
               </Text>
               <Text style={{ color: BLUE, marginTop: MARGIN.base }}>
-                Jog would like to send you the occasional reminder of when your insurance policies are close to expiring.
+                Jog would like to send you the occasional reminder of when your
+                insurance policies are close to expiring.
               </Text>
               <Text style={{ color: BLUE, marginTop: MARGIN.base }}>
                 If you tap confirm, you may see the following dialog:

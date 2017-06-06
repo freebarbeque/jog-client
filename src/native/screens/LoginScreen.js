@@ -4,9 +4,7 @@ import React, { Component } from 'react'
 import { View, StyleSheet, Dimensions } from 'react-native'
 import { connect } from 'react-redux'
 import { NavigationActions } from 'react-navigation'
-import {
-  KeyboardAwareScrollView,
-} from 'react-native-keyboard-aware-scroll-view'
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 
 import type {
   Dispatch,
@@ -28,7 +26,10 @@ import Text from 'jog/src/native/components/Text'
 import Form from 'jog/src/native/components/Form'
 import AccessoryButton from 'jog/src/native/components/AccessoryButton'
 
-import { emailField, passwordField } from 'jog/src/native/components/Form/fields'
+import {
+  emailField,
+  passwordField,
+} from 'jog/src/native/components/Form/fields'
 
 type LoginProps = {
   dispatch: Dispatch,

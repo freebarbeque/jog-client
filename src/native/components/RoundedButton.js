@@ -31,7 +31,7 @@ const styles = StyleSheet.create({
   },
 })
 
-const RoundedButton = ({ label, style = {}, loading, ...props }) => (
+const RoundedButton = ({ label, style = {}, loading, ...props }) =>
   <View style={[styles.container, style]}>
     <TouchableOpacity style={[styles.touchable]} disabled={loading} {...props}>
       <View style={{ flexDirection: 'row' }}>
@@ -46,7 +46,6 @@ const RoundedButton = ({ label, style = {}, loading, ...props }) => (
       </View>
     </TouchableOpacity>
   </View>
-)
 
 RoundedButton.propTypes = {
   label: PropTypes.string,

@@ -9,7 +9,11 @@ import { Platform } from 'react-native'
 import reducer from 'jog/src/common/store/reducer'
 import type { Store } from 'jog/src/types'
 import authScreenSaga from 'jog/src/common/store/screens/auth/sagas'
-import { pollUserSaga, authSaga, userSyncSaga } from 'jog/src/common/store/auth/sagas'
+import {
+  pollUserSaga,
+  authSaga,
+  userSyncSaga,
+} from 'jog/src/common/store/auth/sagas'
 import config from 'jog/src/native/config'
 
 import saga from './sagas'

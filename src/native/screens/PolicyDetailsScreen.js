@@ -18,7 +18,7 @@ import { CarOutline, Chevron } from '../components/images/index'
 import Panel from '../components/Panel'
 import BigRedFullWidthButton from '../components/BigRedFullWidthButton'
 
-const Field = props => (
+const Field = props =>
   <View style={styles.fieldContainer}>
     <Text style={styles.fieldTitle}>
       {props.title.toUpperCase()}
@@ -27,7 +27,6 @@ const Field = props => (
       {props.children}
     </Text>
   </View>
-)
 
 const Row = props => {
   return (
@@ -71,7 +70,7 @@ class PolicyDetailsScreen extends Component {
   }
 
   renderPolicyDocumentsButton() {
-    let policy = this.getPolicy()
+    const policy = this.getPolicy()
 
     if (policy && !policy.complete && _.values(policy.documents).length) {
       return (
@@ -101,7 +100,7 @@ class PolicyDetailsScreen extends Component {
   }
 
   render() {
-    let policy: ?MotorPolicy = this.getPolicy()
+    const policy: ?MotorPolicy = this.getPolicy()
 
     const expiryDate = moment(policy.expiryDate)
 

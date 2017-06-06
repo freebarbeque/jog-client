@@ -17,8 +17,8 @@ import type {
   UserDetails,
 } from 'jog/src/types'
 import Text from 'jog/src/native/components/Text'
-import { AddProfilePicture, Chevron } from 'jog/src/native/components/images/index'
-import { BLUE, PINK, VERY_LIGHT_GRAY, WHITE } from 'jog/src/common/constants/palette'
+import { AddProfilePicture } from 'jog/src/native/components/images/index'
+import { BLUE, VERY_LIGHT_GRAY, WHITE } from 'jog/src/common/constants/palette'
 import { MARGIN } from 'jog/src/common/constants/style'
 import CameraModal from 'jog/src/native/components/CameraModal'
 import { useIOSCamera } from 'jog/src/native/util/files'
@@ -36,7 +36,7 @@ type SettingsProfileSectionProps = {
 
 type SettingsProfileSectionState = {}
 
-const Field = props => (
+const Field = props =>
   <View style={[styles.fieldContainer, props.style || {}]}>
     <Text style={styles.fieldTitle}>
       {props.title.toUpperCase()}
@@ -45,7 +45,6 @@ const Field = props => (
       {props.children}
     </Text>
   </View>
-)
 
 class SettingsProfileSection extends Component {
   props: SettingsProfileSectionProps

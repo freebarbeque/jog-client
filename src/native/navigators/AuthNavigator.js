@@ -5,8 +5,7 @@ import LoginScreen from 'jog/src/native/screens/LoginScreen'
 import RegisterScreen from 'jog/src/native/screens/RegisterScreen'
 import ForgotPasswordScreen from 'jog/src/native/screens/PasswordResetScreen'
 import EmailVerificationScreen from 'jog/src/native/screens/EmailVerificationScreen'
-import ConfirmPasswordResetScreen
-  from 'jog/src/native/screens/ConfirmPasswordResetScreen'
+import ConfirmPasswordResetScreen from 'jog/src/native/screens/ConfirmPasswordResetScreen'
 import AuthHomeScreen from 'jog/src/native/screens/AuthHomeScreen'
 
 import { Logo } from '../components/images/index'

@@ -16,9 +16,19 @@ import { NavigationActions } from 'react-navigation'
 import mime from 'react-native-mime-types'
 import uuid from 'uuid/v4'
 
-import { signOut, userSubscribe, demandCurrentUser } from 'jog/src/common/data/auth'
-import { syncUserDetails, updateCurrentUserDetails } from 'jog/src/common/data/user'
-import { finishLoading, startLoading } from 'jog/src/common/store/loading/actions'
+import {
+  signOut,
+  userSubscribe,
+  demandCurrentUser,
+} from 'jog/src/common/data/auth'
+import {
+  syncUserDetails,
+  updateCurrentUserDetails,
+} from 'jog/src/common/data/user'
+import {
+  finishLoading,
+  startLoading,
+} from 'jog/src/common/store/loading/actions'
 import { getFirestack } from 'jog/src/common/data'
 import { declareError } from 'jog/src/common/store/errors/actions'
 import { setLoading } from 'jog/src/common/store/screens/auth/actions'

@@ -11,12 +11,10 @@ type FirebaseImageProps = {
 
 type FirebaseImageState = {
   imageUrl: string | null,
-  dimensions:
-    | {
-        height: number,
-        width: number,
-      }
-    | null,
+  dimensions: {
+    height: number,
+    width: number,
+  } | null,
 }
 
 export default class FirebaseImage extends Component {

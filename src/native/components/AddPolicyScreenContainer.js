@@ -3,9 +3,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { View, TouchableOpacity, StyleSheet, Keyboard } from 'react-native'
-import {
-  KeyboardAwareScrollView,
-} from 'react-native-keyboard-aware-scroll-view'
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 
 import { BLUE, PINK, WHITE } from 'jog/src/common/constants/palette'
 import { MARGIN } from 'jog/src/common/constants/style'

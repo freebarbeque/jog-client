@@ -4,7 +4,7 @@ import { View } from 'react-native'
 import { WHITE } from 'jog/src/common/constants/palette'
 import { MARGIN } from 'jog/src/common/constants/style'
 
-export default props => (
+export default props =>
   <View
     style={[
       {
@@ -18,4 +18,3 @@ export default props => (
   >
     {props.children}
   </View>
-)

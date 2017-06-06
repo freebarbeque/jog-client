@@ -45,7 +45,8 @@ class ConfirmPasswordResetScreen extends Component {
             </View>
             <View style={{ justifyContent: 'center', alignItems: 'center' }}>
               <Text style={styles.description}>
-                We just sent you an email through which you can reset your password.
+                We just sent you an email through which you can reset your
+                password.
               </Text>
             </View>
           </View>

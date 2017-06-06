@@ -7,7 +7,7 @@ import { MARGIN } from 'jog/src/common/constants/style'
 
 import Text from './Text'
 
-export default props => (
+export default props =>
   <View
     style={[
       {
@@ -23,4 +23,3 @@ export default props => (
       {props.text}
     </Text>
   </View>
-)
