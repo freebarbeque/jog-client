@@ -17,9 +17,13 @@
     "postinstall": "remotedev-debugger --hostname localhost --port 5678 --injectserver",
     "lint": "yarn lint:js",
     "lint:js": "eslint ./",
-    "start": "node node_modules/react-native/local-cli/cli.js start",
+    "start": "yarn start:packager",
+    "start:packager": "node node_modules/react-native/local-cli/cli.js start",
     "test": "echo \"No tests yet \"",
-    "test:watch": "echo \"No tests yet \""
+    "test:watch": "echo \"No tests yet \"",
+    "start:web": "react-scripts start",
+    "build": "react-scripts build",
+    "eject": "react-scripts eject"
   },
   "dependencies": {
     "async-throttle": "^1.1.0",
@@ -67,7 +71,16 @@
     "remote-redux-devtools": "^0.5.7",
     "remote-redux-devtools-on-debugger": "^0.7.0",
     "reselect": "^3.0.0",
-    "uuid": "^3.0.1"
+    "uuid": "^3.0.1",
+    "classnames": "^2.2.5",
+    "material-ui": "^0.18.1",
+    "react-addons-css-transition-group": "^15.5.2",
+    "react-dom": "^15.5.4",
+    "react-router": "^4.1.1",
+    "react-router-dom": "^4.1.1",
+    "react-swipeable-views": "^0.12.3",
+    "react-tap-event-plugin": "^2.0.1",
+    "styled-components": "^2.0.0"
   },
   "devDependencies": {
     "babel-eslint": "^7.2.3",
@@ -89,7 +102,8 @@
     "lint-staged": "3.6.0",
     "prettier": "1.4.2",
     "react-test-renderer": "16.0.0-alpha.6",
-    "sort-package-json": "^1.5.0"
+    "sort-package-json": "^1.5.0",
+    "react-scripts": "1.0.7"
   },
   "engines": {
     "node": ">=7.7.0"
