@@ -19,6 +19,7 @@
 .*/node_modules/react-navigation/*
 .*/node_modules/react-native-firestack/*
 .*/node_modules/react-native-keyboard-aware-scroll-view/*
+.*/node_modules/styled-components/*
 
 .*/functions/__tests__/.*
 

@@ -51,7 +51,7 @@ class PolicyDetailsScreen extends Component {
     this.props.dispatch(NavigationActions.navigate({ routeName: 'Documents' }))
   }
 
-  getPolicy(): ?MotorPolicy {
+  getPolicy(): MotorPolicy {
     const navigationState = this.props.navigation.state
     const policyId = navigationState.params.policyId
 
@@ -63,6 +63,12 @@ class PolicyDetailsScreen extends Component {
     } else {
       throw new TypeError(
         'PolicyDetailsScreen was expecting a policyId of type string in the navigation params.',
+      )
+    }
+
+    if (!policy) {
+      throw new Error(
+        `Policy with id ${policyId} does not exist so cannot render the policy details screen`,
       )
     }
 
@@ -100,7 +106,7 @@ class PolicyDetailsScreen extends Component {
   }
 
   render() {
-    const policy: ?MotorPolicy = this.getPolicy()
+    const policy = this.getPolicy()
 
     const expiryDate = moment(policy.expiryDate)
 
@@ -157,7 +163,9 @@ class PolicyDetailsScreen extends Component {
           </Row>
           <Row title="drivers">
             {drivers && drivers.length
-              ? drivers.map(d => `${d.firstName} ${d.lastName}`).join(', ')
+              ? drivers
+                  .map(d => `${d.firstName || ''} ${d.lastName || ''}`)
+                  .join(', ')
               : '-'}
           </Row>
           <Row title="no claims bonus">

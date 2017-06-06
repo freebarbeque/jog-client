@@ -45,7 +45,7 @@ import {
   unsubscribePushNotifications,
 } from '../push/actions'
 import { getStore } from '../index'
-import type { ReduxState } from '../../types'
+import type { ReduxState } from '../../../types'
 
 const throttle = createThrottle(1)
 

@@ -91,7 +91,7 @@ export default class AddPolicyScreenContainer extends Component {
     Keyboard.removeListener('keyboardDidHide', this.handleKeyboardDidHide)
   }
 
-  handleKeyboardDidShow = e => {
+  handleKeyboardDidShow = (e: any) => {
     this.setState({ keyboardHeight: e.endCoordinates.height })
   }
 

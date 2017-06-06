@@ -25,7 +25,7 @@ export default class AutoHeightWebView extends Component {
     }
   }
 
-  updateWebViewHeight = event => {
+  updateWebViewHeight = (event: any) => {
     // jsEvaluationValue contains result of injected JS
     const height = event.jsEvaluationValue // Only available on iOS!
     this.setState({

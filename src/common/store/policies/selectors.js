@@ -17,8 +17,8 @@ import _ from 'lodash'
  * @returns boolean - true if all policy details are present
  */
 function policyIsComplete(policy: MotorPolicy): boolean {
-  return (
-    _.values(policy.drivers).length &&
+  return !!(
+    (policy.drivers || []).length &&
     policy.companyId &&
     policy.policyNo &&
     policy.levelOfCover &&

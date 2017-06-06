@@ -5,8 +5,8 @@ import firebase from 'firebase'
 import moment from 'moment'
 
 import type {MotorPolicy} from 'jog/src/types'
-import { setMotorPolicy } from  'jog/src/data/policies'
-import initialiseFirebase from 'jog/src/data'
+import { setMotorPolicy } from  'jog/src/common/data/policies'
+import initialiseFirebase from 'jog/src/common/data'
 
 initialiseFirebase()
 
