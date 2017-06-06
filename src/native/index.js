@@ -15,9 +15,16 @@ import ActionModal from 'jog/src/native/components/ActionModal'
 import EnablePushNotificationsModal from 'jog/src/native/components/EnablePushNotificationsModal'
 import { NativeNavigationAdapter } from './NativeNavigationAdapter'
 
+import config from './config'
+
 initialiseFirebase()
 
-const store = createStore(NativeNavigationAdapter)
+const isDebug = config.isDebug
+
+const store = createStore(NativeNavigationAdapter, {
+  freeze: isDebug,
+  enableDevTools: isDebug,
+})
 
 // $FlowFixMe
 console.ignoredYellowBox = [

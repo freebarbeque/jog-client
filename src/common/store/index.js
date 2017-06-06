@@ -4,7 +4,6 @@ import { createStore as _createStore, applyMiddleware, compose } from 'redux'
 import createSagaMiddleware from 'redux-saga'
 import devTools from 'remote-redux-devtools'
 import freeze from 'redux-freeze'
-import { Platform } from 'react-native'
 
 import reducer from 'jog/src/common/store/reducer'
 import type { Store } from 'jog/src/types'
@@ -14,7 +13,6 @@ import {
   authSaga,
   userSyncSaga,
 } from 'jog/src/common/store/auth/sagas'
-import config from 'jog/src/native/config'
 
 import saga from './sagas'
 import { syncPoliciesSaga, policyOperationsSaga } from './policies/sagas'
@@ -29,27 +27,39 @@ import { NavigationAdapter } from '../../types'
 let store = null
 let navigationAdaptor: typeof NavigationAdapter | null = null
 
+type CreateStoreOpts = {
+  enableDevTools?: boolean,
+  freeze?: boolean,
+}
+
 export default function createStore(
   _navigationAdaptor: typeof NavigationAdapter,
+  _opts: CreateStoreOpts = {},
 ): Store {
+  const opts = {
+    enableDevTools: false,
+    freeze: false,
+    ..._opts,
+  }
   if (!store) {
     navigationAdaptor = _navigationAdaptor
     const sagaMiddleware = createSagaMiddleware()
 
     const middleware = [sagaMiddleware]
 
-    if (config.isDebug) {
-      // middleware.push(createLogger())
+    if (opts.freeze) {
       middleware.push(freeze)
     }
 
     const enhancer = compose(
       applyMiddleware(...middleware),
-      devTools({
-        name: Platform.OS,
-        hostname: 'localhost',
-        port: 5678,
-      }),
+      opts.enableDevTools
+        ? devTools({
+            name: 'Jog',
+            hostname: 'localhost',
+            port: 5678,
+          })
+        : undefined,
     )
 
     store = _createStore(reducer, undefined, enhancer)
