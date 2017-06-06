@@ -3,7 +3,6 @@
 import { takeLatest, call, put } from 'redux-saga/effects'
 import uuid from 'uuid/v4'
 import moment from 'moment'
-import { NavigationActions } from 'react-navigation'
 
 import { setMotorPolicy } from 'jog/src/common/data/policies'
 import { declareError } from 'jog/src/common/store/errors/actions'
@@ -11,6 +10,7 @@ import type { MotorPolicy } from 'jog/src/types'
 import { demandCurrentUser } from 'jog/src/common/data/auth'
 
 import type { ManualPolicyUpdate, SavePolicyAction } from './actions'
+import { getNavigationAdapter } from '../../index'
 
 function* savePolicyTask(action: SavePolicyAction) {
   const policyUpdate: ManualPolicyUpdate = action.policy
@@ -37,7 +37,7 @@ function* savePolicyTask(action: SavePolicyAction) {
     return
   }
 
-  yield put(NavigationActions.navigate({ routeName: 'Finished' }))
+  yield put(getNavigationAdapter().navigateToAuthFinished())
 }
 
 export function* addPolicySaga<T>(): Iterable<T> {

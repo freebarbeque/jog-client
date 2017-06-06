@@ -238,3 +238,15 @@ export type Route = {
 export type ReactNavProp = {
   routes: Route[],
 }
+
+export interface NavigationAdapter {
+  static navigateToAuthFinished(): $Subtype<Object>,
+  static navigateToAuth(): $Subtype<Object>,
+  static navigateToEmailVerification(): $Subtype<Object>,
+  static navigateToConfirmPasswordReset(): $Subtype<Object>,
+  static navigateToPolicyDetails(
+    policyId: string,
+    policyIndex: number,
+  ): $Subtype<Object>,
+  static hideAuthModal(): $Subtype<Object>,
+}

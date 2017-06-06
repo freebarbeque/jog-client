@@ -7,7 +7,6 @@ import FCM, {
   NotificationType,
 } from 'react-native-fcm'
 import _ from 'lodash'
-import { NavigationActions } from 'react-navigation'
 
 import {
   call,
@@ -33,7 +32,7 @@ import type {
   ReceivePushNotification,
 } from './actionTypes'
 import * as actions from './actions'
-import { getStore } from '../index'
+import { getNavigationAdapter, getStore } from '../index'
 
 // FCM doesn't clear the initial notification once you've received it, and there is no way to clear it.
 let processedInitialNotification = false
@@ -158,13 +157,10 @@ function policyDetailsScreenShowing(policyId) {
 }
 
 function navigateToPolicyDetails(policyId) {
-  return NavigationActions.navigate({
-    routeName: 'PolicyDetails',
-    params: {
-      policyId,
-      policyIndex: getPolicyIndex(policyId),
-    },
-  })
+  return getNavigationAdapter().navigateToPolicyDetails(
+    policyId,
+    getPolicyIndex(policyId),
+  )
 }
 
 function* receivePushNotificationTask<T>(

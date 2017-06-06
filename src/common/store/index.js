@@ -24,11 +24,16 @@ import {
   pushNotificationSaga,
   pushNotificationSubscriptionSaga,
 } from './push/sagas'
+import { NavigationAdapter } from '../../types'
 
 let store = null
+let navigationAdaptor: typeof NavigationAdapter | null = null
 
-export default function createStore(): Store {
+export default function createStore(
+  _navigationAdaptor: typeof NavigationAdapter,
+): Store {
   if (!store) {
+    navigationAdaptor = _navigationAdaptor
     const sagaMiddleware = createSagaMiddleware()
 
     const middleware = [sagaMiddleware]
@@ -85,4 +90,9 @@ export default function createStore(): Store {
 export function getStore(): Store {
   if (!store) throw new Error('Store not initialised')
   return store
+}
+
+export function getNavigationAdapter(): typeof NavigationAdapter {
+  if (!navigationAdaptor) throw new Error('Store not initialised')
+  return navigationAdaptor
 }

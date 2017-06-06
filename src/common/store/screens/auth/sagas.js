@@ -1,6 +1,5 @@
 // @flow
 
-import { NavigationActions } from 'react-navigation'
 import firebase from 'firebase'
 import { call, put, takeLatest } from 'redux-saga/effects'
 import * as authApi from 'jog/src/common/data/auth'
@@ -16,9 +15,10 @@ import type {
   RegisterAction,
   PasswordResetAction,
 } from './actions'
+import { getNavigationAdapter } from '../../index'
 
 function* login(action: LoginAction) {
-  const { email, password, key } = action
+  const { email, password } = action
 
   try {
     yield put(setLoading(true))
@@ -27,10 +27,10 @@ function* login(action: LoginAction) {
     yield put(setLoading(false))
     const user = firebase.auth().currentUser
     if (user.emailVerified) {
-      yield put(NavigationActions.back({ key }))
+      yield put(getNavigationAdapter().hideAuthModal())
     } else {
       user.sendEmailVerification()
-      yield put(NavigationActions.navigate({ routeName: 'EmailVerification' }))
+      yield put(getNavigationAdapter().navigateToEmailVerification())
     }
   } catch (e) {
     yield put(setLoading(false))
@@ -46,7 +46,7 @@ function* register(action: RegisterAction) {
     yield put(setRegisterError(null))
     yield call(authApi.createUserWithEmailAndPassword, email, password)
     yield put(setLoading(false))
-    yield put(NavigationActions.navigate({ routeName: 'EmailVerification' }))
+    yield put(getNavigationAdapter().navigateToEmailVerification())
   } catch (e) {
     yield put(setLoading(false))
     yield put(setRegisterError(e.message))
@@ -60,7 +60,7 @@ function* passwordReset(action: PasswordResetAction) {
     yield put(setPasswordResetError(null))
     yield call(authApi.sendPasswordResetEmail, email)
     yield put(setLoading(false))
-    yield put(NavigationActions.navigate({ routeName: 'ConfirmPasswordReset' }))
+    yield put(getNavigationAdapter().navigateToConfirmPasswordReset())
   } catch (e) {
     yield put(setLoading(false))
     yield put(setPasswordResetError(e.message))

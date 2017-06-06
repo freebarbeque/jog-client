@@ -12,7 +12,6 @@ import {
 } from 'redux-saga/effects'
 import { eventChannel } from 'redux-saga'
 import createThrottle from 'async-throttle'
-import { NavigationActions } from 'react-navigation'
 import mime from 'react-native-mime-types'
 import uuid from 'uuid/v4'
 
@@ -44,7 +43,7 @@ import {
   subscribePushNotifications,
   unsubscribePushNotifications,
 } from '../push/actions'
-import { getStore } from '../index'
+import { getNavigationAdapter, getStore } from '../index'
 import type { ReduxState } from '../../../types'
 
 const throttle = createThrottle(1)
@@ -87,7 +86,6 @@ function createUserSubscribeChannel() {
             details = newDetails
             emit({ user, details })
             const profilePhoto = details.profilePhoto
-            console.log('profilePhoto', profilePhoto)
             if (profilePhoto) {
               const ref = firebase.storage().ref(profilePhoto)
               ref
@@ -193,7 +191,8 @@ function* logout() {
       'Attempted to logout when no user was logged in. This indicates that the user was able to access the Sign Out button without being logged in.',
     )
   }
-  yield put(NavigationActions.navigate({ routeName: 'Auth' }))
+
+  yield put(getNavigationAdapter().navigateToAuth())
 }
 
 function* updateUserDetailsTask(action: UpdateUserDetails) {
