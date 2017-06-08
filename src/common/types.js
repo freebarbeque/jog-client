@@ -2,21 +2,21 @@
 
 import type { Store as ReduxStore, Dispatch as ReduxDispatch } from 'redux'
 import type { NavigationAction } from 'react-navigation'
-import type { AuthAction } from './common/store/auth/actionTypes'
-import type { PoliciesAction } from './common/store/policies/actionTypes'
-import type { InsurerActions } from './common/store/insurers/actionTypes'
-import type { BaseAction } from './common/store/actionTypes'
-import type { LoadingReduxState } from './common/store/loading/reducer'
-import type { LoadingAction } from './common/store/loading/actionTypes'
-import type { ErrorsReduxState } from './common/store/errors/reducer'
-import type { ErrorAction } from './common/store/errors/actionTypes'
+import type { AuthAction } from './store/auth/actionTypes'
+import type { PoliciesAction } from './store/policies/actionTypes'
+import type { InsurerActions } from './store/insurers/actionTypes'
+import type { BaseAction } from './store/actionTypes'
+import type { LoadingReduxState } from './store/loading/reducer'
+import type { LoadingAction } from './store/loading/actionTypes'
+import type { ErrorsReduxState } from './store/errors/reducer'
+import type { ErrorAction } from './store/errors/actionTypes'
 import type {
   AddManualPolicyAction,
   ManualPolicyUpdate,
   MotorPolicyOwnership,
-} from './common/store/screens/addManualPolicy/actions'
-import type { SettingsScreenReduxState } from './common/store/screens/settings/reducer'
-import type { PushNotificationsReduxState } from './common/store/push/reducer'
+} from './store/screens/addManualPolicy/actions'
+import type { SettingsScreenReduxState } from './store/screens/settings/reducer'
+import type { PushNotificationsReduxState } from '../native/store/push/reducer'
 
 //
 // Redux
@@ -249,4 +249,35 @@ export interface NavigationAdapter {
     policyIndex: number,
   ): $Subtype<Object>,
   static hideAuthModal(): $Subtype<Object>,
+}
+
+export type UploadFileOpts = {
+  filePath: string,
+  fileStoragePath: string,
+  contentType: string,
+  contentEncoding: string,
+}
+
+export interface UploadAdapter {
+  static uploadFile(opts: UploadFileOpts): Promise<void>,
+}
+
+export type EnvironmentConfig = {
+  firebase: {
+    apiKey: string,
+    authDomain: string,
+    databaseURL: string,
+    storageBucket: string,
+    messagingSenderId: string,
+  },
+  firestack?: {
+    APIKey: string,
+    databaseURL: string,
+    storageBucket: string,
+    GCMSenderID: string,
+    clientID: string,
+    bundleID: string,
+    debug: boolean,
+    googleAppID: string,
+  },
 }

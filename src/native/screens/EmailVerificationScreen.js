@@ -10,7 +10,7 @@ import type {
   ReduxState,
   FirebaseUser,
   ReactNavProp,
-} from 'jog/src/types'
+} from 'jog/src/common/types'
 
 import { BLUE } from 'jog/src/common/constants/palette'
 import Text from 'jog/src/native/components/Text'

@@ -3,7 +3,7 @@ import type {
   ValuesMap,
   ValidationErrorsMap,
   FirebaseUser,
-} from 'jog/src/types'
+} from '../../../types'
 
 export type LoginAction = {
   type: 'screens/auth/LOGIN',

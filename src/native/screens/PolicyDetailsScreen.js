@@ -9,8 +9,12 @@ import _ from 'lodash'
 
 import Text from 'jog/src/native/components/Text'
 
-import type { Dispatch, MotorPolicy, ReactNavigationProp } from 'jog/src/types'
-import { LEVEL_OF_COVER } from 'jog/src/types'
+import type {
+  Dispatch,
+  MotorPolicy,
+  ReactNavigationProp,
+} from 'jog/src/common/types'
+import { LEVEL_OF_COVER } from 'jog/src/common/types'
 import { selectPolicies } from 'jog/src/common/store/policies/selectors'
 import { BLUE, CREAM, WHITE, YELLOW } from 'jog/src/common/constants/palette'
 import { MARGIN } from 'jog/src/common/constants/style'

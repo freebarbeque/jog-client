@@ -1,6 +1,6 @@
 // @flow
 
-import type { AuthScreensReduxState } from 'jog/src/types'
+import type { AuthScreensReduxState } from '../../../types'
 import type { AuthAction } from './actions'
 
 const DEFAULT_STATE = {

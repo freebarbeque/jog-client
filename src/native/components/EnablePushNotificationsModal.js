@@ -12,13 +12,13 @@ import {
 
 import { connect } from 'react-redux'
 
-import type { Dispatch, ReduxState } from 'jog/src/types'
+import type { Dispatch, ReduxState } from 'jog/src/common/types'
 import { BLUE, GREEN, PINK } from 'jog/src/common/constants/palette'
 import { MARGIN } from 'jog/src/common/constants/style'
 import {
   enablePushNotifications,
   hidePushNotificationsModal,
-} from 'jog/src/common/store/push/actions'
+} from 'jog/src/native/store/push/actions'
 
 import Text from './Text'
 import { Notification } from './images/index'

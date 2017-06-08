@@ -1,14 +1,15 @@
 // @flow
 
 import { createSelector } from 'reselect'
+import _ from 'lodash'
+
 import type {
   PoliciesState,
   ReduxState,
   InsurersReduxState,
   MotorPolicy,
   MotorPolicyMap,
-} from 'jog/src/types'
-import _ from 'lodash'
+} from '../../types'
 
 /**
  * Evaluates a policy returning true if all important details are present

@@ -7,7 +7,7 @@ import { Modal, TouchableWithoutFeedback, View } from 'react-native'
 import { connect } from 'react-redux'
 import FadeInView from 'react-native-fade-in-view'
 
-import type { Dispatch, ReduxState } from 'jog/src/types'
+import type { Dispatch, ReduxState } from 'jog/src/common/types'
 import { clearError } from 'jog/src/common/store/errors/actions'
 import { BLUE } from 'jog/src/common/constants/palette'
 import { MARGIN } from 'jog/src/common/constants/style'

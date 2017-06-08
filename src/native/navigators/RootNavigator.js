@@ -17,7 +17,7 @@ import type {
   NavReduxState,
   ReduxState,
   FirebaseUser,
-} from '../../types'
+} from '../../common/types'
 import LoadingScreen from '../screens/LoadingScreen'
 import { BLUE } from '../../common/constants/palette'
 

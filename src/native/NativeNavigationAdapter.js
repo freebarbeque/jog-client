@@ -1,6 +1,6 @@
 import { NavigationActions } from 'react-navigation'
 
-import type { NavigationAdapter } from '../types'
+import type { NavigationAdapter } from '../common/types'
 import { getStore } from '../common/store/index'
 
 export class NativeNavigationAdapter implements NavigationAdapter {

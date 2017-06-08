@@ -4,7 +4,7 @@ import { View, StyleSheet } from 'react-native'
 
 import { Car, Plus } from 'jog/src/native/components/images/index'
 import FirebaseImage from 'jog/src/native/components/FirebaseImage'
-import type { MotorPolicy } from 'jog/src/types'
+import type { MotorPolicy } from 'jog/src/common/types'
 
 import PolicyCard from './PolicyCard'
 

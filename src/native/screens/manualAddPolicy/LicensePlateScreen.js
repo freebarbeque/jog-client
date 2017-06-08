@@ -4,7 +4,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { NavigationActions } from 'react-navigation'
 
-import type { Dispatch, ReduxState } from 'jog/src/types'
+import type { Dispatch, ReduxState } from 'jog/src/common/types'
 
 import AddPolicyScreenContainer from 'jog/src/native/components/AddPolicyScreenContainer'
 import type { ManualPolicyUpdate } from 'jog/src/common/store/screens/addManualPolicy/actions'

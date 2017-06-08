@@ -1,7 +1,7 @@
 // @flow
 
 import firebase from 'firebase'
-import type { UserDetails } from '../../types'
+import type { UserDetails } from '../types'
 import { demandCurrentUser } from './auth'
 
 export async function getUserDetails(uid: string): Promise<UserDetails> {

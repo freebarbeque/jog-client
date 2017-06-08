@@ -1,6 +1,6 @@
 // @flow
 
-import type { FirebaseUser, UserDetails } from 'jog/src/types'
+import type { FirebaseUser, UserDetails } from '../../types'
 
 import type {
   AuthAction,

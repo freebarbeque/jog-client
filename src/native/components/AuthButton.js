@@ -4,7 +4,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { TouchableOpacity, View } from 'react-native'
 
-import type { Dispatch } from 'jog/src/types'
+import type { Dispatch } from 'jog/src/common/types'
 import { WHITE } from 'jog/src/common/constants/palette'
 import Text from 'jog/src/native/components/Text'
 import { logout } from 'jog/src/common/store/auth/actions'

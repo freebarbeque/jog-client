@@ -19,10 +19,9 @@ import {
   addPolicyDocument,
   removePolicyDocument,
   getPolicyDocument,
-} from 'jog/src/common/data/policies'
-import { demandCurrentUser } from 'jog/src/common/data/auth'
-import { getFirestack } from 'jog/src/common/data'
-import { updateCurrentUserDetails } from 'jog/src/common/data/user'
+} from '../../data/policies'
+import { demandCurrentUser } from '../../data/auth'
+import { updateCurrentUserDetails } from '../../data/user'
 
 import { receiveMotorPolicies } from './actions'
 import type {
@@ -31,6 +30,7 @@ import type {
 } from './actionTypes'
 import { finishLoading, startLoading } from '../loading/actions'
 import { declareError } from '../errors/actions'
+import { getUploadAdapter } from '../index'
 
 //
 // Sync policies
@@ -99,7 +99,9 @@ function* uploadPolicyDocumentTask(action: UploadPolicyDocumentAction) {
     )
 
     yield call(() =>
-      getFirestack().storage.uploadFile(fileStoragePath, fileUrl, {
+      getUploadAdapter().uploadFile({
+        filePath: fileUrl,
+        fileStoragePath,
         contentType,
         contentEncoding: 'base64',
       }),

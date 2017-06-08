@@ -1,9 +1,13 @@
+// @flow
+
+import { EnvironmentConfig } from 'jog/src/common/types'
+
 const apiKey = 'AIzaSyCiGNJ7RbnRaYpyK05rOnqMyt0xmVCe920'
 const databaseURL = 'https://jog-dev-10fe9.firebaseio.com'
 const storageBucket = 'jog-dev-10fe9.appspot.com'
 const messagingSenderId = '98399119405'
 
-export default {
+const config: EnvironmentConfig = {
   firebase: {
     apiKey,
     authDomain: 'jog-dev-10fe9.firebaseapp.com',
@@ -24,3 +28,5 @@ export default {
   },
   debug: true,
 }
+
+export default config

@@ -1,7 +1,12 @@
 // @flow
 
 import firebase from 'firebase'
-import type { MotorPolicy, MotorPolicyMap, PolicyDocument } from 'jog/src/types'
+
+import type {
+  MotorPolicy,
+  MotorPolicyMap,
+  PolicyDocument,
+} from '../../common/types'
 
 export function syncMotorPolicies(
   uid: string,

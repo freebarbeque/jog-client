@@ -3,7 +3,7 @@
 import React, { Component } from 'react'
 import { View, StyleSheet, Switch } from 'react-native'
 import { connect } from 'react-redux'
-import type { ReduxState, Dispatch, UserDetails } from 'jog/src/types'
+import type { ReduxState, Dispatch, UserDetails } from 'jog/src/common/types'
 import Text from 'jog/src/native/components/Text'
 import { VERY_LIGHT_GRAY, BLUE } from 'jog/src/common/constants/palette'
 import { MARGIN } from 'jog/src/common/constants/style'
@@ -11,7 +11,7 @@ import {
   disablePushNotifications,
   enablePushNotifications,
   showPushNotificationsModal,
-} from 'jog/src/common/store/push/actions'
+} from 'jog/src/native/store/push/actions'
 import { isAndroid } from 'jog/src/native/util/system'
 
 type SettingsNotificationsProps = {

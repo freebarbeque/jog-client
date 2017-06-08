@@ -4,7 +4,7 @@ import React, { Component } from 'react'
 import { View, StyleSheet, TouchableOpacity } from 'react-native'
 import { NavigationActions } from 'react-navigation'
 import { connect } from 'react-redux'
-import type { ReduxState, Dispatch } from 'jog/src/types'
+import type { ReduxState, Dispatch } from 'jog/src/common/types'
 import Text from 'jog/src/native/components/Text'
 import {
   BLUE,

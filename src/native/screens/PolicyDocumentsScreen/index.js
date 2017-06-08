@@ -17,7 +17,7 @@ import type {
   Dispatch,
   MotorPolicyMap,
   PolicyDocument,
-} from 'jog/src/types'
+} from 'jog/src/common/types'
 import Text from 'jog/src/native/components/Text'
 import { BLUE, CREAM } from 'jog/src/common/constants/palette'
 import { MARGIN } from 'jog/src/common/constants/style'

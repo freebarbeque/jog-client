@@ -14,16 +14,29 @@ import { syncData } from 'jog/src/common/store/actions'
 import ActionModal from 'jog/src/native/components/ActionModal'
 import EnablePushNotificationsModal from 'jog/src/native/components/EnablePushNotificationsModal'
 import { NativeNavigationAdapter } from './NativeNavigationAdapter'
+import reducer from './store/reducer'
+
+import {
+  pushNotificationSaga,
+  pushNotificationSubscriptionSaga,
+} from './store/push/sagas'
 
 import config from './config'
+import { initFirestack } from './data/index'
+import NativeUploadAdapter from './NativeUploadAdapter'
 
-initialiseFirebase()
+initialiseFirebase(config)
+initFirestack()
 
 const isDebug = config.isDebug
 
-const store = createStore(NativeNavigationAdapter, {
+const store = createStore({
   freeze: isDebug,
   enableDevTools: isDebug,
+  reducer,
+  sagas: [pushNotificationSaga, pushNotificationSubscriptionSaga],
+  navigationAdaptor: NativeNavigationAdapter,
+  uploadAdaptor: NativeUploadAdapter,
 })
 
 // $FlowFixMe

@@ -1,6 +1,6 @@
 // @flow
 
-import type { InsurersReduxState } from 'jog/src/types'
+import type { InsurersReduxState } from '../../types'
 import type { ReceiveInsurers } from './actionTypes'
 
 const DEFAULT_STATE = {

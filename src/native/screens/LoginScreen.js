@@ -12,7 +12,7 @@ import type {
   ValuesMap,
   ValidationErrorsMap,
   NavReduxState,
-} from 'jog/src/types'
+} from 'jog/src/common/types'
 
 import {
   setValues,

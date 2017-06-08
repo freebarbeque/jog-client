@@ -8,7 +8,7 @@ import { connect } from 'react-redux'
 
 import { MARGIN } from 'jog/src/common/constants/style'
 import { BLUE } from 'jog/src/common/constants/palette'
-import type { ReduxState, FirebaseUser } from 'jog/src/types'
+import type { ReduxState, FirebaseUser } from 'jog/src/common/types'
 
 import { Cancel, Logo } from '../components/images'
 import Text from '../components/Text'

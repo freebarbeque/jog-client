@@ -5,7 +5,7 @@ import { View, StyleSheet } from 'react-native'
 import { connect } from 'react-redux'
 import { NavigationActions } from 'react-navigation'
 
-import type { Dispatch } from 'jog/src/types'
+import type { Dispatch } from 'jog/src/common/types'
 
 import { clear } from 'jog/src/common/store/screens/auth/actions'
 import AccessoryButton from 'jog/src/native/components/AccessoryButton'

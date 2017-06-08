@@ -5,7 +5,7 @@ import { View, StyleSheet, Dimensions } from 'react-native'
 import { connect } from 'react-redux'
 import { NavigationActions } from 'react-navigation'
 
-import type { Dispatch } from 'jog/src/types'
+import type { Dispatch } from 'jog/src/common/types'
 
 import { BLUE } from 'jog/src/common/constants/palette'
 import Text from 'jog/src/native/components/Text'

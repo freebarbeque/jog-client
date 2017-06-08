@@ -15,7 +15,7 @@ import type {
   Dispatch,
   FirebaseUser,
   UserDetails,
-} from 'jog/src/types'
+} from 'jog/src/common/types'
 import Text from 'jog/src/native/components/Text'
 import { AddProfilePicture } from 'jog/src/native/components/images/index'
 import { BLUE, VERY_LIGHT_GRAY, WHITE } from 'jog/src/common/constants/palette'

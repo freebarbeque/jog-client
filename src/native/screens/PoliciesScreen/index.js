@@ -12,7 +12,7 @@ import type {
   MotorPolicy,
   MotorPolicyMap,
   Dispatch,
-} from 'jog/src/types'
+} from 'jog/src/common/types'
 import { CREAM, PINK } from 'jog/src/common/constants/palette'
 import { MARGIN } from 'jog/src/common/constants/style'
 import { clearPolicies } from 'jog/src/common/data/policies'

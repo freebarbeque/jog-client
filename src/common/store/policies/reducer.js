@@ -1,6 +1,6 @@
 // @flow
 
-import type { PoliciesState } from 'jog/src/types'
+import type { PoliciesState } from '../../types'
 import type { PoliciesAction } from './actionTypes'
 
 const DEFAULT_STATE = {

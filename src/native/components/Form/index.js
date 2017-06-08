@@ -6,7 +6,11 @@ import { View, StyleSheet } from 'react-native'
 import dismissKeyboard from 'dismissKeyboard'
 import Icon from 'react-native-vector-icons/FontAwesome'
 
-import type { FormField, ValidationErrorsMap, ValuesMap } from 'jog/src/types'
+import type {
+  FormField,
+  ValidationErrorsMap,
+  ValuesMap,
+} from 'jog/src/common/types'
 import { PINK } from 'jog/src/common/constants/palette'
 import { MARGIN } from 'jog/src/common/constants/style'
 

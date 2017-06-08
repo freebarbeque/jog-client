@@ -2,7 +2,8 @@
 
 import firebase from 'firebase'
 import { call, put, takeLatest } from 'redux-saga/effects'
-import * as authApi from 'jog/src/common/data/auth'
+
+import * as authApi from '../../../data/auth'
 
 import {
   setLoading,

@@ -11,7 +11,7 @@ import type {
   PolicyDocument,
   Dispatch,
   ReactNavigationProp,
-} from 'jog/src/types'
+} from 'jog/src/common/types'
 
 import { selectPolicies } from 'jog/src/common/store/policies/selectors'
 import { BLUE, CREAM, PINK } from 'jog/src/common/constants/palette'

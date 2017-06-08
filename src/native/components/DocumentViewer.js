@@ -4,7 +4,7 @@ import React, { Component } from 'react'
 import firebase from 'firebase'
 
 import Spinner from 'jog/src/native/components/Spinner'
-import type { PolicyDocument } from 'jog/src/types'
+import type { PolicyDocument } from 'jog/src/common/types'
 
 import PDFViewer from './PDFViewer'
 import ImageViewer from './ImageViewer'

@@ -4,7 +4,7 @@ import { call, put, take, fork, cancelled, cancel } from 'redux-saga/effects'
 
 import { eventChannel } from 'redux-saga'
 
-import { syncInsurers } from 'jog/src/common/data/insurers'
+import { syncInsurers } from '../../data/insurers'
 
 import { receiveInsurers } from './actions'
 import type { SyncInsurers } from './actionTypes'

@@ -15,24 +15,12 @@ import createThrottle from 'async-throttle'
 import mime from 'react-native-mime-types'
 import uuid from 'uuid/v4'
 
-import {
-  signOut,
-  userSubscribe,
-  demandCurrentUser,
-} from 'jog/src/common/data/auth'
-import {
-  syncUserDetails,
-  updateCurrentUserDetails,
-} from 'jog/src/common/data/user'
-import {
-  finishLoading,
-  startLoading,
-} from 'jog/src/common/store/loading/actions'
-import { getFirestack } from 'jog/src/common/data'
-import { declareError } from 'jog/src/common/store/errors/actions'
-import { setLoading } from 'jog/src/common/store/screens/auth/actions'
+import { signOut, userSubscribe, demandCurrentUser } from '../../data/auth'
+import { syncUserDetails, updateCurrentUserDetails } from '../../data/user'
+import { finishLoading, startLoading } from '../loading/actions'
+import { declareError } from '../errors/actions'
+import { setLoading } from '../screens/auth/actions'
 
-import { receiveUser, receiveUserDetails } from './actions'
 import type {
   SyncUserAction,
   UpdateUserDetails,
@@ -42,9 +30,11 @@ import { syncUserData, unsyncUserData } from '../actions'
 import {
   subscribePushNotifications,
   unsubscribePushNotifications,
-} from '../push/actions'
-import { getNavigationAdapter, getStore } from '../index'
-import type { ReduxState } from '../../../types'
+} from '../../../native/store/push/actions'
+import { getNavigationAdapter, getStore, getUploadAdapter } from '../index'
+import type { ReduxState } from '../../types'
+
+import { receiveUser, receiveUserDetails } from './actions'
 
 const throttle = createThrottle(1)
 
@@ -214,7 +204,9 @@ function* updateUserProfilePictureTask(action: UpdateUserProfilePicture) {
 
   try {
     yield call(() =>
-      getFirestack().storage.uploadFile(fileStoragePath, fileUrl, {
+      getUploadAdapter().uploadFile({
+        fileStoragePath,
+        filePath: fileUrl,
         contentType,
         contentEncoding: 'base64',
       }),

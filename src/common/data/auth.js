@@ -1,7 +1,7 @@
 // @flow
 
 import firebase from 'firebase'
-import type { FirebaseUser } from 'jog/src/types'
+import type { FirebaseUser } from '../types'
 
 const errors = {
   'auth/invalid-email': 'Invalid email address supplied.',

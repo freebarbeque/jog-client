@@ -3,7 +3,7 @@
 import React, { Component } from 'react'
 import { View, StyleSheet, TouchableOpacity } from 'react-native'
 
-import type { PolicyDocument } from 'jog/src/types'
+import type { PolicyDocument } from 'jog/src/common/types'
 import { BLUE, DARK_GRAY } from 'jog/src/common/constants/palette'
 import { MARGIN } from 'jog/src/common/constants/style'
 

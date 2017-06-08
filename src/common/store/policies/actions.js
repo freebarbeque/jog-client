@@ -1,6 +1,6 @@
 // @flow
 
-import type { MotorPolicyMap } from 'jog/src/types'
+import type { MotorPolicyMap } from '../../types'
 
 import type {
   DeletePolicyDocumentAction,

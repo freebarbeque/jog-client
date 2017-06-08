@@ -23,16 +23,16 @@ import uuid from 'uuid/v4'
 import { eventChannel } from 'redux-saga'
 
 import { isAndroid } from 'jog/src/native/util/system'
-import type { NavReduxState, ReduxState } from 'jog/src/types'
+import type { NavReduxState, ReduxState } from 'jog/src/common/types'
 
-import { updateUserDetails } from '../auth/actions'
+import { updateUserDetails } from '../../../common/store/auth/actions'
 
 import type {
   SubscribePushNotificationsAction,
   ReceivePushNotification,
 } from './actionTypes'
 import * as actions from './actions'
-import { getNavigationAdapter, getStore } from '../index'
+import { getNavigationAdapter, getStore } from '../../../common/store/index'
 
 // FCM doesn't clear the initial notification once you've received it, and there is no way to clear it.
 let processedInitialNotification = false

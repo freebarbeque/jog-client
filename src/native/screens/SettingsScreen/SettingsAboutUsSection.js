@@ -3,7 +3,7 @@
 import React, { Component } from 'react'
 import { View, StyleSheet } from 'react-native'
 import { connect } from 'react-redux'
-import type { ReduxState, Dispatch } from 'jog/src/types'
+import type { ReduxState, Dispatch } from 'jog/src/common/types'
 import Text from 'jog/src/native/components/Text'
 import { VERY_LIGHT_GRAY, BLUE } from 'jog/src/common/constants/palette'
 import { MARGIN } from 'jog/src/common/constants/style'

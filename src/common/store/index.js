@@ -5,44 +5,40 @@ import createSagaMiddleware from 'redux-saga'
 import devTools from 'remote-redux-devtools'
 import freeze from 'redux-freeze'
 
-import reducer from 'jog/src/common/store/reducer'
-import type { Store } from 'jog/src/types'
-import authScreenSaga from 'jog/src/common/store/screens/auth/sagas'
-import {
-  pollUserSaga,
-  authSaga,
-  userSyncSaga,
-} from 'jog/src/common/store/auth/sagas'
+import { pollUserSaga, authSaga, userSyncSaga } from './auth/sagas'
+
+import { NavigationAdapter, UploadAdapter } from '../types'
+import type { Store } from '../types'
 
 import saga from './sagas'
 import { syncPoliciesSaga, policyOperationsSaga } from './policies/sagas'
 import { syncInsurersSaga } from './insurers/sagas'
 import { addPolicySaga } from './screens/addManualPolicy/sagas'
-import {
-  pushNotificationSaga,
-  pushNotificationSubscriptionSaga,
-} from './push/sagas'
-import { NavigationAdapter } from '../../types'
+import authScreenSaga from './screens/auth/sagas'
 
 let store = null
 let navigationAdaptor: typeof NavigationAdapter | null = null
+let uploadAdaptor: typeof UploadAdapter | null = null
 
 type CreateStoreOpts = {
   enableDevTools?: boolean,
   freeze?: boolean,
+  reducer: any,
+  sagas?: Function[],
+  navigationAdaptor: typeof NavigationAdapter,
+  uploadAdaptor: typeof UploadAdapter,
 }
 
-export default function createStore(
-  _navigationAdaptor: typeof NavigationAdapter,
-  _opts: CreateStoreOpts = {},
-): Store {
+export default function createStore(_opts: CreateStoreOpts = {}): Store {
   const opts = {
     enableDevTools: false,
     freeze: false,
+    sagas: [],
     ..._opts,
   }
   if (!store) {
-    navigationAdaptor = _navigationAdaptor
+    navigationAdaptor = opts.navigationAdaptor
+    uploadAdaptor = opts.uploadAdaptor
     const sagaMiddleware = createSagaMiddleware()
 
     const middleware = [sagaMiddleware]
@@ -62,36 +58,32 @@ export default function createStore(
         : undefined,
     )
 
-    store = _createStore(reducer, undefined, enhancer)
+    store = _createStore(opts.reducer, undefined, enhancer)
 
-    // Auth sagas
-    sagaMiddleware.run(authScreenSaga)
-    sagaMiddleware.run(authSaga)
-    sagaMiddleware.run(pollUserSaga)
-    sagaMiddleware.run(userSyncSaga)
+    const sagas = [
+      authScreenSaga,
+      authSaga,
+      pollUserSaga,
+      userSyncSaga,
+      syncPoliciesSaga,
+      policyOperationsSaga,
+      syncInsurersSaga,
+      addPolicySaga,
+      saga,
+      ...opts.sagas,
+    ]
 
-    // General data
-    sagaMiddleware.run(syncPoliciesSaga)
-    sagaMiddleware.run(policyOperationsSaga)
-    sagaMiddleware.run(syncInsurersSaga)
+    sagas.forEach(s => sagaMiddleware.run(s))
 
-    sagaMiddleware.run(addPolicySaga)
-
-    sagaMiddleware.run(pushNotificationSubscriptionSaga)
-    sagaMiddleware.run(pushNotificationSaga)
-
-    // Global data
-    sagaMiddleware.run(saga)
-
-    if (module.hot) {
-      // Enable Webpack hot module replacement for reducers
-      // $FlowFixMe
-      module.hot.accept('./reducer', () => {
-        const nextRootReducer = require('./reducer')
-        // $FlowFixMe
-        store.replaceReducer(nextRootReducer)
-      })
-    }
+    // if (module.hot) {
+    //   // Enable Webpack hot module replacement for reducers
+    //   // $FlowFixMe
+    //   module.hot.accept('./reducer', () => {
+    //     const nextRootReducer = require('../../native/store/reducer')
+    //     // $FlowFixMe
+    //     store.replaceReducer(nextRootReducer)
+    //   })
+    // }
   }
 
   return store
@@ -105,4 +97,9 @@ export function getStore(): Store {
 export function getNavigationAdapter(): typeof NavigationAdapter {
   if (!navigationAdaptor) throw new Error('Store not initialised')
   return navigationAdaptor
+}
+
+export function getUploadAdapter(): typeof UploadAdapter {
+  if (!uploadAdaptor) throw new Error('Store not initialised')
+  return uploadAdaptor
 }

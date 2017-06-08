@@ -1,6 +1,6 @@
 // @flow
 
-import type { InsurerMap } from 'jog/src/types'
+import type { InsurerMap } from '../../types'
 
 export type ReceiveInsurers = {
   type: 'insurers/RECEIVE_INSURERS',

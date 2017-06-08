@@ -15,7 +15,7 @@ import type {
   ReactNavigationProp,
   ReduxState,
   Route,
-} from '../../types'
+} from '../../common/types'
 import BackgroundHeader from '../components/BackgroundHeader'
 import Text from '../components/Text'
 

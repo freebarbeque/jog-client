@@ -11,7 +11,7 @@ import type {
   ReduxState,
   ValuesMap,
   ValidationErrorsMap,
-} from 'jog/src/types'
+} from 'jog/src/common/types'
 
 import {
   setValues,

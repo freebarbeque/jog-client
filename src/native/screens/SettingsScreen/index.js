@@ -5,7 +5,7 @@ import { View, ScrollView, StyleSheet } from 'react-native'
 import { connect } from 'react-redux'
 import Accordion from 'react-native-collapsible/Accordion'
 
-import type { ReduxState, Dispatch } from 'jog/src/types'
+import type { ReduxState, Dispatch } from 'jog/src/common/types'
 import Text from 'jog/src/native/components/Text'
 import { BLUE, WHITE, CREAM } from 'jog/src/common/constants/palette'
 import { MARGIN } from 'jog/src/common/constants/style'
