@@ -1,10 +1,17 @@
+// @flow
+
 import React, { Component } from 'react'
 import { Redirect, Route } from 'react-router-dom'
 import styled from 'styled-components'
+import { connect } from 'react-redux'
+import { ConnectedRouter } from 'react-router-redux'
 
 import MainScreen from './screens/MainScreen/index'
 import AuthScreen from './screens/AuthScreen'
 import { BLUE } from '../common/constants/palette'
+import type { Dispatch, FirebaseUser, ReduxState } from '../common/types'
+import { syncData } from '../common/store/actions'
+import history from './history'
 
 // language=SCSS prefix=dummy{ suffix=}
 const Container = styled.div`
@@ -42,16 +49,54 @@ const Container = styled.div`
   }
 `
 
+type AppProps = {
+  user: FirebaseUser | null,
+  initialised: boolean,
+  dispatch: Dispatch,
+}
+
 class App extends Component {
+  props: AppProps
+
+  componentDidMount() {
+    this.props.dispatch(syncData())
+  }
+
   render() {
-    return (
-      <Container>
-        <Route path="/" exact render={() => <Redirect to="/app" />} />
-        <Route path="/app" component={MainScreen} />
-        <Route path="/auth" component={AuthScreen} />
-      </Container>
-    )
+    return this.props.initialised
+      ? <ConnectedRouter history={history}>
+          <Container>
+            <Route
+              path="/"
+              exact
+              render={() => {
+                if (this.props.user) {
+                  return <Redirect to={'/app'} />
+                }
+                return <Redirect to={'/auth'} />
+              }}
+            />
+            <Route
+              path="/app"
+              render={() => {
+                // Prevent access to main screens if not logged in
+                if (!this.props.user) {
+                  return <Redirect to={'/auth'} />
+                }
+                return null
+              }}
+            />
+            <Route path="/app" component={MainScreen} />
+            <Route path="/auth" component={AuthScreen} />
+          </Container>
+        </ConnectedRouter>
+      : <div>Loading...</div>
   }
 }
 
-export default App
+const mapStateToProps = (state: ReduxState) => ({
+  user: state.auth.user,
+  initialised: state.auth.initialised,
+})
+
+export default connect(mapStateToProps)(App)

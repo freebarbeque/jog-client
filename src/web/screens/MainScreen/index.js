@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Component } from 'react'
 import { Redirect, Route } from 'react-router-dom'
 import styled from 'styled-components'
 
@@ -12,15 +12,27 @@ const Container = styled.div`
   flex: 1;
 `
 
-export default () =>
-  <Container>
-    <Route path="/app" exact children={() => <Redirect to="/app/policies" />} />
-    <Route
-      path="/app"
-      children={() =>
-        <Container>
-          <NavBar />
-          <Tabs />
-        </Container>}
-    />
-  </Container>
+export default class MainScreen extends Component {
+  render() {
+    return (
+      <Container>
+        <Route
+          path="/app"
+          exact
+          render={() => <Redirect to="/app/policies" />}
+        />
+        <Route
+          path="/app"
+          render={() => {
+            return (
+              <Container>
+                <NavBar />
+                <Tabs />
+              </Container>
+            )
+          }}
+        />
+      </Container>
+    )
+  }
+}

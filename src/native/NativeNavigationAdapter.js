@@ -1,3 +1,5 @@
+// @flow
+
 import { NavigationActions } from 'react-navigation'
 
 import type { NavigationAdapter } from '../common/types'

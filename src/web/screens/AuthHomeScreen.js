@@ -65,7 +65,7 @@ class AuthHomeScreen extends Component {
               </Link>
             </li>
             <li>
-              <Link to="auth/register">
+              <Link to="/auth/register">
                 REGISTER
               </Link>
             </li>

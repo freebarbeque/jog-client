@@ -27,6 +27,7 @@ type CreateStoreOpts = {
   sagas?: Function[],
   navigationAdaptor: typeof NavigationAdapter,
   uploadAdaptor: typeof UploadAdapter,
+  middleware: any[],
 }
 
 export default function createStore(_opts: CreateStoreOpts = {}): Store {
@@ -34,6 +35,7 @@ export default function createStore(_opts: CreateStoreOpts = {}): Store {
     enableDevTools: false,
     freeze: false,
     sagas: [],
+    middleware: [],
     ..._opts,
   }
   if (!store) {
@@ -41,22 +43,29 @@ export default function createStore(_opts: CreateStoreOpts = {}): Store {
     uploadAdaptor = opts.uploadAdaptor
     const sagaMiddleware = createSagaMiddleware()
 
-    const middleware = [sagaMiddleware]
+    const middleware = [sagaMiddleware, ...opts.middleware]
 
     if (opts.freeze) {
       middleware.push(freeze)
     }
 
-    const enhancer = compose(
-      applyMiddleware(...middleware),
-      opts.enableDevTools
-        ? devTools({
-            name: 'Jog',
-            hostname: 'localhost',
-            port: 5678,
-          })
-        : undefined,
-    )
+    let enhancer
+
+    // eslint-disable-next-line valid-typeof
+    if (typeof window === undefined) {
+      enhancer = compose(
+        applyMiddleware(...middleware),
+        devTools({
+          name: 'Jog',
+          hostname: 'localhost',
+          port: 5678,
+        }),
+      )
+    } else {
+      const composeEnhancers =
+        window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
+      enhancer = composeEnhancers(applyMiddleware(...middleware))
+    }
 
     store = _createStore(opts.reducer, undefined, enhancer)
 

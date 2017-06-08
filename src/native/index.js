@@ -37,6 +37,7 @@ const store = createStore({
   sagas: [pushNotificationSaga, pushNotificationSubscriptionSaga],
   navigationAdaptor: NativeNavigationAdapter,
   uploadAdaptor: NativeUploadAdapter,
+  middleware: [],
 })
 
 // $FlowFixMe

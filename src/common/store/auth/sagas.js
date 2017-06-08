@@ -14,6 +14,7 @@ import { eventChannel } from 'redux-saga'
 import createThrottle from 'async-throttle'
 import mime from 'react-native-mime-types'
 import uuid from 'uuid/v4'
+import _ from 'lodash'
 
 import { signOut, userSubscribe, demandCurrentUser } from '../../data/auth'
 import { syncUserDetails, updateCurrentUserDetails } from '../../data/user'
