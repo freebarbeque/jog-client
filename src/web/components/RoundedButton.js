@@ -1,7 +1,9 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
-import { PINK } from '../../common/constants/palette'
+import { Circle } from 'better-react-spinkit'
+import { PINK, WHITE } from '../../common/constants/palette'
+import { MARGIN } from '../../common/constants/style'
 
 // language=SCSS prefix=dummy{ suffix=}
 const Button = styled.button`
@@ -10,7 +12,7 @@ const Button = styled.button`
   height: 40px;
   display: flex;
   border-radius: 20px;
-  flex-direction: column;
+  flex-direction: row;
   justify-content: center;
   align-items: center;
   color: white;
@@ -21,11 +23,13 @@ const Button = styled.button`
     opacity: 0.7;
   }
 `
-
 const RoundedButton = ({ label, loading, ...props }) =>
   <Button disabled={loading} {...props}>
     <div>{label}</div>
-    {loading && <div>Loading...</div>}
+    {loading &&
+      <div style={{ marginLeft: MARGIN.small }}>
+        <Circle size={15} color={WHITE} />
+      </div>}
   </Button>
 
 RoundedButton.propTypes = {

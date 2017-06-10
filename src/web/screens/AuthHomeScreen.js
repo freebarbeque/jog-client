@@ -12,7 +12,7 @@ const Divider = styled.div`
   width: 25px;
   height: 4px;
   background-color: ${PINK};
-  margin: ${MARGIN.large} auto;
+  margin: ${MARGIN.large}px auto;
 `
 
 // language=SCSS prefix=dummy{ suffix=}

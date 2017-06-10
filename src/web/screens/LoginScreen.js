@@ -28,7 +28,16 @@ type LoginProps = {
 class LoginScreen extends Component {
   props: LoginProps
 
-  static formFields = [emailField, passwordField]
+  static formFields = [
+    emailField,
+    {
+      ...passwordField,
+      inputProps: {
+        ...passwordField.inputProps,
+        type: 'password',
+      },
+    },
+  ]
 
   handleSubmit = (values: ValuesMap) => {
     const { email, password } = values

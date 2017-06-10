@@ -3,58 +3,49 @@
 import React from 'react'
 import styled from 'styled-components'
 import FontAwesome from 'react-fontawesome'
-import TextField from 'material-ui/TextField'
 import RoundedButton from './RoundedButton'
 import { PINK } from '../../common/constants/palette'
 import { MARGIN } from '../../common/constants/style'
 import { FormField } from '../../common/types'
 import Form from '../../common/components/Form'
+import type { FormProps } from '../../common/components/Form'
+import LabelledTextInput from './LabelledTextInput'
 
 // language=SCSS prefix=dummy{ suffix=}
 const ErrorText = styled.div`
   color: ${PINK};
   text-align: center;
-  margin-left: ${MARGIN.large};
-  margin-right: ${MARGIN.large};
-  margin-top: ${MARGIN.base};
-`
-
-// language=SCSS prefix=dummy{ suffix=}
-const Label = styled.div`
-  font-weight: 500;
-  font-size: 11px;
-  color: white;
+  margin-left: ${MARGIN.large}px;
+  margin-right: ${MARGIN.large}px;
+  margin-top: ${MARGIN.base}px;
 `
 
 export default class WebForm extends Form {
-  renderField = (f: FormField, idx: number) => {
+  props: FormProps
+
+  renderField = (f: FormField) => {
     const fieldError = this.props.validationErrors[f.key]
     const value = this.props.values[f.key]
 
     if (f.type === 'text') {
       return (
-        <div>
-          <Label>
-            {f.label.toUpperCase()}
-          </Label>
-          <TextField
-            ref={`${idx}`}
-            key={f.label}
-            onChange={(e, text) => {
-              const newValues = { ...this.props.values }
-              const validationErrors = { ...this.props.validationErrors }
-              newValues[f.key] = text
-              validationErrors[f.key] = null
-              this.props.onValuesChanged(newValues)
-              this.props.onValidationErrorsChanged(validationErrors)
-            }}
-            onBlur={() => this.handleBlur(f)}
-            disabled={this.props.disabled}
-            value={value}
-            errorText={fieldError}
-            {...f.inputProps}
-          />
-        </div>
+        <LabelledTextInput
+          label={f.label}
+          key={f.label}
+          onChange={e => {
+            const newValues = { ...this.props.values }
+            const validationErrors = { ...this.props.validationErrors }
+            newValues[f.key] = e.target.value
+            validationErrors[f.key] = null
+            this.props.onValuesChanged(newValues)
+            this.props.onValidationErrorsChanged(validationErrors)
+          }}
+          onBlur={() => this.handleBlur(f)}
+          disabled={this.props.disabled}
+          value={value}
+          error={fieldError}
+          {...f.inputProps}
+        />
       )
     } else if (f.type === 'options') {
       throw new Error('TODO: options field')
@@ -74,7 +65,14 @@ export default class WebForm extends Form {
     } = this.props
 
     return (
-      <div {...props}>
+      <form
+        {...props}
+        onSubmit={e => {
+          e.preventDefault()
+          e.stopPropagation()
+          this.handleSubmit()
+        }}
+      >
         <div>
           {fields.map(this.renderField)}
           <div>
@@ -85,6 +83,7 @@ export default class WebForm extends Form {
             label={buttonLabel}
             onClick={this.handleSubmit}
             loading={disabled}
+            style={{ marginLeft: 'auto', marginRight: 'auto' }}
           />
           {error &&
             <ErrorText>
@@ -92,7 +91,7 @@ export default class WebForm extends Form {
               {`  ${error}`}
             </ErrorText>}
         </div>
-      </div>
+      </form>
     )
   }
 }
