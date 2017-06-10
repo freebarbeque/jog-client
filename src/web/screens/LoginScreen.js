@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import FlatButton from 'material-ui/FlatButton'
 import { Link } from 'react-router-dom'
-import styled from 'styled-components'
 import {
   Dispatch,
   ReduxState,
@@ -17,24 +16,8 @@ import {
 import Form from '../components/Form'
 import { emailField, passwordField } from '../../native/components/Form/fields'
 import { DARK_GRAY } from '../../common/constants/palette'
-import { MARGIN } from '../../common/constants/style'
-
-// language=SCSS prefix=dummy{ suffix=}
-const Container = styled.div`
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-`
-
-// language=SCSS prefix=dummy{ suffix=}
-const Title = styled.div`
-  text-align: center;
-  font-size: 20px;
-  margin-bottom: ${MARGIN.large}px;
-  font-weight: 400;
-  color: white;
-`
+import HorizontalFlexCenteredContainer from '../components/HorizontalFlexCenteredContainer'
+import Title from '../components/Title'
 
 type LoginProps = {
   dispatch: Dispatch,
@@ -87,7 +70,7 @@ class LoginScreen extends Component {
 
   render() {
     return (
-      <Container>
+      <HorizontalFlexCenteredContainer>
         <Title>
           Sign In
         </Title>
@@ -112,7 +95,7 @@ class LoginScreen extends Component {
             justifyContent: 'center',
           }}
         />
-      </Container>
+      </HorizontalFlexCenteredContainer>
     )
   }
 }

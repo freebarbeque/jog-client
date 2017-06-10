@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import styled from 'styled-components'
 import { FlatButton } from 'material-ui'
 import { Link } from 'react-router-dom'
 
@@ -18,8 +17,8 @@ import {
 } from '../../common/store/screens/auth/actions'
 import { DARK_GRAY } from '../../common/constants/palette'
 import Form from '../components/Form'
-
-import { MARGIN } from '../../common/constants/style'
+import HorizontalFlexCenteredContainer from '../components/HorizontalFlexCenteredContainer'
+import Title from '../components/Title'
 
 type PasswordResetScreenProps = {
   dispatch: Dispatch,
@@ -28,23 +27,6 @@ type PasswordResetScreenProps = {
   passwordResetError: string | null,
   loading: boolean,
 }
-
-// language=SCSS prefix=dummy{ suffix=}
-const Container = styled.div`
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-`
-
-// language=SCSS prefix=dummy{ suffix=}
-const Title = styled.div`
-  text-align: center;
-  font-size: 20px;
-  margin-bottom: ${MARGIN.large}px;
-  font-weight: 400;
-  color: white;
-`
 
 class PasswordResetScreen extends Component {
   props: PasswordResetScreenProps
@@ -71,7 +53,7 @@ class PasswordResetScreen extends Component {
 
   render() {
     return (
-      <Container>
+      <HorizontalFlexCenteredContainer>
         <Title>
           Password Reset
         </Title>
@@ -91,7 +73,7 @@ class PasswordResetScreen extends Component {
           }}
           disabled={this.props.loading}
         />
-      </Container>
+      </HorizontalFlexCenteredContainer>
     )
   }
 }

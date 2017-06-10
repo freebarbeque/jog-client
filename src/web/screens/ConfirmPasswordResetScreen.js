@@ -8,27 +8,12 @@ import styled from 'styled-components'
 import type { Dispatch } from 'jog/src/common/types'
 import { MARGIN } from '../../common/constants/style'
 import RoundedButton from '../components/RoundedButton'
+import HorizontalFlexCenteredContainer from '../components/HorizontalFlexCenteredContainer'
+import Title from '../components/Title'
 
 type ConfirmPasswordResetScreenProps = {
   dispatch: Dispatch,
 }
-
-// language=SCSS prefix=dummy{ suffix=}
-const Container = styled.div`
-    flex: 1;
-    display: flex;
-    padding-top: 20px;
-    flex-direction: column;
-`
-
-// language=SCSS prefix=dummy{ suffix=}
-const Title = styled.div`
-  text-align: center;
-  font-size: 20px;
-  margin-bottom: ${MARGIN.large}px;
-  font-weight: 400;
-  color: white;
-`
 
 // language=SCSS prefix=dummy{ suffix=}
 const Description = styled.div`
@@ -49,7 +34,7 @@ class ConfirmPasswordResetScreen extends Component {
 
   render() {
     return (
-      <Container>
+      <HorizontalFlexCenteredContainer>
         <Title>
           Password Reset
         </Title>
@@ -66,7 +51,7 @@ class ConfirmPasswordResetScreen extends Component {
           label={'Back'}
           onClick={this.goBack}
         />
-      </Container>
+      </HorizontalFlexCenteredContainer>
     )
   }
 }
