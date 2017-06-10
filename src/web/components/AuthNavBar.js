@@ -1,20 +1,28 @@
 import React from 'react'
 import AppBar from 'material-ui/AppBar'
-import { Link } from 'react-router-dom'
 import FlatButton from 'material-ui/FlatButton'
+import { connect } from 'react-redux'
+import { push } from 'react-router-redux'
+
 import { Logo, Cross } from './images'
 import type { Dispatch } from '../../common/types'
+import { logout } from '../../common/store/auth/actions'
 
 type AuthNavBarProps = {
   dispatch: Dispatch,
 }
 
-export default class AuthNavBar extends React.Component {
+class AuthNavBar extends React.Component {
   props: AuthNavBarProps
 
   render() {
     const rightButton = (
-      <FlatButton containerElement={<Link to="/auth" />}>
+      <FlatButton
+        onClick={() => {
+          this.props.dispatch(logout())
+          this.props.dispatch(push('/auth'))
+        }}
+      >
         <Cross />
       </FlatButton>
     )
@@ -32,3 +40,5 @@ export default class AuthNavBar extends React.Component {
     )
   }
 }
+
+export default connect()(AuthNavBar)

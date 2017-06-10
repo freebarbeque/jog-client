@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import FlatButton from 'material-ui/FlatButton'
+import { Link } from 'react-router-dom'
 
 import {
   Dispatch,
@@ -53,7 +54,10 @@ class LoginScreen extends Component {
           FORGOT PASSWORD
         </FlatButton>
         <div style={{ flex: 1 }} />
-        <FlatButton style={accessoryStyle}>
+        <FlatButton
+          style={accessoryStyle}
+          containerElement={<Link to="/auth/register" />}
+        >
           REGISTER NOW
         </FlatButton>
       </div>

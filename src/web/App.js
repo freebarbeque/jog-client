@@ -70,7 +70,8 @@ class App extends Component {
               path="/"
               exact
               render={() => {
-                if (this.props.user) {
+                const user = this.props.user
+                if (user && user.emailVerified) {
                   return <Redirect to={'/app'} />
                 }
                 return <Redirect to={'/auth'} />
@@ -80,7 +81,8 @@ class App extends Component {
               path="/app"
               render={() => {
                 // Prevent access to main screens if not logged in
-                if (!this.props.user) {
+                const user = this.props.user
+                if (!user || (user && !user.emailVerified)) {
                   return <Redirect to={'/auth'} />
                 }
                 return null

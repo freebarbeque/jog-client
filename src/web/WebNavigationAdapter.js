@@ -5,7 +5,9 @@ import { push } from 'react-router-redux'
 import type { NavigationAdapter } from '../common/types'
 
 export class WebNavigationAdapter implements NavigationAdapter {
-  static navigateToAuthFinished() {}
+  static navigateToAuthFinished() {
+    return push('/auth/verify')
+  }
 
   static navigateToAuth() {
     return push('/auth')
