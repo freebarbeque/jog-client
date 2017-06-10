@@ -65,33 +65,37 @@ export default class WebForm extends Form {
     } = this.props
 
     return (
-      <form
-        {...props}
-        onSubmit={e => {
-          e.preventDefault()
-          e.stopPropagation()
-          this.handleSubmit()
-        }}
-      >
-        <div>
-          {fields.map(this.renderField)}
+      <div>
+        <form
+          {...props}
+          onSubmit={e => {
+            e.preventDefault()
+            e.stopPropagation()
+            this.handleSubmit()
+          }}
+        >
           <div>
-            {accessory && accessory}
+            {fields.map(this.renderField)}
+            <div>
+              {accessory && accessory}
+            </div>
+            <RoundedButton
+              type="submit"
+              label={buttonLabel}
+              onClick={this.handleSubmit}
+              loading={disabled}
+              style={{ marginLeft: 'auto', marginRight: 'auto' }}
+            />
           </div>
-          <RoundedButton
-            type="submit"
-            label={buttonLabel}
-            onClick={this.handleSubmit}
-            loading={disabled}
-            style={{ marginLeft: 'auto', marginRight: 'auto' }}
-          />
+        </form>
+        <div>
           {error &&
             <ErrorText>
               <FontAwesome name="exclamation-triangle" color={PINK} size={14} />
               {`  ${error}`}
             </ErrorText>}
         </div>
-      </form>
+      </div>
     )
   }
 }
