@@ -10,6 +10,8 @@ import RegisterScreen from './RegisterScreen'
 import type { FirebaseUser, ReduxState } from '../../common/types'
 import AuthNavBar from '../components/AuthNavBar'
 import EmailVerificationScreen from './EmailVerificationScreen'
+import PasswordResetScreen from './PasswordResetScreen'
+import ConfirmPasswordResetScreen from './ConfirmPasswordResetScreen'
 
 // language=SCSS prefix=dummy{ suffix=}
 const Container = styled.div`
@@ -46,6 +48,11 @@ class AuthScreen extends Component {
         <Route path="/auth/login" component={LoginScreen} />
         <Route path="/auth/verify" component={EmailVerificationScreen} />
         <Route path="/auth/register" component={RegisterScreen} />
+        <Route path="/auth/forgotPassword" component={PasswordResetScreen} />
+        <Route
+          path="/auth/confirmForgotPassword"
+          component={ConfirmPasswordResetScreen}
+        />
       </Container>
     )
   }

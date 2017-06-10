@@ -1,23 +1,33 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import FlatButton from 'material-ui/FlatButton'
-import { Link } from 'react-router-dom'
 import styled from 'styled-components'
+import { FlatButton } from 'material-ui'
+import { Link } from 'react-router-dom'
+
 import {
   Dispatch,
   ReduxState,
   ValidationErrorsMap,
   ValuesMap,
 } from '../../common/types'
+import { emailField } from '../../native/components/Form/fields'
 import {
-  login,
+  passwordReset,
   setValidationErrors,
   setValues,
 } from '../../common/store/screens/auth/actions'
-import Form from '../components/Form'
-import { emailField, passwordField } from '../../native/components/Form/fields'
 import { DARK_GRAY } from '../../common/constants/palette'
+import Form from '../components/Form'
+
 import { MARGIN } from '../../common/constants/style'
+
+type PasswordResetScreenProps = {
+  dispatch: Dispatch,
+  values: ValuesMap,
+  validationErrors: ValidationErrorsMap,
+  passwordResetError: string | null,
+  loading: boolean,
+}
 
 // language=SCSS prefix=dummy{ suffix=}
 const Container = styled.div`
@@ -36,50 +46,24 @@ const Title = styled.div`
   color: white;
 `
 
-type LoginProps = {
-  dispatch: Dispatch,
-  values: ValuesMap,
-  validationErrors: ValidationErrorsMap,
-  loginError: string | null,
-  loading: boolean,
-}
+class PasswordResetScreen extends Component {
+  props: PasswordResetScreenProps
 
-class LoginScreen extends Component {
-  props: LoginProps
+  static formFields = [emailField]
 
-  static formFields = [
-    emailField,
-    {
-      ...passwordField,
-      inputProps: {
-        ...passwordField.inputProps,
-        type: 'password',
-      },
-    },
-  ]
-
-  handleSubmit = (values: ValuesMap) => {
-    const { email, password } = values
-    this.props.dispatch(login(email, password))
+  handleSubmit = values => {
+    const { email } = values
+    this.props.dispatch(passwordReset(email))
   }
 
   renderFormAccessory() {
-    const accessoryStyle = { fontWeight: 500, fontSize: 11, color: DARK_GRAY }
-
     return (
       <div style={{ display: 'flex', flexDirection: 'row' }}>
         <FlatButton
-          style={accessoryStyle}
-          containerElement={<Link to="/auth/forgotPassword" />}
+          style={{ fontWeight: 500, fontSize: 11, color: DARK_GRAY }}
+          containerElement={<Link to="/auth/login" />}
         >
-          FORGOT PASSWORD
-        </FlatButton>
-        <div style={{ flex: 1 }} />
-        <FlatButton
-          style={accessoryStyle}
-          containerElement={<Link to="/auth/register" />}
-        >
-          REGISTER NOW
+          KNOW YOUR PASSWORD?
         </FlatButton>
       </div>
     )
@@ -89,15 +73,14 @@ class LoginScreen extends Component {
     return (
       <Container>
         <Title>
-          Sign In
+          Password Reset
         </Title>
         <Form
-          fields={LoginScreen.formFields}
-          buttonLabel="Sign in"
+          fields={PasswordResetScreen.formFields}
+          buttonLabel="Send email"
           accessory={this.renderFormAccessory()}
           onSubmit={this.handleSubmit}
-          error={this.props.loginError}
-          disabled={this.props.loading}
+          error={this.props.passwordResetError}
           values={this.props.values}
           validationErrors={this.props.validationErrors}
           onValuesChanged={values => {
@@ -106,11 +89,7 @@ class LoginScreen extends Component {
           onValidationErrorsChanged={errors => {
             this.props.dispatch(setValidationErrors(errors))
           }}
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-          }}
+          disabled={this.props.loading}
         />
       </Container>
     )
@@ -119,7 +98,6 @@ class LoginScreen extends Component {
 
 const mapStateToProps = (state: ReduxState) => ({
   ...state.screens.auth,
-  nav: state.nav,
 })
 
-export default connect(mapStateToProps)(LoginScreen)
+export default connect(mapStateToProps)(PasswordResetScreen)

@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { FlatButton } from 'material-ui'
 import { Link } from 'react-router-dom'
+import styled from 'styled-components'
 
 import type {
   Dispatch,
@@ -21,6 +22,24 @@ import {
 } from '../../common/store/screens/auth/actions'
 import Form from '../components/Form'
 import { DARK_GRAY } from '../../common/constants/palette'
+import { MARGIN } from '../../common/constants/style'
+
+// language=SCSS prefix=dummy{ suffix=}
+const Container = styled.div`
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`
+
+// language=SCSS prefix=dummy{ suffix=}
+const Title = styled.div`
+  text-align: center;
+  font-size: 20px;
+  margin-bottom: ${MARGIN.large}px;
+  font-weight: 400;
+  color: white;
+`
 
 type RegisterProps = {
   dispatch: Dispatch,
@@ -66,27 +85,32 @@ class RegisterScreen extends Component {
 
   render() {
     return (
-      <Form
-        fields={RegisterScreen.formFields}
-        buttonLabel="Register"
-        accessory={this.renderFormAccessory()}
-        onSubmit={this.handleSubmit}
-        error={this.props.registerError}
-        disabled={this.props.loading}
-        values={this.props.values}
-        validationErrors={this.props.validationErrors}
-        onValuesChanged={values => {
-          this.props.dispatch(setValues(values))
-        }}
-        onValidationErrorsChanged={errors => {
-          this.props.dispatch(setValidationErrors(errors))
-        }}
-        style={{
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-        }}
-      />
+      <Container>
+        <Title>
+          Register
+        </Title>
+        <Form
+          fields={RegisterScreen.formFields}
+          buttonLabel="Register"
+          accessory={this.renderFormAccessory()}
+          onSubmit={this.handleSubmit}
+          error={this.props.registerError}
+          disabled={this.props.loading}
+          values={this.props.values}
+          validationErrors={this.props.validationErrors}
+          onValuesChanged={values => {
+            this.props.dispatch(setValues(values))
+          }}
+          onValidationErrorsChanged={errors => {
+            this.props.dispatch(setValidationErrors(errors))
+          }}
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}
+        />
+      </Container>
     )
   }
 }

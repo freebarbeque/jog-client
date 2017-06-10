@@ -16,9 +16,13 @@ export class WebNavigationAdapter implements NavigationAdapter {
   // eslint-disable-next-line no-unused-vars
   static navigateToPolicyDetails(policyId: string, policyIndex: number) {}
 
-  static navigateToEmailVerification() {}
+  static navigateToEmailVerification() {
+    return push('/auth/verify')
+  }
 
-  static navigateToConfirmPasswordReset() {}
+  static navigateToConfirmPasswordReset() {
+    return push('/auth/confirmForgotPassword')
+  }
 
   static hideAuthModal() {
     return push('/app')
