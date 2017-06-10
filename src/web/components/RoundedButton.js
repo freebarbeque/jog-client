@@ -1,16 +1,35 @@
 import React from 'react'
-import FlatButton from 'material-ui/FlatButton'
 import PropTypes from 'prop-types'
+import styled from 'styled-components'
+import { PINK } from '../../common/constants/palette'
+
+// language=SCSS prefix=dummy{ suffix=}
+const Button = styled.button`
+  background-color: ${PINK};
+  width: 120px;
+  height: 40px;
+  display: flex;
+  border-radius: 20px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  border: none;
+  font-size: 14px;
+  cursor: pointer;
+  &:hover {
+    opacity: 0.7;
+  }
+`
 
 const RoundedButton = ({ label, loading, ...props }) =>
-  <FlatButton disabled={loading} {...props}>
+  <Button disabled={loading} {...props}>
     <div>{label}</div>
     {loading && <div>Loading...</div>}
-  </FlatButton>
+  </Button>
 
 RoundedButton.propTypes = {
   label: PropTypes.string,
-  ...FlatButton.propTypes,
 }
 
 export default RoundedButton
