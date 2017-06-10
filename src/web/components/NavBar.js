@@ -1,13 +1,18 @@
 import React from 'react'
 import AppBar from 'material-ui/AppBar'
 import FlatButton from 'material-ui/FlatButton'
-import { Link } from 'react-router-dom'
-import { Logo } from './images'
+import { connect } from 'react-redux'
 
-export default class NavBar extends React.Component {
+import { Logo } from './images'
+import { logout } from '../../common/store/auth/actions'
+
+class NavBar extends React.Component {
   render() {
     const rightButton = (
-      <FlatButton label="Sign Out" containerElement={<Link to="/auth" />} />
+      <FlatButton
+        label="Sign Out"
+        onClick={() => this.props.dispatch(logout())}
+      />
     )
 
     return (
@@ -23,3 +28,5 @@ export default class NavBar extends React.Component {
     )
   }
 }
+
+export default connect()(NavBar)
