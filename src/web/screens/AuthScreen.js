@@ -8,6 +8,7 @@ import AuthHome from './AuthHomeScreen'
 import RegisterScreen from './RegisterScreen'
 
 import type { FirebaseUser, ReduxState } from '../../common/types'
+import AuthNavBar from '../components/AuthNavBar'
 
 // language=SCSS prefix=dummy{ suffix=}
 const Container = styled.div`
@@ -27,6 +28,7 @@ class AuthScreen extends Component {
   render() {
     return (
       <Container>
+        <Route path="/auth(/?.+)" component={AuthNavBar} />
         <Route
           path="/auth"
           render={() => {

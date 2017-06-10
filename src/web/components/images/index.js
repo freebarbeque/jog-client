@@ -49,3 +49,23 @@ export const Logo = props => {
 Logo.propTypes = {
   scale: PropTypes.number,
 }
+
+export const Cross = props => {
+  const { scale, ...rest } = props
+
+  return (
+    <Image
+      src={require('./cross.svg')}
+      height={14}
+      width={14}
+      scale={scale}
+      alt="logo"
+      className="logo"
+      {...rest}
+    />
+  )
+}
+
+Cross.propTypes = {
+  scale: PropTypes.number,
+}
