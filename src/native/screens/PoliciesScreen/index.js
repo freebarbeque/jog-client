@@ -31,7 +31,7 @@ type PoliciesProps = {
   dispatch: Dispatch,
 }
 
-class Policies extends Component {
+class PoliciesScreen extends Component {
   props: PoliciesProps
 
   clearMockPolicies = () => {
@@ -158,4 +158,4 @@ const mapStateToProps = (state: ReduxState) => ({
   initialised: state.policies.initialised,
 })
 
-export default connect(mapStateToProps)(Policies)
+export default connect(mapStateToProps)(PoliciesScreen)

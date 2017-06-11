@@ -10,6 +10,7 @@ import MotorPolicyCard from './MotorPolicyCard'
 import { MARGIN } from '../../../common/constants/style'
 import AddMotorPolicyCard from './AddMotorPolicyCard'
 import AddPolicyScreen from '../AddPolicyScreen'
+import GetStartedScreen from '../GetStartedScreen'
 
 type PoliciesTabProps = {
   policies: MotorPolicyMap,
@@ -27,34 +28,50 @@ class PoliciesTab extends Component {
     this.props.dispatch(push('/app/policies/addPolicy'))
   }
 
-  render() {
+  renderNoPolicies() {
+    return (
+      <GetStartedScreen
+        onGetStartedPress={() => {
+          this.props.dispatch(push('/app/policies/addPolicy'))
+        }}
+      />
+    )
+  }
+
+  renderPolicies() {
     const policies = this.props.policies
 
     return (
-      <div>
+      <div
+        style={{
+          padding: MARGIN.base,
+          display: 'flex',
+          flexDirection: 'column',
+        }}
+      >
+        {_.values(policies).map((p, idx) =>
+          <MotorPolicyCard
+            key={p.id}
+            policy={p}
+            index={idx}
+            onPress={this.handlePolicyPress}
+          />,
+        )}
+        {<AddMotorPolicyCard onPress={this.handleAddPolicyPress} />}
+      </div>
+    )
+  }
+
+  render() {
+    return (
+      <div style={{ height: '100%' }}>
         <Route
           path="/app/policies"
           exact
           render={() => {
-            return (
-              <div
-                style={{
-                  padding: MARGIN.base,
-                  display: 'flex',
-                  flexDirection: 'column',
-                }}
-              >
-                {_.values(policies).map((p, idx) =>
-                  <MotorPolicyCard
-                    key={p.id}
-                    policy={p}
-                    index={idx}
-                    onPress={this.handlePolicyPress}
-                  />,
-                )}
-                {<AddMotorPolicyCard onPress={this.handleAddPolicyPress} />}
-              </div>
-            )
+            return _.values(this.props.policies).length
+              ? this.renderPolicies()
+              : this.renderNoPolicies()
           }}
         />
         <Route

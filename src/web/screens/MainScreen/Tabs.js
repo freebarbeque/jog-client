@@ -35,7 +35,7 @@ class TabsScreen extends Component {
     const index = TABS.indexOf(screen)
 
     return (
-      <Container>
+      <Container className="tabs-container">
         <Tabs value={screen}>
           <Tab
             value="policies"
@@ -54,6 +54,7 @@ class TabsScreen extends Component {
           index={index}
           onChangeIndex={this.handleChangeIndex}
           enableMouseEvents
+          style={{ flex: 1 }}
         >
           <PoliciesTab />
           <SettingsTab />

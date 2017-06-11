@@ -2,29 +2,9 @@ import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 
-import { Logo } from '../components/images/index'
-import { DARK_GRAY, PINK } from '../../common/constants/palette'
-import { MARGIN } from '../../common/constants/style'
+import { DARK_GRAY } from '../../common/constants/palette'
 import FlexCentredContainer from '../components/FlexCentredContainer'
-
-// language=SCSS prefix=dummy{ suffix=}
-const Divider = styled.div`
-  width: 25px;
-  height: 4px;
-  background-color: ${PINK};
-  margin: ${MARGIN.large}px auto;
-`
-
-// language=SCSS prefix=dummy{ suffix=}
-const TopHeadline = styled.p`
-  font-size: 36px;
-  font-weight: 600;
-`
-
-// language=SCSS prefix=dummy{ suffix=}
-const BottomHeadline = styled.p`
-  font-size: 16px;
-`
+import Jumbotron from '../components/Jumbotron'
 
 // language=SCSS prefix=dummy{ suffix=}
 const Menu = styled.ul`
@@ -47,17 +27,7 @@ class AuthHomeScreen extends Component {
     return (
       <FlexCentredContainer>
         <div>
-          <Logo scale={1.5} />
-          <TopHeadline>
-            your<br />
-            insurance<br />
-            memory<br />
-          </TopHeadline>
-          <Divider />
-          <BottomHeadline>
-            store your policies<br />
-            minimise your premiums<br />
-          </BottomHeadline>
+          <Jumbotron />
           <Menu>
             <li>
               <Link to="/auth/login">
