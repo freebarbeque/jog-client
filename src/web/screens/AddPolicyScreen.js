@@ -2,6 +2,7 @@
 
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import { push } from 'react-router-redux'
 import styled from 'styled-components'
 import { BLUE, CREAM, PINK, WHITE } from '../../common/constants/palette'
 import { MARGIN } from '../../common/constants/style'
@@ -74,7 +75,9 @@ class AddPolicyScreen extends Component {
     return (
       <Container>
         <Card>
-          <CardButton>
+          <CardButton
+            onClick={() => this.props.dispatch(push('/app/policies/email'))}
+          >
             <div style={{ flex: 1 }}>
               <RecommendedText>
                 Recommended

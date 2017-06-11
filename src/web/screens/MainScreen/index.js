@@ -1,9 +1,10 @@
 import React, { Component } from 'react'
-import { Redirect, Route } from 'react-router-dom'
+import { Redirect, Route, Switch } from 'react-router-dom'
 import styled from 'styled-components'
 
 import NavBar from '../../components/NavBar'
 import Tabs from './Tabs'
+import EmailPolicyScreen from '../EmailPolicyScreen'
 
 // language=SCSS prefix=dummy{ suffix=}
 const Container = styled.div`
@@ -21,17 +22,24 @@ export default class MainScreen extends Component {
           exact
           render={() => <Redirect to="/app/policies" />}
         />
-        <Route
-          path="/app"
-          render={() => {
-            return (
-              <Container>
-                <NavBar />
-                <Tabs />
-              </Container>
-            )
-          }}
-        />
+        <Switch>
+          <Route
+            path="/app/policies/email"
+            exact
+            component={EmailPolicyScreen}
+          />
+          <Route
+            path="/app"
+            render={() => {
+              return (
+                <Container>
+                  <NavBar />
+                  <Tabs />
+                </Container>
+              )
+            }}
+          />
+        </Switch>
       </Container>
     )
   }
