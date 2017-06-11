@@ -5,6 +5,7 @@ import { MotorPolicyMap, ReduxState } from '../../../common/types'
 import { selectPolicies } from '../../../common/store/policies/selectors'
 import MotorPolicyCard from './MotorPolicyCard'
 import { MARGIN } from '../../../common/constants/style'
+import AddMotorPolicyCard from './AddMotorPolicyCard'
 
 type PoliciesTabProps = {
   policies: MotorPolicyMap,
@@ -16,6 +17,8 @@ class PoliciesTab extends Component {
   componentDidMount() {}
 
   handlePolicyPress() {}
+
+  handleAddPolicyPress() {}
 
   render() {
     const policies = this.props.policies
@@ -36,6 +39,7 @@ class PoliciesTab extends Component {
             onPress={this.handlePolicyPress}
           />,
         )}
+        {<AddMotorPolicyCard onPress={this.handleAddPolicyPress} />}
       </div>
     )
   }
