@@ -1,29 +1,50 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import _ from 'lodash'
+import { MotorPolicyMap, ReduxState } from '../../../common/types'
+import { selectPolicies } from '../../../common/store/policies/selectors'
+import MotorPolicyCard from './MotorPolicyCard'
+import { MARGIN } from '../../../common/constants/style'
 
-const styles = {
-  headline: {
-    fontSize: 24,
-    paddingTop: 16,
-    marginBottom: 12,
-    fontWeight: 400,
-  },
+type PoliciesTabProps = {
+  policies: MotorPolicyMap,
 }
 
-export default class PoliciesTab extends Component {
+class PoliciesTab extends Component {
+  props: PoliciesTabProps
+
   componentDidMount() {}
 
+  handlePolicyPress() {}
+
   render() {
+    const policies = this.props.policies
+
     return (
-      <div style={{ flex: 1 }}>
-        <h2 style={styles.headline}>Policies</h2>
-        <p>
-          This is an example tab.
-        </p>
-        <p>
-          You can put any sort of HTML or react component in here. It even keeps
-          the component state!
-        </p>
+      <div
+        style={{
+          padding: MARGIN.base,
+          display: 'flex',
+          flexDirection: 'column',
+        }}
+      >
+        {_.values(policies).map((p, idx) =>
+          <MotorPolicyCard
+            key={p.id}
+            policy={p}
+            index={idx}
+            onPress={this.handlePolicyPress}
+          />,
+        )}
       </div>
     )
   }
 }
+
+const mapStateToProps = (state: ReduxState) => {
+  return {
+    policies: selectPolicies(state),
+  }
+}
+
+export default connect(mapStateToProps)(PoliciesTab)

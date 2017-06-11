@@ -15,6 +15,8 @@ const TABS = ['policies', 'settings']
 const Container = styled.div`
   background-color: ${CREAM};
   flex: 1;
+  display: flex;
+  flex-direction: column;
   
   .react-swipeable-view-container {
     height: 100%; 
