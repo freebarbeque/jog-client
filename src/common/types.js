@@ -244,6 +244,7 @@ export interface NavigationAdapter {
   static navigateToAuth(): $Subtype<Object>,
   static navigateToEmailVerification(): $Subtype<Object>,
   static navigateToConfirmPasswordReset(): $Subtype<Object>,
+  static navigateToPolicyFinished(): $Subtype<Object>,
   static navigateToPolicyDetails(
     policyId: string,
     policyIndex: number,

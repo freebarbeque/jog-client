@@ -5,6 +5,7 @@ import styled from 'styled-components'
 import NavBar from '../../components/NavBar'
 import Tabs from './Tabs'
 import EmailPolicyScreen from '../EmailPolicyScreen'
+import ManualAddPolicy from '../ManualAddPolicy'
 
 // language=SCSS prefix=dummy{ suffix=}
 const Container = styled.div`
@@ -28,6 +29,7 @@ export default class MainScreen extends Component {
             exact
             component={EmailPolicyScreen}
           />
+          <Route path="/app/policies/manual" component={ManualAddPolicy} />
           <Route
             path="/app"
             render={() => {

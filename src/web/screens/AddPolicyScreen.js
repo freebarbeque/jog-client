@@ -94,7 +94,10 @@ class AddPolicyScreen extends Component {
             </span>
             <Camera />
           </CardButton>
-          <CardButton style={{ borderBottomWidth: 0 }}>
+          <CardButton
+            style={{ borderBottomWidth: 0 }}
+            onClick={() => this.props.dispatch(push('/app/policies/manual'))}
+          >
             <span style={{ flex: 1 }}>
               Manual entry
             </span>

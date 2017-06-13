@@ -19,16 +19,8 @@ type PickerProps = {
   titleText?: string,
 }
 
-type PickerState = {}
-
 export default class Picker extends Component {
   props: PickerProps
-  state: PickerState
-
-  constructor(props: PickerProps) {
-    super(props)
-    this.state = {}
-  }
 
   componentWillUnmount() {
     RNPicker.hide()

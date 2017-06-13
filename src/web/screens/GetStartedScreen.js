@@ -2,11 +2,15 @@
 
 import React, { Component } from 'react'
 import styled from 'styled-components'
+import { push } from 'react-router-redux'
+import { connect } from 'react-redux'
+
 import { PINK } from '../../common/constants/palette'
 import Jumbotron from '../components/Jumbotron'
+import { Dispatch } from '../../common/types'
 
 type GetStartedScreenProps = {
-  onGetStartedPress: () => void,
+  dispatch: Dispatch,
 }
 
 // language=SCSS prefix=dummy{ suffix=}
@@ -31,7 +35,7 @@ const BackgroundImage = styled.div`
 // language=SCSS prefix=dummy{ suffix=}
 const BackgroundImageOverlay = styled.div`
   width: 100%;
-  height: 100%;
+  height: calc(100% - 60px)%;
   background-color: rgba(0,0,0,0.25);
   position: absolute;
   top: 0;
@@ -50,6 +54,7 @@ const Button = styled.button`
   z-index: 2;
   border: 0;
   font-size: 14px;
+  cursor: pointer;
   
   &:focus {
     outline: 0;
@@ -73,24 +78,29 @@ const JumbotronWrapper = styled.div`
   align-items: center;
   justify-content: center;
   z-index: 2;
-  cursor: pointer;
 `
 
-export default class GetStartedScreen extends Component {
+class GetStartedScreen extends Component {
   props: GetStartedScreenProps
+
+  handleButtonPress = () => {
+    this.props.dispatch(push('/app/policies/addPolicy'))
+  }
 
   render() {
     return (
       <Container className="get-started-screen-container">
-        <BackgroundImage />
-        <BackgroundImageOverlay />
+        <BackgroundImage className="background-image" />
+        <BackgroundImageOverlay className="background-image-overlay" />
         <JumbotronWrapper>
           <Jumbotron />
         </JumbotronWrapper>
-        <Button onPress={this.props.onGetStartedPress}>
+        <Button onClick={this.handleButtonPress}>
           Add your motor policy to get started
         </Button>
       </Container>
     )
   }
 }
+
+export default connect()(GetStartedScreen)

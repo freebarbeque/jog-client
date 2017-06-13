@@ -37,7 +37,7 @@ function* savePolicyTask(action: SavePolicyAction) {
     return
   }
 
-  yield put(getNavigationAdapter().navigateToAuthFinished())
+  yield put(getNavigationAdapter().navigateToPolicyFinished())
 }
 
 export function* addPolicySaga<T>(): Iterable<T> {

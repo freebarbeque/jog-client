@@ -4,6 +4,7 @@ import PropTypes from 'prop-types'
 import FontAwesome from 'react-fontawesome'
 import { MARGIN } from '../../common/constants/style'
 import { PINK } from '../../common/constants/palette'
+import Input from './Input'
 
 // language=SCSS prefix=dummy{ suffix=}
 const Container = styled.div`
@@ -16,18 +17,6 @@ const Label = styled.div`
   font-size: 11px;
   color: white;
   text-transform: uppercase;
-`
-
-// language=SCSS prefix=dummy{ suffix=}
-const Input = styled.input`
-  margin-top: ${MARGIN.base}px;
-  height: 50px;
-  background-color: white;
-  padding-left: ${MARGIN.large}px;
-  padding-right: ${MARGIN.large}px;
-  font-size: 20px;
-  border-radius: 4px;
-  border: 2px solid transparent;
 `
 // language=SCSS prefix=dummy{ suffix=}
 const ErrorText = styled.div`

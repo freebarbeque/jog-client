@@ -23,10 +23,6 @@ class PolicyNumberScreen extends Component {
     this.props.dispatch(NavigationActions.navigate({ routeName: 'PolicyDate' }))
   }
 
-  onChange = ({ value }) => {
-    this.props.dispatch(updateManualPolicy({ companyId: value }))
-  }
-
   render() {
     return (
       <AddPolicyScreenContainer

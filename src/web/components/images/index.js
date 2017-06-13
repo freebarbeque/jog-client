@@ -145,3 +145,18 @@ export const Plus = props => {
 }
 
 Plus.propTypes = { scale: PropTypes.number }
+
+export const CarOutline = props => {
+  return (
+    <Image
+      src={require('./car-outline.svg')}
+      height={46.697}
+      width={116.8}
+      alt="car outline"
+      className="car-outline"
+      {...props}
+    />
+  )
+}
+
+CarOutline.propTypes = { scale: PropTypes.number }

@@ -27,4 +27,7 @@ export class WebNavigationAdapter implements NavigationAdapter {
   static hideAuthModal() {
     return push('/app')
   }
+  static navigateToPolicyFinished() {
+    return push('/app/policies/manual/finished')
+  }
 }

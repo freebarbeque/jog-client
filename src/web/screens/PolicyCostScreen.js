@@ -1,0 +1,58 @@
+/* @flow */
+
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import { push } from 'react-router-redux'
+
+import type { Dispatch, ReduxState } from '../../common/types'
+import {
+  ManualPolicyUpdate,
+  updateManualPolicy,
+} from '../../common/store/screens/addManualPolicy/actions'
+import AddPolicyScreenContainer from '../components/AddPolicyScreenContainer'
+import AccessoryInput from '../components/AccessoryInput'
+
+type PolicyCostScreenProps = {
+  dispatch: Dispatch,
+  policy: ManualPolicyUpdate,
+}
+
+class PolicyCostScreen extends Component {
+  props: PolicyCostScreenProps
+
+  handleNextPress = () => {
+    this.props.dispatch(push('/app/policies/manual/vehicleRegistration'))
+  }
+
+  handleChange = e => {
+    this.props.dispatch(updateManualPolicy({ cost: e.target.value }))
+  }
+
+  render() {
+    const cost = this.props.policy.cost
+    const disabled = cost === undefined || cost === null
+
+    return (
+      <AddPolicyScreenContainer
+        showNextButton
+        showPrevButton={false}
+        title={'How much does your policy cost per year?'}
+        onNextPress={this.handleNextPress}
+        disableNextButton={disabled}
+      >
+        <AccessoryInput
+          accessory="£"
+          type="number"
+          onChange={this.handleChange}
+          value={cost}
+        />
+      </AddPolicyScreenContainer>
+    )
+  }
+}
+
+const mapStateToProps = (state: ReduxState) => ({
+  policy: state.screens.addManualPolicy,
+})
+
+export default connect(mapStateToProps)(PolicyCostScreen)

@@ -29,13 +29,7 @@ class PoliciesTab extends Component {
   }
 
   renderNoPolicies() {
-    return (
-      <GetStartedScreen
-        onGetStartedPress={() => {
-          this.props.dispatch(push('/app/policies/addPolicy'))
-        }}
-      />
-    )
+    return <GetStartedScreen />
   }
 
   renderPolicies() {

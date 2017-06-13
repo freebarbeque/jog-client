@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import injectTapEventPlugin from 'react-tap-event-plugin'
 import getMuiTheme from 'material-ui/styles/getMuiTheme'
-import { white } from 'material-ui/styles/colors'
 import { Provider } from 'react-redux'
 import { routerMiddleware } from 'react-router-redux'
 
@@ -17,6 +16,7 @@ import './index.css'
 import { WebNavigationAdapter } from './web/WebNavigationAdapter'
 import WebUploadAdapter from './web/WebUploadAdapter'
 import history from './web/history'
+import { WHITE } from './common/constants/palette'
 
 const BLUE = '#131733'
 const PINK = '#ff4d62'
@@ -41,22 +41,23 @@ const store = createStore({
 })
 
 const theme = getMuiTheme({
-  textColor: white,
   palette: {
     primary1Color: BLUE,
-    alternateTextColor: GRAY,
-    textColor: white,
     accent1Color: BLUE,
+    textColor: BLUE,
   },
   tabs: {
     textColor: GRAY,
     selectedTextColor: PINK,
   },
+  datePicker: {
+    calendarTextColor: BLUE,
+  },
+  textField: {
+    textColor: WHITE,
+    hintColor: 'rgba(255,255,255,0.3)',
+  },
 })
-
-// Needed for onTouchTap
-// http://stackoverflow.com/a/34015469/988941
-injectTapEventPlugin()
 
 const app = (
   <MuiThemeProvider muiTheme={theme}>
@@ -65,6 +66,10 @@ const app = (
     </Provider>
   </MuiThemeProvider>
 )
+
+// Needed for onTouchTap
+// http://stackoverflow.com/a/34015469/988941
+injectTapEventPlugin()
 
 ReactDOM.render(app, document.getElementById('root'))
 registerServiceWorker()
