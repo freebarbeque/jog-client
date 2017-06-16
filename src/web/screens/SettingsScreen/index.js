@@ -6,6 +6,8 @@ import { MARGIN } from '../../../common/constants/style'
 import { WHITE } from '../../../common/constants/palette'
 import AboutUs from './AboutUs'
 import TermsAndConditions from './TermsAndConditions'
+import CookiesPolicy from './CookiesPolicy'
+import PrivacyPolicy from './PrivacyPolicy'
 
 // language=SCSS prefix=dummy{ suffix=}
 const Container = styled.div`
@@ -37,24 +39,10 @@ export default class SettingsScreen extends Component {
           <TermsAndConditions />
         </Collapsible>
         <Collapsible trigger="Cookies policy">
-          <p>
-            This is the collapsible content. It can be any element or React
-            component you like.
-          </p>
-          <p>
-            It can even be another Collapsible component. Check out the next
-            section!
-          </p>
+          <CookiesPolicy />
         </Collapsible>
         <Collapsible trigger="Privacy policy">
-          <p>
-            This is the collapsible content. It can be any element or React
-            component you like.
-          </p>
-          <p>
-            It can even be another Collapsible component. Check out the next
-            section!
-          </p>
+          <PrivacyPolicy />
         </Collapsible>
       </Container>
     )
