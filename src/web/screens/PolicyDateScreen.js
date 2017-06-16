@@ -4,7 +4,6 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { push } from 'react-router-redux'
 import moment from 'moment'
-import DatePicker from 'material-ui/DatePicker'
 
 import type { Dispatch, ReduxState } from '../../common/types'
 import {
@@ -12,7 +11,7 @@ import {
   updateManualPolicy,
 } from '../../common/store/screens/addManualPolicy/actions'
 import AddPolicyScreenContainer from '../components/AddPolicyScreenContainer'
-import { BLUE } from '../../common/constants/palette'
+import DatePicker from '../components/DatePicker'
 
 type PolicyDateScreenProps = {
   dispatch: Dispatch,
@@ -54,9 +53,6 @@ class PolicyDateScreen extends Component {
           name="expiryDate"
           id="policy-expiryDate"
           value={expiryDate}
-          style={{
-            color: `${BLUE} !important`,
-          }}
         />
       </AddPolicyScreenContainer>
     )
