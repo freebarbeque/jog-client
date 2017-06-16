@@ -68,16 +68,20 @@ class InsurerScreen extends Component {
         onNextPress={this.handleNextPress}
         disableNextButton={!company}
       >
-        <Picker
-          onChange={this.onChange}
-          value={
-            company && companyId && company.name
-              ? { value: companyId, label: company.name }
-              : null
-          }
-          placeholder="Insurer"
-          options={options}
-        />
+        <div>
+          <Picker
+            className="picker"
+            name="insurer"
+            onChange={this.onChange}
+            value={
+              company && companyId && company.name
+                ? { value: companyId, label: company.name }
+                : null
+            }
+            placeholder="Insurer"
+            options={options}
+          />
+        </div>
       </AddPolicyScreenContainer>
     )
   }
