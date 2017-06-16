@@ -4,6 +4,8 @@ import styled from 'styled-components'
 import Collapsible from '../../components/Collapsible'
 import { MARGIN } from '../../../common/constants/style'
 import { WHITE } from '../../../common/constants/palette'
+import AboutUs from './AboutUs'
+import TermsAndConditions from './TermsAndConditions'
 
 // language=SCSS prefix=dummy{ suffix=}
 const Container = styled.div`
@@ -14,7 +16,7 @@ const Container = styled.div`
   overflow-y: scroll;
 `
 
-export default class SettingsTab extends Component {
+export default class SettingsScreen extends Component {
   render() {
     return (
       <Container className="settings-tab-container">
@@ -29,24 +31,10 @@ export default class SettingsTab extends Component {
           </p>
         </Collapsible>
         <Collapsible trigger="About Us">
-          <p>
-            This is the collapsible content. It can be any element or React
-            component you like.
-          </p>
-          <p>
-            It can even be another Collapsible component. Check out the next
-            section!
-          </p>
+          <AboutUs />
         </Collapsible>
         <Collapsible trigger="Terms and conditions">
-          <p>
-            This is the collapsible content. It can be any element or React
-            component you like.
-          </p>
-          <p>
-            It can even be another Collapsible component. Check out the next
-            section!
-          </p>
+          <TermsAndConditions />
         </Collapsible>
         <Collapsible trigger="Cookies policy">
           <p>

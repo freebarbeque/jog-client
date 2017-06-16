@@ -5,7 +5,7 @@ import styled from 'styled-components'
 import { Tabs, Tab } from 'material-ui/Tabs'
 
 import PoliciesTab from './PoliciesTab'
-import SettingsTab from './SettingsTab'
+import SettingsScreen from '../SettingsScreen'
 
 import { CREAM } from '../../../common/constants/palette'
 
@@ -57,7 +57,7 @@ class TabsScreen extends Component {
           style={{ flex: 1 }}
         >
           <PoliciesTab />
-          <SettingsTab />
+          <SettingsScreen />
         </SwipeableViews>
       </Container>
     )
