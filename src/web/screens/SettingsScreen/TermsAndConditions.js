@@ -1,7 +1,8 @@
 import React from 'react'
+import Container from './Container'
 
 export default () =>
-  <div>
+  <Container>
     <h2>
       PLEASE READ THESE TERMS AND
       CONDITIONS CAREFULLY BEFORE USING THIS APP.
@@ -31,10 +32,10 @@ export default () =>
       future reference.
     </p>
     <p><br /></p>
-    <p className="s1">
+    <p>
       By using our app, you confirm that you
       accept these terms of use and that you agree to comply<span />with
-      them<span className="p">
+      them<span>
         . If you do not agree to these terms of use, you must not use our app.
       </span>
     </p>
@@ -46,7 +47,7 @@ export default () =>
       These terms of use refer to the
       following additional terms, which also apply to your use of our app:
     </p>
-    <ul id="l1">
+    <ul>
       <li>
         <p>
           Our <b>Privacy and Cookie Policy</b>, which sets out the terms on
@@ -140,7 +141,7 @@ export default () =>
         </p>
         <p><br /></p>
         <p>
-          <a href="mailto:support@joginsurance.com" className="a">
+          <a href="mailto:support@joginsurance.com">
             If you know or
             suspect that anyone other than you knows your user identification
             code or password, you must promptly
@@ -241,7 +242,7 @@ export default () =>
           negligence), breach of statutory duty, or
           otherwise, even if foreseeable, arising under or in connection with:
         </p>
-        <ul id="l2">
+        <ul>
           <li>
             <p>
               use of, or inability to use, our app; or
@@ -371,9 +372,9 @@ export default () =>
               Policy
             </h2>
             <p><br /></p>
-            <p className="s1">
+            <p>
               Prohibited
-              Uses<span className="p">
+              Uses<span>
                 . You may use our app only for lawful purposes. You may not use
                 our app:
               </span>
@@ -442,7 +443,7 @@ export default () =>
               not to access without authority, interfere with, damage or
               disrupt:
             </p>
-            <ul id="l3">
+            <ul>
               <li>
                 <p>any part of our app;</p>
               </li>
@@ -463,7 +464,7 @@ export default () =>
                   party.
                 </p>
                 <p><br /></p>
-                <p className="s1">
+                <p>
                   Interactive Services
                 </p>
                 <p><br /></p>
@@ -516,7 +517,7 @@ export default () =>
                   moderator, should a concern or difficulty arise.
                 </p>
                 <p><br /></p>
-                <p className="s1">
+                <p>
                   Content Standards
                 </p>
                 <p><br /></p>
@@ -636,7 +637,7 @@ export default () =>
               only) copyright infringement or computer misuse.
             </p>
             <p><br /></p>
-            <p className="s1">
+            <p>
               Suspension and Termination
             </p>
             <p><br /></p>
@@ -803,4 +804,4 @@ export default () =>
       </a>mail
       support@joginsurance.com Thank you for visiting our app.
     </p>
-  </div>
+  </Container>

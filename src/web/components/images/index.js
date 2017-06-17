@@ -160,3 +160,18 @@ export const CarOutline = props => {
 }
 
 CarOutline.propTypes = { scale: PropTypes.number }
+
+export const Chevron = props => {
+  return (
+    <Image
+      src={require('./chevron.svg')}
+      height={9.838}
+      width={5.74}
+      alt="chevron"
+      className="chevron"
+      {...props}
+    />
+  )
+}
+
+Chevron.propTypes = { scale: PropTypes.number }

@@ -1,7 +1,8 @@
 import React from 'react'
+import Container from './Container'
 
 export default () =>
-  <div>
+  <Container>
     <p>
       Help /
       {' '}
@@ -636,4 +637,4 @@ export default () =>
       required by law or where permitted under the terms of the Data Protection
       Act 1998.
     </p>
-  </div>
+  </Container>

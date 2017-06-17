@@ -11,19 +11,20 @@ const Container = styled.div`
   }
 
   .Collapsible__contentInner {
-    border: 1px solid #ebebeb;
+    border-bottom: 1px solid #ebebeb;
+    border-left: 2px solid #ebebeb;
+    border-right: 2px solid #ebebeb;
     border-top: 0;
-    padding: ${MARGIN.large}px;
     
     >*:first-child {
       margin-top: 0;
     }
-    
-    * {
-      color: ${BLUE};
-    }
   }
-
+  
+  .Collapsible__contentInner *:first-child {
+    margin-top: 0;
+  }
+  
   .Collapsible__contentInner p:last-child {
     margin-bottom: 0;
   }
@@ -75,7 +76,22 @@ const Container = styled.div`
     opacity: 0.5;
     background-color: grey;
   }
+  
+  .Collapsible__trigger.is-open {
+    border-bottom-width: 0 !important;
+    border-bottom-style: none;
+    border-bottom-color: transparent;
+  }
+  
+
 `
 
 // language=SCSS prefix=dummy{ suffix=}
-export default props => <Container><Collapsible {...props} /></Container>
+export default props => {
+  const { style, ...rest } = props
+  return (
+    <Container style={style}>
+      <Collapsible {...rest} />
+    </Container>
+  )
+}
