@@ -5,7 +5,7 @@ import styled from 'styled-components'
 
 import { connect } from 'react-redux'
 import {
-  // Dispatch,
+  Dispatch,
   FirebaseUser,
   ReduxState,
   UserDetails,
@@ -14,9 +14,11 @@ import { BLUE, VERY_LIGHT_GRAY, WHITE } from '../../../common/constants/palette'
 import { MARGIN } from '../../../common/constants/style'
 import BigRedFullWidthButton from '../../components/BigRedFullWidthButton'
 import Collapsible from '../../components/Collapsible'
+import { getFile } from '../../upload'
+import { updateUserProfilePicture } from '../../../common/store/auth/actions'
 
 type ProfileProps = {
-  // dispatch: Dispatch,
+  dispatch: Dispatch,
   // eslint-disable-next-line react/no-unused-prop-types
   user: FirebaseUser,
   userDetails: UserDetails | null,
@@ -35,15 +37,9 @@ const Header = styled.div`
   padding-left: ${MARGIN.base}px;
   padding-bottom: ${MARGIN.base}px;
   overflow: hidden;
-  border-left-color: rgb(234,234,234);
-  border-left-width: 1px;
-  border-left-style: solid;
   border-bottom-color: rgb(234,234,234);
   border-bottom-width: 1px;
   border-bottom-style: solid;
-  border-right-color: rgb(234,234,234);
-  border-right-width: 1px;
-  border-right-style: solid;
 `
 
 // language=SCSS prefix=dummy{ suffix=}
@@ -118,7 +114,11 @@ class Profile extends Component {
     this.state = {}
   }
 
-  handleProfilePicturePress = () => {}
+  handleProfilePicturePress = () => {
+    getFile().then((file: File) => {
+      this.props.dispatch(updateUserProfilePicture({ file }))
+    })
+  }
 
   handleCapture = () => {}
 

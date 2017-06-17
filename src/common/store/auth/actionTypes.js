@@ -20,7 +20,8 @@ export type UpdateUserDetails = {
 
 export type UpdateUserProfilePicture = {
   type: 'auth/UPDATE_USER_PROFILE_PICTURE',
-  fileUrl: string,
+  fileUrl?: string,
+  file?: File,
 }
 
 export type PollRefreshUserAction = {

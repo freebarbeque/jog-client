@@ -196,9 +196,19 @@ function* updateUserDetailsTask(action: UpdateUserDetails) {
 
 function* updateUserProfilePictureTask(action: UpdateUserProfilePicture) {
   const fileUrl = action.fileUrl
-  const fileName = _.last(fileUrl.split('/'))
-  const extension = _.last(fileName.split('.'))
-  const contentType = mime.lookup(fileName)
+  const file = action.file
+  let contentType
+  let extension
+  if (fileUrl) {
+    const fileName = _.last(fileUrl.split('/'))
+    extension = _.last(fileName.split('.'))
+    contentType = mime.lookup(fileName)
+  } else {
+    contentType = file.type
+    const fileName = file.name
+    extension = _.last(fileName.split('.'))
+  }
+
   const id = uuid()
   const user = demandCurrentUser()
   const fileStoragePath = `/profilePhotos/${user.uid}/${id}.${extension}`
@@ -208,6 +218,7 @@ function* updateUserProfilePictureTask(action: UpdateUserProfilePicture) {
       getUploadAdapter().uploadFile({
         fileStoragePath,
         filePath: fileUrl,
+        file,
         contentType,
         contentEncoding: 'base64',
       }),

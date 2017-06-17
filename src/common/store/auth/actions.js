@@ -35,10 +35,13 @@ export function updateUserDetails(
   }
 }
 
-export function updateUserProfilePicture(fileUrl: string): AuthAction {
+export function updateUserProfilePicture(opts: {
+  file?: File,
+  fileUrl?: string,
+}): AuthAction {
   return {
     type: 'auth/UPDATE_USER_PROFILE_PICTURE',
-    fileUrl,
+    ...opts,
   }
 }
 

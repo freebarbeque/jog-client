@@ -253,7 +253,8 @@ export interface NavigationAdapter {
 }
 
 export type UploadFileOpts = {
-  filePath: string,
+  filePath?: string,
+  file?: File,
   fileStoragePath: string,
   contentType: string,
   contentEncoding: string,
