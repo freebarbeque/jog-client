@@ -1,4 +1,5 @@
 import React from 'react'
+import 'regenerator-runtime/runtime'
 import ReactDOM from 'react-dom'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import injectTapEventPlugin from 'react-tap-event-plugin'
@@ -6,10 +7,10 @@ import getMuiTheme from 'material-ui/styles/getMuiTheme'
 import { Provider } from 'react-redux'
 import { routerMiddleware } from 'react-router-redux'
 
-import createStore from './common/store'
+import createStore from './common/store/index'
 import reducer from './web/store/reducer'
 
-import initialiseFirebase from './common/data'
+import initialiseFirebase from './common/data/index'
 import App from './web/App'
 import registerServiceWorker from './registerServiceWorker'
 import './index.css'
