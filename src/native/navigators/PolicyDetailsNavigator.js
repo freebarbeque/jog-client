@@ -12,12 +12,14 @@ import { BLUE, PINK, WHITE } from '../../common/constants/palette'
 import type {
   Dispatch,
   MotorPolicy,
+  NavReduxState,
   ReactNavigationProp,
   ReduxState,
   Route,
 } from '../../common/types'
 import BackgroundHeader from '../components/BackgroundHeader'
 import Text from '../components/Text'
+import { getRouteKey } from '../util/nav'
 
 const ACTIVE_TAB_BORDER_WIDTH = 5
 
@@ -94,8 +96,9 @@ const PolicyDetailsTabNavigator = TabNavigator(
 
 const PolicyDetailsNavigatorHeader = connect((state: ReduxState) => ({
   policies: selectPolicies(state),
+  nav: state.nav,
 }))(props => {
-  const { policies, policyId, policyIndex } = props
+  const { policies, policyId, policyIndex, nav, dispatch } = props
 
   // If unmounting (e.g. on clear mock policies) or policies not loaded, policy can be null
   const policy: MotorPolicy | null = policies[policyId]
@@ -105,6 +108,12 @@ const PolicyDetailsNavigatorHeader = connect((state: ReduxState) => ({
       <BackgroundHeader
         headerText={`Motor Policy ${policyIndex}`}
         subheaderText={policy.name}
+        onPress={() => {
+          const key = getRouteKey(nav, 'PolicyDetails')
+          if (key) {
+            dispatch(NavigationActions.back({ key }))
+          }
+        }}
       />
     )
   }

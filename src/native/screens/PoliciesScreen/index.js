@@ -70,6 +70,7 @@ class PoliciesScreen extends Component {
         <BackgroundHeader
           headerText={numPolicies ? 'Dashboard' : 'Motor Policies'}
           subheaderText={numPolicies ? "Let's get started" : null}
+          enableBackPress={false}
         />
         <ScrollView style={styles.content}>
           {_.map(_.values(policies), (policy: MotorPolicy, idx: number) => {

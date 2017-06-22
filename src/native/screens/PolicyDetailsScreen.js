@@ -157,7 +157,6 @@ class PolicyDetailsScreen extends Component {
             <Text style={styles.policyHeaderText}>
               Policy
             </Text>
-            <Chevron />
           </View>
           <Row title="level of cover">
             {policy.levelOfCover ? LEVEL_OF_COVER[policy.levelOfCover] : '-'}

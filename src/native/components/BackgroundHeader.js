@@ -1,35 +1,75 @@
 /* @flow */
 
 import React, { Component } from 'react'
-import { View, StyleSheet, Dimensions } from 'react-native'
+import { View, StyleSheet, Dimensions, TouchableOpacity } from 'react-native'
+import { connect } from 'react-redux'
+import { NavigationActions } from 'react-navigation'
 
 import { MARGIN } from 'jog/src/common/constants/style'
 
-import { Background } from './images/index'
+import { Background, Chevron } from './images/index'
 import Text from './Text'
+import { Dispatch } from '../../common/types'
+import { WHITE } from '../../common/constants/palette'
 
 type BackgroundHeaderProps = {
   headerText: string,
   subheaderText?: string | null,
+  onPress?: () => void,
+  dispatch: Dispatch,
+  enableBackPress?: boolean,
 }
 
-export default class BackgroundHeader extends Component {
+class BackgroundHeader extends Component {
   props: BackgroundHeaderProps
 
-  render() {
+  static defaultProps = {
+    enableBackPress: true,
+  }
+
+  defaultBack = () => {
+    this.props.dispatch(NavigationActions.back())
+  }
+
+  renderContent() {
     return (
       <Background style={styles.backgroundImage}>
         <View style={styles.backgroundImageOverlay} />
         <View>
-          <Text style={styles.header}>
-            {this.props.headerText}
-          </Text>
+          <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+            {this.props.enableBackPress &&
+              <Chevron
+                style={{
+                  tintColor: WHITE,
+                  marginRight: MARGIN.base,
+                  transform: [{ rotate: '90deg' }],
+                }}
+              />}
+            <Text style={styles.header}>
+              {this.props.headerText}
+            </Text>
+          </View>
           {this.props.subheaderText &&
             <Text>
               {this.props.subheaderText}
             </Text>}
         </View>
       </Background>
+    )
+  }
+
+  render() {
+    if (this.props.enableBackPress) {
+      return (
+        <TouchableOpacity onPress={this.props.onPress || this.defaultBack}>
+          {this.renderContent()}
+        </TouchableOpacity>
+      )
+    }
+    return (
+      <View>
+        {this.renderContent()}
+      </View>
     )
   }
 }
@@ -54,3 +94,5 @@ const styles = StyleSheet.create({
     fontSize: 20,
   },
 })
+
+export default connect()(BackgroundHeader)

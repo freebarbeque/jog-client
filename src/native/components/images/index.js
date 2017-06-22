@@ -86,12 +86,13 @@ export const CarOutline = (props: LogoProps) => {
 }
 
 export const Chevron = (props: LogoProps) => {
-  const { style = {}, scale = 1 } = props
+  const { style = {}, scale = 1, ...rest } = props
 
   return (
     <Image
       style={[{ height: 10 * scale, width: 12 * scale }, style]}
       source={require('./chevron.png')}
+      {...rest}
     />
   )
 }
