@@ -21,7 +21,7 @@ class PolicyNumberScreen extends Component {
   props: PolicyNumberScreenProps
 
   handleNextPress = () => {
-    this.props.dispatch(push('/app/policies/manual/expiryDate'))
+    this.props.dispatch(push('/app/addManualPolicy/expiryDate'))
   }
 
   handleChange = e => {

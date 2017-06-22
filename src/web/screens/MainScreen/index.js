@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Redirect, Route, Switch } from 'react-router-dom'
+import { Redirect, Route } from 'react-router-dom'
 import styled from 'styled-components'
 
 import NavBar from '../../components/NavBar'
@@ -14,34 +14,29 @@ const Container = styled.div`
   flex: 1;
 `
 
-export default class MainScreen extends Component {
+class Main extends Component {
   render() {
     return (
       <Container>
         <Route
-          path="/app"
+          path="/app/tabs"
           exact
-          render={() => <Redirect to="/app/policies" />}
+          render={() => <Redirect to="/app/tabs/policies" />}
         />
-        <Switch>
-          <Route
-            path="/app/policies/email"
-            exact
-            component={EmailPolicyScreen}
-          />
-          <Route path="/app/policies/manual" component={ManualAddPolicy} />
-          <Route
-            path="/app"
-            render={() => {
-              return (
-                <Container>
-                  <NavBar />
-                  <Tabs />
-                </Container>
-              )
-            }}
-          />
-        </Switch>
+        <NavBar />
+        <Tabs />
+      </Container>
+    )
+  }
+}
+
+export default class MainScreen extends Component {
+  render() {
+    return (
+      <Container>
+        <Route path="/app/emailPolicy" exact component={EmailPolicyScreen} />
+        <Route path="/app/addManualPolicy" component={ManualAddPolicy} />
+        <Route path="/app/tabs" component={Main} />
       </Container>
     )
   }

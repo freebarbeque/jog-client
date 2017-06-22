@@ -28,6 +28,6 @@ export class WebNavigationAdapter implements NavigationAdapter {
     return push('/app')
   }
   static navigateToPolicyFinished() {
-    return push('/app/policies/manual/finished')
+    return push('/app/addManualPolicy/finished')
   }
 }

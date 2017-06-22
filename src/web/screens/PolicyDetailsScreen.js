@@ -17,6 +17,7 @@ import {
 import BigRedFullWidthButton from '../components/BigRedFullWidthButton'
 import { CarOutline, Chevron } from '../components/images/index'
 import Panel from '../components/Panel'
+import { withRouter } from 'react-router-dom'
 
 // language=SCSS prefix=dummy{ suffix=}
 const FieldContainer = styled.div`
@@ -111,14 +112,14 @@ type PolicyDetailsScreenProps = {
 class PolicyDetailsScreen extends Component {
   props: PolicyDetailsScreenProps
 
+  componentDidMount() {}
+
   handleDocumentUploadPress = () => {
     // TODO
   }
 
   getPolicy(): MotorPolicy {
-    const navigationState = this.props.navigation.state
-    const policyId = navigationState.params.policyId
-
+    const policyId = this.props.match.params.policyId
     let policy: MotorPolicy
 
     // Typecheck demanded by Flow
@@ -252,4 +253,4 @@ class PolicyDetailsScreen extends Component {
 
 const mapStateToProps = state => ({ policies: selectPolicies(state) })
 
-export default connect(mapStateToProps)(PolicyDetailsScreen)
+export default connect(mapStateToProps)(withRouter(PolicyDetailsScreen))

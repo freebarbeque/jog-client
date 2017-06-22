@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Link, withRouter } from 'react-router-dom'
+import { Link, Route, withRouter } from 'react-router-dom'
 import SwipeableViews from 'react-swipeable-views'
 import styled from 'styled-components'
 import { Tabs, Tab } from 'material-ui/Tabs'
@@ -25,13 +25,13 @@ const Container = styled.div`
 
 class TabsScreen extends Component {
   handleChangeIndex = index => {
-    this.props.history.push(`/app/${TABS[index]}`)
+    this.props.history.push(`/app/tabs/${TABS[index]}`)
   }
 
   render() {
     const pathname = this.props.location.pathname
 
-    const screen = pathname.split('/')[2]
+    const screen = pathname.split('/')[3]
     const index = TABS.indexOf(screen)
 
     return (
@@ -40,13 +40,13 @@ class TabsScreen extends Component {
           <Tab
             value="policies"
             label="Policies"
-            containerElement={<Link to="/app/policies" />}
+            containerElement={<Link to="/app/tabs/policies" />}
           />
 
           <Tab
             value="settings"
             label="Settings"
-            containerElement={<Link to="/app/settings" />}
+            containerElement={<Link to="/app/tabs/settings" />}
           />
         </Tabs>
         <SwipeableViews
@@ -56,8 +56,8 @@ class TabsScreen extends Component {
           enableMouseEvents
           style={{ flex: 1 }}
         >
-          <PoliciesTab />
-          <SettingsScreen />
+          <Route path="/app/tabs/policies" component={PoliciesTab} />
+          <Route path="/app/tabs/settings" component={SettingsScreen} />
         </SwipeableViews>
       </Container>
     )

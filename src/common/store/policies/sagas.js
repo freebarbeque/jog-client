@@ -12,7 +12,7 @@ import {
 import { eventChannel } from 'redux-saga'
 import firebase from 'firebase'
 import uuid from 'uuid/v4'
-import mime from 'react-native-mime-types'
+// import mime from 'react-native-mime-types'
 
 import {
   syncMotorPolicies,
@@ -92,7 +92,8 @@ function* uploadPolicyDocumentTask(action: UploadPolicyDocumentAction) {
 
   try {
     // For whatever reason, the firebase module claims the base64 data from RNFetchBlob is invalid so we decode it manually.
-    const contentType = mime.lookup(fileName)
+    // const contentType = mime.lookup(fileName)
+    const contentType = ''
 
     console.debug(
       `Uploading document at ${fileUrl} to ${fileStoragePath} with content-type ${contentType}`,

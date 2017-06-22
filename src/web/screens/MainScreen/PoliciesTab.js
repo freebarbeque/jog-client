@@ -2,15 +2,21 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import _ from 'lodash'
 import { push } from 'react-router-redux'
-import { Route } from 'react-router-dom'
+import { Route, Switch } from 'react-router-dom'
 
-import { Dispatch, MotorPolicyMap, ReduxState } from '../../../common/types'
+import {
+  Dispatch,
+  MotorPolicy,
+  MotorPolicyMap,
+  ReduxState,
+} from '../../../common/types'
 import { selectPolicies } from '../../../common/store/policies/selectors'
 import MotorPolicyCard from './MotorPolicyCard'
 import { MARGIN } from '../../../common/constants/style'
 import AddMotorPolicyCard from './AddMotorPolicyCard'
 import AddPolicyScreen from '../AddPolicyScreen'
 import GetStartedScreen from '../GetStartedScreen'
+import PolicyDetailsScreen from '../PolicyDetailsScreen'
 
 type PoliciesTabProps = {
   policies: MotorPolicyMap,
@@ -22,10 +28,12 @@ class PoliciesTab extends Component {
 
   componentDidMount() {}
 
-  handlePolicyPress() {}
+  handlePolicyPress(p: MotorPolicy) {
+    this.props.dispatch(push(`/app/tabs/policies/${p.id}`))
+  }
 
   handleAddPolicyPress = () => {
-    this.props.dispatch(push('/app/policies/addPolicy'))
+    this.props.dispatch(push('/app/tabs/policies/addPolicy'))
   }
 
   renderNoPolicies() {
@@ -48,10 +56,10 @@ class PoliciesTab extends Component {
             key={p.id}
             policy={p}
             index={idx}
-            onPress={this.handlePolicyPress}
+            onPress={() => this.handlePolicyPress(p)}
           />,
         )}
-        {<AddMotorPolicyCard onPress={this.handleAddPolicyPress} />}
+        <AddMotorPolicyCard onPress={this.handleAddPolicyPress} />
       </div>
     )
   }
@@ -59,20 +67,26 @@ class PoliciesTab extends Component {
   render() {
     return (
       <div style={{ height: '100%' }}>
-        <Route
-          path="/app/policies"
-          exact
-          render={() => {
-            return _.values(this.props.policies).length
-              ? this.renderPolicies()
-              : this.renderNoPolicies()
-          }}
-        />
-        <Route
-          path="/app/policies/addPolicy"
-          exact
-          component={AddPolicyScreen}
-        />
+        <Switch>
+          <Route
+            path="/app/tabs/policies"
+            exact
+            render={() => {
+              const numPolicies = _.values(this.props.policies).length
+              return numPolicies
+                ? this.renderPolicies()
+                : this.renderNoPolicies()
+            }}
+          />
+          <Route
+            path="/app/tabs/policies/addPolicy"
+            component={AddPolicyScreen}
+          />
+          <Route
+            path="/app/tabs/policies/:policyId"
+            component={PolicyDetailsScreen}
+          />
+        </Switch>
       </div>
     )
   }

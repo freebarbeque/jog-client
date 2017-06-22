@@ -6,6 +6,7 @@ import injectTapEventPlugin from 'react-tap-event-plugin'
 import getMuiTheme from 'material-ui/styles/getMuiTheme'
 import { Provider } from 'react-redux'
 import { routerMiddleware } from 'react-router-redux'
+import { AppContainer } from 'react-hot-loader'
 
 import createStore from './common/store/index'
 import reducer from './web/store/reducer'
@@ -18,20 +19,13 @@ import { WebNavigationAdapter } from './web/WebNavigationAdapter'
 import WebUploadAdapter from './web/WebUploadAdapter'
 import history from './web/history'
 import { WHITE } from './common/constants/palette'
+import env from './web/env'
 
 const BLUE = '#131733'
 const PINK = '#ff4d62'
 const GRAY = '#797e9a'
 
-initialiseFirebase({
-  firebase: {
-    apiKey: 'AIzaSyCiGNJ7RbnRaYpyK05rOnqMyt0xmVCe920',
-    authDomain: 'jog-dev-10fe9.firebaseapp.com',
-    databaseURL: 'https://jog-dev-10fe9.firebaseio.com',
-    storageBucket: 'jog-dev-10fe9.appspot.com',
-    messagingSenderId: '98399119405',
-  },
-})
+initialiseFirebase(env)
 
 const store = createStore({
   reducer,
@@ -60,17 +54,29 @@ const theme = getMuiTheme({
   },
 })
 
-const app = (
-  <MuiThemeProvider muiTheme={theme}>
-    <Provider store={store}>
-      <App />
-    </Provider>
-  </MuiThemeProvider>
-)
+const render = Component => {
+  ReactDOM.render(
+    <MuiThemeProvider muiTheme={theme}>
+      <Provider store={store}>
+        <AppContainer>
+          <Component />
+        </AppContainer>
+      </Provider>
+    </MuiThemeProvider>,
+    document.getElementById('root'),
+  )
+}
 
 // Needed for onTouchTap
 // http://stackoverflow.com/a/34015469/988941
 injectTapEventPlugin()
 
-ReactDOM.render(app, document.getElementById('root'))
+render(App)
+
+if (module.hot) {
+  module.hot.accept('./web/App', () => {
+    render(App)
+  })
+}
+
 registerServiceWorker()

@@ -22,30 +22,30 @@ export default class ManualAddPolicy extends Component {
     return (
       <Container>
         <Route
-          path="/app/policies/manual"
+          path="/app/addManualPolicy"
           exact
-          render={() => <Redirect to="/app/policies/manual/insurer" />}
+          render={() => <Redirect to="/app/addManualPolicy/insurer" />}
         />
-        <Route path="/app/policies/manual/insurer" component={InsurerScreen} />
+        <Route path="/app/addManualPolicy/insurer" component={InsurerScreen} />
         <Route
-          path="/app/policies/manual/policyNo"
+          path="/app/addManualPolicy/policyNo"
           component={PolicyNumberScreen}
         />
         <Route
-          path="/app/policies/manual/expiryDate"
+          path="/app/addManualPolicy/expiryDate"
           component={PolicyDateScreen}
         />
-        <Route path="/app/policies/manual/cost" component={PolicyCostScreen} />
+        <Route path="/app/addManualPolicy/cost" component={PolicyCostScreen} />
         <Route
-          path="/app/policies/manual/vehicleRegistration"
+          path="/app/addManualPolicy/vehicleRegistration"
           component={LicensePlateScreen}
         />
         <Route
-          path="/app/policies/manual/ownership"
+          path="/app/addManualPolicy/ownership"
           component={VehicleOwnershipScreen}
         />
         <Route
-          path="/app/policies/manual/finished"
+          path="/app/addManualPolicy/finished"
           component={FinishedScreen}
         />
       </Container>

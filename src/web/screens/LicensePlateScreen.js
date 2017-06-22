@@ -21,7 +21,7 @@ class LicensePlateScreen extends Component {
   props: LicensePlateScreenProps
 
   handleNextPress = () => {
-    this.props.dispatch(push('/app/policies/manual/ownership'))
+    this.props.dispatch(push('/app/addManualPolicy/ownership'))
   }
 
   handleChange = e => {

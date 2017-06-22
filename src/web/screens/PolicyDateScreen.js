@@ -22,7 +22,7 @@ class PolicyDateScreen extends Component {
   props: PolicyDateScreenProps
 
   handleNextPress = () => {
-    this.props.dispatch(push('/app/policies/manual/cost'))
+    this.props.dispatch(push('/app/addManualPolicy/cost'))
   }
 
   handleChange = (e, date) => {

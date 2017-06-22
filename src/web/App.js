@@ -88,6 +88,11 @@ class App extends Component {
                 return null
               }}
             />
+            <Route
+              path="/app"
+              exact
+              render={() => <Redirect to={'/app/tabs'} />}
+            />
             <Route path="/app" component={MainScreen} />
             <Route path="/auth" component={AuthScreen} />
           </Container>

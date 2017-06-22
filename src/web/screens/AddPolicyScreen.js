@@ -11,7 +11,6 @@ import type { Dispatch, ReduxState } from '../../common/types'
 
 type AddPolicyScreenProps = {
   dispatch: Dispatch,
-  // user: FirebaseUser | null,
 }
 
 // language=SCSS prefix=dummy{ suffix=}
@@ -76,7 +75,7 @@ class AddPolicyScreen extends Component {
       <Container>
         <Card>
           <CardButton
-            onClick={() => this.props.dispatch(push('/app/policies/email'))}
+            onClick={() => this.props.dispatch(push('/app/emailPolicy'))}
           >
             <div style={{ flex: 1 }}>
               <RecommendedText>
@@ -96,7 +95,7 @@ class AddPolicyScreen extends Component {
           </CardButton>
           <CardButton
             style={{ borderBottomWidth: 0 }}
-            onClick={() => this.props.dispatch(push('/app/policies/manual'))}
+            onClick={() => this.props.dispatch(push('/app/addManualPolicy'))}
           >
             <span style={{ flex: 1 }}>
               Manual entry
@@ -109,8 +108,4 @@ class AddPolicyScreen extends Component {
   }
 }
 
-const mapStateToProps = (state: ReduxState) => ({
-  user: state.auth.user,
-})
-
-export default connect(mapStateToProps)(AddPolicyScreen)
+export default connect()(AddPolicyScreen)

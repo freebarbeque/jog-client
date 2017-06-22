@@ -51,6 +51,8 @@ export default function createStore(_opts: CreateStoreOpts = {}): Store {
 
     let enhancer
 
+    console.log('middleware', middleware)
+
     // eslint-disable-next-line valid-typeof
     if (typeof window === undefined) {
       enhancer = compose(
@@ -64,6 +66,7 @@ export default function createStore(_opts: CreateStoreOpts = {}): Store {
     } else {
       const composeEnhancers =
         window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
+
       enhancer = composeEnhancers(applyMiddleware(...middleware))
     }
 

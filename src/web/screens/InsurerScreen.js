@@ -28,7 +28,7 @@ class InsurerScreen extends Component {
   props: InsurerScreenProps
 
   handleNextPress = () => {
-    this.props.dispatch(push('/app/policies/manual/policyNo'))
+    this.props.dispatch(push('/app/addManualPolicy/policyNo'))
   }
 
   onChange = ({ value }) => {

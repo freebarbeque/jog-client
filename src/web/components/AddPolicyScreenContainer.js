@@ -177,7 +177,7 @@ class AddPolicyScreenContainer extends Component {
                 width: 20,
               }}
               onClick={() => {
-                this.props.dispatch(push('/app/policies/addPolicy'))
+                this.props.dispatch(push('/app/tabs/policies/addPolicy'))
               }}
             >
               <Cross />

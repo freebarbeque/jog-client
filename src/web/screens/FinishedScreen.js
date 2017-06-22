@@ -15,7 +15,7 @@ class FinishedScreen extends Component {
   props: FinishedScreenProps
 
   handleNextPress = () => {
-    this.props.dispatch(push('/app'))
+    this.props.dispatch(push('/app/tabs/policies'))
   }
 
   render() {

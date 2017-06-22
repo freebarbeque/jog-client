@@ -21,7 +21,7 @@ class PolicyCostScreen extends Component {
   props: PolicyCostScreenProps
 
   handleNextPress = () => {
-    this.props.dispatch(push('/app/policies/manual/vehicleRegistration'))
+    this.props.dispatch(push('/app/addManualPolicy/vehicleRegistration'))
   }
 
   handleChange = e => {

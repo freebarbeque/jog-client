@@ -29,7 +29,7 @@ const BackgroundImage = styled.div`
   height: 100%;
   align-items: center;
   justify-content: center;
-  background: url(/background.png) no-repeat center center fixed;
+  background: url(/static/background.png) no-repeat center center fixed;
 `
 
 // language=SCSS prefix=dummy{ suffix=}
@@ -84,7 +84,7 @@ class GetStartedScreen extends Component {
   props: GetStartedScreenProps
 
   handleButtonPress = () => {
-    this.props.dispatch(push('/app/policies/addPolicy'))
+    this.props.dispatch(push('/app/tabs/policies/addPolicy'))
   }
 
   render() {

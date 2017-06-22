@@ -1,5 +1,42 @@
+var webpack = require('webpack')
+
 module.exports = {
+  env: {
+    NODE_ENV: {
+      production: {
+        use: [
+          ['neutrino-middleware-minify', {
+            babili: {
+              booleans: true,
+              builtIns: true,
+              consecutiveAdds: true,
+              deadcode: true,
+              evaluate: false,
+              flipComparisons: true,
+              guards: true,
+              infinity: true,
+              mangle: true,
+              memberExpressions: true,
+              mergeVars: true,
+              numericLiterals: true,
+              propertyLiterals: true,
+              regexpConstructors: true,
+              removeConsole: true,
+              removeDebugger: true,
+              removeUndefined: true,
+              replace: true,
+              simplify: true,
+              simplifyComparisons: true,
+              typeConstructors: true,
+              undefinedToVoid: true,
+            }
+          }],
+        ]
+      }
+    }
+  },
   use: [
+    'neutrino-middleware-pwa',
     ['neutrino-preset-react', {
       /* preset options */
 
@@ -32,32 +69,6 @@ module.exports = {
         ]
       }
     }],
-    ['neutrino-middleware-minify', {
-      babili: {
-        booleans: true,
-        builtIns: true,
-        consecutiveAdds: true,
-        deadcode: true,
-        evaluate: false,
-        flipComparisons: true,
-        guards: true,
-        infinity: true,
-        mangle: true,
-        memberExpressions: true,
-        mergeVars: true,
-        numericLiterals: true,
-        propertyLiterals: true,
-        regexpConstructors: true,
-        removeConsole: true,
-        removeDebugger: true,
-        removeUndefined: true,
-        replace: true,
-        simplify: true,
-        simplifyComparisons: true,
-        typeConstructors: true,
-        undefinedToVoid: true,
-      }
-    }],
     (neutrino) => {
       // use urlLoader instead of svgUrlLoader which doesn't seem to work.
       const urlLoader = require.resolve('url-loader');
@@ -70,6 +81,10 @@ module.exports = {
 
       // neutrino.config.plugins.delete('minify').end()
       neutrino.config.output.set('publicPath', '/')
+
+      neutrino.config
+        .plugin('env')
+        .use(webpack.EnvironmentPlugin, ['NODE_ENV', 'JOG_ENVIRONMENT']);
     },
 
   ]
