@@ -21,9 +21,9 @@ import type { FormProps } from '../../../common/components/Form'
 export default class NativeForm extends Form {
   props: FormProps
 
-  handleSubmit = () => {
-    dismissKeyboard()
+  handleSubmit() {
     super.handleSubmit()
+    dismissKeyboard()
   }
 
   renderField = (f: FormField, idx: number) => {
@@ -101,7 +101,7 @@ export default class NativeForm extends Form {
         <RoundedButton
           style={styles.button}
           label={buttonLabel}
-          onPress={this.handleSubmit}
+          onPress={() => this.handleSubmit()}
           loading={disabled}
         />
         {error &&
