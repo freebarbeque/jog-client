@@ -12,7 +12,7 @@ import {
 } from 'redux-saga/effects'
 import { eventChannel } from 'redux-saga'
 import createThrottle from 'async-throttle'
-// import mime from 'react-native-mime-types'
+import mime from 'react-native-mime-types'
 import uuid from 'uuid/v4'
 import _ from 'lodash'
 
@@ -202,7 +202,7 @@ function* updateUserProfilePictureTask(action: UpdateUserProfilePicture) {
   if (fileUrl) {
     const fileName = _.last(fileUrl.split('/'))
     extension = _.last(fileName.split('.'))
-    // contentType = mime.lookup(fileName)
+    contentType = mime.lookup(fileName)
   } else {
     contentType = file.type
     const fileName = file.name
