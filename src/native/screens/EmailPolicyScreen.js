@@ -1,13 +1,13 @@
 /* @flow */
 
 import React, { Component } from 'react'
-import { TouchableOpacity, View, StyleSheet } from 'react-native'
+import { TouchableOpacity, View, StyleSheet, Clipboard } from 'react-native'
 import { NavigationActions } from 'react-navigation'
-import Hyperlink from 'react-native-hyperlink'
 import { connect } from 'react-redux'
+import FadeInView from 'react-native-fade-in-view'
 
 import { MARGIN } from 'jog/src/common/constants/style'
-import { BLUE } from 'jog/src/common/constants/palette'
+import { BLUE, PINK } from 'jog/src/common/constants/palette'
 import type { ReduxState, FirebaseUser } from 'jog/src/common/types'
 
 import { Cancel, Logo } from '../components/images'
@@ -17,8 +17,13 @@ type EmailPolicyScreenProps = {
   user: FirebaseUser,
 }
 
+type EmailPolicyScreenState = {
+  copiedToClipboard: boolean,
+}
+
 class EmailPolicyScreen extends Component {
   props: EmailPolicyScreenProps
+  state: EmailPolicyScreenState
 
   static navigationOptions = ({ navigation }) => {
     const { dispatch } = navigation
@@ -46,8 +51,19 @@ class EmailPolicyScreen extends Component {
     }
   }
 
+  constructor(props) {
+    super(props)
+    this.state = {
+      copiedToClipboard: false,
+    }
+  }
+
+  handleEmailClick = () => {
+    this.setState({ copiedToClipboard: true })
+    Clipboard.setString('policies@jog.insure')
+  }
+
   render() {
-    const mailto = 'mailto:policies@jog.insure'
     return (
       <View style={styles.container}>
         <Text>
@@ -56,17 +72,16 @@ class EmailPolicyScreen extends Component {
           ) please send an email to the address below, attaching all relevant
           policy documents
         </Text>
-        <Hyperlink
+        <TouchableOpacity
           style={{
             flexDirection: 'row',
             flexWrap: 'wrap',
             justifyContent: 'center',
           }}
-          linkStyle={styles.hyperlinkText}
-          linkText={url => (url === mailto ? 'policies@jog.insure' : '')}
+          onPress={this.handleEmailClick}
         >
-          <Text style={styles.email}>{mailto}</Text>
-        </Hyperlink>
+          <Text style={styles.email}>policies@jog.insure</Text>
+        </TouchableOpacity>
         <View>
           <Text>
             {
@@ -74,6 +89,13 @@ class EmailPolicyScreen extends Component {
             }
           </Text>
         </View>
+        {this.state.copiedToClipboard
+          ? <FadeInView duration={300} style={{ marginTop: MARGIN.large }}>
+              <Text style={{ textAlign: 'center', fontSize: 12, color: PINK }}>
+                Email address copied to clipboard
+              </Text>
+            </FadeInView>
+          : null}
       </View>
     )
   }
@@ -85,17 +107,13 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: MARGIN.large,
   },
-
-  hyperlinkText: {
-    textDecorationLine: 'underline',
-    textDecorationStyle: 'solid',
-  },
-
   email: {
     fontSize: 20,
     marginTop: MARGIN.large,
     marginBottom: MARGIN.large,
     textAlign: 'center',
+    textDecorationLine: 'underline',
+    textDecorationStyle: 'solid',
   },
 })
 
