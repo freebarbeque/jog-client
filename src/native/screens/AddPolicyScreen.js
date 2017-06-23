@@ -19,6 +19,7 @@ import { clearManualPolicy } from 'jog/src/common/store/screens/addManualPolicy/
 
 import { Camera, Command, Mail } from '../components/images/index'
 import { uploadPolicy } from '../../common/store/screens/addPolicyScreen/actions'
+import BackgroundHeader from '../components/BackgroundHeader'
 
 type AddPolicyScreenProps = {
   dispatch: Dispatch,
@@ -30,54 +31,59 @@ class AddPolicyScreen extends Component {
 
   render() {
     return (
-      <View style={styles.container}>
-        <View style={styles.card}>
-          <TouchableOpacity
-            style={styles.cardButton}
-            onPress={() => {
-              this.props.dispatch(
-                NavigationActions.navigate({
-                  routeName: 'EmailPolicy',
-                }),
-              )
-            }}
-          >
-            <View style={{ flex: 1, height: '100%', justifyContent: 'center' }}>
-              <Text style={styles.recommendedText}>
-                Recommended
+      <View style={{ flex: 1 }}>
+        <BackgroundHeader headerText={'Add Policy'} />
+        <View style={styles.container}>
+          <View style={styles.card}>
+            <TouchableOpacity
+              style={styles.cardButton}
+              onPress={() => {
+                this.props.dispatch(
+                  NavigationActions.navigate({
+                    routeName: 'EmailPolicy',
+                  }),
+                )
+              }}
+            >
+              <View
+                style={{ flex: 1, height: '100%', justifyContent: 'center' }}
+              >
+                <Text style={styles.recommendedText}>
+                  Recommended
+                </Text>
+                <Text style={[styles.cardButtonText, { flex: 0 }]}>
+                  Email the policy
+                </Text>
+              </View>
+              <Mail />
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.cardButton}
+              onPress={() => this.props.dispatch(uploadPolicy())}
+            >
+              <Text style={styles.cardButtonText}>
+                Upload your policy
               </Text>
-              <Text style={[styles.cardButtonText, { flex: 0 }]}>
-                Email the policy
+              <Camera />
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={[styles.cardButton, { borderBottomWidth: 0 }]}
+              onPress={() => {
+                this.props.dispatch(clearManualPolicy())
+                this.props.dispatch(
+                  NavigationActions.navigate({
+                    routeName: 'ManualAddPolicy',
+                  }),
+                )
+              }}
+            >
+              <Text style={styles.cardButtonText}>
+                Manual entry
               </Text>
-            </View>
-            <Mail />
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={styles.cardButton}
-            onPress={() => this.props.dispatch(uploadPolicy())}
-          >
-            <Text style={styles.cardButtonText}>
-              Upload your policy
-            </Text>
-            <Camera />
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={[styles.cardButton, { borderBottomWidth: 0 }]}
-            onPress={() => {
-              this.props.dispatch(clearManualPolicy())
-              this.props.dispatch(
-                NavigationActions.navigate({
-                  routeName: 'ManualAddPolicy',
-                }),
-              )
-            }}
-          >
-            <Text style={styles.cardButtonText}>
-              Manual entry
-            </Text>
-            <Command />
-          </TouchableOpacity>
+              <Command />
+            </TouchableOpacity>
 
+          </View>
         </View>
       </View>
     )
