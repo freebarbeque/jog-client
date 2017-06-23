@@ -13,6 +13,7 @@ import {
   LEVEL_OF_COVER,
   MotorPolicy,
   ReactNavigationProp,
+  ReduxState,
 } from '../../common/types'
 import BigRedFullWidthButton from '../components/BigRedFullWidthButton'
 import { CarOutline, Chevron } from '../components/images/index'
@@ -41,10 +42,13 @@ const FieldValue = styled.div`
 
 // language=SCSS prefix=dummy{ suffix=}
 const RowContainer = styled.div`
-    border-bottom-color: rgb(203,203,203);
-    border-bottom-width: 1px;
-    background-color: rgb(240,240,240);
-    height: 48px;
+  border-bottom-color: rgb(203,203,203);
+  border-bottom-width: 1px;
+  border-bottom-style: solid;
+  background-color: rgb(240,240,240);
+  height: 48px;
+  display: flex;
+  align-items: center;
 `
 
 // language=SCSS prefix=dummy{ suffix=}
@@ -56,9 +60,9 @@ const DaysRemainingContainer = styled.div`
 
 // language=SCSS prefix=dummy{ suffix=}
 const DaysRemainingTitle = styled.div`
-    color: rgb(164,169,174);
-    font-size: 11px;
-    font-weight: 600
+  color: rgb(164,169,174);
+  font-size: 11px;
+  font-weight: 600;
 `
 
 // language=SCSS prefix=dummy{ suffix=}
@@ -73,31 +77,39 @@ const DaysRemainingValue = styled.div`
 // language=SCSS prefix=dummy{ suffix=}
 const PolicyHeader = styled.div`
   background-color: ${WHITE};
+  display: flex;
   flex-direction: row;
-  justify-content: center;
   align-items: center;
   padding-right: ${MARGIN.large}px;
+  padding-left: ${MARGIN.large}px;
   font-size: 16px;
   color: ${BLUE};
-  margin: ${MARGIN.large}px;
-  flex: 1,
+  margin-top: ${MARGIN.large}px;
+  flex: 1;
+  height: 47.931px;
 `
 
-const Field = props =>
-  <FieldContainer>
-    <FieldTitle>
-      {props.title.toUpperCase()}
-    </FieldTitle>
-    <FieldValue>
-      {props.children}
-    </FieldValue>
-  </FieldContainer>
+const Field = props => {
+  const { title, children, ...rest } = props
+
+  return (
+    <FieldContainer className="Field" {...rest}>
+      <FieldTitle>
+        {title.toUpperCase()}
+      </FieldTitle>
+      <FieldValue>
+        {children}
+      </FieldValue>
+    </FieldContainer>
+  )
+}
 
 const Row = props => {
+  const { title, children } = props
   return (
-    <RowContainer>
-      <Field title={props.title}>
-        {props.children}
+    <RowContainer className="Row">
+      <Field title={title} style={{ marginTop: 0, marginBottom: 0 }}>
+        {children}
       </Field>
     </RowContainer>
   )
@@ -107,6 +119,7 @@ type PolicyDetailsScreenProps = {
   policies: MotorPolicy,
   navigation: ReactNavigationProp,
   dispatch: Dispatch,
+  initialised: boolean,
 }
 
 class PolicyDetailsScreen extends Component {
@@ -118,9 +131,9 @@ class PolicyDetailsScreen extends Component {
     // TODO
   }
 
-  getPolicy(): MotorPolicy {
+  getPolicy(): MotorPolicy | null {
     const policyId = this.props.match.params.policyId
-    let policy: MotorPolicy
+    let policy: MotorPolicy = null
 
     // Typecheck demanded by Flow
     if (typeof policyId === 'string') {
@@ -131,7 +144,7 @@ class PolicyDetailsScreen extends Component {
       )
     }
 
-    if (!policy) {
+    if (!policy && this.props.initialised) {
       throw new Error(
         `Policy with id ${policyId} does not exist so cannot render the policy details screen`,
       )
@@ -147,7 +160,7 @@ class PolicyDetailsScreen extends Component {
       return (
         <BigRedFullWidthButton
           style={{
-            marginTop: MARGIN.base,
+            marginTop: MARGIN.large,
             backgroundColor: YELLOW,
             color: BLUE,
           }}
@@ -159,7 +172,7 @@ class PolicyDetailsScreen extends Component {
     } else if (policy && !policy.complete) {
       return (
         <BigRedFullWidthButton
-          style={{ marginTop: MARGIN.base }}
+          style={{ marginTop: MARGIN.large }}
           onPress={this.handleDocumentUploadPress}
         >
           Please upload your policy documentation for a profile
@@ -171,7 +184,7 @@ class PolicyDetailsScreen extends Component {
   }
 
   render() {
-    const policy = this.getPolicy()
+    const policy = this.getPolicy() || {}
 
     const expiryDate = moment(policy.expiryDate)
 
@@ -213,20 +226,10 @@ class PolicyDetailsScreen extends Component {
               {expiryDate.diff(moment(), 'days')}
             </DaysRemainingValue>
           </DaysRemainingContainer>
-
-          <CarOutline
-            scale={1.3}
-            style={{
-              position: 'absolute',
-              bottom: MARGIN.large,
-              right: MARGIN.large,
-            }}
-          />
         </Panel>
         <div>
           <PolicyHeader>
             Policy
-            <Chevron />
           </PolicyHeader>
           <Row title="level of cover">
             {policy.levelOfCover ? LEVEL_OF_COVER[policy.levelOfCover] : '-'}
@@ -251,6 +254,9 @@ class PolicyDetailsScreen extends Component {
   }
 }
 
-const mapStateToProps = state => ({ policies: selectPolicies(state) })
+const mapStateToProps = (state: ReduxState) => ({
+  policies: selectPolicies(state),
+  initialised: state.policies.initialised,
+})
 
 export default connect(mapStateToProps)(withRouter(PolicyDetailsScreen))

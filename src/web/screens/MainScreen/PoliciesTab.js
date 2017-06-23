@@ -10,7 +10,7 @@ import {
   MotorPolicyMap,
   ReduxState,
 } from '../../../common/types'
-import { selectPolicies } from '../../../common/store/policies/selectors'
+import { selectInitialisedPolicies } from '../../../common/store/policies/selectors'
 import MotorPolicyCard from './MotorPolicyCard'
 import { MARGIN } from '../../../common/constants/style'
 import AddMotorPolicyCard from './AddMotorPolicyCard'
@@ -94,7 +94,7 @@ class PoliciesTab extends Component {
 
 const mapStateToProps = (state: ReduxState) => {
   return {
-    policies: selectPolicies(state),
+    policies: selectInitialisedPolicies(state),
   }
 }
 

@@ -61,7 +61,14 @@ export default class BigRedFullWidthButton extends Component {
         </Content>
         {!this.props.hideChevron
           ? <div>
-              <Chevron style={{ color: 'white', paddingRight: MARGIN.large }} />
+              <Chevron
+                scale={1.2}
+                style={{
+                  color: 'white',
+                  paddingRight: MARGIN.large,
+                  marginLeft: MARGIN.large,
+                }}
+              />
             </div>
           : null}
       </Button>
