@@ -14,14 +14,21 @@ export class NativeNavigationAdapter implements NavigationAdapter {
     return NavigationActions.navigate({ routeName: 'Auth' })
   }
 
-  static navigateToPolicyDetails(policyId: string, policyIndex: number) {
-    return NavigationActions.navigate({
+  static navigateToPolicyDetails(
+    policyId: string,
+    policyIndex: number,
+    showDocuments: boolean,
+  ) {
+    const navigationOptions = {
       routeName: 'PolicyDetails',
       params: {
         policyId,
         policyIndex,
+        showDocuments,
       },
-    })
+    }
+
+    return NavigationActions.navigate(navigationOptions)
   }
 
   static navigateToEmailVerification() {

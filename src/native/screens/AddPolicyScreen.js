@@ -18,6 +18,7 @@ import { MARGIN } from 'jog/src/common/constants/style'
 import { clearManualPolicy } from 'jog/src/common/store/screens/addManualPolicy/actions'
 
 import { Camera, Command, Mail } from '../components/images/index'
+import { uploadPolicy } from '../../common/store/screens/addPolicyScreen/actions'
 
 type AddPolicyScreenProps = {
   dispatch: Dispatch,
@@ -51,9 +52,12 @@ class AddPolicyScreen extends Component {
             </View>
             <Mail />
           </TouchableOpacity>
-          <TouchableOpacity style={styles.cardButton}>
+          <TouchableOpacity
+            style={styles.cardButton}
+            onPress={() => this.props.dispatch(uploadPolicy())}
+          >
             <Text style={styles.cardButtonText}>
-              Photograph your policy
+              Upload your policy
             </Text>
             <Camera />
           </TouchableOpacity>

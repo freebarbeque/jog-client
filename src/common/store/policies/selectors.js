@@ -45,21 +45,41 @@ export const selectPolicies: () => MotorPolicyMap = createSelector(
     if (insurers) {
       _.forEach(policies, (p: MotorPolicy, id: string) => {
         const companyId = p.companyId
-        if (companyId) {
-          const insurer = insurers[companyId]
+        let companyLogo = null
+        let companyName = null
 
-          const companyLogo = (insurer && insurer.logo) || null
-          const companyName = (insurer && insurer.name) || null
+        const insurer = companyId ? insurers[companyId] : null
 
-          selectedPolicies[id] = {
-            ...p,
-            companyLogo,
-            companyName,
-            complete: policyIsComplete(p),
-          }
+        if (insurer) {
+          companyLogo = (insurer && insurer.logo) || null
+          companyName = (insurer && insurer.name) || null
+        }
+
+        selectedPolicies[id] = {
+          ...p,
+          companyLogo,
+          companyName,
+          complete: policyIsComplete(p),
         }
       })
     }
+    return selectedPolicies
+  },
+)
+
+export const selectInitialisedPolicies: () => MotorPolicyMap = createSelector(
+  selectPolicies,
+  (policies: MotorPolicyMap) => {
+    const selectedPolicies: MotorPolicyMap = {}
+
+    const filteredPolicies = _.filter(_.values(policies), p => {
+      return p.companyId || p.documents
+    })
+
+    filteredPolicies.forEach(p => {
+      selectedPolicies[p.id] = p
+    })
+
     return selectedPolicies
   },
 )

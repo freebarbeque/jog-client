@@ -18,7 +18,7 @@ import { LEVEL_OF_COVER } from 'jog/src/common/types'
 import { selectPolicies } from 'jog/src/common/store/policies/selectors'
 import { BLUE, CREAM, WHITE, YELLOW } from 'jog/src/common/constants/palette'
 import { MARGIN } from 'jog/src/common/constants/style'
-import { CarOutline, Chevron } from '../components/images/index'
+import { CarOutline } from '../components/images/index'
 import Panel from '../components/Panel'
 import BigRedFullWidthButton from '../components/BigRedFullWidthButton'
 
@@ -57,6 +57,7 @@ class PolicyDetailsScreen extends Component {
 
   getPolicy(): MotorPolicy {
     const navigationState = this.props.navigation.state
+    console.log('navigation', this.props.navigation)
     const policyId = navigationState.params.policyId
 
     let policy: MotorPolicy
@@ -112,7 +113,7 @@ class PolicyDetailsScreen extends Component {
   render() {
     const policy = this.getPolicy()
 
-    const expiryDate = moment(policy.expiryDate)
+    const expiryDate = policy.expiryDate ? moment(policy.expiryDate) : ''
 
     const drivers = policy.drivers || []
 
@@ -124,7 +125,7 @@ class PolicyDetailsScreen extends Component {
           </Field>
 
           <Field title="expires">
-            {expiryDate.format('DD MMM YYYY')}
+            {expiryDate ? expiryDate.format('DD MMM YYYY') : ''}
           </Field>
 
           <Field title="insurance company">
@@ -144,7 +145,7 @@ class PolicyDetailsScreen extends Component {
               DAYS REMAINING
             </Text>
             <Text style={styles.daysRemainingValue}>
-              {expiryDate.diff(moment(), 'days')}
+              {expiryDate ? expiryDate.diff(moment(), 'days') : ''}
             </Text>
           </View>
 

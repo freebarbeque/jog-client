@@ -248,6 +248,7 @@ export interface NavigationAdapter {
   static navigateToPolicyDetails(
     policyId: string,
     policyIndex: number,
+    showDocuments: boolean,
   ): $Subtype<Object>,
   static hideAuthModal(): $Subtype<Object>,
 }

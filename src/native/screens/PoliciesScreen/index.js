@@ -16,7 +16,7 @@ import type {
 import { CREAM, PINK } from 'jog/src/common/constants/palette'
 import { MARGIN } from 'jog/src/common/constants/style'
 import { clearPolicies } from 'jog/src/common/data/policies'
-import { selectPolicies } from 'jog/src/common/store/policies/selectors'
+import { selectInitialisedPolicies } from 'jog/src/common/store/policies/selectors'
 import BackgroundHeader from 'jog/src/native/components/BackgroundHeader'
 import Spinner from 'jog/src/native/components/Spinner'
 
@@ -155,7 +155,7 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = (state: ReduxState) => ({
   user: state.auth.user,
-  policies: selectPolicies(state),
+  policies: selectInitialisedPolicies(state),
   initialised: state.policies.initialised,
 })
 

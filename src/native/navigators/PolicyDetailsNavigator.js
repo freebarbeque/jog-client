@@ -106,7 +106,7 @@ const PolicyDetailsNavigatorHeader = connect((state: ReduxState) => ({
   if (policy) {
     return (
       <BackgroundHeader
-        headerText={`Motor Policy ${policyIndex}`}
+        headerText={`Motor Policy${policyIndex ? ` ${policyIndex}` : ''}`}
         subheaderText={policy.name}
         onPress={() => {
           const key = getRouteKey(nav, 'PolicyDetails')
@@ -131,20 +131,49 @@ type PolicyDetailsNavigatorProps = {
 class PolicyDetailsNavigator extends PolicyDetailsTabNavigator {
   props: PolicyDetailsNavigatorProps
 
+  componentWillMount() {
+    console.log('PolicyDetailsNavigator', this)
+    const params = this.getParams()
+    if (params.showDocuments) {
+      const navigation = this.props.navigation
+      navigation.dispatch(
+        NavigationActions.navigate({ routeName: 'Documents' }),
+      )
+    }
+  }
+
+  getParams(): { [key: string]: mixed } {
+    let state = this.props.navigation.state
+    let params = state.params
+
+    // May have navigated straight to a subroute, e.g. documents
+    // in which case react-navigation is annoying in that it only sets the params
+    // on the state of the subroute...
+    if (!params && state.index) {
+      state = state.routes[state.index]
+      params = state.params
+    }
+
+    if (!params) throw new Error('No params passed to PolicyDetailsNavigator')
+    return params
+  }
+
   getPolicyId(): string {
-    const params = this.props.navigation.state.params
+    const params = this.getParams()
     const policyId = params.policyId
+
     if (!policyId) {
       // policyId must be passed to params when executing Navigations.navigate
       throw new Error(
         'policyId is missing from the route parameters when attempting to render PolicyDetailsNavigator',
       )
     }
+
     return policyId
   }
 
   getPolicyIndex(): string {
-    const params = this.props.navigation.state.params
+    const params = this.getParams()
     const policyIndex = params.policyIndex
     if (policyIndex === undefined) {
       // policyId must be passed to params when executing Navigations.navigate
