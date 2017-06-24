@@ -17,6 +17,7 @@ import AddMotorPolicyCard from './AddMotorPolicyCard'
 import AddPolicyScreen from '../AddPolicyScreen'
 import GetStartedScreen from '../GetStartedScreen'
 import PolicyDetailsScreen from '../PolicyDetailsScreen'
+import PolicyDocumentsScreen from '../PolicyDocumentsScreen'
 
 type PoliciesTabProps = {
   policies: MotorPolicyMap,
@@ -85,6 +86,11 @@ class PoliciesTab extends Component {
           <Route
             path="/app/tabs/policies/:policyId"
             component={PolicyDetailsScreen}
+            exact
+          />
+          <Route
+            path="/app/tabs/policies/:policyId/documents"
+            component={PolicyDocumentsScreen}
           />
         </Switch>
       </div>

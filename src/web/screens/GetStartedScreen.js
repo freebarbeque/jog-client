@@ -24,12 +24,12 @@ const Container = styled.div`
 
 // language=SCSS prefix=dummy{ suffix=}
 const BackgroundImage = styled.div`
-  background-size: cover;
   width: 100%;
   height: 100%;
   align-items: center;
   justify-content: center;
   background: url(/static/background.png) no-repeat center center fixed;
+  background-size: cover;
 `
 
 // language=SCSS prefix=dummy{ suffix=}

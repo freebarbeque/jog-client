@@ -2,9 +2,12 @@
 
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import { push } from 'react-router-redux'
 import moment from 'moment'
 import _ from 'lodash'
 import styled from 'styled-components'
+import { withRouter } from 'react-router-dom'
+
 import { MARGIN } from '../../common/constants/style'
 import { BLUE, CREAM, WHITE, YELLOW } from '../../common/constants/palette'
 import { selectPolicies } from '../../common/store/policies/selectors'
@@ -12,13 +15,11 @@ import {
   Dispatch,
   LEVEL_OF_COVER,
   MotorPolicy,
-  ReactNavigationProp,
   ReduxState,
 } from '../../common/types'
 import BigRedFullWidthButton from '../components/BigRedFullWidthButton'
-import { CarOutline, Chevron } from '../components/images/index'
 import Panel from '../components/Panel'
-import { withRouter } from 'react-router-dom'
+import BackgroundHeader from '../components/BackgroundHeader'
 
 // language=SCSS prefix=dummy{ suffix=}
 const FieldContainer = styled.div`
@@ -117,7 +118,6 @@ const Row = props => {
 
 type PolicyDetailsScreenProps = {
   policies: MotorPolicy,
-  navigation: ReactNavigationProp,
   dispatch: Dispatch,
   initialised: boolean,
 }
@@ -128,7 +128,10 @@ class PolicyDetailsScreen extends Component {
   componentDidMount() {}
 
   handleDocumentUploadPress = () => {
-    // TODO
+    const policy = this.getPolicy()
+    if (policy) {
+      this.props.dispatch(push(`/app/tabs/policies/${policy.id}/documents`))
+    }
   }
 
   getPolicy(): MotorPolicy | null {
@@ -164,7 +167,7 @@ class PolicyDetailsScreen extends Component {
             backgroundColor: YELLOW,
             color: BLUE,
           }}
-          onPress={this.handleDocumentUploadPress}
+          onClick={this.handleDocumentUploadPress}
         >
           {"We're currently processing your policy documents."}
         </BigRedFullWidthButton>
@@ -173,7 +176,7 @@ class PolicyDetailsScreen extends Component {
       return (
         <BigRedFullWidthButton
           style={{ marginTop: MARGIN.large }}
-          onPress={this.handleDocumentUploadPress}
+          onClick={this.handleDocumentUploadPress}
         >
           Please upload your policy documentation for a profile
         </BigRedFullWidthButton>
@@ -197,7 +200,8 @@ class PolicyDetailsScreen extends Component {
           backgroundColor: CREAM,
         }}
       >
-        <Panel>
+        <BackgroundHeader headerText="Motor Policy" />
+        <Panel className="Panel" style={{ position: 'relative' }}>
           <Field title="vehicle registration">
             {policy.vehicleRegistration}
           </Field>

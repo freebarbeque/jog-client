@@ -16,6 +16,7 @@ import BigRedFullWidthButton from '../../components/BigRedFullWidthButton'
 import Collapsible from '../../components/Collapsible'
 import { getFile } from '../../upload'
 import { updateUserProfilePicture } from '../../../common/store/auth/actions'
+import Button from '../../components/Button'
 
 type ProfileProps = {
   dispatch: Dispatch,
@@ -43,7 +44,7 @@ const Header = styled.div`
 `
 
 // language=SCSS prefix=dummy{ suffix=}
-const FieldContainer = styled.div`
+const FieldContainer = styled.div` 
   min-height: 30px;
   padding-top: ${MARGIN.base}px;
   padding-bottom: ${MARGIN.base}px;
@@ -77,21 +78,6 @@ const ProfilePhoto = styled.img`
   width: 77px;
   height: 77px;
   border-radius: 77px;
-`
-
-// language=SCSS prefix=dummy{ suffix=}
-const ProfilePhotoButton = styled.button`
-  background-color: transparent;
-  border: none;
-  cursor: pointer;
-  
-  &:hover {
-    opacity: 0.7;
-  }
-  
-  &:focus {
-    outline: 0;
-  }
 `
 
 const Field = props =>
@@ -132,11 +118,11 @@ class Profile extends Component {
       <Collapsible trigger="My Profile">
         <Container>
           <Header>
-            <ProfilePhotoButton onClick={this.handleProfilePicturePress}>
+            <Button onClick={this.handleProfilePicturePress}>
               {userDetails.profilePhotoURL
                 ? <ProfilePhoto src={userDetails.profilePhotoURL} />
                 : <div>Default Image</div>}
-            </ProfilePhotoButton>
+            </Button>
           </Header>
           <Content>
             <Field title="First name">

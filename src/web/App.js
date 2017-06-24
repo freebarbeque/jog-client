@@ -12,6 +12,7 @@ import { BLUE } from '../common/constants/palette'
 import type { Dispatch, FirebaseUser, ReduxState } from '../common/types'
 import { syncData } from '../common/store/actions'
 import history from './history'
+import ActionModal from './components/ActionModal'
 
 // language=SCSS prefix=dummy{ suffix=}
 const Container = styled.div`
@@ -95,6 +96,7 @@ class App extends Component {
             />
             <Route path="/app" component={MainScreen} />
             <Route path="/auth" component={AuthScreen} />
+            <ActionModal />
           </Container>
         </ConnectedRouter>
       : <div>Loading...</div>

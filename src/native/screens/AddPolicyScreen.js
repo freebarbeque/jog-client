@@ -62,7 +62,7 @@ class AddPolicyScreen extends Component {
               onPress={() => this.props.dispatch(uploadPolicy())}
             >
               <Text style={styles.cardButtonText}>
-                Upload your policy
+                Upload / Photograph your policy
               </Text>
               <Camera />
             </TouchableOpacity>
@@ -119,7 +119,7 @@ const styles = StyleSheet.create({
   },
   cardButtonText: {
     color: BLUE,
-    fontSize: 16,
+    fontSize: 15,
     flex: 1,
   },
   recommendedText: {

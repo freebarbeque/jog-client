@@ -11,6 +11,7 @@ export default class WebUploadAdapter implements UploadAdapter {
     const storageRef = firebase.storage().ref()
 
     if (file) {
+      console.log(`Uploading file to ${fileStoragePath}`, file)
       return storageRef.child(fileStoragePath).put(file)
     }
     throw new Error(`Web file upload requires file property.`)

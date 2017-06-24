@@ -13,6 +13,7 @@ import { eventChannel } from 'redux-saga'
 import firebase from 'firebase'
 import uuid from 'uuid/v4'
 import mime from 'react-native-mime-types'
+import _ from 'lodash'
 
 import {
   syncMotorPolicies,
@@ -81,7 +82,13 @@ export function* syncPoliciesSaga<T>(): Iterable<T> {
 //
 
 function* uploadPolicyDocumentTask(action: UploadPolicyDocumentAction) {
-  const { fileUrl, policyId, extension, fileName } = action
+  const { fileUrl, policyId, file } = action
+  let { fileName, extension } = action
+
+  if (file) {
+    fileName = file.name
+    extension = _.last(fileName.split('.'))
+  }
 
   yield put(startLoading('Loading document'))
   const user = demandCurrentUser()
@@ -93,7 +100,7 @@ function* uploadPolicyDocumentTask(action: UploadPolicyDocumentAction) {
 
   try {
     // For whatever reason, the firebase module claims the base64 data from RNFetchBlob is invalid so we decode it manually.
-    const contentType = mime.lookup(fileName)
+    const contentType = file ? file.type : mime.lookup(fileName)
 
     console.debug(
       `Uploading document at ${fileUrl} to ${fileStoragePath} with content-type ${contentType}`,
@@ -102,14 +109,11 @@ function* uploadPolicyDocumentTask(action: UploadPolicyDocumentAction) {
     yield call(() =>
       getUploadAdapter().uploadFile({
         filePath: fileUrl,
+        file,
         fileStoragePath,
         contentType,
         contentEncoding: 'base64',
       }),
-    )
-
-    yield call(() =>
-      updateCurrentUserDetails({ profilePhoto: fileStoragePath }),
     )
   } catch (e) {
     console.warn('Error uploading image', e)

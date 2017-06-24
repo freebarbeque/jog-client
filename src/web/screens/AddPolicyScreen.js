@@ -89,7 +89,7 @@ class AddPolicyScreen extends Component {
           </CardButton>
           <CardButton>
             <span style={{ flex: 1 }}>
-              Photograph your policy
+              Upload / Photograph your policy
             </span>
             <Camera />
           </CardButton>

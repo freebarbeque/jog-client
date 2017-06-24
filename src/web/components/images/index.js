@@ -161,10 +161,29 @@ export const CarOutline = props => {
 
 CarOutline.propTypes = { scale: PropTypes.number }
 
+export const Warning = props => {
+  return (
+    <Image
+      src={require('./warning.png')}
+      height={69}
+      width={75}
+      alt="warning"
+      className="warning-img"
+      {...props}
+    />
+  )
+}
+
+Warning.propTypes = { scale: PropTypes.number }
+
 export const Chevron = props => {
   return (
     <Image
-      src={require('./chevron.svg')}
+      src={
+        props.color === 'white'
+          ? require('./chevron-white.svg')
+          : require('./chevron-blue.svg')
+      }
       height={9.838}
       width={5.74}
       alt="chevron"
@@ -174,4 +193,11 @@ export const Chevron = props => {
   )
 }
 
-Chevron.propTypes = { scale: PropTypes.number }
+Chevron.propTypes = {
+  scale: PropTypes.number,
+  color: PropTypes.oneOf(['white', 'blue']),
+}
+
+Chevron.defaultProps = {
+  color: 'blue',
+}
