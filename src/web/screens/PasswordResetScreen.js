@@ -17,8 +17,9 @@ import {
 } from '../../common/store/screens/auth/actions'
 import { DARK_GRAY } from '../../common/constants/palette'
 import Form from '../components/Form'
-import HorizontalFlexCenteredContainer from '../components/HorizontalFlexCenteredContainer'
 import Title from '../components/Title'
+import { NAVIGATION_BAR_HEIGHT } from '../constants/style'
+import FlexCentredContainer from '../components/FlexCentredContainer'
 
 type PasswordResetScreenProps = {
   dispatch: Dispatch,
@@ -53,7 +54,7 @@ class PasswordResetScreen extends Component {
 
   render() {
     return (
-      <HorizontalFlexCenteredContainer>
+      <FlexCentredContainer style={{ paddingBottom: NAVIGATION_BAR_HEIGHT }}>
         <Title>
           Password Reset
         </Title>
@@ -73,7 +74,7 @@ class PasswordResetScreen extends Component {
           }}
           disabled={this.props.loading}
         />
-      </HorizontalFlexCenteredContainer>
+      </FlexCentredContainer>
     )
   }
 }

@@ -22,7 +22,8 @@ import {
 import Form from '../components/Form'
 import { DARK_GRAY } from '../../common/constants/palette'
 import Title from '../components/Title'
-import HorizontalFlexCenteredContainer from '../components/HorizontalFlexCenteredContainer'
+import FlexCentredContainer from '../components/FlexCentredContainer'
+import { NAVIGATION_BAR_HEIGHT } from '../constants/style'
 
 type RegisterProps = {
   dispatch: Dispatch,
@@ -55,7 +56,12 @@ class RegisterScreen extends Component {
 
   renderFormAccessory() {
     return (
-      <div style={{ display: 'flex', flexDirection: 'row' }}>
+      <div
+        style={{
+          display: 'flex',
+          flexDirection: 'row',
+        }}
+      >
         <FlatButton
           style={{ fontWeight: 500, fontSize: 11, color: DARK_GRAY }}
           containerElement={<Link to="/auth/login" />}
@@ -68,32 +74,34 @@ class RegisterScreen extends Component {
 
   render() {
     return (
-      <HorizontalFlexCenteredContainer>
-        <Title>
-          Register
-        </Title>
-        <Form
-          fields={RegisterScreen.formFields}
-          buttonLabel="Register"
-          accessory={this.renderFormAccessory()}
-          onSubmit={this.handleSubmit}
-          error={this.props.registerError}
-          disabled={this.props.loading}
-          values={this.props.values}
-          validationErrors={this.props.validationErrors}
-          onValuesChanged={values => {
-            this.props.dispatch(setValues(values))
-          }}
-          onValidationErrorsChanged={errors => {
-            this.props.dispatch(setValidationErrors(errors))
-          }}
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-          }}
-        />
-      </HorizontalFlexCenteredContainer>
+      <FlexCentredContainer style={{ paddingBottom: NAVIGATION_BAR_HEIGHT }}>
+        <div>
+          <Title>
+            Register
+          </Title>
+          <Form
+            fields={RegisterScreen.formFields}
+            buttonLabel="Register"
+            accessory={this.renderFormAccessory()}
+            onSubmit={this.handleSubmit}
+            error={this.props.registerError}
+            disabled={this.props.loading}
+            values={this.props.values}
+            validationErrors={this.props.validationErrors}
+            onValuesChanged={values => {
+              this.props.dispatch(setValues(values))
+            }}
+            onValidationErrorsChanged={errors => {
+              this.props.dispatch(setValidationErrors(errors))
+            }}
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}
+          />
+        </div>
+      </FlexCentredContainer>
     )
   }
 }

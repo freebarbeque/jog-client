@@ -18,6 +18,8 @@ import { emailField, passwordField } from '../../native/components/Form/fields'
 import { DARK_GRAY } from '../../common/constants/palette'
 import HorizontalFlexCenteredContainer from '../components/HorizontalFlexCenteredContainer'
 import Title from '../components/Title'
+import FlexCenteredContainer from '../components/FlexCenteredContainer'
+import { NAVIGATION_BAR_HEIGHT } from '../constants/style'
 
 type LoginProps = {
   dispatch: Dispatch,
@@ -70,32 +72,37 @@ class LoginScreen extends Component {
 
   render() {
     return (
-      <HorizontalFlexCenteredContainer>
-        <Title>
-          Sign In
-        </Title>
-        <Form
-          fields={LoginScreen.formFields}
-          buttonLabel="Sign in"
-          accessory={this.renderFormAccessory()}
-          onSubmit={this.handleSubmit}
-          error={this.props.loginError}
-          disabled={this.props.loading}
-          values={this.props.values}
-          validationErrors={this.props.validationErrors}
-          onValuesChanged={values => {
-            this.props.dispatch(setValues(values))
-          }}
-          onValidationErrorsChanged={errors => {
-            this.props.dispatch(setValidationErrors(errors))
-          }}
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-          }}
-        />
-      </HorizontalFlexCenteredContainer>
+      <FlexCenteredContainer
+        className="LoginScreen"
+        style={{ paddingBottom: NAVIGATION_BAR_HEIGHT }}
+      >
+        <div className="LoginScreen__Inner">
+          <Title>
+            Sign In
+          </Title>
+          <Form
+            fields={LoginScreen.formFields}
+            buttonLabel="Sign in"
+            accessory={this.renderFormAccessory()}
+            onSubmit={this.handleSubmit}
+            error={this.props.loginError}
+            disabled={this.props.loading}
+            values={this.props.values}
+            validationErrors={this.props.validationErrors}
+            onValuesChanged={values => {
+              this.props.dispatch(setValues(values))
+            }}
+            onValidationErrorsChanged={errors => {
+              this.props.dispatch(setValidationErrors(errors))
+            }}
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}
+          />
+        </div>
+      </FlexCenteredContainer>
     )
   }
 }

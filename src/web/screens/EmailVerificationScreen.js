@@ -14,7 +14,8 @@ import { emailVerification } from '../../common/store/screens/auth/actions'
 import { MARGIN } from '../../common/constants/style'
 import RoundedButton from '../components/RoundedButton'
 import Title from '../components/Title'
-import HorizontalFlexCenteredContainer from '../components/HorizontalFlexCenteredContainer'
+import FlexCenteredContainer from '../components/FlexCenteredContainer'
+import { NAVIGATION_BAR_HEIGHT } from '../constants/style'
 
 type EmailVerificationScreenProps = {
   dispatch: Dispatch,
@@ -63,26 +64,28 @@ class EmailVerificationScreen extends Component {
 
   render() {
     return (
-      <HorizontalFlexCenteredContainer>
-        <Title>
-          Email Verification
-        </Title>
+      <FlexCenteredContainer style={{ paddingBottom: NAVIGATION_BAR_HEIGHT }}>
+        <div>
+          <Title>
+            Email Verification
+          </Title>
 
-        <Description>
-          We just sent you a verification email. Click the link to
-          activate your account
-        </Description>
-        <RoundedButton
-          style={{
-            marginTop: MARGIN.extraLarge,
-            marginLeft: 'auto',
-            marginRight: 'auto',
-          }}
-          label={'Resend'}
-          onClick={this.handleResendClick}
-          loading={this.props.loading}
-        />
-      </HorizontalFlexCenteredContainer>
+          <Description>
+            We just sent you a verification email. Click the link to
+            activate your account
+          </Description>
+          <RoundedButton
+            style={{
+              marginTop: MARGIN.xxl,
+              marginLeft: 'auto',
+              marginRight: 'auto',
+            }}
+            label={'Resend'}
+            onClick={this.handleResendClick}
+            loading={this.props.loading}
+          />
+        </div>
+      </FlexCenteredContainer>
     )
   }
 }

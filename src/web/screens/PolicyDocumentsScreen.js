@@ -4,8 +4,9 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import styled from 'styled-components'
 import _ from 'lodash'
+import Dropzone from 'react-dropzone'
 
-import { BLUE, CREAM } from '../../common/constants/palette'
+import { BLUE, CREAM, PINK } from '../../common/constants/palette'
 import { MARGIN } from '../../common/constants/style'
 import { selectPolicies } from '../../common/store/policies/selectors'
 import Button from '../components/Button'
@@ -21,7 +22,10 @@ import type {
   ReduxState,
 } from '../../common/types'
 import { getFile } from '../upload'
-import { uploadPolicyDocument } from '../../common/store/policies/actions'
+import {
+  uploadPolicyDocument,
+  uploadPolicyDocuments,
+} from '../../common/store/policies/actions'
 
 type PolicyDocumentsScreenProps = {
   // eslint-disable-next-line react/no-unused-prop-types
@@ -46,7 +50,7 @@ const Header = styled.div`
 `
 
 // language=SCSS prefix=dummy{ suffix=}
-const CameraButton = Button.extend`
+const DragDropZone = styled(Dropzone)`
   height: 130px;
   border-style: dashed;
   border-color: rgb(164,169,174);
@@ -55,6 +59,13 @@ const CameraButton = Button.extend`
   font-size: 16px;
   color: rgb(164,169,174);
   width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+  &:hover {
+    border-color: ${BLUE};
+  }
 `
 
 // language=SCSS prefix=dummy{ suffix=}
@@ -107,6 +118,10 @@ class PolicyDocumentsScreen extends Component {
     return policy
   }
 
+  handleDrop = acceptedFiles => {
+    this.props.dispatch(uploadPolicyDocuments(acceptedFiles))
+  }
+
   render() {
     const policy = this.getPolicy()
     const documents = _.values(policy ? policy.documents : [])
@@ -154,9 +169,14 @@ class PolicyDocumentsScreen extends Component {
           : null}
         <Panel>
           <Header>Upload documents</Header>
-          <CameraButton onClick={this.handleBrowseFilesPress}>
+          <DragDropZone
+            onDrop={this.handleDrop}
+            activeStyle={{ borderColor: BLUE }}
+            rejectStyle={{ borderColor: PINK }}
+            accept={['image/*', 'application/pdf']}
+          >
             Drag & Drop Files
-          </CameraButton>
+          </DragDropZone>
           <BrowseFilesButton onClick={this.handleBrowseFilesPress}>
             Browse Files
           </BrowseFilesButton>

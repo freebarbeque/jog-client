@@ -28,10 +28,12 @@ import { receiveMotorPolicies } from './actions'
 import type {
   SyncMotorPoliciesAction,
   UploadPolicyDocumentAction,
+  UploadPolicyDocumentsAction,
 } from './actionTypes'
 import { finishLoading, startLoading } from '../loading/actions'
 import { declareError } from '../errors/actions'
 import { getUploadAdapter } from '../index'
+import type { UploadFileOpts } from '../../types'
 
 //
 // Sync policies
@@ -81,6 +83,57 @@ export function* syncPoliciesSaga<T>(): Iterable<T> {
 // Policy operations
 //
 
+function* uploadPolicyDocumentsTask(action: UploadPolicyDocumentsAction) {
+  const files = action.files
+  const policyId = action.policyId
+
+  for (let i = 0; i < files.length; i += 1) {
+    const file = files[i]
+    const fileName = file.name
+    const contentType = file.type
+
+    const extension = _.last(fileName.split('.'))
+    yield put(startLoading(`Uploading ${fileName}`))
+    const user = demandCurrentUser()
+    const id = uuid()
+    const fileStoragePath = `/policyDocuments/${user.uid}/${policyId}/${id}.${extension}`
+
+    try {
+      yield call(() =>
+        getUploadAdapter().uploadFile({
+          file,
+          fileStoragePath,
+          contentType,
+          contentEncoding: 'base64',
+        }),
+      )
+    } catch (e) {
+      console.warn('Error uploading image', e)
+      yield put(declareError(`Unable to upload ${fileName}`))
+      return
+    }
+
+    try {
+      // Firebase storage does not have an API for listing files in folders and therefore we
+      // must store file data within the database.
+      yield call(() =>
+        addPolicyDocument(policyId, {
+          image: fileStoragePath,
+          name: fileName,
+          extension: extension,
+          id,
+        }),
+      )
+    } catch (e) {
+      console.debug('Error uploading file metadata', e)
+      yield put(declareError('Unable to upload file metadata'))
+      return
+    }
+  }
+
+  yield put(finishLoading())
+}
+
 function* uploadPolicyDocumentTask(action: UploadPolicyDocumentAction) {
   const { fileUrl, policyId, file } = action
   let { fileName, extension } = action
@@ -90,13 +143,12 @@ function* uploadPolicyDocumentTask(action: UploadPolicyDocumentAction) {
     extension = _.last(fileName.split('.'))
   }
 
-  yield put(startLoading('Loading document'))
+  yield put(startLoading(`Uploading ${fileName}`))
+
   const user = demandCurrentUser()
 
   const id = uuid()
   const fileStoragePath = `/policyDocuments/${user.uid}/${policyId}/${id}.${extension}`
-
-  yield put(startLoading('Uploading document'))
 
   try {
     // For whatever reason, the firebase module claims the base64 data from RNFetchBlob is invalid so we decode it manually.
@@ -117,13 +169,11 @@ function* uploadPolicyDocumentTask(action: UploadPolicyDocumentAction) {
     )
   } catch (e) {
     console.warn('Error uploading image', e)
-    yield put(declareError('Unable to upload document'))
+    yield put(declareError(`Unable to upload ${fileName}`))
     return
   }
 
   console.debug(`Stored at ${fileStoragePath}`)
-
-  yield put(startLoading('Uploading metadata'))
 
   try {
     // Firebase storage does not have an API for listing files in folders and therefore we
@@ -168,5 +218,9 @@ function* deletePolicyDocumentTask({ policyId, documentId }) {
 
 export function* policyOperationsSaga<T>(): Iterable<T> {
   yield takeLatest('policies/UPLOAD_POLICY_DOCUMENT', uploadPolicyDocumentTask)
+  yield takeLatest(
+    'policies/UPLOAD_POLICY_DOCUMENTS',
+    uploadPolicyDocumentsTask,
+  )
   yield takeLatest('policies/DELETE_POLICY_DOCUMENT', deletePolicyDocumentTask)
 }

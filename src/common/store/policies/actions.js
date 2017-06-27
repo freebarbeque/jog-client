@@ -8,6 +8,7 @@ import type {
   SyncMotorPoliciesAction,
   UnsyncMotorPoliciesAction,
   UploadPolicyDocumentAction,
+  UploadPolicyDocumentsAction,
 } from './actionTypes'
 
 export function receiveMotorPolicies(
@@ -38,6 +39,17 @@ type UploadPolicyDocumentOptions = {
   fileName?: string,
   file?: File,
   policyId: string,
+}
+
+export function uploadPolicyDocuments(
+  files: File[],
+  policyId: string,
+): UploadPolicyDocumentsAction {
+  return {
+    type: 'policies/UPLOAD_POLICY_DOCUMENT',
+    files,
+    policyId,
+  }
 }
 
 export function uploadPolicyDocument(

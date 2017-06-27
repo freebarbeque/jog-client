@@ -46,6 +46,7 @@
     "react-addons-css-transition-group": "^15.5.2",
     "react-collapsible": "^1.4.0",
     "react-dom": "^15.5.4",
+    "react-dropzone": "^3.13.3",
     "react-fontawesome": "^1.6.1",
     "react-hot-loader": "next",
     "react-native": "0.44.0",

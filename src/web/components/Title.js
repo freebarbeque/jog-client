@@ -5,7 +5,7 @@ import { MARGIN } from '../../common/constants/style'
 export default styled.div`
   text-align: center;
   font-size: 20px;
-  margin-bottom: ${MARGIN.large}px;
+  margin-bottom: ${MARGIN.xxl}px;
   font-weight: 400;
   color: white;
 `

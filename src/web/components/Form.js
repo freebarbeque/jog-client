@@ -76,7 +76,7 @@ export default class WebForm extends Form {
         >
           <div>
             {fields.map(this.renderField)}
-            <div>
+            <div style={{ marginTop: -MARGIN.large }}>
               {accessory && accessory}
             </div>
             <RoundedButton
@@ -84,7 +84,11 @@ export default class WebForm extends Form {
               label={buttonLabel}
               onClick={this.handleSubmit}
               loading={disabled}
-              style={{ marginLeft: 'auto', marginRight: 'auto' }}
+              style={{
+                marginLeft: 'auto',
+                marginRight: 'auto',
+                marginTop: MARGIN.extraLarge,
+              }}
             />
           </div>
         </form>

@@ -18,9 +18,16 @@ export type UnsyncMotorPoliciesAction = {
 
 export type UploadPolicyDocumentAction = {
   type: 'policies/UPLOAD_POLICY_DOCUMENT',
-  fileUrl: string,
-  extension: string,
-  fileName: string,
+  fileUrl?: string,
+  file?: File,
+  extension?: string,
+  fileName?: string,
+  policyId: string,
+}
+
+export type UploadPolicyDocumentsAction = {
+  type: 'policies/UPLOAD_POLICY_DOCUMENTS',
+  files: File[],
   policyId: string,
 }
 
@@ -35,4 +42,5 @@ export type PoliciesAction =
   | SyncMotorPoliciesAction
   | UnsyncMotorPoliciesAction
   | UploadPolicyDocumentAction
+  | UploadPolicyDocumentsAction
   | DeletePolicyDocumentAction

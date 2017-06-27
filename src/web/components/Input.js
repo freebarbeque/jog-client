@@ -9,6 +9,6 @@ export default styled.input`
   padding-left: ${MARGIN.large}px;
   padding-right: ${MARGIN.large}px;
   font-size: 20px;
-  border-radius: 4px;
+  border-radius: 0;
   border: 2px solid transparent;
 `
