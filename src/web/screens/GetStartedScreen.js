@@ -5,9 +5,12 @@ import styled from 'styled-components'
 import { push } from 'react-router-redux'
 import { connect } from 'react-redux'
 
-import { PINK } from '../../common/constants/palette'
+import { BLUE, PINK } from '../../common/constants/palette'
 import Jumbotron from '../components/Jumbotron'
 import { Dispatch } from '../../common/types'
+import { max, min } from '../media'
+import { MARGIN } from '../../common/constants/style'
+import { Details, PolicyBots, Upload } from '../components/images/index'
 
 type GetStartedScreenProps = {
   dispatch: Dispatch,
@@ -20,6 +23,31 @@ const Container = styled.div`
   flex-direction: column;
   height: 100%;
   position: relative;
+  
+  ${min.smallTablet`
+    margin-left: 40px;
+    margin-right: 40px;
+  `}
+  
+  ${min.mediumDesktop`
+    margin-left: 80px;
+    margin-right: 80px;
+  `}
+  
+  ${min.largeDesktop`
+    margin-left: 200px;
+    margin-right: 200px;
+  `}
+  
+  ${min.verylargeDesktop`
+    margin-left: 250px;
+    margin-right: 250px;
+  `}
+  
+  ${min.hugeDesktop`
+    margin-left: 300px;
+    margin-right: 300px;
+  `}
 `
 
 // language=SCSS prefix=dummy{ suffix=}
@@ -69,7 +97,7 @@ const Button = styled.button`
 const JumbotronWrapper = styled.div`
   position: absolute;
   left: 0;
-  bottom: 25px;
+  bottom: 0;
   width: 100%;
   height: 100%;
   text-align: center;
@@ -78,6 +106,68 @@ const JumbotronWrapper = styled.div`
   align-items: center;
   justify-content: center;
   z-index: 2;
+`
+
+// language=SCSS prefix=dummy{ suffix=}
+const HeaderContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  
+  ${max.smallTablet`
+    flex: 1;
+  `}
+  
+  ${min.smallTablet`
+    margin-top: ${MARGIN.xxl}px;
+    height: 400px;
+  `}
+`
+
+// language=SCSS prefix=dummy{ suffix=}
+const Grid = styled.div`
+  display: flex;
+  flex-direction: row;
+  margin: ${MARGIN.extraLarge}px;
+  
+  ${max.smallTablet`
+    display: none;
+  `}
+`
+
+// language=SCSS prefix=dummy{ suffix=}
+const GridItem = styled.div`
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-left: ${MARGIN.base}px;
+  margin-right: ${MARGIN.base}px;
+  
+  >* {
+    margin-top: 2.5px !important;
+    margin-bottom: 2.5px !important;
+    text-align: center;
+  }
+  
+  h1 {
+    font-weight: 500 !important;
+    font-size: 20px !important;
+    text-transform: lowercase;
+    color: ${BLUE} !important;
+  }
+  
+  h2 {
+    color: ${PINK} !important;
+    text-transform: uppercase;
+    font-size: 10px !important;
+  }
+  
+  p {
+    font-size: 14px !important;
+    color: ${BLUE} !important;
+  }
 `
 
 class GetStartedScreen extends Component {
@@ -90,14 +180,56 @@ class GetStartedScreen extends Component {
   render() {
     return (
       <Container className="get-started-screen-container">
-        <BackgroundImage className="background-image" />
-        <BackgroundImageOverlay className="background-image-overlay" />
-        <JumbotronWrapper>
-          <Jumbotron />
-        </JumbotronWrapper>
+        <HeaderContainer>
+          <BackgroundImage className="background-image" />
+          <BackgroundImageOverlay className="background-image-overlay" />
+          <JumbotronWrapper>
+            <Jumbotron />
+          </JumbotronWrapper>
+        </HeaderContainer>
         <Button onClick={this.handleButtonPress}>
           Add your motor policy to get started
         </Button>
+        <Grid>
+          <GridItem>
+            <Upload />
+            <h2>
+              get started
+            </h2>
+            <h1>
+              easy upload your policies
+            </h1>
+            <p>
+              secure your details to
+              our online lockbox
+            </p>
+          </GridItem>
+          <GridItem>
+            <Details />
+            <h2>
+              always available
+            </h2>
+            <h1>
+              your details always at hand
+            </h1>
+            <p>
+              A touch away when and where you need them
+            </p>
+          </GridItem>
+          <GridItem>
+            <PolicyBots />
+            <h2>
+              always searching
+            </h2>
+            <h1>
+              coming soon
+            </h1>
+            <p>
+              Our policy bots will be hard at work checking your
+              cover optimisation every day
+            </p>
+          </GridItem>
+        </Grid>
       </Container>
     )
   }

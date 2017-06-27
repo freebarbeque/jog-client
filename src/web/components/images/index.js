@@ -201,3 +201,48 @@ Chevron.propTypes = {
 Chevron.defaultProps = {
   color: 'blue',
 }
+
+export const Details = props => {
+  return (
+    <Image
+      src={require('./details.svg')}
+      height={56.387}
+      width={66.425}
+      alt="Policy Details"
+      className="policy-details-img"
+      {...props}
+    />
+  )
+}
+
+Details.propTypes = { scale: PropTypes.number }
+
+export const PolicyBots = props => {
+  return (
+    <Image
+      src={require('./policy-bots.svg')}
+      height={47.607}
+      width={67.148}
+      alt="Policy Bots"
+      className="policy-bots-img"
+      {...props}
+    />
+  )
+}
+
+PolicyBots.propTypes = { scale: PropTypes.number }
+
+export const Upload = props => {
+  return (
+    <Image
+      src={require('./upload.svg')}
+      height={91.643}
+      width={83.845}
+      alt="Upload"
+      className="upload-img"
+      {...props}
+    />
+  )
+}
+
+Upload.propTypes = { scale: PropTypes.number }
