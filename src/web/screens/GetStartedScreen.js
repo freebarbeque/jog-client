@@ -170,6 +170,15 @@ const GridItem = styled.div`
   }
 `
 
+// language=SCSS prefix=dummy{ suffix=}
+const GridItemHeader = styled.div`
+  min-height: 124px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+`
+
 class GetStartedScreen extends Component {
   props: GetStartedScreenProps
 
@@ -192,10 +201,12 @@ class GetStartedScreen extends Component {
         </Button>
         <Grid>
           <GridItem>
-            <Upload />
-            <h2>
-              get started
-            </h2>
+            <GridItemHeader>
+              <Upload />
+              <h2>
+                get started
+              </h2>
+            </GridItemHeader>
             <h1>
               easy upload your policies
             </h1>
@@ -205,10 +216,12 @@ class GetStartedScreen extends Component {
             </p>
           </GridItem>
           <GridItem>
-            <Details />
-            <h2>
-              always available
-            </h2>
+            <GridItemHeader>
+              <Details />
+              <h2>
+                always available
+              </h2>
+            </GridItemHeader>
             <h1>
               your details always at hand
             </h1>
@@ -217,10 +230,12 @@ class GetStartedScreen extends Component {
             </p>
           </GridItem>
           <GridItem>
-            <PolicyBots />
-            <h2>
-              always searching
-            </h2>
+            <GridItemHeader>
+              <PolicyBots />
+              <h2>
+                always searching
+              </h2>
+            </GridItemHeader>
             <h1>
               coming soon
             </h1>
