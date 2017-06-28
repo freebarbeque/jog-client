@@ -12,7 +12,6 @@ import { BLUE, PINK, WHITE } from '../../common/constants/palette'
 import type {
   Dispatch,
   MotorPolicy,
-  NavReduxState,
   ReactNavigationProp,
   ReduxState,
   Route,

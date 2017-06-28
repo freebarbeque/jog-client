@@ -45,7 +45,6 @@ function createPushNotificationsChannel() {
 
     if (!processedInitialNotification) {
       FCM.getInitialNotification().then(notification => {
-        console.log('initial notification', notification)
         if (!processedInitialNotification) {
           processedInitialNotification = true
           if (notification) {
@@ -103,7 +102,6 @@ export function* subscribePushNotifications<T>(): Iterable<T> {
     while (true) {
       const { token, notification } = (yield take(channel)) || {}
       if (token) {
-        console.log('Received push token', token)
         yield put(updateUserDetails({ fcmToken: token }, true))
       } else if (notification) {
         yield put(actions.receivePushNotification(notification))

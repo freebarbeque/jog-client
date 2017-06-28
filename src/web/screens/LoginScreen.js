@@ -16,7 +16,6 @@ import {
 import Form from '../components/Form'
 import { emailField, passwordField } from '../../native/components/Form/fields'
 import { DARK_GRAY } from '../../common/constants/palette'
-import HorizontalFlexCenteredContainer from '../components/HorizontalFlexCenteredContainer'
 import Title from '../components/Title'
 import FlexCenteredContainer from '../components/FlexCenteredContainer'
 import { NAVIGATION_BAR_HEIGHT } from '../constants/style'

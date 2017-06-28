@@ -8,7 +8,7 @@ import { logout } from '../../common/store/auth/actions'
 
 class NavBar extends React.Component {
   render() {
-    const rightButton = (
+    const rightElement = (
       <FlatButton
         label="Sign Out"
         onClick={() => this.props.dispatch(logout())}
@@ -23,7 +23,7 @@ class NavBar extends React.Component {
           // TODO: Go home
         }}
         iconElementLeft={<div />}
-        iconElementRight={rightButton}
+        iconElementRight={rightElement}
       />
     )
   }

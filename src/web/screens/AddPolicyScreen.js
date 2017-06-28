@@ -7,7 +7,7 @@ import styled from 'styled-components'
 import { BLUE, CREAM, PINK, WHITE } from '../../common/constants/palette'
 import { MARGIN } from '../../common/constants/style'
 import { Camera, Cursor, Letter } from '../components/images/index'
-import type { Dispatch, ReduxState } from '../../common/types'
+import type { Dispatch } from '../../common/types'
 
 type AddPolicyScreenProps = {
   dispatch: Dispatch,

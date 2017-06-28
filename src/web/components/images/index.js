@@ -188,6 +188,7 @@ export const Chevron = props => {
       width={5.74}
       alt="chevron"
       className="chevron"
+      scale={props.scale}
       {...props}
     />
   )

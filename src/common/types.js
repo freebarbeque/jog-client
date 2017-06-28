@@ -43,6 +43,11 @@ export type AuthReduxState = {
   initialised: boolean,
 }
 
+export type DimensionsReduxState = {
+  width: number,
+  height: number,
+}
+
 export type AuthScreensReduxState = {
   values: ValuesMap,
   validationErrors: ValidationErrorsMap,
@@ -72,6 +77,7 @@ export type ReduxState = {
   loading: LoadingReduxState,
   errors: ErrorsReduxState,
   push: PushNotificationsReduxState,
+  dimensions: DimensionsReduxState,
 }
 
 export type Store = ReduxStore<ReduxState, Action>

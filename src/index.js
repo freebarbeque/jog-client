@@ -10,6 +10,7 @@ import { AppContainer } from 'react-hot-loader'
 
 import createStore from './common/store/index'
 import reducer from './web/store/reducer'
+import { dimensionsSubscriptionSaga } from './web/store/dimensions/sagas'
 
 import initialiseFirebase from './common/data/index'
 import App from './web/App'
@@ -33,6 +34,7 @@ const store = createStore({
   navigationAdaptor: WebNavigationAdapter,
   uploadAdaptor: WebUploadAdapter,
   middleware: [routerMiddleware(history)],
+  sagas: [dimensionsSubscriptionSaga],
 })
 
 const theme = getMuiTheme({

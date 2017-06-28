@@ -31,7 +31,7 @@ export default class FileIcon extends Component {
       <img
         src={getSource(extension)}
         style={{ width: '100%', height: '100%' }}
-        alt={`${extension} image file extension icon`}
+        alt={`${extension} file extension icon`}
       />
     )
   }

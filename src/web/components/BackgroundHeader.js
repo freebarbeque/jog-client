@@ -6,7 +6,7 @@ import { connect } from 'react-redux'
 import { goBack } from 'react-router-redux'
 import { MARGIN } from '../../common/constants/style'
 import { Chevron } from './images/index'
-import { WHITE } from '../../common/constants/palette'
+import type { Dispatch } from '../../common/types'
 
 type BackgroundHeaderProps = {
   headerText: string,

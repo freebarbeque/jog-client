@@ -8,6 +8,7 @@ import PoliciesTab from './PoliciesTab'
 import SettingsScreen from '../SettingsScreen'
 
 import { CREAM } from '../../../common/constants/palette'
+import { min } from '../../media'
 
 const TABS = ['policies', 'settings']
 
@@ -23,6 +24,13 @@ const Container = styled.div`
   }
 `
 
+// language=SCSS prefix=dummy{ suffix=}
+const MobileTabs = styled(Tabs)`
+  ${min.largeTablet`
+    display: none;
+  `}
+`
+
 class TabsScreen extends Component {
   handleChangeIndex = index => {
     this.props.history.push(`/app/tabs/${TABS[index]}`)
@@ -36,7 +44,7 @@ class TabsScreen extends Component {
 
     return (
       <Container className="tabs-container">
-        <Tabs value={screen}>
+        <MobileTabs value={screen}>
           <Tab
             value="policies"
             label="Policies"
@@ -48,7 +56,7 @@ class TabsScreen extends Component {
             label="Settings"
             containerElement={<Link to="/app/tabs/settings" />}
           />
-        </Tabs>
+        </MobileTabs>
         <SwipeableViews
           className="color-blue m"
           index={index}

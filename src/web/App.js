@@ -13,6 +13,7 @@ import type { Dispatch, FirebaseUser, ReduxState } from '../common/types'
 import { syncData } from '../common/store/actions'
 import history from './history'
 import ActionModal from './components/ActionModal'
+import { subscribeDimensions } from './store/dimensions/actions'
 
 // language=SCSS prefix=dummy{ suffix=}
 const Container = styled.div`
@@ -61,6 +62,7 @@ class App extends Component {
 
   componentDidMount() {
     this.props.dispatch(syncData())
+    this.props.dispatch(subscribeDimensions())
   }
 
   render() {

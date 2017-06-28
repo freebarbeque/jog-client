@@ -149,11 +149,11 @@ class PolicyDocumentsScreen extends Component {
                         paddingBottom: MARGIN.large,
                       }}
                       onPress={() => {
-                        const params = {
-                          documentId: d.id,
-                          policyId: policyId,
-                          documentName: d.name,
-                        }
+                        // const params = {
+                        //   documentId: d.id,
+                        //   policyId: policyId,
+                        //   documentName: d.name,
+                        // }
                         // this.props.dispatch(
                         //   NavigationActions.navigate({
                         //     routeName: 'PolicyDocument',

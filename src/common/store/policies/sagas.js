@@ -22,7 +22,6 @@ import {
   getPolicyDocument,
 } from '../../data/policies'
 import { demandCurrentUser } from '../../data/auth'
-import { updateCurrentUserDetails } from '../../data/user'
 
 import { receiveMotorPolicies } from './actions'
 import type {
@@ -33,7 +32,6 @@ import type {
 import { finishLoading, startLoading } from '../loading/actions'
 import { declareError } from '../errors/actions'
 import { getUploadAdapter } from '../index'
-import type { UploadFileOpts } from '../../types'
 
 //
 // Sync policies

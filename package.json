@@ -20,7 +20,7 @@
     "generate:policies": "NODE_PATH=../ babel-node scripts/mock/generateMockPolicies.js -b es2015",
     "postinstall": "remotedev-debugger --hostname localhost --port 5678 --injectserver",
     "lint": "yarn lint:js",
-    "lint:js": "eslint ./",
+    "lint:js": "eslint ./src",
     "start": "yarn start:packager",
     "start:packager": "node node_modules/react-native/local-cli/cli.js start",
     "start:web": "neutrino start",
