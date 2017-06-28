@@ -42,7 +42,6 @@ const NavBarRight = styled.div`
       color: ${PINK} !important;
     }
   }
-  
 `
 
 class NavBar extends React.Component {

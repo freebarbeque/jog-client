@@ -18,11 +18,14 @@ type GetStartedScreenProps = {
 
 // language=SCSS prefix=dummy{ suffix=}
 const Container = styled.div`
-  flex: 1;
-  display: flex;
-  flex-direction: column;
   height: 100%;
   position: relative;
+  
+  ${max.smallTablet`
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  `}
   
   ${min.smallTablet`
     margin-left: 40px;
@@ -74,7 +77,7 @@ const BackgroundImageOverlay = styled.div`
 // language=SCSS prefix=dummy{ suffix=}
 const Button = styled.button`
   background-color: ${PINK};
-  height: 60px;
+  height: 60px !important;
   align-items: center;
   justify-content: center;
   width: 100%;
