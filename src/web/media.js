@@ -27,7 +27,7 @@ function buildMinMedia(breakpoint, args) {
 
 function buildMaxmedia(breakpoint, args) {
   return css`
-    @media (max-width: ${breakpoint}px) {
+    @media (max-width: ${breakpoint - 1}px) {
       ${css(...args)}
     }
   `
@@ -71,4 +71,8 @@ export const max = {
   verylargeDesktop: (...args) =>
     buildMaxmedia(breakpoints.verylargeDesktop, args),
   hugeDesktop: (...args) => buildMaxmedia(breakpoints.hugeDesktop, args),
+}
+
+export function isLargeTabletOrGreater(width: number) {
+  return width >= breakpoints.largeTablet
 }
