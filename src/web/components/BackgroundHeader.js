@@ -105,14 +105,17 @@ class BackgroundHeader extends Component {
           >
             {this.props.enableBackPress &&
               <RotatedChevron color="white" scale={1.2} />}
-            <Header>
-              {this.props.headerText}
-            </Header>
+            <div style={{ display: 'flex', flexDirection: 'column' }}>
+              <Header>
+                {this.props.headerText}
+              </Header>
+              {this.props.subheaderText &&
+                <div>
+                  {this.props.subheaderText}
+                </div>}
+            </div>
           </div>
-          {this.props.subheaderText &&
-            <div>
-              {this.props.subheaderText}
-            </div>}
+
         </Content>
       </Wrapper>
     )

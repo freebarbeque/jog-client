@@ -8,25 +8,24 @@ import { BLUE, CREAM, PINK, WHITE } from '../../common/constants/palette'
 import { MARGIN } from '../../common/constants/style'
 import { Camera, Cursor, Letter } from '../components/images/index'
 import type { Dispatch } from '../../common/types'
+import Container from '../components/Container'
+import BackgroundHeader from '../components/BackgroundHeader'
+import { max } from '../media'
 
 type AddPolicyScreenProps = {
   dispatch: Dispatch,
 }
 
 // language=SCSS prefix=dummy{ suffix=}
-const Container = styled.div`
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  background-color: ${CREAM};
-  padding: ${MARGIN.base}px;
-`
-
-// language=SCSS prefix=dummy{ suffix=}
 const Card = styled.div`
   background-color: ${WHITE};
   border-radius: 4px;
   box-shadow: 0 0 3px 2px rgba(121,126,154,0.4);
+  
+  ${max.smallTablet`
+    margin-left: ${MARGIN.large}px;
+    margin-right: ${MARGIN.large}px;
+  `}
 `
 // language=SCSS prefix=dummy{ suffix=}
 const CardButton = styled.button`
@@ -72,38 +71,50 @@ class AddPolicyScreen extends Component {
 
   render() {
     return (
-      <Container>
-        <Card>
-          <CardButton
-            onClick={() => this.props.dispatch(push('/app/emailPolicy'))}
-          >
-            <div style={{ flex: 1 }}>
-              <RecommendedText>
-                Recommended
-              </RecommendedText>
-              <span>
-                Email the policy
+      <div style={{ display: 'flex', flex: 1, flexDirection: 'column' }}>
+        <BackgroundHeader
+          headerText="Motor Policy"
+          subheaderText="Let's get started"
+          style={{
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            width: '100%',
+          }}
+        />
+        <Container style={{ marginTop: MARGIN.large }}>
+          <Card>
+            <CardButton
+              onClick={() => this.props.dispatch(push('/app/emailPolicy'))}
+            >
+              <div style={{ flex: 1 }}>
+                <RecommendedText>
+                  Recommended
+                </RecommendedText>
+                <span>
+                  Email the policy
+                </span>
+              </div>
+              <Letter />
+            </CardButton>
+            <CardButton>
+              <span style={{ flex: 1 }}>
+                Upload / Photograph your policy
               </span>
-            </div>
-            <Letter />
-          </CardButton>
-          <CardButton>
-            <span style={{ flex: 1 }}>
-              Upload / Photograph your policy
-            </span>
-            <Camera />
-          </CardButton>
-          <CardButton
-            style={{ borderBottomWidth: 0 }}
-            onClick={() => this.props.dispatch(push('/app/addManualPolicy'))}
-          >
-            <span style={{ flex: 1 }}>
-              Manual entry
-            </span>
-            <Cursor />
-          </CardButton>
-        </Card>
-      </Container>
+              <Camera />
+            </CardButton>
+            <CardButton
+              style={{ borderBottomWidth: 0 }}
+              onClick={() => this.props.dispatch(push('/app/addManualPolicy'))}
+            >
+              <span style={{ flex: 1 }}>
+                Manual entry
+              </span>
+              <Cursor />
+            </CardButton>
+          </Card>
+        </Container>
+      </div>
     )
   }
 }
