@@ -299,8 +299,8 @@ class PolicyDetailsScreen extends Component {
                 {policy.noClaimsBonus ? `${policy.noClaimsBonus} Yrs` : '-'}
               </Row>
             </div>
-            {this.renderPolicyDocumentsButton()}
           </div>
+          {this.renderPolicyDocumentsButton()}
         </Container>
       </div>
     )
