@@ -18,7 +18,7 @@ function createDimensionsChannel() {
       }
 
       emit(dimensions)
-    }, 400)
+    }, 50)
 
     listener()
 

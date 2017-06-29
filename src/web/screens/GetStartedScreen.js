@@ -11,47 +11,11 @@ import { Dispatch } from '../../common/types'
 import { max, min } from '../media'
 import { MARGIN } from '../../common/constants/style'
 import { Details, PolicyBots, Upload } from '../components/images/index'
+import Container from '../components/Container'
 
 type GetStartedScreenProps = {
   dispatch: Dispatch,
 }
-
-// language=SCSS prefix=dummy{ suffix=}
-const Container = styled.div`
-  height: 100%;
-  position: relative;
-  
-  ${max.smallTablet`
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-  `}
-  
-  ${min.smallTablet`
-    margin-left: 40px;
-    margin-right: 40px;
-  `}
-  
-  ${min.mediumDesktop`
-    margin-left: 80px;
-    margin-right: 80px;
-  `}
-  
-  ${min.largeDesktop`
-    margin-left: 200px;
-    margin-right: 200px;
-  `}
-  
-  ${min.verylargeDesktop`
-    margin-left: 250px;
-    margin-right: 250px;
-  `}
-  
-  ${min.hugeDesktop`
-    margin-left: 300px;
-    margin-right: 300px;
-  `}
-`
 
 // language=SCSS prefix=dummy{ suffix=}
 const BackgroundImage = styled.div`
@@ -191,10 +155,10 @@ class GetStartedScreen extends Component {
 
   render() {
     return (
-      <Container className="get-started-screen-container">
-        <HeaderContainer>
-          <BackgroundImage className="background-image" />
-          <BackgroundImageOverlay className="background-image-overlay" />
+      <Container className="GetStartedScreen">
+        <HeaderContainer className="HeaderContainer">
+          <BackgroundImage className="BackgroundImage" />
+          <BackgroundImageOverlay className="BackgroundImageOverlay" />
           <JumbotronWrapper>
             <Jumbotron />
           </JumbotronWrapper>

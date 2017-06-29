@@ -23,7 +23,7 @@ const Container = styled.button`
   padding: 0;
   border: 0;
   cursor: pointer;
-  
+    
   &:hover {
     opacity: 0.7;
   }
@@ -101,7 +101,7 @@ export default class PolicyCard extends Component {
 
   render() {
     return (
-      <Container onClick={this.props.onPress}>
+      <Container className="PolicyCard" onClick={this.props.onPress}>
         <Cover>
           <div style={{ opacity: 0.3, paddingBottom: 18 }}>
             {this.props.topImage}

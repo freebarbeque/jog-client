@@ -20,6 +20,9 @@ import {
 import BigRedFullWidthButton from '../components/BigRedFullWidthButton'
 import Panel from '../components/Panel'
 import BackgroundHeader from '../components/BackgroundHeader'
+import * as selectors from '../store/selectors'
+import { min } from '../media'
+import Container from '../components/Container'
 
 // language=SCSS prefix=dummy{ suffix=}
 const FieldContainer = styled.div`
@@ -30,9 +33,9 @@ const FieldContainer = styled.div`
 
 // language=SCSS prefix=dummy{ suffix=}
 const FieldTitle = styled.div`
-    color: rgb(164,169,174);
-    font-size: 11px;
-    font-weight: 600;
+  color: rgb(164,169,174);
+  font-size: 11px;
+  font-weight: 600;
 `
 
 // language=SCSS prefix=dummy{ suffix=}
@@ -76,7 +79,7 @@ const DaysRemainingValue = styled.div`
 `
 
 // language=SCSS prefix=dummy{ suffix=}
-const PolicyHeader = styled.div`
+const Header = styled.div`
   background-color: ${WHITE};
   display: flex;
   flex-direction: row;
@@ -85,9 +88,16 @@ const PolicyHeader = styled.div`
   padding-left: ${MARGIN.large}px;
   font-size: 16px;
   color: ${BLUE};
-  margin-top: ${MARGIN.large}px;
+  margin-top: ${MARGIN.base}px;
   flex: 1;
   height: 47.931px;
+  
+  ${min.smallTablet`
+    border-bottom-color: black;
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+    padding-left: 0;
+  `}
 `
 
 const Field = props => {
@@ -120,6 +130,7 @@ type PolicyDetailsScreenProps = {
   policies: MotorPolicy,
   dispatch: Dispatch,
   initialised: boolean,
+  isHandset: boolean,
 }
 
 class PolicyDetailsScreen extends Component {
@@ -163,7 +174,7 @@ class PolicyDetailsScreen extends Component {
       return (
         <BigRedFullWidthButton
           style={{
-            marginTop: MARGIN.large,
+            marginTop: MARGIN.base,
             backgroundColor: YELLOW,
             color: BLUE,
           }}
@@ -175,7 +186,7 @@ class PolicyDetailsScreen extends Component {
     } else if (policy && !policy.complete) {
       return (
         <BigRedFullWidthButton
-          style={{ marginTop: MARGIN.large }}
+          style={{ marginTop: MARGIN.base }}
           onClick={this.handleDocumentUploadPress}
         >
           Please upload your policy documentation for a profile
@@ -188,71 +199,101 @@ class PolicyDetailsScreen extends Component {
 
   render() {
     const policy = this.getPolicy() || {}
-
     const expiryDate = moment(policy.expiryDate)
-
     const drivers = policy.drivers || []
+    const isHandset = this.props.isHandset
 
     return (
       <div
         style={{
           overflow: 'scroll',
-          backgroundColor: CREAM,
         }}
       >
-        <BackgroundHeader headerText="Motor Policy" />
-        <Panel className="Panel" style={{ position: 'relative' }}>
-          <Field title="vehicle registration">
-            {policy.vehicleRegistration}
-          </Field>
+        <BackgroundHeader
+          headerText="Motor Policy"
+          style={{
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            width: '100%',
+          }}
+        />
+        <Container>
+          <div
+            style={{
+              backgroundColor: isHandset ? CREAM : WHITE,
+              paddingLeft: isHandset ? 0 : MARGIN.large,
+              paddingRight: isHandset ? 0 : MARGIN.large,
+              paddingBottom: isHandset ? 0 : MARGIN.large,
+              marginTop: isHandset ? 0 : MARGIN.large,
+            }}
+          >
+            {!isHandset &&
+              <Header>
+                Overview
+              </Header>}
+            <Panel
+              className="Panel"
+              style={{
+                position: 'relative',
+                marginTop: isHandset ? MARGIN.base : 0,
+              }}
+            >
+              <Field title="vehicle registration">
+                {policy.vehicleRegistration}
+              </Field>
 
-          <Field title="expires">
-            {expiryDate.format('DD MMM YYYY')}
-          </Field>
+              <Field title="expires">
+                {expiryDate.format('DD MMM YYYY')}
+              </Field>
 
-          <Field title="insurance company">
-            {policy.companyName || 'Other'}
-          </Field>
+              <Field title="insurance company">
+                {policy.companyName || 'Other'}
+              </Field>
 
-          <Field title="policy no.">
-            {policy.policyNo}
-          </Field>
+              <Field title="policy no.">
+                {policy.policyNo}
+              </Field>
 
-          <Field title="cost">
-            {policy.cost ? `£${policy.cost} p/a` : '-'}
-          </Field>
+              <Field title="cost">
+                {policy.cost ? `£${policy.cost} p/a` : '-'}
+              </Field>
 
-          <DaysRemainingContainer>
-            <DaysRemainingTitle>
-              DAYS REMAINING
-            </DaysRemainingTitle>
-            <DaysRemainingValue>
-              {expiryDate.diff(moment(), 'days')}
-            </DaysRemainingValue>
-          </DaysRemainingContainer>
-        </Panel>
-        <div>
-          <PolicyHeader>
-            Policy
-          </PolicyHeader>
-          <Row title="level of cover">
-            {policy.levelOfCover ? LEVEL_OF_COVER[policy.levelOfCover] : '-'}
-          </Row>
-          <Row title="excess">
-            {policy.excess ? `£${policy.excess} p/a` : '-'}
-          </Row>
-          <Row title="drivers">
-            {drivers && drivers.length
-              ? drivers
-                  .map(d => `${d.firstName || ''} ${d.lastName || ''}`)
-                  .join(', ')
-              : '-'}
-          </Row>
-          <Row title="no claims bonus">
-            {policy.noClaimsBonus ? `${policy.noClaimsBonus} Yrs` : '-'}
-          </Row>
-        </div>
-        {this.renderPolicyDocumentsButton()}
+              <DaysRemainingContainer>
+                <DaysRemainingTitle>
+                  DAYS REMAINING
+                </DaysRemainingTitle>
+                <DaysRemainingValue>
+                  {expiryDate.diff(moment(), 'days')}
+                </DaysRemainingValue>
+              </DaysRemainingContainer>
+            </Panel>
+            <div>
+              <Header>
+                Policy
+              </Header>
+              <Row title="level of cover">
+                {policy.levelOfCover
+                  ? LEVEL_OF_COVER[policy.levelOfCover]
+                  : '-'}
+              </Row>
+              <Row title="excess">
+                {policy.excess ? `£${policy.excess} p/a` : '-'}
+              </Row>
+              <Row title="drivers">
+                {drivers && drivers.length
+                  ? drivers
+                      .map(d => `${d.firstName || ''} ${d.lastName || ''}`)
+                      .join(', ')
+                  : '-'}
+              </Row>
+              <Row title="no claims bonus">
+                {policy.noClaimsBonus ? `${policy.noClaimsBonus} Yrs` : '-'}
+              </Row>
+            </div>
+            {this.renderPolicyDocumentsButton()}
+          </div>
+        </Container>
       </div>
     )
   }
@@ -261,6 +302,7 @@ class PolicyDetailsScreen extends Component {
 const mapStateToProps = (state: ReduxState) => ({
   policies: selectPolicies(state),
   initialised: state.policies.initialised,
+  isHandset: selectors.isHandset(state),
 })
 
 export default connect(mapStateToProps)(withRouter(PolicyDetailsScreen))

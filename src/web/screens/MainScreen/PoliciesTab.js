@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import _ from 'lodash'
 import { push } from 'react-router-redux'
 import { Route, Switch } from 'react-router-dom'
+import styled from 'styled-components'
 
 import {
   Dispatch,
@@ -18,11 +19,33 @@ import AddPolicyScreen from '../AddPolicyScreen'
 import GetStartedScreen from '../GetStartedScreen'
 import PolicyDetailsScreen from '../PolicyDetailsScreen'
 import PolicyDocumentsScreen from '../PolicyDocumentsScreen'
+import Container from '../../components/Container'
+import { max } from '../../media'
 
 type PoliciesTabProps = {
   policies: MotorPolicyMap,
   dispatch: Dispatch,
 }
+
+// language=SCSS prefix=dummy{ suffix=}
+const PoliciesList = styled.div`
+  display: inline-flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: ${MARGIN.large}px;
+  
+  .PolicyCard {
+    margin-left: ${MARGIN.base}px;
+    margin-right: ${MARGIN.base}px;
+  }
+  
+  ${max.largeHandset`
+    .PolicyCard {
+      width: 100%;
+    }
+  `}
+`
 
 class PoliciesTab extends Component {
   props: PoliciesTabProps
@@ -45,55 +68,47 @@ class PoliciesTab extends Component {
     const policies = this.props.policies
 
     return (
-      <div
-        style={{
-          padding: MARGIN.base,
-          display: 'flex',
-          flexDirection: 'column',
-        }}
-      >
-        {_.values(policies).map((p, idx) =>
-          <MotorPolicyCard
-            key={p.id}
-            policy={p}
-            index={idx}
-            onPress={() => this.handlePolicyPress(p)}
-          />,
-        )}
-        <AddMotorPolicyCard onPress={this.handleAddPolicyPress} />
-      </div>
+      <Container>
+        <PoliciesList className="PoliciesList">
+          {_.values(policies).map((p, idx) =>
+            <MotorPolicyCard
+              key={p.id}
+              policy={p}
+              index={idx}
+              onPress={() => this.handlePolicyPress(p)}
+            />,
+          )}
+          <AddMotorPolicyCard onPress={this.handleAddPolicyPress} />
+        </PoliciesList>
+      </Container>
     )
   }
 
   render() {
     return (
-      <div style={{ height: '100%' }}>
-        <Switch>
-          <Route
-            path="/app/tabs/policies"
-            exact
-            render={() => {
-              const numPolicies = _.values(this.props.policies).length
-              return numPolicies
-                ? this.renderPolicies()
-                : this.renderNoPolicies()
-            }}
-          />
-          <Route
-            path="/app/tabs/policies/addPolicy"
-            component={AddPolicyScreen}
-          />
-          <Route
-            path="/app/tabs/policies/:policyId"
-            component={PolicyDetailsScreen}
-            exact
-          />
-          <Route
-            path="/app/tabs/policies/:policyId/documents"
-            component={PolicyDocumentsScreen}
-          />
-        </Switch>
-      </div>
+      <Switch>
+        <Route
+          path="/app/tabs/policies"
+          exact
+          render={() => {
+            const numPolicies = _.values(this.props.policies).length
+            return numPolicies ? this.renderPolicies() : this.renderNoPolicies()
+          }}
+        />
+        <Route
+          path="/app/tabs/policies/addPolicy"
+          component={AddPolicyScreen}
+        />
+        <Route
+          path="/app/tabs/policies/:policyId"
+          component={PolicyDetailsScreen}
+          exact
+        />
+        <Route
+          path="/app/tabs/policies/:policyId/documents"
+          component={PolicyDocumentsScreen}
+        />
+      </Switch>
     )
   }
 }

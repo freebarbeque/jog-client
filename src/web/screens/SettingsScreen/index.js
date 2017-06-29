@@ -2,27 +2,36 @@ import React, { Component } from 'react'
 import styled from 'styled-components'
 
 import Collapsible from '../../components/Collapsible'
-import { MARGIN } from '../../../common/constants/style'
-import { WHITE } from '../../../common/constants/palette'
+import { CREAM } from '../../../common/constants/palette'
 import AboutUs from './AboutUs'
 import TermsAndConditions from './TermsAndConditions'
 import CookiesPolicy from './CookiesPolicy'
 import PrivacyPolicy from './PrivacyPolicy'
 import Profile from './Profile'
+import Container from '../../components/Container'
+import { MARGIN } from '../../../common/constants/style'
+import { max } from '../../media'
 
 // language=SCSS prefix=dummy{ suffix=}
-const Container = styled.div`
-  padding: ${MARGIN.base}px;
-  background-color: ${WHITE};
+const SettingsScreenContainer = styled(Container)`
+  background-color: ${CREAM};
   height: 100%;
   overflow-x: hidden;
   overflow-y: scroll;
+  margin-top: ${MARGIN.extraLarge}px;
+
+  ${max.smallTablet`
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    margin-top: 0;
+  `}
 `
 
 export default class SettingsScreen extends Component {
   render() {
     return (
-      <Container className="settings-tab-container">
+      <SettingsScreenContainer className="SettingsScreen">
         <Profile />
         <Collapsible trigger="About Us">
           <AboutUs />
@@ -36,7 +45,7 @@ export default class SettingsScreen extends Component {
         <Collapsible trigger="Privacy policy">
           <PrivacyPolicy />
         </Collapsible>
-      </Container>
+      </SettingsScreenContainer>
     )
   }
 }

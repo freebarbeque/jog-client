@@ -17,6 +17,16 @@ type BackgroundHeaderProps = {
 }
 
 // language=SCSS prefix=dummy{ suffix=}
+const Wrapper = styled.div`
+  position: relative;
+  cursor: pointer;
+  
+  &:hover {
+    opacity: 0.7;
+  }
+`
+
+// language=SCSS prefix=dummy{ suffix=}
 const BackgroundImageOverlay = styled.div`
   width: 100%;
   height: 100px;
@@ -81,7 +91,7 @@ class BackgroundHeader extends Component {
 
   renderContent() {
     return (
-      <div className="BackgroundHeader">
+      <Wrapper>
         <BackgroundImage className="BackgroundHeader__BackgroundImage" />
         <BackgroundImageOverlay />
         <Content className="BackgroundHeader__Content">
@@ -104,7 +114,7 @@ class BackgroundHeader extends Component {
               {this.props.subheaderText}
             </div>}
         </Content>
-      </div>
+      </Wrapper>
     )
   }
 

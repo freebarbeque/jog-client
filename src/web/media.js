@@ -1,7 +1,7 @@
 import { css } from 'styled-components'
 
 // https://material.io/guidelines/layout/responsive-ui.html#responsive-ui-breakpoints
-const breakpoints = {
+export const breakpoints = {
   smallHandset: 0,
   mediumHandset: 360,
   largeHandset: 400,
@@ -73,6 +73,10 @@ export const max = {
   hugeDesktop: (...args) => buildMaxmedia(breakpoints.hugeDesktop, args),
 }
 
+export function isHandset(width: number) {
+  return width <= breakpoints.extraLargeHandset
+}
+
 export function isLargeTabletOrGreater(width: number) {
-  return width >= breakpoints.largeTablet
+  return width > breakpoints.largeTablet
 }
