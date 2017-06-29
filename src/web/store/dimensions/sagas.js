@@ -1,5 +1,4 @@
 import { call, put, take, fork, cancelled, cancel } from 'redux-saga/effects'
-import _ from 'lodash'
 
 import { eventChannel } from 'redux-saga'
 import $ from 'jquery'
@@ -9,21 +8,16 @@ import { updateDimensions } from './actions'
 
 function createDimensionsChannel() {
   return eventChannel(emit => {
-    const listener = _.debounce(() => {
-      const $window = $(window)
-
-      const dimensions = {
-        width: $window.width(),
-        height: $window.height(),
-      }
-
-      emit(dimensions)
-    }, 50)
-
-    listener()
+    let resizeTimer
 
     $(document).ready(() => {
-      $(window).resize(listener)
+      $(window).on('resize', () => {
+        clearTimeout(resizeTimer)
+        resizeTimer = setTimeout(() => {
+          emit({ width: $(window).width(), height: $(window).height() })
+          // Run code here, resizing has "stopped"
+        }, 100)
+      })
     })
 
     return () => {

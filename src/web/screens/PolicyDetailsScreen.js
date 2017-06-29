@@ -25,6 +25,14 @@ import { min } from '../media'
 import Container from '../components/Container'
 
 // language=SCSS prefix=dummy{ suffix=}
+const PolicyDetailsPanel = styled(Panel)`
+  ${min.smallTablet`
+    padding-left: 0;
+    padding-right: 0;
+  `}
+`
+
+// language=SCSS prefix=dummy{ suffix=}
 const FieldContainer = styled.div`
   margin-left: ${MARGIN.base}px;
   margin-right: ${MARGIN.base}px;
@@ -232,7 +240,7 @@ class PolicyDetailsScreen extends Component {
               <Header>
                 Overview
               </Header>}
-            <Panel
+            <PolicyDetailsPanel
               className="Panel"
               style={{
                 position: 'relative',
@@ -267,7 +275,7 @@ class PolicyDetailsScreen extends Component {
                   {expiryDate.diff(moment(), 'days')}
                 </DaysRemainingValue>
               </DaysRemainingContainer>
-            </Panel>
+            </PolicyDetailsPanel>
             <div>
               <Header>
                 Policy
