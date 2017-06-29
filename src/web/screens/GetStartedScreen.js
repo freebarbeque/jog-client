@@ -30,7 +30,7 @@ const BackgroundImage = styled.div`
 // language=SCSS prefix=dummy{ suffix=}
 const BackgroundImageOverlay = styled.div`
   width: 100%;
-  height: calc(100% - 60px)%;
+  height: 100%;
   background-color: rgba(0,0,0,0.25);
   position: absolute;
   top: 0;
