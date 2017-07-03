@@ -27,6 +27,7 @@ import {
   uploadPolicyDocuments,
 } from '../../common/store/policies/actions'
 import Container from '../components/Container'
+import ScrollToTopOnMount from '../components/ScrollToTopOnMount'
 
 type PolicyDocumentsScreenProps = {
   // eslint-disable-next-line react/no-unused-prop-types
@@ -123,6 +124,7 @@ class PolicyDocumentsScreen extends Component {
 
     return (
       <Container style={{ marginTop: MARGIN.large }}>
+        <ScrollToTopOnMount />
         {!_.isEmpty(documents)
           ? <Panel>
               <Header>Scanned documents</Header>

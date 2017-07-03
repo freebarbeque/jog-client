@@ -22,6 +22,7 @@ import Panel from '../components/Panel'
 import * as selectors from '../store/selectors'
 import { min } from '../media'
 import Container from '../components/Container'
+import ScrollToTopOnMount from '../components/ScrollToTopOnMount'
 
 // language=SCSS prefix=dummy{ suffix=}
 const PolicyDetailsPanel = styled(Panel)`
@@ -217,6 +218,7 @@ class PolicyDetailsScreen extends Component {
         }}
       >
         <Container>
+          <ScrollToTopOnMount />
           <div
             style={{
               backgroundColor: isHandset ? CREAM : WHITE,

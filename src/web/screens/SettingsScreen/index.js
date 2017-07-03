@@ -11,6 +11,7 @@ import Profile from './Profile'
 import Container from '../../components/Container'
 import { MARGIN } from '../../../common/constants/style'
 import { max } from '../../media'
+import ScrollToTopOnMount from '../../components/ScrollToTopOnMount'
 
 // language=SCSS prefix=dummy{ suffix=}
 const SettingsScreenContainer = styled(Container)`
@@ -32,6 +33,7 @@ export default class SettingsScreen extends Component {
   render() {
     return (
       <SettingsScreenContainer className="SettingsScreen">
+        <ScrollToTopOnMount />
         <Profile />
         <Collapsible trigger="About Us">
           <AboutUs />

@@ -20,6 +20,7 @@ import GetStartedScreen from '../GetStartedScreen'
 import Container from '../../components/Container'
 import { max } from '../../media'
 import PolicyScreen from '../PolicyScreen'
+import ScrollToTopOnMount from '../../components/ScrollToTopOnMount'
 
 type PoliciesTabProps = {
   policies: MotorPolicyMap,
@@ -69,6 +70,7 @@ class PoliciesTab extends Component {
 
     return (
       <Container>
+        <ScrollToTopOnMount />
         <PoliciesList className="PoliciesList">
           {_.values(policies).map((p, idx) =>
             <MotorPolicyCard
