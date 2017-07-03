@@ -77,9 +77,7 @@ class EmailVerificationScreen extends Component {
         >
           <View>
             <View style={{ justifyContent: 'center', alignItems: 'center' }}>
-              <Text style={styles.title}>
-                Email Verification
-              </Text>
+              <Text style={styles.title}>Email Verification</Text>
             </View>
             <View style={{ justifyContent: 'center', alignItems: 'center' }}>
               <Text style={styles.description}>

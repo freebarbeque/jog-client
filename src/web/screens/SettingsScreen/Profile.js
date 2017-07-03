@@ -38,26 +38,26 @@ const Header = styled.div`
   padding-left: ${MARGIN.base}px;
   padding-bottom: ${MARGIN.base}px;
   overflow: hidden;
-  border-bottom-color: rgb(234,234,234);
+  border-bottom-color: rgb(234, 234, 234);
   border-bottom-width: 1px;
   border-bottom-style: solid;
 `
 
 // language=SCSS prefix=dummy{ suffix=}
-const FieldContainer = styled.div` 
+const FieldContainer = styled.div`
   min-height: 30px;
   padding-top: ${MARGIN.base}px;
   padding-bottom: ${MARGIN.base}px;
   justify-content: center;
   border-bottom-width: 1px;
-  border-bottom-color: rgb(205,205,205);
+  border-bottom-color: rgb(205, 205, 205);
   padding-left: ${MARGIN.large}px;
   padding-right: ${MARGIN.large}px;
 `
 
 // language=SCSS prefix=dummy{ suffix=}
 const FieldTitle = styled.div`
-  color: rgb(164,169,174);
+  color: rgb(164, 169, 174);
   font-size: 11px;
   font-weight: 600;
 `
@@ -69,9 +69,7 @@ const FieldValue = styled.div`
 `
 
 // language=SCSS prefix=dummy{ suffix=}
-const Content = styled.div`
-  background-color: ${VERY_LIGHT_GRAY};
-`
+const Content = styled.div`background-color: ${VERY_LIGHT_GRAY};`
 
 // language=SCSS prefix=dummy{ suffix=}
 const ProfilePhoto = styled.img`
@@ -173,9 +171,7 @@ class Profile extends Component {
               >
                 TO MAKE PROFILE CHANGES EMAIL:
               </div>
-              <div style={{ fontSize: 14 }}>
-                support@jog.insure
-              </div>
+              <div style={{ fontSize: 14 }}>support@jog.insure</div>
             </BigRedFullWidthButton>
           </Content>
         </Container>

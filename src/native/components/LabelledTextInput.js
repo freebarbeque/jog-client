@@ -78,8 +78,7 @@ class LabelledTextInput extends Component {
           {error &&
             <View>
               <Text style={styles.errorText}>
-                {error}
-                {' '}
+                {error}{' '}
                 <Icon
                   name="exclamation-triangle"
                   size={11}

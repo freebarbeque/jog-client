@@ -100,9 +100,7 @@ class PolicyDetailsScreen extends Component {
           style={{ marginTop: MARGIN.base }}
           onPress={this.handleDocumentUploadPress}
         >
-          <Text>
-            Please upload your policy documentation for a profile
-          </Text>
+          <Text>Please upload your policy documentation for a profile</Text>
         </BigRedFullWidthButton>
       )
     }
@@ -141,9 +139,7 @@ class PolicyDetailsScreen extends Component {
           </Field>
 
           <View style={styles.daysRemainingContainer}>
-            <Text style={styles.daysRemainingTitle}>
-              DAYS REMAINING
-            </Text>
+            <Text style={styles.daysRemainingTitle}>DAYS REMAINING</Text>
             <Text style={styles.daysRemainingValue}>
               {expiryDate ? expiryDate.diff(moment(), 'days') : ''}
             </Text>
@@ -155,9 +151,7 @@ class PolicyDetailsScreen extends Component {
         </Panel>
         <View>
           <View style={styles.policyHeader}>
-            <Text style={styles.policyHeaderText}>
-              Policy
-            </Text>
+            <Text style={styles.policyHeaderText}>Policy</Text>
           </View>
           <Row title="level of cover">
             {policy.levelOfCover ? LEVEL_OF_COVER[policy.levelOfCover] : '-'}

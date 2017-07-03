@@ -145,18 +145,14 @@ class PolicyDocumentsScreen extends Component {
             style={styles.camera}
             onPress={this.handleUseCameraPress}
           >
-            <Text style={styles.cameraText}>
-              Use your camera
-            </Text>
+            <Text style={styles.cameraText}>Use your camera</Text>
           </TouchableOpacity>
           <TouchableOpacity
             style={styles.browseFilesButton}
             onPress={this.handleBrowseFilesPress}
           >
             <View>
-              <Text style={styles.browseFilesButtonText}>
-                Browse Files
-              </Text>
+              <Text style={styles.browseFilesButtonText}>Browse Files</Text>
             </View>
           </TouchableOpacity>
         </Panel>

@@ -39,9 +39,7 @@ class ConfirmPasswordResetScreen extends Component {
         >
           <View>
             <View style={{ justifyContent: 'center', alignItems: 'center' }}>
-              <Text style={styles.title}>
-                Password Reset
-              </Text>
+              <Text style={styles.title}>Password Reset</Text>
             </View>
             <View style={{ justifyContent: 'center', alignItems: 'center' }}>
               <Text style={styles.description}>
@@ -56,7 +54,6 @@ class ConfirmPasswordResetScreen extends Component {
             onPress={this.goBack}
           />
         </View>
-
       </View>
     )
   }

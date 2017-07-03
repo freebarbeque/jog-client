@@ -110,9 +110,7 @@ class LoginScreen extends Component {
         >
           <View>
             <View style={{ justifyContent: 'center', alignItems: 'center' }}>
-              <Text style={styles.title}>
-                Sign in
-              </Text>
+              <Text style={styles.title}>Sign in</Text>
             </View>
             <Form
               fields={LoginScreen.formFields}

@@ -69,9 +69,7 @@ class PolicyDocumentScreen extends Component {
             dispatch(deletePolicyDocument(policyId, documentId))
           }}
         >
-          <Text style={{ fontWeight: '500' }}>
-            DELETE
-          </Text>
+          <Text style={{ fontWeight: '500' }}>DELETE</Text>
         </TouchableOpacity>
       ),
       headerStyle: { backgroundColor: BLUE },

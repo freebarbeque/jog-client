@@ -28,10 +28,10 @@ const Thumbnail = styled.div`
   height: 97px;
   width: 77px;
   border-radius: 4px;
-  box-shadow: 0 0 3px 2px rgba(121,126,154,0.4);
+  box-shadow: 0 0 3px 2px rgba(121, 126, 154, 0.4);
   display: flex;
   margin-bottom: ${MARGIN.base}px;
-  background-color: rgb(246,246,246);
+  background-color: rgb(246, 246, 246);
   justify-content: center;
   align-items: center;
 `

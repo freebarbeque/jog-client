@@ -66,13 +66,11 @@ class EmailVerificationScreen extends Component {
     return (
       <FlexCenteredContainer style={{ paddingBottom: NAVIGATION_BAR_HEIGHT }}>
         <div>
-          <Title>
-            Email Verification
-          </Title>
+          <Title>Email Verification</Title>
 
           <Description>
-            We just sent you a verification email. Click the link to
-            activate your account
+            We just sent you a verification email. Click the link to activate
+            your account
           </Description>
           <RoundedButton
             style={{

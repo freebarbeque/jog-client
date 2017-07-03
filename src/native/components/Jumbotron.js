@@ -12,22 +12,12 @@ export default class Jumbotron extends Component {
   render() {
     return (
       <View style={styles.jumbotron}>
-        <Text style={styles.headerText}>
-          your
-        </Text>
-        <Text style={styles.headerText}>
-          insurance
-        </Text>
-        <Text style={styles.headerText}>
-          memory
-        </Text>
+        <Text style={styles.headerText}>your</Text>
+        <Text style={styles.headerText}>insurance</Text>
+        <Text style={styles.headerText}>memory</Text>
         <View style={styles.divider} />
-        <Text style={styles.listText}>
-          store your policies
-        </Text>
-        <Text style={styles.listText}>
-          minimise your premiums
-        </Text>
+        <Text style={styles.listText}>store your policies</Text>
+        <Text style={styles.listText}>minimise your premiums</Text>
       </View>
     )
   }

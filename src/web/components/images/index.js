@@ -247,3 +247,18 @@ export const Upload = props => {
 }
 
 Upload.propTypes = { scale: PropTypes.number }
+
+export const Arrow = props => {
+  return (
+    <Image
+      src={require('./arrow.svg')}
+      height={16.971}
+      width={20.152}
+      alt="left facing arrow"
+      className="arrow-img"
+      {...props}
+    />
+  )
+}
+
+Arrow.propTypes = { scale: PropTypes.number }

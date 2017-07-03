@@ -22,7 +22,7 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   flex: 1;
-  
+
   .fade-enter {
     opacity: 0;
     z-index: 1;
@@ -32,20 +32,22 @@ const Container = styled.div`
     opacity: 1;
     transition: opacity 250ms ease-in;
   }
-  
+
   a {
     color: white;
     text-decoration: none;
-  
+
     &:hover {
       text-decoration: underline;
     }
-  
-    &:hover, &:visited, &:active {
+
+    &:hover,
+    &:visited,
+    &:active {
       color: white;
     }
   }
-  
+
   p {
     color: white;
   }

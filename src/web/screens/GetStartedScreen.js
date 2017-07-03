@@ -31,7 +31,7 @@ const BackgroundImage = styled.div`
 const BackgroundImageOverlay = styled.div`
   width: 100%;
   height: 100%;
-  background-color: rgba(0,0,0,0.25);
+  background-color: rgba(0, 0, 0, 0.25);
   position: absolute;
   top: 0;
   left: 0;
@@ -50,11 +50,11 @@ const Button = styled.button`
   border: 0;
   font-size: 14px;
   cursor: pointer;
-  
+
   &:focus {
     outline: 0;
   }
-  
+
   &:hover {
     opacity: 0.7;
   }
@@ -80,15 +80,13 @@ const HeaderContainer = styled.div`
   display: flex;
   flex-direction: column;
   position: relative;
-  
+
   ${max.smallTablet`
     flex: 1;
-  `}
-  
-  ${min.smallTablet`
+  `} ${min.smallTablet`
     margin-top: ${MARGIN.xxl}px;
     height: 400px;
-  `}
+  `};
 `
 
 // language=SCSS prefix=dummy{ suffix=}
@@ -96,10 +94,10 @@ const Grid = styled.div`
   display: flex;
   flex-direction: row;
   margin: ${MARGIN.extraLarge}px;
-  
+
   ${max.smallTablet`
     display: none;
-  `}
+  `};
 `
 
 // language=SCSS prefix=dummy{ suffix=}
@@ -111,26 +109,26 @@ const GridItem = styled.div`
   align-items: center;
   margin-left: ${MARGIN.base}px;
   margin-right: ${MARGIN.base}px;
-  
-  >* {
+
+  > * {
     margin-top: 2.5px !important;
     margin-bottom: 2.5px !important;
     text-align: center;
   }
-  
+
   h1 {
     font-weight: 500 !important;
     font-size: 20px !important;
     text-transform: lowercase;
     color: ${BLUE} !important;
   }
-  
+
   h2 {
     color: ${PINK} !important;
     text-transform: uppercase;
     font-size: 10px !important;
   }
-  
+
   p {
     font-size: 14px !important;
     color: ${BLUE} !important;
@@ -170,45 +168,28 @@ class GetStartedScreen extends Component {
           <GridItem>
             <GridItemHeader>
               <Upload />
-              <h2>
-                get started
-              </h2>
+              <h2>get started</h2>
             </GridItemHeader>
-            <h1>
-              easy upload your policies
-            </h1>
-            <p>
-              secure your details to
-              our online lockbox
-            </p>
+            <h1>easy upload your policies</h1>
+            <p>secure your details to our online lockbox</p>
           </GridItem>
           <GridItem>
             <GridItemHeader>
               <Details />
-              <h2>
-                always available
-              </h2>
+              <h2>always available</h2>
             </GridItemHeader>
-            <h1>
-              your details always at hand
-            </h1>
-            <p>
-              A touch away when and where you need them
-            </p>
+            <h1>your details always at hand</h1>
+            <p>A touch away when and where you need them</p>
           </GridItem>
           <GridItem>
             <GridItemHeader>
               <PolicyBots />
-              <h2>
-                always searching
-              </h2>
+              <h2>always searching</h2>
             </GridItemHeader>
-            <h1>
-              coming soon
-            </h1>
+            <h1>coming soon</h1>
             <p>
-              Our policy bots will be hard at work checking your
-              cover optimisation every day
+              Our policy bots will be hard at work checking your cover
+              optimisation every day
             </p>
           </GridItem>
         </Grid>

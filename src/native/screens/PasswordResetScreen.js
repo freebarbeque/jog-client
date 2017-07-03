@@ -80,9 +80,7 @@ class PasswordResetScreen extends Component {
         >
           <View>
             <View style={{ justifyContent: 'center', alignItems: 'center' }}>
-              <Text style={styles.title}>
-                Password Reset
-              </Text>
+              <Text style={styles.title}>Password Reset</Text>
             </View>
             <Form
               fields={PasswordResetScreen.formFields}

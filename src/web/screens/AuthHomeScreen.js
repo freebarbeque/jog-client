@@ -13,11 +13,13 @@ const Menu = styled.ul`
     font-weight: 700;
     font-size: 16px;
 
-    &:visited, &:hover, &:active {
+    &:visited,
+    &:hover,
+    &:active {
       color: ${DARK_GRAY};
     }
   }
-  
+
   list-style: none;
   padding-left: 0;
 `
@@ -30,14 +32,10 @@ class AuthHomeScreen extends Component {
           <Jumbotron />
           <Menu>
             <li>
-              <Link to="/auth/login">
-                LOGIN
-              </Link>
+              <Link to="/auth/login">LOGIN</Link>
             </li>
             <li>
-              <Link to="/auth/register">
-                REGISTER
-              </Link>
+              <Link to="/auth/register">REGISTER</Link>
             </li>
           </Menu>
         </div>

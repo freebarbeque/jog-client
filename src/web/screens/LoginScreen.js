@@ -76,9 +76,7 @@ class LoginScreen extends Component {
         style={{ paddingBottom: NAVIGATION_BAR_HEIGHT }}
       >
         <div className="LoginScreen__Inner">
-          <Title>
-            Sign In
-          </Title>
+          <Title>Sign In</Title>
           <Form
             fields={LoginScreen.formFields}
             buttonLabel="Sign in"

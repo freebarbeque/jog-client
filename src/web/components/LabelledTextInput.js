@@ -7,9 +7,7 @@ import { PINK } from '../../common/constants/palette'
 import Input from './Input'
 
 // language=SCSS prefix=dummy{ suffix=}
-const Container = styled.div`
-  margin-bottom: ${MARGIN.large}px;
-`
+const Container = styled.div`margin-bottom: ${MARGIN.large}px;`
 
 // language=SCSS prefix=dummy{ suffix=}
 const Label = styled.div`

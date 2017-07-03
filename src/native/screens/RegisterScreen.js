@@ -101,9 +101,7 @@ class RegisterScreen extends Component {
                 alignItems: 'center',
               }}
             >
-              <Text style={styles.title}>
-                Register
-              </Text>
+              <Text style={styles.title}>Register</Text>
             </View>
             <Form
               fields={RegisterScreen.formFields}

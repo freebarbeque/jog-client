@@ -35,12 +35,9 @@ class ConfirmPasswordResetScreen extends Component {
   render() {
     return (
       <HorizontalFlexCenteredContainer>
-        <Title>
-          Password Reset
-        </Title>
+        <Title>Password Reset</Title>
         <Description>
-          We just sent you an email through which you can reset your
-          password.
+          We just sent you an email through which you can reset your password.
         </Description>
         <RoundedButton
           style={{

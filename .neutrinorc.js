@@ -41,7 +41,7 @@ module.exports = {
       /* preset options */
 
       // Example: disable Hot Module Replacement
-      hot: true,
+      hot: false,
 
       // Example: change the page title
       html: {

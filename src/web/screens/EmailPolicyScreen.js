@@ -21,7 +21,7 @@ const Container = styled.div`
   background-color: ${BLUE};
   flex: 1;
   padding: ${MARGIN.large}px;
-  
+
   p {
     font-weight: 300;
   }
@@ -76,9 +76,7 @@ class EmailPolicyScreen extends Component {
             ) please send an email to the address below, attaching all relevant
             policy documents
           </p>
-          <EmailText href={mailto}>
-            policies@jog.insure
-          </EmailText>
+          <EmailText href={mailto}>policies@jog.insure</EmailText>
           <p>
             {
               "We'll let you know by email once your policy has been added to your account"

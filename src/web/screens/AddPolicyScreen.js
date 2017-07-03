@@ -20,12 +20,12 @@ type AddPolicyScreenProps = {
 const Card = styled.div`
   background-color: ${WHITE};
   border-radius: 4px;
-  box-shadow: 0 0 3px 2px rgba(121,126,154,0.4);
-  
+  box-shadow: 0 0 3px 2px rgba(121, 126, 154, 0.4);
+
   ${max.smallTablet`
     margin-left: ${MARGIN.large}px;
     margin-right: ${MARGIN.large}px;
-  `}
+  `};
 `
 // language=SCSS prefix=dummy{ suffix=}
 const CardButton = styled.button`
@@ -34,12 +34,12 @@ const CardButton = styled.button`
   border-bottom-color: ${CREAM};
   border-bottom-width: 1px;
   border-bottom-style: solid;
-  
+
   display: flex;
   flex-direction: row;
   flex: 1;
   align-items: center;
-  
+
   width: 100%;
   height: 65px;
   color: ${BLUE};
@@ -50,11 +50,11 @@ const CardButton = styled.button`
   border-left: none;
   border-top: none;
   cursor: pointer;
-  
+
   &:focus {
     outline: 0;
   }
-  
+
   &:hover {
     opacity: 0.7;
   }
@@ -75,6 +75,7 @@ class AddPolicyScreen extends Component {
         <BackgroundHeader
           headerText="Motor Policy"
           subheaderText="Let's get started"
+          backText="Back to Policies"
           style={{
             position: 'absolute',
             top: 0,
@@ -88,28 +89,20 @@ class AddPolicyScreen extends Component {
               onClick={() => this.props.dispatch(push('/app/emailPolicy'))}
             >
               <div style={{ flex: 1 }}>
-                <RecommendedText>
-                  Recommended
-                </RecommendedText>
-                <span>
-                  Email the policy
-                </span>
+                <RecommendedText>Recommended</RecommendedText>
+                <span>Email the policy</span>
               </div>
               <Letter />
             </CardButton>
             <CardButton>
-              <span style={{ flex: 1 }}>
-                Upload / Photograph your policy
-              </span>
+              <span style={{ flex: 1 }}>Upload / Photograph your policy</span>
               <Camera />
             </CardButton>
             <CardButton
               style={{ borderBottomWidth: 0 }}
               onClick={() => this.props.dispatch(push('/app/addManualPolicy'))}
             >
-              <span style={{ flex: 1 }}>
-                Manual entry
-              </span>
+              <span style={{ flex: 1 }}>Manual entry</span>
               <Cursor />
             </CardButton>
           </Card>

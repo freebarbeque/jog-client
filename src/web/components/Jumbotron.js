@@ -14,14 +14,12 @@ const Divider = styled.div`
 
 // language=SCSS prefix=dummy{ suffix=}
 const TopHeadline = styled.p`
-    font-size: 36px;
-    font-weight: 600;
+  font-size: 36px;
+  font-weight: 600;
 `
 
 // language=SCSS prefix=dummy{ suffix=}
-const BottomHeadline = styled.p`
-    font-size: 16px;
-`
+const BottomHeadline = styled.p`font-size: 16px;`
 
 export default class Jumbotron extends Component {
   render() {

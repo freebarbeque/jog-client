@@ -26,9 +26,7 @@ export default class GetStartedScreen extends Component {
           onPress={this.props.onGetStartedPress}
         >
           <View>
-            <Text>
-              Add your motor policy to get started
-            </Text>
+            <Text>Add your motor policy to get started</Text>
           </View>
         </TouchableOpacity>
       </View>

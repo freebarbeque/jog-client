@@ -35,7 +35,9 @@ const RoundedButton = ({ label, style = {}, loading, ...props }) =>
   <View style={[styles.container, style]}>
     <TouchableOpacity style={[styles.touchable]} disabled={loading} {...props}>
       <View style={{ flexDirection: 'row' }}>
-        <Text>{label}</Text>
+        <Text>
+          {label}
+        </Text>
         {loading &&
           <ActivityIndicator
             animating

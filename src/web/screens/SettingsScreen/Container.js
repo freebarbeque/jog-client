@@ -7,8 +7,14 @@ export default styled.div`
   padding-left: ${MARGIN.large}px;
   padding-right: ${MARGIN.large}px;
   padding-bottom: ${MARGIN.large}px;
-  
-  p, h1, h2, a, span, ol, ul {
+
+  p,
+  h1,
+  h2,
+  a,
+  span,
+  ol,
+  ul {
     color: ${BLUE} !important;
   }
 `

@@ -18,9 +18,9 @@ const Container = styled.div`
   flex: 1;
   display: flex;
   flex-direction: column;
-  
+
   .react-swipeable-view-container {
-    height: 100%; 
+    height: 100%;
   }
 `
 

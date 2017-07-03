@@ -29,12 +29,10 @@ type AddPolicyScreenContainerState = {
 
 export const NavigationButton = (props: $Subtype<Object>) => {
   const { variation, disabled, title, ...rest } = props
-  const extraStyle = variation === 'pink'
-    ? styles.pinkButton
-    : styles.grayButton
-  const extraTextStyle = variation === 'pink'
-    ? styles.pinkButtonText
-    : styles.grayButtonText
+  const extraStyle =
+    variation === 'pink' ? styles.pinkButton : styles.grayButton
+  const extraTextStyle =
+    variation === 'pink' ? styles.pinkButtonText : styles.grayButtonText
 
   // The button is wrapped in a container because there is a strange bug where opacity is ignored
   // after the initial render of TouchableOpacity
@@ -129,9 +127,7 @@ export default class AddPolicyScreenContainer extends Component {
             marginBottom: MARGIN.base,
           }}
         >
-          <Text style={styles.entryText}>
-            POLICY ENTRY
-          </Text>
+          <Text style={styles.entryText}>POLICY ENTRY</Text>
           <Text style={styles.title}>
             {this.props.title}
           </Text>

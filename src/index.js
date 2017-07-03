@@ -6,7 +6,6 @@ import injectTapEventPlugin from 'react-tap-event-plugin'
 import getMuiTheme from 'material-ui/styles/getMuiTheme'
 import { Provider } from 'react-redux'
 import { routerMiddleware } from 'react-router-redux'
-import { AppContainer } from 'react-hot-loader'
 
 import createStore from './common/store/index'
 import reducer from './web/store/reducer'
@@ -60,9 +59,7 @@ const render = Component => {
   ReactDOM.render(
     <MuiThemeProvider muiTheme={theme}>
       <Provider store={store}>
-        <AppContainer>
-          <Component />
-        </AppContainer>
+        <Component />
       </Provider>
     </MuiThemeProvider>,
     document.getElementById('root'),
@@ -74,11 +71,5 @@ const render = Component => {
 injectTapEventPlugin()
 
 render(App)
-
-if (module.hot) {
-  module.hot.accept('./web/App', () => {
-    render(App)
-  })
-}
 
 registerServiceWorker()

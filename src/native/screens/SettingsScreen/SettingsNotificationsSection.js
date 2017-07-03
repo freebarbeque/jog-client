@@ -46,9 +46,7 @@ class SettingsNotificationsSection extends Component {
             alignItems: 'center',
           }}
         >
-          <Text style={{ color: BLUE }}>
-            Enable Notifications
-          </Text>
+          <Text style={{ color: BLUE }}>Enable Notifications</Text>
           <View style={{ flex: 1 }} />
           <Switch
             value={userDetails.enableNotifications}

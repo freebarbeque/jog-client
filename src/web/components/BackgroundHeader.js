@@ -5,8 +5,9 @@ import styled from 'styled-components'
 import { connect } from 'react-redux'
 import { goBack } from 'react-router-redux'
 import { MARGIN } from '../../common/constants/style'
-import { Chevron } from './images/index'
+import { Arrow, Chevron } from './images/index'
 import type { Dispatch } from '../../common/types'
+import { max, min } from '../media'
 
 type BackgroundHeaderProps = {
   headerText: string,
@@ -14,13 +15,23 @@ type BackgroundHeaderProps = {
   onPress?: () => void,
   dispatch: Dispatch,
   enableBackPress?: boolean,
+  backText?: string,
 }
 
+const desktopHeight = '182.293px'
+const mobileHeight = '100px'
+
 // language=SCSS prefix=dummy{ suffix=}
-const Wrapper = styled.div`
+const Wrapper = styled.div.attrs({
+  className: 'BackgroundHeader__Wrapper',
+})`
   position: relative;
   cursor: pointer;
-  
+  height: ${mobileHeight};
+  ${min.smallTablet`
+    height: ${desktopHeight} !important;
+  `}
+
   &:hover {
     opacity: 0.7;
   }
@@ -29,42 +40,63 @@ const Wrapper = styled.div`
 // language=SCSS prefix=dummy{ suffix=}
 const BackgroundImageOverlay = styled.div`
   width: 100%;
-  height: 100px;
-  background-color: rgba(0,0,0,0.25);
+  background-color: rgba(0, 0, 0, 0.25);
   position: absolute;
   top: 0;
   left: 0;
+
+  height: ${mobileHeight};
+  ${min.smallTablet`
+    height: ${desktopHeight} !important;
+  `};
 `
 
 // language=SCSS prefix=dummy{ suffix=}
-const BackgroundImage = styled.div`
-  height: 100px;
+const BackgroundImage = styled.div.attrs({
+  className: 'BackgroundHeader__BackgroundImage',
+})`
   width: 100%;
-  justify-content: center;  
+  justify-content: center;
   background: url(/static/background2.png);
   background-size: cover;
+
+  height: ${mobileHeight};
+  ${min.smallTablet`
+    height: ${desktopHeight} !important;
+  `}
 `
 
 // language=SCSS prefix=dummy{ suffix=}
 const Button = styled.div`
-  height: 100px;
   width: 100%;
+  height: ${mobileHeight};
+  ${min.smallTablet`
+    height: ${desktopHeight} !important;
+  `};
 `
 
 // language=SCSS prefix=dummy{ suffix=}
 const Header = styled.div`
   font-size: 20px;
+
+  ${min.smallTablet`
+    font-size: 48px;
+  `};
 `
 
 // language=SCSS prefix=dummy{ suffix=}
-const Content = styled.div`
+const Content = styled.div.attrs({ className: 'BackgroundHeader__Content' })`
   position: absolute;
   top: 0;
   left: 0;
   display: flex;
   align-items: center;
-  height: 100px;
   width: 100%;
+
+  height: ${mobileHeight};
+  ${min.smallTablet`
+    height: ${desktopHeight} !important;
+  `}
 `
 
 // language=SCSS prefix=dummy{ suffix=}
@@ -76,6 +108,21 @@ const RotatedChevron = styled(Chevron)`
   * {
     stroke: white;
   }
+  
+  ${min.smallTablet`
+    display: none;
+  `}
+`
+
+// language=SCSS prefix=dummy{ suffix=}
+const BackArrow = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  ${max.smallTablet`
+    display: none;
+  `};
 `
 
 class BackgroundHeader extends Component {
@@ -89,12 +136,12 @@ class BackgroundHeader extends Component {
     this.props.dispatch(goBack())
   }
 
-  renderContent() {
+  renderInner() {
     return (
       <Wrapper>
-        <BackgroundImage className="BackgroundHeader__BackgroundImage" />
+        <BackgroundImage />
         <BackgroundImageOverlay />
-        <Content className="BackgroundHeader__Content">
+        <Content>
           <div
             style={{
               display: 'flex',
@@ -106,6 +153,12 @@ class BackgroundHeader extends Component {
             {this.props.enableBackPress &&
               <RotatedChevron color="white" scale={1.2} />}
             <div style={{ display: 'flex', flexDirection: 'column' }}>
+              <BackArrow>
+                <Arrow style={{ marginRight: MARGIN.base }} />
+                <div style={{ color: 'white', fontSize: 20 }}>
+                  {this.props.backText}
+                </div>
+              </BackArrow>
               <Header>
                 {this.props.headerText}
               </Header>
@@ -115,7 +168,6 @@ class BackgroundHeader extends Component {
                 </div>}
             </div>
           </div>
-
         </Content>
       </Wrapper>
     )
@@ -124,14 +176,17 @@ class BackgroundHeader extends Component {
   render() {
     if (this.props.enableBackPress) {
       return (
-        <Button onClick={this.props.onPress || this.defaultBack}>
-          {this.renderContent()}
+        <Button
+          className="BackgroundHeader"
+          onClick={this.props.onPress || this.defaultBack}
+        >
+          {this.renderInner()}
         </Button>
       )
     }
     return (
-      <div>
-        {this.renderContent()}
+      <div className="BackgroundHeader">
+        {this.renderInner()}
       </div>
     )
   }

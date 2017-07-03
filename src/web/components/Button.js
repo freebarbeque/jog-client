@@ -8,7 +8,7 @@ const Button = styled.button`
   align-items: center;
   justify-content: center;
   display: flex;
-  
+
   &:hover {
     opacity: 0.7;
   }

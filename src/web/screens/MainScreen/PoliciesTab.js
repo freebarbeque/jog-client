@@ -17,10 +17,9 @@ import { MARGIN } from '../../../common/constants/style'
 import AddMotorPolicyCard from './AddMotorPolicyCard'
 import AddPolicyScreen from '../AddPolicyScreen'
 import GetStartedScreen from '../GetStartedScreen'
-import PolicyDetailsScreen from '../PolicyDetailsScreen'
-import PolicyDocumentsScreen from '../PolicyDocumentsScreen'
 import Container from '../../components/Container'
 import { max } from '../../media'
+import PolicyScreen from '../PolicyScreen'
 
 type PoliciesTabProps = {
   policies: MotorPolicyMap,
@@ -34,17 +33,18 @@ const PoliciesList = styled.div`
   flex-wrap: wrap;
   justify-content: center;
   margin-top: ${MARGIN.large}px;
-  
+
   .PolicyCard {
     margin-left: ${MARGIN.base}px;
     margin-right: ${MARGIN.base}px;
+    width: 310px;
   }
-  
+
   ${max.largeHandset`
     .PolicyCard {
       width: 100%;
     }
-  `}
+  `};
 `
 
 class PoliciesTab extends Component {
@@ -99,15 +99,7 @@ class PoliciesTab extends Component {
           path="/app/tabs/policies/addPolicy"
           component={AddPolicyScreen}
         />
-        <Route
-          path="/app/tabs/policies/:policyId"
-          component={PolicyDetailsScreen}
-          exact
-        />
-        <Route
-          path="/app/tabs/policies/:policyId/documents"
-          component={PolicyDocumentsScreen}
-        />
+        <Route path="/app/tabs/policies/:policyId" component={PolicyScreen} />
       </Switch>
     )
   }

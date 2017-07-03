@@ -71,18 +71,14 @@ class EnablePushNotificationsModal extends Component {
                   onPress={() =>
                     this.props.dispatch(hidePushNotificationsModal())}
                 >
-                  <Text>
-                    Cancel
-                  </Text>
+                  <Text>Cancel</Text>
                 </TouchableOpacity>
                 <View style={{ flex: 1 }} />
                 <TouchableOpacity
                   style={styles.confirmButton}
                   onPress={() => this.props.dispatch(enablePushNotifications())}
                 >
-                  <Text>
-                    Confirm
-                  </Text>
+                  <Text>Confirm</Text>
                 </TouchableOpacity>
               </View>
             </View>

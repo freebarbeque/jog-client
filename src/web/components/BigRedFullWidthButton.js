@@ -18,16 +18,16 @@ const Button = styled.a`
   border: none;
   color: white !important;
   cursor: pointer !important;
-  
+
   &:hover {
     text-decoration: none !important;
     opacity: 0.7;
   }
-  
+
   &:active {
     text-decoration: none !important;
   }
-  
+
   &:focus {
     outline: 0;
     text-decoration: none !important;

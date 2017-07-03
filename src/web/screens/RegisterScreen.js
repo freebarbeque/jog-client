@@ -76,9 +76,7 @@ class RegisterScreen extends Component {
     return (
       <FlexCentredContainer style={{ paddingBottom: NAVIGATION_BAR_HEIGHT }}>
         <div>
-          <Title>
-            Register
-          </Title>
+          <Title>Register</Title>
           <Form
             fields={RegisterScreen.formFields}
             buttonLabel="Register"

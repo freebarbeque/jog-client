@@ -19,6 +19,8 @@ const environments = {
   },
 }
 
+console.log('process.env', process.env)
+
 const JOG_ENVIRONMENT = process.env.JOG_ENVIRONMENT
 
 if (!JOG_ENVIRONMENT) throw new Error('JOG_ENVIRONMENT is not defined')

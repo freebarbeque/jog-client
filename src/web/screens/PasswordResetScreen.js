@@ -55,9 +55,7 @@ class PasswordResetScreen extends Component {
   render() {
     return (
       <FlexCentredContainer style={{ paddingBottom: NAVIGATION_BAR_HEIGHT }}>
-        <Title>
-          Password Reset
-        </Title>
+        <Title>Password Reset</Title>
         <Form
           fields={PasswordResetScreen.formFields}
           buttonLabel="Send email"

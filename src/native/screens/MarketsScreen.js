@@ -25,9 +25,7 @@ class Markets extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text style={{ color: BLUE }}>
-          Markets
-        </Text>
+        <Text style={{ color: BLUE }}>Markets</Text>
       </View>
     )
   }

@@ -28,10 +28,7 @@ class FinishedScreen extends Component {
       >
         <div style={{ textAlign: 'center', maxWidth: 200 }}>
           <p>Thanks!</p>
-          <p>
-            We’ve set up a basic
-            account for you.
-          </p>
+          <p>We’ve set up a basic account for you.</p>
         </div>
       </AddPolicyScreenContainer>
     )

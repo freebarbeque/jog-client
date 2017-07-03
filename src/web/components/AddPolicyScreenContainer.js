@@ -60,9 +60,7 @@ const Title = styled.div`
 `
 
 // language=SCSS prefix=dummy{ suffix=}
-const ButtonRow = styled.div`
-    flex-direction: row;
-`
+const ButtonRow = styled.div`flex-direction: row;`
 
 // language=SCSS prefix=dummy{ suffix=}
 const ButtonContainer = styled.div`
@@ -71,7 +69,6 @@ const ButtonContainer = styled.div`
   border-radius: 20px;
   justify-content: center;
   height: 60px;
-  
 `
 
 // language=SCSS prefix=dummy{ suffix=}
@@ -86,11 +83,11 @@ const Button = styled.div`
   text-align: center;
   font-size: 14px;
   cursor: pointer;
-  
+
   &[disabled] {
     cursor: default;
   }
-  
+
   &:hover {
     opacity: 0.7;
   }
@@ -99,16 +96,17 @@ const Button = styled.div`
 export const NavigationButton = (props: $Subtype<Object>) => {
   const { variation, disabled, title, ...rest } = props
 
-  const extraStyle = variation === 'pink'
-    ? {
-        backgroundColor: PINK,
-        color: WHITE,
-        textAlign: 'center',
-      }
-    : {
-        backgroundColor: WHITE,
-        color: 'rgb(109,109,109)',
-      }
+  const extraStyle =
+    variation === 'pink'
+      ? {
+          backgroundColor: PINK,
+          color: WHITE,
+          textAlign: 'center',
+        }
+      : {
+          backgroundColor: WHITE,
+          color: 'rgb(109,109,109)',
+        }
 
   // The button is wrapped in a container because there is a strange bug where opacity is ignored
   // after the initial render of TouchableOpacity
@@ -191,9 +189,7 @@ class AddPolicyScreenContainer extends Component {
         >
           {title &&
             <div>
-              <EntryText>
-                POLICY ENTRY
-              </EntryText>
+              <EntryText>POLICY ENTRY</EntryText>
               <Title>
                 {title}
               </Title>

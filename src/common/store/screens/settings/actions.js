@@ -7,7 +7,9 @@ export type SetActiveSectionAction = {
 
 export type SettingsScreenAction = SetActiveSectionAction
 
-export function setActiveSection(activeSection: number | null): SetActiveSectionAction {
+export function setActiveSection(
+  activeSection: number | null,
+): SetActiveSectionAction {
   return {
     type: 'settings/SET_ACTIVE_SECTION',
     activeSection,

@@ -18,16 +18,16 @@ const Container = styled.button`
   display: block;
   background-color: WHITE;
   border-radius: 4px;
-  box-shadow: 0 0 3px 2px rgba(121,126,154,0.4);
+  box-shadow: 0 0 3px 2px rgba(121, 126, 154, 0.4);
   margin-bottom: ${MARGIN.large}px;
   padding: 0;
   border: 0;
   cursor: pointer;
-    
+
   &:hover {
     opacity: 0.7;
   }
-  
+
   &:focus {
     outline: 0;
   }
@@ -35,7 +35,7 @@ const Container = styled.button`
 
 // language=SCSS prefix=dummy{ suffix=}
 const Cover = styled.div`
-  background-color: rgb(164,169,174);
+  background-color: rgb(164, 169, 174);
   height: 161px;
   display: flex;
   flex: 1;
@@ -60,7 +60,7 @@ const CompanyLogoWrapper = styled.div`
   width: 80px;
   border-radius: 40px;
   background-color: ${WHITE};
-  box-shadow: 0 0 3px 2px rgba(121,126,154,0.4);
+  box-shadow: 0 0 3px 2px rgba(121, 126, 154, 0.4);
   position: relative;
   bottom: 40px;
   margin-left: auto;
@@ -117,7 +117,10 @@ export default class PolicyCard extends Component {
         </TitleText>
         <Content>
           <DescriptionText
-            style={{ textAlign: this.props.bottomImage ? 'left' : 'center' }}
+            style={{
+              textAlign: this.props.bottomImage ? 'left' : 'center',
+              paddingRight: MARGIN.base,
+            }}
           >
             {this.props.description}
           </DescriptionText>

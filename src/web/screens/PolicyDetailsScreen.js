@@ -19,7 +19,6 @@ import {
 } from '../../common/types'
 import BigRedFullWidthButton from '../components/BigRedFullWidthButton'
 import Panel from '../components/Panel'
-import BackgroundHeader from '../components/BackgroundHeader'
 import * as selectors from '../store/selectors'
 import { min } from '../media'
 import Container from '../components/Container'
@@ -41,23 +40,23 @@ const FieldContainer = styled.div`
 
 // language=SCSS prefix=dummy{ suffix=}
 const FieldTitle = styled.div`
-  color: rgb(164,169,174);
+  color: rgb(164, 169, 174);
   font-size: 11px;
   font-weight: 600;
 `
 
 // language=SCSS prefix=dummy{ suffix=}
 const FieldValue = styled.div`
-  color: ${BLUE}; 
+  color: ${BLUE};
   font-size: 16px;
 `
 
 // language=SCSS prefix=dummy{ suffix=}
 const RowContainer = styled.div`
-  border-bottom-color: rgb(203,203,203);
+  border-bottom-color: rgb(203, 203, 203);
   border-bottom-width: 1px;
   border-bottom-style: solid;
-  background-color: rgb(240,240,240);
+  background-color: rgb(240, 240, 240);
   height: 48px;
   display: flex;
   align-items: center;
@@ -72,7 +71,7 @@ const DaysRemainingContainer = styled.div`
 
 // language=SCSS prefix=dummy{ suffix=}
 const DaysRemainingTitle = styled.div`
-  color: rgb(164,169,174);
+  color: rgb(164, 169, 174);
   font-size: 11px;
   font-weight: 600;
 `
@@ -99,13 +98,13 @@ const Header = styled.div`
   margin-top: ${MARGIN.base}px;
   flex: 1;
   height: 47.931px;
-  
+
   ${min.smallTablet`
     border-bottom-color: black;
     border-bottom-style: solid;
     border-bottom-width: 1px;
     padding-left: 0;
-  `}
+  `};
 `
 
 const Field = props => {
@@ -217,15 +216,6 @@ class PolicyDetailsScreen extends Component {
           overflow: 'scroll',
         }}
       >
-        <BackgroundHeader
-          headerText="Motor Policy"
-          style={{
-            position: 'absolute',
-            top: 0,
-            left: 0,
-            width: '100%',
-          }}
-        />
         <Container>
           <div
             style={{
@@ -236,10 +226,7 @@ class PolicyDetailsScreen extends Component {
               marginTop: isHandset ? 0 : MARGIN.large,
             }}
           >
-            {!isHandset &&
-              <Header>
-                Overview
-              </Header>}
+            {!isHandset && <Header>Overview</Header>}
             <PolicyDetailsPanel
               className="Panel"
               style={{
@@ -268,18 +255,14 @@ class PolicyDetailsScreen extends Component {
               </Field>
 
               <DaysRemainingContainer>
-                <DaysRemainingTitle>
-                  DAYS REMAINING
-                </DaysRemainingTitle>
+                <DaysRemainingTitle>DAYS REMAINING</DaysRemainingTitle>
                 <DaysRemainingValue>
                   {expiryDate.diff(moment(), 'days')}
                 </DaysRemainingValue>
               </DaysRemainingContainer>
             </PolicyDetailsPanel>
             <div>
-              <Header>
-                Policy
-              </Header>
+              <Header>Policy</Header>
               <Row title="level of cover">
                 {policy.levelOfCover
                   ? LEVEL_OF_COVER[policy.levelOfCover]

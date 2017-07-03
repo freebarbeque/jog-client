@@ -25,9 +25,7 @@ class AuthButton extends Component {
     return (
       <TouchableOpacity style={this.props.style} onPress={this.handlePress}>
         <View>
-          <Text style={{ color: WHITE }}>
-            Sign Out
-          </Text>
+          <Text style={{ color: WHITE }}>Sign Out</Text>
         </View>
       </TouchableOpacity>
     )

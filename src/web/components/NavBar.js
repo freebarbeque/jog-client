@@ -19,25 +19,26 @@ const NavBarRight = styled.div`
   justify-content: flex-end;
   // Counter the padding in the AppBar which seems impossible to override
   margin-top: -4px;
-  
+
   .Menu {
     ${max.largeTablet`
       display: none !important;
-    `}
+    `};
   }
- 
+
   // Override FlatButton colours.
-  button, a {
+  button,
+  a {
     color: white !important;
-    
+
     &.SignOutButton {
       color: #cdcdcd !important;
     }
   }
-  
+
   a {
     margin-top: 3px !important;
-    
+
     &.active {
       color: ${PINK} !important;
     }

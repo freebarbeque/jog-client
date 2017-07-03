@@ -6,7 +6,7 @@ import styled from 'styled-components'
 import _ from 'lodash'
 import Dropzone from 'react-dropzone'
 
-import { BLUE, CREAM, PINK } from '../../common/constants/palette'
+import { BLUE, PINK } from '../../common/constants/palette'
 import { MARGIN } from '../../common/constants/style'
 import { selectPolicies } from '../../common/store/policies/selectors'
 import Button from '../components/Button'
@@ -26,6 +26,7 @@ import {
   uploadPolicyDocument,
   uploadPolicyDocuments,
 } from '../../common/store/policies/actions'
+import Container from '../components/Container'
 
 type PolicyDocumentsScreenProps = {
   // eslint-disable-next-line react/no-unused-prop-types
@@ -34,12 +35,6 @@ type PolicyDocumentsScreenProps = {
   navigation: ReactNavigationProp,
   policies: MotorPolicyMap,
 }
-
-// language=SCSS prefix=dummy{ suffix=}
-const Container = styled.div`
-  flex: 1;
-  background-color: ${CREAM};
-`
 
 // language=SCSS prefix=dummy{ suffix=}
 const Header = styled.div`
@@ -127,7 +122,7 @@ class PolicyDocumentsScreen extends Component {
     const documents = _.values(policy ? policy.documents : [])
 
     return (
-      <Container>
+      <Container style={{ marginTop: MARGIN.large }}>
         {!_.isEmpty(documents)
           ? <Panel>
               <Header>Scanned documents</Header>

@@ -48,9 +48,7 @@ class AddPolicyScreen extends Component {
               <View
                 style={{ flex: 1, height: '100%', justifyContent: 'center' }}
               >
-                <Text style={styles.recommendedText}>
-                  Recommended
-                </Text>
+                <Text style={styles.recommendedText}>Recommended</Text>
                 <Text style={[styles.cardButtonText, { flex: 0 }]}>
                   Email the policy
                 </Text>
@@ -77,12 +75,9 @@ class AddPolicyScreen extends Component {
                 )
               }}
             >
-              <Text style={styles.cardButtonText}>
-                Manual entry
-              </Text>
+              <Text style={styles.cardButtonText}>Manual entry</Text>
               <Command />
             </TouchableOpacity>
-
           </View>
         </View>
       </View>

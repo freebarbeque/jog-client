@@ -25,7 +25,9 @@ const Button = styled.button`
 `
 const RoundedButton = ({ label, loading, ...props }) =>
   <Button disabled={loading} {...props}>
-    <div>{label}</div>
+    <div>
+      {label}
+    </div>
     {loading &&
       <div style={{ marginLeft: MARGIN.small }}>
         <Circle size={15} color={WHITE} />
