@@ -46,7 +46,7 @@ export function uploadPolicyDocuments(
   policyId: string,
 ): UploadPolicyDocumentsAction {
   return {
-    type: 'policies/UPLOAD_POLICY_DOCUMENT',
+    type: 'policies/UPLOAD_POLICY_DOCUMENTS',
     files,
     policyId,
   }

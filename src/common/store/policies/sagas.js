@@ -153,7 +153,9 @@ function* uploadPolicyDocumentTask(action: UploadPolicyDocumentAction) {
     const contentType = file ? file.type : mime.lookup(fileName)
 
     console.debug(
-      `Uploading document at ${fileUrl} to ${fileStoragePath} with content-type ${contentType}`,
+      file
+        ? `Uploading ${file.name} to ${fileStoragePath}`
+        : `Uploading document at ${fileUrl} to ${fileStoragePath} with content-type ${contentType}`,
     )
 
     yield call(() =>

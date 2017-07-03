@@ -73,6 +73,9 @@ export function addPolicyDocument(
   policyDocument: PolicyDocument,
 ): Promise<void> {
   const documentId = policyDocument.id
+  if (!policyDocument) throw new Error('Must pass policy document')
+  if (!documentId) throw new Error(`Policy document must have an id`)
+  if (!policyId) throw new Error(`Must pass policyId`)
   const policiesRef = firebase.database().ref('policies').child(policyId)
   return policiesRef.child('documents').child(documentId).set(policyDocument)
 }

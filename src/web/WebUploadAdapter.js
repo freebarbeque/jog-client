@@ -15,6 +15,7 @@ export default class WebUploadAdapter implements UploadAdapter {
       console.log(`Uploading file to ${fileStoragePath}`, file)
       return storageRef.child(fileStoragePath).put(file)
     }
+
     throw new Error(`Web file upload requires file property.`)
   }
 }

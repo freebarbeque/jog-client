@@ -115,7 +115,8 @@ class PolicyDocumentsScreen extends Component {
   }
 
   handleDrop = acceptedFiles => {
-    this.props.dispatch(uploadPolicyDocuments(acceptedFiles))
+    const policyId = this.props.match.params.policyId
+    this.props.dispatch(uploadPolicyDocuments(acceptedFiles, policyId))
   }
 
   render() {
