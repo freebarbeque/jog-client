@@ -168,10 +168,14 @@ class PolicyDetailsNavigator extends PolicyDetailsTabNavigator {
       )
     }
 
-    return policyId
+    if (typeof policyId === 'string') {
+      return policyId
+    }
+
+    throw new TypeError('policyId must be of type string')
   }
 
-  getPolicyIndex(): string {
+  getPolicyIndex(): number {
     const params = this.getParams()
     const policyIndex = params.policyIndex
     if (policyIndex === undefined) {
@@ -180,7 +184,9 @@ class PolicyDetailsNavigator extends PolicyDetailsTabNavigator {
         'policyIndex is missing from the route parameters when attempting to render PolicyDetailsNavigator',
       )
     }
-    return policyIndex
+    if (typeof policyIndex === 'number') return policyIndex
+
+    throw new TypeError('policyIndex should be a number')
   }
 
   renderCustomTabs() {

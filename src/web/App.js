@@ -90,7 +90,7 @@ class App extends Component {
                 if (!user || (user && !user.emailVerified)) {
                   return <Redirect to={'/auth'} />
                 }
-                return null
+                return <span />
               }}
             />
             <Route

@@ -52,7 +52,7 @@ export default class Form extends Component {
     }
   }
 
-  handleSubmit = () => {
+  handleSubmit = (): void => {
     const validationErrors = this.validate()
     const hasValidationErrors = _.some(_.values(validationErrors))
     if (!hasValidationErrors) {
@@ -62,7 +62,7 @@ export default class Form extends Component {
     }
   }
 
-  render() {
+  render(): any {
     return null
   }
 }

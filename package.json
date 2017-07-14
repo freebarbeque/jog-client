@@ -87,7 +87,7 @@
     "redux-saga": "0.15.3",
     "remote-redux-devtools": "0.5.11",
     "remote-redux-devtools-on-debugger": "^0.7.0",
-    "reselect": "^3.0.0",
+    "reselect": "3.0.1",
     "styled-components": "^2.0.1",
     "uuid": "^3.0.1"
   },
@@ -108,8 +108,8 @@
     "eslint-plugin-jsx-a11y": "5.0.3",
     "eslint-plugin-react": "7.0.1",
     "flow-bin": "^0.42.0",
-    "jest": "20.0.4",
     "husky": "^0.13.4",
+    "jest": "20.0.4",
     "lint-staged": "3.6.0",
     "neutrino": "6.1.4",
     "neutrino-middleware-pwa": "6.1.4",

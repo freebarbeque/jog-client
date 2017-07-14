@@ -203,10 +203,12 @@ function* updateUserProfilePictureTask(action: UpdateUserProfilePicture) {
     const fileName = _.last(fileUrl.split('/'))
     extension = _.last(fileName.split('.'))
     contentType = mime.lookup(fileName)
-  } else {
+  } else if (file) {
     contentType = file.type
     const fileName = file.name
     extension = _.last(fileName.split('.'))
+  } else {
+    throw new Error('Must pass either fileUrl or file')
   }
 
   const id = uuid()

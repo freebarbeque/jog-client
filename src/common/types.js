@@ -166,6 +166,10 @@ export type PolicyDocument = {
   extension: string,
 }
 
+export type ReactRouterMatch = {
+  params: { [key: string]: mixed },
+}
+
 // TODO: Split this into generic Policy/MotorPolicy/SelectedMotorPolicy once react-native supports flow 0.42.x
 // /policies/${policyId}
 export type MotorPolicy = {

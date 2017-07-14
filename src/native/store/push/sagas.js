@@ -158,6 +158,7 @@ function navigateToPolicyDetails(policyId) {
   return getNavigationAdapter().navigateToPolicyDetails(
     policyId,
     getPolicyIndex(policyId),
+    false,
   )
 }
 

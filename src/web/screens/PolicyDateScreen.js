@@ -6,10 +6,8 @@ import { push } from 'react-router-redux'
 import moment from 'moment'
 
 import type { Dispatch, ReduxState } from '../../common/types'
-import {
-  ManualPolicyUpdate,
-  updateManualPolicy,
-} from '../../common/store/screens/addManualPolicy/actions'
+import { updateManualPolicy } from '../../common/store/screens/addManualPolicy/actions'
+import type { ManualPolicyUpdate } from '../../common/store/screens/addManualPolicy/actions'
 import AddPolicyScreenContainer from '../components/AddPolicyScreenContainer'
 import DatePicker from '../components/DatePicker'
 

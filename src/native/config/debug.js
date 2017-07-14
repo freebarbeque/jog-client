@@ -1,6 +1,6 @@
 // @flow
 
-import { EnvironmentConfig } from 'jog/src/common/types'
+import type { EnvironmentConfig } from 'jog/src/common/types'
 
 const apiKey = 'AIzaSyCiGNJ7RbnRaYpyK05rOnqMyt0xmVCe920'
 const databaseURL = 'https://jog-dev-10fe9.firebaseio.com'

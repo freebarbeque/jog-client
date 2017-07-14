@@ -21,7 +21,7 @@ import type { FormProps } from '../../../common/components/Form'
 export default class NativeForm extends Form {
   props: FormProps
 
-  handleSubmit() {
+  handleSubmit = (): void => {
     super.handleSubmit()
     dismissKeyboard()
   }

@@ -11,12 +11,16 @@ import { withRouter } from 'react-router-dom'
 import { MARGIN } from '../../common/constants/style'
 import { BLUE, CREAM, WHITE, YELLOW } from '../../common/constants/palette'
 import { selectPolicies } from '../../common/store/policies/selectors'
-import {
+
+import type {
   Dispatch,
-  LEVEL_OF_COVER,
   MotorPolicy,
+  ReactRouterMatch,
   ReduxState,
 } from '../../common/types'
+
+import { LEVEL_OF_COVER } from '../../common/types'
+
 import BigRedFullWidthButton from '../components/BigRedFullWidthButton'
 import Panel from '../components/Panel'
 import * as selectors from '../store/selectors'
@@ -139,6 +143,7 @@ type PolicyDetailsScreenProps = {
   dispatch: Dispatch,
   initialised: boolean,
   isHandset: boolean,
+  match: ReactRouterMatch,
 }
 
 class PolicyDetailsScreen extends Component {
@@ -149,13 +154,17 @@ class PolicyDetailsScreen extends Component {
   handleDocumentUploadPress = () => {
     const policy = this.getPolicy()
     if (policy) {
-      this.props.dispatch(push(`/app/tabs/policies/${policy.id}/documents`))
+      const policyId = policy.id
+      if (policyId)
+        this.props.dispatch(push(`/app/tabs/policies/${policyId}/documents`))
+      else throw new Error('Policy must have an id to upload documents')
     }
   }
 
   getPolicy(): MotorPolicy | null {
-    const policyId = this.props.match.params.policyId
-    let policy: MotorPolicy = null
+    const match = this.props.match
+    const policyId = match.params.policyId
+    let policy: MotorPolicy | null = null
 
     // Typecheck demanded by Flow
     if (typeof policyId === 'string') {

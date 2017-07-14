@@ -4,7 +4,7 @@ import React, { Component } from 'react'
 import styled from 'styled-components'
 
 import { connect } from 'react-redux'
-import {
+import type {
   Dispatch,
   FirebaseUser,
   ReduxState,
@@ -92,11 +92,6 @@ class Profile extends Component {
   props: ProfileProps
 
   static handleSupportPress() {}
-
-  constructor(props: ProfileProps) {
-    super(props)
-    this.state = {}
-  }
 
   handleProfilePicturePress = () => {
     getFile().then((file: File) => {

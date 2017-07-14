@@ -66,7 +66,9 @@ class SettingsProfileSection extends Component {
         .then((response: iOSImageResponse | null) => {
           if (response) {
             // If no response, user cancelled.
-            this.props.dispatch(updateUserProfilePicture(response.uri))
+            this.props.dispatch(
+              updateUserProfilePicture({ fileUrl: response.uri }),
+            )
           }
         })
         .catch(err => {
@@ -78,7 +80,7 @@ class SettingsProfileSection extends Component {
   }
 
   handleCapture = fileUrl => {
-    this.props.dispatch(updateUserProfilePicture(fileUrl))
+    this.props.dispatch(updateUserProfilePicture({ fileUrl }))
   }
 
   render() {

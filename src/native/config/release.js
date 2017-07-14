@@ -1,6 +1,6 @@
 // @flow
 
-import { EnvironmentConfig } from 'jog/src/common/types'
+import type { EnvironmentConfig } from 'jog/src/common/types'
 
 const messagingSenderId = '122459291249'
 const storageBucket = 'jog-prod.appspot.com'

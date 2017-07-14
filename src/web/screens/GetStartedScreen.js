@@ -7,7 +7,7 @@ import { connect } from 'react-redux'
 
 import { BLUE, PINK } from '../../common/constants/palette'
 import Jumbotron from '../components/Jumbotron'
-import { Dispatch } from '../../common/types'
+import type { Dispatch } from '../../common/types'
 import { max, min } from '../media'
 import { MARGIN } from '../../common/constants/style'
 import { Details, PolicyBots, Upload } from '../components/images/index'

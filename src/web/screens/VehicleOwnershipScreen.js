@@ -5,11 +5,11 @@ import { connect } from 'react-redux'
 
 import type { Dispatch, ReduxState } from '../../common/types'
 import {
-  ManualPolicyUpdate,
   motorPolicyOwnership,
   savePolicy,
   updateManualPolicy,
 } from '../../common/store/screens/addManualPolicy/actions'
+import type { ManualPolicyUpdate } from '../../common/store/screens/addManualPolicy/actions'
 import AddPolicyScreenContainer from '../components/AddPolicyScreenContainer'
 import RadioInput from '../components/RadioInput'
 import { MARGIN } from '../../common/constants/style'

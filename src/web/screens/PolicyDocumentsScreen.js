@@ -15,10 +15,10 @@ import PolicyDocumentThumbnail from '../components/PolicyDocumentThumbnail'
 
 import type {
   Dispatch,
+  ReactRouterMatch,
   MotorPolicy,
   MotorPolicyMap,
   PolicyDocument,
-  ReactNavigationProp,
   ReduxState,
 } from '../../common/types'
 import { getFile } from '../upload'
@@ -33,8 +33,8 @@ type PolicyDocumentsScreenProps = {
   // eslint-disable-next-line react/no-unused-prop-types
   dispatch: Dispatch,
   // eslint-disable-next-line react/no-unused-prop-types
-  navigation: ReactNavigationProp,
   policies: MotorPolicyMap,
+  match: ReactRouterMatch,
 }
 
 // language=SCSS prefix=dummy{ suffix=}
@@ -81,20 +81,23 @@ class PolicyDocumentsScreen extends Component {
 
   handleBrowseFilesPress = () => {
     getFile().then(file => {
-      const policyId = this.props.match.params.policyId
+      const match = this.props.match
+      const policyId = match.params.policyId
 
-      this.props.dispatch(
-        uploadPolicyDocument({
-          policyId,
-          file,
-        }),
-      )
+      if (typeof policyId === 'string')
+        this.props.dispatch(
+          uploadPolicyDocument({
+            policyId,
+            file,
+          }),
+        )
+      else throw new TypeError('policyId must be of type string')
     })
   }
 
   getPolicy(): MotorPolicy | null {
     const policyId = this.props.match.params.policyId
-    let policy: MotorPolicy = null
+    let policy: MotorPolicy | null = null
 
     // Typecheck demanded by Flow
     if (typeof policyId === 'string') {
@@ -116,12 +119,16 @@ class PolicyDocumentsScreen extends Component {
 
   handleDrop = acceptedFiles => {
     const policyId = this.props.match.params.policyId
-    this.props.dispatch(uploadPolicyDocuments(acceptedFiles, policyId))
+
+    // Flow type check
+    if (typeof policyId === 'string')
+      this.props.dispatch(uploadPolicyDocuments(acceptedFiles, policyId))
+    else throw new TypeError('policyId must be a string')
   }
 
   render() {
     const policy = this.getPolicy()
-    const documents = _.values(policy ? policy.documents : [])
+    const documents = _.values(policy ? policy.documents : {})
 
     return (
       <Container style={{ marginTop: MARGIN.large }}>

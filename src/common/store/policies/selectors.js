@@ -67,6 +67,7 @@ export const selectPolicies: () => MotorPolicyMap = createSelector(
   },
 )
 
+// $FlowFixMe
 export const selectInitialisedPolicies: () => MotorPolicyMap = createSelector(
   selectPolicies,
   (policies: MotorPolicyMap) => {

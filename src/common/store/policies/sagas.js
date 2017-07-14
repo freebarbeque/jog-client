@@ -141,12 +141,13 @@ function* uploadPolicyDocumentTask(action: UploadPolicyDocumentAction) {
     extension = _.last(fileName.split('.'))
   }
 
-  yield put(startLoading(`Uploading ${fileName}`))
+  yield put(startLoading(`Uploading ${fileName || ''}`))
 
   const user = demandCurrentUser()
 
   const id = uuid()
-  const fileStoragePath = `/policyDocuments/${user.uid}/${policyId}/${id}.${extension}`
+  const fileStoragePath = `/policyDocuments/${user.uid}/${policyId}/${id}.${extension ||
+    ''}`
 
   try {
     // For whatever reason, the firebase module claims the base64 data from RNFetchBlob is invalid so we decode it manually.
@@ -155,7 +156,8 @@ function* uploadPolicyDocumentTask(action: UploadPolicyDocumentAction) {
     console.debug(
       file
         ? `Uploading ${file.name} to ${fileStoragePath}`
-        : `Uploading document at ${fileUrl} to ${fileStoragePath} with content-type ${contentType}`,
+        : `Uploading document at ${fileUrl ||
+            ''} to ${fileStoragePath} with content-type ${contentType}`,
     )
 
     yield call(() =>
@@ -169,7 +171,7 @@ function* uploadPolicyDocumentTask(action: UploadPolicyDocumentAction) {
     )
   } catch (e) {
     console.warn('Error uploading image', e)
-    yield put(declareError(`Unable to upload ${fileName}`))
+    yield put(declareError(`Unable to upload ${fileName || ''}`))
     return
   }
 
@@ -178,14 +180,20 @@ function* uploadPolicyDocumentTask(action: UploadPolicyDocumentAction) {
   try {
     // Firebase storage does not have an API for listing files in folders and therefore we
     // must store file data within the database.
-    yield call(() =>
-      addPolicyDocument(policyId, {
-        image: fileStoragePath,
-        name: fileName,
-        extension: extension,
-        id,
-      }),
-    )
+    if (fileName && extension) {
+      yield call(() =>
+        addPolicyDocument(policyId, {
+          image: fileStoragePath,
+          name: fileName || '',
+          extension: extension || '',
+          id,
+        }),
+      )
+    } else {
+      throw new TypeError(
+        'fileName && extension must be truthy in order to add policy document',
+      )
+    }
   } catch (e) {
     console.debug('Error uploading file metadata', e)
     yield put(declareError('Unable to upload file metadata'))

@@ -31,7 +31,7 @@ type CreateStoreOpts = {
   middleware: any[],
 }
 
-export default function createStore(_opts: CreateStoreOpts = {}): Store {
+export default function createStore(_opts: CreateStoreOpts): Store {
   const opts = {
     enableDevTools: false,
     freeze: false,
@@ -91,10 +91,8 @@ export default function createStore(_opts: CreateStoreOpts = {}): Store {
 
     // if (module.hot) {
     //   // Enable Webpack hot module replacement for reducers
-    //   // $FlowFixMe
     //   module.hot.accept('./reducer', () => {
     //     const nextRootReducer = require('../../native/store/reducer')
-    //     // $FlowFixMe
     //     store.replaceReducer(nextRootReducer)
     //   })
     // }

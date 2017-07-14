@@ -11,7 +11,7 @@ import { push } from 'react-router-redux'
 import { BLUE, PINK, WHITE } from '../../common/constants/palette'
 import { MARGIN } from '../../common/constants/style'
 import { CarOutline, Cross, Logo } from './images/index'
-import { Dispatch } from '../../common/types'
+import type { Dispatch } from '../../common/types'
 
 type AddPolicyScreenContainerProps = {
   title: string,

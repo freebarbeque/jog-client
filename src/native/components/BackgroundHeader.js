@@ -9,7 +9,7 @@ import { MARGIN } from 'jog/src/common/constants/style'
 
 import { Background, Chevron } from './images/index'
 import Text from './Text'
-import { Dispatch } from '../../common/types'
+import type { Dispatch } from '../../common/types'
 import { WHITE } from '../../common/constants/palette'
 
 type BackgroundHeaderProps = {

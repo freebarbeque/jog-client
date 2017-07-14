@@ -4,9 +4,11 @@
 
 import Config from 'react-native-config'
 import _ from 'lodash'
-import { EnvironmentConfig } from 'jog/src/common/types'
+import type { EnvironmentConfig } from 'jog/src/common/types'
 
 import defaults from './default'
+import debug from './debug'
+import relase from './release'
 
 const environment = Config.JOG_ENVIRONMENT
 
@@ -17,15 +19,15 @@ console.log(`JOG_ENVIRONMENT=${environment}`)
 let config: EnvironmentConfig /* eslint no-var:0 import/no-mutable-exports:0*/
 
 if (environment === 'DEBUG') {
-  config = require('./debug')
+  config = debug
 } else if (environment === 'RELEASE') {
-  config = require('./release')
+  config = relase
 } else {
   throw new Error(`No environment config found for environment: ${environment}`)
 }
 
 config = _.merge(defaults, {
-  ...config.default,
+  ...config,
   environment,
   isDebug: environment === 'DEBUG',
 })
