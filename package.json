@@ -21,11 +21,10 @@
     "postinstall": "remotedev-debugger --hostname localhost --port 5678 --injectserver",
     "lint": "yarn lint:js",
     "lint:js": "eslint ./src",
+    "test": "neutrino test --use neutrino-preset-node neutrino-preset-mocha",
     "start": "yarn start:packager",
     "start:packager": "node node_modules/react-native/local-cli/cli.js start",
-    "start:web": "NODE_ENV=development JOG_ENVIRONMENT=debug neutrino start --options.env.NODE_ENV development --options.env.JOG_ENVIRONMENT DEBUG",
-    "test": "echo \"No tests yet \"",
-    "test:watch": "echo \"No tests yet \""
+    "start:web": "NODE_ENV=development JOG_ENVIRONMENT=debug neutrino start --options.env.NODE_ENV development --options.env.JOG_ENVIRONMENT DEBUG"
   },
   "dependencies": {
     "async-throttle": "^1.1.0",
@@ -98,6 +97,7 @@
     "babel-preset-es2015": "^6.24.0",
     "babel-preset-react": "^6.24.1",
     "babel-preset-react-native": "1.9.2",
+    "chai": "^4.1.0",
     "eslint": "^3.18.0",
     "eslint-config-airbnb": "^15.0.1",
     "eslint-config-prettier": "^1.7.0",
@@ -111,8 +111,11 @@
     "husky": "^0.13.4",
     "jest": "20.0.4",
     "lint-staged": "3.6.0",
+    "mocha": "^3.4.2",
     "neutrino": "6.1.4",
     "neutrino-middleware-pwa": "6.1.4",
+    "neutrino-preset-mocha": "^6.1.4",
+    "neutrino-preset-node": "^6.1.4",
     "neutrino-preset-react": "6.1.4",
     "prettier": "1.5.2",
     "react-test-renderer": "16.0.0-alpha.6",
@@ -123,31 +126,6 @@
   },
   "engineStrict": true,
   "private": true,
-  "jest": {
-    "preset": "react-native",
-    "moduleFileExtensions": [
-      "jsx",
-      "js",
-      "json"
-    ],
-    "moduleNameMapper": {
-      "^.+\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/__tests__/config/stubs/CSSStub.js",
-      "^.+\\.css$": "<rootDir>/__tests__/config/stubs/CSSStub.js"
-    },
-    "setupFiles": [
-      "<rootDir>/__tests__/config/polyfills.js",
-      "<rootDir>/__tests__/config/setup.js"
-    ],
-    "testPathIgnorePatterns": [
-      "<rootDir>/(build|docs|node_modules)/"
-    ],
-    "testEnvironment": "node",
-    "testRegex": ".*.test.js",
-    "verbose": true,
-    "transformIgnorePatterns": [
-      "node_modules/(?!react-navigation)/"
-    ]
-  },
   "lint-staged": {
     "src/**/*.js": [
       "yarn format:js --",
