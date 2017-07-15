@@ -2,7 +2,22 @@
 
 import assert from 'assert'
 
+import * as address from '../src/business/address'
+
 describe('simple', () => {
+  it('address', () => {
+    const answers = {
+      'address/first-line': '15 Southlands',
+      'address/second-line': 'Kirkheaton',
+      'address/city': 'Huddersfield',
+      'address/province': 'West Yorkshire',
+      'address/post-code': 'HD50JU',
+    }
+
+    const errors = address.validate(answers)
+    console.log('errors', errors)
+  })
+
   it('perfect case', () => {
     const convictions = [
       {
@@ -54,7 +69,5 @@ describe('simple', () => {
       'motor/no-claims': 1,
       'motor/start-date': '20/07/2017',
     }
-
-
   })
 })

@@ -80,8 +80,8 @@ export interface BaseQuestionDescriptor<T> {
   id: string,
   type: *,
   questionText: string,
-  validate?: (answer: T) => Promise<Error | null>,
-  defaultValue?: T,
+  validate?: (answer: T) => string | null,
+  defaultValue?: T | (() => T),
   required?: boolean,
 }
 
@@ -91,8 +91,20 @@ export interface TextQuestionDescriptor extends BaseQuestionDescriptor<string> {
   maxLength?: number,
 }
 
+export interface NullableTextQuestionDescriptor
+  extends BaseQuestionDescriptor<string | null> {
+  type: 'nullable-text',
+  minLength?: number,
+  maxLength?: number,
+}
+
 export interface DateQuestionDescriptor extends BaseQuestionDescriptor<Date> {
   type: 'date',
+}
+
+export interface NullableDateQuestionDescriptor
+  extends BaseQuestionDescriptor<Date | null> {
+  type: 'nullable-date',
 }
 
 export interface NumericQuestionDescriptor
@@ -101,6 +113,12 @@ export interface NumericQuestionDescriptor
 }
 
 export interface SelectQuestionDescriptor<T> extends BaseQuestionDescriptor<T> {
+  type: 'select',
+  options: { label: string, value: T }[],
+}
+
+export interface NullableSelectQuestionDescriptor<T>
+  extends BaseQuestionDescriptor<T | null> {
   type: 'select',
   options: { label: string, value: T }[],
 }
@@ -125,8 +143,8 @@ export interface NullableBooleanQuestionDescriptor
 
 export type Answer = {
   questionId: string,
-  answer?: mixed,
-  dateAnswered?: string,
+  answer: mixed,
+  dateAnswered: string,
 }
 
 export interface QuoteRequest {
@@ -144,4 +162,10 @@ export interface MotorQuoteRequest extends QuoteRequest {
   address: Address,
   status: QuoteRequestStatus,
   /* ... */
+}
+
+export interface ValidationErrors {
+  nonField: string[],
+  field: { [questionId: string]: string } | {},
+  hasError: boolean,
 }

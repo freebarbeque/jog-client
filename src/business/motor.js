@@ -8,6 +8,7 @@ import type {
   MotoringConviction,
   MotoringIncident,
   MultiSelectQuestionDescriptor,
+  NullableSelectQuestionDescriptor,
   NumericQuestionDescriptor,
   Person,
   SelectQuestionDescriptor,
@@ -19,12 +20,14 @@ const policyHolderQuestion: BaseQuestionDescriptor<Person> = {
   type: 'motor/main-driver',
   id: 'motor/main-driver',
   questionText: 'Main driver',
+  required: true,
 }
 
 const additionalDriversQuestion: BaseQuestionDescriptor<Person[]> = {
   type: 'motor/additional-drivers',
   id: 'motor/additional-drivers',
   questionText: 'Additional drivers',
+  required: false,
 }
 
 const drivingLicenseTypeQuestion: SelectQuestionDescriptor<string> = {
@@ -46,18 +49,21 @@ const drivingLicenseTypeQuestion: SelectQuestionDescriptor<string> = {
       value: 'other',
     },
   ],
+  required: true,
 }
 
 const vehicleQuestion: BaseQuestionDescriptor<Car> = {
   type: 'motor/vehicle',
   id: 'motor/vehicle',
   questionText: 'Which car would you like to ensure?',
+  required: true,
 }
 
 const monthsHeldLicenseQuestion: NumericQuestionDescriptor = {
   type: 'numeric',
   id: 'motor/license-length',
   questionText: 'For how long have you held your license?',
+  required: true,
 }
 
 const whereLicenseIssuedQuestion: SelectQuestionDescriptor<string> = {
@@ -73,6 +79,7 @@ const whereLicenseIssuedQuestion: SelectQuestionDescriptor<string> = {
       value: 'international',
     },
   ],
+  required: true,
 }
 
 const manualOrAutomaticQuestion: SelectQuestionDescriptor<string> = {
@@ -89,6 +96,7 @@ const manualOrAutomaticQuestion: SelectQuestionDescriptor<string> = {
       value: 'automatic',
     },
   ],
+  required: true,
 }
 
 const additionalDrivingQualificationsQuestion: MultiSelectQuestionDescriptor<
@@ -107,9 +115,10 @@ const additionalDrivingQualificationsQuestion: MultiSelectQuestionDescriptor<
       value: 'advanced-driving',
     },
   ],
+  required: false,
 }
 
-const dvlaMedicalConditions: SelectQuestionDescriptor<string> = {
+const dvlaMedicalConditions: NullableSelectQuestionDescriptor<string> = {
   type: 'select',
   id: 'motor/dvla-medical-conditions',
   questionText: 'Does the DVLA know about these conditions?',
@@ -139,9 +148,10 @@ const dvlaMedicalConditions: SelectQuestionDescriptor<string> = {
       value: 'advised-not-to-drive-by-doctor',
     },
   ],
+  required: false,
 }
 
-const otherCars: SelectQuestionDescriptor<string> = {
+const otherCars: NullableSelectQuestionDescriptor<string> = {
   type: 'select',
   id: 'motor/other-cars',
   questionText: 'Which of these cars do you drive?',
@@ -163,6 +173,7 @@ const otherCars: SelectQuestionDescriptor<string> = {
       value: 'company-car-business',
     },
   ],
+  required: false,
 }
 
 const motoringConvictionsQuestion: BaseQuestionDescriptor<
@@ -171,6 +182,7 @@ const motoringConvictionsQuestion: BaseQuestionDescriptor<
   type: 'motor/convictions',
   id: 'motor/convictions',
   questionText: 'Do you have any motoring convictions?',
+  required: false,
 }
 
 const motoringIncidentsQuestion: BaseQuestionDescriptor<MotoringIncident[]> = {
@@ -178,18 +190,21 @@ const motoringIncidentsQuestion: BaseQuestionDescriptor<MotoringIncident[]> = {
   id: 'motor/incidents',
   questionText:
     'Have you had any motoring incidents/claims in the last 5 years?',
+  required: false,
 }
 
 const noClaimsDiscountQuestion: NumericQuestionDescriptor = {
   type: 'numeric',
   id: 'motor/no-claims',
   questionText: 'How many years no claims discount do you have?',
+  defaultValue: 0,
 }
 
 const startDateQuestion: DateQuestionDescriptor = {
   type: 'date',
   id: 'motor/start-date',
   questionText: 'When would you like your insurance to start?',
+  defaultValue: () => new Date(),
 }
 
 export const questions = [
