@@ -119,7 +119,7 @@ const additionalDrivingQualificationsQuestion: MultiSelectQuestionDescriptor<
 }
 
 const dvlaMedicalConditions: NullableSelectQuestionDescriptor<string> = {
-  type: 'select',
+  type: 'nullable-select',
   id: 'motor/dvla-medical-conditions',
   questionText: 'Does the DVLA know about these conditions?',
   options: [
@@ -152,7 +152,7 @@ const dvlaMedicalConditions: NullableSelectQuestionDescriptor<string> = {
 }
 
 const otherCars: NullableSelectQuestionDescriptor<string> = {
-  type: 'select',
+  type: 'nullable-select',
   id: 'motor/other-cars',
   questionText: 'Which of these cars do you drive?',
   options: [
@@ -197,7 +197,7 @@ const noClaimsDiscountQuestion: NumericQuestionDescriptor = {
   type: 'numeric',
   id: 'motor/no-claims',
   questionText: 'How many years no claims discount do you have?',
-  defaultValue: 0,
+  defaultValue: () => 0,
 }
 
 const startDateQuestion: DateQuestionDescriptor = {

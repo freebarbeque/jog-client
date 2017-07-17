@@ -12,17 +12,20 @@ import type {
 
 export const firstNameQuestion: TextQuestionDescriptor = {
   id: 'person/first-name',
+  type: 'text',
   questionText: "What's your first name?",
   required: true,
 }
 
 export const lastNameQuestion: TextQuestionDescriptor = {
   id: 'person/last-name',
+  type: 'text',
   questionText: "What's your last name?",
   required: true,
 }
 
 export const genderQuestion: SelectQuestionDescriptor<string> = {
+  type: 'select',
   id: 'person/gender',
   questionText: "What's your gender?",
   options: [
@@ -35,6 +38,7 @@ export const genderQuestion: SelectQuestionDescriptor<string> = {
 export const relationshipStatusQuestion: SelectQuestionDescriptor<string> = {
   id: 'person/relationship-status',
   questionText: "What's your relationship status?",
+  type: 'select',
   options: [
     { label: 'Single', value: 'single' },
     { label: 'Married', value: 'married' },
@@ -55,7 +59,7 @@ export const childrenQuestion: BooleanQuestionDescriptor = {
 }
 
 export const startLivingUkQuestion: NullableBooleanQuestionDescriptor = {
-  type: 'boolean',
+  type: 'nullable-boolean',
   questionText: 'When did you start living in the UK?',
   id: 'person/uk-start-living',
   required: false,

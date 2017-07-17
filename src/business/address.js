@@ -2,6 +2,7 @@
 
 import _ from 'lodash'
 import type { TextQuestionDescriptor, ValidationErrors } from './types'
+import { validateType } from './validation'
 
 // export interface Address {
 //   id: string,
@@ -76,6 +77,9 @@ export function validate(answers: {
   }
 
   const requiredQuestions = questions.filter(q => q.required)
+
+  console.log('requiredQuestions', requiredQuestions)
+
   requiredQuestions.forEach(q => {
     if (!answers[q.id]) {
       errors.field[q.id] = `The question "${q.questionText}" must be answered.`
@@ -84,11 +88,17 @@ export function validate(answers: {
   })
 
   questions.forEach(q => {
-    const answer = answers[q.id]
+    const answer: any = answers[q.id]
+    let error = validateType(q, answer)
+    if (error) {
+      errors.field[q.id] = error
+      errors.hasError = true
+    }
+
     if (!errors.field[q.id] && answer && q.validate) {
-      const error = q.validate(answer.answer)
+      error = q.validate(answer)
       if (error) {
-        error.field[q.id] = error
+        errors.field[q.id] = error
         errors.hasError = true
       }
     }

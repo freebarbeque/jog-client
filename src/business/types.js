@@ -81,7 +81,7 @@ export interface BaseQuestionDescriptor<T> {
   type: *,
   questionText: string,
   validate?: (answer: T) => string | null,
-  defaultValue?: T | (() => T),
+  defaultValue?: () => T,
   required?: boolean,
 }
 
@@ -119,7 +119,7 @@ export interface SelectQuestionDescriptor<T> extends BaseQuestionDescriptor<T> {
 
 export interface NullableSelectQuestionDescriptor<T>
   extends BaseQuestionDescriptor<T | null> {
-  type: 'select',
+  type: 'nullable-select',
   options: { label: string, value: T }[],
 }
 
@@ -164,8 +164,8 @@ export interface MotorQuoteRequest extends QuoteRequest {
   /* ... */
 }
 
-export interface ValidationErrors {
+export type ValidationErrors = {
   nonField: string[],
-  field: { [questionId: string]: string } | {},
+  field: { [questionId: string]: string },
   hasError: boolean,
 }

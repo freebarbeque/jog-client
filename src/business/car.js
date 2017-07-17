@@ -186,7 +186,7 @@ export const registeredKeeperQuestion: SelectQuestionDescriptor<Owner> = {
   id: 'car/registered-keeper',
   questionText: 'Who is the registered keeper of the car?',
   required: true,
-  defaultValue: 'you',
+  defaultValue: () => 'you',
   options: ownerOptions,
 }
 
