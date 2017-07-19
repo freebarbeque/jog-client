@@ -262,3 +262,18 @@ export const Arrow = props => {
 }
 
 Arrow.propTypes = { scale: PropTypes.number }
+
+export const Tick = props => {
+  return (
+    <Image
+      src={require('./tick.svg')}
+      height={11.279}
+      width={15.197}
+      alt="tick"
+      className="tick-img"
+      {...props}
+    />
+  )
+}
+
+Tick.propTypes = { scale: PropTypes.number }

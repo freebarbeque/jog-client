@@ -1,5 +1,8 @@
+// @flow
+
 import React, { Component } from 'react'
 import { Route, Redirect } from 'react-router-dom'
+import { connect } from 'react-redux'
 import styled from 'styled-components'
 
 import InsurerScreen from './InsurerScreen'
@@ -9,6 +12,7 @@ import PolicyCostScreen from './PolicyCostScreen'
 import VehicleOwnershipScreen from './VehicleOwnershipScreen'
 import FinishedScreen from './FinishedScreen'
 import LicensePlateScreen from './LicensePlateScreen'
+import { isHandset } from '../store/selectors'
 
 // language=SCSS prefix=dummy{ suffix=}
 const Container = styled.div`
@@ -17,14 +21,33 @@ const Container = styled.div`
   flex-direction: column;
 `
 
-export default class ManualAddPolicy extends Component {
+type ManualAddPolicyProps = {
+  isHandset: boolean,
+}
+
+class ManualAddPolicy extends Component {
+  props: ManualAddPolicyProps
+
+  componentWillReceiveProps(nextProps: ManualAddPolicyProps) {
+    const switchedToMobile = !this.props.isHandset && nextProps.isHandset
+    const switchedToDesktop = this.props.isHandset && !nextProps.isHandset
+    if (switchedToMobile || switchedToDesktop) {
+      // TODO: Switch between mobile/desktop layout
+      // this.props.dispatch(push('/app/addManualPolicy'))
+    }
+  }
+
   render() {
     return (
       <Container>
         <Route
           path="/app/addManualPolicy"
           exact
-          render={() => <Redirect to="/app/addManualPolicy/insurer" />}
+          render={() => {
+            if (this.props.isHandset)
+              return <Redirect to="/app/addManualPolicy/insurer" />
+            return <span />
+          }}
         />
         <Route path="/app/addManualPolicy/insurer" component={InsurerScreen} />
         <Route
@@ -52,3 +75,7 @@ export default class ManualAddPolicy extends Component {
     )
   }
 }
+
+export default connect(state => ({ isHandset: isHandset(state) }))(
+  ManualAddPolicy,
+)

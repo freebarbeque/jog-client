@@ -55,6 +55,10 @@ class NavBar extends React.Component {
             containerElement={<NavLink to="/app/tabs/policies" exact={false} />}
           />
           <FlatButton
+            label="Markets"
+            containerElement={<NavLink to="/app/tabs/markets" exact={false} />}
+          />
+          <FlatButton
             label="Settings"
             containerElement={<NavLink to="/app/tabs/settings" exact={false} />}
           />

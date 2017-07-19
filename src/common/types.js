@@ -17,6 +17,7 @@ import type {
 } from './store/screens/addManualPolicy/actions'
 import type { SettingsScreenReduxState } from './store/screens/settings/reducer'
 import type { PushNotificationsReduxState } from '../native/store/push/reducer'
+import type { MarketsAction, MarketsReduxState } from './store/markets/index'
 
 //
 // Redux
@@ -31,6 +32,7 @@ export type Action =
   | LoadingAction
   | ErrorAction
   | AddManualPolicyAction
+  | MarketsAction
 
 export type NavReduxState = {
   index: number,
@@ -78,6 +80,7 @@ export type ReduxState = {
   errors: ErrorsReduxState,
   push: PushNotificationsReduxState,
   dimensions: DimensionsReduxState,
+  markets: MarketsReduxState,
 }
 
 export type Store = ReduxStore<ReduxState, Action>

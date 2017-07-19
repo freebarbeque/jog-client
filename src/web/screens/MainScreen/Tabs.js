@@ -6,11 +6,12 @@ import { Tabs, Tab } from 'material-ui/Tabs'
 
 import PoliciesTab from './PoliciesTab'
 import SettingsScreen from '../SettingsScreen'
+import MarketsScreen from '../MarketsScreen'
 
 import { CREAM } from '../../../common/constants/palette'
 import { min } from '../../media'
 
-const TABS = ['policies', 'settings']
+const TABS = ['policies', 'markets', 'settings']
 
 // language=SCSS prefix=dummy{ suffix=}
 const Container = styled.div`
@@ -52,6 +53,12 @@ class TabsScreen extends Component {
           />
 
           <Tab
+            value="markets"
+            label="Markets"
+            containerElement={<Link to="/app/tabs/markets" />}
+          />
+
+          <Tab
             value="settings"
             label="Settings"
             containerElement={<Link to="/app/tabs/settings" />}
@@ -65,6 +72,7 @@ class TabsScreen extends Component {
           style={{ flex: 1 }}
         >
           <Route path="/app/tabs/policies" component={PoliciesTab} />
+          <Route path="/app/tabs/markets" component={MarketsScreen} />
           <Route path="/app/tabs/settings" component={SettingsScreen} />
         </SwipeableViews>
       </Container>
