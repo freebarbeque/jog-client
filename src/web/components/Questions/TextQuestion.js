@@ -3,7 +3,7 @@
 import React, { Component } from 'react'
 import styled from 'styled-components'
 import type { TextQuestionDescriptor } from '../../../business/types'
-import { BLUE } from '../../../common/constants/palette'
+import { BLUE, PINK } from '../../../common/constants/palette'
 import { MARGIN } from '../../../common/constants/style'
 import Number from '../../screens/MarketsScreen/Number'
 
@@ -13,6 +13,8 @@ type TextQuestionProps = {
   onChange: (value: string) => void,
   error?: string,
   index?: number,
+  onBlur?: () => void,
+  onFocus?: () => void,
 }
 
 // language=SCSS prefix=dummy{ suffix=}
@@ -36,6 +38,13 @@ const Input = styled.input`
   border: none;
 `
 
+// language=SCSS prefix=dummy{ suffix=}
+const Error = styled.div.attrs({ className: 'Error' })`
+  font-size: 12px;
+  color: ${PINK};
+  margin-top: ${MARGIN.base}px;
+`
+
 export default class TextQuestion extends Component {
   props: TextQuestionProps
 
@@ -47,10 +56,10 @@ export default class TextQuestion extends Component {
   render() {
     const id = this.props.descriptor.id
 
+    const error = this.props.error
+    const required = this.props.descriptor.required
     return (
-      <Container
-        className={`TextQuestion ${id} ${this.props.error ? 'hasError' : ''}`}
-      >
+      <Container className={`TextQuestion ${id} ${error ? 'hasError' : ''}`}>
         {this.props.index
           ? <div style={{ position: 'relative', bottom: 8, marginRight: 15 }}>
               <Number>
@@ -59,14 +68,29 @@ export default class TextQuestion extends Component {
             </div>
           : null}
         <div>
-          <Header>
+          <Header
+            style={{
+              fontWeight: required ? '500' : '300',
+            }}
+          >
             {this.props.descriptor.questionText}
+            {required ? '*' : ''}
           </Header>
           <Input
             value={this.props.value}
             name={id}
             onChange={e => this.props.onChange(id, e.target.value)}
+            style={{
+              backgroundColor: error ? '#efc9c9' : 'rgb(240, 240, 240)',
+            }}
+            onBlur={this.props.onBlur}
+            onFocus={this.props.onFocus}
           />
+          {error
+            ? <Error>
+                {error}
+              </Error>
+            : null}
         </div>
       </Container>
     )

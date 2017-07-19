@@ -28,7 +28,7 @@ export function validate(
 
   requiredQuestions.forEach(q => {
     if (answers[q.id] === undefined) {
-      errors.field[q.id] = `The question "${q.questionText}" must be answered.`
+      errors.field[q.id] = `This field is required.`
       errors.hasError = true
     }
   })
@@ -60,12 +60,14 @@ export function validateType(
   if (!question.required && typeof answer === 'undefined') {
     return null
   } else if (question.required && typeof answer === 'undefined') {
-    return `Question "${question.questionText}" must be answered.`
+    return `This field is required.`
   }
   switch (question.type) {
     case 'text':
       if (typeof answer !== 'string')
         return `Answer for question "${question.questionText} must be a string"`
+      else if (question.required && answer.trim() === '')
+        return `This field is required.`
       break
     case 'nullable-text':
       if (typeof answer !== 'string' && answer !== null)

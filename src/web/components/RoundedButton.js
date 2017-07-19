@@ -22,9 +22,14 @@ const Button = styled.button`
   &:hover {
     opacity: 0.7;
   }
+
+  &[disabled] {
+    cursor: default;
+    opacity: 0.7;
+  }
 `
-const RoundedButton = ({ label, loading, ...props }) =>
-  <Button disabled={loading} {...props}>
+const RoundedButton = ({ label, loading, disabled, ...props }) =>
+  <Button disabled={loading || disabled} {...props}>
     <div>
       {label}
     </div>
