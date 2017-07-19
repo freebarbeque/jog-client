@@ -3,10 +3,13 @@ import { connect } from 'react-redux'
 import styled from 'styled-components'
 import _ from 'lodash'
 import TextQuestion from '../../components/Questions/TextQuestion'
-import { questions } from '../../../business/address'
+import { constructAddress, questions } from '../../../business/address'
 import type { Dispatch, ReduxState } from '../../../common/types'
 import type { MarketsReduxState } from '../../../common/store/markets/index'
-import { setAddressAnswer } from '../../../common/store/markets/index'
+import {
+  setAddressAnswer,
+  addAddress,
+} from '../../../common/store/markets/index'
 import Panel from '../../components/Panel'
 import Container from '../../components/Container'
 import { MARGIN } from '../../../common/constants/style'
@@ -52,13 +55,16 @@ class MarketsScreen extends Component {
     this.props.dispatch(setAddressAnswer(id, value))
   }
 
+  handleAddAddressClick = () => {
+    const address = constructAddress(this.props.markets.addressAnswers)
+    this.props.dispatch(addAddress(address))
+  }
+
   validateAnswers = () => {
-    const errors = validate(questions, this.props.markets.addressAnswers)
-    return errors
+    return validate(questions, this.props.markets.addressAnswers)
   }
 
   handleBlur = (id: string) => {
-    console.log('blurrr')
     const blurred = { ...this.state.blurred }
     blurred[id] = true
     this.setState({ blurred })
@@ -106,7 +112,7 @@ class MarketsScreen extends Component {
               marginLeft: 52,
               marginTop: MARGIN.xxl,
             }}
-            onClick={this.validateAnswers}
+            onClick={this.handleAddAddressClick}
             disabled={this.state.errors.hasError}
           />
         </Panel>

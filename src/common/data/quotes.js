@@ -3,9 +3,9 @@
 import firebase from 'firebase'
 import { Address } from '../../business/types'
 
-export function setAddress(uid: string, id: string, address: Address) {
+export function setAddress(uid: string, address: Address) {
   const db = firebase.database()
-  return db.ref(`/addresses/${uid}/${id}`).set(address)
+  return db.ref(`/addresses/${uid}/${address.id}`).set(address)
 }
 
 export async function getAddresses(uid: string): { [string]: Address } {

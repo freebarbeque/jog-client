@@ -5,6 +5,7 @@
 //
 
 import { put, call } from 'redux-saga/effects'
+import { takeLatest } from 'redux-saga'
 
 import type { Address } from '../../../business/types'
 import { finishLoading, startLoading } from '../loading/actions'
@@ -21,7 +22,6 @@ export type SetAddressAnswerAction = {
 export type AddAddressAction = {
   type: 'markets/addresses/ADD_ADDRESS',
   address: Address,
-  id: string,
 }
 
 export type MarketsAction = SetAddressAnswerAction | AddAddressAction
@@ -39,22 +39,25 @@ export function setAddressAnswer(
   }
 }
 
-export function addAddress(id: string, address: Address): AddAddressAction {
+export function addAddress(address: Address): AddAddressAction {
   return {
     type: 'markets/addresses/ADD_ADDRESS',
-    id,
     address,
   }
 }
 // endregion
 
 // region Sagas
-export function* addAddressSaga<T>(action: AddAddressAction): Iterable<T> {
+export function* addAddressTask<T>(action: AddAddressAction): Iterable<T> {
   const address = action.address
   yield put(startLoading('Adding new address'))
   const user = demandCurrentUser()
-  yield call(() => setAddress(user.uid, action.id, address))
+  yield call(() => setAddress(user.uid, address))
   yield put(finishLoading())
+}
+
+export function* addAddressSaga<T>(): Iterable<T> {
+  yield takeLatest('markets/addresses/ADD_ADDRESS', addAddressTask)
 }
 // endregion
 

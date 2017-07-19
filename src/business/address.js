@@ -1,7 +1,9 @@
 // @flow
 
 import _ from 'lodash'
-import type { TextQuestionDescriptor } from './types'
+import uuid from 'uuid/v4'
+import type { Address, TextQuestionDescriptor } from './types'
+import { validate } from './validation'
 
 // export interface Address {
 //   id: string,
@@ -65,3 +67,21 @@ export const questions = [
 ]
 
 export const questionMap = _.keyBy(questions, q => q.id)
+
+export function constructAddress(answers: { [string]: string }): Address {
+  if (validate(questions, answers).hasError) {
+    throw new Error('Address questions should have passed validation.')
+  } else {
+    const address: Address = {
+      id: uuid(),
+      name: '',
+      firstLine: answers['address/first-line'] || '',
+      secondLine: answers['address/second-line'] || '',
+      city: answers['address/city'] || '',
+      province: answers['address/province'] || '',
+      postCode: answers['address/post-code'] || '',
+    }
+
+    return address
+  }
+}
