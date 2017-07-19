@@ -55,7 +55,7 @@ const drivingLicenseTypeQuestion: SelectQuestionDescriptor<string> = {
 const vehicleQuestion: BaseQuestionDescriptor<Car> = {
   type: 'motor/vehicle',
   id: 'motor/vehicle',
-  questionText: 'Which car would you like to ensure?',
+  questionText: 'Which car would you like to insure?',
   required: true,
 }
 

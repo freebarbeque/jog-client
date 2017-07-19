@@ -4,6 +4,7 @@ import _ from 'lodash'
 import assert from 'assert'
 
 import * as address from '../src/business/address'
+import { validate } from '../src/business/validation'
 
 describe('address', () => {
   const baseAnswers = {
@@ -15,7 +16,7 @@ describe('address', () => {
   }
 
   it('perfect', () => {
-    const errors = address.validate(baseAnswers)
+    const errors = validate(address.questions, baseAnswers)
     console.log('errors', errors)
     assert(!errors.hasError)
     assert(!_.keys(errors.field).length)
@@ -25,7 +26,7 @@ describe('address', () => {
   it('missing first line', () => {
     const answers = { ...baseAnswers }
     delete answers['address/first-line']
-    const errors = address.validate(answers)
+    const errors = validate(address.questions, answers)
     console.log('errors', errors)
     assert(errors.hasError)
     const fieldError = errors.field['address/first-line']
@@ -37,7 +38,7 @@ describe('address', () => {
   it('missing second line', () => {
     const answers = { ...baseAnswers }
     delete answers['address/second-line']
-    const errors = address.validate(answers)
+    const errors = validate(address.questions, baseAnswers)
     console.log('errors', errors)
     assert(!errors.hasError)
     assert(!_.keys(errors.field).length)

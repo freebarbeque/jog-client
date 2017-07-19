@@ -27,7 +27,7 @@ describe('motor', () => {
     const answers = {
       'motor/vehicle': {
         registration: 'WR09GKA',
-        model: 'Focus Zetekc',
+        model: 'Focus Zetec',
         make: 'Ford',
         value: 2000,
         dateRegistered: '01/01/09',

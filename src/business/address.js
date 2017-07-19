@@ -1,8 +1,7 @@
 // @flow
 
 import _ from 'lodash'
-import type { TextQuestionDescriptor, ValidationErrors } from './types'
-import { validateType } from './validation'
+import type { TextQuestionDescriptor } from './types'
 
 // export interface Address {
 //   id: string,
@@ -66,43 +65,3 @@ export const questions = [
 ]
 
 export const questionMap = _.keyBy(questions, q => q.id)
-
-export function validate(answers: {
-  [questionId: string]: mixed,
-}): ValidationErrors {
-  const errors: ValidationErrors = {
-    hasError: false,
-    nonField: [],
-    field: {},
-  }
-
-  const requiredQuestions = questions.filter(q => q.required)
-
-  console.log('requiredQuestions', requiredQuestions)
-
-  requiredQuestions.forEach(q => {
-    if (!answers[q.id]) {
-      errors.field[q.id] = `The question "${q.questionText}" must be answered.`
-      errors.hasError = true
-    }
-  })
-
-  questions.forEach(q => {
-    const answer: any = answers[q.id]
-    let error = validateType(q, answer)
-    if (error) {
-      errors.field[q.id] = error
-      errors.hasError = true
-    }
-
-    if (!errors.field[q.id] && answer && q.validate) {
-      error = q.validate(answer)
-      if (error) {
-        errors.field[q.id] = error
-        errors.hasError = true
-      }
-    }
-  })
-
-  return errors
-}
