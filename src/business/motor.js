@@ -4,12 +4,12 @@ import _ from 'lodash'
 import type {
   Address,
   BaseQuestionDescriptor,
+  BooleanQuestionDescriptor,
   Car,
   DateQuestionDescriptor,
   MotoringConviction,
   MotoringIncident,
   MultiSelectQuestionDescriptor,
-  NullableSelectQuestionDescriptor,
   NumericQuestionDescriptor,
   Person,
   SelectQuestionDescriptor,
@@ -126,41 +126,49 @@ export const additionalDrivingQualificationsQuestion: MultiSelectQuestionDescrip
   required: false,
 }
 
-export const dvlaMedicalConditions: NullableSelectQuestionDescriptor<string> = {
-  type: 'nullable-select',
-  id: 'motor/dvla-medical-conditions',
-  questionText: 'Does the DVLA know about these conditions?',
-  options: [
+export const dvlaMedicalConditions: BooleanQuestionDescriptor<string> = {
+  type: 'boolean',
+  questionText:
+    'Do you have any medical conditions that could affect your driving?',
+  dependentQuestions: [
     {
-      label: 'DVLA aware - no restrictions',
-      value: 'aware-no-restrictions',
-    },
-    {
-      label: 'DVLA aware - 1 year restricted license',
-      value: 'aware-1-year-restriction',
-    },
-    {
-      label: 'DVLA aware - 2 year restricted license',
-      value: 'aware-2-year-restriction',
-    },
-    {
-      label: 'DVLA aware - 3 year restricted license',
-      value: 'aware-3-year-restriction',
-    },
-    {
-      label: 'DVLA not aware',
-      value: 'not-aware',
-    },
-    {
-      label: 'Advised not to drive by doctor',
-      value: 'advised-not-to-drive-by-doctor',
+      type: 'select',
+      id: 'motor/dvla-medical-conditions',
+      questionText: 'Does the DVLA know about these conditions?',
+      options: [
+        {
+          label: 'DVLA aware - no restrictions',
+          value: 'aware-no-restrictions',
+        },
+        {
+          label: 'DVLA aware - 1 year restricted license',
+          value: 'aware-1-year-restriction',
+        },
+        {
+          label: 'DVLA aware - 2 year restricted license',
+          value: 'aware-2-year-restriction',
+        },
+        {
+          label: 'DVLA aware - 3 year restricted license',
+          value: 'aware-3-year-restriction',
+        },
+        {
+          label: 'DVLA not aware',
+          value: 'not-aware',
+        },
+        {
+          label: 'Advised not to drive by doctor',
+          value: 'advised-not-to-drive-by-doctor',
+        },
+      ],
+      required: true,
     },
   ],
-  required: false,
+  required: true,
 }
 
-export const otherCars: NullableSelectQuestionDescriptor<string> = {
-  type: 'nullable-select',
+export const otherCars: SelectQuestionDescriptor<string> = {
+  type: 'select',
   id: 'motor/other-cars',
   questionText: 'Which of these cars do you drive?',
   options: [

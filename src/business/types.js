@@ -85,6 +85,9 @@ export interface BaseQuestionDescriptor<T> {
   required?: boolean,
 }
 
+export interface NullableBaseQuestionDescriptor<T>
+  extends BaseQuestionDescriptor<T | null> {}
+
 export interface TextQuestionDescriptor extends BaseQuestionDescriptor<string> {
   type: 'text',
   minLength?: number,
@@ -92,7 +95,7 @@ export interface TextQuestionDescriptor extends BaseQuestionDescriptor<string> {
 }
 
 export interface NullableTextQuestionDescriptor
-  extends BaseQuestionDescriptor<string | null> {
+  extends NullableBaseQuestionDescriptor<string> {
   type: 'nullable-text',
   minLength?: number,
   maxLength?: number,
@@ -103,7 +106,7 @@ export interface DateQuestionDescriptor extends BaseQuestionDescriptor<Date> {
 }
 
 export interface NullableDateQuestionDescriptor
-  extends BaseQuestionDescriptor<Date | null> {
+  extends NullableBaseQuestionDescriptor<Date> {
   type: 'nullable-date',
 }
 
@@ -118,7 +121,7 @@ export interface SelectQuestionDescriptor<T> extends BaseQuestionDescriptor<T> {
 }
 
 export interface NullableSelectQuestionDescriptor<T>
-  extends BaseQuestionDescriptor<T | null> {
+  extends NullableBaseQuestionDescriptor<T> {
   type: 'nullable-select',
   options: { label: string, value: T }[],
 }
@@ -132,10 +135,11 @@ export interface MultiSelectQuestionDescriptor<T>
 export interface BooleanQuestionDescriptor
   extends BaseQuestionDescriptor<boolean> {
   type: 'boolean',
+  dependentQuestions?: BaseQuestionDescriptor<any>[],
 }
 
 export interface NullableBooleanQuestionDescriptor
-  extends BaseQuestionDescriptor<boolean | null> {
+  extends NullableBaseQuestionDescriptor<boolean> {
   type: 'nullable-boolean',
 }
 
