@@ -17,6 +17,13 @@ import { validate } from './validation'
 //   /* ... */
 // }
 
+export const nicknameQuestion: TextQuestionDescriptor = {
+  id: 'address/nickname',
+  type: 'text',
+  questionText: 'Nick name',
+  required: true,
+}
+
 export const firstLineQuestion: TextQuestionDescriptor = {
   id: 'address/first-line',
   type: 'text',
@@ -59,6 +66,7 @@ export const postCodeQuestion: TextQuestionDescriptor = {
 }
 
 export const questions = [
+  nicknameQuestion,
   firstLineQuestion,
   secondLineQuestion,
   cityQuestion,

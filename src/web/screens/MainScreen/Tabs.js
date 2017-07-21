@@ -6,7 +6,7 @@ import { Tabs, Tab } from 'material-ui/Tabs'
 
 import PoliciesTab from './PoliciesTab'
 import SettingsScreen from '../SettingsScreen'
-import MarketsScreen from '../MarketsScreen'
+import MarketsScreen from '../markets/MarketsScreen'
 
 import { CREAM } from '../../../common/constants/palette'
 import { min } from '../../media'

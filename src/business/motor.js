@@ -2,6 +2,7 @@
 import _ from 'lodash'
 
 import type {
+  Address,
   BaseQuestionDescriptor,
   Car,
   DateQuestionDescriptor,
@@ -15,6 +16,13 @@ import type {
 } from './types'
 
 export type DrivingQualifications = 'pass-plus' | 'advanced-driving'
+
+export const addressQuestion: BaseQuestionDescriptor<Address> = {
+  type: 'motor/address',
+  id: 'motor/address',
+  questionText: 'Address',
+  required: true,
+}
 
 const policyHolderQuestion: BaseQuestionDescriptor<Person> = {
   type: 'motor/main-driver',
@@ -30,7 +38,7 @@ const additionalDriversQuestion: BaseQuestionDescriptor<Person[]> = {
   required: false,
 }
 
-const drivingLicenseTypeQuestion: SelectQuestionDescriptor<string> = {
+export const drivingLicenseTypeQuestion: SelectQuestionDescriptor<string> = {
   type: 'select',
   id: 'motor/license',
   questionText: 'What kind of license do you hold?',
@@ -52,21 +60,21 @@ const drivingLicenseTypeQuestion: SelectQuestionDescriptor<string> = {
   required: true,
 }
 
-const vehicleQuestion: BaseQuestionDescriptor<Car> = {
+export const vehicleQuestion: BaseQuestionDescriptor<Car> = {
   type: 'motor/vehicle',
   id: 'motor/vehicle',
   questionText: 'Which car would you like to insure?',
   required: true,
 }
 
-const monthsHeldLicenseQuestion: NumericQuestionDescriptor = {
+export const yearsHeldLicenseQuestion: NumericQuestionDescriptor = {
   type: 'numeric',
   id: 'motor/license-length',
-  questionText: 'For how long have you held your license?',
+  questionText: 'For how many years have you held your license?',
   required: true,
 }
 
-const whereLicenseIssuedQuestion: SelectQuestionDescriptor<string> = {
+export const whereLicenseIssuedQuestion: SelectQuestionDescriptor<string> = {
   type: 'select',
   id: 'motor/where-license-issued',
   questionText: 'Where was your license issued?',
@@ -82,7 +90,7 @@ const whereLicenseIssuedQuestion: SelectQuestionDescriptor<string> = {
   required: true,
 }
 
-const manualOrAutomaticQuestion: SelectQuestionDescriptor<string> = {
+export const manualOrAutomaticQuestion: SelectQuestionDescriptor<string> = {
   type: 'select',
   id: 'motor/manual-or-auto',
   questionText: 'Does your license cover manual cars or just automatic?',
@@ -99,7 +107,7 @@ const manualOrAutomaticQuestion: SelectQuestionDescriptor<string> = {
   required: true,
 }
 
-const additionalDrivingQualificationsQuestion: MultiSelectQuestionDescriptor<
+export const additionalDrivingQualificationsQuestion: MultiSelectQuestionDescriptor<
   DrivingQualifications,
 > = {
   type: 'multiselect',
@@ -118,7 +126,7 @@ const additionalDrivingQualificationsQuestion: MultiSelectQuestionDescriptor<
   required: false,
 }
 
-const dvlaMedicalConditions: NullableSelectQuestionDescriptor<string> = {
+export const dvlaMedicalConditions: NullableSelectQuestionDescriptor<string> = {
   type: 'nullable-select',
   id: 'motor/dvla-medical-conditions',
   questionText: 'Does the DVLA know about these conditions?',
@@ -151,7 +159,7 @@ const dvlaMedicalConditions: NullableSelectQuestionDescriptor<string> = {
   required: false,
 }
 
-const otherCars: NullableSelectQuestionDescriptor<string> = {
+export const otherCars: NullableSelectQuestionDescriptor<string> = {
   type: 'nullable-select',
   id: 'motor/other-cars',
   questionText: 'Which of these cars do you drive?',
@@ -176,7 +184,7 @@ const otherCars: NullableSelectQuestionDescriptor<string> = {
   required: false,
 }
 
-const motoringConvictionsQuestion: BaseQuestionDescriptor<
+export const motoringConvictionsQuestion: BaseQuestionDescriptor<
   MotoringConviction[],
 > = {
   type: 'motor/convictions',
@@ -185,7 +193,9 @@ const motoringConvictionsQuestion: BaseQuestionDescriptor<
   required: false,
 }
 
-const motoringIncidentsQuestion: BaseQuestionDescriptor<MotoringIncident[]> = {
+export const motoringIncidentsQuestion: BaseQuestionDescriptor<
+  MotoringIncident[],
+> = {
   type: 'motor/incidents',
   id: 'motor/incidents',
   questionText:
@@ -193,14 +203,14 @@ const motoringIncidentsQuestion: BaseQuestionDescriptor<MotoringIncident[]> = {
   required: false,
 }
 
-const noClaimsDiscountQuestion: NumericQuestionDescriptor = {
+export const noClaimsDiscountQuestion: NumericQuestionDescriptor = {
   type: 'numeric',
   id: 'motor/no-claims',
   questionText: 'How many years no claims discount do you have?',
   defaultValue: () => 0,
 }
 
-const startDateQuestion: DateQuestionDescriptor = {
+export const startDateQuestion: DateQuestionDescriptor = {
   type: 'date',
   id: 'motor/start-date',
   questionText: 'When would you like your insurance to start?',
@@ -210,9 +220,10 @@ const startDateQuestion: DateQuestionDescriptor = {
 export const questions = [
   vehicleQuestion,
   policyHolderQuestion,
+  addressQuestion,
   additionalDriversQuestion,
   drivingLicenseTypeQuestion,
-  monthsHeldLicenseQuestion,
+  yearsHeldLicenseQuestion,
   whereLicenseIssuedQuestion,
   manualOrAutomaticQuestion,
   additionalDrivingQualificationsQuestion,

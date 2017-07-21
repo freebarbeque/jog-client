@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { BLUE } from '../../../common/constants/palette'
+import { BLUE } from '../../../../common/constants/palette'
 
 // language=SCSS prefix=dummy{ suffix=}
 const Number = styled.div`

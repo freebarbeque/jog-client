@@ -2,20 +2,20 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import styled from 'styled-components'
 import _ from 'lodash'
-import TextQuestion from '../../components/Questions/TextQuestion'
-import { constructAddress, questions } from '../../../business/address'
-import type { Dispatch, ReduxState } from '../../../common/types'
-import type { MarketsReduxState } from '../../../common/store/markets/index'
+import TextQuestion from '../../../components/Questions/TextQuestion'
+import { constructAddress, questions } from '../../../../business/address'
+import type { Dispatch, ReduxState } from '../../../../common/types'
+import type { MarketsReduxState } from '../../../../common/store/markets/index'
 import {
   setAddressAnswer,
   addAddress,
-} from '../../../common/store/markets/index'
-import Panel from '../../components/Panel'
-import Container from '../../components/Container'
-import { MARGIN } from '../../../common/constants/style'
-import RoundedButton from '../../components/RoundedButton'
-import { validate } from '../../../business/validation'
-import { ValidationErrors } from '../../../business/types'
+} from '../../../../common/store/markets/index'
+import Panel from '../../../components/Panel'
+import Container from '../../../components/Container'
+import { MARGIN } from '../../../../common/constants/style'
+import RoundedButton from '../../../components/RoundedButton'
+import { validate } from '../../../../business/validation'
+import { ValidationErrors } from '../../../../business/types'
 
 type MarketsScreenProps = {
   markets: MarketsReduxState,
@@ -35,7 +35,7 @@ const HR = styled.div`
   margin-top: ${MARGIN.base}px;
 `
 
-class MarketsScreen extends Component {
+class AddressScreen extends Component {
   props: MarketsScreenProps
   state: MarketsScreenState
 
@@ -86,6 +86,7 @@ class MarketsScreen extends Component {
             Add a new address
             <HR />
           </div>
+
           {questions.map((q, idx) => {
             const errors = this.state.errors
 
@@ -123,4 +124,4 @@ class MarketsScreen extends Component {
 
 export default connect((state: ReduxState) => ({
   markets: state.markets,
-}))(MarketsScreen)
+}))(AddressScreen)

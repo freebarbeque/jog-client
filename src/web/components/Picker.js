@@ -14,6 +14,7 @@ type PickerProps = {
   placeholder: string,
   titleText?: string,
   name: string,
+  getItemStyle?: (option: PickerOption) => any,
 }
 
 // language=SCSS prefix=dummy{ suffix=}
