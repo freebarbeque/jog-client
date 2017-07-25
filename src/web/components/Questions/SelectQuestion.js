@@ -14,6 +14,8 @@ type SelectQuestionProps<T> = {
   onChange: (id: string, value: T) => void,
   onBlur?: () => void,
   onFocus?: () => void,
+  specialOptions?: { label: string, value: string }[],
+  onSpecialOptionClick?: (value: string) => void,
 }
 
 export default class SelectQuestion extends Component {
@@ -38,6 +40,17 @@ export default class SelectQuestion extends Component {
               </SelectBox>
             )
           })}
+          {this.props.specialOptions
+            ? this.props.specialOptions.map(o => {
+                return (
+                  <SelectBox
+                    onClick={() => this.props.onSpecialOptionClick(o.value)}
+                  >
+                    {o.label}
+                  </SelectBox>
+                )
+              })
+            : null}
         </div>
       </QuestionField>
     )

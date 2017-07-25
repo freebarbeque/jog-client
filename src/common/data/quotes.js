@@ -1,30 +1,57 @@
 // @flow
 
 import firebase from 'firebase'
-import { Address } from '../../business/types'
+import type { Address, Car, Person } from '../../business/types'
 
 export function setAddress(uid: string, address: Address) {
   const db = firebase.database()
   return db.ref(`/addresses/${uid}/${address.id}`).set(address)
 }
 
-export async function getAddresses(uid: string): { [string]: Address } {
+export function setPerson(uid: string, driver: Person) {
   const db = firebase.database()
-  const ref = db.ref(`/addresses/${uid}`)
-  const snapshot = await ref.once('value')
-  return snapshot.val() || {}
+  return db.ref(`/drivers/${uid}/${driver.id}`).set(driver)
+}
+
+export function setCar(uid: string, car: Car) {
+  const db = firebase.database()
+  return db.ref(`/cars/${uid}/${car.id}`).set(car)
+}
+
+export function sync<T>(
+  key: string,
+  cb: (items: { [string]: T }) => void,
+): () => void {
+  const db = firebase.database()
+  const ref = db.ref(key)
+  const listener = snapshot => {
+    const items = snapshot.val() || {}
+    cb(items)
+  }
+  ref.on('value', listener)
+  return () => ref.off('value', listener)
+}
+
+export function syncPeople(
+  uid: string,
+  cb: (drivers: { [string]: Person }) => void,
+): () => void {
+  const key = `/drivers/${uid}`
+  return sync(key, cb)
 }
 
 export function syncAddresses(
   uid: string,
   cb: (addresses: { [string]: Address }) => void,
 ): () => void {
-  const db = firebase.database()
-  const ref = db.ref(`/addresses/${uid}`)
-  const listener = snapshot => {
-    const addresses = snapshot.val() || {}
-    cb(addresses)
-  }
-  ref.on('value', listener)
-  return () => ref.off('value', listener)
+  const key = `/addresses/${uid}`
+  return sync(key, cb)
+}
+
+export function syncCars(
+  uid: string,
+  cb: (addresses: { [string]: Address }) => void,
+): () => void {
+  const key = `/cars/${uid}`
+  return sync(key, cb)
 }

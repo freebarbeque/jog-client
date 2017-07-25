@@ -7,9 +7,16 @@
 import { fork, put, call, cancel, takeLatest, take } from 'redux-saga/effects'
 import { eventChannel, cancelled } from 'redux-saga'
 
-import type { Address } from '../../../business/types'
+import type { Address, Car, Person } from '../../../business/types'
 import { finishLoading, startLoading } from '../loading/actions'
-import { setAddress, syncAddresses } from '../../data/quotes'
+import {
+  setAddress,
+  setCar,
+  setPerson,
+  syncAddresses,
+  syncCars,
+  syncPeople,
+} from '../../data/quotes'
 import { demandCurrentUser } from '../../data/auth'
 
 // region Action types
@@ -20,9 +27,52 @@ export type SetAddressAnswerAction = {
 }
 
 export type SetMotorAnswerAction = {
-  type: 'markets/addresses/SET_MOTOR_ANSWER',
+  type: 'markets/cars/SET_MOTOR_ANSWER',
   key: string,
   value: mixed,
+}
+
+export type SetDriverAnswerAction = {
+  type: 'markets/drivers/SET_DRIVER_ANSWER',
+  key: string,
+  value: mixed,
+}
+
+export type AddDriverAction = {
+  type: 'markets/drivers/ADD_DRIVER',
+  driver: Person,
+}
+
+export type AddCarAction = {
+  type: 'markets/cars/ADD_CAR',
+  driver: Car,
+}
+
+export type SyncCarsAction = {
+  type: 'markets/cars/SYNC_CARS',
+  uid: string,
+}
+
+export type UnsyncCarsAction = {
+  type: 'markets/cars/UNSYNC_CARS',
+}
+
+export type ReceiveCarsAction = {
+  type: 'markets/cars/RECEIVE_CARS',
+}
+
+export type SyncDriversAction = {
+  type: 'markets/drivers/SYNC_DRIVERS',
+  uid: string,
+}
+
+export type UnsyncDriversAction = {
+  type: 'markets/drivers/UNSYNC_DRIVERS',
+}
+
+export type ReceiveDriversAction = {
+  type: 'markets/drivers/RECEIVE_DRIVERS',
+  addresses: { [string]: Person },
 }
 
 export type AddAddressAction = {
@@ -50,6 +100,17 @@ export type MarketsAction =
   | ReceiveAddressesAction
   | UnsyncAddressesAction
   | SyncAddressesAction
+  | SetMotorAnswerAction
+  | AddDriverAction
+  | SetDriverAnswerAction
+  | SyncDriversAction
+  | UnsyncDriversAction
+  | ReceiveDriversAction
+  | AddCarAction
+  | SyncCarsAction
+  | UnsyncCarsAction
+  | ReceiveCarsAction
+
 // endregion
 
 // region Action creators
@@ -70,7 +131,18 @@ export function setMotorAnswer(
   value: mixed,
 ): SetMotorAnswerAction {
   return {
-    type: 'markets/addresses/SET_MOTOR_ANSWER',
+    type: 'markets/cars/SET_MOTOR_ANSWER',
+    key,
+    value,
+  }
+}
+
+export function setDriverAnswer(
+  key: string,
+  value: mixed,
+): SetDriverAnswerAction {
+  return {
+    type: 'markets/drivers/SET_DRIVER_ANSWER',
     key,
     value,
   }
@@ -105,6 +177,64 @@ export function receiveAddresses(addresses: {
   }
 }
 
+export function addDriver(address: Address): AddDriverAction {
+  return {
+    type: 'markets/drivers/ADD_DRIVER',
+    address,
+  }
+}
+
+export function addCar(car: Car): AddCarAction {
+  return {
+    type: 'markets/cars/ADD_CAR',
+    car,
+  }
+}
+
+export function syncCarsAction(uid: string): SyncCarsAction {
+  return {
+    type: 'markets/cars/SYNC_CARS',
+    uid,
+  }
+}
+
+export function unsyncCarsAction(uid: string): UnsyncCarsAction {
+  return {
+    type: 'markets/cars/UNSYNC_CARS',
+    uid,
+  }
+}
+
+export function receiveCars(cars: { [id: string]: Car }): ReceiveCarsAction {
+  return {
+    type: 'markets/cars/RECEIVE_CARS',
+    cars,
+  }
+}
+
+export function syncDriversAction(uid: string): SyncDriversAction {
+  return {
+    type: 'markets/drivers/SYNC_DRIVERS',
+    uid,
+  }
+}
+
+export function unsyncDriversAction(uid: string): UnsyncDriversAction {
+  return {
+    type: 'markets/drivers/UNSYNC_DRIVERS',
+    uid,
+  }
+}
+
+export function receiveDrivers(drivers: {
+  [string]: Person,
+}): ReceiveDriversAction {
+  return {
+    type: 'markets/drivers/RECEIVE_DRIVERS',
+    drivers,
+  }
+}
+
 // endregion
 
 // region Sagas
@@ -116,8 +246,26 @@ export function* addAddressTask<T>(action: AddAddressAction): Iterable<T> {
   yield put(finishLoading())
 }
 
-export function* addAddressSaga<T>(): Iterable<T> {
+export function* addDriverTask<T>(action: AddDriverAction): Iterable<T> {
+  const driver = action.driver
+  yield put(startLoading('Adding new driver'))
+  const user = demandCurrentUser()
+  yield call(() => setPerson(user.uid, driver))
+  yield put(finishLoading())
+}
+
+export function* addCarTask<T>(action: AddCarAction): Iterable<T> {
+  const car = action.car
+  yield put(startLoading('Adding vehicle'))
+  const user = demandCurrentUser()
+  yield call(() => setCar(user.uid, car))
+  yield put(finishLoading())
+}
+
+export function* addMarketEntitySaga<T>(): Iterable<T> {
   yield takeLatest('markets/addresses/ADD_ADDRESS', addAddressTask)
+  yield takeLatest('markets/drivers/ADD_DRIVER', addDriverTask)
+  yield takeLatest('markets/cars/ADD_CAR', addCarTask)
 }
 
 function addressEventChannel(uid: string) {
@@ -128,6 +276,38 @@ function addressEventChannel(uid: string) {
   )
 }
 
+function driverEventChannel(uid: string) {
+  return eventChannel(emitter =>
+    syncPeople(uid, addresses => {
+      emitter(addresses)
+    }),
+  )
+}
+
+function carsEventChannel(uid: string) {
+  return eventChannel(emitter =>
+    syncCars(uid, cars => {
+      emitter(cars)
+    }),
+  )
+}
+
+function* syncDriversTask({ uid }) {
+  const channel = yield call(driverEventChannel, uid)
+  try {
+    // eslint-disable-next-line no-constant-condition
+    while (true) {
+      const drivers = yield take(channel)
+      console.log('syncDriversTask received new policies', drivers)
+      yield put(receiveDrivers(drivers))
+    }
+  } finally {
+    if (yield cancelled()) {
+      channel.close()
+    }
+  }
+}
+
 function* syncAddressesTask({ uid }) {
   const channel = yield call(addressEventChannel, uid)
   try {
@@ -136,6 +316,22 @@ function* syncAddressesTask({ uid }) {
       const addresses = yield take(channel)
       console.log('syncMotorPoliciesTask received new policies', addresses)
       yield put(receiveAddresses(addresses))
+    }
+  } finally {
+    if (yield cancelled()) {
+      channel.close()
+    }
+  }
+}
+
+function* syncCarsTask({ uid }) {
+  const channel = yield call(carsEventChannel, uid)
+  try {
+    // eslint-disable-next-line no-constant-condition
+    while (true) {
+      const cars = yield take(channel)
+      console.log('syncMotorPoliciesTask received new policies', cars)
+      yield put(receiveCars(cars))
     }
   } finally {
     if (yield cancelled()) {
@@ -159,19 +355,57 @@ export function* syncAddressesSaga<T>(): Iterable<T> {
     yield cancel(bgTask)
   }
 }
+
+export function* syncDriversSaga<T>(): Iterable<T> {
+  let action: ?SyncDriversAction
+
+  // eslint-disable-next-line no-cond-assign
+  while ((action = yield take('markets/drivers/SYNC_DRIVERS'))) {
+    // Start the sync in the background
+    const bgTask = yield fork(syncDriversTask, action)
+
+    // Wait for the sync to cancel
+    yield take('markets/drivers/UNSYNC_DRIVERS')
+
+    // The sync was cancelled - this causes the forked task to jump to finally block
+    yield cancel(bgTask)
+  }
+}
+
+export function* syncCarsSaga<T>(): Iterable<T> {
+  let action: ?SyncCarsAction
+
+  // eslint-disable-next-line no-cond-assign
+  while ((action = yield take('markets/cars/SYNC_CARS'))) {
+    // Start the sync in the background
+    const bgTask = yield fork(syncCarsTask, action)
+
+    // Wait for the sync to cancel
+    yield take('markets/cars/UNSYNC_CARS')
+
+    // The sync was cancelled - this causes the forked task to jump to finally block
+    yield cancel(bgTask)
+  }
+}
 // endregion
 
 // region State
 export type MarketsReduxState = {
   addressAnswers: { [string]: string },
   motorAnswers: { [string]: mixed },
+  driverAnswers: { [string]: mixed },
   addresses: { [string]: Address },
+  drivers: { [string]: Person },
+  cars: { [string]: Car },
 }
 
 const DEFAULT_STATE: MarketsReduxState = {
   addressAnswers: {},
   addresses: {},
   motorAnswers: {},
+  driverAnswers: {},
+  drivers: {},
+  cars: {},
 }
 // endregion
 
@@ -186,17 +420,34 @@ export default function reducer(
       ...state,
       addressAnswers,
     }
-  } else if (action.type === 'markets/addresses/SET_MOTOR_ANSWER') {
+  } else if (action.type === 'markets/cars/SET_MOTOR_ANSWER') {
     const motorAnswers = { ...state.motorAnswers }
     motorAnswers[action.key] = action.value
     return {
       ...state,
       motorAnswers,
     }
+  } else if (action.type === 'markets/drivers/SET_DRIVER_ANSWER') {
+    const driverAnswers = { ...state.driverAnswers }
+    driverAnswers[action.key] = action.value
+    return {
+      ...state,
+      driverAnswers,
+    }
   } else if (action.type === 'markets/addresses/RECEIVE_ADDRESSES') {
     return {
       ...state,
       addresses: action.addresses,
+    }
+  } else if (action.type === 'markets/drivers/RECEIVE_DRIVERS') {
+    return {
+      ...state,
+      drivers: action.drivers,
+    }
+  } else if (action.type === 'markets/cars/RECEIVE_CARS') {
+    return {
+      ...state,
+      cars: action.cars,
     }
   }
 

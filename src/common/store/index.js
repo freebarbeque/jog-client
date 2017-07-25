@@ -16,7 +16,11 @@ import { syncInsurersSaga } from './insurers/sagas'
 import { addPolicySaga } from './screens/addManualPolicy/sagas'
 import authScreenSaga from './screens/auth/sagas'
 import { addPolicyScreenSaga } from './screens/addPolicyScreen/sagas'
-import { addAddressSaga, syncAddressesSaga } from './markets/index'
+import {
+  addMarketEntitySaga,
+  syncAddressesSaga,
+  syncDriversSaga,
+} from './markets/index'
 
 let store = null
 let navigationAdaptor: typeof NavigationAdapter | null = null
@@ -85,8 +89,9 @@ export default function createStore(_opts: CreateStoreOpts): Store {
       addPolicySaga,
       addPolicyScreenSaga,
       saga,
-      addAddressSaga,
+      addMarketEntitySaga,
       syncAddressesSaga,
+      syncDriversSaga,
       ...opts.sagas,
     ]
 

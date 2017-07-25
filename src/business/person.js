@@ -1,11 +1,12 @@
 // @flow
 
 import _ from 'lodash'
+import uuid from 'uuid/v4'
+import { validate } from './validation'
 
 import type {
   BooleanQuestionDescriptor,
-  NullableBooleanQuestionDescriptor,
-  NullableTextQuestionDescriptor,
+  Person,
   SelectQuestionDescriptor,
   TextQuestionDescriptor,
 } from './types'
@@ -58,8 +59,8 @@ export const childrenQuestion: BooleanQuestionDescriptor = {
   required: false,
 }
 
-export const startLivingUkQuestion: NullableBooleanQuestionDescriptor = {
-  type: 'nullable-boolean',
+export const startLivingUkQuestion: BooleanQuestionDescriptor = {
+  type: 'boolean',
   questionText: 'When did you start living in the UK?',
   id: 'person/uk-start-living',
   required: false,
@@ -79,10 +80,11 @@ export const industryQuestion: TextQuestionDescriptor = {
   required: true,
 }
 
-export const drivingLicenseQuestion: NullableTextQuestionDescriptor = {
-  type: 'nullable-text',
+export const drivingLicenseQuestion: TextQuestionDescriptor = {
+  type: 'text',
   id: 'person/license',
   questionText: 'What is your driving license number?',
+  hint: 'This is not required by law',
   required: false,
 }
 
@@ -99,3 +101,18 @@ export const questions = [
 ]
 
 export const questionMap = _.keyBy(questions, q => q.id)
+
+export function constructDriver(answers: { [string]: mixed }): Person {
+  if (validate(questions, answers).hasError) {
+    throw new Error('Address questions should have passed validation.')
+  } else {
+    const driver: Person = {
+      id: uuid(),
+      firstName: answers['person/first-name'],
+      lastName: answers['person/last-name'],
+      gender: answers['person/gender'],
+    }
+
+    return driver
+  }
+}

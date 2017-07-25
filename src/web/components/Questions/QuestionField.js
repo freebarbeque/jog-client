@@ -32,20 +32,26 @@ const Error = styled.div.attrs({ className: 'Error' })`
 
 // language=SCSS prefix=dummy{ suffix=}
 const Header = styled.div`font-size: 16px;`
+// language=SCSS prefix=dummy{ suffix=}
+const Subheader = styled.div`
+  font-size: 12px;
+  font-weight: 300;
+  font-style: italic;
+`
 
 export default class QuestionField extends Component {
   props: QuestionFieldProps
 
   render() {
-    const error = this.props.error
-    const required = this.props.descriptor.required
+    const { error, descriptor, index, children } = this.props
+    const { required, hint, questionText } = descriptor
 
     return (
       <Container>
-        {this.props.index
+        {index
           ? <div style={{ position: 'relative', bottom: 8, marginRight: 15 }}>
               <Number>
-                {this.props.index}
+                {index}
               </Number>
             </div>
           : null}
@@ -55,10 +61,15 @@ export default class QuestionField extends Component {
               fontWeight: required ? '500' : '300',
             }}
           >
-            {this.props.descriptor.questionText}
+            {questionText}
             {required ? '*' : ''}
           </Header>
-          {this.props.children}
+          {hint
+            ? <Subheader>
+                {hint}
+              </Subheader>
+            : null}
+          {children}
           {error
             ? <Error>
                 {error}

@@ -3,11 +3,11 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import _ from 'lodash'
-import Picker from '../../components/Picker'
-import type { PickerOption } from '../../components/Picker'
+import Picker from '../Picker'
+import type { PickerOption } from '../Picker'
 import type { Address, BaseQuestionDescriptor } from '../../../business/types'
 import type { ReduxState } from '../../../common/types'
-import QuestionField from '../../components/Questions/QuestionField'
+import QuestionField from './QuestionField'
 
 type AddressQuestionProps = {
   index?: number,

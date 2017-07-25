@@ -1,3 +1,5 @@
+// @flow
+
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import type { Dispatch, ReduxState } from '../../../common/types'
@@ -5,10 +7,11 @@ import { setMotorAnswer } from '../../../common/store/markets/index'
 
 import Panel from '../../components/Panel'
 import Container from '../../components/Container'
-import AddressQuestion from './AddressQuestion'
+import AddressQuestion from '../../components/Questions/AddressQuestion'
 import Header from './Header'
 import { questions as motorQuestions } from '../../../business/motor'
 import QuestionSet from '../../components/Questions/QuestionSet'
+import MainDriverQuestion from '../../components/Questions/MainDriverQuestion'
 
 type MotorQuoteScreenProps = {
   motorAnswers: { [string]: mixed },
@@ -27,6 +30,7 @@ class MotorQuoteScreen extends Component {
             questions={motorQuestions}
             extraComponents={{
               'motor/address': { component: AddressQuestion },
+              'motor/main-driver': { component: MainDriverQuestion },
             }}
             answers={this.props.motorAnswers}
             onChange={(id, value) => {

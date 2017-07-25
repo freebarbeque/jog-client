@@ -24,10 +24,10 @@ export const addressQuestion: BaseQuestionDescriptor<Address> = {
   required: true,
 }
 
-const policyHolderQuestion: BaseQuestionDescriptor<Person> = {
+export const policyHolderQuestion: BaseQuestionDescriptor<Person> = {
   type: 'motor/main-driver',
   id: 'motor/main-driver',
-  questionText: 'Main driver',
+  questionText: 'Who is the main policy holder?',
   required: true,
 }
 
@@ -127,6 +127,7 @@ export const additionalDrivingQualificationsQuestion: MultiSelectQuestionDescrip
 }
 
 export const dvlaMedicalConditions: BooleanQuestionDescriptor<string> = {
+  id: 'motor/has-medical-conditions',
   type: 'boolean',
   questionText:
     'Do you have any medical conditions that could affect your driving?',

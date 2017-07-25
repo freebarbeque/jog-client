@@ -11,7 +11,7 @@ type TextQuestionProps = {
   ...QuestionFieldProps,
   descriptor: TextQuestionDescriptor,
   value: string,
-  onChange: (value: string) => void,
+  onChange: (id: string, value: string) => void,
   onBlur?: () => void,
   onFocus?: () => void,
 }

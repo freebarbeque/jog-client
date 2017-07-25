@@ -7,29 +7,35 @@ import IntegerQuestion from './IntegerQuestion'
 import { BLUE } from '../../../common/constants/palette'
 import MultiSelectQuestion from './MultiSelectQuestion'
 import BooleanQuestion from './BooleanQuestion'
+import TextQuestion from './TextQuestion'
 
 type QuestionSetProps = {
   questions: BaseQuestionDescriptor<any>[],
   answers: { [string]: mixed },
   onChange: (id: string, answer: mixed) => void,
   extraComponents?: { [string]: { component: typeof Component } },
+  onFocus?: (id: string) => void,
+  onBlur?: (id: string) => void,
 }
 
 export default class QuestionSet extends Component {
   props: QuestionSetProps
 
   render() {
-    const extraComponents = this.props.extraComponents || {}
-    const answers = this.props.answers
+    const { onFocus, onBlur, answers, extraComponents = {} } = this.props
     const map = {
       ...extraComponents,
       select: { component: SelectQuestion },
       multiselect: { component: MultiSelectQuestion },
-      numeric: { component: IntegerQuestion },
+      numeric: { component: IntegerQuestion, props: { onFocus, onBlur } },
       boolean: {
         component: BooleanQuestion,
         // Boolean questions may have dependencies so we need to pass on the extra components & answers
         props: { extraComponents, answers },
+      },
+      text: {
+        component: TextQuestion,
+        props: { onFocus, onBlur },
       },
     }
 

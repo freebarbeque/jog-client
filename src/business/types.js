@@ -42,7 +42,6 @@ export type MotoringConviction = {
 export type Person = {
   id: string,
   firstName: string,
-  middleNames?: string,
   lastName: string,
   gender: Gender,
   dob: string,
@@ -59,7 +58,7 @@ export type Person = {
       yearsDriving?: number,
     },
   },
-  address: Address,
+  address?: Address,
 }
 
 export interface Address {
@@ -80,6 +79,7 @@ export interface BaseQuestionDescriptor<T> {
   id: string,
   type: *,
   questionText: string,
+  hint?: string,
   validate?: (answer: T) => string | null,
   defaultValue?: () => T,
   required?: boolean,
