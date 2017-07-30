@@ -9,7 +9,7 @@ import MarketsScreen from '../markets/MarketsScreen'
 
 import { CREAM } from '../../../common/constants/palette'
 import { min } from '../../media'
-import { RouteComponentProps } from "react-router";
+import { RouteComponentProps } from 'react-router'
 
 const TABS = ['policies', 'markets', 'settings']
 
@@ -39,12 +39,12 @@ interface Props extends ConnectedProps, RouteComponentProps<any> {}
 
 class TabsScreen extends React.Component<Props> {
   handleChangeIndex = index => {
-    const history = this.props.history;
+    const history = this.props.history
     history.push(`/app/tabs/${TABS[index]}`)
   }
 
   render() {
-    const location = this.props.location;
+    const location = this.props.location
     const pathname = location.pathname
 
     const screen = pathname.split('/')[3]
@@ -87,5 +87,7 @@ class TabsScreen extends React.Component<Props> {
   }
 }
 
-const ConnectedTabsScreen: React.ComponentClass<ConnectedProps> = withRouter(TabsScreen)
+const ConnectedTabsScreen: React.ComponentClass<ConnectedProps> = withRouter(
+  TabsScreen,
+)
 export default ConnectedTabsScreen

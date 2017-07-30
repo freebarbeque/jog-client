@@ -10,7 +10,7 @@ import { Dispatch, FirebaseUser, ReduxState, Action } from '../../common/types'
 import { Cross, Logo } from '../components/images/index'
 
 interface EmailPolicyScreenProps extends DispatchProp<Action> {
-  user: FirebaseUser,
+  user: FirebaseUser
 }
 
 // language=SCSS prefix=dummy{ suffix=}

@@ -20,7 +20,7 @@ const Container = styled.div`
 `
 
 interface ManualAddPolicyProps {
-  isHandset: boolean,
+  isHandset: boolean
 }
 
 class ManualAddPolicy extends React.Component<ManualAddPolicyProps> {

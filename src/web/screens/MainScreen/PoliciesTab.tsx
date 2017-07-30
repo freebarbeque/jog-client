@@ -23,8 +23,8 @@ import PolicyScreen from '../PolicyScreen'
 import ScrollToTopOnMount from '../../components/ScrollToTopOnMount'
 
 type PoliciesTabProps = {
-  policies: MotorPolicyMap,
-  dispatch: Dispatch,
+  policies: MotorPolicyMap
+  dispatch: Dispatch
 }
 
 // language=SCSS prefix=dummy{ suffix=}

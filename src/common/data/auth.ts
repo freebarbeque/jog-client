@@ -19,7 +19,7 @@ const errors = {
 // Decorates firebase calls converting errors into user readable errors and warning when this
 // is impossible.
 function errorWrapper(fn: Function): (...args: any[]) => Promise<any> {
-  return async function (...args: any[]) {
+  return async function(...args: any[]) {
     try {
       await fn(...args)
     } catch (err) {

@@ -1,5 +1,5 @@
 export type UploadPolicyAction = {
-  type: 'screens/addPolicyScreen/UPLOAD_POLICY',
+  type: 'screens/addPolicyScreen/UPLOAD_POLICY'
 }
 
 export type AddPolicyScreenAction = UploadPolicyAction

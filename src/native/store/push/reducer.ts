@@ -1,7 +1,7 @@
 import { PushAction } from './actionTypes'
 
 export type PushNotificationsReduxState = {
-  showModal: boolean,
+  showModal: boolean
 }
 
 const DEFAULT_STATE = {

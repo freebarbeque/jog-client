@@ -6,9 +6,9 @@ import FirebaseImage from '../../components/FirebaseImage'
 import { Car, Plus } from '../../components/images/index'
 
 export type MotorPolicyCardProps = {
-  policy: MotorPolicy,
-  onPress: () => void,
-  index: number,
+  policy: MotorPolicy
+  onPress: () => void
+  index: number
 }
 
 export default class MotorPolicyCard extends React.Component {

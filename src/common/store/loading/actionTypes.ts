@@ -1,10 +1,10 @@
 export type StartLoadingAction = {
-  type: 'loading/START',
-  text: string,
+  type: 'loading/START'
+  text: string
 }
 
 export type FinishLoadingAction = {
-  type: 'loading/FINISH',
+  type: 'loading/FINISH'
 }
 
 export type LoadingAction = StartLoadingAction | FinishLoadingAction

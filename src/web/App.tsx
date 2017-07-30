@@ -52,13 +52,12 @@ const Container = styled.div`
 `
 
 type AppProps = {
-  user: FirebaseUser | null,
-  initialised: boolean,
-  dispatch: Dispatch,
+  user: FirebaseUser | null
+  initialised: boolean
+  dispatch: Dispatch
 }
 
 class App extends React.Component<AppProps> {
-
   componentDidMount() {
     this.props.dispatch(syncData())
     this.props.dispatch(subscribeDimensions())

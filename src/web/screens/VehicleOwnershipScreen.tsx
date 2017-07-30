@@ -13,11 +13,13 @@ import RadioInput from '../components/RadioInput'
 import { MARGIN } from '../../common/constants/style'
 
 type VehicleOwnershipScreenProps = {
-  dispatch: Dispatch,
-  policy: ManualPolicyUpdate,
+  dispatch: Dispatch
+  policy: ManualPolicyUpdate
 }
 
-class VehicleOwnershipScreen extends React.Component<VehicleOwnershipScreenProps> {
+class VehicleOwnershipScreen extends React.Component<
+  VehicleOwnershipScreenProps
+> {
   handleNextPress = () => {
     const policy = this.props.policy
     this.props.dispatch(savePolicy(policy))

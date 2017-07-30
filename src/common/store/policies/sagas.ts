@@ -202,7 +202,10 @@ function* uploadPolicyDocumentTask(action: UploadPolicyDocumentAction) {
   yield put(finishLoading())
 }
 
-function* deletePolicyDocumentTask({ policyId, documentId }: DeletePolicyDocumentAction) {
+function* deletePolicyDocumentTask({
+  policyId,
+  documentId,
+}: DeletePolicyDocumentAction) {
   const user = demandCurrentUser()
   yield put(startLoading('Deleting document'))
   const document = yield call(() => getPolicyDocument(policyId, documentId))

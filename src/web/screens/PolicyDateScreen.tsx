@@ -10,9 +10,8 @@ import { ManualPolicyUpdate } from '../../common/store/screens/addManualPolicy/a
 import AddPolicyScreenContainer from '../components/AddPolicyScreenContainer'
 import DatePicker from '../components/DatePicker'
 
-
 interface PolicyDateScreenProps extends DispatchProp<Action> {
-  policy: ManualPolicyUpdate,
+  policy: ManualPolicyUpdate
 }
 
 class PolicyDateScreen extends React.Component<PolicyDateScreenProps> {

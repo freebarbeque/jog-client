@@ -21,14 +21,14 @@ import FlexCenteredContainer from '../components/FlexCenteredContainer'
 import { NAVIGATION_BAR_HEIGHT } from '../constants/style'
 
 interface LoginProps {
-  dispatch: Dispatch,
-  values: ValuesMap,
-  validationErrors: ValidationErrorsMap,
-  loginError: string | null,
-  loading: boolean,
-    errors: {
-      [key: string]: string;
-    };
+  dispatch: Dispatch
+  values: ValuesMap
+  validationErrors: ValidationErrorsMap
+  loginError: string | null
+  loading: boolean
+  errors: {
+    [key: string]: string
+  }
 }
 
 class LoginScreen extends React.Component<LoginProps> {
@@ -106,7 +106,7 @@ class LoginScreen extends React.Component<LoginProps> {
 }
 
 const mapStateToProps = (state: ReduxState) => ({
-  ...state.screens.auth
+  ...state.screens.auth,
 })
 
 export default connect(mapStateToProps)(LoginScreen)

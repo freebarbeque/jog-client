@@ -44,12 +44,12 @@ const Touchable = styled.div`
 type RadioInputProps = {
   options: {
     // eslint-disable-next-line react/no-unused-prop-types
-    label: string,
-    value: string,
-  }[],
-  value: string,
-  onChange: (value: string) => void,
-  style?: any,
+    label: string
+    value: string
+  }[]
+  value: string
+  onChange: (value: string) => void
+  style?: any
 }
 
 export default class RadioInput extends React.Component {

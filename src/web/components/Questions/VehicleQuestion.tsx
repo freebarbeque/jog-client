@@ -8,20 +8,22 @@ import SelectQuestion from './SelectQuestion'
 import { policyHolderQuestion } from '../../../business/motor'
 
 type VehicleQuestionProps = {
-  drivers: { [id: string]: Person },
-  user: FirebaseUser,
-  value: string,
-  onChange: (id: string) => void,
-  onBlur?: () => void,
-  onFocus?: () => void,
+  drivers: { [id: string]: Person }
+  user: FirebaseUser
+  value: string
+  onChange: (id: string) => void
+  onBlur?: () => void
+  onFocus?: () => void
 }
 
 type VehicleQuestionState = {
   value: string | null
 }
 
-class VehicleQuestion extends React.Component<VehicleQuestionProps, VehicleQuestionState> {
-
+class VehicleQuestion extends React.Component<
+  VehicleQuestionProps,
+  VehicleQuestionState
+> {
   constructor(props: VehicleQuestionProps) {
     super(props)
     const value = props.value

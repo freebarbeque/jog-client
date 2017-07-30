@@ -9,8 +9,8 @@ import PolicyDetailsScreen from './PolicyDetailsScreen'
 import PolicyDocumentsScreen from './PolicyDocumentsScreen'
 import BackgroundHeader from '../components/BackgroundHeader'
 import { BLUE, DARK_GRAY, PINK } from '../../common/constants/palette'
-import { Dispatch, Action } from "../../common/types";
-import { withRouter, RouteComponentProps } from "react-router";
+import { Dispatch, Action } from '../../common/types'
+import { withRouter, RouteComponentProps } from 'react-router'
 
 // language=SCSS prefix=dummy{ suffix=}
 const Menu = styled.div`
@@ -47,9 +47,11 @@ interface Props {
   dispatch: Dispatch
 }
 
-class PolicyScreen extends React.Component<Props & RouteComponentProps<any> & DispatchProp<Action>> {
+class PolicyScreen extends React.Component<
+  Props & RouteComponentProps<any> & DispatchProp<Action>
+> {
   render() {
-    const match = this.props.match;
+    const match = this.props.match
     const policyId = match.params.policyId
     return (
       <div>

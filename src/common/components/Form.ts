@@ -1,26 +1,22 @@
 /* eslint-disable react/no-unused-prop-types */
 
-import {Component, FormHTMLAttributes} from 'react'
+import { Component, FormHTMLAttributes } from 'react'
 import * as _ from 'lodash'
 
-import {
-  FormField,
-  ValidationErrorsMap,
-  ValuesMap,
-} from '../types'
+import { FormField, ValidationErrorsMap, ValuesMap } from '../types'
 
 export interface FormProps {
-  fields: FormField[],
-  error?: string | null,
-  buttonLabel: string,
-  accessory?: any,
-  onSubmit: (values: { [key: string]: string }) => void,
-  disabled?: boolean,
-  validationErrors: ValidationErrorsMap,
-  values: ValuesMap,
-  onValidationErrorsChanged: (errors: ValidationErrorsMap) => void,
-  onValuesChanged: (errors: ValuesMap) => void,
-  style?: any,
+  fields: FormField[]
+  error?: string | null
+  buttonLabel: string
+  accessory?: any
+  onSubmit: (values: { [key: string]: string }) => void
+  disabled?: boolean
+  validationErrors: ValidationErrorsMap
+  values: ValuesMap
+  onValidationErrorsChanged: (errors: ValidationErrorsMap) => void
+  onValuesChanged: (errors: ValuesMap) => void
+  style?: any
 }
 
 export default class Form extends Component<FormProps> {

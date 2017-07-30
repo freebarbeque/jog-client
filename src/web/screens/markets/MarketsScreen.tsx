@@ -11,8 +11,8 @@ import AddressScreen from './AddressScreen'
 import DriverScreen from './DriverScreen'
 
 type MarketsScreenProps = {
-  markets: MarketsReduxState,
-  dispatch: Dispatch,
+  markets: MarketsReduxState
+  dispatch: Dispatch
 }
 
 class MarketsScreen extends React.Component<MarketsScreenProps> {

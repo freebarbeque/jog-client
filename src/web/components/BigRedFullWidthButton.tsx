@@ -4,7 +4,7 @@ import styled from 'styled-components'
 import { Chevron } from './images/index'
 import { PINK } from '../../common/constants/palette'
 import { MARGIN } from '../../common/constants/style'
-import {LinkHTMLAttributes} from "react";
+import { LinkHTMLAttributes } from 'react'
 
 // language=SCSS prefix=dummy{ suffix=}
 const Button = styled.a`
@@ -41,10 +41,10 @@ const Content = styled.div`
 `
 
 interface Props extends LinkHTMLAttributes<HTMLLinkElement> {
-  onClick?: () => void,
-  children?: any,
-  style?: any,
-  hideChevron?: boolean,
+  onClick?: () => void
+  children?: any
+  style?: any
+  hideChevron?: boolean
 }
 
 export default class BigRedFullWidthButton extends React.Component<Props> {

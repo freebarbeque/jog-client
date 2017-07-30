@@ -3,7 +3,7 @@
 import * as React from 'react'
 
 type FileIconProps = {
-  extension: string,
+  extension: string
 }
 
 const IMAGE_FILES = {

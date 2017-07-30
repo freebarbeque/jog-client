@@ -1,8 +1,8 @@
 import { LoadingAction } from './actionTypes'
 
 export type LoadingReduxState = {
-  loading: boolean,
-  text: string,
+  loading: boolean
+  text: string
 }
 
 const DEFAULT_STATE = {

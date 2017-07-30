@@ -15,7 +15,7 @@ function selectIsValid(question: any, answer: any): boolean {
 export function validate(
   questions: any[],
   answers: {
-    [questionId: string]: any,
+    [questionId: string]: any
   },
 ) {
   const errors: ValidationErrors = {
@@ -53,10 +53,7 @@ export function validate(
   return errors
 }
 
-export function validateType(
-  question: any,
-  answer: any,
-): string | null {
+export function validateType(question: any, answer: any): string | null {
   if (!question.required && typeof answer === 'undefined') {
     return null
   } else if (question.required && typeof answer === 'undefined') {
@@ -89,7 +86,7 @@ export function validateType(
       if (!selectIsValid(question, answer))
         return `Answer for question "${question.questionText} must be one of ${_.map(
           question.options,
-          (o:any) => o.value,
+          (o: any) => o.value,
         ).join(',')}"`
       break
     case 'nullable-select':
@@ -106,7 +103,7 @@ export function validateType(
       )
         return `Answer for question "${question.questionText} must be one of ${_.map(
           question.options,
-          (o:any) => o.value,
+          (o: any) => o.value,
         ).join(',')}`
       break
     case 'boolean':

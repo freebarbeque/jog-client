@@ -1,22 +1,24 @@
 import * as React from 'react'
 import { MARGIN } from '../../../common/constants/style'
 import QuestionField from './QuestionField'
-import {SelectQuestionDescriptor} from '../../../business/types'
+import { SelectQuestionDescriptor } from '../../../business/types'
 import SelectBox from './SelectBox'
 
 interface SelectQuestionProps<T> {
-  descriptor: SelectQuestionDescriptor<T>,
-  value: T,
-  onChange: (id: string, value: T) => void,
-  onBlur?: () => void,
-  onFocus?: () => void,
-  specialOptions?: { label: string, value: string }[],
-  onSpecialOptionClick?: (value: string) => void,
-  index?: number,
+  descriptor: SelectQuestionDescriptor<T>
+  value: T
+  onChange: (id: string, value: T) => void
+  onBlur?: () => void
+  onFocus?: () => void
+  specialOptions?: { label: string; value: string }[]
+  onSpecialOptionClick?: (value: string) => void
+  index?: number
   error?: string
 }
 
-export default class SelectQuestion<T> extends React.Component<SelectQuestionProps<T>> {
+export default class SelectQuestion<T> extends React.Component<
+  SelectQuestionProps<T>
+> {
   render() {
     return (
       <QuestionField

@@ -1,10 +1,6 @@
 import * as firebase from 'firebase'
 
-import {
-  MotorPolicy,
-  MotorPolicyMap,
-  PolicyDocument,
-} from '../types'
+import { MotorPolicy, MotorPolicyMap, PolicyDocument } from '../types'
 
 export function syncMotorPolicies(
   uid: string,
@@ -48,9 +44,7 @@ export async function setMotorPolicy(policy: MotorPolicy): Promise<void> {
   throw new TypeError('Policy does not have an id')
 }
 
-export function updatePolicies(policies: {
-  [id: string]: MotorPolicy,
-}) {
+export function updatePolicies(policies: { [id: string]: MotorPolicy }) {
   const ref = firebase.database().ref('policies')
   return ref.update(policies)
 }
@@ -78,10 +72,7 @@ export function addPolicyDocument(
   return policiesRef.child('documents').child(documentId).set(policyDocument)
 }
 
-export function removePolicyDocument(
-  policyId: string,
-  documentId: string,
-) {
+export function removePolicyDocument(policyId: string, documentId: string) {
   const policiesRef = firebase.database().ref('policies').child(policyId)
   return policiesRef.child('documents').child(documentId).remove()
 }

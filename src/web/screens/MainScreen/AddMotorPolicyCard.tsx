@@ -4,7 +4,7 @@ import PolicyCard from './PolicyCard'
 import { Plus } from '../../components/images/index'
 
 export type AddMotorPolicyCardProps = {
-  onPress: () => void,
+  onPress: () => void
 }
 
 export default class AddMotorPolicyCard extends React.Component {

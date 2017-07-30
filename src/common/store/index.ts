@@ -24,13 +24,13 @@ let navigationAdaptor: any = null
 let uploadAdaptor: any = null
 
 type CreateStoreOpts = {
-  enableDevTools?: boolean,
-  freeze?: boolean,
-  reducer: any,
-  sagas?: Function[],
-  navigationAdaptor: any,
-  uploadAdaptor: any,
-  middleware: any[],
+  enableDevTools?: boolean
+  freeze?: boolean
+  reducer: any
+  sagas?: Function[]
+  navigationAdaptor: any
+  uploadAdaptor: any
+  middleware: any[]
 }
 
 export default function createStore(_opts: CreateStoreOpts): Store {

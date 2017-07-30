@@ -5,13 +5,13 @@ export type QuoteRequestStatus = 'complete' | 'incomplete' | 'pending'
 // Models
 
 export type Car = {
-  id: string,
-  registration: string,
-  model: string,
-  make: string,
-  value: number,
-  dateRegistered?: string,
-  imported: boolean,
+  id: string
+  registration: string
+  model: string
+  make: string
+  value: number
+  dateRegistered?: string
+  imported: boolean
 }
 
 export const MotoringIncidentTypes = {
@@ -24,164 +24,165 @@ export const MotoringIncidentTypes = {
 }
 
 export type MotoringIncident = {
-  date: string,
-  type: keyof typeof MotoringIncidentTypes,
-  noClaimsDamage: boolean,
+  date: string
+  type: keyof typeof MotoringIncidentTypes
+  noClaimsDamage: boolean
 }
 
 export type MotoringConviction = {
-  date: string,
-  dvlaOffenceCode: string,
-  points: number,
-  finePaid: number | null,
-  bannedMonths: number | null,
+  date: string
+  dvlaOffenceCode: string
+  points: number
+  finePaid: number | null
+  bannedMonths: number | null
 }
 
 export type Person = {
-  id: string,
-  firstName: string,
-  lastName: string,
-  gender: Gender,
-  dob: string,
+  id: string
+  firstName: string
+  lastName: string
+  gender: Gender
+  dob: string
   motoring?: {
-    convictions?: MotoringConviction[],
-    incidents?: MotoringIncident[],
-    licenseNumber?: string,
+    convictions?: MotoringConviction[]
+    incidents?: MotoringIncident[]
+    licenseNumber?: string
     car?: {
-      noClaims?: number,
-      yearsDriving?: number,
-    },
+      noClaims?: number
+      yearsDriving?: number
+    }
     motorcycle?: {
-      noClaims?: number,
-      yearsDriving?: number,
-    },
-  },
-  address?: Address,
+      noClaims?: number
+      yearsDriving?: number
+    }
+  }
+  address?: Address
 }
 
 export interface Address {
-  id: string,
-  name: string,
-  firstLine: string,
-  secondLine?: string,
-  city: string,
-  province: string,
-  postCode: string,
-  houseType?: 'semi-detached' | 'detached' | 'terrace',
-  floors?: number,
-  numBedrooms?: number,
+  id: string
+  name: string
+  firstLine: string
+  secondLine?: string
+  city: string
+  province: string
+  postCode: string
+  houseType?: 'semi-detached' | 'detached' | 'terrace'
+  floors?: number
+  numBedrooms?: number
   /* ... */
 }
 
 // Questions
 
 export interface BaseQuestionDescriptor<T> {
-  id: string,
-  type: any,
-  questionText: string,
-  hint?: string,
-  validate?: (answer: T) => string | null,
-  defaultValue?: T | (() => T),
-  required?: boolean,
+  id: string
+  type: any
+  questionText: string
+  hint?: string
+  validate?: (answer: T) => string | null
+  defaultValue?: T | (() => T)
+  required?: boolean
 }
 
 export interface NullableBaseQuestionDescriptor<T>
   extends BaseQuestionDescriptor<T | null> {}
 
 export interface TextQuestionDescriptor extends BaseQuestionDescriptor<string> {
-  type: 'text',
-  minLength?: number,
-  maxLength?: number,
+  type: 'text'
+  minLength?: number
+  maxLength?: number
 }
 
 export interface NullableTextQuestionDescriptor
   extends NullableBaseQuestionDescriptor<string> {
-  type: 'nullable-text',
-  minLength?: number,
-  maxLength?: number,
+  type: 'nullable-text'
+  minLength?: number
+  maxLength?: number
 }
 
 export interface DateQuestionDescriptor extends BaseQuestionDescriptor<Date> {
-  type: 'date',
+  type: 'date'
 }
 
 export interface NullableDateQuestionDescriptor
   extends NullableBaseQuestionDescriptor<Date> {
-  type: 'nullable-date',
+  type: 'nullable-date'
 }
 
 export interface NumericQuestionDescriptor
   extends BaseQuestionDescriptor<number> {
-  type: 'numeric',
+  type: 'numeric'
 }
 
 export interface SelectQuestionDescriptor<T> extends BaseQuestionDescriptor<T> {
-  type: 'select',
-  options: { label: string, value: T }[],
+  type: 'select'
+  options: { label: string; value: T }[]
 }
 
 export interface NullableSelectQuestionDescriptor<T>
   extends NullableBaseQuestionDescriptor<T> {
-  type: 'nullable-select',
-  options: { label: string, value: T }[],
+  type: 'nullable-select'
+  options: { label: string; value: T }[]
 }
 
 export interface MultiSelectQuestionDescriptor<T>
   extends BaseQuestionDescriptor<T[]> {
-  type: 'multiselect',
-  options: { label: string, value: T }[],
+  type: 'multiselect'
+  options: { label: string; value: T }[]
 }
 
-export interface BooleanDependentQuestionDescriptor<T extends BaseQuestionDescriptor<any>>
-  extends BaseQuestionDescriptor<boolean> {
-  type: 'boolean-dependent',
-  dependentQuestions: T[],
+export interface BooleanDependentQuestionDescriptor<
+  T extends BaseQuestionDescriptor<any>
+> extends BaseQuestionDescriptor<boolean> {
+  type: 'boolean-dependent'
+  dependentQuestions: T[]
 }
 
 export interface BooleanQuestionDescriptor
   extends BaseQuestionDescriptor<boolean> {
-  type: 'boolean',
+  type: 'boolean'
 }
 
 export interface NullableBooleanQuestionDescriptor
   extends NullableBaseQuestionDescriptor<boolean> {
-  type: 'nullable-boolean',
+  type: 'nullable-boolean'
 }
 
-export type BasicQuestion
-  = TextQuestionDescriptor |
-  NullableTextQuestionDescriptor |
-  NumericQuestionDescriptor |
-  BooleanQuestionDescriptor |
-  NullableBooleanQuestionDescriptor
+export type BasicQuestion =
+  | TextQuestionDescriptor
+  | NullableTextQuestionDescriptor
+  | NumericQuestionDescriptor
+  | BooleanQuestionDescriptor
+  | NullableBooleanQuestionDescriptor
 
 // Firebase
 
 export type Answer = {
-  questionId: string,
-  answer: any,
-  dateAnswered: string,
+  questionId: string
+  answer: any
+  dateAnswered: string
 }
 
 export interface QuoteRequest {
-  id: string,
-  date: string,
-  type: any,
-  answers: { [questionId: string]: Answer },
+  id: string
+  date: string
+  type: any
+  answers: { [questionId: string]: Answer }
 }
 
 export interface MotorQuoteRequest extends QuoteRequest {
-  type: 'car',
+  type: 'car'
   // Rather than using a relation reference to drivers & addresses we set them in stone so as not to break old quotes if the address or driver changes.
-  mainDriver: Person,
-  drivers: Person[],
-  address: Address,
-  status: QuoteRequestStatus,
+  mainDriver: Person
+  drivers: Person[]
+  address: Address
+  status: QuoteRequestStatus
   /* ... */
 }
 
 export type ValidationErrors = {
-  nonField: string[],
-  field: { [questionId: string]: string },
-  hasError: boolean,
+  nonField: string[]
+  field: { [questionId: string]: string }
+  hasError: boolean
 }

@@ -9,8 +9,8 @@ import AddPolicyScreenContainer from '../components/AddPolicyScreenContainer'
 import AccessoryInput from '../components/AccessoryInput'
 
 type PolicyCostScreenProps = {
-  dispatch: Dispatch,
-  policy: ManualPolicyUpdate,
+  dispatch: Dispatch
+  policy: ManualPolicyUpdate
 }
 
 class PolicyCostScreen extends React.Component<PolicyCostScreenProps> {

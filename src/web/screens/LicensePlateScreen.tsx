@@ -9,7 +9,7 @@ import AddPolicyScreenContainer from '../components/AddPolicyScreenContainer'
 import Input from '../components/Input'
 
 interface LicensePlateScreenProps extends DispatchProp<Action> {
-  policy: ManualPolicyUpdate,
+  policy: ManualPolicyUpdate
 }
 
 class LicensePlateScreen extends React.Component<LicensePlateScreenProps> {

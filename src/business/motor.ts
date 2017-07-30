@@ -16,7 +16,13 @@ import {
 } from './types'
 
 export type DrivingQualifications = 'pass-plus' | 'advanced-driving'
-export type DrivingRestriction = 'aware-no-restrictions' | 'aware-1-year-restriction' | 'aware-2-year-restriction' | 'aware-3-year-restriction' | 'not-aware' | 'advised-not-to-drive-by-doctor'
+export type DrivingRestriction =
+  | 'aware-no-restrictions'
+  | 'aware-1-year-restriction'
+  | 'aware-2-year-restriction'
+  | 'aware-3-year-restriction'
+  | 'not-aware'
+  | 'advised-not-to-drive-by-doctor'
 
 export const addressQuestion: BaseQuestionDescriptor<Address> = {
   type: 'motor/address',
@@ -108,7 +114,9 @@ export const manualOrAutomaticQuestion: SelectQuestionDescriptor<string> = {
   required: true,
 }
 
-export const additionalDrivingQualificationsQuestion: MultiSelectQuestionDescriptor<DrivingQualifications> = {
+export const additionalDrivingQualificationsQuestion: MultiSelectQuestionDescriptor<
+  DrivingQualifications
+> = {
   type: 'multiselect',
   id: 'motor/other-driving-qualifications',
   questionText: 'Do you have any additional driving qualifications?',
@@ -125,9 +133,13 @@ export const additionalDrivingQualificationsQuestion: MultiSelectQuestionDescrip
   required: false,
 }
 
-type MedicalConditionDependentQuestion = BasicQuestion | SelectQuestionDescriptor<DrivingRestriction>
+type MedicalConditionDependentQuestion =
+  | BasicQuestion
+  | SelectQuestionDescriptor<DrivingRestriction>
 
-export const dvlaMedicalConditions: BooleanDependentQuestionDescriptor<MedicalConditionDependentQuestion> = {
+export const dvlaMedicalConditions: BooleanDependentQuestionDescriptor<
+  MedicalConditionDependentQuestion
+> = {
   id: 'motor/has-medical-conditions',
   type: 'boolean-dependent',
   questionText:
@@ -194,14 +206,18 @@ export const otherCars: SelectQuestionDescriptor<string> = {
   required: false,
 }
 
-export const motoringConvictionsQuestion: BaseQuestionDescriptor<MotoringConviction[]> = {
+export const motoringConvictionsQuestion: BaseQuestionDescriptor<
+  MotoringConviction[]
+> = {
   type: 'motor/convictions',
   id: 'motor/convictions',
   questionText: 'Do you have any motoring convictions?',
   required: false,
 }
 
-export const motoringIncidentsQuestion: BaseQuestionDescriptor<MotoringIncident[]> = {
+export const motoringIncidentsQuestion: BaseQuestionDescriptor<
+  MotoringIncident[]
+> = {
   type: 'motor/incidents',
   id: 'motor/incidents',
   questionText:

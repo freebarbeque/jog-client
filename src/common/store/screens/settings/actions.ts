@@ -1,6 +1,6 @@
 export type SetActiveSectionAction = {
-  type: 'settings/SET_ACTIVE_SECTION',
-  activeSection: number | null,
+  type: 'settings/SET_ACTIVE_SECTION'
+  activeSection: number | null
 }
 
 export type SettingsScreenAction = SetActiveSectionAction

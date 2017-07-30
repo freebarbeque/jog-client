@@ -8,19 +8,19 @@ import Button from './Button'
 import { MARGIN } from '../../common/constants/style'
 import { BLUE } from '../../common/constants/palette'
 import Spinner from './Spinner'
-import {Dispatch, ReduxState} from '../../common/types'
+import { Dispatch, ReduxState } from '../../common/types'
 import { Warning } from './images/index'
 
 interface ActionModalProps {
   loading: {
-    text: string,
-    loading: boolean,
-  },
+    text: string
+    loading: boolean
+  }
   errors: {
-    error: boolean,
-    text: string,
-  },
-  dispatch: Dispatch,
+    error: boolean
+    text: string
+  }
+  dispatch: Dispatch
 }
 
 // language=SCSS prefix=dummy{ suffix=}
@@ -48,7 +48,6 @@ const Content = Button.extend`
 `
 
 class ActionModal extends React.Component<ActionModalProps> {
-
   handleClick = () => {
     if (this.props.errors.error) {
       this.props.dispatch(finishLoading())

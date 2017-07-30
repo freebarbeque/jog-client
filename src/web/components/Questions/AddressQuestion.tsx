@@ -8,12 +8,12 @@ import { ReduxState } from '../../../common/types'
 import QuestionField from './QuestionField'
 
 interface Props {
-  index?: number,
-  error?: string,
-  descriptor: BaseQuestionDescriptor<any>,
-  value?: Address,
-  onChange?: (id: string, address: Address | null) => void,
-  onNew?: () => void,
+  index?: number
+  error?: string
+  descriptor: BaseQuestionDescriptor<any>
+  value?: Address
+  onChange?: (id: string, address: Address | null) => void
+  onNew?: () => void
 }
 
 interface ConnectedProps extends Props, DispatchProp<any> {
@@ -21,10 +21,10 @@ interface ConnectedProps extends Props, DispatchProp<any> {
 }
 
 interface State {
-  value: string | null,
+  value: string | null
 }
 
-class AddressQuestion extends React.Component<ConnectedProps, State>  {
+class AddressQuestion extends React.Component<ConnectedProps, State> {
   constructor(props) {
     super(props)
     const value = props.value
@@ -94,7 +94,8 @@ class AddressQuestion extends React.Component<ConnectedProps, State>  {
 }
 
 // TODO: const ConnectedAddressQuestion: React.ComponentClass<Props>
-const ConnectedAddressQuestion: any
- = connect((state: ReduxState) => ({ addresses: state.markets.addresses}))(AddressQuestion)
+const ConnectedAddressQuestion: any = connect((state: ReduxState) => ({
+  addresses: state.markets.addresses,
+}))(AddressQuestion)
 
 export default ConnectedAddressQuestion

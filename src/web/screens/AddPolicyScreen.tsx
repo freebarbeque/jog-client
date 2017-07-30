@@ -10,8 +10,7 @@ import Container from '../components/Container'
 import BackgroundHeader from '../components/BackgroundHeader'
 import { max } from '../media'
 
-interface AddPolicyScreenProps extends DispatchProp<any> {
-}
+interface AddPolicyScreenProps extends DispatchProp<any> {}
 
 // language=SCSS prefix=dummy{ suffix=}
 const Card = styled.div`

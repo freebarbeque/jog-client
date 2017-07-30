@@ -33,12 +33,12 @@ import FlexCentredContainer from '../components/FlexCentredContainer'
 import { NAVIGATION_BAR_HEIGHT } from '../constants/style'
 
 type RegisterProps = {
-  dispatch: Dispatch,
-  values: ValuesMap,
-  validationErrors: ValidationErrorsMap,
-  errors: {[key: string]: string},
-  registerError: string | null,
-  loading: boolean,
+  dispatch: Dispatch
+  values: ValuesMap
+  validationErrors: ValidationErrorsMap
+  errors: { [key: string]: string }
+  registerError: string | null
+  loading: boolean
 }
 
 class RegisterScreen extends React.Component<RegisterProps> {

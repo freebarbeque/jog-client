@@ -4,12 +4,12 @@ import { MARGIN } from '../../../common/constants/style'
 import { BLUE, WHITE } from '../../../common/constants/palette'
 
 export type PolicyCardProps = {
-  title: string,
-  onPress?: () => void,
-  image: any,
-  topImage?: any,
-  bottomImage?: any,
-  description: string,
+  title: string
+  onPress?: () => void
+  image: any
+  topImage?: any
+  bottomImage?: any
+  description: string
 }
 
 // language=SCSS prefix=dummy{ suffix=}

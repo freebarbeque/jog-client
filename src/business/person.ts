@@ -102,7 +102,7 @@ export const questions = [
 
 export const questionMap = _.keyBy(questions, q => q.id)
 
-export function constructDriver(answers: { [id:string]: any }): Person {
+export function constructDriver(answers: { [id: string]: any }): Person {
   if (validate(questions, answers).hasError) {
     throw new Error('Address questions should have passed validation.')
   } else {
@@ -111,7 +111,7 @@ export function constructDriver(answers: { [id:string]: any }): Person {
       firstName: answers['person/first-name'],
       lastName: answers['person/last-name'],
       gender: answers['person/gender'],
-      dob: answers['person/dob']
+      dob: answers['person/dob'],
     }
 
     return driver

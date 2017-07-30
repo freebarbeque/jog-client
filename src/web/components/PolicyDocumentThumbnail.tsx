@@ -10,8 +10,8 @@ import { PolicyDocument } from '../../common/types'
 import Button from '../components/Button'
 
 type PolicyDocumentThumbnailProps = {
-  document: PolicyDocument,
-  style?: any,
+  document: PolicyDocument
+  style?: any
 }
 
 // language=SCSS prefix=dummy{ suffix=}
@@ -63,7 +63,7 @@ export default class PolicyDocumentThumbnail extends React.Component {
 
   handleClick = () => {
     this.getDocument().then(url => {
-      $("<a>").attr('href', url)[0].click()
+      $('<a>').attr('href', url)[0].click()
     })
   }
 

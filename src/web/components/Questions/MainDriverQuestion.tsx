@@ -8,22 +8,25 @@ import SelectQuestion from './SelectQuestion'
 import { policyHolderQuestion } from '../../../business/motor'
 
 interface MainDriverQuestionProps {
-  drivers: { [id: string]: Person },
-  user: FirebaseUser,
-  value: string,
-  onChange: (id: string) => void,
-  onBlur?: () => void,
-  onFocus?: () => void,
+  drivers: { [id: string]: Person }
+  user: FirebaseUser
+  value: string
+  onChange: (id: string) => void
+  onBlur?: () => void
+  onFocus?: () => void
 }
 
 type MainDriverQuestionState = {}
 
-class MainDriverQuestion extends React.Component<MainDriverQuestionProps, MainDriverQuestionState>  {
+class MainDriverQuestion extends React.Component<
+  MainDriverQuestionProps,
+  MainDriverQuestionState
+> {
   constructor(props: MainDriverQuestionProps) {
     super(props)
     const value = props.value
     this.state = {
-      value
+      value,
     }
   }
 
@@ -39,8 +42,8 @@ class MainDriverQuestion extends React.Component<MainDriverQuestionProps, MainDr
       type: 'select',
       options: [
         ..._.values(this.props.drivers).map((d: Person) => {
-          const value: string = d.id;
-          const label = `${d.firstName} ${d.lastName}`;
+          const value: string = d.id
+          const label = `${d.firstName} ${d.lastName}`
           return {
             value,
             label,
@@ -48,7 +51,7 @@ class MainDriverQuestion extends React.Component<MainDriverQuestionProps, MainDr
         }),
         {
           value: 'you',
-          label: "You",
+          label: 'You',
         },
       ],
     }

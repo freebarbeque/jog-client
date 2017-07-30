@@ -8,10 +8,10 @@ import { MARGIN } from '../../../common/constants/style'
 import Number from '../../screens/markets/AddressScreen/Number'
 
 export type QuestionFieldProps = {
-  index?: number,
-  error?: string,
-  children?: any,
-  descriptor: BaseQuestionDescriptor<any>,
+  index?: number
+  error?: string
+  children?: any
+  descriptor: BaseQuestionDescriptor<any>
 }
 
 // language=SCSS prefix=dummy{ suffix=}

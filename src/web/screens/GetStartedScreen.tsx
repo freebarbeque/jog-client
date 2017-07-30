@@ -11,8 +11,10 @@ import { MARGIN } from '../../common/constants/style'
 import { Details, PolicyBots, Upload } from '../components/images/index'
 import Container from '../components/Container'
 
-interface GetStartedScreenProps{}
-interface ConnectedGetStartedScreenProps extends DispatchProp<Action>, GetStartedScreenProps{}
+interface GetStartedScreenProps {}
+interface ConnectedGetStartedScreenProps
+  extends DispatchProp<Action>,
+    GetStartedScreenProps {}
 
 // language=SCSS prefix=dummy{ suffix=}
 const BackgroundImage = styled.div`
@@ -193,5 +195,7 @@ class GetStartedScreen extends React.Component<ConnectedGetStartedScreenProps> {
   }
 }
 
-const ConnectedGetStartedScreen: React.ComponentClass<GetStartedScreenProps> = connect()(GetStartedScreen)
+const ConnectedGetStartedScreen: React.ComponentClass<
+  GetStartedScreenProps
+> = connect()(GetStartedScreen)
 export default ConnectedGetStartedScreen

@@ -11,8 +11,8 @@ import AddPolicyScreenContainer from '../components/AddPolicyScreenContainer'
 import Input from '../components/Input'
 
 type PolicyNumberScreenProps = {
-  dispatch: Dispatch,
-  policy: ManualPolicyUpdate,
+  dispatch: Dispatch
+  policy: ManualPolicyUpdate
 }
 
 class PolicyNumberScreen extends React.Component<PolicyNumberScreenProps> {

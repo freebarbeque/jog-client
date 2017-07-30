@@ -1,7 +1,7 @@
 import { SettingsScreenAction } from './actions'
 
 export type SettingsScreenReduxState = {
-  activeSection: number | null,
+  activeSection: number | null
 }
 
 export default function reducer(

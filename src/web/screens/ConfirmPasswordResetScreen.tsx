@@ -21,7 +21,9 @@ const Description = styled.div`
   margin-right: ${MARGIN.large}px;
 `
 
-class ConfirmPasswordResetScreen extends React.Component<ConfirmPasswordResetScreenProps> {
+class ConfirmPasswordResetScreen extends React.Component<
+  ConfirmPasswordResetScreenProps
+> {
   goBack = () => {
     this.props.dispatch(push('/auth'))
   }

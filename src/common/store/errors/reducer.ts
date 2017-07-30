@@ -1,8 +1,8 @@
 import { ErrorAction } from './actionTypes'
 
 export type ErrorsReduxState = {
-  error: boolean,
-  text: string,
+  error: boolean
+  text: string
 }
 
 const DEFAULT_STATE = {

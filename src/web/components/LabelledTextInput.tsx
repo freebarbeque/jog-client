@@ -4,7 +4,7 @@ import { MARGIN } from '../../common/constants/style'
 import { PINK } from '../../common/constants/palette'
 import Input from './Input'
 
-const FontAwesome = require("react-fontawesome")
+const FontAwesome = require('react-fontawesome')
 
 // language=SCSS prefix=dummy{ suffix=}
 const Container = styled.div`margin-bottom: ${MARGIN.large}px;`
@@ -23,7 +23,7 @@ const ErrorText = styled.div`
 `
 
 interface Props extends React.InputHTMLAttributes<HTMLInputElement> {
-  label: string,
+  label: string
   error: string
 }
 

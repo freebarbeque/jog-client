@@ -18,14 +18,16 @@ const MultiSelectBox = styled(SelectBox)`
 `
 
 interface MultiSelectQuestionProps extends QuestionFieldProps {
-  descriptor: MultiSelectQuestionDescriptor<any>,
-  value: any[],
-  onChange: (id: string, value: any[]) => void,
-  onBlur?: () => void,
-  onFocus?: () => void,
+  descriptor: MultiSelectQuestionDescriptor<any>
+  value: any[]
+  onChange: (id: string, value: any[]) => void
+  onBlur?: () => void
+  onFocus?: () => void
 }
 
-export default class MultiSelectQuestion extends React.Component<MultiSelectQuestionProps> {
+export default class MultiSelectQuestion extends React.Component<
+  MultiSelectQuestionProps
+> {
   render() {
     return (
       <QuestionField

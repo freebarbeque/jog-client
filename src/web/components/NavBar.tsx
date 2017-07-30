@@ -9,7 +9,7 @@ import { Logo } from './images'
 import { logout } from '../../common/store/auth/actions'
 import { max } from '../media'
 import { PINK } from '../../common/constants/palette'
-import { RouteComponentProps } from "react-router";
+import { RouteComponentProps } from 'react-router'
 
 // language=SCSS prefix=dummy{ suffix=}
 const NavBarRight = styled.div`
@@ -47,7 +47,10 @@ const NavBarRight = styled.div`
 `
 
 interface Props {}
-interface ConnectedProps extends RouteComponentProps<any>, DispatchProp<any>, Props {}
+interface ConnectedProps
+  extends RouteComponentProps<any>,
+    DispatchProp<any>,
+    Props {}
 
 class NavBar extends React.Component<ConnectedProps> {
   render() {
@@ -93,5 +96,10 @@ const connectOptions = {
   pure: false, // Required to always re-render the component and update the active NavLink
 }
 
-const ConnectedNavBar: React.ComponentClass<Props> = connect(null, null, null, connectOptions)(withRouter(NavBar))
+const ConnectedNavBar: React.ComponentClass<Props> = connect(
+  null,
+  null,
+  null,
+  connectOptions,
+)(withRouter(NavBar))
 export default ConnectedNavBar

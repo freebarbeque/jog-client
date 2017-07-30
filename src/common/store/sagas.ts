@@ -8,10 +8,10 @@ import {
   unsyncAddressesAction,
   unsyncDriversAction,
 } from './markets/index'
-import {SyncUserDataAction} from "./actionTypes";
+import { SyncUserDataAction } from './actionTypes'
 
 function* syncUserData(action: SyncUserDataAction) {
-  const {uid} = action
+  const { uid } = action
   yield put(syncMotorPolicies(uid))
   yield put(syncAddressesAction(uid))
   yield put(syncDriversAction(uid))

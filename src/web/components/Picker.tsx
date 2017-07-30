@@ -5,16 +5,16 @@ import styled from 'styled-components'
 
 import { BLUE } from '../../common/constants/palette'
 
-export type PickerOption = { label: string, value: string }
+export type PickerOption = { label: string; value: string }
 
 interface PickerProps {
-  value?: string | null,
-  onChange: (value: PickerOption) => void,
-  options: PickerOption[],
-  placeholder: string,
-  titleText?: string,
-  name: string,
-  getItemStyle?: (option: PickerOption) => any,
+  value?: string | null
+  onChange: (value: PickerOption) => void
+  options: PickerOption[]
+  placeholder: string
+  titleText?: string
+  name: string
+  getItemStyle?: (option: PickerOption) => any
   className?: string
 }
 

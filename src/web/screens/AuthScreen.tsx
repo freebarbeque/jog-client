@@ -21,8 +21,8 @@ const Container = styled.div`
 `
 
 interface AuthScreenProps extends DispatchProp<any> {
-  user: FirebaseUser | null,
-  initialised: boolean,
+  user: FirebaseUser | null
+  initialised: boolean
 }
 
 class AuthScreen extends React.Component<AuthScreenProps> {

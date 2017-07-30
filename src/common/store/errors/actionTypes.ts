@@ -1,10 +1,10 @@
 export type DeclareErrorAction = {
-  type: 'errors/DECLARE',
-  text: string,
+  type: 'errors/DECLARE'
+  text: string
 }
 
 export type ClearErrorAction = {
-  type: 'errors/CLEAR',
+  type: 'errors/CLEAR'
 }
 
 export type ErrorAction = DeclareErrorAction | ClearErrorAction

@@ -30,9 +30,9 @@ const Button = styled.button`
 `
 
 interface Props extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  label?: string,
-  loading?: boolean,
-  disabled?: boolean,
+  label?: string
+  loading?: boolean
+  disabled?: boolean
 }
 
 const RoundedButton = (props: Props) =>

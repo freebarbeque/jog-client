@@ -15,12 +15,11 @@ import { MARGIN } from '../../../common/constants/style'
 import RoundedButton from '../../components/RoundedButton'
 
 type DriverScreenProps = {
-  driverAnswers: { [id: string]: any },
-  dispatch: Dispatch,
+  driverAnswers: { [id: string]: any }
+  dispatch: Dispatch
 }
 
 class DriverScreen extends React.Component<DriverScreenProps> {
-
   handleAddClick = () => {
     const driver = constructDriver(this.props.driverAnswers)
     this.props.dispatch(addDriver(driver))

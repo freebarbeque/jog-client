@@ -11,11 +11,7 @@ import { MARGIN } from '../../common/constants/style'
 import { BLUE, CREAM, WHITE, YELLOW } from '../../common/constants/palette'
 import { selectPolicies } from '../../common/store/policies/selectors'
 
-import {
-  Dispatch,
-  MotorPolicy,
-  ReduxState,
-} from '../../common/types'
+import { Dispatch, MotorPolicy, ReduxState } from '../../common/types'
 
 import { LEVEL_OF_COVER, Action } from '../../common/types'
 
@@ -25,7 +21,7 @@ import * as selectors from '../store/selectors'
 import { min } from '../media'
 import Container from '../components/Container'
 import ScrollToTopOnMount from '../components/ScrollToTopOnMount'
-import { RouteComponentProps } from "react-router";
+import { RouteComponentProps } from 'react-router'
 
 // language=SCSS prefix=dummy{ suffix=}
 const PolicyDetailsPanel = styled(Panel)`
@@ -138,12 +134,14 @@ const Row = props => {
 }
 
 interface PolicyDetailsScreenProps {
-  policies: {[id: string]: MotorPolicy},
-  initialised: boolean,
+  policies: { [id: string]: MotorPolicy }
+  initialised: boolean
   isHandset: boolean
 }
 
-class PolicyDetailsScreen extends React.Component<PolicyDetailsScreenProps & DispatchProp<Action> & RouteComponentProps<any>> {
+class PolicyDetailsScreen extends React.Component<
+  PolicyDetailsScreenProps & DispatchProp<Action> & RouteComponentProps<any>
+> {
   handleDocumentUploadPress = () => {
     const policy = this.getPolicy()
     if (policy) {

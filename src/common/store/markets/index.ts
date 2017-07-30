@@ -2,7 +2,15 @@
 // Action Types
 //
 
-import { fork, put, call, cancel, takeLatest, take, cancelled } from 'redux-saga/effects'
+import {
+  fork,
+  put,
+  call,
+  cancel,
+  takeLatest,
+  take,
+  cancelled,
+} from 'redux-saga/effects'
 import { eventChannel } from 'redux-saga'
 
 import { Address, Car, Person } from '../../../business/types'
@@ -19,78 +27,78 @@ import { demandCurrentUser } from '../../data/auth'
 
 // region Action types
 export type SetAddressAnswerAction = {
-  type: 'markets/addresses/SET_ADDRESS_ANSWER',
-  key: string,
-  value: string,
+  type: 'markets/addresses/SET_ADDRESS_ANSWER'
+  key: string
+  value: string
 }
 
 export type SetMotorAnswerAction = {
-  type: 'markets/cars/SET_MOTOR_ANSWER',
-  key: string,
-  value: any,
+  type: 'markets/cars/SET_MOTOR_ANSWER'
+  key: string
+  value: any
 }
 
 export type SetDriverAnswerAction = {
-  type: 'markets/drivers/SET_DRIVER_ANSWER',
-  key: string,
-  value: any,
+  type: 'markets/drivers/SET_DRIVER_ANSWER'
+  key: string
+  value: any
 }
 
 export type AddDriverAction = {
-  type: 'markets/drivers/ADD_DRIVER',
-  driver: Person,
+  type: 'markets/drivers/ADD_DRIVER'
+  driver: Person
 }
 
 export type AddCarAction = {
-  type: 'markets/cars/ADD_CAR',
-  car: Car,
+  type: 'markets/cars/ADD_CAR'
+  car: Car
 }
 
 export type SyncCarsAction = {
-  type: 'markets/cars/SYNC_CARS',
-  uid: string,
+  type: 'markets/cars/SYNC_CARS'
+  uid: string
 }
 
 export type UnsyncCarsAction = {
-  type: 'markets/cars/UNSYNC_CARS',
+  type: 'markets/cars/UNSYNC_CARS'
 }
 
 export type ReceiveCarsAction = {
-  type: 'markets/cars/RECEIVE_CARS',
-  cars: {[id: string]: Car}
+  type: 'markets/cars/RECEIVE_CARS'
+  cars: { [id: string]: Car }
 }
 
 export type SyncDriversAction = {
-  type: 'markets/drivers/SYNC_DRIVERS',
-  uid: string,
+  type: 'markets/drivers/SYNC_DRIVERS'
+  uid: string
 }
 
 export type UnsyncDriversAction = {
-  type: 'markets/drivers/UNSYNC_DRIVERS',
+  type: 'markets/drivers/UNSYNC_DRIVERS'
 }
 
 export type ReceiveDriversAction = {
-  type: 'markets/drivers/RECEIVE_DRIVERS',
-  drivers: { [id: string]: Person },
+  type: 'markets/drivers/RECEIVE_DRIVERS'
+  drivers: { [id: string]: Person }
 }
 
 export type AddAddressAction = {
-  type: 'markets/addresses/ADD_ADDRESS',
-  address: Address,
+  type: 'markets/addresses/ADD_ADDRESS'
+  address: Address
 }
 
 export type SyncAddressesAction = {
-  type: 'markets/addresses/SYNC_ADDRESSES',
-  uid: string,
+  type: 'markets/addresses/SYNC_ADDRESSES'
+  uid: string
 }
 
 export type UnsyncAddressesAction = {
-  type: 'markets/addresses/UNSYNC_ADDRESSES',
+  type: 'markets/addresses/UNSYNC_ADDRESSES'
 }
 
 export type ReceiveAddressesAction = {
-  type: 'markets/addresses/RECEIVE_ADDRESSES',
-  addresses: { [id: string]: Address },
+  type: 'markets/addresses/RECEIVE_ADDRESSES'
+  addresses: { [id: string]: Address }
 }
 
 export type MarketsAction =
@@ -125,10 +133,7 @@ export function setAddressAnswer(
 }
 
 // region Action creators
-export function setMotorAnswer(
-  key: string,
-  value: any,
-): SetMotorAnswerAction {
+export function setMotorAnswer(key: string, value: any): SetMotorAnswerAction {
   return {
     type: 'markets/cars/SET_MOTOR_ANSWER',
     key,
@@ -168,7 +173,7 @@ export function unsyncAddressesAction(): UnsyncAddressesAction {
 }
 
 export function receiveAddresses(addresses: {
-  [id: string]: Address,
+  [id: string]: Address
 }): ReceiveAddressesAction {
   return {
     type: 'markets/addresses/RECEIVE_ADDRESSES',
@@ -224,7 +229,7 @@ export function unsyncDriversAction(): UnsyncDriversAction {
 }
 
 export function receiveDrivers(drivers: {
-  [id: string]: Person,
+  [id: string]: Person
 }): ReceiveDriversAction {
   return {
     type: 'markets/drivers/RECEIVE_DRIVERS',
@@ -370,7 +375,7 @@ export function* syncDriversSaga() {
 }
 
 export function* syncCarsSaga() {
-  let action:  SyncDriversAction
+  let action: SyncDriversAction
 
   // eslint-disable-next-line no-cond-assign
   while ((action = yield take('markets/cars/SYNC_CARS'))) {
@@ -388,12 +393,12 @@ export function* syncCarsSaga() {
 
 // region State
 export type MarketsReduxState = {
-  addressAnswers: { [id: string]: string },
-  motorAnswers: { [id: string]: any },
-  driverAnswers: { [id: string]: any },
-  addresses: { [id: string]: Address },
-  drivers: { [id: string]: Person },
-  cars: { [id: string]: Car },
+  addressAnswers: { [id: string]: string }
+  motorAnswers: { [id: string]: any }
+  driverAnswers: { [id: string]: any }
+  addresses: { [id: string]: Address }
+  drivers: { [id: string]: Person }
+  cars: { [id: string]: Car }
 }
 
 const DEFAULT_STATE: MarketsReduxState = {

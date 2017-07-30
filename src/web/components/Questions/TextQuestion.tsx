@@ -5,12 +5,12 @@ import { MARGIN } from '../../../common/constants/style'
 import QuestionField from './QuestionField'
 
 interface TextQuestionProps {
-  descriptor: TextQuestionDescriptor,
-  value: string,
-  onChange: (id: string, value: string) => void,
-  onBlur?: () => void,
-  onFocus?: () => void,
-  error?: string,
+  descriptor: TextQuestionDescriptor
+  value: string
+  onChange: (id: string, value: string) => void
+  onBlur?: () => void
+  onFocus?: () => void
+  error?: string
   index?: number
 }
 

@@ -3,11 +3,11 @@ import * as React from 'react'
 const cn = require('classnames')
 
 interface ImageProps {
-  src: any,
-  scale?: number,
-  width: number,
-  height: number,
-  className?: string,
+  src: any
+  scale?: number
+  width: number
+  height: number
+  className?: string
   alt?: string
 }
 
@@ -26,7 +26,7 @@ const Image = (props: ImageProps) => {
   )
 }
 
-export const Logo = (props: {scale?: number, style?: any})=> {
+export const Logo = (props: { scale?: number; style?: any }) => {
   return (
     <Image
       src={require('./logo.svg')}
@@ -38,7 +38,7 @@ export const Logo = (props: {scale?: number, style?: any})=> {
   )
 }
 
-export const Cross = (props: {scale?: number})=> {
+export const Cross = (props: { scale?: number }) => {
   return (
     <Image
       src={require('./cross.svg')}
@@ -51,7 +51,7 @@ export const Cross = (props: {scale?: number})=> {
   )
 }
 
-export const Camera = (props: {scale?: number})=> {
+export const Camera = (props: { scale?: number }) => {
   return (
     <Image
       src={require('./camera.svg')}
@@ -64,7 +64,7 @@ export const Camera = (props: {scale?: number})=> {
   )
 }
 
-export const Car = (props: {scale?: number})=> {
+export const Car = (props: { scale?: number }) => {
   return (
     <Image
       src={require('./car.svg')}
@@ -77,7 +77,7 @@ export const Car = (props: {scale?: number})=> {
   )
 }
 
-export const Cursor = (props: {scale?: number})=> {
+export const Cursor = (props: { scale?: number }) => {
   return (
     <Image
       src={require('./cursor.svg')}
@@ -90,8 +90,7 @@ export const Cursor = (props: {scale?: number})=> {
   )
 }
 
-
-export const Ellipsis = (props: {scale?: number})=> {
+export const Ellipsis = (props: { scale?: number }) => {
   return (
     <Image
       src={require('./ellipsis.svg')}
@@ -104,8 +103,7 @@ export const Ellipsis = (props: {scale?: number})=> {
   )
 }
 
-
-export const Letter = (props: {scale?: number})=> {
+export const Letter = (props: { scale?: number }) => {
   return (
     <Image
       src={require('./mail.svg')}
@@ -118,7 +116,7 @@ export const Letter = (props: {scale?: number})=> {
   )
 }
 
-export const Plus = (props: {scale?: number})=> {
+export const Plus = (props: { scale?: number }) => {
   return (
     <Image
       src={require('./plus.svg')}
@@ -131,7 +129,7 @@ export const Plus = (props: {scale?: number})=> {
   )
 }
 
-export const CarOutline = (props: {scale?: number})=> {
+export const CarOutline = (props: { scale?: number }) => {
   return (
     <Image
       src={require('./car-outline.svg')}
@@ -144,7 +142,7 @@ export const CarOutline = (props: {scale?: number})=> {
   )
 }
 
-export const Warning = (props: {scale?: number})=> {
+export const Warning = (props: { scale?: number }) => {
   return (
     <Image
       src={require('./warning.png')}
@@ -157,7 +155,11 @@ export const Warning = (props: {scale?: number})=> {
   )
 }
 
-export const Chevron = (props: {scale?: number, color?: 'white' | 'blue', style?: any})=> {
+export const Chevron = (props: {
+  scale?: number
+  color?: 'white' | 'blue'
+  style?: any
+}) => {
   return (
     <Image
       src={
@@ -175,7 +177,7 @@ export const Chevron = (props: {scale?: number, color?: 'white' | 'blue', style?
   )
 }
 
-export const Details = (props: {scale?: number})=> {
+export const Details = (props: { scale?: number }) => {
   return (
     <Image
       src={require('./details.svg')}
@@ -188,7 +190,7 @@ export const Details = (props: {scale?: number})=> {
   )
 }
 
-export const PolicyBots = (props: {scale?: number})=> {
+export const PolicyBots = (props: { scale?: number }) => {
   return (
     <Image
       src={require('./policy-bots.svg')}
@@ -201,7 +203,7 @@ export const PolicyBots = (props: {scale?: number})=> {
   )
 }
 
-export const Upload = (props: {scale?: number})=> {
+export const Upload = (props: { scale?: number }) => {
   return (
     <Image
       src={require('./upload.svg')}
@@ -214,7 +216,7 @@ export const Upload = (props: {scale?: number})=> {
   )
 }
 
-export const Arrow = (props: {scale?: number, style?: any})=> {
+export const Arrow = (props: { scale?: number; style?: any }) => {
   return (
     <Image
       src={require('./arrow.svg')}
@@ -227,7 +229,7 @@ export const Arrow = (props: {scale?: number, style?: any})=> {
   )
 }
 
-export const Tick = (props: {scale?: number})=> {
+export const Tick = (props: { scale?: number }) => {
   return (
     <Image
       src={require('./tick.svg')}

@@ -7,15 +7,17 @@ import { Arrow, Chevron } from './images/index'
 import { max, min } from '../media'
 
 interface BackgroundHeaderProps {
-  headerText: string,
-  subheaderText?: string | null,
-  onPress?: () => void,
-  enableBackPress?: boolean,
-  backText?: string,
-  style?: any,
+  headerText: string
+  subheaderText?: string | null
+  onPress?: () => void
+  enableBackPress?: boolean
+  backText?: string
+  style?: any
 }
 
-interface ConnectedBackgroundHeaderProps extends BackgroundHeaderProps, DispatchProp<any> {}
+interface ConnectedBackgroundHeaderProps
+  extends BackgroundHeaderProps,
+    DispatchProp<any> {}
 
 const desktopHeight = '182.293px'
 const mobileHeight = '100px'
@@ -189,5 +191,7 @@ class BackgroundHeader extends React.Component<ConnectedBackgroundHeaderProps> {
   }
 }
 
-const ConnectedBackgroundHeader: React.ComponentClass<BackgroundHeaderProps> = connect()(BackgroundHeader)
+const ConnectedBackgroundHeader: React.ComponentClass<
+  BackgroundHeaderProps
+> = connect()(BackgroundHeader)
 export default ConnectedBackgroundHeader

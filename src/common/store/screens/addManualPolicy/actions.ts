@@ -7,27 +7,27 @@ export const motorPolicyOwnership = {
 export type MotorPolicyOwnership = keyof typeof motorPolicyOwnership
 
 export type ManualPolicyUpdate = {
-  vehicleRegistration?: string,
-  ownership?: MotorPolicyOwnership,
-  noClaimsBonus?: number,
-  policyNo?: string,
-  expiryDate?: string,
-  companyId?: string,
-  cost?: string,
+  vehicleRegistration?: string
+  ownership?: MotorPolicyOwnership
+  noClaimsBonus?: number
+  policyNo?: string
+  expiryDate?: string
+  companyId?: string
+  cost?: string
 }
 
 export type UpdateManualPolicy = {
-  type: 'addManualPolicy/UPDATE_MANUAL_POLICY',
-  update: ManualPolicyUpdate,
+  type: 'addManualPolicy/UPDATE_MANUAL_POLICY'
+  update: ManualPolicyUpdate
 }
 
 export type ClearManualPolicy = {
-  type: 'addManualPolicy/CLEAR_MANUAL_POLICY',
+  type: 'addManualPolicy/CLEAR_MANUAL_POLICY'
 }
 
 export type SavePolicyAction = {
-  type: 'addManualPolicy/SAVE_POLICY',
-  policy: ManualPolicyUpdate,
+  type: 'addManualPolicy/SAVE_POLICY'
+  policy: ManualPolicyUpdate
 }
 
 export type AddManualPolicyAction =

@@ -18,13 +18,13 @@ import { validate } from '../../../../business/validation'
 import { ValidationErrors } from '../../../../business/types'
 
 type MarketsScreenProps = {
-  markets: MarketsReduxState,
-  dispatch: Dispatch,
+  markets: MarketsReduxState
+  dispatch: Dispatch
 }
 
 type MarketsScreenState = {
-  errors?: ValidationErrors,
-  blurred: { [id: string]: boolean },
+  errors?: ValidationErrors
+  blurred: { [id: string]: boolean }
 }
 
 // language=SCSS prefix=dummy{ suffix=}
@@ -35,7 +35,10 @@ const HR = styled.div`
   margin-top: ${MARGIN.base}px;
 `
 
-class AddressScreen extends React.Component<MarketsScreenProps, MarketsScreenState> {
+class AddressScreen extends React.Component<
+  MarketsScreenProps,
+  MarketsScreenState
+> {
   constructor(props: MarketsScreenProps) {
     super(props)
     this.state = {

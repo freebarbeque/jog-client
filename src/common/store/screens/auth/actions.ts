@@ -1,64 +1,60 @@
-import {
-  ValuesMap,
-  ValidationErrorsMap,
-  FirebaseUser,
-} from '../../../types'
+import { ValuesMap, ValidationErrorsMap, FirebaseUser } from '../../../types'
 
 export type LoginAction = {
-  type: 'screens/auth/LOGIN',
-  email: string,
-  password: string,
+  type: 'screens/auth/LOGIN'
+  email: string
+  password: string
 }
 
 export type RegisterAction = {
-  type: 'screens/auth/REGISTER',
-  name: string,
-  email: string,
-  password: string,
+  type: 'screens/auth/REGISTER'
+  name: string
+  email: string
+  password: string
 }
 
 export type PasswordResetAction = {
-  type: 'screens/auth/PASSWORD_RESET',
-  email: string,
+  type: 'screens/auth/PASSWORD_RESET'
+  email: string
 }
 
 type SetValuesAction = {
-  type: 'screens/auth/SET_VALUES',
-  values: ValuesMap,
+  type: 'screens/auth/SET_VALUES'
+  values: ValuesMap
 }
 
 type SetValidationErrors = {
-  type: 'screens/auth/SET_VALIDATION_ERRORS',
-  validationErrors: ValidationErrorsMap,
+  type: 'screens/auth/SET_VALIDATION_ERRORS'
+  validationErrors: ValidationErrorsMap
 }
 
 type SetLoadingAction = {
-  type: 'screens/auth/SET_LOADING',
-  loading: boolean,
+  type: 'screens/auth/SET_LOADING'
+  loading: boolean
 }
 
 type SetLoginErrorAction = {
-  type: 'screens/auth/SET_LOGIN_ERROR',
-  loginError: string | null,
+  type: 'screens/auth/SET_LOGIN_ERROR'
+  loginError: string | null
 }
 
 type SetRegisterErrorAction = {
-  type: 'screens/auth/SET_REGISTER_ERROR',
-  registerError: string | null,
+  type: 'screens/auth/SET_REGISTER_ERROR'
+  registerError: string | null
 }
 
 type SetPasswordResetErrorAction = {
-  type: 'screens/auth/SET_PASSWORD_RESET_ERROR',
-  passwordResetError: string | null,
+  type: 'screens/auth/SET_PASSWORD_RESET_ERROR'
+  passwordResetError: string | null
 }
 
 type ClearAction = {
-  type: 'screens/auth/CLEAR',
+  type: 'screens/auth/CLEAR'
 }
 
 export type SendEmailVerificationEmailAction = {
-  type: 'screens/auth/SEND_VERIFICATION_EMAIL',
-  user: FirebaseUser,
+  type: 'screens/auth/SEND_VERIFICATION_EMAIL'
+  user: FirebaseUser
 }
 
 export type CommonAuthAction =

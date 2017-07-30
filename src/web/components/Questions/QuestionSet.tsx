@@ -6,15 +6,15 @@ import { BLUE } from '../../../common/constants/palette'
 import MultiSelectQuestion from './MultiSelectQuestion'
 import BooleanQuestion from './BooleanQuestion'
 import TextQuestion from './TextQuestion'
-import BooleanDependentQuestion from "./BooleanDependentQuestion";
+import BooleanDependentQuestion from './BooleanDependentQuestion'
 
 type QuestionSetProps = {
-  questions: BaseQuestionDescriptor<any>[],
-  answers: { [id: string]: any },
-  onChange: (id: string, answer: any) => void,
-  extraComponents?: { [id: string]: { component: React.ComponentClass } },
-  onFocus?: (id: string) => void,
-  onBlur?: (id: string) => void,
+  questions: BaseQuestionDescriptor<any>[]
+  answers: { [id: string]: any }
+  onChange: (id: string, answer: any) => void
+  extraComponents?: { [id: string]: { component: React.ComponentClass } }
+  onFocus?: (id: string) => void
+  onBlur?: (id: string) => void
 }
 
 export default class QuestionSet extends React.Component {

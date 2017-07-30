@@ -10,11 +10,7 @@ import {
   setPasswordResetError,
 } from './actions'
 
-import {
-  LoginAction,
-  RegisterAction,
-  PasswordResetAction,
-} from './actions'
+import { LoginAction, RegisterAction, PasswordResetAction } from './actions'
 
 import { getNavigationAdapter } from '../../index'
 

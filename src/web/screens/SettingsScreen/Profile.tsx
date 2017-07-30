@@ -17,10 +17,10 @@ import { updateUserProfilePicture } from '../../../common/store/auth/actions'
 import Button from '../../components/Button'
 
 type ProfileProps = {
-  dispatch: Dispatch,
+  dispatch: Dispatch
   // eslint-disable-next-line react/no-unused-prop-types
-  user: FirebaseUser,
-  userDetails: UserDetails | null,
+  user: FirebaseUser
+  userDetails: UserDetails | null
 }
 
 // language=SCSS prefix=dummy{ suffix=}

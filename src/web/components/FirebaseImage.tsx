@@ -2,17 +2,17 @@ import * as React from 'react'
 import * as firebase from 'firebase'
 
 type FirebaseImageProps = {
-  imagePath: string | null,
-  width: number,
-  alt: string,
+  imagePath: string | null
+  width: number
+  alt: string
 }
 
 type FirebaseImageState = {
-  imageUrl: string | null,
+  imageUrl: string | null
   dimensions: {
-    height: number,
-    width: number,
-  } | null,
+    height: number
+    width: number
+  } | null
 }
 
 export default class FirebaseImage extends React.Component {
@@ -64,11 +64,11 @@ export default class FirebaseImage extends React.Component {
     const imageUrl = this.state.imageUrl
     const dimensions = this.state.dimensions
     if (imageUrl && dimensions) {
-      const width = this.props.width;
+      const width = this.props.width
       const divisor = dimensions.width / width
       const height = dimensions.height / divisor
 
-      const alt = this.props.alt;
+      const alt = this.props.alt
       return (
         <img
           src={imageUrl}

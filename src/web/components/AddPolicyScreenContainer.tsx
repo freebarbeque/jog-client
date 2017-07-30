@@ -11,24 +11,24 @@ import { CarOutline, Cross, Logo } from './images/index'
 import { Dispatch } from '../../common/types'
 
 interface AddPolicyScreenContainerProps {
-  title?: string,
-  onPrevPress?: () => void,
-  onNextPress?: () => void,
-  onSkipPress?: () => void,
-  children?: any,
-  showPrevButton?: boolean,
-  showNextButton?: boolean,
-  showSkipButton?: boolean,
-  disableNextButton?: boolean,
-  nextLabel?: string,
+  title?: string
+  onPrevPress?: () => void
+  onNextPress?: () => void
+  onSkipPress?: () => void
+  children?: any
+  showPrevButton?: boolean
+  showNextButton?: boolean
+  showSkipButton?: boolean
+  disableNextButton?: boolean
+  nextLabel?: string
 }
 
-interface ConnectedAddPolicyScreenContainerProps extends DispatchProp<any>, AddPolicyScreenContainerProps  {
-
-}
+interface ConnectedAddPolicyScreenContainerProps
+  extends DispatchProp<any>,
+    AddPolicyScreenContainerProps {}
 
 type AddPolicyScreenContainerState = {
-  keyboardHeight: number,
+  keyboardHeight: number
 }
 
 // language=SCSS prefix=dummy{ suffix=}
@@ -120,7 +120,10 @@ export const NavigationButton = (props: any) => {
   )
 }
 
-class AddPolicyScreenContainer extends React.Component<ConnectedAddPolicyScreenContainerProps, AddPolicyScreenContainerState> {
+class AddPolicyScreenContainer extends React.Component<
+  ConnectedAddPolicyScreenContainerProps,
+  AddPolicyScreenContainerState
+> {
   static defaultProps = {
     showPrevButton: true,
     showNextButton: true,
@@ -224,6 +227,8 @@ class AddPolicyScreenContainer extends React.Component<ConnectedAddPolicyScreenC
   }
 }
 
-const ConnectedAddPolicyScreenContainer: React.ComponentClass<AddPolicyScreenContainerProps> = connect()(AddPolicyScreenContainer)
+const ConnectedAddPolicyScreenContainer: React.ComponentClass<
+  AddPolicyScreenContainerProps
+> = connect()(AddPolicyScreenContainer)
 
 export default ConnectedAddPolicyScreenContainer

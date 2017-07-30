@@ -58,7 +58,7 @@ export default class WebForm extends Form {
       buttonLabel,
       error,
       disabled,
-      ...props
+      ...props,
     } = this.props
 
     return (

@@ -16,9 +16,9 @@ import FlexCenteredContainer from '../components/FlexCenteredContainer'
 import { NAVIGATION_BAR_HEIGHT } from '../constants/style'
 
 type EmailVerificationScreenProps = {
-  dispatch: Dispatch,
-  user: FirebaseUser | null,
-  loading: boolean,
+  dispatch: Dispatch
+  user: FirebaseUser | null
+  loading: boolean
 }
 
 // language=SCSS prefix=dummy{ suffix=}
@@ -31,7 +31,9 @@ const Description = styled.div`
   margin-right: ${MARGIN.large}px;
 `
 
-class EmailVerificationScreen extends React.Component<EmailVerificationScreenProps> {
+class EmailVerificationScreen extends React.Component<
+  EmailVerificationScreenProps
+> {
   componentDidMount() {
     this.props.dispatch(pollRefreshUser())
   }
@@ -86,7 +88,7 @@ class EmailVerificationScreen extends React.Component<EmailVerificationScreenPro
 
 const mapStateToProps = (state: ReduxState) => ({
   user: state.auth.user,
-  loading: state.screens.auth.loading
+  loading: state.screens.auth.loading,
 })
 
 export default connect(mapStateToProps)(EmailVerificationScreen)

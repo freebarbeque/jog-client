@@ -16,8 +16,8 @@ import AddPolicyScreenContainer from '../components/AddPolicyScreenContainer'
 import Picker from '../components/Picker'
 
 interface InsurerScreenProps extends DispatchProp<Action> {
-  insurers: InsurerMap,
-  policy: ManualPolicyUpdate,
+  insurers: InsurerMap
+  policy: ManualPolicyUpdate
 }
 
 class InsurerScreen extends React.Component<InsurerScreenProps> {

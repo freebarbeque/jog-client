@@ -5,8 +5,7 @@ import styled from 'styled-components'
 const moment = require('moment')
 
 import { BLUE, WHITE } from '../../common/constants/palette'
-import DatePickerProps = __MaterialUI.DatePicker.DatePickerProps;
-
+import DatePickerProps = __MaterialUI.DatePicker.DatePickerProps
 
 // language=SCSS prefix=dummy{ suffix=}
 const Button = styled.button`
@@ -34,7 +33,7 @@ const Segment = styled.div`
 `
 
 interface JogDatePickerProps extends DatePickerProps {
-  value: Date,
+  value: Date
 }
 
 export default class DatePicker extends React.Component<JogDatePickerProps> {

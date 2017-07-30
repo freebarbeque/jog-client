@@ -12,8 +12,8 @@ import QuestionSet from '../../components/Questions/QuestionSet'
 import MainDriverQuestion from '../../components/Questions/MainDriverQuestion'
 
 type MotorQuoteScreenProps = {
-  motorAnswers: { [id: string]: any },
-  dispatch: Dispatch,
+  motorAnswers: { [id: string]: any }
+  dispatch: Dispatch
 }
 
 class MotorQuoteScreen extends React.Component<MotorQuoteScreenProps> {

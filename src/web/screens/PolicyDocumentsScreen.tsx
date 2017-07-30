@@ -26,13 +26,13 @@ import {
 } from '../../common/store/policies/actions'
 import Container from '../components/Container'
 import ScrollToTopOnMount from '../components/ScrollToTopOnMount'
-import { RouteComponentProps } from "react-router";
+import { RouteComponentProps } from 'react-router'
 
 interface PolicyDocumentsScreenProps {
   // eslint-disable-next-line react/no-unused-prop-types
-  dispatch: Dispatch,
+  dispatch: Dispatch
   // eslint-disable-next-line react/no-unused-prop-types
-  policies: MotorPolicyMap,
+  policies: MotorPolicyMap
   initialised: boolean
 }
 
@@ -75,8 +75,9 @@ const BrowseFilesButton = Button.extend`
   width: 100%;
 `
 
-class PolicyDocumentsScreen extends React.Component<PolicyDocumentsScreenProps & RouteComponentProps<any>> {
-
+class PolicyDocumentsScreen extends React.Component<
+  PolicyDocumentsScreenProps & RouteComponentProps<any>
+> {
   handleBrowseFilesPress = () => {
     getFile().then(file => {
       const match = this.props.match
@@ -165,7 +166,7 @@ class PolicyDocumentsScreen extends React.Component<PolicyDocumentsScreenProps &
             rejectStyle={{ borderColor: PINK }}
             accept={['image/*', 'application/pdf']}
           >
-            {"Drag & Drop Files"}
+            {'Drag & Drop Files'}
           </DragDropZone>
           <BrowseFilesButton onClick={this.handleBrowseFilesPress}>
             Browse Files

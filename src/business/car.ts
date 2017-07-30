@@ -29,8 +29,8 @@ export type Owner =
   | 'lease-company'
 
 export type Modification = {
-  category: string,
-  subcategory: string,
+  category: string
+  subcategory: string
 }
 
 export const handDriveQuestion: SelectQuestionDescriptor<Hand> = {
@@ -117,7 +117,7 @@ export const whenPurchasedQuestion: NullableDateQuestionDescriptor = {
   required: true,
 }
 
-const ownerOptions: {label: string, value: Owner}[] = [
+const ownerOptions: { label: string; value: Owner }[] = [
   {
     label: 'Company director',
     value: 'company-director',
@@ -178,7 +178,7 @@ export const ownerQuestion: SelectQuestionDescriptor<Owner> = {
   questionText: 'Who is the owner of the car?',
   required: true,
   options: ownerOptions,
-  defaultValue: 'you'
+  defaultValue: 'you',
 }
 
 export const registeredKeeperQuestion: SelectQuestionDescriptor<Owner> = {

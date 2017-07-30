@@ -6,15 +6,15 @@ import { QuestionFieldProps } from './QuestionField'
 import QuestionField from './QuestionField'
 
 interface IntegerQuestionProps extends QuestionFieldProps {
-  descriptor: NumericQuestionDescriptor,
-  value: number,
-  onChange: (id: string, value: number) => void,
-  onBlur?: () => void,
-  onFocus?: () => void,
+  descriptor: NumericQuestionDescriptor
+  value: number
+  onChange: (id: string, value: number) => void
+  onBlur?: () => void
+  onFocus?: () => void
 }
 
 type IntegerQuestionState = {
-  value: string,
+  value: string
 }
 
 // language=SCSS prefix=dummy{ suffix=}

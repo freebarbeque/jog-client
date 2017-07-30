@@ -22,12 +22,12 @@ import { NAVIGATION_BAR_HEIGHT } from '../constants/style'
 import FlexCentredContainer from '../components/FlexCentredContainer'
 
 interface PasswordResetScreenProps {
-  dispatch: Dispatch,
-  values: ValuesMap,
-  validationErrors: ValidationErrorsMap,
-  passwordResetError: string | null,
-  loading: boolean,
-  errors: {[key: string]: string}
+  dispatch: Dispatch
+  values: ValuesMap
+  validationErrors: ValidationErrorsMap
+  passwordResetError: string | null
+  loading: boolean
+  errors: { [key: string]: string }
 }
 
 class PasswordResetScreen extends React.Component<PasswordResetScreenProps> {

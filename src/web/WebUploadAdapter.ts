@@ -1,7 +1,7 @@
 import * as firebase from 'firebase'
 import { UploadFileOpts } from '../common/types'
 
-export default class WebUploadAdapter  {
+export default class WebUploadAdapter {
   // eslint-disable-next-line no-unused-vars
   static uploadFile(opts: UploadFileOpts) {
     const file: File = opts.file

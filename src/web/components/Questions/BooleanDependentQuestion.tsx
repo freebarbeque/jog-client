@@ -3,22 +3,22 @@ import { MARGIN } from '../../../common/constants/style'
 import { QuestionFieldProps } from './QuestionField'
 import QuestionField from './QuestionField'
 import SelectBox from './SelectBox'
-import {
-   BooleanDependentQuestionDescriptor,
-} from '../../../business/types'
+import { BooleanDependentQuestionDescriptor } from '../../../business/types'
 
 import QuestionSet from './QuestionSet'
 
 interface BooleanDependentQuestionProps extends QuestionFieldProps {
-  descriptor: BooleanDependentQuestionDescriptor<any>,
-  value: any,
-  onChange: (id: string, value: any) => void,
-  onBlur?: () => void,
-  onFocus?: () => void,
-  answers?: { [id: string]: any },
+  descriptor: BooleanDependentQuestionDescriptor<any>
+  value: any
+  onChange: (id: string, value: any) => void
+  onBlur?: () => void
+  onFocus?: () => void
+  answers?: { [id: string]: any }
 }
 
-export default class BooleanDependentQuestion extends React.Component<BooleanDependentQuestionProps> {
+export default class BooleanDependentQuestion extends React.Component<
+  BooleanDependentQuestionProps
+> {
   render() {
     const id = this.props.descriptor.id
     const value = this.props.value
@@ -57,10 +57,10 @@ export default class BooleanDependentQuestion extends React.Component<BooleanDep
         </QuestionField>
         {value && dependentQuestions
           ? <QuestionSet
-            questions={dependentQuestions}
-            answers={answers}
-            onChange={this.props.onChange}
-          />
+              questions={dependentQuestions}
+              answers={answers}
+              onChange={this.props.onChange}
+            />
           : null}
       </div>
     )

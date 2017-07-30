@@ -6,16 +6,17 @@ import SelectBox from './SelectBox'
 import { BooleanQuestionDescriptor } from '../../../business/types'
 
 interface BooleanQuestionProps extends QuestionFieldProps {
-  descriptor: BooleanQuestionDescriptor,
-  value: any,
-  onChange: (id: string, value: any) => void,
-  onBlur?: () => void,
-  onFocus?: () => void,
-  answers?: { [id: string]: any },
+  descriptor: BooleanQuestionDescriptor
+  value: any
+  onChange: (id: string, value: any) => void
+  onBlur?: () => void
+  onFocus?: () => void
+  answers?: { [id: string]: any }
 }
 
-export default class BooleanQuestion extends React.Component<BooleanQuestionProps> {
-
+export default class BooleanQuestion extends React.Component<
+  BooleanQuestionProps
+> {
   render() {
     const id = this.props.descriptor.id
     const value = this.props.value
