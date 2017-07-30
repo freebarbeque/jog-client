@@ -20,7 +20,12 @@
     "lint": "yarn lint:js",
     "lint:js": "eslint ./src",
     "start": "yarn start:packager",
-    "start:packager": "node node_modules/react-native/local-cli/cli.js start"
+    "start:packager": "node node_modules/react-native/local-cli/cli.js start",
+    "build:web:dev": "JOG_ENVIRONMENT=DEBUG webpack",
+    "build:web:prod": "JOG_ENVIRONMENT=RELEASE webpack",
+    "run:ios": "react-native run-ios",
+    "run:android": "react-native run-android",
+    "run:web": "webpack-dev-server --hot"
   },
   "dependencies": {
     "@types/jquery": "^3.2.10",
@@ -95,7 +100,8 @@
     "remote-redux-devtools-on-debugger": "^0.7.0",
     "reselect": "3.0.1",
     "styled-components": "2.1.1",
-    "uuid": "3.1.0"
+    "uuid": "3.1.0",
+    "webpack-dev-server": "^2.6.1"
   },
   "devDependencies": {
     "awesome-typescript-loader": "^3.2.2",
@@ -128,7 +134,8 @@
     "sort-package-json": "^1.5.0",
     "source-map-loader": "^0.2.1",
     "typescript": "^2.4.2",
-    "url-loader": "^0.5.9"
+    "url-loader": "^0.5.9",
+    "webpack": "^3.4.1"
   },
   "engines": {
     "node": ">=7.7.0"
