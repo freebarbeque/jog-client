@@ -63,3 +63,6 @@ android/fastlane-privatekey.json
 android/my-release-key.jks
 
 Preview.html
+
+dist
+.vscode

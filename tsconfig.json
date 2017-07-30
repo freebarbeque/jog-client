@@ -1,0 +1,23 @@
+{
+  "compilerOptions": {
+    "experimentalDecorators": true,
+    "target": "es5",
+    "module": "commonjs",
+    "outDir": "./dist/",
+    "sourceMap": true,
+    "jsx": "react",
+    "lib": [
+      "dom",
+      "es2015",
+      "es2016"
+    ],
+    "allowJs": true,
+    "skipLibCheck": true  // TODO: Remove
+  },
+  "include": [
+    "./src/**/*.ts",
+    "./src/**/*.tsx"
+  ],
+  "compileOnSave": false,
+  "noStrictGenericChecks": true
+}
