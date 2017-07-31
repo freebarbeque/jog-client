@@ -4,7 +4,7 @@ import styled from 'styled-components'
 import { BLUE } from '../../common/constants/palette'
 import { MARGIN } from '../../common/constants/style'
 
-const Collapsible = require('react-collapsible')
+import Collapsible from 'react-collapsible'
 
 // language=SCSS prefix=dummy{ suffix=}
 const Container = styled.div`

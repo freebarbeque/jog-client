@@ -6,6 +6,8 @@ import { MARGIN } from '../../common/constants/style'
 import { Arrow, Chevron } from './images/index'
 import { max, min } from '../media'
 
+const background = require('./background2.png')
+
 interface BackgroundHeaderProps {
   headerText: string
   subheaderText?: string | null
@@ -58,7 +60,7 @@ const BackgroundImage = styled.div.attrs({
 })`
   width: 100%;
   justify-content: center;
-  background: url(/static/background2.png);
+  background: url(${background});
   background-size: cover;
 
   height: ${mobileHeight};

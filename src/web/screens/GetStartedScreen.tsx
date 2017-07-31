@@ -11,6 +11,8 @@ import { MARGIN } from '../../common/constants/style'
 import { Details, PolicyBots, Upload } from '../components/images/index'
 import Container from '../components/Container'
 
+const background = require('../../static/background.png')
+
 interface GetStartedScreenProps {}
 interface ConnectedGetStartedScreenProps
   extends DispatchProp<Action>,
@@ -22,7 +24,7 @@ const BackgroundImage = styled.div`
   height: 100%;
   align-items: center;
   justify-content: center;
-  background: url(/static/background.png) no-repeat center center fixed;
+  background: url(${background}) no-repeat center center fixed;
   background-size: cover;
 `
 

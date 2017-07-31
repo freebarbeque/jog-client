@@ -31,7 +31,7 @@ module.exports = {
       { test: /\.png|.jpg|.jpeg|.bmp$/, loader: 'url-loader' },
       {
         test: /\.css$/,
-        use: ['css-loader'],
+        use: ['style-loader', 'css-loader'],
       },
       // All output '.js' files will have any sourcemaps re-processed by 'source-map-loader'.
       { enforce: 'pre', test: /\.js$/, loader: 'source-map-loader' },

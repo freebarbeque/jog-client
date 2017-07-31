@@ -12,7 +12,7 @@ interface ImageProps {
 }
 
 const Image = (props: ImageProps) => {
-  const { src, className, height, width, scale, ...rest } = props
+  const { src, className, height, width, scale = 1, ...rest } = props
 
   return (
     <img
