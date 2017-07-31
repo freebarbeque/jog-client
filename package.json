@@ -25,7 +25,7 @@
     "build:web:prod": "JOG_ENVIRONMENT=RELEASE webpack",
     "run:ios": "react-native run-ios",
     "run:android": "react-native run-android",
-    "run:web": "webpack-dev-server"
+    "run:web": "JOG_ENVIRONMENT=DEBUG webpack-dev-server"
   },
   "dependencies": {
     "@types/jquery": "^3.2.10",
@@ -44,8 +44,8 @@
     "classnames": "^2.2.5",
     "email-validator": "^1.0.7",
     "eslint-plugin-prettier": "^2.1.1",
-    "firebase": "^3.7.3",
-    "firebase-admin": "^5.0.0",
+    "firebase": "4.2.0",
+    "firebase-admin": "5.1.0",
     "firebase-functions": "^0.5.7",
     "jest-react-native": "^18.0.0",
     "jquery": "^3.2.1",

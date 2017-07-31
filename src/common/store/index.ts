@@ -1,7 +1,8 @@
 import { createStore as _createStore, applyMiddleware, compose } from 'redux'
 import createSagaMiddleware from 'redux-saga'
 import devTools from 'remote-redux-devtools'
-import freeze from 'redux-freeze'
+
+const freeze = require('redux-freeze')
 
 import { pollUserSaga, authSaga, userSyncSaga } from './auth/sagas'
 
@@ -41,6 +42,7 @@ export default function createStore(_opts: CreateStoreOpts): Store {
     middleware: [],
     ..._opts,
   }
+
   if (!store) {
     navigationAdaptor = opts.navigationAdaptor
     uploadAdaptor = opts.uploadAdaptor
@@ -53,8 +55,6 @@ export default function createStore(_opts: CreateStoreOpts): Store {
     }
 
     let enhancer
-
-    console.log('middleware', middleware)
 
     // eslint-disable-next-line valid-typeof
     if (typeof window === undefined) {

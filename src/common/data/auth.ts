@@ -84,7 +84,7 @@ export function userSubscribe(
 ): () => void {
   return firebase
     .auth()
-    .onAuthStateChanged(u => callback(u ? u.toJSON() : null))
+    .onAuthStateChanged(u => callback(u ? u.toJSON() as FirebaseUser : null))
 }
 
 /**

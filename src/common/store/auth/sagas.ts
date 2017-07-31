@@ -11,10 +11,12 @@ import {
   takeLatest,
 } from 'redux-saga/effects'
 import { eventChannel } from 'redux-saga'
-import createThrottle from 'async-throttle'
+
 import mime from 'react-native-mime-types'
 import uuid from 'uuid/v4'
 import * as _ from 'lodash'
+
+const createThrottle = require('async-throttle')
 
 import { signOut, userSubscribe, demandCurrentUser } from '../../data/auth'
 import { syncUserDetails, updateCurrentUserDetails } from '../../data/user'

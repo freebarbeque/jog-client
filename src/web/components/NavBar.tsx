@@ -2,7 +2,7 @@ import * as React from 'react'
 import AppBar from 'material-ui/AppBar'
 import FlatButton from 'material-ui/FlatButton'
 import { connect, DispatchProp } from 'react-redux'
-const styled = require('styled-components')
+import styled from 'styled-components'
 import { NavLink, withRouter } from 'react-router-dom'
 
 import { Logo } from './images'

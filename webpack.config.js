@@ -1,8 +1,18 @@
+const webpack = require('webpack')
+
 module.exports = {
-  entry: './src/index.tsx',
+  entry: [
+    'babel-polyfill',
+    './src/index.tsx'
+  ],
   output: {
     filename: 'bundle.js',
     path: `${__dirname}/dist`,
+    publicPath: '/dist',
+  },
+
+  devServer: {
+    historyApiFallback: true,
   },
 
   // Enable sourcemaps for debugging webpack's output.
@@ -17,7 +27,6 @@ module.exports = {
     rules: [
       // All files with a '.ts' or '.tsx' extension will be handled by 'awesome-typescript-loader'.
       { test: /\.tsx?$/, loader: 'awesome-typescript-loader' },
-      { test: /\.jsx?$/, loader: 'babel-loader', exclude: /(node_modules|bower_components)/ },
       { test: /\.svg(\?v=\d+\.\d+\.\d+)?$/, loader: 'url-loader' },
       { test: /\.png|.jpg|.jpeg|.bmp$/, loader: 'url-loader' },
       {
@@ -37,4 +46,8 @@ module.exports = {
     react: 'React',
     'react-dom': 'ReactDOM',
   },
+
+  plugins: [
+    new webpack.EnvironmentPlugin({JOG_ENVIRONMENT: 'DEBUG', NODE_ENV: 'development'})
+  ]
 }

@@ -13,7 +13,7 @@ import { RouteComponentProps } from 'react-router'
 
 const TABS = ['policies', 'markets', 'settings']
 
-const SwipeableViews = require('react-swipeable-views')
+import SwipeableViews from 'react-swipeable-views'
 
 // language=SCSS prefix=dummy{ suffix=}
 const Container = styled.div`
@@ -90,4 +90,5 @@ class TabsScreen extends React.Component<Props> {
 const ConnectedTabsScreen: React.ComponentClass<ConnectedProps> = withRouter(
   TabsScreen,
 )
+
 export default ConnectedTabsScreen

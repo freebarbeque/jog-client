@@ -3282,9 +3282,9 @@ find-up@^2.0.0, find-up@^2.1.0:
   dependencies:
     locate-path "^2.0.0"
 
-firebase-admin@^5.0.0:
-  version "5.0.0"
-  resolved "https://registry.yarnpkg.com/firebase-admin/-/firebase-admin-5.0.0.tgz#fadae56c99be4fb56c781007d6719d153fe8fd7b"
+firebase-admin@5.1.0:
+  version "5.1.0"
+  resolved "https://registry.yarnpkg.com/firebase-admin/-/firebase-admin-5.1.0.tgz#48c8a67844d2319a2a49582bcd3c35534ab4f178"
   dependencies:
     "@types/jsonwebtoken" "^7.1.33"
     faye-websocket "0.9.3"
@@ -3304,9 +3304,9 @@ firebase-functions@^0.5.7:
     lodash "^4.6.1"
     sha1 "^1.1.1"
 
-firebase@^3.7.3:
-  version "3.9.0"
-  resolved "https://registry.yarnpkg.com/firebase/-/firebase-3.9.0.tgz#c4237f50f58eeb25081b1839d6cbf175f8f7ed9b"
+firebase@4.2.0:
+  version "4.2.0"
+  resolved "https://registry.yarnpkg.com/firebase/-/firebase-4.2.0.tgz#9181a0a22c6afc2b27bd810789beac48a438207d"
   dependencies:
     dom-storage "^2.0.2"
     faye-websocket "0.9.3"
@@ -8269,7 +8269,7 @@ uc.micro@^1.0.1:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/uc.micro/-/uc.micro-1.0.3.tgz#7ed50d5e0f9a9fb0a573379259f2a77458d50192"
 
-uglify-js@2.7.5, uglify-js@^2.6:
+uglify-js@2.7.5:
   version "2.7.5"
   resolved "https://registry.yarnpkg.com/uglify-js/-/uglify-js-2.7.5.tgz#4612c0c7baaee2ba7c487de4904ae122079f2ca8"
   dependencies:
@@ -8278,7 +8278,7 @@ uglify-js@2.7.5, uglify-js@^2.6:
     uglify-to-browserify "~1.0.0"
     yargs "~3.10.0"
 
-uglify-js@^2.8.29:
+uglify-js@^2.6, uglify-js@^2.8.29:
   version "2.8.29"
   resolved "https://registry.yarnpkg.com/uglify-js/-/uglify-js-2.8.29.tgz#29c5733148057bb4e1f75df35b7a9cb72e6a59dd"
   dependencies:
