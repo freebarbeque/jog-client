@@ -13,16 +13,28 @@ import {
 import QuestionSet from '../../components/Questions/QuestionSet'
 import { MARGIN } from '../../../common/constants/style'
 import RoundedButton from '../../components/RoundedButton'
+import { validate } from '../../../business/validation'
+import { ValidationErrors } from '../../../business/types'
 
-type DriverScreenProps = {
+interface Props {
   driverAnswers: { [id: string]: any }
   dispatch: Dispatch
 }
 
-class DriverScreen extends React.Component<DriverScreenProps> {
+interface State {
+  errors?: ValidationErrors
+  blurred: { [id: string]: boolean }
+}
+
+class DriverScreen extends React.Component<Props> {
+  private questionSetComp: QuestionSet
+
   handleAddClick = () => {
-    const driver = constructDriver(this.props.driverAnswers)
-    this.props.dispatch(addDriver(driver))
+    const errors = this.questionSetComp.validateAllFields()
+    if (!errors.hasError) {
+      const driver = constructDriver(this.props.driverAnswers)
+      this.props.dispatch(addDriver(driver))
+    }
   }
 
   render() {
@@ -31,6 +43,7 @@ class DriverScreen extends React.Component<DriverScreenProps> {
         <Panel>
           <Header>Driver</Header>
           <QuestionSet
+            ref={e => (this.questionSetComp = e)}
             questions={driverQuestions}
             extraComponents={{}}
             answers={this.props.driverAnswers}

@@ -7,8 +7,8 @@
     "commit": "yarn flow && yarn fix && git commit -a",
     "deploy:android:alpha": "./scripts/deploy-android-alpha.sh",
     "deploy:ios:beta": "./scripts/deploy-ios-beta.sh",
-    "deploy:web:dev": "yarn build:web:dev && firebase deploy -p build -P jog-dev-10fe9 --only hosting",
-    "deploy:web:prod": "yarn build:web:prod && firebase deploy -p build -P jog-prod --only hosting",
+    "deploy:web:dev": "yarn copy:assets yarn build:web:dev && firebase deploy -p dist -P jog-dev-10fe9 --only hosting",
+    "deploy:web:prod": "yarn copy:assets yarn build:web:prod && firebase deploy -p dist -P jog-prod --only hosting",
     "fix": "yarn fix:eslint && yarn fix:sort-package-json",
     "fix:eslint": "eslint ./ --fix",
     "fix:sort-package-json": "sort-package-json",
@@ -25,7 +25,8 @@
     "build:web:prod": "JOG_ENVIRONMENT=RELEASE webpack",
     "run:ios": "react-native run-ios",
     "run:android": "react-native run-android",
-    "run:web": "JOG_ENVIRONMENT=DEBUG webpack-dev-server"
+    "run:web": "JOG_ENVIRONMENT=DEBUG webpack-dev-server",
+    "copy:assets": "./scripts/copy-assets.sh"
   },
   "dependencies": {
     "@types/jquery": "^3.2.10",

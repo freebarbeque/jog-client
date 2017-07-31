@@ -21,9 +21,11 @@ export default class BooleanDependentQuestion extends React.Component<
 > {
   render() {
     const id = this.props.descriptor.id
+    const reverse = this.props.descriptor.reverse
     const value = this.props.value
     const dependentQuestions = this.props.descriptor.dependentQuestions
     const answers = this.props.answers
+    const answered = value !== null && value !== undefined
 
     if (dependentQuestions && !answers) {
       throw new Error(
@@ -55,7 +57,9 @@ export default class BooleanDependentQuestion extends React.Component<
             </SelectBox>
           </div>
         </QuestionField>
-        {value && dependentQuestions
+        {((!reverse && value) || (reverse && !value)) &&
+        answered &&
+        dependentQuestions
           ? <QuestionSet
               questions={dependentQuestions}
               answers={answers}

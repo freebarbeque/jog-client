@@ -1,6 +1,6 @@
 import * as React from 'react'
-import { connect } from 'react-redux'
-import { Dispatch, ReduxState } from '../../../common/types'
+import { connect, DispatchProp } from 'react-redux'
+import { ReduxState } from '../../../common/types'
 import { setMotorAnswer } from '../../../common/store/markets/index'
 
 import Panel from '../../components/Panel'
@@ -11,9 +11,8 @@ import { questions as motorQuestions } from '../../../business/motor'
 import QuestionSet from '../../components/Questions/QuestionSet'
 import MainDriverQuestion from '../../components/Questions/MainDriverQuestion'
 
-type MotorQuoteScreenProps = {
+interface MotorQuoteScreenProps extends DispatchProp<any> {
   motorAnswers: { [id: string]: any }
-  dispatch: Dispatch
 }
 
 class MotorQuoteScreen extends React.Component<MotorQuoteScreenProps> {

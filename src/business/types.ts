@@ -137,6 +137,7 @@ export interface BooleanDependentQuestionDescriptor<
 > extends BaseQuestionDescriptor<boolean> {
   type: 'boolean-dependent'
   dependentQuestions: T[]
+  reverse?: boolean
 }
 
 export interface BooleanQuestionDescriptor

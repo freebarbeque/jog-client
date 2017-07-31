@@ -47,10 +47,6 @@ class AddressScreen extends React.Component<
     }
   }
 
-  componentDidMount() {
-    this.validateAnswers()
-  }
-
   onChange = (id: string, value: string) => {
     this.props.dispatch(setAddressAnswer(id, value))
   }

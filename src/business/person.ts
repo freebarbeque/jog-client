@@ -9,6 +9,9 @@ import {
   Person,
   SelectQuestionDescriptor,
   TextQuestionDescriptor,
+  BooleanDependentQuestionDescriptor,
+  NumericQuestionDescriptor,
+  DateQuestionDescriptor,
 } from './types'
 
 export const firstNameQuestion: TextQuestionDescriptor = {
@@ -56,14 +59,24 @@ export const childrenQuestion: BooleanQuestionDescriptor = {
   type: 'boolean',
   id: 'person/children',
   questionText: 'Do you have any children under the age of 16?',
-  required: false,
+  required: true,
 }
 
-export const startLivingUkQuestion: BooleanQuestionDescriptor = {
-  type: 'boolean',
-  questionText: 'When did you start living in the UK?',
-  id: 'person/uk-start-living',
-  required: false,
+export const startLivingUkQuestion: BooleanDependentQuestionDescriptor<
+  DateQuestionDescriptor
+> = {
+  type: 'boolean-dependent',
+  questionText: 'Have you lived in the UK all your life?',
+  id: 'person/uk-all-life',
+  dependentQuestions: [
+    {
+      type: 'date',
+      questionText: 'When did you start living in the UK?',
+      id: 'person/started-living',
+    },
+  ],
+  required: true,
+  reverse: true,
 }
 
 export const jobQuestion: TextQuestionDescriptor = {

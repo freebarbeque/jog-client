@@ -8,8 +8,8 @@ interface TextQuestionProps {
   descriptor: TextQuestionDescriptor
   value: string
   onChange: (id: string, value: string) => void
-  onBlur?: () => void
-  onFocus?: () => void
+  onBlur?: (id: string) => void
+  onFocus?: (id: string) => void
   error?: string
   index?: number
 }
@@ -43,8 +43,8 @@ export default class TextQuestion extends React.Component<TextQuestionProps> {
           style={{
             backgroundColor: error ? '#efc9c9' : 'rgb(240, 240, 240)',
           }}
-          onBlur={this.props.onBlur}
-          onFocus={this.props.onFocus}
+          onBlur={() => this.props.onBlur(id)}
+          onFocus={() => this.props.onFocus(id)}
         />
       </QuestionField>
     )
