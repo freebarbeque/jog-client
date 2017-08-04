@@ -30,6 +30,9 @@ export default class TextQuestion extends React.Component<TextQuestionProps> {
 
     const error = this.props.error
 
+    const onBlur = this.props.onBlur
+    const onFocus = this.props.onFocus
+
     return (
       <QuestionField
         descriptor={this.props.descriptor}
@@ -43,8 +46,12 @@ export default class TextQuestion extends React.Component<TextQuestionProps> {
           style={{
             backgroundColor: error ? '#efc9c9' : 'rgb(240, 240, 240)',
           }}
-          onBlur={() => this.props.onBlur(id)}
-          onFocus={() => this.props.onFocus(id)}
+          onBlur={() => {
+            if (this.props.onBlur) this.props.onBlur(id)
+          }}
+          onFocus={() => {
+            if (this.props.onFocus) this.props.onFocus(id)
+          }}
         />
       </QuestionField>
     )

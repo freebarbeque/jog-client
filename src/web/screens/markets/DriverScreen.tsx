@@ -9,7 +9,7 @@ import Header from './Header'
 import {
   constructDriver,
   questions as driverQuestions,
-} from '../../../business/person'
+} from '../../../business/driver'
 import QuestionSet from '../../components/Questions/QuestionSet'
 import { MARGIN } from '../../../common/constants/style'
 import RoundedButton from '../../components/RoundedButton'

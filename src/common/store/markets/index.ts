@@ -24,6 +24,7 @@ import {
   syncPeople,
 } from '../../data/quotes'
 import { demandCurrentUser } from '../../data/auth'
+import { goBack } from 'react-router-redux'
 
 // region Action types
 export type SetAddressAnswerAction = {
@@ -254,6 +255,7 @@ export function* addDriverTask(action: AddDriverAction) {
   const user = demandCurrentUser()
   yield call(() => setPerson(user.uid, driver))
   yield put(finishLoading())
+  yield put(goBack())
 }
 
 export function* addCarTask(action: AddCarAction) {

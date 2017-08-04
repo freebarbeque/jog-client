@@ -30,6 +30,7 @@ export default class SelectQuestion<T> extends React.Component<
           {this.props.descriptor.options.map(o => {
             return (
               <SelectBox
+                key={`${o.value}${o.label}`}
                 className={`${o.value === this.props.value ? 'selected' : ''}`}
                 onClick={() =>
                   this.props.onChange(this.props.descriptor.id, o.value)}

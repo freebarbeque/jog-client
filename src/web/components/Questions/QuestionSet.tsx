@@ -13,6 +13,7 @@ import BooleanQuestion from './BooleanQuestion'
 import TextQuestion from './TextQuestion'
 import BooleanDependentQuestion from './BooleanDependentQuestion'
 import { validate } from '../../../business/validation'
+import DateQuestion from './DateQuestion'
 
 interface QuestionSetProps {
   questions: BaseQuestionDescriptor<any>[]
@@ -42,14 +43,16 @@ export default class QuestionSet extends React.Component<
     }
   }
 
-  componentWillReceiveNextProps(nextProps) {
+  componentWillReceiveProps(nextProps) {
     this.setState({
       errors: this.validateAnswers(nextProps.questions, nextProps.answers),
     })
   }
 
   private validateAnswers = (questions, answers) => {
-    return validate(questions, answers)
+    console.log('validating', questions, answers)
+    const validationErrors = validate(questions, answers)
+    return validationErrors
   }
 
   private onBlur = (id: string) => {
@@ -67,6 +70,7 @@ export default class QuestionSet extends React.Component<
   }
 
   private onChange(id: string, answer: any) {
+    console.log('onChange', id, answer)
     const blurred = {
       ...this.state.blurred,
     }
@@ -100,6 +104,9 @@ export default class QuestionSet extends React.Component<
         component: TextQuestion,
         props: { onFocus, onBlur },
       },
+      date: {
+        component: DateQuestion,
+      },
     }
 
     return (
@@ -114,6 +121,7 @@ export default class QuestionSet extends React.Component<
 
             return (
               <Comp
+                key={q.id}
                 descriptor={q}
                 onChange={this.props.onChange}
                 value={answers[q.id]}
@@ -123,7 +131,7 @@ export default class QuestionSet extends React.Component<
             )
           }
           return (
-            <div style={{ color: BLUE }}>
+            <div style={{ color: BLUE }} key={q.id}>
               TODO: {type} questions
             </div>
           )

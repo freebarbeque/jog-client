@@ -67,10 +67,10 @@ const render = Component => {
   )
 }
 
+render(App)
+
 // Needed for onTouchTap
 // http://stackoverflow.com/a/34015469/988941
 injectTapEventPlugin()
-
-render(App)
 
 registerServiceWorker()

@@ -51,7 +51,7 @@
     "jest-react-native": "^18.0.0",
     "jquery": "^3.2.1",
     "lodash": "^4.17.4",
-    "material-ui": "0.18.3",
+    "material-ui": "0.18.7",
     "moment": "^2.18.1",
     "prop-types": "^15.5.8",
     "react": "^15.6.1",

@@ -1,8 +1,7 @@
-// @flow
-
 import * as _ from 'lodash'
-import uuid from 'uuid/v4'
 import { validate } from './validation'
+
+const uuid = require('uuid/v4')
 
 import {
   BooleanQuestionDescriptor,
@@ -36,6 +35,13 @@ export const genderQuestion: SelectQuestionDescriptor<string> = {
     { label: 'Male', value: 'male' },
     { label: 'Female', value: 'female' },
   ],
+  required: true,
+}
+
+export const dobQuestion: DateQuestionDescriptor = {
+  type: 'date',
+  id: 'person/dob',
+  questionText: "What's your date of birth?",
   required: true,
 }
 
@@ -105,6 +111,7 @@ export const questions = [
   firstNameQuestion,
   lastNameQuestion,
   genderQuestion,
+  dobQuestion,
   relationshipStatusQuestion,
   childrenQuestion,
   startLivingUkQuestion,
@@ -124,7 +131,7 @@ export function constructDriver(answers: { [id: string]: any }): Person {
       firstName: answers['person/first-name'],
       lastName: answers['person/last-name'],
       gender: answers['person/gender'],
-      dob: answers['person/dob'],
+      dob: answers['person/dob'] || null,
     }
 
     return driver
