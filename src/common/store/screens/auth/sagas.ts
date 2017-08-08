@@ -6,11 +6,11 @@ import * as authApi from '../../../data/auth'
 import {
   setLoading,
   setLoginError,
-  setRegisterError,
   setPasswordResetError,
+  setRegisterError,
 } from './actions'
 
-import { LoginAction, RegisterAction, PasswordResetAction } from './actions'
+import { LoginAction, PasswordResetAction, RegisterAction } from './actions'
 
 import { getNavigationAdapter } from '../../index'
 

@@ -1,6 +1,6 @@
 import { LoadingAction } from './actionTypes'
 
-export type LoadingReduxState = {
+export interface LoadingReduxState {
   loading: boolean
   text: string
 }

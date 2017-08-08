@@ -1,13 +1,10 @@
 import * as React from 'react'
-import { connect } from 'react-redux'
-import { addDriver, setDriverAnswer } from '../../../common/store/markets/index'
-import { Dispatch, ReduxState } from '../../../common/types'
+import { connect, DispatchProp } from 'react-redux'
+import { addCar, setCarAnswer } from '../../../common/store/markets/index'
+import { ReduxState } from '../../../common/types'
 
-import {
-  constructDriver,
-  questions as driverQuestions,
-} from '../../../business/driver'
-import { IValidationErrors } from '../../../business/types'
+import { constructCar, questions as carQuestions } from '../../../business/car'
+import { Car, IValidationErrors } from '../../../business/types'
 import { validate } from '../../../business/validation'
 import { MARGIN } from '../../../common/constants/style'
 import Container from '../../components/Container'
@@ -16,9 +13,8 @@ import QuestionSet from '../../components/Questions/QuestionSet'
 import RoundedButton from '../../components/RoundedButton'
 import Header from './Header'
 
-interface Props {
-  driverAnswers: { [id: string]: any }
-  dispatch: Dispatch
+interface Props extends DispatchProp<any> {
+  carAnswers: { [id: string]: Car }
 }
 
 interface State {
@@ -26,33 +22,33 @@ interface State {
   blurred: { [id: string]: boolean }
 }
 
-class DriverScreen extends React.Component<Props> {
+class VehicleScreen extends React.Component<Props> {
   private questionSetComp: QuestionSet
 
   handleAddClick = () => {
     const errors = this.questionSetComp.validateAllFields()
     if (!errors.hasError) {
-      const driver = constructDriver(this.props.driverAnswers)
-      this.props.dispatch(addDriver(driver))
+      const driver = constructCar(this.props.carAnswers)
+      this.props.dispatch(addCar(driver))
     }
   }
 
   render() {
     return (
-      <Container className="DriversScreen">
+      <Container className="VehicleScreen">
         <Panel>
-          <Header>Driver</Header>
+          <Header>Car</Header>
           <QuestionSet
             ref={e => (this.questionSetComp = e)}
-            questions={driverQuestions}
+            questions={carQuestions}
             extraComponents={{}}
-            answers={this.props.driverAnswers}
+            answers={this.props.carAnswers}
             onChange={(id, value) => {
-              this.props.dispatch(setDriverAnswer(id, value))
+              this.props.dispatch(setCarAnswer(id, value))
             }}
           />
           <RoundedButton
-            label="Add driver"
+            label="Add car"
             style={{
               width: 200,
               fontSize: 16,
@@ -68,5 +64,5 @@ class DriverScreen extends React.Component<Props> {
 }
 
 export default connect((state: ReduxState) => ({
-  driverAnswers: state.markets.driverAnswers,
-}))(DriverScreen)
+  carAnswers: state.markets.carAnswers,
+}))(VehicleScreen)

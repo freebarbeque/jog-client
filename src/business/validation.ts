@@ -2,7 +2,7 @@
 
 import * as _ from 'lodash'
 
-import { ValidationErrors } from './types'
+import { IValidationErrors } from './types'
 
 function selectIsValid(question: any, answer: any): boolean {
   if (question.options) {
@@ -18,7 +18,7 @@ export function validate(
     [questionId: string]: any
   },
 ) {
-  const errors: ValidationErrors = {
+  const errors: IValidationErrors = {
     hasError: false,
     nonField: [],
     field: {},

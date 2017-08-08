@@ -1,30 +1,26 @@
-import * as React from 'react'
-import { connect } from 'react-redux'
 import * as _ from 'lodash'
+import * as React from 'react'
+import { connect, DispatchProp } from 'react-redux'
 
-import { ReduxState, FirebaseUser } from '../../../common/types'
-import { Person, SelectQuestionDescriptor } from '../../../business/types'
+import { push } from 'react-router-redux'
+import { vehicleQuestion } from '../../../business/motor'
+import { Car, SelectQuestionDescriptor } from '../../../business/types'
+import { FirebaseUser, ReduxState } from '../../../common/types'
 import SelectQuestion from './SelectQuestion'
-import { policyHolderQuestion } from '../../../business/motor'
 
-type VehicleQuestionProps = {
-  drivers: { [id: string]: Person }
+interface Props extends DispatchProp<any> {
+  cars: { [id: string]: Car }
   user: FirebaseUser
   value: string
   onChange: (id: string) => void
-  onBlur?: () => void
-  onFocus?: () => void
 }
 
-type VehicleQuestionState = {
+interface VehicleQuestionState {
   value: string | null
 }
 
-class VehicleQuestion extends React.Component<
-  VehicleQuestionProps,
-  VehicleQuestionState
-> {
-  constructor(props: VehicleQuestionProps) {
+class VehicleQuestion extends React.Component<Props, VehicleQuestionState> {
+  constructor(props: Props) {
     super(props)
     const value = props.value
     this.state = {
@@ -33,26 +29,22 @@ class VehicleQuestion extends React.Component<
   }
 
   handleSpecialOptionClick = (value: string) => {
-    if (value === 'new-driver') {
-      // TODO: Route to new driver screen
+    if (value === 'new-car') {
+      this.props.dispatch(push('/app/tabs/markets/motor/vehicle'))
     }
   }
 
   render() {
     const descriptor: SelectQuestionDescriptor<any> = {
-      ...policyHolderQuestion,
+      ...vehicleQuestion,
       type: 'select',
       options: [
-        ..._.values(this.props.drivers).map((person: Person) => {
+        ..._.values(this.props.cars).map((car: Car) => {
           return {
-            value: person.id,
-            label: `${person.firstName} ${person.lastName}`,
+            value: car.id,
+            label: `${car.make} ${car.model}`,
           }
         }),
-        {
-          value: 'you',
-          label: `You`,
-        },
       ],
     }
 
@@ -63,9 +55,7 @@ class VehicleQuestion extends React.Component<
         value={value}
         descriptor={descriptor}
         onChange={this.props.onChange}
-        onBlur={this.props.onBlur}
-        onFocus={this.props.onFocus}
-        specialOptions={[{ label: 'Add new driver', value: 'new-driver' }]}
+        specialOptions={[{ label: 'Add new vehicle', value: 'new-car' }]}
         onSpecialOptionClick={this.handleSpecialOptionClick}
       />
     )
@@ -73,6 +63,6 @@ class VehicleQuestion extends React.Component<
 }
 
 export default connect((state: ReduxState) => ({
-  drivers: state.markets.drivers,
+  cars: state.markets.cars,
   user: state.auth.user,
 }))(VehicleQuestion)

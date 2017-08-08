@@ -3,9 +3,9 @@ import { Redirect, Route } from 'react-router-dom'
 import styled from 'styled-components'
 
 import NavBar from '../../components/NavBar'
-import Tabs from './Tabs'
 import EmailPolicyScreen from '../EmailPolicyScreen'
 import ManualAddPolicy from '../ManualAddPolicy'
+import Tabs from './Tabs'
 
 // language=SCSS prefix=dummy{ suffix=}
 const Container = styled.div`

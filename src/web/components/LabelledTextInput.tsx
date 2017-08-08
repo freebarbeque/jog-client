@@ -1,7 +1,7 @@
 import * as React from 'react'
 import styled from 'styled-components'
-import { MARGIN } from '../../common/constants/style'
 import { PINK } from '../../common/constants/palette'
+import { MARGIN } from '../../common/constants/style'
 import Input from './Input'
 
 const FontAwesome = require('react-fontawesome')

@@ -1,11 +1,11 @@
 import * as React from 'react'
 
-import PolicyCard from './PolicyCard'
 import { MotorPolicy } from '../../../common/types'
 import FirebaseImage from '../../components/FirebaseImage'
 import { Car, Plus } from '../../components/images/index'
+import PolicyCard from './PolicyCard'
 
-export type MotorPolicyCardProps = {
+export interface MotorPolicyCardProps {
   policy: MotorPolicy
   onPress: () => void
   index: number

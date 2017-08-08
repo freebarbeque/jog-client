@@ -2,21 +2,21 @@ import * as React from 'react'
 import styled from 'styled-components'
 
 import { connect } from 'react-redux'
+import { BLUE, VERY_LIGHT_GRAY, WHITE } from '../../../common/constants/palette'
+import { MARGIN } from '../../../common/constants/style'
+import { updateUserProfilePicture } from '../../../common/store/auth/actions'
 import {
   Dispatch,
   FirebaseUser,
   ReduxState,
   UserDetails,
 } from '../../../common/types'
-import { BLUE, VERY_LIGHT_GRAY, WHITE } from '../../../common/constants/palette'
-import { MARGIN } from '../../../common/constants/style'
 import BigRedFullWidthButton from '../../components/BigRedFullWidthButton'
+import Button from '../../components/Button'
 import Collapsible from '../../components/Collapsible'
 import { getFile } from '../../upload'
-import { updateUserProfilePicture } from '../../../common/store/auth/actions'
-import Button from '../../components/Button'
 
-type ProfileProps = {
+interface ProfileProps {
   dispatch: Dispatch
   // eslint-disable-next-line react/no-unused-prop-types
   user: FirebaseUser

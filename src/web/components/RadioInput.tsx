@@ -41,12 +41,12 @@ const Touchable = styled.div`
   margin-bottom: ${MARGIN.base}px;
 `
 
-type RadioInputProps = {
-  options: {
+interface RadioInputProps {
+  options: Array<{
     // eslint-disable-next-line react/no-unused-prop-types
     label: string
     value: string
-  }[]
+  }>
   value: string
   onChange: (value: string) => void
   style?: any

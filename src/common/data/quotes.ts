@@ -1,5 +1,5 @@
 import * as firebase from 'firebase'
-import { Address, Car, Person } from '../../business/types'
+import { Address, Car, Person, IQuoteRequest } from '../../business/types'
 
 export function setAddress(uid: string, address: Address) {
   const db = firebase.database()
@@ -51,5 +51,13 @@ export function syncCars(
   cb: (addresses: { [id: string]: Address }) => void,
 ): () => void {
   const key = `/cars/${uid}`
+  return sync(key, cb)
+}
+
+export function syncQuoteRequests(
+  uid: string,
+  cb: (quoteRequests: { [id: string]: IQuoteRequest }) => void,
+): () => void {
+  const key = `/quoteRequests/${uid}`
   return sync(key, cb)
 }

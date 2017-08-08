@@ -1,16 +1,16 @@
 import * as React from 'react'
-import { Route, Redirect } from 'react-router-dom'
 import { connect } from 'react-redux'
+import { Redirect, Route } from 'react-router-dom'
 import styled from 'styled-components'
 
-import InsurerScreen from './InsurerScreen'
-import PolicyNumberScreen from './PolicyNumberScreen'
-import PolicyDateScreen from './PolicyDateScreen'
-import PolicyCostScreen from './PolicyCostScreen'
-import VehicleOwnershipScreen from './VehicleOwnershipScreen'
-import FinishedScreen from './FinishedScreen'
-import LicensePlateScreen from './LicensePlateScreen'
 import { isHandset } from '../store/selectors'
+import FinishedScreen from './FinishedScreen'
+import InsurerScreen from './InsurerScreen'
+import LicensePlateScreen from './LicensePlateScreen'
+import PolicyCostScreen from './PolicyCostScreen'
+import PolicyDateScreen from './PolicyDateScreen'
+import PolicyNumberScreen from './PolicyNumberScreen'
+import VehicleOwnershipScreen from './VehicleOwnershipScreen'
 
 // language=SCSS prefix=dummy{ suffix=}
 const Container = styled.div`

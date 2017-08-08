@@ -1,26 +1,33 @@
 import { put, takeLatest } from 'redux-saga/effects'
-import { syncMotorPolicies, unsyncMotorPolicies } from './policies/actions'
-import { syncInsurers } from './insurers/actions'
+import { SyncUserDataAction } from './actionTypes'
 import { syncUser } from './auth/actions'
+import { syncInsurers } from './insurers/actions'
 import {
   syncAddressesAction,
+  syncCarsAction,
   syncDriversAction,
   unsyncAddressesAction,
+  unsyncCarsAction,
   unsyncDriversAction,
 } from './markets/index'
-import { SyncUserDataAction } from './actionTypes'
+import { syncQuoteRequests, unsyncQuoteRequests } from './markets/quoteRequests'
+import { syncMotorPolicies, unsyncMotorPolicies } from './policies/actions'
 
 function* syncUserData(action: SyncUserDataAction) {
   const { uid } = action
   yield put(syncMotorPolicies(uid))
   yield put(syncAddressesAction(uid))
   yield put(syncDriversAction(uid))
+  yield put(syncCarsAction(uid))
+  yield put(syncQuoteRequests())
 }
 
 function* unsyncUserData() {
   yield put(unsyncMotorPolicies())
   yield put(unsyncAddressesAction())
   yield put(unsyncDriversAction())
+  yield put(unsyncCarsAction())
+  yield put(unsyncQuoteRequests())
 }
 
 /**

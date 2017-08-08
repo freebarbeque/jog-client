@@ -1,6 +1,6 @@
 import * as $ from 'jquery'
-import * as actionTypes from './actionTypes'
 import { DimensionsReduxState } from '../../../common/types'
+import * as actionTypes from './actionTypes'
 
 const DEFAULT_STATE = { width: $(window).width(), height: $(window).height() }
 

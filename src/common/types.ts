@@ -1,24 +1,25 @@
-import { Store as ReduxStore, Dispatch as ReduxDispatch } from 'redux'
 import { NavigationAction } from 'react-navigation'
-import { AuthAction } from './store/auth/actionTypes'
-import { PoliciesAction } from './store/policies/actionTypes'
-import { InsurerActions } from './store/insurers/actionTypes'
+import { RouterAction } from 'react-router-redux'
+import { Dispatch as ReduxDispatch, Store as ReduxStore } from 'redux'
+import { PushNotificationsReduxState } from '../native/store/push/reducer'
+import { DimensionAction } from '../web/store/dimensions/actionTypes'
 import { BaseAction } from './store/actionTypes'
-import { LoadingReduxState } from './store/loading/reducer'
-import { LoadingAction } from './store/loading/actionTypes'
-import { ErrorsReduxState } from './store/errors/reducer'
+import { AuthAction } from './store/auth/actionTypes'
 import { ErrorAction } from './store/errors/actionTypes'
+import { ErrorsReduxState } from './store/errors/reducer'
+import { InsurerActions } from './store/insurers/actionTypes'
+import { LoadingAction } from './store/loading/actionTypes'
+import { LoadingReduxState } from './store/loading/reducer'
+import { MarketsAction, IMarketsReduxState } from './store/markets/index'
+import { QuoteRequestAction } from './store/markets/quoteRequests'
+import { PoliciesAction } from './store/policies/actionTypes'
 import {
   AddManualPolicyAction,
   ManualPolicyUpdate,
   MotorPolicyOwnership,
 } from './store/screens/addManualPolicy/actions'
-import { SettingsScreenReduxState } from './store/screens/settings/reducer'
-import { PushNotificationsReduxState } from '../native/store/push/reducer'
-import { MarketsAction, MarketsReduxState } from './store/markets/index'
-import { DimensionAction } from '../web/store/dimensions/actionTypes'
 import { CommonAuthAction } from './store/screens/auth/actions'
-import { RouterAction } from 'react-router-redux'
+import { SettingsScreenReduxState } from './store/screens/settings/reducer'
 
 //
 // Redux
@@ -38,43 +39,45 @@ export type Action =
   | CommonAuthAction
   | RouterAction
 
-export type NavReduxState = {
+export interface NavReduxState {
   index: number
   routes: Route[]
 }
 
-export type AuthReduxState = {
+export interface AuthReduxState {
   user: FirebaseUser | null
   details: UserDetails | null
   initialised: boolean
 }
 
-export type DimensionsReduxState = {
+export interface DimensionsReduxState {
   width: number
   height: number
 }
 
-export type AuthScreensReduxState = {
+export interface AuthScreensReduxState {
   values: ValuesMap
   validationErrors: ValidationErrorsMap
   loading: boolean
   errors: { [key: string]: string }
 }
 
-export type ScreensReduxState = {
+export interface ScreensReduxState {
   auth: AuthScreensReduxState
   addManualPolicy: ManualPolicyUpdate
   settings: SettingsScreenReduxState
 }
 
-export type MotorPolicyMap = { [id: string]: MotorPolicy }
+export interface MotorPolicyMap {
+  [id: string]: MotorPolicy
+}
 
-export type PoliciesState = {
+export interface PoliciesState {
   initialised: boolean
   policies: MotorPolicyMap
 }
 
-export type ReduxState = {
+export interface ReduxState {
   nav: NavReduxState
   auth: AuthReduxState
   screens: ScreensReduxState
@@ -84,7 +87,7 @@ export type ReduxState = {
   errors: ErrorsReduxState
   push: PushNotificationsReduxState
   dimensions: DimensionsReduxState
-  markets: MarketsReduxState
+  markets: IMarketsReduxState
 }
 
 export type Store = ReduxStore<ReduxState>
@@ -95,7 +98,7 @@ export type Dispatch = (a: Action) => void
 // Forms
 //
 
-export type TextFormField = {
+export interface TextFormField {
   type: 'text'
   inputProps: Object
   label: string
@@ -104,24 +107,28 @@ export type TextFormField = {
   validate?: (val: string) => string | null
 }
 
-export type OptionsFormField = {
+export interface OptionsFormField {
   type: 'options'
   label: string
   key: string
-  options: { value: string; label: string }[]
+  options: Array<{ value: string; label: string }>
 }
 
 export type FormField = TextFormField | OptionsFormField
 
-export type ValuesMap = { [key: string]: string }
-export type ValidationErrorsMap = { [key: string]: string | null }
+export interface ValuesMap {
+  [key: string]: string
+}
+export interface ValidationErrorsMap {
+  [key: string]: string | null
+}
 
 //
 // Firebase
 //
 
 // https://firebase.google.com/docs/reference/js/firebase.User
-export type FirebaseUser = {
+export interface FirebaseUser {
   displayName: string | null
   email: string | null
   emailVerified: boolean
@@ -132,7 +139,7 @@ export type FirebaseUser = {
   uid: string
 }
 
-export type UserDetails = {
+export interface UserDetails {
   firstName?: string
   lastName?: string
   address?: {
@@ -155,7 +162,7 @@ export type UserDetails = {
 //
 
 // Describes a driver attached to a motor policy
-export type Driver = {
+export interface Driver {
   firstName?: string
   lastName?: string
 }
@@ -166,7 +173,7 @@ export const LEVEL_OF_COVER = {
   thirdParty: 'Third Party Only',
 }
 
-export type PolicyDocument = {
+export interface PolicyDocument {
   image: string
   name: string
   id: string
@@ -175,7 +182,7 @@ export type PolicyDocument = {
 
 // TODO: Split this into generic Policy/MotorPolicy/SelectedMotorPolicy once react-native supports flow 0.42.x
 // /policies/${policyId}
-export type MotorPolicy = {
+export interface MotorPolicy {
   type?: 'motor'
   vehicleRegistration?: string
   levelOfCover?: keyof typeof LEVEL_OF_COVER
@@ -207,14 +214,16 @@ export type MotorPolicy = {
 // Insurers
 //
 
-export type Insurer = {
+export interface Insurer {
   name?: string
   logo?: string
 }
 
-export type InsurerMap = { [id: string]: Insurer }
+export interface InsurerMap {
+  [id: string]: Insurer
+}
 
-export type InsurersReduxState = {
+export interface InsurersReduxState {
   initialised: boolean
   insurers: InsurerMap
 }
@@ -224,7 +233,7 @@ export type InsurersReduxState = {
 //
 
 // navigation
-export type ReactNavigationProp = {
+export interface ReactNavigationProp {
   navigate: (routeName: string) => void
   dispatch: Dispatch
   goBack: () => void
@@ -239,7 +248,7 @@ export type ReactNavigationProp = {
   }
 }
 
-export type Route = {
+export interface Route {
   key: string
   index?: number
   routeName: string
@@ -248,11 +257,11 @@ export type Route = {
 }
 
 // nav
-export type ReactNavProp = {
+export interface ReactNavProp {
   routes: Route[]
 }
 
-export type UploadFileOpts = {
+export interface UploadFileOpts {
   filePath?: string
   file?: any
   fileStoragePath: string
@@ -260,7 +269,7 @@ export type UploadFileOpts = {
   contentEncoding: string
 }
 
-export type EnvironmentConfig = {
+export interface EnvironmentConfig {
   firebase: {
     apiKey: string
     authDomain: string

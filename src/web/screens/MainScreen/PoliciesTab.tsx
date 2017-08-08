@@ -1,28 +1,28 @@
+import * as _ from 'lodash'
 import * as React from 'react'
 import { connect } from 'react-redux'
-import * as _ from 'lodash'
-import { push } from 'react-router-redux'
 import { Route, Switch } from 'react-router-dom'
+import { push } from 'react-router-redux'
 import styled from 'styled-components'
 
+import { MARGIN } from '../../../common/constants/style'
+import { selectInitialisedPolicies } from '../../../common/store/policies/selectors'
 import {
   Dispatch,
   MotorPolicy,
   MotorPolicyMap,
   ReduxState,
 } from '../../../common/types'
-import { selectInitialisedPolicies } from '../../../common/store/policies/selectors'
-import MotorPolicyCard from './MotorPolicyCard'
-import { MARGIN } from '../../../common/constants/style'
-import AddMotorPolicyCard from './AddMotorPolicyCard'
+import Container from '../../components/Container'
+import ScrollToTopOnMount from '../../components/ScrollToTopOnMount'
+import { max } from '../../media'
 import AddPolicyScreen from '../AddPolicyScreen'
 import GetStartedScreen from '../GetStartedScreen'
-import Container from '../../components/Container'
-import { max } from '../../media'
 import PolicyScreen from '../PolicyScreen'
-import ScrollToTopOnMount from '../../components/ScrollToTopOnMount'
+import AddMotorPolicyCard from './AddMotorPolicyCard'
+import MotorPolicyCard from './MotorPolicyCard'
 
-type PoliciesTabProps = {
+interface PoliciesTabProps {
   policies: MotorPolicyMap
   dispatch: Dispatch
 }

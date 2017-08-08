@@ -1,17 +1,17 @@
 import * as React from 'react'
 import styled from 'styled-components'
 
-import Collapsible from '../../components/Collapsible'
 import { CREAM } from '../../../common/constants/palette'
+import { MARGIN } from '../../../common/constants/style'
+import Collapsible from '../../components/Collapsible'
+import Container from '../../components/Container'
+import ScrollToTopOnMount from '../../components/ScrollToTopOnMount'
+import { max } from '../../media'
 import AboutUs from './AboutUs'
-import TermsAndConditions from './TermsAndConditions'
 import CookiesPolicy from './CookiesPolicy'
 import PrivacyPolicy from './PrivacyPolicy'
 import Profile from './Profile'
-import Container from '../../components/Container'
-import { MARGIN } from '../../../common/constants/style'
-import { max } from '../../media'
-import ScrollToTopOnMount from '../../components/ScrollToTopOnMount'
+import TermsAndConditions from './TermsAndConditions'
 
 // language=SCSS prefix=dummy{ suffix=}
 const SettingsScreenContainer = styled(Container)`

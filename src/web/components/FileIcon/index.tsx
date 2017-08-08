@@ -2,7 +2,7 @@
 
 import * as React from 'react'
 
-type FileIconProps = {
+interface FileIconProps {
   extension: string
 }
 

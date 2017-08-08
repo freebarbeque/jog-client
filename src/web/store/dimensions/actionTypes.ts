@@ -1,10 +1,10 @@
-export type UpdateDimensions = {
+export interface UpdateDimensions {
   type: 'dimensions/UPDATE_DIMENSIONS'
   width: number
   height: number
 }
 
-export type SubscribeDimensions = {
+export interface SubscribeDimensions {
   type: 'dimensions/SUBSCRIBE_DIMENSIONS'
 }
 

@@ -1,10 +1,10 @@
-import { call, put, take, fork, cancelled, cancel } from 'redux-saga/effects'
+import { call, cancel, cancelled, fork, put, take } from 'redux-saga/effects'
 
 import * as $ from 'jquery'
 
-import { SubscribeDimensions } from './actionTypes'
-import { updateDimensions } from './actions'
 import { eventChannel } from 'redux-saga'
+import { updateDimensions } from './actions'
+import { SubscribeDimensions } from './actionTypes'
 
 function createDimensionsChannel() {
   return eventChannel(emit => {

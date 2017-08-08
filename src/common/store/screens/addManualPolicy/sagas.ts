@@ -1,14 +1,14 @@
-import { takeLatest, call, put } from 'redux-saga/effects'
-import uuid from 'uuid/v4'
 import * as moment from 'moment'
+import { call, put, takeLatest } from 'redux-saga/effects'
+import uuid from 'uuid/v4'
 
-import { setMotorPolicy } from '../../../data/policies'
-import { declareError } from '../../errors/actions'
-import { MotorPolicy } from '../../../types'
 import { demandCurrentUser } from '../../../data/auth'
+import { setMotorPolicy } from '../../../data/policies'
+import { MotorPolicy } from '../../../types'
+import { declareError } from '../../errors/actions'
 
-import { ManualPolicyUpdate, SavePolicyAction } from './actions'
 import { getNavigationAdapter } from '../../index'
+import { ManualPolicyUpdate, SavePolicyAction } from './actions'
 
 function* savePolicyTask(action: SavePolicyAction) {
   const policyUpdate: ManualPolicyUpdate = action.policy

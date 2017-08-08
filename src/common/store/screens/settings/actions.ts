@@ -1,4 +1,4 @@
-export type SetActiveSectionAction = {
+export interface SetActiveSectionAction {
   type: 'settings/SET_ACTIVE_SECTION'
   activeSection: number | null
 }

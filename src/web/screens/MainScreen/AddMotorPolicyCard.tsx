@@ -1,9 +1,9 @@
 import * as React from 'react'
 
-import PolicyCard from './PolicyCard'
 import { Plus } from '../../components/images/index'
+import PolicyCard from './PolicyCard'
 
-export type AddMotorPolicyCardProps = {
+export interface AddMotorPolicyCardProps {
   onPress: () => void
 }
 

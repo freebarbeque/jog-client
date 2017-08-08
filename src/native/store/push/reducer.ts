@@ -1,6 +1,6 @@
 import { PushAction } from './actionTypes'
 
-export type PushNotificationsReduxState = {
+export interface PushNotificationsReduxState {
   showModal: boolean
 }
 

@@ -1,13 +1,13 @@
-import * as React from 'react'
 import * as firebase from 'firebase'
+import * as React from 'react'
 
-type FirebaseImageProps = {
+interface FirebaseImageProps {
   imagePath: string | null
   width: number
   alt: string
 }
 
-type FirebaseImageState = {
+interface FirebaseImageState {
   imageUrl: string | null
   dimensions: {
     height: number
@@ -73,7 +73,7 @@ export default class FirebaseImage extends React.Component {
         <img
           src={imageUrl}
           style={{
-            width: width,
+            width,
             height,
           }}
           alt={alt}

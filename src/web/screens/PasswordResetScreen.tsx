@@ -1,8 +1,14 @@
+import { FlatButton } from 'material-ui'
 import * as React from 'react'
 import { connect } from 'react-redux'
-import { FlatButton } from 'material-ui'
 import { Link } from 'react-router-dom'
 
+import { DARK_GRAY } from '../../common/constants/palette'
+import {
+  passwordReset,
+  setValidationErrors,
+  setValues,
+} from '../../common/store/screens/auth/actions'
 import {
   Dispatch,
   ReduxState,
@@ -10,16 +16,10 @@ import {
   ValuesMap,
 } from '../../common/types'
 import { emailField } from '../../native/components/Form/fields'
-import {
-  passwordReset,
-  setValidationErrors,
-  setValues,
-} from '../../common/store/screens/auth/actions'
-import { DARK_GRAY } from '../../common/constants/palette'
+import FlexCentredContainer from '../components/FlexCentredContainer'
 import Form from '../components/Form'
 import Title from '../components/Title'
 import { NAVIGATION_BAR_HEIGHT } from '../constants/style'
-import FlexCentredContainer from '../components/FlexCentredContainer'
 
 interface PasswordResetScreenProps {
   dispatch: Dispatch

@@ -1,9 +1,9 @@
-export type StartLoadingAction = {
+export interface StartLoadingAction {
   type: 'loading/START'
   text: string
 }
 
-export type FinishLoadingAction = {
+export interface FinishLoadingAction {
   type: 'loading/FINISH'
 }
 

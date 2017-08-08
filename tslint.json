@@ -15,6 +15,7 @@
     "one-line": false,
     "quotemark": false,
     "semicolon": false,
+    "curly": false,
     "space-before-function-paren": false,
     "trailing-comma": false,
     "whitespace": false,
@@ -26,12 +27,17 @@
     "brace-style": false,
     "no-multi-spaces": false,
     "object-curly-spacing": false,
+    "object-literal-sort-keys": [
+      false
+    ],
+    "no-conditional-assignment": false,
     "space-in-parens": false,
     "ter-arrow-parens": false,
     "ter-arrow-spacing": false,
     "ter-indent": false,
     "ter-max-len": false,
-    "ter-no-irregular-whitespace": false
+    "ter-no-irregular-whitespace": false,
+    "no-console": false
   },
   "extends": [
     "tslint:latest",

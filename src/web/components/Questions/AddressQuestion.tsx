@@ -1,13 +1,20 @@
+import * as _ from 'lodash'
 import * as React from 'react'
 import { connect, DispatchProp } from 'react-redux'
-import * as _ from 'lodash'
-import Picker from '../Picker'
-import { PickerOption } from '../Picker'
-import { Address, BaseQuestionDescriptor } from '../../../business/types'
+import { push } from 'react-router-redux'
+import { addressQuestion } from '../../../business/motor'
+import {
+  Address,
+  BaseQuestionDescriptor,
+  SelectQuestionDescriptor,
+} from '../../../business/types'
 import { ReduxState } from '../../../common/types'
+import { PickerOption } from '../Picker'
+import Picker from '../Picker'
 import QuestionField from './QuestionField'
+import SelectQuestion from './SelectQuestion'
 
-interface Props {
+interface IProps {
   index?: number
   error?: string
   descriptor: BaseQuestionDescriptor<any>
@@ -16,7 +23,7 @@ interface Props {
   onNew?: () => void
 }
 
-interface ConnectedProps extends Props, DispatchProp<any> {
+interface ConnectedProps extends IProps, DispatchProp<any> {
   addresses: { [id: string]: Address }
 }
 
@@ -56,45 +63,50 @@ class AddressQuestion extends React.Component<ConnectedProps, State> {
     }
   }
 
-  render() {
-    const addresses = _.values(this.props.addresses)
+  handleSpecialOptionClick = (value: string) => {
+    if (value === 'new-address') {
+      this.props.dispatch(push('/app/tabs/markets/motor/address'))
+    }
+  }
 
-    const options = [
-      ..._.map(addresses, (address: Address) => {
-        const label = address.name
-        const value = address.id
-        return {
-          label,
-          value,
-        }
-      }),
-      {
-        label: 'New Address',
-        value: '_new',
-      },
-    ]
+  render() {
+    const addresses = _.values(this.props.addresses).filter(
+      a => (a.name ? a.name.trim() : a.name),
+    )
+
+    const descriptor: SelectQuestionDescriptor<any> = {
+      ...addressQuestion,
+      type: 'select',
+      options: [
+        ..._.values(addresses).map((a: Address) => {
+          const value: string = a.id
+          const label = `${a.name}`
+
+          return {
+            value,
+            label,
+          }
+        }),
+      ],
+    }
 
     return (
-      <QuestionField
-        descriptor={this.props.descriptor}
-        index={this.props.index}
-        error={this.props.error}
-      >
-        <Picker
-          className="picker"
-          name="insurer"
-          onChange={this.onChange}
-          value={this.state.value}
-          placeholder="Address"
-          options={options}
-        />
-      </QuestionField>
+      <SelectQuestion
+        value={this.props.value}
+        descriptor={descriptor}
+        onChange={this.props.onChange}
+        specialOptions={[{ label: 'Add new address', value: 'new-address' }]}
+        onSpecialOptionClick={this.handleSpecialOptionClick}
+      />
     )
   }
 }
 
-// TODO: const ConnectedAddressQuestion: React.ComponentClass<Props>
-const ConnectedAddressQuestion: any = connect((state: ReduxState) => ({
+const ConnectedAddressQuestion: React.ComponentClass<IProps> = connect<
+  {},
+  {},
+  IProps
+>((state: ReduxState) => ({
   addresses: state.markets.addresses,
 }))(AddressQuestion)
 

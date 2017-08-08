@@ -1,15 +1,15 @@
+import { Tab, Tabs } from 'material-ui/Tabs'
 import * as React from 'react'
 import { Link, Route, withRouter } from 'react-router-dom'
 import styled from 'styled-components'
-import { Tabs, Tab } from 'material-ui/Tabs'
 
-import PoliciesTab from './PoliciesTab'
-import SettingsScreen from '../SettingsScreen'
 import MarketsScreen from '../markets/MarketsScreen'
+import SettingsScreen from '../SettingsScreen'
+import PoliciesTab from './PoliciesTab'
 
+import { RouteComponentProps } from 'react-router'
 import { CREAM } from '../../../common/constants/palette'
 import { min } from '../../media'
-import { RouteComponentProps } from 'react-router'
 
 const TABS = ['policies', 'markets', 'settings']
 

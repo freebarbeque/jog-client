@@ -6,7 +6,7 @@ export const motorPolicyOwnership = {
 
 export type MotorPolicyOwnership = keyof typeof motorPolicyOwnership
 
-export type ManualPolicyUpdate = {
+export interface ManualPolicyUpdate {
   vehicleRegistration?: string
   ownership?: MotorPolicyOwnership
   noClaimsBonus?: number
@@ -16,16 +16,16 @@ export type ManualPolicyUpdate = {
   cost?: string
 }
 
-export type UpdateManualPolicy = {
+export interface UpdateManualPolicy {
   type: 'addManualPolicy/UPDATE_MANUAL_POLICY'
   update: ManualPolicyUpdate
 }
 
-export type ClearManualPolicy = {
+export interface ClearManualPolicy {
   type: 'addManualPolicy/CLEAR_MANUAL_POLICY'
 }
 
-export type SavePolicyAction = {
+export interface SavePolicyAction {
   type: 'addManualPolicy/SAVE_POLICY'
   policy: ManualPolicyUpdate
 }

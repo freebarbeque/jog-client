@@ -1,11 +1,11 @@
+import DatePicker from 'material-ui/DatePicker'
 import * as React from 'react'
+import { Component } from 'react'
 import styled from 'styled-components'
 import { DateQuestionDescriptor } from '../../../business/types'
-import QuestionField, { QuestionFieldProps } from './QuestionField'
-import { MARGIN } from '../../../common/constants/style'
-import DatePicker from 'material-ui/DatePicker'
 import { BLUE } from '../../../common/constants/palette'
-import { Component } from 'react'
+import { MARGIN } from '../../../common/constants/style'
+import QuestionField, { QuestionFieldProps } from './QuestionField'
 
 interface Props extends QuestionFieldProps {
   descriptor: DateQuestionDescriptor

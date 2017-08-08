@@ -3,19 +3,19 @@ import { connect } from 'react-redux'
 import { push } from 'react-router-redux'
 import styled from 'styled-components'
 
-import { Dispatch, ReduxState, FirebaseUser } from '../../common/types'
+import { MARGIN } from '../../common/constants/style'
 import {
   pollRefreshUser,
   stopPollingRefreshUser,
 } from '../../common/store/auth/actions'
 import { emailVerification } from '../../common/store/screens/auth/actions'
-import { MARGIN } from '../../common/constants/style'
+import { Dispatch, FirebaseUser, ReduxState } from '../../common/types'
+import FlexCenteredContainer from '../components/FlexCenteredContainer'
 import RoundedButton from '../components/RoundedButton'
 import Title from '../components/Title'
-import FlexCenteredContainer from '../components/FlexCenteredContainer'
 import { NAVIGATION_BAR_HEIGHT } from '../constants/style'
 
-type EmailVerificationScreenProps = {
+interface EmailVerificationScreenProps {
   dispatch: Dispatch
   user: FirebaseUser | null
   loading: boolean

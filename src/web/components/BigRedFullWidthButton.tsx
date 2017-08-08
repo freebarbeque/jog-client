@@ -1,10 +1,10 @@
 import * as React from 'react'
 import styled from 'styled-components'
 
-import { Chevron } from './images/index'
+import { LinkHTMLAttributes } from 'react'
 import { PINK } from '../../common/constants/palette'
 import { MARGIN } from '../../common/constants/style'
-import { LinkHTMLAttributes } from 'react'
+import { Chevron } from './images/index'
 
 // language=SCSS prefix=dummy{ suffix=}
 const Button = styled.a`

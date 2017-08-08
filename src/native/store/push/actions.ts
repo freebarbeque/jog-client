@@ -1,11 +1,11 @@
 import {
-  SubscribePushNotificationsAction,
-  UnsubscribePushNotificationsAction,
-  EnablePushNotifications,
   DisablePushNotifications,
-  ShowPushNotificationsModal,
+  EnablePushNotifications,
   HidePushNotificationsModal,
   ReceivePushNotification,
+  ShowPushNotificationsModal,
+  SubscribePushNotificationsAction,
+  UnsubscribePushNotificationsAction,
 } from './actionTypes'
 
 export function subscribePushNotifications(): SubscribePushNotificationsAction {

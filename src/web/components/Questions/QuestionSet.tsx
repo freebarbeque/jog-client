@@ -1,22 +1,22 @@
-import * as React from 'react'
 import * as _ from 'lodash'
+import * as React from 'react'
 
 import {
   BaseQuestionDescriptor,
-  ValidationErrors,
+  IValidationErrors,
 } from '../../../business/types'
-import SelectQuestion from './SelectQuestion'
-import IntegerQuestion from './IntegerQuestion'
-import { BLUE } from '../../../common/constants/palette'
-import MultiSelectQuestion from './MultiSelectQuestion'
-import BooleanQuestion from './BooleanQuestion'
-import TextQuestion from './TextQuestion'
-import BooleanDependentQuestion from './BooleanDependentQuestion'
 import { validate } from '../../../business/validation'
+import { BLUE } from '../../../common/constants/palette'
+import BooleanDependentQuestion from './BooleanDependentQuestion'
+import BooleanQuestion from './BooleanQuestion'
 import DateQuestion from './DateQuestion'
+import IntegerQuestion from './IntegerQuestion'
+import MultiSelectQuestion from './MultiSelectQuestion'
+import SelectQuestion from './SelectQuestion'
+import TextQuestion from './TextQuestion'
 
 interface QuestionSetProps {
-  questions: BaseQuestionDescriptor<any>[]
+  questions: Array<BaseQuestionDescriptor<any>>
   answers: { [id: string]: any }
   onChange: (id: string, answer: any) => void
   extraComponents?: { [id: string]: { component: React.ComponentClass } }
@@ -27,7 +27,7 @@ interface QuestionSetProps {
 interface QuestionSetState {
   blurred: { [id: string]: boolean }
   submitted: boolean
-  errors: ValidationErrors | null
+  errors: IValidationErrors | null
 }
 
 export default class QuestionSet extends React.Component<
@@ -140,7 +140,7 @@ export default class QuestionSet extends React.Component<
     )
   }
 
-  public validateAllFields(): ValidationErrors {
+  public validateAllFields(): IValidationErrors {
     const blurred = { ...this.state.blurred }
     _.forEach(this.props.questions, q => {
       const id = q.id

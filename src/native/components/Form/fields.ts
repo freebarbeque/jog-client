@@ -3,8 +3,8 @@ Common form fields used throughout the jog app.
 Fields encapsulate text input properties and validation.
  */
 
-import { emailValidator } from '../../screens/validators'
 import { TextFormField } from '../../../common/types'
+import { emailValidator } from '../../screens/validators'
 
 export const emailField: TextFormField = {
   type: 'text',

@@ -1,11 +1,11 @@
-import { takeLatest, call, put } from 'redux-saga/effects'
+import { call, put, takeLatest } from 'redux-saga/effects'
 import uuid from 'uuid/v4'
 
+import { demandCurrentUser } from '../../../data/auth'
+import { setMotorPolicy } from '../../../data/policies'
 import { MotorPolicy } from '../../../types'
 import { declareError } from '../../errors/actions'
-import { setMotorPolicy } from '../../../data/policies'
 import { getNavigationAdapter } from '../../index'
-import { demandCurrentUser } from '../../../data/auth'
 
 function* uploadPolicyTask() {
   const policy: MotorPolicy = {}

@@ -4,25 +4,22 @@ import {
   Address,
   BaseQuestionDescriptor,
   BasicQuestion,
+  BooleanDependentQuestionDescriptor,
   Car,
   DateQuestionDescriptor,
+  IQuoteRequest,
   MotoringConviction,
   MotoringIncident,
   MultiSelectQuestionDescriptor,
   NumericQuestionDescriptor,
   Person,
   SelectQuestionDescriptor,
-  BooleanDependentQuestionDescriptor,
+  IDrivingQualification,
+  DrivingRestriction,
 } from './types'
 
-export type DrivingQualifications = 'pass-plus' | 'advanced-driving'
-export type DrivingRestriction =
-  | 'aware-no-restrictions'
-  | 'aware-1-year-restriction'
-  | 'aware-2-year-restriction'
-  | 'aware-3-year-restriction'
-  | 'not-aware'
-  | 'advised-not-to-drive-by-doctor'
+// tslint:disable-next-line:no-var-requires
+const uuid = require('uuid/v4')
 
 export const addressQuestion: BaseQuestionDescriptor<Address> = {
   type: 'motor/address',
@@ -115,7 +112,7 @@ export const manualOrAutomaticQuestion: SelectQuestionDescriptor<string> = {
 }
 
 export const additionalDrivingQualificationsQuestion: MultiSelectQuestionDescriptor<
-  DrivingQualifications
+  IDrivingQualification
 > = {
   type: 'multiselect',
   id: 'motor/other-driving-qualifications',
@@ -243,7 +240,6 @@ export const questions = [
   vehicleQuestion,
   policyHolderQuestion,
   addressQuestion,
-  additionalDriversQuestion,
   drivingLicenseTypeQuestion,
   yearsHeldLicenseQuestion,
   whereLicenseIssuedQuestion,
@@ -251,13 +247,64 @@ export const questions = [
   additionalDrivingQualificationsQuestion,
   dvlaMedicalConditions,
   otherCars,
-  motoringConvictionsQuestion,
-  motoringIncidentsQuestion,
   noClaimsDiscountQuestion,
   startDateQuestion,
 ]
 
 export const questionMap = _.keyBy(questions, q => q.id)
 
-// Compute outstanding questions
-// Validation
+export interface IQuoteAnswers {
+  'motor/main-driver': string
+  'motor/vehicle': string
+  'motor/license-length': number
+  'motor/where-license-issued': string
+  'motor/manual-or-auto': string
+  'motor/other-driving-qualifications': IDrivingQualification[]
+  'motor/dvla-medical-conditions': DrivingRestriction | null
+  'motor/other-cars': string[] | null
+  'motor/convictions': MotoringConviction[]
+  'motor/incidents': MotoringIncident[]
+  'motor/no-claims': number
+  'motor/start-date': Date
+}
+
+export function constructQuoteRequest(
+  answers: {
+    [id: string]: any
+  },
+  id?: string,
+): IQuoteRequest {
+  return {
+    id: id || uuid(),
+    mainDriver: answers['motor/main-driver'] || null,
+    vehicle: answers['motor/vehicle'] || null,
+    yearsHeld: answers['motor/license-length'] || null,
+    whereLicenseIssued: answers['motor/where-license-issued'] || null,
+    transmission: answers['motor/manual-or-auto'] || null,
+    qualifications: answers['motor/other-driving-qualifications'] || [],
+    dvlaAwareMedicalConditions:
+      answers['motor/dvla-medical-conditions'] || null,
+    otherCars: answers['motor/other-cars'] || [],
+    motoringConvictions: answers['motor/convictions'] || [],
+    motoringIncidents: answers['motor/incidents'] || [],
+    noClaimsDiscount: answers['motor/no-claims'] || null,
+    startDate: answers['motor/start-date'] || null,
+  }
+}
+
+export function constructAnswers(quote: IQuoteRequest): IQuoteAnswers {
+  return {
+    'motor/main-driver': quote.mainDriver,
+    'motor/vehicle': quote.vehicle,
+    'motor/license-length': quote.yearsHeld,
+    'motor/where-license-issued': quote.whereLicenseIssued,
+    'motor/manual-or-auto': quote.transmission,
+    'motor/other-driving-qualifications': quote.qualifications,
+    'motor/dvla-medical-conditions': quote.dvlaAwareMedicalConditions,
+    'motor/other-cars': quote.otherCars,
+    'motor/convictions': quote.motoringConvictions,
+    'motor/incidents': quote.motoringIncidents,
+    'motor/no-claims': quote.noClaimsDiscount,
+    'motor/start-date': quote.startDate,
+  }
+}

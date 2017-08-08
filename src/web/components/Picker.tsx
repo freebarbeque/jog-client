@@ -1,11 +1,14 @@
-import * as React from 'react'
-import SelectField from 'material-ui/SelectField'
 import MenuItem from 'material-ui/MenuItem'
+import SelectField from 'material-ui/SelectField'
+import * as React from 'react'
 import styled from 'styled-components'
 
 import { BLUE } from '../../common/constants/palette'
 
-export type PickerOption = { label: string; value: string }
+export interface PickerOption {
+  label: string
+  value: string
+}
 
 interface PickerProps {
   value?: string | null

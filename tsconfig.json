@@ -12,7 +12,8 @@
       "es2016"
     ],
     "allowJs": true,
-    "skipLibCheck": true  // TODO: Remove
+    "skipLibCheck": true,  // TODO: Remove,
+    "strictNullChecks": true
   },
   "include": [
     "./src/**/*.ts",

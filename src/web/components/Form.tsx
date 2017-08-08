@@ -1,12 +1,12 @@
 import * as React from 'react'
 import styled from 'styled-components'
 const FontAwesome: any = require('react-fontawesome')
-import RoundedButton from './RoundedButton'
+import Form from '../../common/components/Form'
 import { PINK } from '../../common/constants/palette'
 import { MARGIN } from '../../common/constants/style'
 import { FormField } from '../../common/types'
-import Form from '../../common/components/Form'
 import LabelledTextInput from './LabelledTextInput'
+import RoundedButton from './RoundedButton'
 
 // language=SCSS prefix=dummy{ suffix=}
 const ErrorText = styled.div`

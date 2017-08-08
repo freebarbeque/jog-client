@@ -1,16 +1,16 @@
-import * as React from 'react'
-import { NavLink, Route, Switch } from 'react-router-dom'
 import { FlatButton } from 'material-ui'
-import styled from 'styled-components'
+import * as React from 'react'
 import { connect, DispatchProp } from 'react-redux'
+import { NavLink, Route, Switch } from 'react-router-dom'
 import { push } from 'react-router-redux'
+import styled from 'styled-components'
 
+import { RouteComponentProps, withRouter } from 'react-router'
+import { BLUE, DARK_GRAY, PINK } from '../../common/constants/palette'
+import { Action, Dispatch } from '../../common/types'
+import BackgroundHeader from '../components/BackgroundHeader'
 import PolicyDetailsScreen from './PolicyDetailsScreen'
 import PolicyDocumentsScreen from './PolicyDocumentsScreen'
-import BackgroundHeader from '../components/BackgroundHeader'
-import { BLUE, DARK_GRAY, PINK } from '../../common/constants/palette'
-import { Dispatch, Action } from '../../common/types'
-import { withRouter, RouteComponentProps } from 'react-router'
 
 // language=SCSS prefix=dummy{ suffix=}
 const Menu = styled.div`

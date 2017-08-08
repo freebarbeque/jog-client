@@ -1,15 +1,15 @@
-import * as React from 'react'
 import AppBar from 'material-ui/AppBar'
 import FlatButton from 'material-ui/FlatButton'
+import * as React from 'react'
 import { connect, DispatchProp } from 'react-redux'
-import styled from 'styled-components'
 import { NavLink, withRouter } from 'react-router-dom'
+import styled from 'styled-components'
 
-import { Logo } from './images'
+import { RouteComponentProps } from 'react-router'
+import { PINK } from '../../common/constants/palette'
 import { logout } from '../../common/store/auth/actions'
 import { max } from '../media'
-import { PINK } from '../../common/constants/palette'
-import { RouteComponentProps } from 'react-router'
+import { Logo } from './images'
 
 // language=SCSS prefix=dummy{ suffix=}
 const NavBarRight = styled.div`

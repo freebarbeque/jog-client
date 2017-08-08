@@ -1,23 +1,23 @@
+import FlatButton from 'material-ui/FlatButton'
 import * as React from 'react'
 import { connect } from 'react-redux'
-import FlatButton from 'material-ui/FlatButton'
 import { Link } from 'react-router-dom'
+import { DARK_GRAY } from '../../common/constants/palette'
+import {
+  login,
+  setValidationErrors,
+  setValues,
+} from '../../common/store/screens/auth/actions'
 import {
   Dispatch,
   ReduxState,
   ValidationErrorsMap,
   ValuesMap,
 } from '../../common/types'
-import {
-  login,
-  setValidationErrors,
-  setValues,
-} from '../../common/store/screens/auth/actions'
-import Form from '../components/Form'
 import { emailField, passwordField } from '../../native/components/Form/fields'
-import { DARK_GRAY } from '../../common/constants/palette'
-import Title from '../components/Title'
 import FlexCenteredContainer from '../components/FlexCenteredContainer'
+import Form from '../components/Form'
+import Title from '../components/Title'
 import { NAVIGATION_BAR_HEIGHT } from '../constants/style'
 
 interface LoginProps {

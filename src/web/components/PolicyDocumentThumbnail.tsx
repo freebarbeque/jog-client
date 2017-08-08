@@ -1,15 +1,15 @@
-import * as React from 'react'
-import styled from 'styled-components'
 import * as firebase from 'firebase'
 import * as $ from 'jquery'
+import * as React from 'react'
+import styled from 'styled-components'
 
-import FileIcon from './FileIcon'
-import { MARGIN } from '../../common/constants/style'
 import { BLUE } from '../../common/constants/palette'
+import { MARGIN } from '../../common/constants/style'
 import { PolicyDocument } from '../../common/types'
 import Button from '../components/Button'
+import FileIcon from './FileIcon'
 
-type PolicyDocumentThumbnailProps = {
+interface PolicyDocumentThumbnailProps {
   document: PolicyDocument
   style?: any
 }

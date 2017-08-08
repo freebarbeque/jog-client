@@ -1,9 +1,9 @@
-export type DeclareErrorAction = {
+export interface DeclareErrorAction {
   type: 'errors/DECLARE'
   text: string
 }
 
-export type ClearErrorAction = {
+export interface ClearErrorAction {
   type: 'errors/CLEAR'
 }
 

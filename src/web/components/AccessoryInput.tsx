@@ -1,7 +1,7 @@
 import * as React from 'react'
 import styled from 'styled-components'
-import { MARGIN } from '../../common/constants/style'
 import { BLUE } from '../../common/constants/palette'
+import { MARGIN } from '../../common/constants/style'
 
 // language=SCSS prefix=dummy{ suffix=}
 const Container = styled.div`

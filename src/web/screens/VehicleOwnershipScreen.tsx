@@ -1,18 +1,18 @@
 import * as React from 'react'
 import { connect } from 'react-redux'
 
-import { Dispatch, ReduxState } from '../../common/types'
+import { MARGIN } from '../../common/constants/style'
 import {
   motorPolicyOwnership,
   savePolicy,
   updateManualPolicy,
 } from '../../common/store/screens/addManualPolicy/actions'
 import { ManualPolicyUpdate } from '../../common/store/screens/addManualPolicy/actions'
+import { Dispatch, ReduxState } from '../../common/types'
 import AddPolicyScreenContainer from '../components/AddPolicyScreenContainer'
 import RadioInput from '../components/RadioInput'
-import { MARGIN } from '../../common/constants/style'
 
-type VehicleOwnershipScreenProps = {
+interface VehicleOwnershipScreenProps {
   dispatch: Dispatch
   policy: ManualPolicyUpdate
 }

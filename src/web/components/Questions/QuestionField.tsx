@@ -7,7 +7,7 @@ import { BLUE, PINK } from '../../../common/constants/palette'
 import { MARGIN } from '../../../common/constants/style'
 import Number from '../../screens/markets/AddressScreen/Number'
 
-export type QuestionFieldProps = {
+export interface QuestionFieldProps {
   index?: number
   error?: string
   children?: any

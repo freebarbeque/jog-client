@@ -1,15 +1,15 @@
 import * as React from 'react'
-import styled from 'styled-components'
-import { push } from 'react-router-redux'
 import { connect, DispatchProp } from 'react-redux'
+import { push } from 'react-router-redux'
+import styled from 'styled-components'
 
 import { BLUE, PINK } from '../../common/constants/palette'
-import Jumbotron from '../components/Jumbotron'
-import { Dispatch, Action } from '../../common/types'
-import { max, min } from '../media'
 import { MARGIN } from '../../common/constants/style'
-import { Details, PolicyBots, Upload } from '../components/images/index'
+import { Action, Dispatch } from '../../common/types'
 import Container from '../components/Container'
+import { Details, PolicyBots, Upload } from '../components/images/index'
+import Jumbotron from '../components/Jumbotron'
+import { max, min } from '../media'
 
 const background = require('../../static/background.png')
 

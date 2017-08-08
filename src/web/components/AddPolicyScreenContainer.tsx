@@ -1,14 +1,14 @@
-import * as React from 'react'
-import styled from 'styled-components'
 import AppBar from 'material-ui/AppBar'
 import FlatButton from 'material-ui/FlatButton'
+import * as React from 'react'
 import { connect, DispatchProp } from 'react-redux'
 import { push } from 'react-router-redux'
+import styled from 'styled-components'
 
 import { BLUE, PINK, WHITE } from '../../common/constants/palette'
 import { MARGIN } from '../../common/constants/style'
-import { CarOutline, Cross, Logo } from './images/index'
 import { Dispatch } from '../../common/types'
+import { CarOutline, Cross, Logo } from './images/index'
 
 interface AddPolicyScreenContainerProps {
   title?: string
@@ -27,7 +27,7 @@ interface ConnectedAddPolicyScreenContainerProps
   extends DispatchProp<any>,
     AddPolicyScreenContainerProps {}
 
-type AddPolicyScreenContainerState = {
+interface AddPolicyScreenContainerState {
   keyboardHeight: number
 }
 

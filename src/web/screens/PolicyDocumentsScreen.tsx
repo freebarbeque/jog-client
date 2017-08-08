@@ -1,7 +1,7 @@
+import * as _ from 'lodash'
 import * as React from 'react'
 import { connect } from 'react-redux'
 import styled from 'styled-components'
-import * as _ from 'lodash'
 
 import { BLUE, PINK } from '../../common/constants/palette'
 import { MARGIN } from '../../common/constants/style'
@@ -12,6 +12,11 @@ import PolicyDocumentThumbnail from '../components/PolicyDocumentThumbnail'
 
 const Dropzone = require('react-dropzone')
 
+import { RouteComponentProps } from 'react-router'
+import {
+  uploadPolicyDocument,
+  uploadPolicyDocuments,
+} from '../../common/store/policies/actions'
 import {
   Dispatch,
   MotorPolicy,
@@ -19,14 +24,9 @@ import {
   PolicyDocument,
   ReduxState,
 } from '../../common/types'
-import { getFile } from '../upload'
-import {
-  uploadPolicyDocument,
-  uploadPolicyDocuments,
-} from '../../common/store/policies/actions'
 import Container from '../components/Container'
 import ScrollToTopOnMount from '../components/ScrollToTopOnMount'
-import { RouteComponentProps } from 'react-router'
+import { getFile } from '../upload'
 
 interface PolicyDocumentsScreenProps {
   // eslint-disable-next-line react/no-unused-prop-types

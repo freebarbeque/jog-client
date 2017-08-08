@@ -1,10 +1,37 @@
 // Base
 export type Gender = 'male' | 'female'
 export type QuoteRequestStatus = 'complete' | 'incomplete' | 'pending'
+export type HandDrive = 'right' | 'left'
+export type Alarm = 'none' | 'cat1' | 'cat2' | 'other'
+export interface VehicleModification {
+  category: string
+  subcategory: string
+}
+export type Owner =
+  | 'company-director'
+  | 'employee'
+  | 'employer'
+  | 'garage'
+  | 'other'
+  | 'other-family-member'
+  | 'partner'
+  | 'civil-partner'
+  | 'partner-common-law'
+  | 'you'
+  | 'son-or-daughter'
+  | 'spouse'
+  | 'lease-company'
+export type IDrivingQualification = 'pass-plus' | 'advanced-driving'
+export type DrivingRestriction =
+  | 'aware-no-restrictions'
+  | 'aware-1-year-restriction'
+  | 'aware-2-year-restriction'
+  | 'aware-3-year-restriction'
+  | 'not-aware'
+  | 'advised-not-to-drive-by-doctor'
 
 // Models
-
-export type Car = {
+export interface Car {
   id: string
   registration: string
   model: string
@@ -12,6 +39,14 @@ export type Car = {
   value: number
   dateRegistered?: string
   imported: boolean
+  drive: HandDrive
+  numSeats: number
+  trackingDevice: boolean
+  alarm: Alarm
+  modifications: VehicleModification[]
+  purchasedDate: Date | null
+  owner: Owner
+  registeredKeeper: Owner
 }
 
 export const MotoringIncidentTypes = {
@@ -23,13 +58,13 @@ export const MotoringIncidentTypes = {
   vandalism: 'Vandalism',
 }
 
-export type MotoringIncident = {
+export interface MotoringIncident {
   date: string
   type: keyof typeof MotoringIncidentTypes
   noClaimsDamage: boolean
 }
 
-export type MotoringConviction = {
+export interface MotoringConviction {
   date: string
   dvlaOffenceCode: string
   points: number
@@ -37,7 +72,7 @@ export type MotoringConviction = {
   bannedMonths: number | null
 }
 
-export type Person = {
+export interface Person {
   id: string
   firstName: string
   lastName: string
@@ -117,19 +152,19 @@ export interface NumericQuestionDescriptor
 
 export interface SelectQuestionDescriptor<T> extends BaseQuestionDescriptor<T> {
   type: 'select'
-  options: { label: string; value: T }[]
+  options: Array<{ label: string; value: T }>
 }
 
 export interface NullableSelectQuestionDescriptor<T>
   extends NullableBaseQuestionDescriptor<T> {
   type: 'nullable-select'
-  options: { label: string; value: T }[]
+  options: Array<{ label: string; value: T }>
 }
 
 export interface MultiSelectQuestionDescriptor<T>
   extends BaseQuestionDescriptor<T[]> {
   type: 'multiselect'
-  options: { label: string; value: T }[]
+  options: Array<{ label: string; value: T }>
 }
 
 export interface BooleanDependentQuestionDescriptor<
@@ -140,12 +175,12 @@ export interface BooleanDependentQuestionDescriptor<
   reverse?: boolean
 }
 
-export interface BooleanQuestionDescriptor
+export interface IBooleanQuestionDescriptor
   extends BaseQuestionDescriptor<boolean> {
   type: 'boolean'
 }
 
-export interface NullableBooleanQuestionDescriptor
+export interface INullableBooleanQuestionDescriptor
   extends NullableBaseQuestionDescriptor<boolean> {
   type: 'nullable-boolean'
 }
@@ -154,35 +189,35 @@ export type BasicQuestion =
   | TextQuestionDescriptor
   | NullableTextQuestionDescriptor
   | NumericQuestionDescriptor
-  | BooleanQuestionDescriptor
-  | NullableBooleanQuestionDescriptor
+  | IBooleanQuestionDescriptor
+  | INullableBooleanQuestionDescriptor
 
 // Firebase
 
-export type Answer = {
+export interface IAnswer {
   questionId: string
   answer: any
   dateAnswered: string
 }
 
-export interface QuoteRequest {
-  id: string
-  date: string
-  type: any
-  answers: { [questionId: string]: Answer }
+export interface IQuoteRequest {
+  id?: string
+  vehicle?: string
+  mainDriver?: string
+  yearsHeld?: number
+  whereLicenseIssued?: string
+  transmission?: string
+  qualifications?: IDrivingQualification[]
+  dvlaAwareMedicalConditions?: DrivingRestriction | null
+  otherCars?: string[]
+  motoringConvictions?: MotoringConviction[]
+  motoringIncidents?: MotoringIncident[]
+  noClaimsDiscount?: number
+  startDate?: Date
+  status?: 'incomplete' | 'pending' | 'complete'
 }
 
-export interface MotorQuoteRequest extends QuoteRequest {
-  type: 'car'
-  // Rather than using a relation reference to drivers & addresses we set them in stone so as not to break old quotes if the address or driver changes.
-  mainDriver: Person
-  drivers: Person[]
-  address: Address
-  status: QuoteRequestStatus
-  /* ... */
-}
-
-export type ValidationErrors = {
+export interface IValidationErrors {
   nonField: string[]
   field: { [questionId: string]: string }
   hasError: boolean

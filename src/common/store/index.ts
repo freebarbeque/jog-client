@@ -1,30 +1,32 @@
-import { createStore as _createStore, applyMiddleware, compose } from 'redux'
+import { applyMiddleware, compose, createStore as _createStore } from 'redux'
 import createSagaMiddleware from 'redux-saga'
 import devTools from 'remote-redux-devtools'
 
 const freeze = require('redux-freeze')
 
-import { pollUserSaga, authSaga, userSyncSaga } from './auth/sagas'
+import { authSaga, pollUserSaga, userSyncSaga } from './auth/sagas'
 
 import { Store } from '../types'
 
-import saga from './sagas'
-import { syncPoliciesSaga, policyOperationsSaga } from './policies/sagas'
 import { syncInsurersSaga } from './insurers/sagas'
-import { addPolicySaga } from './screens/addManualPolicy/sagas'
-import authScreenSaga from './screens/auth/sagas'
-import { addPolicyScreenSaga } from './screens/addPolicyScreen/sagas'
 import {
   addMarketEntitySaga,
   syncAddressesSaga,
   syncDriversSaga,
+  syncCarsSaga,
 } from './markets/index'
+import { policyOperationsSaga, syncPoliciesSaga } from './policies/sagas'
+import saga from './sagas'
+import { addPolicySaga } from './screens/addManualPolicy/sagas'
+import { addPolicyScreenSaga } from './screens/addPolicyScreen/sagas'
+import authScreenSaga from './screens/auth/sagas'
+import { quoteRequestsSyncSaga } from './markets/quoteRequests'
 
 let store = null
 let navigationAdaptor: any = null
 let uploadAdaptor: any = null
 
-type CreateStoreOpts = {
+interface CreateStoreOpts {
   enableDevTools?: boolean
   freeze?: boolean
   reducer: any
@@ -89,6 +91,8 @@ export default function createStore(_opts: CreateStoreOpts): Store {
       addMarketEntitySaga,
       syncAddressesSaga,
       syncDriversSaga,
+      syncCarsSaga,
+      quoteRequestsSyncSaga,
       ...opts.sagas,
     ]
 

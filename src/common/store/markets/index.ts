@@ -2,19 +2,20 @@
 // Action Types
 //
 
+import { eventChannel } from 'redux-saga'
 import {
-  fork,
-  put,
   call,
   cancel,
-  takeLatest,
-  take,
   cancelled,
+  fork,
+  put,
+  take,
+  takeLatest,
 } from 'redux-saga/effects'
-import { eventChannel } from 'redux-saga'
 
-import { Address, Car, Person } from '../../../business/types'
-import { finishLoading, startLoading } from '../loading/actions'
+import { goBack } from 'react-router-redux'
+import { Address, Car, IQuoteRequest, Person } from '../../../business/types'
+import { demandCurrentUser } from '../../data/auth'
 import {
   setAddress,
   setCar,
@@ -23,101 +24,119 @@ import {
   syncCars,
   syncPeople,
 } from '../../data/quotes'
-import { demandCurrentUser } from '../../data/auth'
-import { goBack } from 'react-router-redux'
+import { finishLoading, startLoading } from '../loading/actions'
+import {
+  addQuoteRequestTask,
+  IAddQuoteRequest,
+  QuoteRequestAction,
+} from './quoteRequests'
 
 // region Action types
-export type SetAddressAnswerAction = {
+export interface ISetAddressAnswerAction {
   type: 'markets/addresses/SET_ADDRESS_ANSWER'
   key: string
   value: string
 }
 
-export type SetMotorAnswerAction = {
+export interface ISetMotorAnswerAction {
   type: 'markets/cars/SET_MOTOR_ANSWER'
   key: string
   value: any
 }
 
-export type SetDriverAnswerAction = {
+export interface ISetMotorAnswersAction {
+  type: 'markets/cars/SET_MOTOR_ANSWERS'
+  answers: { [id: string]: any }
+}
+
+export interface ISetDriverAnswerAction {
   type: 'markets/drivers/SET_DRIVER_ANSWER'
   key: string
   value: any
 }
 
-export type AddDriverAction = {
+export interface IAddDriverAction {
   type: 'markets/drivers/ADD_DRIVER'
   driver: Person
 }
 
-export type AddCarAction = {
+export interface ISetCarAnswer {
+  type: 'markets/cars/SET_CAR_ANSWER'
+  key: string
+  value: any
+}
+
+export interface IAddCarAction {
   type: 'markets/cars/ADD_CAR'
   car: Car
 }
 
-export type SyncCarsAction = {
+export interface ISyncCarsAction {
   type: 'markets/cars/SYNC_CARS'
   uid: string
 }
 
-export type UnsyncCarsAction = {
+export interface IUnsyncCarsAction {
   type: 'markets/cars/UNSYNC_CARS'
 }
 
-export type ReceiveCarsAction = {
+export interface IReceiveCarsAction {
   type: 'markets/cars/RECEIVE_CARS'
   cars: { [id: string]: Car }
 }
 
-export type SyncDriversAction = {
+export interface ISyncDriversAction {
   type: 'markets/drivers/SYNC_DRIVERS'
   uid: string
 }
 
-export type UnsyncDriversAction = {
+export interface IUnsyncDriversAction {
   type: 'markets/drivers/UNSYNC_DRIVERS'
 }
 
-export type ReceiveDriversAction = {
+export interface IReceiveDriversAction {
   type: 'markets/drivers/RECEIVE_DRIVERS'
   drivers: { [id: string]: Person }
 }
 
-export type AddAddressAction = {
+export interface IAddAddressAction {
   type: 'markets/addresses/ADD_ADDRESS'
   address: Address
 }
 
-export type SyncAddressesAction = {
+export interface ISyncAddressesAction {
   type: 'markets/addresses/SYNC_ADDRESSES'
   uid: string
 }
 
-export type UnsyncAddressesAction = {
+export interface IUnsyncAddressesAction {
   type: 'markets/addresses/UNSYNC_ADDRESSES'
 }
 
-export type ReceiveAddressesAction = {
+export interface IReceiveAddressesAction {
   type: 'markets/addresses/RECEIVE_ADDRESSES'
   addresses: { [id: string]: Address }
 }
 
 export type MarketsAction =
-  | SetAddressAnswerAction
-  | AddAddressAction
-  | ReceiveAddressesAction
-  | UnsyncAddressesAction
-  | SyncAddressesAction
-  | SetMotorAnswerAction
-  | AddDriverAction
-  | SetDriverAnswerAction
-  | SyncDriversAction
-  | UnsyncDriversAction
-  | ReceiveDriversAction
-  | AddCarAction
-  | SyncCarsAction
-  | UnsyncCarsAction
-  | ReceiveCarsAction
+  | ISetAddressAnswerAction
+  | ISetMotorAnswersAction
+  | IAddAddressAction
+  | IReceiveAddressesAction
+  | IUnsyncAddressesAction
+  | ISyncAddressesAction
+  | ISetMotorAnswerAction
+  | IAddDriverAction
+  | ISetDriverAnswerAction
+  | ISyncDriversAction
+  | IUnsyncDriversAction
+  | IReceiveDriversAction
+  | IAddCarAction
+  | ISyncCarsAction
+  | IUnsyncCarsAction
+  | IReceiveCarsAction
+  | ISetCarAnswer
+  | QuoteRequestAction
 
 // endregion
 
@@ -125,7 +144,7 @@ export type MarketsAction =
 export function setAddressAnswer(
   key: string,
   value: string,
-): SetAddressAnswerAction {
+): ISetAddressAnswerAction {
   return {
     type: 'markets/addresses/SET_ADDRESS_ANSWER',
     key,
@@ -134,9 +153,26 @@ export function setAddressAnswer(
 }
 
 // region Action creators
-export function setMotorAnswer(key: string, value: any): SetMotorAnswerAction {
+export function setMotorAnswer(key: string, value: any): ISetMotorAnswerAction {
   return {
     type: 'markets/cars/SET_MOTOR_ANSWER',
+    key,
+    value,
+  }
+}
+
+export function setMotorAnswers(answers: {
+  [id: string]: any
+}): ISetMotorAnswersAction {
+  return {
+    type: 'markets/cars/SET_MOTOR_ANSWERS',
+    answers,
+  }
+}
+
+export function setCarAnswer(key: string, value: any): ISetCarAnswer {
+  return {
+    type: 'markets/cars/SET_CAR_ANSWER',
     key,
     value,
   }
@@ -145,7 +181,7 @@ export function setMotorAnswer(key: string, value: any): SetMotorAnswerAction {
 export function setDriverAnswer(
   key: string,
   value: any,
-): SetDriverAnswerAction {
+): ISetDriverAnswerAction {
   return {
     type: 'markets/drivers/SET_DRIVER_ANSWER',
     key,
@@ -153,21 +189,21 @@ export function setDriverAnswer(
   }
 }
 
-export function addAddress(address: Address): AddAddressAction {
+export function addAddress(address: Address): IAddAddressAction {
   return {
     type: 'markets/addresses/ADD_ADDRESS',
     address,
   }
 }
 
-export function syncAddressesAction(uid: string): SyncAddressesAction {
+export function syncAddressesAction(uid: string): ISyncAddressesAction {
   return {
     type: 'markets/addresses/SYNC_ADDRESSES',
     uid,
   }
 }
 
-export function unsyncAddressesAction(): UnsyncAddressesAction {
+export function unsyncAddressesAction(): IUnsyncAddressesAction {
   return {
     type: 'markets/addresses/UNSYNC_ADDRESSES',
   }
@@ -175,55 +211,55 @@ export function unsyncAddressesAction(): UnsyncAddressesAction {
 
 export function receiveAddresses(addresses: {
   [id: string]: Address
-}): ReceiveAddressesAction {
+}): IReceiveAddressesAction {
   return {
     type: 'markets/addresses/RECEIVE_ADDRESSES',
     addresses,
   }
 }
 
-export function addDriver(driver: Person): AddDriverAction {
+export function addDriver(driver: Person): IAddDriverAction {
   return {
     type: 'markets/drivers/ADD_DRIVER',
     driver,
   }
 }
 
-export function addCar(car: Car): AddCarAction {
+export function addCar(car: Car): IAddCarAction {
   return {
     type: 'markets/cars/ADD_CAR',
     car,
   }
 }
 
-export function syncCarsAction(uid: string): SyncCarsAction {
+export function syncCarsAction(uid: string): ISyncCarsAction {
   return {
     type: 'markets/cars/SYNC_CARS',
     uid,
   }
 }
 
-export function unsyncCarsAction(): UnsyncCarsAction {
+export function unsyncCarsAction(): IUnsyncCarsAction {
   return {
     type: 'markets/cars/UNSYNC_CARS',
   }
 }
 
-export function receiveCars(cars: { [id: string]: Car }): ReceiveCarsAction {
+export function receiveCars(cars: { [id: string]: Car }): IReceiveCarsAction {
   return {
     type: 'markets/cars/RECEIVE_CARS',
     cars,
   }
 }
 
-export function syncDriversAction(uid: string): SyncDriversAction {
+export function syncDriversAction(uid: string): ISyncDriversAction {
   return {
     type: 'markets/drivers/SYNC_DRIVERS',
     uid,
   }
 }
 
-export function unsyncDriversAction(): UnsyncDriversAction {
+export function unsyncDriversAction(): IUnsyncDriversAction {
   return {
     type: 'markets/drivers/UNSYNC_DRIVERS',
   }
@@ -231,7 +267,7 @@ export function unsyncDriversAction(): UnsyncDriversAction {
 
 export function receiveDrivers(drivers: {
   [id: string]: Person
-}): ReceiveDriversAction {
+}): IReceiveDriversAction {
   return {
     type: 'markets/drivers/RECEIVE_DRIVERS',
     drivers,
@@ -241,7 +277,7 @@ export function receiveDrivers(drivers: {
 // endregion
 
 // region Sagas
-export function* addAddressTask(action: AddAddressAction) {
+export function* addAddressTask(action: IAddAddressAction) {
   const address = action.address
   yield put(startLoading('Adding new address'))
   const user = demandCurrentUser()
@@ -249,7 +285,7 @@ export function* addAddressTask(action: AddAddressAction) {
   yield put(finishLoading())
 }
 
-export function* addDriverTask(action: AddDriverAction) {
+export function* addDriverTask(action: IAddDriverAction) {
   const driver = action.driver
   yield put(startLoading('Adding new driver'))
   const user = demandCurrentUser()
@@ -258,18 +294,23 @@ export function* addDriverTask(action: AddDriverAction) {
   yield put(goBack())
 }
 
-export function* addCarTask(action: AddCarAction) {
+export function* addCarTask(action: IAddCarAction) {
   const car = action.car
   yield put(startLoading('Adding vehicle'))
   const user = demandCurrentUser()
   yield call(() => setCar(user.uid, car))
   yield put(finishLoading())
+  yield put(goBack())
 }
 
 export function* addMarketEntitySaga() {
   yield takeLatest('markets/addresses/ADD_ADDRESS', addAddressTask)
   yield takeLatest('markets/drivers/ADD_DRIVER', addDriverTask)
   yield takeLatest('markets/cars/ADD_CAR', addCarTask)
+  yield takeLatest(
+    'markets/quoteRequests/ADD_QUOTE_REQUEST',
+    addQuoteRequestTask,
+  )
 }
 
 function addressEventChannel(uid: string) {
@@ -334,7 +375,7 @@ function* syncCarsTask({ uid }) {
     // eslint-disable-next-line no-constant-condition
     while (true) {
       const cars = yield take(channel)
-      console.log('syncMotorPoliciesTask received new policies', cars)
+      console.log('syncCarsTask received new cars', cars)
       yield put(receiveCars(cars))
     }
   } finally {
@@ -345,7 +386,7 @@ function* syncCarsTask({ uid }) {
 }
 
 export function* syncAddressesSaga() {
-  let action: SyncAddressesAction
+  let action: ISyncAddressesAction
 
   // eslint-disable-next-line no-cond-assign
   while ((action = yield take('markets/addresses/SYNC_ADDRESSES'))) {
@@ -361,7 +402,7 @@ export function* syncAddressesSaga() {
 }
 
 export function* syncDriversSaga() {
-  let action: SyncDriversAction
+  let action: ISyncDriversAction
 
   // eslint-disable-next-line no-cond-assign
   while ((action = yield take('markets/drivers/SYNC_DRIVERS'))) {
@@ -377,7 +418,7 @@ export function* syncDriversSaga() {
 }
 
 export function* syncCarsSaga() {
-  let action: SyncDriversAction
+  let action: ISyncDriversAction
 
   // eslint-disable-next-line no-cond-assign
   while ((action = yield take('markets/cars/SYNC_CARS'))) {
@@ -394,29 +435,33 @@ export function* syncCarsSaga() {
 // endregion
 
 // region State
-export type MarketsReduxState = {
+export interface IMarketsReduxState {
   addressAnswers: { [id: string]: string }
   motorAnswers: { [id: string]: any }
   driverAnswers: { [id: string]: any }
+  carAnswers: { [id: string]: any }
   addresses: { [id: string]: Address }
   drivers: { [id: string]: Person }
   cars: { [id: string]: Car }
+  quoteRequests: { [id: string]: IQuoteRequest }
 }
 
-const DEFAULT_STATE: MarketsReduxState = {
+const DEFAULT_STATE: IMarketsReduxState = {
   addressAnswers: {},
   addresses: {},
   motorAnswers: {},
   driverAnswers: {},
+  carAnswers: {},
   drivers: {},
   cars: {},
+  quoteRequests: {},
 }
 // endregion
 
 export default function reducer(
-  state: MarketsReduxState = DEFAULT_STATE,
+  state: IMarketsReduxState = DEFAULT_STATE,
   action: MarketsAction,
-): MarketsReduxState {
+): IMarketsReduxState {
   if (action.type === 'markets/addresses/SET_ADDRESS_ANSWER') {
     const addressAnswers = { ...state.addressAnswers }
     addressAnswers[action.key] = action.value
@@ -430,6 +475,18 @@ export default function reducer(
     return {
       ...state,
       motorAnswers,
+    }
+  } else if (action.type === 'markets/cars/SET_MOTOR_ANSWERS') {
+    return {
+      ...state,
+      motorAnswers: action.answers,
+    }
+  } else if (action.type === 'markets/cars/SET_CAR_ANSWER') {
+    const carAnswers = { ...state.carAnswers }
+    carAnswers[action.key] = action.value
+    return {
+      ...state,
+      carAnswers,
     }
   } else if (action.type === 'markets/drivers/SET_DRIVER_ANSWER') {
     const driverAnswers = { ...state.driverAnswers }
@@ -452,6 +509,11 @@ export default function reducer(
     return {
       ...state,
       cars: action.cars,
+    }
+  } else if (action.type === 'markets/quoteRequests/RECEIVE_QUOTE_REQUESTS') {
+    return {
+      ...state,
+      quoteRequests: action.quoteRequests,
     }
   }
 

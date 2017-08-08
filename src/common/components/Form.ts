@@ -1,7 +1,7 @@
 /* eslint-disable react/no-unused-prop-types */
 
-import { Component, FormHTMLAttributes } from 'react'
 import * as _ from 'lodash'
+import { Component, FormHTMLAttributes } from 'react'
 
 import { FormField, ValidationErrorsMap, ValuesMap } from '../types'
 

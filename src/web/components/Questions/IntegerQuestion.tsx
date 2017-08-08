@@ -13,7 +13,7 @@ interface IntegerQuestionProps extends QuestionFieldProps {
   onFocus?: () => void
 }
 
-type IntegerQuestionState = {
+interface IntegerQuestionState {
   value: string
 }
 

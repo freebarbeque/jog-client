@@ -1,4 +1,4 @@
-export type UploadPolicyAction = {
+export interface UploadPolicyAction {
   type: 'screens/addPolicyScreen/UPLOAD_POLICY'
 }
 

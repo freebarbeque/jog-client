@@ -1,5 +1,5 @@
-import * as React from 'react'
 import MaterialUIDatePicker from 'material-ui/DatePicker'
+import * as React from 'react'
 import styled from 'styled-components'
 
 const moment = require('moment')

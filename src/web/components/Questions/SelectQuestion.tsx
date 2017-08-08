@@ -1,8 +1,11 @@
 import * as React from 'react'
+import { SelectQuestionDescriptor } from '../../../business/types'
+import { PINK } from '../../../common/constants/palette'
 import { MARGIN } from '../../../common/constants/style'
 import QuestionField from './QuestionField'
-import { SelectQuestionDescriptor } from '../../../business/types'
 import SelectBox from './SelectBox'
+
+const SpecialSelectBox = SelectBox.extend`background-color: ${PINK};`
 
 interface SelectQuestionProps<T> {
   descriptor: SelectQuestionDescriptor<T>
@@ -10,7 +13,7 @@ interface SelectQuestionProps<T> {
   onChange: (id: string, value: T) => void
   onBlur?: () => void
   onFocus?: () => void
-  specialOptions?: { label: string; value: string }[]
+  specialOptions?: Array<{ label: string; value: string }>
   onSpecialOptionClick?: (value: string) => void
   index?: number
   error?: string
@@ -19,7 +22,13 @@ interface SelectQuestionProps<T> {
 export default class SelectQuestion<T> extends React.Component<
   SelectQuestionProps<T>
 > {
-  render() {
+  public render() {
+    const onSpecialOptionClick =
+      this.props.onSpecialOptionClick ||
+      (() => {
+        /* Do nothing */
+      })
+
     return (
       <QuestionField
         descriptor={this.props.descriptor}
@@ -42,11 +51,12 @@ export default class SelectQuestion<T> extends React.Component<
           {this.props.specialOptions
             ? this.props.specialOptions.map(o => {
                 return (
-                  <SelectBox
-                    onClick={() => this.props.onSpecialOptionClick(o.value)}
+                  <SpecialSelectBox
+                    key={o.value}
+                    onClick={() => onSpecialOptionClick(o.value)}
                   >
                     {o.label}
-                  </SelectBox>
+                  </SpecialSelectBox>
                 )
               })
             : null}

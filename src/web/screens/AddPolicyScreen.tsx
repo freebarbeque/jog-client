@@ -4,10 +4,10 @@ import { push } from 'react-router-redux'
 import styled from 'styled-components'
 import { BLUE, CREAM, PINK, WHITE } from '../../common/constants/palette'
 import { MARGIN } from '../../common/constants/style'
-import { Camera, Cursor, Letter } from '../components/images/index'
 import { Dispatch } from '../../common/types'
-import Container from '../components/Container'
 import BackgroundHeader from '../components/BackgroundHeader'
+import Container from '../components/Container'
+import { Camera, Cursor, Letter } from '../components/images/index'
 import { max } from '../media'
 
 interface AddPolicyScreenProps extends DispatchProp<any> {}

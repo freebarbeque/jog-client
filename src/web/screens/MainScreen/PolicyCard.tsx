@@ -1,9 +1,9 @@
 import * as React from 'react'
 import styled from 'styled-components'
-import { MARGIN } from '../../../common/constants/style'
 import { BLUE, WHITE } from '../../../common/constants/palette'
+import { MARGIN } from '../../../common/constants/style'
 
-export type PolicyCardProps = {
+export interface PolicyCardProps {
   title: string
   onPress?: () => void
   image: any

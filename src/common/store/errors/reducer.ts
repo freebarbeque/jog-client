@@ -1,6 +1,6 @@
 import { ErrorAction } from './actionTypes'
 
-export type ErrorsReduxState = {
+export interface ErrorsReduxState {
   error: boolean
   text: string
 }

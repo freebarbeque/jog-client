@@ -1,17 +1,17 @@
 import * as React from 'react'
+import { connect, DispatchProp } from 'react-redux'
 import { Redirect, Route } from 'react-router-dom'
 import styled from 'styled-components'
-import { connect, DispatchProp } from 'react-redux'
 
-import LoginScreen from './LoginScreen'
 import AuthHome from './AuthHomeScreen'
+import LoginScreen from './LoginScreen'
 import RegisterScreen from './RegisterScreen'
 
 import { FirebaseUser, ReduxState } from '../../common/types'
 import AuthNavBar from '../components/AuthNavBar'
+import ConfirmPasswordResetScreen from './ConfirmPasswordResetScreen'
 import EmailVerificationScreen from './EmailVerificationScreen'
 import PasswordResetScreen from './PasswordResetScreen'
-import ConfirmPasswordResetScreen from './ConfirmPasswordResetScreen'
 
 // language=SCSS prefix=dummy{ suffix=}
 const Container = styled.div`

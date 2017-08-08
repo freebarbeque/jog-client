@@ -3,10 +3,10 @@ import { connect, DispatchProp } from 'react-redux'
 import { push } from 'react-router-redux'
 import styled from 'styled-components'
 
-import { Dispatch } from '../../common/types'
 import { MARGIN } from '../../common/constants/style'
-import RoundedButton from '../components/RoundedButton'
+import { Dispatch } from '../../common/types'
 import HorizontalFlexCenteredContainer from '../components/HorizontalFlexCenteredContainer'
+import RoundedButton from '../components/RoundedButton'
 import Title from '../components/Title'
 
 interface ConfirmPasswordResetScreenProps extends DispatchProp<any> {}

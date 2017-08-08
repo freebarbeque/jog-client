@@ -4,13 +4,13 @@ import { validate } from './validation'
 const uuid = require('uuid/v4')
 
 import {
-  BooleanQuestionDescriptor,
+  BooleanDependentQuestionDescriptor,
+  IBooleanQuestionDescriptor,
+  DateQuestionDescriptor,
+  NumericQuestionDescriptor,
   Person,
   SelectQuestionDescriptor,
   TextQuestionDescriptor,
-  BooleanDependentQuestionDescriptor,
-  NumericQuestionDescriptor,
-  DateQuestionDescriptor,
 } from './types'
 
 export const firstNameQuestion: TextQuestionDescriptor = {
@@ -61,7 +61,7 @@ export const relationshipStatusQuestion: SelectQuestionDescriptor<string> = {
   required: true,
 }
 
-export const childrenQuestion: BooleanQuestionDescriptor = {
+export const childrenQuestion: IBooleanQuestionDescriptor = {
   type: 'boolean',
   id: 'person/children',
   questionText: 'Do you have any children under the age of 16?',

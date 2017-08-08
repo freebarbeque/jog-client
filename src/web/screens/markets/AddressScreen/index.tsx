@@ -1,29 +1,29 @@
+import * as _ from 'lodash'
 import * as React from 'react'
 import { connect } from 'react-redux'
 import styled from 'styled-components'
-import * as _ from 'lodash'
-import TextQuestion from '../../../components/Questions/TextQuestion'
 import { constructAddress, questions } from '../../../../business/address'
-import { Dispatch, ReduxState } from '../../../../common/types'
-import { MarketsReduxState } from '../../../../common/store/markets/index'
-import {
-  setAddressAnswer,
-  addAddress,
-} from '../../../../common/store/markets/index'
-import Panel from '../../../components/Panel'
-import Container from '../../../components/Container'
-import { MARGIN } from '../../../../common/constants/style'
-import RoundedButton from '../../../components/RoundedButton'
+import { IValidationErrors } from '../../../../business/types'
 import { validate } from '../../../../business/validation'
-import { ValidationErrors } from '../../../../business/types'
+import { MARGIN } from '../../../../common/constants/style'
+import {
+  addAddress,
+  setAddressAnswer,
+} from '../../../../common/store/markets/index'
+import { IMarketsReduxState } from '../../../../common/store/markets/index'
+import { Dispatch, ReduxState } from '../../../../common/types'
+import Container from '../../../components/Container'
+import Panel from '../../../components/Panel'
+import TextQuestion from '../../../components/Questions/TextQuestion'
+import RoundedButton from '../../../components/RoundedButton'
 
-type MarketsScreenProps = {
-  markets: MarketsReduxState
+interface MarketsScreenProps {
+  markets: IMarketsReduxState
   dispatch: Dispatch
 }
 
-type MarketsScreenState = {
-  errors?: ValidationErrors
+interface MarketsScreenState {
+  errors?: IValidationErrors
   blurred: { [id: string]: boolean }
 }
 

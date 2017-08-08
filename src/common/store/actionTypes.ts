@@ -1,14 +1,14 @@
-export type SyncUserDataAction = {
+export interface SyncUserDataAction {
   type: 'SYNC_USER_DATA'
   uid: string
 }
 
-export type UnsyncUserDataAction = {
+export interface UnsyncUserDataAction {
   type: 'UNSYNC_USER_DATA'
   uid: string
 }
 
-export type SyncDataAction = {
+export interface SyncDataAction {
   type: 'SYNC_DATA'
 }
 

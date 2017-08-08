@@ -31,7 +31,7 @@ export function unsyncMotorPolicies(): UnsyncMotorPoliciesAction {
   }
 }
 
-type UploadPolicyDocumentOptions = {
+interface UploadPolicyDocumentOptions {
   fileUrl?: string
   extension?: string
   fileName?: string

@@ -1,13 +1,13 @@
 // @flow
 
-import * as React from 'react'
 import * as _ from 'lodash'
+import * as React from 'react'
 import styled from 'styled-components'
 
+import { MultiSelectQuestionDescriptor } from '../../../business/types'
 import { MARGIN } from '../../../common/constants/style'
 import { QuestionFieldProps } from './QuestionField'
 import QuestionField from './QuestionField'
-import { MultiSelectQuestionDescriptor } from '../../../business/types'
 import SelectBox from './SelectBox'
 
 // language=SCSS prefix=dummy{ suffix=}
@@ -40,6 +40,7 @@ export default class MultiSelectQuestion extends React.Component<
             const currentValue = this.props.value || []
             return (
               <MultiSelectBox
+                key={o.value}
                 className={`${_.includes(currentValue, o.value)
                   ? 'selected'
                   : ''}`}

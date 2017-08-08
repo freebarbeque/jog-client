@@ -1,10 +1,10 @@
 import * as React from 'react'
-import styled from 'styled-components'
 import { connect, DispatchProp } from 'react-redux'
 import { goBack } from 'react-router-redux'
+import styled from 'styled-components'
 import { MARGIN } from '../../common/constants/style'
-import { Arrow, Chevron } from './images/index'
 import { max, min } from '../media'
+import { Arrow, Chevron } from './images/index'
 
 const background = require('./background2.png')
 

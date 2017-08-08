@@ -2,7 +2,7 @@ import * as React from 'react'
 import { connect, DispatchProp } from 'react-redux'
 import { push } from 'react-router-redux'
 
-import { Dispatch, Action } from '../../common/types'
+import { Action, Dispatch } from '../../common/types'
 import AddPolicyScreenContainer from '../components/AddPolicyScreenContainer'
 
 interface Props extends DispatchProp<Action> {}

@@ -1,12 +1,12 @@
+import { AppBar, FlatButton } from 'material-ui'
 import * as React from 'react'
 import { connect, DispatchProp } from 'react-redux'
 import { goBack } from 'react-router-redux'
 import styled from 'styled-components'
-import { AppBar, FlatButton } from 'material-ui'
 
-import { MARGIN } from '../../common/constants/style'
 import { BLUE } from '../../common/constants/palette'
-import { Dispatch, FirebaseUser, ReduxState, Action } from '../../common/types'
+import { MARGIN } from '../../common/constants/style'
+import { Action, Dispatch, FirebaseUser, ReduxState } from '../../common/types'
 import { Cross, Logo } from '../components/images/index'
 
 interface EmailPolicyScreenProps extends DispatchProp<Action> {

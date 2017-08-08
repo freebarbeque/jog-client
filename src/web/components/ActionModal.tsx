@@ -2,14 +2,14 @@ import * as React from 'react'
 import { connect } from 'react-redux'
 import styled from 'styled-components'
 
-import { finishLoading } from '../../common/store/loading/actions'
-import { clearError } from '../../common/store/errors/actions'
-import Button from './Button'
-import { MARGIN } from '../../common/constants/style'
 import { BLUE } from '../../common/constants/palette'
-import Spinner from './Spinner'
+import { MARGIN } from '../../common/constants/style'
+import { clearError } from '../../common/store/errors/actions'
+import { finishLoading } from '../../common/store/loading/actions'
 import { Dispatch, ReduxState } from '../../common/types'
+import Button from './Button'
 import { Warning } from './images/index'
+import Spinner from './Spinner'
 
 interface ActionModalProps {
   loading: {

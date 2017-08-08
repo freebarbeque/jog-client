@@ -2,41 +2,41 @@
 
 import { FirebaseUser, UserDetails } from '../../types'
 
-export type ReceiveUserAction = {
+export interface ReceiveUserAction {
   type: 'auth/RECEIVE_USER'
   user: FirebaseUser | null
 }
 
-export type ReceiveUserDetails = {
+export interface ReceiveUserDetails {
   type: 'auth/RECEIVE_USER_DETAILS'
   details: UserDetails | null
 }
 
-export type UpdateUserDetails = {
+export interface UpdateUserDetails {
   type: 'auth/UPDATE_USER_DETAILS'
   details: UserDetails
   silent?: boolean
 }
 
-export type UpdateUserProfilePicture = {
+export interface UpdateUserProfilePicture {
   type: 'auth/UPDATE_USER_PROFILE_PICTURE'
   fileUrl?: string
   file?: any
 }
 
-export type PollRefreshUserAction = {
+export interface PollRefreshUserAction {
   type: 'auth/POLL_REFRESH_USER'
 }
 
-export type SyncUserAction = {
+export interface SyncUserAction {
   type: 'auth/SYNC_USER'
 }
 
-export type StopPollingRefreshUserAction = {
+export interface StopPollingRefreshUserAction {
   type: 'auth/STOP_POLL_REFRESH_USER'
 }
 
-export type LogoutAction = {
+export interface LogoutAction {
   type: 'auth/LOGOUT'
 }
 

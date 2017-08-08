@@ -1,41 +1,41 @@
 // @flow
 
 import * as firebase from 'firebase'
+import { eventChannel } from 'redux-saga'
 import {
   call,
+  cancel,
+  cancelled,
+  fork,
   put,
   take,
-  fork,
-  cancelled,
-  cancel,
   takeLatest,
 } from 'redux-saga/effects'
-import { eventChannel } from 'redux-saga'
 
+import * as _ from 'lodash'
 import mime from 'react-native-mime-types'
 import uuid from 'uuid/v4'
-import * as _ from 'lodash'
 
 const createThrottle = require('async-throttle')
 
-import { signOut, userSubscribe, demandCurrentUser } from '../../data/auth'
+import { demandCurrentUser, signOut, userSubscribe } from '../../data/auth'
 import { syncUserDetails, updateCurrentUserDetails } from '../../data/user'
-import { finishLoading, startLoading } from '../loading/actions'
 import { declareError } from '../errors/actions'
+import { finishLoading, startLoading } from '../loading/actions'
 import { setLoading } from '../screens/auth/actions'
 
+import {
+  subscribePushNotifications,
+  unsubscribePushNotifications,
+} from '../../../native/store/push/actions'
+import { ReduxState } from '../../types'
+import { syncUserData, unsyncUserData } from '../actions'
+import { getNavigationAdapter, getStore, getUploadAdapter } from '../index'
 import {
   SyncUserAction,
   UpdateUserDetails,
   UpdateUserProfilePicture,
 } from './actionTypes'
-import { syncUserData, unsyncUserData } from '../actions'
-import {
-  subscribePushNotifications,
-  unsubscribePushNotifications,
-} from '../../../native/store/push/actions'
-import { getNavigationAdapter, getStore, getUploadAdapter } from '../index'
-import { ReduxState } from '../../types'
 
 import { receiveUser, receiveUserDetails } from './actions'
 

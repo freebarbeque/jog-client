@@ -1,12 +1,12 @@
-import * as React from 'react'
 import AppBar from 'material-ui/AppBar'
 import FlatButton from 'material-ui/FlatButton'
+import * as React from 'react'
 import { connect, DispatchProp } from 'react-redux'
 import { push } from 'react-router-redux'
 
-import { Logo, Cross } from './images'
-import { Dispatch } from '../../common/types'
 import { logout } from '../../common/store/auth/actions'
+import { Dispatch } from '../../common/types'
+import { Cross, Logo } from './images'
 
 interface Props {}
 interface ConnectedProps extends Props, DispatchProp<any> {}

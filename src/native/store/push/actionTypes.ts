@@ -1,30 +1,30 @@
 // @flow
 
-export type SubscribePushNotificationsAction = {
+export interface SubscribePushNotificationsAction {
   type: 'push/SUBSCRIBE_PUSH_NOTIFICATIONS'
 }
 
-export type UnsubscribePushNotificationsAction = {
+export interface UnsubscribePushNotificationsAction {
   type: 'push/UNSUBSCRIBE_PUSH_NOTIFICATIONS'
 }
 
-export type EnablePushNotifications = {
+export interface EnablePushNotifications {
   type: 'push/ENABLE_PUSH_NOTIFICATIONS'
 }
 
-export type DisablePushNotifications = {
+export interface DisablePushNotifications {
   type: 'push/DISABLE_PUSH_NOTIFICATIONS'
 }
 
-export type ShowPushNotificationsModal = {
+export interface ShowPushNotificationsModal {
   type: 'push/SHOW_PUSH_NOTIFICATIONS_MODAL'
 }
 
-export type HidePushNotificationsModal = {
+export interface HidePushNotificationsModal {
   type: 'push/HIDE_PUSH_NOTIFICATIONS_MODAL'
 }
 
-export type ReceivePushNotification = {
+export interface ReceivePushNotification {
   type: 'push/RECEIVE_PUSH_NOTIFICATION'
   notification: Object
 }

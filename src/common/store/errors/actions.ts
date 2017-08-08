@@ -1,4 +1,4 @@
-import { DeclareErrorAction, ClearErrorAction } from './actionTypes'
+import { ClearErrorAction, DeclareErrorAction } from './actionTypes'
 
 export function declareError(text: string): DeclareErrorAction {
   return {

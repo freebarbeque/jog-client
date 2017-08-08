@@ -1,17 +1,17 @@
+import * as _ from 'lodash'
 import * as React from 'react'
 import { connect, DispatchProp } from 'react-redux'
 import { push } from 'react-router-redux'
-import * as _ from 'lodash'
 
+import { updateManualPolicy } from '../../common/store/screens/addManualPolicy/actions'
+import { ManualPolicyUpdate } from '../../common/store/screens/addManualPolicy/actions'
 import {
+  Action,
   Dispatch,
   Insurer,
   InsurerMap,
   ReduxState,
-  Action,
 } from '../../common/types'
-import { updateManualPolicy } from '../../common/store/screens/addManualPolicy/actions'
-import { ManualPolicyUpdate } from '../../common/store/screens/addManualPolicy/actions'
 import AddPolicyScreenContainer from '../components/AddPolicyScreenContainer'
 import Picker from '../components/Picker'
 

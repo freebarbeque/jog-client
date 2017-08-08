@@ -1,6 +1,6 @@
+import { FlatButton } from 'material-ui'
 import * as React from 'react'
 import { connect } from 'react-redux'
-import { FlatButton } from 'material-ui'
 import { Link } from 'react-router-dom'
 
 import {
@@ -32,7 +32,7 @@ import FlexCentredContainer from '../components/FlexCentredContainer'
 
 import { NAVIGATION_BAR_HEIGHT } from '../constants/style'
 
-type RegisterProps = {
+interface RegisterProps {
   dispatch: Dispatch
   values: ValuesMap
   validationErrors: ValidationErrorsMap

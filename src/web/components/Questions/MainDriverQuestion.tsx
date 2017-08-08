@@ -1,13 +1,14 @@
-import * as React from 'react'
-import { connect } from 'react-redux'
 import * as _ from 'lodash'
+import * as React from 'react'
+import { connect, DispatchProp } from 'react-redux'
 
-import { ReduxState, FirebaseUser } from '../../../common/types'
-import { Person, SelectQuestionDescriptor } from '../../../business/types'
-import SelectQuestion from './SelectQuestion'
+import { push } from 'react-router-redux'
 import { policyHolderQuestion } from '../../../business/motor'
+import { Person, SelectQuestionDescriptor } from '../../../business/types'
+import { FirebaseUser, ReduxState } from '../../../common/types'
+import SelectQuestion from './SelectQuestion'
 
-interface MainDriverQuestionProps {
+interface Props {
   drivers: { [id: string]: Person }
   user: FirebaseUser
   value: string
@@ -16,13 +17,12 @@ interface MainDriverQuestionProps {
   onFocus?: () => void
 }
 
-type MainDriverQuestionState = {}
+interface ConnectedProps extends Props, DispatchProp<any> {}
 
-class MainDriverQuestion extends React.Component<
-  MainDriverQuestionProps,
-  MainDriverQuestionState
-> {
-  constructor(props: MainDriverQuestionProps) {
+interface State {}
+
+class MainDriverQuestion extends React.Component<ConnectedProps, State> {
+  constructor(props: ConnectedProps) {
     super(props)
     const value = props.value
     this.state = {
@@ -32,7 +32,7 @@ class MainDriverQuestion extends React.Component<
 
   handleSpecialOptionClick = (value: string) => {
     if (value === 'new-driver') {
-      // TODO: Route to new driver screen
+      this.props.dispatch(push('/app/tabs/markets/motor/driver'))
     }
   }
 
@@ -70,7 +70,13 @@ class MainDriverQuestion extends React.Component<
   }
 }
 
-export default connect((state: ReduxState) => ({
+const ConnectedMainDriverQuestion: React.ComponentClass<Props> = connect<
+  {},
+  {},
+  Props
+>((state: ReduxState) => ({
   drivers: state.markets.drivers,
   user: state.auth.user,
 }))(MainDriverQuestion)
+
+export default ConnectedMainDriverQuestion

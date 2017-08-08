@@ -1,6 +1,6 @@
 import styled from 'styled-components'
-import { MARGIN } from '../../../common/constants/style'
 import { PINK } from '../../../common/constants/palette'
+import { MARGIN } from '../../../common/constants/style'
 
 // language=SCSS prefix=dummy{ suffix=}
 const SelectBox = styled.button`

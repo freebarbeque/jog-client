@@ -1,58 +1,58 @@
-import { ValuesMap, ValidationErrorsMap, FirebaseUser } from '../../../types'
+import { FirebaseUser, ValidationErrorsMap, ValuesMap } from '../../../types'
 
-export type LoginAction = {
+export interface LoginAction {
   type: 'screens/auth/LOGIN'
   email: string
   password: string
 }
 
-export type RegisterAction = {
+export interface RegisterAction {
   type: 'screens/auth/REGISTER'
   name: string
   email: string
   password: string
 }
 
-export type PasswordResetAction = {
+export interface PasswordResetAction {
   type: 'screens/auth/PASSWORD_RESET'
   email: string
 }
 
-type SetValuesAction = {
+interface SetValuesAction {
   type: 'screens/auth/SET_VALUES'
   values: ValuesMap
 }
 
-type SetValidationErrors = {
+interface SetValidationErrors {
   type: 'screens/auth/SET_VALIDATION_ERRORS'
   validationErrors: ValidationErrorsMap
 }
 
-type SetLoadingAction = {
+interface SetLoadingAction {
   type: 'screens/auth/SET_LOADING'
   loading: boolean
 }
 
-type SetLoginErrorAction = {
+interface SetLoginErrorAction {
   type: 'screens/auth/SET_LOGIN_ERROR'
   loginError: string | null
 }
 
-type SetRegisterErrorAction = {
+interface SetRegisterErrorAction {
   type: 'screens/auth/SET_REGISTER_ERROR'
   registerError: string | null
 }
 
-type SetPasswordResetErrorAction = {
+interface SetPasswordResetErrorAction {
   type: 'screens/auth/SET_PASSWORD_RESET_ERROR'
   passwordResetError: string | null
 }
 
-type ClearAction = {
+interface ClearAction {
   type: 'screens/auth/CLEAR'
 }
 
-export type SendEmailVerificationEmailAction = {
+export interface SendEmailVerificationEmailAction {
   type: 'screens/auth/SEND_VERIFICATION_EMAIL'
   user: FirebaseUser
 }

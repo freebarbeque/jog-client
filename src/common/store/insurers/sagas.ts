@@ -1,5 +1,5 @@
-import { call, put, take, fork, cancelled, cancel } from 'redux-saga/effects'
 import { eventChannel } from 'redux-saga'
+import { call, cancel, cancelled, fork, put, take } from 'redux-saga/effects'
 
 import { syncInsurers } from '../../data/insurers'
 import { receiveInsurers } from './actions'

@@ -4,9 +4,9 @@ import { push } from 'react-router-redux'
 
 const moment = require('moment')
 
-import { Dispatch, ReduxState, Action } from '../../common/types'
 import { updateManualPolicy } from '../../common/store/screens/addManualPolicy/actions'
 import { ManualPolicyUpdate } from '../../common/store/screens/addManualPolicy/actions'
+import { Action, Dispatch, ReduxState } from '../../common/types'
 import AddPolicyScreenContainer from '../components/AddPolicyScreenContainer'
 import DatePicker from '../components/DatePicker'
 

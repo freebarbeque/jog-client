@@ -1,12 +1,12 @@
-import { createSelector } from 'reselect'
 import * as _ from 'lodash'
+import { createSelector } from 'reselect'
 
 import {
-  PoliciesState,
-  ReduxState,
   InsurersReduxState,
   MotorPolicy,
   MotorPolicyMap,
+  PoliciesState,
+  ReduxState,
 } from '../../types'
 
 /**

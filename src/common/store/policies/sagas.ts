@@ -1,26 +1,29 @@
+import * as firebase from 'firebase'
+import * as _ from 'lodash'
+import mime from 'react-native-mime-types'
+import { eventChannel } from 'redux-saga'
 import {
   call,
+  cancel,
+  cancelled,
+  fork,
   put,
   take,
-  fork,
-  cancelled,
-  cancel,
   takeLatest,
 } from 'redux-saga/effects'
-import { eventChannel } from 'redux-saga'
-import * as firebase from 'firebase'
 import uuid from 'uuid/v4'
-import mime from 'react-native-mime-types'
-import * as _ from 'lodash'
 
-import {
-  syncMotorPolicies,
-  addPolicyDocument,
-  removePolicyDocument,
-  getPolicyDocument,
-} from '../../data/policies'
 import { demandCurrentUser } from '../../data/auth'
+import {
+  addPolicyDocument,
+  getPolicyDocument,
+  removePolicyDocument,
+  syncMotorPolicies,
+} from '../../data/policies'
 
+import { declareError } from '../errors/actions'
+import { getUploadAdapter } from '../index'
+import { finishLoading, startLoading } from '../loading/actions'
 import { receiveMotorPolicies } from './actions'
 import {
   DeletePolicyDocumentAction,
@@ -28,9 +31,6 @@ import {
   UploadPolicyDocumentAction,
   UploadPolicyDocumentsAction,
 } from './actionTypes'
-import { finishLoading, startLoading } from '../loading/actions'
-import { declareError } from '../errors/actions'
-import { getUploadAdapter } from '../index'
 
 //
 // Sync policies
@@ -117,7 +117,7 @@ function* uploadPolicyDocumentsTask(action: UploadPolicyDocumentsAction) {
         addPolicyDocument(policyId, {
           image: fileStoragePath,
           name: fileName,
-          extension: extension,
+          extension,
           id,
         }),
       )

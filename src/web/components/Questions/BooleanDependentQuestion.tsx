@@ -1,9 +1,9 @@
 import * as React from 'react'
+import { BooleanDependentQuestionDescriptor } from '../../../business/types'
 import { MARGIN } from '../../../common/constants/style'
 import { QuestionFieldProps } from './QuestionField'
 import QuestionField from './QuestionField'
 import SelectBox from './SelectBox'
-import { BooleanDependentQuestionDescriptor } from '../../../business/types'
 
 import QuestionSet from './QuestionSet'
 

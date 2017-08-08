@@ -2,15 +2,15 @@ import * as React from 'react'
 import { connect } from 'react-redux'
 import { push } from 'react-router-redux'
 
-import { Dispatch, ReduxState } from '../../common/types'
 import { updateManualPolicy } from '../../common/store/screens/addManualPolicy/actions'
+import { Dispatch, ReduxState } from '../../common/types'
 
 import { ManualPolicyUpdate } from '../../common/store/screens/addManualPolicy/actions'
 
 import AddPolicyScreenContainer from '../components/AddPolicyScreenContainer'
 import Input from '../components/Input'
 
-type PolicyNumberScreenProps = {
+interface PolicyNumberScreenProps {
   dispatch: Dispatch
   policy: ManualPolicyUpdate
 }

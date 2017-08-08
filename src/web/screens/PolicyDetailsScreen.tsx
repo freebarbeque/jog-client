@@ -1,27 +1,27 @@
+import * as _ from 'lodash'
 import * as React from 'react'
 import { connect, DispatchProp } from 'react-redux'
-import { push } from 'react-router-redux'
-import * as _ from 'lodash'
-import styled from 'styled-components'
 import { withRouter } from 'react-router-dom'
+import { push } from 'react-router-redux'
+import styled from 'styled-components'
 
 const moment = require('moment')
 
-import { MARGIN } from '../../common/constants/style'
 import { BLUE, CREAM, WHITE, YELLOW } from '../../common/constants/palette'
+import { MARGIN } from '../../common/constants/style'
 import { selectPolicies } from '../../common/store/policies/selectors'
 
 import { Dispatch, MotorPolicy, ReduxState } from '../../common/types'
 
-import { LEVEL_OF_COVER, Action } from '../../common/types'
+import { Action, LEVEL_OF_COVER } from '../../common/types'
 
-import BigRedFullWidthButton from '../components/BigRedFullWidthButton'
-import Panel from '../components/Panel'
-import * as selectors from '../store/selectors'
-import { min } from '../media'
-import Container from '../components/Container'
-import ScrollToTopOnMount from '../components/ScrollToTopOnMount'
 import { RouteComponentProps } from 'react-router'
+import BigRedFullWidthButton from '../components/BigRedFullWidthButton'
+import Container from '../components/Container'
+import Panel from '../components/Panel'
+import ScrollToTopOnMount from '../components/ScrollToTopOnMount'
+import { min } from '../media'
+import * as selectors from '../store/selectors'
 
 // language=SCSS prefix=dummy{ suffix=}
 const PolicyDetailsPanel = styled(Panel)`

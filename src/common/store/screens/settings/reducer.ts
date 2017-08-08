@@ -1,6 +1,6 @@
 import { SettingsScreenAction } from './actions'
 
-export type SettingsScreenReduxState = {
+export interface SettingsScreenReduxState {
   activeSection: number | null
 }
 

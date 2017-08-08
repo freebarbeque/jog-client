@@ -1,16 +1,16 @@
 import * as React from 'react'
-import { Redirect, Route } from 'react-router-dom'
-import styled from 'styled-components'
 import { connect } from 'react-redux'
+import { Redirect, Route } from 'react-router-dom'
 import { ConnectedRouter } from 'react-router-redux'
+import styled from 'styled-components'
 
-import MainScreen from './screens/MainScreen/index'
-import AuthScreen from './screens/AuthScreen'
 import { BLUE } from '../common/constants/palette'
-import { Dispatch, FirebaseUser, ReduxState } from '../common/types'
 import { syncData } from '../common/store/actions'
-import history from './history'
+import { Dispatch, FirebaseUser, ReduxState } from '../common/types'
 import ActionModal from './components/ActionModal'
+import history from './history'
+import AuthScreen from './screens/AuthScreen'
+import MainScreen from './screens/MainScreen/index'
 import { subscribeDimensions } from './store/dimensions/actions'
 
 // language=SCSS prefix=dummy{ suffix=}
@@ -51,7 +51,7 @@ const Container = styled.div`
   }
 `
 
-type AppProps = {
+interface AppProps {
   user: FirebaseUser | null
   initialised: boolean
   dispatch: Dispatch

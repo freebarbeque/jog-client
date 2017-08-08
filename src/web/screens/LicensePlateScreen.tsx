@@ -2,9 +2,9 @@ import * as React from 'react'
 import { connect, DispatchProp } from 'react-redux'
 import { push } from 'react-router-redux'
 
-import { Dispatch, ReduxState, Action } from '../../common/types'
 import { ManualPolicyUpdate } from '../../common/store/screens/addManualPolicy/actions'
 import { updateManualPolicy } from '../../common/store/screens/addManualPolicy/actions'
+import { Action, Dispatch, ReduxState } from '../../common/types'
 import AddPolicyScreenContainer from '../components/AddPolicyScreenContainer'
 import Input from '../components/Input'
 
