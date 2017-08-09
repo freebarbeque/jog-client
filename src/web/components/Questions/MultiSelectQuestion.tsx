@@ -4,9 +4,9 @@ import * as _ from 'lodash'
 import * as React from 'react'
 import styled from 'styled-components'
 
-import { MultiSelectQuestionDescriptor } from '../../../business/types'
+import { IMultiSelectQuestionDescriptor } from '../../../business/types'
 import { MARGIN } from '../../../common/constants/style'
-import { QuestionFieldProps } from './QuestionField'
+import { IProps } from './QuestionField'
 import QuestionField from './QuestionField'
 import SelectBox from './SelectBox'
 
@@ -17,8 +17,8 @@ const MultiSelectBox = styled(SelectBox)`
   }
 `
 
-interface MultiSelectQuestionProps extends QuestionFieldProps {
-  descriptor: MultiSelectQuestionDescriptor<any>
+interface IMultiSelectQuestionProps extends IProps {
+  descriptor: IMultiSelectQuestionDescriptor<any>
   value: any[]
   onChange: (id: string, value: any[]) => void
   onBlur?: () => void
@@ -26,9 +26,9 @@ interface MultiSelectQuestionProps extends QuestionFieldProps {
 }
 
 export default class MultiSelectQuestion extends React.Component<
-  MultiSelectQuestionProps
+  IMultiSelectQuestionProps
 > {
-  render() {
+  public render() {
     return (
       <QuestionField
         descriptor={this.props.descriptor}

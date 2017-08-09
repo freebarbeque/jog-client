@@ -1,50 +1,50 @@
 // @flow
 
-import { FirebaseUser, UserDetails } from '../../types'
+import { IFirebaseUser, IUserDetails } from '../../types'
 
-export interface ReceiveUserAction {
+export interface IReceiveUserAction {
   type: 'auth/RECEIVE_USER'
-  user: FirebaseUser | null
+  user: IFirebaseUser | null
 }
 
-export interface ReceiveUserDetails {
+export interface IReceiveUserDetails {
   type: 'auth/RECEIVE_USER_DETAILS'
-  details: UserDetails | null
+  details: IUserDetails | null
 }
 
-export interface UpdateUserDetails {
+export interface IUpdateUserDetails {
   type: 'auth/UPDATE_USER_DETAILS'
-  details: UserDetails
+  details: IUserDetails
   silent?: boolean
 }
 
-export interface UpdateUserProfilePicture {
+export interface IUpdateUserProfilePicture {
   type: 'auth/UPDATE_USER_PROFILE_PICTURE'
   fileUrl?: string
   file?: any
 }
 
-export interface PollRefreshUserAction {
+export interface IPollRefreshUserAction {
   type: 'auth/POLL_REFRESH_USER'
 }
 
-export interface SyncUserAction {
+export interface ISyncUserAction {
   type: 'auth/SYNC_USER'
 }
 
-export interface StopPollingRefreshUserAction {
+export interface IStopPollingRefreshUserAction {
   type: 'auth/STOP_POLL_REFRESH_USER'
 }
 
-export interface LogoutAction {
+export interface ILogoutAction {
   type: 'auth/LOGOUT'
 }
 
 export type AuthAction =
-  | ReceiveUserAction
-  | LogoutAction
-  | ReceiveUserDetails
-  | UpdateUserDetails
-  | UpdateUserProfilePicture
-  | PollRefreshUserAction
-  | StopPollingRefreshUserAction
+  | IReceiveUserAction
+  | ILogoutAction
+  | IReceiveUserDetails
+  | IUpdateUserDetails
+  | IUpdateUserProfilePicture
+  | IPollRefreshUserAction
+  | IStopPollingRefreshUserAction

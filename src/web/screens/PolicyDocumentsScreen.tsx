@@ -1,6 +1,6 @@
 import * as _ from 'lodash'
 import * as React from 'react'
-import { connect } from 'react-redux'
+import { connect, DispatchProp } from 'react-redux'
 import styled from 'styled-components'
 
 import { BLUE, PINK } from '../../common/constants/palette'
@@ -10,6 +10,7 @@ import Button from '../components/Button'
 import Panel from '../components/Panel'
 import PolicyDocumentThumbnail from '../components/PolicyDocumentThumbnail'
 
+// tslint:disable-next-line:no-var-requires
 const Dropzone = require('react-dropzone')
 
 import { RouteComponentProps } from 'react-router'
@@ -18,21 +19,17 @@ import {
   uploadPolicyDocuments,
 } from '../../common/store/policies/actions'
 import {
-  Dispatch,
-  MotorPolicy,
-  MotorPolicyMap,
-  PolicyDocument,
-  ReduxState,
+  IMotorPolicy,
+  IMotorPolicyMap,
+  IPolicyDocument,
+  IReduxState,
 } from '../../common/types'
 import Container from '../components/Container'
 import ScrollToTopOnMount from '../components/ScrollToTopOnMount'
 import { getFile } from '../upload'
 
-interface PolicyDocumentsScreenProps {
-  // eslint-disable-next-line react/no-unused-prop-types
-  dispatch: Dispatch
-  // eslint-disable-next-line react/no-unused-prop-types
-  policies: MotorPolicyMap
+interface IProps extends DispatchProp<any> {
+  policies: IMotorPolicyMap
   initialised: boolean
 }
 
@@ -76,56 +73,9 @@ const BrowseFilesButton = Button.extend`
 `
 
 class PolicyDocumentsScreen extends React.Component<
-  PolicyDocumentsScreenProps & RouteComponentProps<any>
+  IProps & RouteComponentProps<any>
 > {
-  handleBrowseFilesPress = () => {
-    getFile().then(file => {
-      const match = this.props.match
-      const policyId = match.params.policyId
-
-      if (typeof policyId === 'string')
-        this.props.dispatch(
-          uploadPolicyDocument({
-            policyId,
-            file,
-          }),
-        )
-      else throw new TypeError('policyId must be of type string')
-    })
-  }
-
-  getPolicy(): MotorPolicy | null {
-    const policyId = this.props.match.params.policyId
-    let policy: MotorPolicy | null = null
-
-    // Typecheck demanded by Flow
-    if (typeof policyId === 'string') {
-      policy = this.props.policies[policyId]
-    } else {
-      throw new TypeError(
-        'PolicyDetailsScreen was expecting a policyId of type string in the navigation params.',
-      )
-    }
-
-    if (!policy && this.props.initialised) {
-      throw new Error(
-        `Policy with id ${policyId} does not exist so cannot render the policy details screen`,
-      )
-    }
-
-    return policy
-  }
-
-  handleDrop = acceptedFiles => {
-    const policyId = this.props.match.params.policyId
-
-    // Flow type check
-    if (typeof policyId === 'string')
-      this.props.dispatch(uploadPolicyDocuments(acceptedFiles, policyId))
-    else throw new TypeError('policyId must be a string')
-  }
-
-  render() {
+  public render() {
     const policy = this.getPolicy()
     const documents = _.values(policy ? policy.documents : {})
 
@@ -142,7 +92,7 @@ class PolicyDocumentsScreen extends React.Component<
                   flexWrap: 'wrap',
                 }}
               >
-                {documents.map((d: PolicyDocument) => {
+                {documents.map((d: IPolicyDocument) => {
                   return (
                     <PolicyDocumentThumbnail
                       key={d.id}
@@ -175,9 +125,56 @@ class PolicyDocumentsScreen extends React.Component<
       </Container>
     )
   }
+
+  private handleBrowseFilesPress = () => {
+    getFile().then(file => {
+      const match = this.props.match
+      const policyId = match.params.policyId
+
+      if (typeof policyId === 'string')
+        this.props.dispatch(
+          uploadPolicyDocument({
+            policyId,
+            file,
+          }),
+        )
+      else throw new TypeError('policyId must be of type string')
+    })
+  }
+
+  private getPolicy(): IMotorPolicy | null {
+    const policyId = this.props.match.params.policyId
+    let policy: IMotorPolicy | null = null
+
+    // Typecheck demanded by Flow
+    if (typeof policyId === 'string') {
+      policy = this.props.policies[policyId]
+    } else {
+      throw new TypeError(
+        'PolicyDetailsScreen was expecting a policyId of type string in the navigation params.',
+      )
+    }
+
+    if (!policy && this.props.initialised) {
+      throw new Error(
+        `Policy with id ${policyId} does not exist so cannot render the policy details screen`,
+      )
+    }
+
+    return policy
+  }
+
+  private handleDrop = acceptedFiles => {
+    const policyId = this.props.match.params.policyId
+
+    // Flow type check
+    if (typeof policyId === 'string')
+      this.props.dispatch(uploadPolicyDocuments(acceptedFiles, policyId))
+    else throw new TypeError('policyId must be a string')
+  }
 }
 
-const mapStateToProps = (state: ReduxState) => ({
+const mapStateToProps = (state: IReduxState) => ({
   policies: selectPolicies(state),
 })
 

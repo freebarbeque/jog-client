@@ -10,11 +10,11 @@ import {
   setRegisterError,
 } from './actions'
 
-import { LoginAction, PasswordResetAction, RegisterAction } from './actions'
+import { ILoginAction, IPasswordResetAction, IRegisterAction } from './actions'
 
 import { getNavigationAdapter } from '../../index'
 
-function* login(action: LoginAction) {
+function* login(action: ILoginAction) {
   const { email, password } = action
 
   try {
@@ -35,7 +35,7 @@ function* login(action: LoginAction) {
   }
 }
 
-function* register(action: RegisterAction) {
+function* register(action: IRegisterAction) {
   // key refers to the key of the route that we will gEo back from e.g. in this case, the AuthNavigator which is a modal
   const { email, password } = action
   try {
@@ -50,7 +50,7 @@ function* register(action: RegisterAction) {
   }
 }
 
-function* passwordReset(action: PasswordResetAction) {
+function* passwordReset(action: IPasswordResetAction) {
   const { email } = action
   try {
     yield put(setLoading(true))

@@ -2,6 +2,7 @@ import MaterialUIDatePicker from 'material-ui/DatePicker'
 import * as React from 'react'
 import styled from 'styled-components'
 
+// tslint:disable-next-line:no-var-requires
 const moment = require('moment')
 
 import { BLUE, WHITE } from '../../common/constants/palette'
@@ -32,18 +33,14 @@ const Segment = styled.div`
   height: 60px;
 `
 
-interface JogDatePickerProps extends DatePickerProps {
+interface IJogDatePickerProps extends DatePickerProps {
   value: Date
 }
 
-export default class DatePicker extends React.Component<JogDatePickerProps> {
-  picker: any
+export default class DatePicker extends React.Component<IJogDatePickerProps> {
+  private picker: any
 
-  hackyPickerPress = () => {
-    this.picker.handleTouchTap()
-  }
-
-  render() {
+  public render() {
     const date = moment(this.props.value).format('MMM DD YYYY')
 
     console.log('date', date)
@@ -84,5 +81,9 @@ export default class DatePicker extends React.Component<JogDatePickerProps> {
         />
       </Button>
     )
+  }
+
+  private hackyPickerPress = () => {
+    this.picker.handleTouchTap()
   }
 }

@@ -1,28 +1,19 @@
 import * as React from 'react'
-import { connect } from 'react-redux'
+import { connect, DispatchProp } from 'react-redux'
 import { push } from 'react-router-redux'
 
 import { updateManualPolicy } from '../../common/store/screens/addManualPolicy/actions'
-import { ManualPolicyUpdate } from '../../common/store/screens/addManualPolicy/actions'
-import { Dispatch, ReduxState } from '../../common/types'
+import { IManualPolicyUpdate } from '../../common/store/screens/addManualPolicy/actions'
+import { Dispatch, IReduxState } from '../../common/types'
 import AccessoryInput from '../components/AccessoryInput'
 import AddPolicyScreenContainer from '../components/AddPolicyScreenContainer'
 
-interface PolicyCostScreenProps {
-  dispatch: Dispatch
-  policy: ManualPolicyUpdate
+interface IProps extends DispatchProp<any> {
+  policy: IManualPolicyUpdate
 }
 
-class PolicyCostScreen extends React.Component<PolicyCostScreenProps> {
-  handleNextPress = () => {
-    this.props.dispatch(push('/app/addManualPolicy/vehicleRegistration'))
-  }
-
-  handleChange = e => {
-    this.props.dispatch(updateManualPolicy({ cost: e.target.value }))
-  }
-
-  render() {
+class PolicyCostScreen extends React.Component<IProps> {
+  public render() {
     const cost = this.props.policy.cost
     const disabled = cost === undefined || cost === null
 
@@ -43,9 +34,17 @@ class PolicyCostScreen extends React.Component<PolicyCostScreenProps> {
       </AddPolicyScreenContainer>
     )
   }
+
+  private handleNextPress = () => {
+    this.props.dispatch(push('/app/addManualPolicy/vehicleRegistration'))
+  }
+
+  private handleChange = e => {
+    this.props.dispatch(updateManualPolicy({ cost: e.target.value }))
+  }
 }
 
-const mapStateToProps = (state: ReduxState) => ({
+const mapStateToProps = (state: IReduxState) => ({
   policy: state.screens.addManualPolicy,
 })
 

@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { SelectQuestionDescriptor } from '../../../business/types'
+import { ISelectQuestionDescriptor } from '../../../business/types'
 import { PINK } from '../../../common/constants/palette'
 import { MARGIN } from '../../../common/constants/style'
 import QuestionField from './QuestionField'
@@ -7,9 +7,9 @@ import SelectBox from './SelectBox'
 
 const SpecialSelectBox = SelectBox.extend`background-color: ${PINK};`
 
-interface SelectQuestionProps<T> {
-  descriptor: SelectQuestionDescriptor<T>
-  value: T
+interface ISelectQuestionProps<T> {
+  descriptor: ISelectQuestionDescriptor<T>
+  value?: T
   onChange: (id: string, value: T) => void
   onBlur?: () => void
   onFocus?: () => void
@@ -20,7 +20,7 @@ interface SelectQuestionProps<T> {
 }
 
 export default class SelectQuestion<T> extends React.Component<
-  SelectQuestionProps<T>
+  ISelectQuestionProps<T>
 > {
   public render() {
     const onSpecialOptionClick =

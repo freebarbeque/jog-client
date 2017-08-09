@@ -1,6 +1,6 @@
 import * as _ from 'lodash'
 import uuid from 'uuid/v4'
-import { Address, TextQuestionDescriptor } from './types'
+import { IAddress, ITextQuestionDescriptor } from './types'
 import { validate } from './validation'
 
 // export interface Address {
@@ -15,42 +15,42 @@ import { validate } from './validation'
 //   /* ... */
 // }
 
-export const nicknameQuestion: TextQuestionDescriptor = {
+export const nicknameQuestion: ITextQuestionDescriptor = {
   id: 'address/nickname',
   type: 'text',
   questionText: 'Nick name',
   required: true,
 }
 
-export const firstLineQuestion: TextQuestionDescriptor = {
+export const firstLineQuestion: ITextQuestionDescriptor = {
   id: 'address/first-line',
   type: 'text',
   questionText: 'First line',
   required: true,
 }
 
-export const secondLineQuestion: TextQuestionDescriptor = {
+export const secondLineQuestion: ITextQuestionDescriptor = {
   id: 'address/second-line',
   type: 'text',
   questionText: 'Second line',
   required: false,
 }
 
-export const cityQuestion: TextQuestionDescriptor = {
+export const cityQuestion: ITextQuestionDescriptor = {
   id: 'address/city',
   type: 'text',
   questionText: 'City',
   required: true,
 }
 
-export const provinceQuestion: TextQuestionDescriptor = {
+export const provinceQuestion: ITextQuestionDescriptor = {
   id: 'address/province',
   type: 'text',
   questionText: 'Province/County',
   required: false,
 }
 
-export const postCodeQuestion: TextQuestionDescriptor = {
+export const postCodeQuestion: ITextQuestionDescriptor = {
   id: 'address/post-code',
   type: 'text',
   questionText: 'Post Code',
@@ -74,11 +74,11 @@ export const questions = [
 
 export const questionMap = _.keyBy(questions, q => q.id)
 
-export function constructAddress(answers: { [id: string]: string }): Address {
+export function constructAddress(answers: { [id: string]: string }): IAddress {
   if (validate(questions, answers).hasError) {
     throw new Error('Address questions should have passed validation.')
   } else {
-    const address: Address = {
+    const address: IAddress = {
       id: uuid(),
       name: '',
       firstLine: answers['address/first-line'] || '',

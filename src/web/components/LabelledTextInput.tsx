@@ -4,6 +4,7 @@ import { PINK } from '../../common/constants/palette'
 import { MARGIN } from '../../common/constants/style'
 import Input from './Input'
 
+// tslint:disable-next-line:no-var-requires
 const FontAwesome = require('react-fontawesome')
 
 // language=SCSS prefix=dummy{ suffix=}
@@ -22,13 +23,13 @@ const ErrorText = styled.div`
   font-size: 11px;
 `
 
-interface Props extends React.InputHTMLAttributes<HTMLInputElement> {
+interface IProps extends React.InputHTMLAttributes<HTMLInputElement> {
   label: string
   error: string
 }
 
-export default class LabelledTextInput extends React.Component<Props> {
-  render() {
+export default class LabelledTextInput extends React.Component<IProps> {
+  public render() {
     const { label, error, ...props } = this.props
 
     return (

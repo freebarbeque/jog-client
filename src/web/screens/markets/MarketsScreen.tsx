@@ -6,7 +6,7 @@ import { Redirect, Route, Switch } from 'react-router'
 const uuid = require('uuid/v4')
 
 import { IMarketsReduxState } from '../../../common/store/markets/index'
-import { Dispatch, ReduxState } from '../../../common/types'
+import { Dispatch, IReduxState } from '../../../common/types'
 
 import Container from '../../components/Container'
 import AddressScreen from './AddressScreen'

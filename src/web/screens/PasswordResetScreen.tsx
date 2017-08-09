@@ -1,6 +1,6 @@
 import { FlatButton } from 'material-ui'
 import * as React from 'react'
-import { connect } from 'react-redux'
+import { connect, DispatchProp } from 'react-redux'
 import { Link } from 'react-router-dom'
 
 import { DARK_GRAY } from '../../common/constants/palette'
@@ -11,9 +11,9 @@ import {
 } from '../../common/store/screens/auth/actions'
 import {
   Dispatch,
-  ReduxState,
-  ValidationErrorsMap,
-  ValuesMap,
+  IReduxState,
+  IValidationErrorsMap,
+  IValuesMap,
 } from '../../common/types'
 import { emailField } from '../../native/components/Form/fields'
 import FlexCentredContainer from '../components/FlexCentredContainer'
@@ -21,37 +21,18 @@ import Form from '../components/Form'
 import Title from '../components/Title'
 import { NAVIGATION_BAR_HEIGHT } from '../constants/style'
 
-interface PasswordResetScreenProps {
-  dispatch: Dispatch
-  values: ValuesMap
-  validationErrors: ValidationErrorsMap
+interface IProps extends DispatchProp<any> {
+  values: IValuesMap
+  validationErrors: IValidationErrorsMap
   passwordResetError: string | null
   loading: boolean
   errors: { [key: string]: string }
 }
 
-class PasswordResetScreen extends React.Component<PasswordResetScreenProps> {
-  static formFields = [emailField]
+class PasswordResetScreen extends React.Component<IProps> {
+  private static formFields = [emailField]
 
-  handleSubmit = values => {
-    const { email } = values
-    this.props.dispatch(passwordReset(email))
-  }
-
-  renderFormAccessory() {
-    return (
-      <div style={{ display: 'flex', flexDirection: 'row' }}>
-        <FlatButton
-          style={{ fontWeight: 500, fontSize: 11, color: DARK_GRAY }}
-          containerElement={<Link to="/auth/login" />}
-        >
-          KNOW YOUR PASSWORD?
-        </FlatButton>
-      </div>
-    )
-  }
-
-  render() {
+  public render() {
     return (
       <FlexCentredContainer style={{ paddingBottom: NAVIGATION_BAR_HEIGHT }}>
         <Title>Password Reset</Title>
@@ -74,9 +55,27 @@ class PasswordResetScreen extends React.Component<PasswordResetScreenProps> {
       </FlexCentredContainer>
     )
   }
+
+  private handleSubmit = values => {
+    const { email } = values
+    this.props.dispatch(passwordReset(email))
+  }
+
+  private renderFormAccessory() {
+    return (
+      <div style={{ display: 'flex', flexDirection: 'row' }}>
+        <FlatButton
+          style={{ fontWeight: 500, fontSize: 11, color: DARK_GRAY }}
+          containerElement={<Link to="/auth/login" />}
+        >
+          KNOW YOUR PASSWORD?
+        </FlatButton>
+      </div>
+    )
+  }
 }
 
-const mapStateToProps = (state: ReduxState) => ({
+const mapStateToProps = (state: IReduxState) => ({
   ...state.screens.auth,
 })
 

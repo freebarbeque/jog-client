@@ -1,7 +1,7 @@
 import * as React from 'react'
-import { connect } from 'react-redux'
+import { connect, DispatchProp } from 'react-redux'
 import { addDriver, setDriverAnswer } from '../../../common/store/markets/index'
-import { Dispatch, ReduxState } from '../../../common/types'
+import { Dispatch, IReduxState } from '../../../common/types'
 
 import {
   constructDriver,
@@ -16,28 +16,19 @@ import QuestionSet from '../../components/Questions/QuestionSet'
 import RoundedButton from '../../components/RoundedButton'
 import Header from './Header'
 
-interface Props {
+interface IProps extends DispatchProp<any> {
   driverAnswers: { [id: string]: any }
-  dispatch: Dispatch
 }
 
-interface State {
+interface IState {
   errors?: IValidationErrors
   blurred: { [id: string]: boolean }
 }
 
-class DriverScreen extends React.Component<Props> {
-  private questionSetComp: QuestionSet
+class DriverScreen extends React.Component<IProps> {
+  private questionSetComp: QuestionSet | null
 
-  handleAddClick = () => {
-    const errors = this.questionSetComp.validateAllFields()
-    if (!errors.hasError) {
-      const driver = constructDriver(this.props.driverAnswers)
-      this.props.dispatch(addDriver(driver))
-    }
-  }
-
-  render() {
+  public render() {
     return (
       <Container className="DriversScreen">
         <Panel>
@@ -65,8 +56,18 @@ class DriverScreen extends React.Component<Props> {
       </Container>
     )
   }
+
+  private handleAddClick = () => {
+    if (!this.questionSetComp) throw new Error('No question set?')
+
+    const errors = this.questionSetComp.validateAllFields()
+    if (!errors.hasError) {
+      const driver = constructDriver(this.props.driverAnswers)
+      this.props.dispatch(addDriver(driver))
+    }
+  }
 }
 
-export default connect((state: ReduxState) => ({
+export default connect((state: IReduxState) => ({
   driverAnswers: state.markets.driverAnswers,
 }))(DriverScreen)

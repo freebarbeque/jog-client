@@ -1,20 +1,18 @@
 import * as React from 'react'
 
-import { MotorPolicy } from '../../../common/types'
+import { IMotorPolicy } from '../../../common/types'
 import FirebaseImage from '../../components/FirebaseImage'
 import { Car, Plus } from '../../components/images/index'
 import PolicyCard from './PolicyCard'
 
-export interface MotorPolicyCardProps {
-  policy: MotorPolicy
+export interface IProps {
+  policy: IMotorPolicy
   onPress: () => void
   index: number
 }
 
-export default class MotorPolicyCard extends React.Component {
-  props: MotorPolicyCardProps
-
-  render() {
+export default class MotorPolicyCard extends React.Component<IProps> {
+  public render() {
     const policy = this.props.policy
     const description = policy.complete
       ? 'Add more details'

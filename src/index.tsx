@@ -20,6 +20,7 @@ import history from './web/history'
 import { WebNavigationAdapter } from './web/WebNavigationAdapter'
 import WebUploadAdapter from './web/WebUploadAdapter'
 
+// tslint:disable-next-line:no-var-requires
 const injectTapEventPlugin = require('react-tap-event-plugin')
 
 const BLUE = '#131733'

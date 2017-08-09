@@ -4,15 +4,15 @@ import uuid from 'uuid/v4'
 
 import { demandCurrentUser } from '../../../data/auth'
 import { setMotorPolicy } from '../../../data/policies'
-import { MotorPolicy } from '../../../types'
+import { IMotorPolicy } from '../../../types'
 import { declareError } from '../../errors/actions'
 
 import { getNavigationAdapter } from '../../index'
-import { ManualPolicyUpdate, SavePolicyAction } from './actions'
+import { IManualPolicyUpdate, ISavePolicyAction } from './actions'
 
-function* savePolicyTask(action: SavePolicyAction) {
-  const policyUpdate: ManualPolicyUpdate = action.policy
-  const policy: MotorPolicy = {}
+function* savePolicyTask(action: ISavePolicyAction) {
+  const policyUpdate: IManualPolicyUpdate = action.policy
+  const policy: IMotorPolicy = {}
 
   policy.ownership = policyUpdate.ownership
   policy.vehicleRegistration = policyUpdate.vehicleRegistration

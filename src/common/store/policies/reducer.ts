@@ -1,4 +1,4 @@
-import { PoliciesState } from '../../types'
+import { IPoliciesState } from '../../types'
 import { PoliciesAction } from './actionTypes'
 
 const DEFAULT_STATE = {
@@ -7,9 +7,9 @@ const DEFAULT_STATE = {
 }
 
 export default function reducer(
-  state: PoliciesState = DEFAULT_STATE,
+  state: IPoliciesState = DEFAULT_STATE,
   action: PoliciesAction,
-): PoliciesState {
+): IPoliciesState {
   if (action.type === 'policies/RECEIVE_MOTOR_POLICIES') {
     return {
       ...state,

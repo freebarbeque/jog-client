@@ -14,7 +14,7 @@ import {
 } from 'redux-saga/effects'
 
 import { goBack } from 'react-router-redux'
-import { Address, Car, IQuoteRequest, Person } from '../../../business/types'
+import { IAddress, ICar, IPerson, IQuoteRequest } from '../../../business/types'
 import { demandCurrentUser } from '../../data/auth'
 import {
   setAddress,
@@ -57,7 +57,7 @@ export interface ISetDriverAnswerAction {
 
 export interface IAddDriverAction {
   type: 'markets/drivers/ADD_DRIVER'
-  driver: Person
+  driver: IPerson
 }
 
 export interface ISetCarAnswer {
@@ -68,7 +68,7 @@ export interface ISetCarAnswer {
 
 export interface IAddCarAction {
   type: 'markets/cars/ADD_CAR'
-  car: Car
+  car: ICar
 }
 
 export interface ISyncCarsAction {
@@ -82,7 +82,7 @@ export interface IUnsyncCarsAction {
 
 export interface IReceiveCarsAction {
   type: 'markets/cars/RECEIVE_CARS'
-  cars: { [id: string]: Car }
+  cars: { [id: string]: ICar }
 }
 
 export interface ISyncDriversAction {
@@ -96,12 +96,12 @@ export interface IUnsyncDriversAction {
 
 export interface IReceiveDriversAction {
   type: 'markets/drivers/RECEIVE_DRIVERS'
-  drivers: { [id: string]: Person }
+  drivers: { [id: string]: IPerson }
 }
 
 export interface IAddAddressAction {
   type: 'markets/addresses/ADD_ADDRESS'
-  address: Address
+  address: IAddress
 }
 
 export interface ISyncAddressesAction {
@@ -115,7 +115,7 @@ export interface IUnsyncAddressesAction {
 
 export interface IReceiveAddressesAction {
   type: 'markets/addresses/RECEIVE_ADDRESSES'
-  addresses: { [id: string]: Address }
+  addresses: { [id: string]: IAddress }
 }
 
 export type MarketsAction =
@@ -189,7 +189,7 @@ export function setDriverAnswer(
   }
 }
 
-export function addAddress(address: Address): IAddAddressAction {
+export function addAddress(address: IAddress): IAddAddressAction {
   return {
     type: 'markets/addresses/ADD_ADDRESS',
     address,
@@ -210,7 +210,7 @@ export function unsyncAddressesAction(): IUnsyncAddressesAction {
 }
 
 export function receiveAddresses(addresses: {
-  [id: string]: Address
+  [id: string]: IAddress
 }): IReceiveAddressesAction {
   return {
     type: 'markets/addresses/RECEIVE_ADDRESSES',
@@ -218,14 +218,14 @@ export function receiveAddresses(addresses: {
   }
 }
 
-export function addDriver(driver: Person): IAddDriverAction {
+export function addDriver(driver: IPerson): IAddDriverAction {
   return {
     type: 'markets/drivers/ADD_DRIVER',
     driver,
   }
 }
 
-export function addCar(car: Car): IAddCarAction {
+export function addCar(car: ICar): IAddCarAction {
   return {
     type: 'markets/cars/ADD_CAR',
     car,
@@ -245,7 +245,7 @@ export function unsyncCarsAction(): IUnsyncCarsAction {
   }
 }
 
-export function receiveCars(cars: { [id: string]: Car }): IReceiveCarsAction {
+export function receiveCars(cars: { [id: string]: ICar }): IReceiveCarsAction {
   return {
     type: 'markets/cars/RECEIVE_CARS',
     cars,
@@ -266,7 +266,7 @@ export function unsyncDriversAction(): IUnsyncDriversAction {
 }
 
 export function receiveDrivers(drivers: {
-  [id: string]: Person
+  [id: string]: IPerson
 }): IReceiveDriversAction {
   return {
     type: 'markets/drivers/RECEIVE_DRIVERS',
@@ -440,9 +440,9 @@ export interface IMarketsReduxState {
   motorAnswers: { [id: string]: any }
   driverAnswers: { [id: string]: any }
   carAnswers: { [id: string]: any }
-  addresses: { [id: string]: Address }
-  drivers: { [id: string]: Person }
-  cars: { [id: string]: Car }
+  addresses: { [id: string]: IAddress }
+  drivers: { [id: string]: IPerson }
+  cars: { [id: string]: ICar }
   quoteRequests: { [id: string]: IQuoteRequest }
 }
 

@@ -1,4 +1,4 @@
-import { AuthScreensReduxState } from '../../../types'
+import { IAuthScreensReduxState } from '../../../types'
 import { CommonAuthAction } from './actions'
 
 const DEFAULT_STATE = {
@@ -9,9 +9,9 @@ const DEFAULT_STATE = {
 }
 
 export default function reducer(
-  state: AuthScreensReduxState = DEFAULT_STATE,
+  state: IAuthScreensReduxState = DEFAULT_STATE,
   action: CommonAuthAction,
-): AuthScreensReduxState {
+): IAuthScreensReduxState {
   if (action.type === 'screens/auth/SET_VALUES') {
     return {
       ...state,

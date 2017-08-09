@@ -1,6 +1,6 @@
 import * as _ from 'lodash'
 import * as React from 'react'
-import { connect } from 'react-redux'
+import { connect, DispatchProp } from 'react-redux'
 import { Route, Switch } from 'react-router-dom'
 import { push } from 'react-router-redux'
 import styled from 'styled-components'
@@ -8,10 +8,9 @@ import styled from 'styled-components'
 import { MARGIN } from '../../../common/constants/style'
 import { selectInitialisedPolicies } from '../../../common/store/policies/selectors'
 import {
-  Dispatch,
-  MotorPolicy,
-  MotorPolicyMap,
-  ReduxState,
+  IMotorPolicy,
+  IMotorPolicyMap,
+  IReduxState,
 } from '../../../common/types'
 import Container from '../../components/Container'
 import ScrollToTopOnMount from '../../components/ScrollToTopOnMount'
@@ -22,9 +21,8 @@ import PolicyScreen from '../PolicyScreen'
 import AddMotorPolicyCard from './AddMotorPolicyCard'
 import MotorPolicyCard from './MotorPolicyCard'
 
-interface PoliciesTabProps {
-  policies: MotorPolicyMap
-  dispatch: Dispatch
+interface IProps extends DispatchProp<any> {
+  policies: IMotorPolicyMap
 }
 
 // language=SCSS prefix=dummy{ suffix=}
@@ -48,22 +46,40 @@ const PoliciesList = styled.div`
   `};
 `
 
-class PoliciesTab extends React.Component<PoliciesTabProps> {
-  componentDidMount() {}
+class PoliciesTab extends React.Component<IProps> {
+  public render() {
+    return (
+      <Switch>
+        <Route
+          path="/app/tabs/policies"
+          exact
+          render={() => {
+            const numPolicies = _.values(this.props.policies).length
+            return numPolicies ? this.renderPolicies() : this.renderNoPolicies()
+          }}
+        />
+        <Route
+          path="/app/tabs/policies/addPolicy"
+          component={AddPolicyScreen}
+        />
+        <Route path="/app/tabs/policies/:policyId" component={PolicyScreen} />
+      </Switch>
+    )
+  }
 
-  handlePolicyPress(p: MotorPolicy) {
+  private handlePolicyPress(p: IMotorPolicy) {
     this.props.dispatch(push(`/app/tabs/policies/${p.id}`))
   }
 
-  handleAddPolicyPress = () => {
+  private handleAddPolicyPress = () => {
     this.props.dispatch(push('/app/tabs/policies/addPolicy'))
   }
 
-  renderNoPolicies() {
+  private renderNoPolicies() {
     return <GetStartedScreen />
   }
 
-  renderPolicies() {
+  private renderPolicies() {
     const policies = this.props.policies
 
     return (
@@ -83,29 +99,9 @@ class PoliciesTab extends React.Component<PoliciesTabProps> {
       </Container>
     )
   }
-
-  render() {
-    return (
-      <Switch>
-        <Route
-          path="/app/tabs/policies"
-          exact
-          render={() => {
-            const numPolicies = _.values(this.props.policies).length
-            return numPolicies ? this.renderPolicies() : this.renderNoPolicies()
-          }}
-        />
-        <Route
-          path="/app/tabs/policies/addPolicy"
-          component={AddPolicyScreen}
-        />
-        <Route path="/app/tabs/policies/:policyId" component={PolicyScreen} />
-      </Switch>
-    )
-  }
 }
 
-const mapStateToProps = (state: ReduxState) => {
+const mapStateToProps = (state: IReduxState) => {
   return {
     policies: selectInitialisedPolicies(state),
   }

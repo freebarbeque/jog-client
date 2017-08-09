@@ -3,7 +3,8 @@ export type Gender = 'male' | 'female'
 export type QuoteRequestStatus = 'complete' | 'incomplete' | 'pending'
 export type HandDrive = 'right' | 'left'
 export type Alarm = 'none' | 'cat1' | 'cat2' | 'other'
-export interface VehicleModification {
+
+export interface IVehicleModification {
   category: string
   subcategory: string
 }
@@ -31,7 +32,7 @@ export type DrivingRestriction =
   | 'advised-not-to-drive-by-doctor'
 
 // Models
-export interface Car {
+export interface ICar {
   id: string
   registration: string
   model: string
@@ -43,7 +44,7 @@ export interface Car {
   numSeats: number
   trackingDevice: boolean
   alarm: Alarm
-  modifications: VehicleModification[]
+  modifications: IVehicleModification[]
   purchasedDate: Date | null
   owner: Owner
   registeredKeeper: Owner
@@ -58,13 +59,13 @@ export const MotoringIncidentTypes = {
   vandalism: 'Vandalism',
 }
 
-export interface MotoringIncident {
+export interface IMotoringIncident {
   date: string
   type: keyof typeof MotoringIncidentTypes
   noClaimsDamage: boolean
 }
 
-export interface MotoringConviction {
+export interface IMotoringConviction {
   date: string
   dvlaOffenceCode: string
   points: number
@@ -72,15 +73,15 @@ export interface MotoringConviction {
   bannedMonths: number | null
 }
 
-export interface Person {
+export interface IPerson {
   id: string
   firstName: string
   lastName: string
   gender: Gender
   dob: string
   motoring?: {
-    convictions?: MotoringConviction[]
-    incidents?: MotoringIncident[]
+    convictions?: IMotoringConviction[]
+    incidents?: IMotoringIncident[]
     licenseNumber?: string
     car?: {
       noClaims?: number
@@ -91,10 +92,10 @@ export interface Person {
       yearsDriving?: number
     }
   }
-  address?: Address
+  address?: IAddress
 }
 
-export interface Address {
+export interface IAddress {
   id: string
   name: string
   firstLine: string
@@ -110,7 +111,7 @@ export interface Address {
 
 // Questions
 
-export interface BaseQuestionDescriptor<T> {
+export interface IBaseQuestionDescriptor<T> {
   id: string
   type: any
   questionText: string
@@ -120,75 +121,78 @@ export interface BaseQuestionDescriptor<T> {
   required?: boolean
 }
 
-export interface NullableBaseQuestionDescriptor<T>
-  extends BaseQuestionDescriptor<T | null> {}
+// tslint:disable-next-line:no-empty-interface
+export interface INullableBaseQuestionDescriptor<T>
+  extends IBaseQuestionDescriptor<T | null> {}
 
-export interface TextQuestionDescriptor extends BaseQuestionDescriptor<string> {
+export interface ITextQuestionDescriptor
+  extends IBaseQuestionDescriptor<string> {
   type: 'text'
   minLength?: number
   maxLength?: number
 }
 
-export interface NullableTextQuestionDescriptor
-  extends NullableBaseQuestionDescriptor<string> {
+export interface INullableTextQuestionDescriptor
+  extends INullableBaseQuestionDescriptor<string> {
   type: 'nullable-text'
   minLength?: number
   maxLength?: number
 }
 
-export interface DateQuestionDescriptor extends BaseQuestionDescriptor<Date> {
+export interface IDateQuestionDescriptor extends IBaseQuestionDescriptor<Date> {
   type: 'date'
 }
 
-export interface NullableDateQuestionDescriptor
-  extends NullableBaseQuestionDescriptor<Date> {
+export interface INullableDateQuestionDescriptor
+  extends INullableBaseQuestionDescriptor<Date> {
   type: 'nullable-date'
 }
 
-export interface NumericQuestionDescriptor
-  extends BaseQuestionDescriptor<number> {
+export interface INumericQuestionDescriptor
+  extends IBaseQuestionDescriptor<number> {
   type: 'numeric'
 }
 
-export interface SelectQuestionDescriptor<T> extends BaseQuestionDescriptor<T> {
+export interface ISelectQuestionDescriptor<T>
+  extends IBaseQuestionDescriptor<T> {
   type: 'select'
   options: Array<{ label: string; value: T }>
 }
 
-export interface NullableSelectQuestionDescriptor<T>
-  extends NullableBaseQuestionDescriptor<T> {
+export interface INullableSelectQuestionDescriptor<T>
+  extends INullableBaseQuestionDescriptor<T> {
   type: 'nullable-select'
   options: Array<{ label: string; value: T }>
 }
 
-export interface MultiSelectQuestionDescriptor<T>
-  extends BaseQuestionDescriptor<T[]> {
+export interface IMultiSelectQuestionDescriptor<T>
+  extends IBaseQuestionDescriptor<T[]> {
   type: 'multiselect'
   options: Array<{ label: string; value: T }>
 }
 
-export interface BooleanDependentQuestionDescriptor<
-  T extends BaseQuestionDescriptor<any>
-> extends BaseQuestionDescriptor<boolean> {
+export interface IBooleanDependentQuestionDescriptor<
+  T extends IBaseQuestionDescriptor<any>
+> extends IBaseQuestionDescriptor<boolean> {
   type: 'boolean-dependent'
   dependentQuestions: T[]
   reverse?: boolean
 }
 
 export interface IBooleanQuestionDescriptor
-  extends BaseQuestionDescriptor<boolean> {
+  extends IBaseQuestionDescriptor<boolean> {
   type: 'boolean'
 }
 
 export interface INullableBooleanQuestionDescriptor
-  extends NullableBaseQuestionDescriptor<boolean> {
+  extends INullableBaseQuestionDescriptor<boolean> {
   type: 'nullable-boolean'
 }
 
 export type BasicQuestion =
-  | TextQuestionDescriptor
-  | NullableTextQuestionDescriptor
-  | NumericQuestionDescriptor
+  | ITextQuestionDescriptor
+  | INullableTextQuestionDescriptor
+  | INumericQuestionDescriptor
   | IBooleanQuestionDescriptor
   | INullableBooleanQuestionDescriptor
 
@@ -210,8 +214,8 @@ export interface IQuoteRequest {
   qualifications?: IDrivingQualification[]
   dvlaAwareMedicalConditions?: DrivingRestriction | null
   otherCars?: string[]
-  motoringConvictions?: MotoringConviction[]
-  motoringIncidents?: MotoringIncident[]
+  motoringConvictions?: IMotoringConviction[]
+  motoringIncidents?: IMotoringIncident[]
   noClaimsDiscount?: number
   startDate?: Date
   status?: 'incomplete' | 'pending' | 'complete'

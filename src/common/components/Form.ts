@@ -3,41 +3,28 @@
 import * as _ from 'lodash'
 import { Component, FormHTMLAttributes } from 'react'
 
-import { FormField, ValidationErrorsMap, ValuesMap } from '../types'
+import { FormField, IValidationErrorsMap, IValuesMap } from '../types'
 
-export interface FormProps {
+export interface IFormProps {
   fields: FormField[]
   error?: string | null
   buttonLabel: string
   accessory?: any
   onSubmit: (values: { [key: string]: string }) => void
   disabled?: boolean
-  validationErrors: ValidationErrorsMap
-  values: ValuesMap
-  onValidationErrorsChanged: (errors: ValidationErrorsMap) => void
-  onValuesChanged: (errors: ValuesMap) => void
+  validationErrors: IValidationErrorsMap
+  values: IValuesMap
+  onValidationErrorsChanged: (errors: IValidationErrorsMap) => void
+  onValuesChanged: (errors: IValuesMap) => void
   style?: any
 }
 
-export default class Form extends Component<FormProps> {
-  validateField(f: FormField): string | null {
-    if (f.type === 'text' && f.validate) {
-      const value = this.props.values[f.key]
-      return f.validate(value)
-    }
+export default class Form extends Component<IFormProps> {
+  public render(): any {
     return null
   }
 
-  validate(): { [key: string]: string | null } {
-    const validationErrors = {}
-    this.props.fields.forEach((f: FormField) => {
-      validationErrors[f.key] = this.validateField(f)
-    })
-
-    return validationErrors
-  }
-
-  handleBlur = (f: FormField) => {
+  protected handleBlur = (f: FormField) => {
     const error = this.validateField(f)
     if (error) {
       const validationErrors = { ...this.props.validationErrors }
@@ -46,7 +33,7 @@ export default class Form extends Component<FormProps> {
     }
   }
 
-  handleSubmit = (): void => {
+  protected handleSubmit = (): void => {
     const validationErrors = this.validate()
     const hasValidationErrors = _.some(_.values(validationErrors))
     if (!hasValidationErrors) {
@@ -56,7 +43,20 @@ export default class Form extends Component<FormProps> {
     }
   }
 
-  render(): any {
+  protected validateField(f: FormField): string | null {
+    if (f.type === 'text' && f.validate) {
+      const value = this.props.values[f.key]
+      return f.validate(value)
+    }
     return null
+  }
+
+  protected validate(): { [key: string]: string | null } {
+    const validationErrors = {}
+    this.props.fields.forEach((f: FormField) => {
+      validationErrors[f.key] = this.validateField(f)
+    })
+
+    return validationErrors
   }
 }

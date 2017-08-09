@@ -1,39 +1,39 @@
 // @flow
 
-export interface SubscribePushNotificationsAction {
+export interface ISubscribePushNotificationsAction {
   type: 'push/SUBSCRIBE_PUSH_NOTIFICATIONS'
 }
 
-export interface UnsubscribePushNotificationsAction {
+export interface IUnsubscribePushNotificationsAction {
   type: 'push/UNSUBSCRIBE_PUSH_NOTIFICATIONS'
 }
 
-export interface EnablePushNotifications {
+export interface IEnablePushNotifications {
   type: 'push/ENABLE_PUSH_NOTIFICATIONS'
 }
 
-export interface DisablePushNotifications {
+export interface IDisablePushNotifications {
   type: 'push/DISABLE_PUSH_NOTIFICATIONS'
 }
 
-export interface ShowPushNotificationsModal {
+export interface IShowPushNotificationsModal {
   type: 'push/SHOW_PUSH_NOTIFICATIONS_MODAL'
 }
 
-export interface HidePushNotificationsModal {
+export interface IHidePushNotificationsModal {
   type: 'push/HIDE_PUSH_NOTIFICATIONS_MODAL'
 }
 
-export interface ReceivePushNotification {
+export interface IReceivePushNotification {
   type: 'push/RECEIVE_PUSH_NOTIFICATION'
-  notification: Object
+  notification: any
 }
 
 export type PushAction =
-  | SubscribePushNotificationsAction
-  | UnsubscribePushNotificationsAction
-  | EnablePushNotifications
-  | DisablePushNotifications
-  | ShowPushNotificationsModal
-  | HidePushNotificationsModal
-  | ReceivePushNotification
+  | ISubscribePushNotificationsAction
+  | IUnsubscribePushNotificationsAction
+  | IEnablePushNotifications
+  | IDisablePushNotifications
+  | IShowPushNotificationsModal
+  | IHidePushNotificationsModal
+  | IReceivePushNotification

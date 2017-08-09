@@ -10,8 +10,6 @@ import Container from '../components/Container'
 import { Camera, Cursor, Letter } from '../components/images/index'
 import { max } from '../media'
 
-interface AddPolicyScreenProps extends DispatchProp<any> {}
-
 // language=SCSS prefix=dummy{ suffix=}
 const Card = styled.div`
   background-color: ${WHITE};
@@ -62,8 +60,8 @@ const RecommendedText = styled.div`
   font-size: 11px;
 `
 
-class AddPolicyScreen extends React.Component<AddPolicyScreenProps> {
-  render() {
+class AddPolicyScreen extends React.Component<DispatchProp<any>> {
+  public render() {
     return (
       <div style={{ display: 'flex', flex: 1, flexDirection: 'column' }}>
         <BackgroundHeader

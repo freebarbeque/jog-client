@@ -1,10 +1,10 @@
 import * as firebase from 'firebase'
 
-import { MotorPolicy, MotorPolicyMap, PolicyDocument } from '../types'
+import { IMotorPolicy, IMotorPolicyMap, IPolicyDocument } from '../types'
 
 export function syncMotorPolicies(
   uid: string,
-  cb: (policies: MotorPolicyMap) => void,
+  cb: (policies: IMotorPolicyMap) => void,
 ): () => void {
   const ref = firebase
     .database()
@@ -23,7 +23,7 @@ export function syncMotorPolicies(
   return () => ref.off('value', listener)
 }
 
-export async function getMotorPolicies(uid: string): Promise<MotorPolicyMap> {
+export async function getMotorPolicies(uid: string): Promise<IMotorPolicyMap> {
   const ref = firebase
     .database()
     .ref('policies')
@@ -33,7 +33,7 @@ export async function getMotorPolicies(uid: string): Promise<MotorPolicyMap> {
   return snapshot.val()
 }
 
-export async function setMotorPolicy(policy: MotorPolicy): Promise<void> {
+export async function setMotorPolicy(policy: IMotorPolicy): Promise<void> {
   const id = policy.id
   if (id) {
     console.log(`setMotorPolicy: saving policy with id ${id}`)
@@ -44,7 +44,7 @@ export async function setMotorPolicy(policy: MotorPolicy): Promise<void> {
   throw new TypeError('Policy does not have an id')
 }
 
-export function updatePolicies(policies: { [id: string]: MotorPolicy }) {
+export function updatePolicies(policies: { [id: string]: IMotorPolicy }) {
   const ref = firebase.database().ref('policies')
   return ref.update(policies)
 }
@@ -62,7 +62,7 @@ export async function clearPolicies(uid: string): Promise<void> {
 
 export function addPolicyDocument(
   policyId: string,
-  policyDocument: PolicyDocument,
+  policyDocument: IPolicyDocument,
 ) {
   const documentId = policyDocument.id
   if (!policyDocument) throw new Error('Must pass policy document')
@@ -80,7 +80,7 @@ export function removePolicyDocument(policyId: string, documentId: string) {
 export async function getPolicyDocument(
   policyId: string,
   documentId: string,
-): Promise<PolicyDocument> {
+): Promise<IPolicyDocument> {
   const policiesRef = firebase.database().ref('policies').child(policyId)
   const snapshot = await policiesRef
     .child('documents')

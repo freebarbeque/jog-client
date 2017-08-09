@@ -1,13 +1,13 @@
-import { FinishLoadingAction, StartLoadingAction } from './actionTypes'
+import { IFinishLoadingAction, IStartLoadingAction } from './actionTypes'
 
-export function startLoading(text: string): StartLoadingAction {
+export function startLoading(text: string): IStartLoadingAction {
   return {
     type: 'loading/START',
     text,
   }
 }
 
-export function finishLoading(): FinishLoadingAction {
+export function finishLoading(): IFinishLoadingAction {
   return {
     type: 'loading/FINISH',
   }

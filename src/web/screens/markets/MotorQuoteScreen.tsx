@@ -4,7 +4,7 @@ import {
   setMotorAnswer,
   setMotorAnswers,
 } from '../../../common/store/markets/index'
-import { ReduxState } from '../../../common/types'
+import { IReduxState } from '../../../common/types'
 
 import { RouteComponentProps, withRouter } from 'react-router'
 import {
@@ -109,7 +109,7 @@ class MotorQuoteScreen extends React.Component<IMotorQuoteScreenProps> {
   }
 }
 
-export default connect((state: ReduxState) => ({
+export default connect((state: IReduxState) => ({
   motorAnswers: state.markets.motorAnswers,
   quoteRequests: state.markets.quoteRequests,
 }))(withRouter(MotorQuoteScreen))

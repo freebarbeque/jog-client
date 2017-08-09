@@ -1,20 +1,20 @@
-import { MotorPolicyMap } from '../../types'
+import { IMotorPolicyMap } from '../../types'
 
-export interface ReceiveMotorPoliciesAction {
+export interface IReceiveMotorPoliciesAction {
   type: 'policies/RECEIVE_MOTOR_POLICIES'
-  policies: MotorPolicyMap
+  policies: IMotorPolicyMap
 }
 
-export interface SyncMotorPoliciesAction {
+export interface ISyncMotorPoliciesAction {
   type: 'policies/SYNC_MOTOR_POLICIES'
   uid: string
 }
 
-export interface UnsyncMotorPoliciesAction {
+export interface IUnsyncMotorPoliciesAction {
   type: 'policies/UNSYNC_MOTOR_POLICIES'
 }
 
-export interface UploadPolicyDocumentAction {
+export interface IUploadPolicyDocumentAction {
   type: 'policies/UPLOAD_POLICY_DOCUMENT'
   fileUrl?: string
   file?: any
@@ -23,22 +23,22 @@ export interface UploadPolicyDocumentAction {
   policyId: string
 }
 
-export interface UploadPolicyDocumentsAction {
+export interface IUploadPolicyDocumentsAction {
   type: 'policies/UPLOAD_POLICY_DOCUMENTS'
   files: any[]
   policyId: string
 }
 
-export interface DeletePolicyDocumentAction {
+export interface IDeletePolicyDocumentAction {
   type: 'policies/DELETE_POLICY_DOCUMENT'
   policyId: string
   documentId: string
 }
 
 export type PoliciesAction =
-  | ReceiveMotorPoliciesAction
-  | SyncMotorPoliciesAction
-  | UnsyncMotorPoliciesAction
-  | UploadPolicyDocumentAction
-  | UploadPolicyDocumentsAction
-  | DeletePolicyDocumentAction
+  | IReceiveMotorPoliciesAction
+  | ISyncMotorPoliciesAction
+  | IUnsyncMotorPoliciesAction
+  | IUploadPolicyDocumentAction
+  | IUploadPolicyDocumentsAction
+  | IDeletePolicyDocumentAction

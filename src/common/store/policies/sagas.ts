@@ -26,10 +26,10 @@ import { getUploadAdapter } from '../index'
 import { finishLoading, startLoading } from '../loading/actions'
 import { receiveMotorPolicies } from './actions'
 import {
-  DeletePolicyDocumentAction,
-  SyncMotorPoliciesAction,
-  UploadPolicyDocumentAction,
-  UploadPolicyDocumentsAction,
+  IDeletePolicyDocumentAction,
+  ISyncMotorPoliciesAction,
+  IUploadPolicyDocumentAction,
+  IUploadPolicyDocumentsAction,
 } from './actionTypes'
 
 //
@@ -61,7 +61,7 @@ function* syncMotorPoliciesTask({ uid }) {
 }
 
 export function* syncPoliciesSaga() {
-  let action: SyncMotorPoliciesAction
+  let action: ISyncMotorPoliciesAction
 
   // eslint-disable-next-line no-cond-assign
   while ((action = yield take('policies/SYNC_MOTOR_POLICIES'))) {
@@ -80,16 +80,18 @@ export function* syncPoliciesSaga() {
 // Policy operations
 //
 
-function* uploadPolicyDocumentsTask(action: UploadPolicyDocumentsAction) {
+function* uploadPolicyDocumentsTask(action: IUploadPolicyDocumentsAction) {
   const files = action.files
   const policyId = action.policyId
 
+  // tslint:disable-next-line:prefer-for-of
   for (let i = 0; i < files.length; i += 1) {
     const file = files[i]
     const fileName = file.name
     const contentType = file.type
 
-    const extension: string = _.last(fileName.split('.'))
+    const extension: string | undefined = _.last(fileName.split('.'))
+    if (!extension) throw new Error('Unable to get file extension')
     yield put(startLoading(`Uploading ${fileName}`))
     const user = demandCurrentUser()
     const id = uuid()
@@ -131,13 +133,13 @@ function* uploadPolicyDocumentsTask(action: UploadPolicyDocumentsAction) {
   yield put(finishLoading())
 }
 
-function* uploadPolicyDocumentTask(action: UploadPolicyDocumentAction) {
+function* uploadPolicyDocumentTask(action: IUploadPolicyDocumentAction) {
   const { fileUrl, policyId, file } = action
   let { fileName, extension } = action
 
   if (file) {
     fileName = file.name
-    extension = _.last(fileName.split('.'))
+    extension = fileName ? _.last(fileName.split('.')) : ''
   }
 
   yield put(startLoading(`Uploading ${fileName || ''}`))
@@ -205,7 +207,7 @@ function* uploadPolicyDocumentTask(action: UploadPolicyDocumentAction) {
 function* deletePolicyDocumentTask({
   policyId,
   documentId,
-}: DeletePolicyDocumentAction) {
+}: IDeletePolicyDocumentAction) {
   const user = demandCurrentUser()
   yield put(startLoading('Deleting document'))
   const document = yield call(() => getPolicyDocument(policyId, documentId))

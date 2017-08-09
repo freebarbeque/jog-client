@@ -5,14 +5,8 @@ import { push } from 'react-router-redux'
 import { Action, Dispatch } from '../../common/types'
 import AddPolicyScreenContainer from '../components/AddPolicyScreenContainer'
 
-interface Props extends DispatchProp<Action> {}
-
-class FinishedScreen extends React.Component<Props> {
-  handleNextPress = () => {
-    this.props.dispatch(push('/app/tabs/policies'))
-  }
-
-  render() {
+class FinishedScreen extends React.Component<DispatchProp<Action>> {
+  public render() {
     return (
       <AddPolicyScreenContainer
         showNextButton
@@ -26,6 +20,10 @@ class FinishedScreen extends React.Component<Props> {
         </div>
       </AddPolicyScreenContainer>
     )
+  }
+
+  private handleNextPress = () => {
+    this.props.dispatch(push('/app/tabs/policies'))
   }
 }
 

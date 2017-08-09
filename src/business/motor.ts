@@ -1,48 +1,48 @@
 import * as _ from 'lodash'
 
 import {
-  Address,
-  BaseQuestionDescriptor,
   BasicQuestion,
-  BooleanDependentQuestionDescriptor,
-  Car,
-  DateQuestionDescriptor,
-  IQuoteRequest,
-  MotoringConviction,
-  MotoringIncident,
-  MultiSelectQuestionDescriptor,
-  NumericQuestionDescriptor,
-  Person,
-  SelectQuestionDescriptor,
-  IDrivingQualification,
   DrivingRestriction,
+  IAddress,
+  IBaseQuestionDescriptor,
+  IBooleanDependentQuestionDescriptor,
+  ICar,
+  IDateQuestionDescriptor,
+  IDrivingQualification,
+  IMotoringConviction,
+  IMotoringIncident,
+  IMultiSelectQuestionDescriptor,
+  INumericQuestionDescriptor,
+  IPerson,
+  IQuoteRequest,
+  ISelectQuestionDescriptor,
 } from './types'
 
 // tslint:disable-next-line:no-var-requires
 const uuid = require('uuid/v4')
 
-export const addressQuestion: BaseQuestionDescriptor<Address> = {
+export const addressQuestion: IBaseQuestionDescriptor<IAddress> = {
   type: 'motor/address',
   id: 'motor/address',
   questionText: 'Address',
   required: true,
 }
 
-export const policyHolderQuestion: BaseQuestionDescriptor<Person> = {
+export const policyHolderQuestion: IBaseQuestionDescriptor<IPerson> = {
   type: 'motor/main-driver',
   id: 'motor/main-driver',
   questionText: 'Who is the main policy holder?',
   required: true,
 }
 
-const additionalDriversQuestion: BaseQuestionDescriptor<Person[]> = {
+const additionalDriversQuestion: IBaseQuestionDescriptor<IPerson[]> = {
   type: 'motor/additional-drivers',
   id: 'motor/additional-drivers',
   questionText: 'Additional drivers',
   required: false,
 }
 
-export const drivingLicenseTypeQuestion: SelectQuestionDescriptor<string> = {
+export const drivingLicenseTypeQuestion: ISelectQuestionDescriptor<string> = {
   type: 'select',
   id: 'motor/license',
   questionText: 'What kind of license do you hold?',
@@ -64,21 +64,21 @@ export const drivingLicenseTypeQuestion: SelectQuestionDescriptor<string> = {
   required: true,
 }
 
-export const vehicleQuestion: BaseQuestionDescriptor<Car> = {
+export const vehicleQuestion: IBaseQuestionDescriptor<ICar> = {
   type: 'motor/vehicle',
   id: 'motor/vehicle',
   questionText: 'Which car would you like to insure?',
   required: true,
 }
 
-export const yearsHeldLicenseQuestion: NumericQuestionDescriptor = {
+export const yearsHeldLicenseQuestion: INumericQuestionDescriptor = {
   type: 'numeric',
   id: 'motor/license-length',
   questionText: 'For how many years have you held your license?',
   required: true,
 }
 
-export const whereLicenseIssuedQuestion: SelectQuestionDescriptor<string> = {
+export const whereLicenseIssuedQuestion: ISelectQuestionDescriptor<string> = {
   type: 'select',
   id: 'motor/where-license-issued',
   questionText: 'Where was your license issued?',
@@ -94,7 +94,7 @@ export const whereLicenseIssuedQuestion: SelectQuestionDescriptor<string> = {
   required: true,
 }
 
-export const manualOrAutomaticQuestion: SelectQuestionDescriptor<string> = {
+export const manualOrAutomaticQuestion: ISelectQuestionDescriptor<string> = {
   type: 'select',
   id: 'motor/manual-or-auto',
   questionText: 'Does your license cover manual cars or just automatic?',
@@ -111,7 +111,7 @@ export const manualOrAutomaticQuestion: SelectQuestionDescriptor<string> = {
   required: true,
 }
 
-export const additionalDrivingQualificationsQuestion: MultiSelectQuestionDescriptor<
+export const additionalDrivingQualificationsQuestion: IMultiSelectQuestionDescriptor<
   IDrivingQualification
 > = {
   type: 'multiselect',
@@ -132,9 +132,9 @@ export const additionalDrivingQualificationsQuestion: MultiSelectQuestionDescrip
 
 type MedicalConditionDependentQuestion =
   | BasicQuestion
-  | SelectQuestionDescriptor<DrivingRestriction>
+  | ISelectQuestionDescriptor<DrivingRestriction>
 
-export const dvlaMedicalConditions: BooleanDependentQuestionDescriptor<
+export const dvlaMedicalConditions: IBooleanDependentQuestionDescriptor<
   MedicalConditionDependentQuestion
 > = {
   id: 'motor/has-medical-conditions',
@@ -178,7 +178,7 @@ export const dvlaMedicalConditions: BooleanDependentQuestionDescriptor<
   required: true,
 }
 
-export const otherCars: SelectQuestionDescriptor<string> = {
+export const otherCars: ISelectQuestionDescriptor<string> = {
   type: 'select',
   id: 'motor/other-cars',
   questionText: 'Which of these cars do you drive?',
@@ -203,8 +203,8 @@ export const otherCars: SelectQuestionDescriptor<string> = {
   required: false,
 }
 
-export const motoringConvictionsQuestion: BaseQuestionDescriptor<
-  MotoringConviction[]
+export const motoringConvictionsQuestion: IBaseQuestionDescriptor<
+  IMotoringConviction[]
 > = {
   type: 'motor/convictions',
   id: 'motor/convictions',
@@ -212,8 +212,8 @@ export const motoringConvictionsQuestion: BaseQuestionDescriptor<
   required: false,
 }
 
-export const motoringIncidentsQuestion: BaseQuestionDescriptor<
-  MotoringIncident[]
+export const motoringIncidentsQuestion: IBaseQuestionDescriptor<
+  IMotoringIncident[]
 > = {
   type: 'motor/incidents',
   id: 'motor/incidents',
@@ -222,14 +222,14 @@ export const motoringIncidentsQuestion: BaseQuestionDescriptor<
   required: false,
 }
 
-export const noClaimsDiscountQuestion: NumericQuestionDescriptor = {
+export const noClaimsDiscountQuestion: INumericQuestionDescriptor = {
   type: 'numeric',
   id: 'motor/no-claims',
   questionText: 'How many years no claims discount do you have?',
   defaultValue: () => 0,
 }
 
-export const startDateQuestion: DateQuestionDescriptor = {
+export const startDateQuestion: IDateQuestionDescriptor = {
   type: 'date',
   id: 'motor/start-date',
   questionText: 'When would you like your insurance to start?',
@@ -262,8 +262,8 @@ export interface IQuoteAnswers {
   'motor/other-driving-qualifications': IDrivingQualification[]
   'motor/dvla-medical-conditions': DrivingRestriction | null
   'motor/other-cars': string[] | null
-  'motor/convictions': MotoringConviction[]
-  'motor/incidents': MotoringIncident[]
+  'motor/convictions': IMotoringConviction[]
+  'motor/incidents': IMotoringIncident[]
   'motor/no-claims': number
   'motor/start-date': Date
 }

@@ -30,7 +30,7 @@ const SettingsScreenContainer = styled(Container)`
 `
 
 export default class SettingsScreen extends React.Component {
-  render() {
+  public render() {
     return (
       <SettingsScreenContainer className="SettingsScreen">
         <ScrollToTopOnMount />

@@ -6,11 +6,16 @@ import styled from 'styled-components'
 
 import { BLUE } from '../../common/constants/palette'
 import { MARGIN } from '../../common/constants/style'
-import { Action, Dispatch, FirebaseUser, ReduxState } from '../../common/types'
+import {
+  Action,
+  Dispatch,
+  IFirebaseUser,
+  IReduxState,
+} from '../../common/types'
 import { Cross, Logo } from '../components/images/index'
 
-interface EmailPolicyScreenProps extends DispatchProp<Action> {
-  user: FirebaseUser
+interface IEmailPolicyScreenProps extends DispatchProp<Action> {
+  user: IFirebaseUser
 }
 
 // language=SCSS prefix=dummy{ suffix=}
@@ -37,8 +42,8 @@ const EmailText = styled.a`
   }
 `
 
-class EmailPolicyScreen extends React.Component<EmailPolicyScreenProps> {
-  render() {
+class EmailPolicyScreen extends React.Component<IEmailPolicyScreenProps> {
+  public render() {
     const mailto = 'mailto:policies@jog.insure'
     return (
       <div>
@@ -83,6 +88,6 @@ class EmailPolicyScreen extends React.Component<EmailPolicyScreenProps> {
   }
 }
 
-const mapStateToProps = (state: ReduxState) => ({ user: state.auth.user })
+const mapStateToProps = (state: IReduxState) => ({ user: state.auth.user })
 
 export default connect(mapStateToProps)(EmailPolicyScreen)

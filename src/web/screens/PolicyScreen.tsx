@@ -43,14 +43,10 @@ const MenuButton = styled(FlatButton).attrs({ className: 'MenuButton' })`
   }
 `
 
-interface Props {
-  dispatch: Dispatch
-}
-
 class PolicyScreen extends React.Component<
-  Props & RouteComponentProps<any> & DispatchProp<Action>
+  RouteComponentProps<any> & DispatchProp<Action>
 > {
-  render() {
+  public render() {
     const match = this.props.match
     const policyId = match.params.policyId
     return (

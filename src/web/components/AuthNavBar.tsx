@@ -8,11 +8,8 @@ import { logout } from '../../common/store/auth/actions'
 import { Dispatch } from '../../common/types'
 import { Cross, Logo } from './images'
 
-interface Props {}
-interface ConnectedProps extends Props, DispatchProp<any> {}
-
-class AuthNavBar extends React.Component<ConnectedProps> {
-  render() {
+class AuthNavBar extends React.Component<DispatchProp<any>> {
+  public render() {
     const rightButton = (
       <FlatButton
         onClick={() => {
@@ -38,5 +35,5 @@ class AuthNavBar extends React.Component<ConnectedProps> {
   }
 }
 
-const ConnectedAuthNavBar: React.ComponentClass<Props> = connect()(AuthNavBar)
+const ConnectedAuthNavBar: React.ComponentClass<{}> = connect()(AuthNavBar)
 export default ConnectedAuthNavBar

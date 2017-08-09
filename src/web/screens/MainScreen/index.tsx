@@ -15,7 +15,7 @@ const Container = styled.div`
 `
 
 class Main extends React.Component {
-  render() {
+  public render() {
     return (
       <Container>
         <Route
@@ -30,8 +30,9 @@ class Main extends React.Component {
   }
 }
 
+// tslint:disable-next-line:max-classes-per-file
 export default class MainScreen extends React.Component {
-  render() {
+  public render() {
     return (
       <Container>
         <Route path="/app/emailPolicy" exact component={EmailPolicyScreen} />

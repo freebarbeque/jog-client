@@ -3,11 +3,11 @@ import styled from 'styled-components'
 
 import { IBooleanQuestionDescriptor } from '../../../business/types'
 import { MARGIN } from '../../../common/constants/style'
-import { QuestionFieldProps } from './QuestionField'
+import { IProps } from './QuestionField'
 import QuestionField from './QuestionField'
 import SelectBox from './SelectBox'
 
-interface BooleanQuestionProps extends QuestionFieldProps {
+interface IBooleanQuestionProps extends IProps {
   descriptor: IBooleanQuestionDescriptor
   value: any
   onChange: (id: string, value: any) => void
@@ -19,9 +19,9 @@ interface BooleanQuestionProps extends QuestionFieldProps {
 const Container = styled.div`background-color: rgb(250, 250, 250);`
 
 export default class BooleanQuestion extends React.Component<
-  BooleanQuestionProps
+  IBooleanQuestionProps
 > {
-  render() {
+  public render() {
     const id = this.props.descriptor.id
     const value = this.props.value
     return (

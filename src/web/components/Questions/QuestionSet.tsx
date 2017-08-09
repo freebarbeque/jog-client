@@ -2,7 +2,7 @@ import * as _ from 'lodash'
 import * as React from 'react'
 
 import {
-  BaseQuestionDescriptor,
+  IBaseQuestionDescriptor,
   IValidationErrors,
 } from '../../../business/types'
 import { validate } from '../../../business/validation'
@@ -15,8 +15,8 @@ import MultiSelectQuestion from './MultiSelectQuestion'
 import SelectQuestion from './SelectQuestion'
 import TextQuestion from './TextQuestion'
 
-interface QuestionSetProps {
-  questions: Array<BaseQuestionDescriptor<any>>
+interface IQuestionSetProps {
+  questions: Array<IBaseQuestionDescriptor<any>>
   answers: { [id: string]: any }
   onChange: (id: string, answer: any) => void
   extraComponents?: { [id: string]: { component: React.ComponentClass } }
@@ -24,15 +24,15 @@ interface QuestionSetProps {
   onBlur?: (id: string) => void
 }
 
-interface QuestionSetState {
+interface IQuestionSetState {
   blurred: { [id: string]: boolean }
   submitted: boolean
   errors: IValidationErrors | null
 }
 
 export default class QuestionSet extends React.Component<
-  QuestionSetProps,
-  QuestionSetState
+  IQuestionSetProps,
+  IQuestionSetState
 > {
   constructor(props) {
     super(props)
@@ -43,7 +43,78 @@ export default class QuestionSet extends React.Component<
     }
   }
 
-  componentWillReceiveProps(nextProps) {
+  public render() {
+    const { onFocus, answers, extraComponents = {} } = this.props
+    const onBlur = this.onBlur
+
+    const map = {
+      ...extraComponents,
+      select: { component: SelectQuestion },
+      multiselect: { component: MultiSelectQuestion },
+      numeric: { component: IntegerQuestion, props: { onFocus, onBlur } },
+      'boolean-dependent': {
+        component: BooleanDependentQuestion,
+        // Boolean dependent questions may have dependencies so we need to pass on the extra components & answers
+        props: { extraComponents, answers },
+      },
+      boolean: {
+        component: BooleanQuestion,
+      },
+      text: {
+        component: TextQuestion,
+        props: { onFocus, onBlur },
+      },
+      date: {
+        component: DateQuestion,
+      },
+    }
+
+    return (
+      <div>
+        {this.props.questions.map(q => {
+          const type = q.type
+          const config = map[type]
+          if (config) {
+            const Comp = config.component
+            const error = this.state.errors && this.state.errors.field[q.id]
+            const blurred = this.state.blurred[q.id]
+
+            return (
+              <Comp
+                key={q.id}
+                descriptor={q}
+                onChange={this.props.onChange}
+                value={answers[q.id]}
+                error={blurred ? error : null}
+                {...config.props || {}}
+              />
+            )
+          }
+          return (
+            <div style={{ color: BLUE }} key={q.id}>
+              TODO: {type} questions
+            </div>
+          )
+        })}
+      </div>
+    )
+  }
+
+  public validateAllFields(): IValidationErrors {
+    const blurred = { ...this.state.blurred }
+    _.forEach(this.props.questions, q => {
+      const id = q.id
+      blurred[id] = true
+    })
+    const errors = this.validateAnswers(
+      this.props.questions,
+      this.props.answers,
+    )
+    this.setState({ blurred, errors })
+    return errors
+  }
+
+  public componentWillReceiveProps(nextProps) {
     this.setState({
       errors: this.validateAnswers(nextProps.questions, nextProps.answers),
     })
@@ -81,76 +152,5 @@ export default class QuestionSet extends React.Component<
     if (this.props.onChange) {
       this.props.onChange(id, answer)
     }
-  }
-
-  render() {
-    const { onFocus, answers, extraComponents = {} } = this.props
-    const onBlur = this.onBlur
-
-    const map = {
-      ...extraComponents,
-      select: { component: SelectQuestion },
-      multiselect: { component: MultiSelectQuestion },
-      numeric: { component: IntegerQuestion, props: { onFocus, onBlur } },
-      'boolean-dependent': {
-        component: BooleanDependentQuestion,
-        // Boolean dependent questions may have dependencies so we need to pass on the extra components & answers
-        props: { extraComponents, answers },
-      },
-      boolean: {
-        component: BooleanQuestion,
-      },
-      text: {
-        component: TextQuestion,
-        props: { onFocus, onBlur },
-      },
-      date: {
-        component: DateQuestion,
-      },
-    }
-
-    return (
-      <div>
-        {this.props.questions.map(q => {
-          const type = q.type
-          const config = map[type]
-          if (config) {
-            const Comp = config.component
-            const error = this.state.errors.field[q.id]
-            const blurred = this.state.blurred[q.id]
-
-            return (
-              <Comp
-                key={q.id}
-                descriptor={q}
-                onChange={this.props.onChange}
-                value={answers[q.id]}
-                error={blurred ? error : null}
-                {...config.props || {}}
-              />
-            )
-          }
-          return (
-            <div style={{ color: BLUE }} key={q.id}>
-              TODO: {type} questions
-            </div>
-          )
-        })}
-      </div>
-    )
-  }
-
-  public validateAllFields(): IValidationErrors {
-    const blurred = { ...this.state.blurred }
-    _.forEach(this.props.questions, q => {
-      const id = q.id
-      blurred[id] = true
-    })
-    const errors = this.validateAnswers(
-      this.props.questions,
-      this.props.answers,
-    )
-    this.setState({ blurred, errors })
-    return errors
   }
 }

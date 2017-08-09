@@ -40,15 +40,15 @@ const Content = styled.div`
   color: white !important;
 `
 
-interface Props extends LinkHTMLAttributes<HTMLLinkElement> {
+interface IProps extends LinkHTMLAttributes<HTMLLinkElement> {
   onClick?: () => void
   children?: any
   style?: any
   hideChevron?: boolean
 }
 
-export default class BigRedFullWidthButton extends React.Component<Props> {
-  render() {
+export default class BigRedFullWidthButton extends React.Component<IProps> {
+  public render() {
     return (
       <Button
         className="BigRedFullWidthButton"

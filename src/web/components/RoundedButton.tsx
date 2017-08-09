@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import { PINK, WHITE } from '../../common/constants/palette'
 import { MARGIN } from '../../common/constants/style'
 
+// tslint:disable-next-line:no-var-requires
 const Circle = require('better-react-spinkit')
 
 // language=SCSS prefix=dummy{ suffix=}
@@ -29,13 +30,13 @@ const Button = styled.button`
   }
 `
 
-interface Props extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+interface IProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   label?: string
   loading?: boolean
   disabled?: boolean
 }
 
-const RoundedButton = (props: Props) =>
+const RoundedButton = (props: IProps) =>
   <Button disabled={props.loading || props.disabled} {...props}>
     <div>
       {props.label}

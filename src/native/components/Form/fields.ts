@@ -3,10 +3,10 @@ Common form fields used throughout the jog app.
 Fields encapsulate text input properties and validation.
  */
 
-import { TextFormField } from '../../../common/types'
+import { ITextFormField } from '../../../common/types'
 import { emailValidator } from '../../screens/validators'
 
-export const emailField: TextFormField = {
+export const emailField: ITextFormField = {
   type: 'text',
   inputProps: {
     autoCapitalize: 'none',
@@ -19,7 +19,7 @@ export const emailField: TextFormField = {
   validate: emailValidator,
 }
 
-export const passwordField: TextFormField = {
+export const passwordField: ITextFormField = {
   type: 'text',
   inputProps: {
     secureTextEntry: true,
@@ -35,7 +35,7 @@ export const passwordField: TextFormField = {
   },
 }
 
-export const validatedPasswordField: TextFormField = {
+export const validatedPasswordField: ITextFormField = {
   ...passwordField,
   type: 'text',
   validate: (password: string) =>
@@ -44,7 +44,7 @@ export const validatedPasswordField: TextFormField = {
       : 'Must be at least 8 characters long',
 }
 
-export const nameField: TextFormField = {
+export const nameField: ITextFormField = {
   type: 'text',
   inputProps: {
     autoCapitalize: 'none',

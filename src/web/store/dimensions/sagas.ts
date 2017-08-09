@@ -4,7 +4,7 @@ import * as $ from 'jquery'
 
 import { eventChannel } from 'redux-saga'
 import { updateDimensions } from './actions'
-import { SubscribeDimensions } from './actionTypes'
+import { ISubscribeDimensions } from './actionTypes'
 
 function createDimensionsChannel() {
   return eventChannel(emit => {
@@ -45,7 +45,7 @@ export function* subscribeDimensions() {
 }
 
 export function* dimensionsSubscriptionSaga() {
-  let action: SubscribeDimensions
+  let action: ISubscribeDimensions
 
   // eslint-disable-next-line no-cond-assign
   while ((action = yield take('dimensions/SUBSCRIBE_DIMENSIONS'))) {

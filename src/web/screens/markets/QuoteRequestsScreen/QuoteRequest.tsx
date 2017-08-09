@@ -7,8 +7,8 @@ import styled from 'styled-components'
 // tslint:disable-next-line:no-var-requires
 const moment = require('moment')
 
-import { Car } from '../../../../business/types'
-import { ReduxState } from '../../../../common/types'
+import { ICar } from '../../../../business/types'
+import { IReduxState } from '../../../../common/types'
 
 import { BLUE } from '../../../../common/constants/palette'
 import { MARGIN } from '../../../../common/constants/style'

@@ -1,17 +1,17 @@
 import * as firebase from 'firebase'
-import { Address, Car, Person, IQuoteRequest } from '../../business/types'
+import { IAddress, ICar, IPerson, IQuoteRequest } from '../../business/types'
 
-export function setAddress(uid: string, address: Address) {
+export function setAddress(uid: string, address: IAddress) {
   const db = firebase.database()
   return db.ref(`/addresses/${uid}/${address.id}`).set(address)
 }
 
-export function setPerson(uid: string, driver: Person) {
+export function setPerson(uid: string, driver: IPerson) {
   const db = firebase.database()
   return db.ref(`/drivers/${uid}/${driver.id}`).set(driver)
 }
 
-export function setCar(uid: string, car: Car) {
+export function setCar(uid: string, car: ICar) {
   const db = firebase.database()
   return db.ref(`/cars/${uid}/${car.id}`).set(car)
 }
@@ -32,7 +32,7 @@ export function sync<T>(
 
 export function syncPeople(
   uid: string,
-  cb: (drivers: { [id: string]: Person }) => void,
+  cb: (drivers: { [id: string]: IPerson }) => void,
 ): () => void {
   const key = `/drivers/${uid}`
   return sync(key, cb)
@@ -40,7 +40,7 @@ export function syncPeople(
 
 export function syncAddresses(
   uid: string,
-  cb: (addresses: { [id: string]: Address }) => void,
+  cb: (addresses: { [id: string]: IAddress }) => void,
 ): () => void {
   const key = `/addresses/${uid}`
   return sync(key, cb)
@@ -48,7 +48,7 @@ export function syncAddresses(
 
 export function syncCars(
   uid: string,
-  cb: (addresses: { [id: string]: Address }) => void,
+  cb: (addresses: { [id: string]: IAddress }) => void,
 ): () => void {
   const key = `/cars/${uid}`
   return sync(key, cb)

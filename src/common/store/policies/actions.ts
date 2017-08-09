@@ -1,37 +1,37 @@
-import { MotorPolicyMap } from '../../types'
+import { IMotorPolicyMap } from '../../types'
 
 import {
-  DeletePolicyDocumentAction,
-  ReceiveMotorPoliciesAction,
-  SyncMotorPoliciesAction,
-  UnsyncMotorPoliciesAction,
-  UploadPolicyDocumentAction,
-  UploadPolicyDocumentsAction,
+  IDeletePolicyDocumentAction,
+  IReceiveMotorPoliciesAction,
+  ISyncMotorPoliciesAction,
+  IUnsyncMotorPoliciesAction,
+  IUploadPolicyDocumentAction,
+  IUploadPolicyDocumentsAction,
 } from './actionTypes'
 
 export function receiveMotorPolicies(
-  policies: MotorPolicyMap,
-): ReceiveMotorPoliciesAction {
+  policies: IMotorPolicyMap,
+): IReceiveMotorPoliciesAction {
   return {
     type: 'policies/RECEIVE_MOTOR_POLICIES',
     policies,
   }
 }
 
-export function syncMotorPolicies(uid: string): SyncMotorPoliciesAction {
+export function syncMotorPolicies(uid: string): ISyncMotorPoliciesAction {
   return {
     type: 'policies/SYNC_MOTOR_POLICIES',
     uid,
   }
 }
 
-export function unsyncMotorPolicies(): UnsyncMotorPoliciesAction {
+export function unsyncMotorPolicies(): IUnsyncMotorPoliciesAction {
   return {
     type: 'policies/UNSYNC_MOTOR_POLICIES',
   }
 }
 
-interface UploadPolicyDocumentOptions {
+interface IUploadPolicyDocumentOptions {
   fileUrl?: string
   extension?: string
   fileName?: string
@@ -42,7 +42,7 @@ interface UploadPolicyDocumentOptions {
 export function uploadPolicyDocuments(
   files: any[],
   policyId: string,
-): UploadPolicyDocumentsAction {
+): IUploadPolicyDocumentsAction {
   return {
     type: 'policies/UPLOAD_POLICY_DOCUMENTS',
     files,
@@ -51,8 +51,8 @@ export function uploadPolicyDocuments(
 }
 
 export function uploadPolicyDocument(
-  opts: UploadPolicyDocumentOptions,
-): UploadPolicyDocumentAction {
+  opts: IUploadPolicyDocumentOptions,
+): IUploadPolicyDocumentAction {
   return {
     type: 'policies/UPLOAD_POLICY_DOCUMENT',
     ...opts,
@@ -62,7 +62,7 @@ export function uploadPolicyDocument(
 export function deletePolicyDocument(
   policyId: string,
   documentId: string,
-): DeletePolicyDocumentAction {
+): IDeletePolicyDocumentAction {
   return {
     type: 'policies/DELETE_POLICY_DOCUMENT',
     documentId,

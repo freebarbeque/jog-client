@@ -1,10 +1,10 @@
-export interface UploadPolicyAction {
+export interface IUploadPolicyAction {
   type: 'screens/addPolicyScreen/UPLOAD_POLICY'
 }
 
-export type AddPolicyScreenAction = UploadPolicyAction
+export type AddPolicyScreenAction = IUploadPolicyAction
 
-export function uploadPolicy(): UploadPolicyAction {
+export function uploadPolicy(): IUploadPolicyAction {
   return {
     type: 'screens/addPolicyScreen/UPLOAD_POLICY',
   }

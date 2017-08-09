@@ -1,14 +1,14 @@
 import { InsurerMap } from '../../types'
-import { ReceiveInsurers, SyncInsurers } from './actionTypes'
+import { IReceiveInsurers, ISyncInsurers } from './actionTypes'
 
-export function receiveInsurers(insurers: InsurerMap): ReceiveInsurers {
+export function receiveInsurers(insurers: InsurerMap): IReceiveInsurers {
   return {
     type: 'insurers/RECEIVE_INSURERS',
     insurers,
   }
 }
 
-export function syncInsurers(): SyncInsurers {
+export function syncInsurers(): ISyncInsurers {
   return {
     type: 'insurers/SYNC_INSURERS',
   }

@@ -1,13 +1,16 @@
 import * as $ from 'jquery'
-import { DimensionsReduxState } from '../../../common/types'
+import { IDimensionsReduxState } from '../../../common/types'
 import * as actionTypes from './actionTypes'
 
-const DEFAULT_STATE = { width: $(window).width(), height: $(window).height() }
+const DEFAULT_STATE = {
+  width: $(window).width() || 0,
+  height: $(window).height() || 0,
+}
 
 export default function reducer(
-  state: DimensionsReduxState = DEFAULT_STATE,
-  action: actionTypes.UpdateDimensions,
-): DimensionsReduxState {
+  state: IDimensionsReduxState = DEFAULT_STATE,
+  action: actionTypes.IUpdateDimensions,
+): IDimensionsReduxState {
   if (action.type === 'dimensions/UPDATE_DIMENSIONS') {
     return {
       ...state,

@@ -2,7 +2,7 @@
 
 import * as React from 'react'
 
-interface FileIconProps {
+interface IFileIconProps {
   extension: string
 }
 
@@ -21,10 +21,8 @@ function getSource(extension: string) {
   return IMAGE_FILES[extension.toLowerCase()] || require('./unknown.png')
 }
 
-export default class FileIcon extends React.Component {
-  props: FileIconProps
-
-  render() {
+export default class FileIcon extends React.Component<IFileIconProps> {
+  public render() {
     const { extension } = this.props
     return (
       <img

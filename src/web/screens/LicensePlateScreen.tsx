@@ -2,27 +2,18 @@ import * as React from 'react'
 import { connect, DispatchProp } from 'react-redux'
 import { push } from 'react-router-redux'
 
-import { ManualPolicyUpdate } from '../../common/store/screens/addManualPolicy/actions'
+import { IManualPolicyUpdate } from '../../common/store/screens/addManualPolicy/actions'
 import { updateManualPolicy } from '../../common/store/screens/addManualPolicy/actions'
-import { Action, Dispatch, ReduxState } from '../../common/types'
+import { Action, Dispatch, IReduxState } from '../../common/types'
 import AddPolicyScreenContainer from '../components/AddPolicyScreenContainer'
 import Input from '../components/Input'
 
-interface LicensePlateScreenProps extends DispatchProp<Action> {
-  policy: ManualPolicyUpdate
+interface IProps extends DispatchProp<Action> {
+  policy: IManualPolicyUpdate
 }
 
-class LicensePlateScreen extends React.Component<LicensePlateScreenProps> {
-  handleNextPress = () => {
-    this.props.dispatch(push('/app/addManualPolicy/ownership'))
-  }
-
-  handleChange = e => {
-    const text = e.target.value
-    this.props.dispatch(updateManualPolicy({ vehicleRegistration: text }))
-  }
-
-  render() {
+class LicensePlateScreen extends React.Component<IProps> {
+  public render() {
     return (
       <AddPolicyScreenContainer
         showNextButton
@@ -39,9 +30,18 @@ class LicensePlateScreen extends React.Component<LicensePlateScreenProps> {
       </AddPolicyScreenContainer>
     )
   }
+
+  private handleNextPress = () => {
+    this.props.dispatch(push('/app/addManualPolicy/ownership'))
+  }
+
+  private handleChange = e => {
+    const text = e.target.value
+    this.props.dispatch(updateManualPolicy({ vehicleRegistration: text }))
+  }
 }
 
-const mapStateToProps = (state: ReduxState) => ({
+const mapStateToProps = (state: IReduxState) => ({
   policy: state.screens.addManualPolicy,
 })
 

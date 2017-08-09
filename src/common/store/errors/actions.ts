@@ -1,13 +1,13 @@
-import { ClearErrorAction, DeclareErrorAction } from './actionTypes'
+import { IClearErrorAction, IDeclareErrorAction } from './actionTypes'
 
-export function declareError(text: string): DeclareErrorAction {
+export function declareError(text: string): IDeclareErrorAction {
   return {
     type: 'errors/DECLARE',
     text,
   }
 }
 
-export function clearError(): ClearErrorAction {
+export function clearError(): IClearErrorAction {
   return {
     type: 'errors/CLEAR',
   }

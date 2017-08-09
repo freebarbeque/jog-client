@@ -11,7 +11,7 @@ import {
 } from 'redux-saga/effects'
 
 import { goBack } from 'react-router-redux'
-import { Address, Car, IQuoteRequest, Person } from '../../../business/types'
+import { IAddress, ICar, IPerson, IQuoteRequest } from '../../../business/types'
 import { demandCurrentUser } from '../../data/auth'
 import {
   setAddress,

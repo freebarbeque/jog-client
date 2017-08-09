@@ -3,12 +3,12 @@ import uuid from 'uuid/v4'
 
 import { demandCurrentUser } from '../../../data/auth'
 import { setMotorPolicy } from '../../../data/policies'
-import { MotorPolicy } from '../../../types'
+import { IMotorPolicy } from '../../../types'
 import { declareError } from '../../errors/actions'
 import { getNavigationAdapter } from '../../index'
 
 function* uploadPolicyTask() {
-  const policy: MotorPolicy = {}
+  const policy: IMotorPolicy = {}
   policy.id = uuid()
   policy.uid = demandCurrentUser().uid
 

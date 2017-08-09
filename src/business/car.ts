@@ -2,60 +2,61 @@
 
 import * as _ from 'lodash'
 
+// tslint:disable-next-line:no-var-requires
 const uuid = require('uuid/v4')
 
 import {
   Alarm,
-  BaseQuestionDescriptor,
-  BooleanDependentQuestionDescriptor,
-  IBooleanQuestionDescriptor,
-  Car,
-  DateQuestionDescriptor,
   HandDrive,
-  NullableDateQuestionDescriptor,
-  NumericQuestionDescriptor,
+  IBaseQuestionDescriptor,
+  IBooleanDependentQuestionDescriptor,
+  IBooleanQuestionDescriptor,
+  ICar,
+  IDateQuestionDescriptor,
+  INullableDateQuestionDescriptor,
+  INumericQuestionDescriptor,
+  ISelectQuestionDescriptor,
+  ITextQuestionDescriptor,
+  IVehicleModification,
   Owner,
-  SelectQuestionDescriptor,
-  TextQuestionDescriptor,
-  VehicleModification,
 } from './types'
 
-export const registrationQuestion: TextQuestionDescriptor = {
+export const registrationQuestion: ITextQuestionDescriptor = {
   type: 'text',
   id: 'car/registration',
   questionText: "What is the car's registration?",
   required: true,
 }
 
-export const makeQuestion: TextQuestionDescriptor = {
+export const makeQuestion: ITextQuestionDescriptor = {
   type: 'text',
   id: 'car/make',
   questionText: 'What is the make of the car?',
   required: true,
 }
 
-export const modelQuestion: TextQuestionDescriptor = {
+export const modelQuestion: ITextQuestionDescriptor = {
   type: 'text',
   id: 'car/model',
   questionText: 'What is the model of the car?',
   required: true,
 }
 
-export const valueQuestion: NumericQuestionDescriptor = {
+export const valueQuestion: INumericQuestionDescriptor = {
   type: 'numeric',
   id: 'car/value',
   questionText: 'Roughly, how much is the car worth?',
   required: true,
 }
 
-export const registeredQuestion: DateQuestionDescriptor = {
+export const registeredQuestion: IDateQuestionDescriptor = {
   type: 'date',
   id: 'car/registered',
   questionText: 'When was the car registered?',
   required: false,
 }
 
-export const handDriveQuestion: SelectQuestionDescriptor<HandDrive> = {
+export const handDriveQuestion: ISelectQuestionDescriptor<HandDrive> = {
   type: 'select',
   id: 'car/hand-drive',
   questionText: 'Is the car left or right hand drive?',
@@ -72,7 +73,7 @@ export const handDriveQuestion: SelectQuestionDescriptor<HandDrive> = {
   required: true,
 }
 
-export const numSeatsQuestion: NumericQuestionDescriptor = {
+export const numSeatsQuestion: INumericQuestionDescriptor = {
   type: 'numeric',
   id: 'car/num-seats',
   questionText: 'How many seats does the car have?',
@@ -86,7 +87,7 @@ export const trackingDeviceQuestion: IBooleanQuestionDescriptor = {
   required: true,
 }
 
-export const alarmQuestion: SelectQuestionDescriptor<Alarm> = {
+export const alarmQuestion: ISelectQuestionDescriptor<Alarm> = {
   type: 'select',
   id: 'car/alarm',
   questionText: 'What type of alarm does the car have?',
@@ -118,8 +119,8 @@ export const importQuestion: IBooleanQuestionDescriptor = {
   required: true,
 }
 
-export const modificationsQuestion: BaseQuestionDescriptor<
-  VehicleModification[]
+export const modificationsQuestion: IBaseQuestionDescriptor<
+  IVehicleModification[]
 > = {
   type: 'car/modifications',
   id: 'car/modifications',
@@ -127,8 +128,8 @@ export const modificationsQuestion: BaseQuestionDescriptor<
   required: false,
 }
 
-export const purchasedQuestion: BooleanDependentQuestionDescriptor<
-  DateQuestionDescriptor
+export const purchasedQuestion: IBooleanDependentQuestionDescriptor<
+  IDateQuestionDescriptor
 > = {
   type: 'boolean-dependent',
   id: 'car/purchased',
@@ -199,7 +200,7 @@ const ownerOptions: Array<{ label: string; value: Owner }> = [
   },
 ]
 
-export const ownerQuestion: SelectQuestionDescriptor<Owner> = {
+export const ownerQuestion: ISelectQuestionDescriptor<Owner> = {
   type: 'select',
   id: 'car/owner',
   questionText: 'Who is the owner of the car?',
@@ -208,7 +209,7 @@ export const ownerQuestion: SelectQuestionDescriptor<Owner> = {
   defaultValue: 'you',
 }
 
-export const registeredKeeperQuestion: SelectQuestionDescriptor<Owner> = {
+export const registeredKeeperQuestion: ISelectQuestionDescriptor<Owner> = {
   type: 'select',
   id: 'car/registered-keeper',
   questionText: 'Who is the registered keeper of the car?',
@@ -236,7 +237,7 @@ export const questions = [
 
 export const questionMap = _.keyBy(questions, q => q.id)
 
-export function constructCar(answers: { [key: string]: any }): Car {
+export function constructCar(answers: { [key: string]: any }): ICar {
   return {
     id: uuid(),
     registration: answers['car/registration'],

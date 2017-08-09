@@ -2,16 +2,16 @@ import * as React from 'react'
 
 import styled from 'styled-components'
 
-import { BaseQuestionDescriptor } from '../../../business/types'
+import { IBaseQuestionDescriptor } from '../../../business/types'
 import { BLUE, PINK } from '../../../common/constants/palette'
 import { MARGIN } from '../../../common/constants/style'
-import Number from '../../screens/markets/AddressScreen/Number'
+import NumberField from '../../screens/markets/AddressScreen/Number'
 
-export interface QuestionFieldProps {
+export interface IProps {
   index?: number
-  error?: string
+  error?: string | null
   children?: any
-  descriptor: BaseQuestionDescriptor<any>
+  descriptor: IBaseQuestionDescriptor<any>
 }
 
 // language=SCSS prefix=dummy{ suffix=}
@@ -38,8 +38,8 @@ const Subheader = styled.div`
   font-style: italic;
 `
 
-export default class QuestionField extends React.Component<QuestionFieldProps> {
-  render() {
+export default class QuestionField extends React.Component<IProps> {
+  public render() {
     const { error, descriptor, index, children } = this.props
     const { required, hint, questionText } = descriptor
 
@@ -47,9 +47,9 @@ export default class QuestionField extends React.Component<QuestionFieldProps> {
       <Container>
         {index
           ? <div style={{ position: 'relative', bottom: 8, marginRight: 15 }}>
-              <Number>
+              <NumberField>
                 {index}
-              </Number>
+              </NumberField>
             </div>
           : null}
         <div>

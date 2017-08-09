@@ -1,4 +1,4 @@
-import { SubscribeDimensions } from './actionTypes'
+import { ISubscribeDimensions } from './actionTypes'
 
 export function updateDimensions(width: number, height: number) {
   return {
@@ -8,7 +8,7 @@ export function updateDimensions(width: number, height: number) {
   }
 }
 
-export function subscribeDimensions(): SubscribeDimensions {
+export function subscribeDimensions(): ISubscribeDimensions {
   return {
     type: 'dimensions/SUBSCRIBE_DIMENSIONS',
   }

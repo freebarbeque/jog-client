@@ -16,6 +16,7 @@ import * as _ from 'lodash'
 import mime from 'react-native-mime-types'
 import uuid from 'uuid/v4'
 
+// tslint:disable-next-line:no-var-requires
 const createThrottle = require('async-throttle')
 
 import { demandCurrentUser, signOut, userSubscribe } from '../../data/auth'
@@ -28,13 +29,13 @@ import {
   subscribePushNotifications,
   unsubscribePushNotifications,
 } from '../../../native/store/push/actions'
-import { ReduxState } from '../../types'
+import { IReduxState } from '../../types'
 import { syncUserData, unsyncUserData } from '../actions'
 import { getNavigationAdapter, getStore, getUploadAdapter } from '../index'
 import {
-  SyncUserAction,
-  UpdateUserDetails,
-  UpdateUserProfilePicture,
+  ISyncUserAction,
+  IUpdateUserDetails,
+  IUpdateUserProfilePicture,
 } from './actionTypes'
 
 import { receiveUser, receiveUserDetails } from './actions'
@@ -132,7 +133,7 @@ function* syncUserTask() {
     while (true) {
       const { user, details } = yield take(channel)
 
-      const state: ReduxState = getStore().getState()
+      const state: IReduxState = getStore().getState()
       const previousDetails = state.auth.details
 
       yield put(receiveUser(user))
@@ -188,7 +189,7 @@ function* logout() {
   yield put(getNavigationAdapter().navigateToAuth())
 }
 
-function* updateUserDetailsTask(action: UpdateUserDetails) {
+function* updateUserDetailsTask(action: IUpdateUserDetails) {
   const details = action.details
   const silent = action.silent
   if (!silent) yield put(startLoading('Updating details'))
@@ -196,7 +197,7 @@ function* updateUserDetailsTask(action: UpdateUserDetails) {
   if (!silent) yield put(finishLoading())
 }
 
-function* updateUserProfilePictureTask(action: UpdateUserProfilePicture) {
+function* updateUserProfilePictureTask(action: IUpdateUserProfilePicture) {
   const fileUrl = action.fileUrl
   const file = action.file
   let contentType
@@ -264,7 +265,7 @@ export function* authSaga() {
 }
 
 export function* userSyncSaga() {
-  let action: SyncUserAction
+  let action: ISyncUserAction
 
   // eslint-disable-next-line no-cond-assign
   while ((action = yield take('auth/SYNC_USER'))) {

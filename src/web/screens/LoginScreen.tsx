@@ -1,6 +1,6 @@
 import FlatButton from 'material-ui/FlatButton'
 import * as React from 'react'
-import { connect } from 'react-redux'
+import { connect, DispatchProp } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { DARK_GRAY } from '../../common/constants/palette'
 import {
@@ -10,9 +10,9 @@ import {
 } from '../../common/store/screens/auth/actions'
 import {
   Dispatch,
-  ReduxState,
-  ValidationErrorsMap,
-  ValuesMap,
+  IReduxState,
+  IValidationErrorsMap,
+  IValuesMap,
 } from '../../common/types'
 import { emailField, passwordField } from '../../native/components/Form/fields'
 import FlexCenteredContainer from '../components/FlexCenteredContainer'
@@ -20,10 +20,9 @@ import Form from '../components/Form'
 import Title from '../components/Title'
 import { NAVIGATION_BAR_HEIGHT } from '../constants/style'
 
-interface LoginProps {
-  dispatch: Dispatch
-  values: ValuesMap
-  validationErrors: ValidationErrorsMap
+interface ILoginProps extends DispatchProp<any> {
+  values: IValuesMap
+  validationErrors: IValidationErrorsMap
   loginError: string | null
   loading: boolean
   errors: {
@@ -31,8 +30,8 @@ interface LoginProps {
   }
 }
 
-class LoginScreen extends React.Component<LoginProps> {
-  static formFields = [
+class LoginScreen extends React.Component<ILoginProps> {
+  public static formFields = [
     emailField,
     {
       ...passwordField,
@@ -43,34 +42,7 @@ class LoginScreen extends React.Component<LoginProps> {
     },
   ]
 
-  handleSubmit = (values: ValuesMap) => {
-    const { email, password } = values
-    this.props.dispatch(login(email, password))
-  }
-
-  renderFormAccessory() {
-    const accessoryStyle = { fontWeight: 500, fontSize: 11, color: DARK_GRAY }
-
-    return (
-      <div style={{ display: 'flex', flexDirection: 'row' }}>
-        <FlatButton
-          style={accessoryStyle as any}
-          containerElement={<Link to="/auth/forgotPassword" />}
-        >
-          FORGOT PASSWORD
-        </FlatButton>
-        <div style={{ flex: 1 }} />
-        <FlatButton
-          style={accessoryStyle as any}
-          containerElement={<Link to="/auth/register" />}
-        >
-          REGISTER NOW
-        </FlatButton>
-      </div>
-    )
-  }
-
-  render() {
+  public render() {
     return (
       <FlexCenteredContainer
         className="LoginScreen"
@@ -103,9 +75,36 @@ class LoginScreen extends React.Component<LoginProps> {
       </FlexCenteredContainer>
     )
   }
+
+  private handleSubmit = (values: IValuesMap) => {
+    const { email, password } = values
+    this.props.dispatch(login(email, password))
+  }
+
+  private renderFormAccessory() {
+    const accessoryStyle = { fontWeight: 500, fontSize: 11, color: DARK_GRAY }
+
+    return (
+      <div style={{ display: 'flex', flexDirection: 'row' }}>
+        <FlatButton
+          style={accessoryStyle as any}
+          containerElement={<Link to="/auth/forgotPassword" />}
+        >
+          FORGOT PASSWORD
+        </FlatButton>
+        <div style={{ flex: 1 }} />
+        <FlatButton
+          style={accessoryStyle as any}
+          containerElement={<Link to="/auth/register" />}
+        >
+          REGISTER NOW
+        </FlatButton>
+      </div>
+    )
+  }
 }
 
-const mapStateToProps = (state: ReduxState) => ({
+const mapStateToProps = (state: IReduxState) => ({
   ...state.screens.auth,
 })
 

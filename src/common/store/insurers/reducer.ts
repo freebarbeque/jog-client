@@ -1,5 +1,5 @@
 import { InsurersReduxState } from '../../types'
-import { ReceiveInsurers } from './actionTypes'
+import { IReceiveInsurers } from './actionTypes'
 
 const DEFAULT_STATE = {
   initialised: false,
@@ -8,7 +8,7 @@ const DEFAULT_STATE = {
 
 export default function reducer(
   state: InsurersReduxState = DEFAULT_STATE,
-  action: ReceiveInsurers,
+  action: IReceiveInsurers,
 ): InsurersReduxState {
   if (action.type === 'insurers/RECEIVE_INSURERS') {
     return {

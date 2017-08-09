@@ -1,5 +1,5 @@
 import { put, takeLatest } from 'redux-saga/effects'
-import { SyncUserDataAction } from './actionTypes'
+import { ISyncUserDataAction } from './actionTypes'
 import { syncUser } from './auth/actions'
 import { syncInsurers } from './insurers/actions'
 import {
@@ -13,7 +13,7 @@ import {
 import { syncQuoteRequests, unsyncQuoteRequests } from './markets/quoteRequests'
 import { syncMotorPolicies, unsyncMotorPolicies } from './policies/actions'
 
-function* syncUserData(action: SyncUserDataAction) {
+function* syncUserData(action: ISyncUserDataAction) {
   const { uid } = action
   yield put(syncMotorPolicies(uid))
   yield put(syncAddressesAction(uid))

@@ -4,25 +4,23 @@ import { connect, DispatchProp } from 'react-redux'
 
 import { push } from 'react-router-redux'
 import { policyHolderQuestion } from '../../../business/motor'
-import { Person, SelectQuestionDescriptor } from '../../../business/types'
-import { FirebaseUser, ReduxState } from '../../../common/types'
+import { IPerson, ISelectQuestionDescriptor } from '../../../business/types'
+import { IFirebaseUser, IReduxState } from '../../../common/types'
 import SelectQuestion from './SelectQuestion'
 
-interface Props {
-  drivers: { [id: string]: Person }
-  user: FirebaseUser
+interface IProps {
+  drivers: { [id: string]: IPerson }
+  user: IFirebaseUser
   value: string
   onChange: (id: string) => void
   onBlur?: () => void
   onFocus?: () => void
 }
 
-interface ConnectedProps extends Props, DispatchProp<any> {}
+interface IConnectedProps extends IProps, DispatchProp<any> {}
 
-interface State {}
-
-class MainDriverQuestion extends React.Component<ConnectedProps, State> {
-  constructor(props: ConnectedProps) {
+class MainDriverQuestion extends React.Component<IConnectedProps, {}> {
+  constructor(props: IConnectedProps) {
     super(props)
     const value = props.value
     this.state = {
@@ -30,18 +28,12 @@ class MainDriverQuestion extends React.Component<ConnectedProps, State> {
     }
   }
 
-  handleSpecialOptionClick = (value: string) => {
-    if (value === 'new-driver') {
-      this.props.dispatch(push('/app/tabs/markets/motor/driver'))
-    }
-  }
-
-  render() {
-    const descriptor: SelectQuestionDescriptor<any> = {
+  public render() {
+    const descriptor: ISelectQuestionDescriptor<any> = {
       ...policyHolderQuestion,
       type: 'select',
       options: [
-        ..._.values(this.props.drivers).map((d: Person) => {
+        ..._.values(this.props.drivers).map((d: IPerson) => {
           const value: string = d.id
           const label = `${d.firstName} ${d.lastName}`
           return {
@@ -68,13 +60,19 @@ class MainDriverQuestion extends React.Component<ConnectedProps, State> {
       />
     )
   }
+
+  private handleSpecialOptionClick = (value: string) => {
+    if (value === 'new-driver') {
+      this.props.dispatch(push('/app/tabs/markets/motor/driver'))
+    }
+  }
 }
 
-const ConnectedMainDriverQuestion: React.ComponentClass<Props> = connect<
+const ConnectedMainDriverQuestion: React.ComponentClass<IProps> = connect<
   {},
   {},
-  Props
->((state: ReduxState) => ({
+  IProps
+>((state: IReduxState) => ({
   drivers: state.markets.drivers,
   user: state.auth.user,
 }))(MainDriverQuestion)

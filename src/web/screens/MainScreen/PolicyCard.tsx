@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import { BLUE, WHITE } from '../../../common/constants/palette'
 import { MARGIN } from '../../../common/constants/style'
 
-export interface PolicyCardProps {
+export interface IProps {
   title: string
   onPress?: () => void
   image: any
@@ -95,10 +95,8 @@ const DescriptionText = styled.div`
   display: flex;
 `
 
-export default class PolicyCard extends React.Component {
-  props: PolicyCardProps
-
-  render() {
+export default class PolicyCard extends React.Component<IProps> {
+  public render() {
     return (
       <Container className="PolicyCard" onClick={this.props.onPress}>
         <Cover>

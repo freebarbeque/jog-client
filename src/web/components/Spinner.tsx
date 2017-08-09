@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import { BLUE } from '../../common/constants/palette'
 import { MARGIN } from '../../common/constants/style'
 
+// tslint:disable-next-line:no-var-requires
 const DoubleBounce = require('better-react-spinkit').DoubleBounce
 
 // language=SCSS prefix=dummy{ suffix=}

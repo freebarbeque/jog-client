@@ -1,6 +1,6 @@
 import { LoadingAction } from './actionTypes'
 
-export interface LoadingReduxState {
+export interface ILoadingReduxState {
   loading: boolean
   text: string
 }
@@ -11,7 +11,7 @@ const DEFAULT_STATE = {
 }
 
 export default function reducer(
-  state: LoadingReduxState = DEFAULT_STATE,
+  state: ILoadingReduxState = DEFAULT_STATE,
   action: LoadingAction,
 ) {
   if (action.type === 'loading/START') {

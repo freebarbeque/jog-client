@@ -34,16 +34,8 @@ const MobileTabs = styled(Tabs)`
   `}
 `
 
-interface ConnectedProps {}
-interface Props extends ConnectedProps, RouteComponentProps<any> {}
-
-class TabsScreen extends React.Component<Props> {
-  handleChangeIndex = index => {
-    const history = this.props.history
-    history.push(`/app/tabs/${TABS[index]}`)
-  }
-
-  render() {
+class TabsScreen extends React.Component<RouteComponentProps<any>> {
+  public render() {
     const location = this.props.location
     const pathname = location.pathname
 
@@ -85,10 +77,13 @@ class TabsScreen extends React.Component<Props> {
       </Container>
     )
   }
+
+  private handleChangeIndex = index => {
+    const history = this.props.history
+    history.push(`/app/tabs/${TABS[index]}`)
+  }
 }
 
-const ConnectedTabsScreen: React.ComponentClass<ConnectedProps> = withRouter(
-  TabsScreen,
-)
+const ConnectedTabsScreen: React.ComponentClass<{}> = withRouter(TabsScreen)
 
 export default ConnectedTabsScreen

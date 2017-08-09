@@ -1,21 +1,21 @@
-import { FirebaseUser, UserDetails } from '../../types'
+import { IFirebaseUser, IUserDetails } from '../../types'
 
 import {
   AuthAction,
-  LogoutAction,
-  PollRefreshUserAction,
-  StopPollingRefreshUserAction,
-  SyncUserAction,
+  ILogoutAction,
+  IPollRefreshUserAction,
+  IStopPollingRefreshUserAction,
+  ISyncUserAction,
 } from './actionTypes'
 
-export function receiveUser(user: FirebaseUser | null): AuthAction {
+export function receiveUser(user: IFirebaseUser | null): AuthAction {
   return {
     type: 'auth/RECEIVE_USER',
     user,
   }
 }
 
-export function receiveUserDetails(details: UserDetails): AuthAction {
+export function receiveUserDetails(details: IUserDetails): AuthAction {
   return {
     type: 'auth/RECEIVE_USER_DETAILS',
     details,
@@ -23,7 +23,7 @@ export function receiveUserDetails(details: UserDetails): AuthAction {
 }
 
 export function updateUserDetails(
-  details: UserDetails,
+  details: IUserDetails,
   silent: boolean = false,
 ): AuthAction {
   return {
@@ -43,25 +43,25 @@ export function updateUserProfilePicture(opts: {
   }
 }
 
-export function pollRefreshUser(): PollRefreshUserAction {
+export function pollRefreshUser(): IPollRefreshUserAction {
   return {
     type: 'auth/POLL_REFRESH_USER',
   }
 }
 
-export function syncUser(): SyncUserAction {
+export function syncUser(): ISyncUserAction {
   return {
     type: 'auth/SYNC_USER',
   }
 }
 
-export function stopPollingRefreshUser(): StopPollingRefreshUserAction {
+export function stopPollingRefreshUser(): IStopPollingRefreshUserAction {
   return {
     type: 'auth/STOP_POLL_REFRESH_USER',
   }
 }
 
-export function logout(): LogoutAction {
+export function logout(): ILogoutAction {
   return {
     type: 'auth/LOGOUT',
   }

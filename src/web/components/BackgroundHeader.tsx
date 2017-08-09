@@ -6,9 +6,10 @@ import { MARGIN } from '../../common/constants/style'
 import { max, min } from '../media'
 import { Arrow, Chevron } from './images/index'
 
+// tslint:disable-next-line:no-var-requires
 const background = require('./background2.png')
 
-interface BackgroundHeaderProps {
+interface IBackgroundHeaderProps {
   headerText: string
   subheaderText?: string | null
   onPress?: () => void
@@ -17,8 +18,8 @@ interface BackgroundHeaderProps {
   style?: any
 }
 
-interface ConnectedBackgroundHeaderProps
-  extends BackgroundHeaderProps,
+interface IConnectedBackgroundHeaderProps
+  extends IBackgroundHeaderProps,
     DispatchProp<any> {}
 
 const desktopHeight = '182.293px'
@@ -128,16 +129,36 @@ const BackArrow = styled.div`
   `};
 `
 
-class BackgroundHeader extends React.Component<ConnectedBackgroundHeaderProps> {
-  static defaultProps = {
+class BackgroundHeader extends React.Component<
+  IConnectedBackgroundHeaderProps
+> {
+  public static defaultProps = {
     enableBackPress: true,
   }
 
-  defaultBack = () => {
+  public render() {
+    if (this.props.enableBackPress) {
+      return (
+        <Button
+          className="BackgroundHeader"
+          onClick={this.props.onPress || this.defaultBack}
+        >
+          {this.renderInner()}
+        </Button>
+      )
+    }
+    return (
+      <div className="BackgroundHeader">
+        {this.renderInner()}
+      </div>
+    )
+  }
+
+  private defaultBack = () => {
     this.props.dispatch(goBack())
   }
 
-  renderInner() {
+  private renderInner() {
     return (
       <Wrapper>
         <BackgroundImage />
@@ -173,27 +194,9 @@ class BackgroundHeader extends React.Component<ConnectedBackgroundHeaderProps> {
       </Wrapper>
     )
   }
-
-  render() {
-    if (this.props.enableBackPress) {
-      return (
-        <Button
-          className="BackgroundHeader"
-          onClick={this.props.onPress || this.defaultBack}
-        >
-          {this.renderInner()}
-        </Button>
-      )
-    }
-    return (
-      <div className="BackgroundHeader">
-        {this.renderInner()}
-      </div>
-    )
-  }
 }
 
 const ConnectedBackgroundHeader: React.ComponentClass<
-  BackgroundHeaderProps
+  IBackgroundHeaderProps
 > = connect()(BackgroundHeader)
 export default ConnectedBackgroundHeader

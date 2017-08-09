@@ -1,6 +1,6 @@
 import { PushAction } from './actionTypes'
 
-export interface PushNotificationsReduxState {
+export interface IPushNotificationsReduxState {
   showModal: boolean
 }
 
@@ -9,7 +9,7 @@ const DEFAULT_STATE = {
 }
 
 export default function reducer(
-  state: PushNotificationsReduxState = DEFAULT_STATE,
+  state: IPushNotificationsReduxState = DEFAULT_STATE,
   action: PushAction,
 ) {
   if (action.type === 'push/SHOW_PUSH_NOTIFICATIONS_MODAL') {

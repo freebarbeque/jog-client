@@ -1,17 +1,17 @@
 import * as React from 'react'
-import { connect } from 'react-redux'
+import { connect, DispatchProp } from 'react-redux'
 import styled from 'styled-components'
 
 import { BLUE } from '../../common/constants/palette'
 import { MARGIN } from '../../common/constants/style'
 import { clearError } from '../../common/store/errors/actions'
 import { finishLoading } from '../../common/store/loading/actions'
-import { Dispatch, ReduxState } from '../../common/types'
+import { Dispatch, IReduxState } from '../../common/types'
 import Button from './Button'
 import { Warning } from './images/index'
 import Spinner from './Spinner'
 
-interface ActionModalProps {
+interface IProps extends DispatchProp<any> {
   loading: {
     text: string
     loading: boolean
@@ -20,7 +20,6 @@ interface ActionModalProps {
     error: boolean
     text: string
   }
-  dispatch: Dispatch
 }
 
 // language=SCSS prefix=dummy{ suffix=}
@@ -47,15 +46,8 @@ const Content = Button.extend`
   }
 `
 
-class ActionModal extends React.Component<ActionModalProps> {
-  handleClick = () => {
-    if (this.props.errors.error) {
-      this.props.dispatch(finishLoading())
-      this.props.dispatch(clearError())
-    }
-  }
-
-  render() {
+class ActionModal extends React.Component<IProps> {
+  public render() {
     const visible = this.props.loading.loading || this.props.errors.error
 
     return (
@@ -131,9 +123,16 @@ class ActionModal extends React.Component<ActionModalProps> {
       </ModalWrapper>
     )
   }
+
+  private handleClick = () => {
+    if (this.props.errors.error) {
+      this.props.dispatch(finishLoading())
+      this.props.dispatch(clearError())
+    }
+  }
 }
 
-const mapStateToProps = (state: ReduxState) => ({
+const mapStateToProps = (state: IReduxState) => ({
   loading: state.loading,
   errors: state.errors,
 })

@@ -1,9 +1,9 @@
 import * as firebase from 'firebase'
-import { EnvironmentConfig } from '../types'
+import { IEnvironmentConfig } from '../types'
 
 let initialised = false
 
-export default function initialiseFirebase(config: EnvironmentConfig) {
+export default function initialiseFirebase(config: IEnvironmentConfig) {
   if (!initialised) {
     const firebaseOptions = config.firebase
     if (!firebaseOptions)

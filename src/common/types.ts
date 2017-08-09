@@ -1,25 +1,25 @@
 import { NavigationAction } from 'react-navigation'
 import { RouterAction } from 'react-router-redux'
 import { Dispatch as ReduxDispatch, Store as ReduxStore } from 'redux'
-import { PushNotificationsReduxState } from '../native/store/push/reducer'
+import { IPushNotificationsReduxState } from '../native/store/push/reducer'
 import { DimensionAction } from '../web/store/dimensions/actionTypes'
 import { BaseAction } from './store/actionTypes'
 import { AuthAction } from './store/auth/actionTypes'
 import { ErrorAction } from './store/errors/actionTypes'
-import { ErrorsReduxState } from './store/errors/reducer'
+import { IErrorsReduxState } from './store/errors/reducer'
 import { InsurerActions } from './store/insurers/actionTypes'
 import { LoadingAction } from './store/loading/actionTypes'
-import { LoadingReduxState } from './store/loading/reducer'
-import { MarketsAction, IMarketsReduxState } from './store/markets/index'
+import { ILoadingReduxState } from './store/loading/reducer'
+import { IMarketsReduxState, MarketsAction } from './store/markets/index'
 import { QuoteRequestAction } from './store/markets/quoteRequests'
 import { PoliciesAction } from './store/policies/actionTypes'
 import {
   AddManualPolicyAction,
-  ManualPolicyUpdate,
+  IManualPolicyUpdate,
   MotorPolicyOwnership,
 } from './store/screens/addManualPolicy/actions'
 import { CommonAuthAction } from './store/screens/auth/actions'
-import { SettingsScreenReduxState } from './store/screens/settings/reducer'
+import { ISettingsScreenReduxState } from './store/screens/settings/reducer'
 
 //
 // Redux
@@ -39,58 +39,58 @@ export type Action =
   | CommonAuthAction
   | RouterAction
 
-export interface NavReduxState {
+export interface INavReduxState {
   index: number
-  routes: Route[]
+  routes: IRoute[]
 }
 
-export interface AuthReduxState {
-  user: FirebaseUser | null
-  details: UserDetails | null
+export interface IAuthReduxState {
+  user: IFirebaseUser | null
+  details: IUserDetails | null
   initialised: boolean
 }
 
-export interface DimensionsReduxState {
+export interface IDimensionsReduxState {
   width: number
   height: number
 }
 
-export interface AuthScreensReduxState {
-  values: ValuesMap
-  validationErrors: ValidationErrorsMap
+export interface IAuthScreensReduxState {
+  values: IValuesMap
+  validationErrors: IValidationErrorsMap
   loading: boolean
   errors: { [key: string]: string }
 }
 
-export interface ScreensReduxState {
-  auth: AuthScreensReduxState
-  addManualPolicy: ManualPolicyUpdate
-  settings: SettingsScreenReduxState
+export interface IScreensReduxState {
+  auth: IAuthScreensReduxState
+  addManualPolicy: IManualPolicyUpdate
+  settings: ISettingsScreenReduxState
 }
 
-export interface MotorPolicyMap {
-  [id: string]: MotorPolicy
+export interface IMotorPolicyMap {
+  [id: string]: IMotorPolicy
 }
 
-export interface PoliciesState {
+export interface IPoliciesState {
   initialised: boolean
-  policies: MotorPolicyMap
+  policies: IMotorPolicyMap
 }
 
-export interface ReduxState {
-  nav: NavReduxState
-  auth: AuthReduxState
-  screens: ScreensReduxState
-  policies: PoliciesState
+export interface IReduxState {
+  nav: INavReduxState
+  auth: IAuthReduxState
+  screens: IScreensReduxState
+  policies: IPoliciesState
   insurers: InsurersReduxState
-  loading: LoadingReduxState
-  errors: ErrorsReduxState
-  push: PushNotificationsReduxState
-  dimensions: DimensionsReduxState
+  loading: ILoadingReduxState
+  errors: IErrorsReduxState
+  push: IPushNotificationsReduxState
+  dimensions: IDimensionsReduxState
   markets: IMarketsReduxState
 }
 
-export type Store = ReduxStore<ReduxState>
+export type Store = ReduxStore<IReduxState>
 
 export type Dispatch = (a: Action) => void
 
@@ -98,28 +98,28 @@ export type Dispatch = (a: Action) => void
 // Forms
 //
 
-export interface TextFormField {
+export interface ITextFormField {
   type: 'text'
-  inputProps: Object
+  inputProps: any
   label: string
   key: string
   // The validation function should return an error if invalid or null if valid.
   validate?: (val: string) => string | null
 }
 
-export interface OptionsFormField {
+export interface IOptionsFormField {
   type: 'options'
   label: string
   key: string
   options: Array<{ value: string; label: string }>
 }
 
-export type FormField = TextFormField | OptionsFormField
+export type FormField = ITextFormField | IOptionsFormField
 
-export interface ValuesMap {
+export interface IValuesMap {
   [key: string]: string
 }
-export interface ValidationErrorsMap {
+export interface IValidationErrorsMap {
   [key: string]: string | null
 }
 
@@ -128,7 +128,7 @@ export interface ValidationErrorsMap {
 //
 
 // https://firebase.google.com/docs/reference/js/firebase.User
-export interface FirebaseUser {
+export interface IFirebaseUser {
   displayName: string | null
   email: string | null
   emailVerified: boolean
@@ -139,7 +139,7 @@ export interface FirebaseUser {
   uid: string
 }
 
-export interface UserDetails {
+export interface IUserDetails {
   firstName?: string
   lastName?: string
   address?: {
@@ -162,7 +162,7 @@ export interface UserDetails {
 //
 
 // Describes a driver attached to a motor policy
-export interface Driver {
+export interface IDriver {
   firstName?: string
   lastName?: string
 }
@@ -173,7 +173,7 @@ export const LEVEL_OF_COVER = {
   thirdParty: 'Third Party Only',
 }
 
-export interface PolicyDocument {
+export interface IPolicyDocument {
   image: string
   name: string
   id: string
@@ -182,11 +182,11 @@ export interface PolicyDocument {
 
 // TODO: Split this into generic Policy/MotorPolicy/SelectedMotorPolicy once react-native supports flow 0.42.x
 // /policies/${policyId}
-export interface MotorPolicy {
+export interface IMotorPolicy {
   type?: 'motor'
   vehicleRegistration?: string
   levelOfCover?: keyof typeof LEVEL_OF_COVER
-  drivers?: Driver[]
+  drivers?: IDriver[]
   noClaimsBonus?: number // Num. years.
   id?: string // Jogs identifier for the policy (guid?)
   policyNo?: string // I would assume this is the insurer's own identifier? I know some will have non-numeric characters
@@ -194,7 +194,7 @@ export interface MotorPolicy {
   startDate?: number
   createdDate?: number // Date added to jog as opposed to insurance start date
   companyId?: string
-  documents?: { [id: string]: PolicyDocument }
+  documents?: { [id: string]: IPolicyDocument }
   cost?: number
   uid?: string // Firebase user id.
   excess?: number
@@ -233,7 +233,7 @@ export interface InsurersReduxState {
 //
 
 // navigation
-export interface ReactNavigationProp {
+export interface IReactNavigationProp {
   navigate: (routeName: string) => void
   dispatch: Dispatch
   goBack: () => void
@@ -244,24 +244,24 @@ export interface ReactNavigationProp {
     }
     key: string // Unique key for the route
     type: string
-    routes: Route[]
+    routes: IRoute[]
   }
 }
 
-export interface Route {
+export interface IRoute {
   key: string
   index?: number
   routeName: string
-  routes: Route[]
+  routes: IRoute[]
   params: { [key: string]: any }
 }
 
 // nav
-export interface ReactNavProp {
-  routes: Route[]
+export interface IReactNavProp {
+  routes: IRoute[]
 }
 
-export interface UploadFileOpts {
+export interface IUploadFileOpts {
   filePath?: string
   file?: any
   fileStoragePath: string
@@ -269,7 +269,7 @@ export interface UploadFileOpts {
   contentEncoding: string
 }
 
-export interface EnvironmentConfig {
+export interface IEnvironmentConfig {
   firebase: {
     apiKey: string
     authDomain: string

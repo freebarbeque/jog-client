@@ -1,29 +1,31 @@
 import { push } from 'react-router-redux'
 
 export class WebNavigationAdapter {
-  static navigateToAuthFinished() {
+  public static navigateToAuthFinished() {
     return push('/auth/verify')
   }
 
-  static navigateToAuth() {
+  public static navigateToAuth() {
     return push('/auth')
   }
 
   // eslint-disable-next-line no-unused-vars
-  static navigateToPolicyDetails(policyId: string, policyIndex: number) {}
+  public static navigateToPolicyDetails(policyId: string, policyIndex: number) {
+    // TODO?
+  }
 
-  static navigateToEmailVerification() {
+  public static navigateToEmailVerification() {
     return push('/auth/verify')
   }
 
-  static navigateToConfirmPasswordReset() {
+  public static navigateToConfirmPasswordReset() {
     return push('/auth/confirmForgotPassword')
   }
 
-  static hideAuthModal() {
+  public static hideAuthModal() {
     return push('/app')
   }
-  static navigateToPolicyFinished() {
+  public static navigateToPolicyFinished() {
     return push('/app/addManualPolicy/finished')
   }
 }

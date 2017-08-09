@@ -5,19 +5,19 @@ import styled from 'styled-components'
 
 import { BLUE } from '../../common/constants/palette'
 
-export interface PickerOption {
+export interface IPickerOption {
   label: string
   value: string
 }
 
-interface PickerProps {
+interface IPickerProps {
   value?: string | null
-  onChange: (value: PickerOption) => void
-  options: PickerOption[]
+  onChange: (value: IPickerOption) => void
+  options: IPickerOption[]
   placeholder: string
   titleText?: string
   name: string
-  getItemStyle?: (option: PickerOption) => any
+  getItemStyle?: (option: IPickerOption) => any
   className?: string
 }
 
@@ -75,16 +75,14 @@ const Container = styled.div`
   }
 `
 
-export default class Picker extends React.Component<PickerProps> {
-  render() {
-    const { value, options, ...props } = this.props
-    const _value = value || null
-
+export default class Picker extends React.Component<IPickerProps> {
+  public render() {
+    const { value = null, options, ...props } = this.props
     return (
       <Container>
         <SelectField
           className="select-field"
-          value={_value}
+          value={value}
           labelStyle={{ color: 'white' }}
         >
           {options.map(o =>

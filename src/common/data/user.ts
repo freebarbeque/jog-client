@@ -1,10 +1,10 @@
 // @flow
 
 import * as firebase from 'firebase'
-import { UserDetails } from '../types'
+import { IUserDetails } from '../types'
 import { demandCurrentUser } from './auth'
 
-export async function getUserDetails(uid: string): Promise<UserDetails> {
+export async function getUserDetails(uid: string): Promise<IUserDetails> {
   const snapshot = await firebase
     .database()
     .ref('users')
@@ -15,7 +15,7 @@ export async function getUserDetails(uid: string): Promise<UserDetails> {
 
 export function syncUserDetails(
   uid: string,
-  cb: (details: UserDetails) => void,
+  cb: (details: IUserDetails) => void,
 ) {
   const listener = snapshot => {
     const details = snapshot.val() || {}
@@ -28,26 +28,26 @@ export function syncUserDetails(
 
 export async function updateUserDetails(
   uid: string,
-  details: UserDetails,
+  details: IUserDetails,
 ): Promise<void> {
   const ref = firebase.database().ref('users').child(uid)
   await ref.update(details)
 }
 
-export function getCurrentUserDetails(): Promise<UserDetails> {
+export function getCurrentUserDetails(): Promise<IUserDetails> {
   const user = demandCurrentUser()
   const uid = user.uid
   return getUserDetails(uid)
 }
 
-export function syncCurrentUserDetails(cb: (details: UserDetails) => void) {
+export function syncCurrentUserDetails(cb: (details: IUserDetails) => void) {
   const user = demandCurrentUser()
   const uid = user.uid
   syncUserDetails(uid, cb)
 }
 
 export async function updateCurrentUserDetails(
-  details: UserDetails,
+  details: IUserDetails,
 ): Promise<void> {
   const user = demandCurrentUser()
   const uid = user.uid

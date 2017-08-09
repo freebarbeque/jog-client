@@ -22,7 +22,7 @@ const TopHeadline = styled.p`
 const BottomHeadline = styled.p`font-size: 16px;`
 
 export default class Jumbotron extends React.Component {
-  render() {
+  public render() {
     return (
       <div>
         <Logo scale={1.5} />

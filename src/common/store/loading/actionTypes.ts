@@ -1,10 +1,10 @@
-export interface StartLoadingAction {
+export interface IStartLoadingAction {
   type: 'loading/START'
   text: string
 }
 
-export interface FinishLoadingAction {
+export interface IFinishLoadingAction {
   type: 'loading/FINISH'
 }
 
-export type LoadingAction = StartLoadingAction | FinishLoadingAction
+export type LoadingAction = IStartLoadingAction | IFinishLoadingAction

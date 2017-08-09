@@ -4,36 +4,28 @@ import { connect, DispatchProp } from 'react-redux'
 import { push } from 'react-router-redux'
 
 import { updateManualPolicy } from '../../common/store/screens/addManualPolicy/actions'
-import { ManualPolicyUpdate } from '../../common/store/screens/addManualPolicy/actions'
+import { IManualPolicyUpdate } from '../../common/store/screens/addManualPolicy/actions'
 import {
   Action,
   Dispatch,
   Insurer,
   InsurerMap,
-  ReduxState,
+  IReduxState,
 } from '../../common/types'
 import AddPolicyScreenContainer from '../components/AddPolicyScreenContainer'
 import Picker from '../components/Picker'
 
 interface InsurerScreenProps extends DispatchProp<Action> {
   insurers: InsurerMap
-  policy: ManualPolicyUpdate
+  policy: IManualPolicyUpdate
 }
 
 class InsurerScreen extends React.Component<InsurerScreenProps> {
-  handleNextPress = () => {
-    this.props.dispatch(push('/app/addManualPolicy/policyNo'))
-  }
-
-  onChange = ({ value }) => {
-    this.props.dispatch(updateManualPolicy({ companyId: value }))
-  }
-
-  render() {
+  public render() {
     const options = [
       ..._.map(this.props.insurers, (insurer: Insurer, id: string) => {
         return {
-          label: insurer.name,
+          label: insurer.name || '',
           value: id,
         }
       }),
@@ -47,11 +39,10 @@ class InsurerScreen extends React.Component<InsurerScreenProps> {
     let company
 
     if (companyId) {
-      if (companyId === 'other') {
-        company = { name: 'Other' }
-      } else {
-        company = this.props.insurers[companyId]
-      }
+      company =
+        companyId === 'other'
+          ? { name: 'Other' }
+          : this.props.insurers[companyId]
     }
 
     return (
@@ -75,9 +66,17 @@ class InsurerScreen extends React.Component<InsurerScreenProps> {
       </AddPolicyScreenContainer>
     )
   }
+
+  private handleNextPress = () => {
+    this.props.dispatch(push('/app/addManualPolicy/policyNo'))
+  }
+
+  private onChange = ({ value }) => {
+    this.props.dispatch(updateManualPolicy({ companyId: value }))
+  }
 }
 
-const mapStateToProps = (state: ReduxState) => ({
+const mapStateToProps = (state: IReduxState) => ({
   insurers: state.insurers.insurers,
   policy: state.screens.addManualPolicy,
 })

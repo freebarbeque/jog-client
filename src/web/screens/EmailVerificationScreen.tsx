@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { connect } from 'react-redux'
+import { connect, DispatchProp } from 'react-redux'
 import { push } from 'react-router-redux'
 import styled from 'styled-components'
 
@@ -9,15 +9,14 @@ import {
   stopPollingRefreshUser,
 } from '../../common/store/auth/actions'
 import { emailVerification } from '../../common/store/screens/auth/actions'
-import { Dispatch, FirebaseUser, ReduxState } from '../../common/types'
+import { Dispatch, IFirebaseUser, IReduxState } from '../../common/types'
 import FlexCenteredContainer from '../components/FlexCenteredContainer'
 import RoundedButton from '../components/RoundedButton'
 import Title from '../components/Title'
 import { NAVIGATION_BAR_HEIGHT } from '../constants/style'
 
-interface EmailVerificationScreenProps {
-  dispatch: Dispatch
-  user: FirebaseUser | null
+interface IEmailVerificationScreenProps extends DispatchProp<any> {
+  user: IFirebaseUser | null
   loading: boolean
 }
 
@@ -32,35 +31,9 @@ const Description = styled.div`
 `
 
 class EmailVerificationScreen extends React.Component<
-  EmailVerificationScreenProps
+  IEmailVerificationScreenProps
 > {
-  componentDidMount() {
-    this.props.dispatch(pollRefreshUser())
-  }
-
-  componentWillReceiveProps(props: EmailVerificationScreenProps) {
-    const user = props.user
-    if (user && user.emailVerified) {
-      this.hideModal()
-    }
-  }
-
-  componentWillUnmount() {
-    this.props.dispatch(stopPollingRefreshUser())
-  }
-
-  hideModal = () => {
-    this.props.dispatch(push('/app'))
-  }
-
-  handleResendClick = () => {
-    const user = this.props.user
-    if (user) {
-      this.props.dispatch(emailVerification(user))
-    }
-  }
-
-  render() {
+  public render() {
     return (
       <FlexCenteredContainer style={{ paddingBottom: NAVIGATION_BAR_HEIGHT }}>
         <div>
@@ -84,9 +57,35 @@ class EmailVerificationScreen extends React.Component<
       </FlexCenteredContainer>
     )
   }
+
+  public componentDidMount() {
+    this.props.dispatch(pollRefreshUser())
+  }
+
+  public componentWillReceiveProps(props: IEmailVerificationScreenProps) {
+    const user = props.user
+    if (user && user.emailVerified) {
+      this.hideModal()
+    }
+  }
+
+  public componentWillUnmount() {
+    this.props.dispatch(stopPollingRefreshUser())
+  }
+
+  private hideModal = () => {
+    this.props.dispatch(push('/app'))
+  }
+
+  private handleResendClick = () => {
+    const user = this.props.user
+    if (user) {
+      this.props.dispatch(emailVerification(user))
+    }
+  }
 }
 
-const mapStateToProps = (state: ReduxState) => ({
+const mapStateToProps = (state: IReduxState) => ({
   user: state.auth.user,
   loading: state.screens.auth.loading,
 })

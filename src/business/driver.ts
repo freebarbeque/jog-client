@@ -1,33 +1,34 @@
 import * as _ from 'lodash'
 import { validate } from './validation'
 
+// tslint:disable-next-line:no-var-requires
 const uuid = require('uuid/v4')
 
 import {
-  BooleanDependentQuestionDescriptor,
+  IBooleanDependentQuestionDescriptor,
   IBooleanQuestionDescriptor,
-  DateQuestionDescriptor,
-  NumericQuestionDescriptor,
-  Person,
-  SelectQuestionDescriptor,
-  TextQuestionDescriptor,
+  IDateQuestionDescriptor,
+  INumericQuestionDescriptor,
+  IPerson,
+  ISelectQuestionDescriptor,
+  ITextQuestionDescriptor,
 } from './types'
 
-export const firstNameQuestion: TextQuestionDescriptor = {
+export const firstNameQuestion: ITextQuestionDescriptor = {
   id: 'person/first-name',
   type: 'text',
   questionText: "What's your first name?",
   required: true,
 }
 
-export const lastNameQuestion: TextQuestionDescriptor = {
+export const lastNameQuestion: ITextQuestionDescriptor = {
   id: 'person/last-name',
   type: 'text',
   questionText: "What's your last name?",
   required: true,
 }
 
-export const genderQuestion: SelectQuestionDescriptor<string> = {
+export const genderQuestion: ISelectQuestionDescriptor<string> = {
   type: 'select',
   id: 'person/gender',
   questionText: "What's your gender?",
@@ -38,14 +39,14 @@ export const genderQuestion: SelectQuestionDescriptor<string> = {
   required: true,
 }
 
-export const dobQuestion: DateQuestionDescriptor = {
+export const dobQuestion: IDateQuestionDescriptor = {
   type: 'date',
   id: 'person/dob',
   questionText: "What's your date of birth?",
   required: true,
 }
 
-export const relationshipStatusQuestion: SelectQuestionDescriptor<string> = {
+export const relationshipStatusQuestion: ISelectQuestionDescriptor<string> = {
   id: 'person/relationship-status',
   questionText: "What's your relationship status?",
   type: 'select',
@@ -68,8 +69,8 @@ export const childrenQuestion: IBooleanQuestionDescriptor = {
   required: true,
 }
 
-export const startLivingUkQuestion: BooleanDependentQuestionDescriptor<
-  DateQuestionDescriptor
+export const startLivingUkQuestion: IBooleanDependentQuestionDescriptor<
+  IDateQuestionDescriptor
 > = {
   type: 'boolean-dependent',
   questionText: 'Have you lived in the UK all your life?',
@@ -85,21 +86,21 @@ export const startLivingUkQuestion: BooleanDependentQuestionDescriptor<
   reverse: true,
 }
 
-export const jobQuestion: TextQuestionDescriptor = {
+export const jobQuestion: ITextQuestionDescriptor = {
   type: 'text',
   id: 'person/job',
   questionText: 'What job do you do?',
   required: true,
 }
 
-export const industryQuestion: TextQuestionDescriptor = {
+export const industryQuestion: ITextQuestionDescriptor = {
   type: 'text',
   id: 'person/industry',
   questionText: 'What industry do you work in?',
   required: true,
 }
 
-export const drivingLicenseQuestion: TextQuestionDescriptor = {
+export const drivingLicenseQuestion: ITextQuestionDescriptor = {
   type: 'text',
   id: 'person/license',
   questionText: 'What is your driving license number?',
@@ -122,11 +123,11 @@ export const questions = [
 
 export const questionMap = _.keyBy(questions, q => q.id)
 
-export function constructDriver(answers: { [id: string]: any }): Person {
+export function constructDriver(answers: { [id: string]: any }): IPerson {
   if (validate(questions, answers).hasError) {
     throw new Error('Address questions should have passed validation.')
   } else {
-    const driver: Person = {
+    const driver: IPerson = {
       id: uuid(),
       firstName: answers['person/first-name'],
       lastName: answers['person/last-name'],

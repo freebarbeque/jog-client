@@ -1,10 +1,10 @@
-export interface DeclareErrorAction {
+export interface IDeclareErrorAction {
   type: 'errors/DECLARE'
   text: string
 }
 
-export interface ClearErrorAction {
+export interface IClearErrorAction {
   type: 'errors/CLEAR'
 }
 
-export type ErrorAction = DeclareErrorAction | ClearErrorAction
+export type ErrorAction = IDeclareErrorAction | IClearErrorAction

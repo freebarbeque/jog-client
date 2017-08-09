@@ -1,18 +1,18 @@
-export interface SyncUserDataAction {
+export interface ISyncUserDataAction {
   type: 'SYNC_USER_DATA'
   uid: string
 }
 
-export interface UnsyncUserDataAction {
+export interface IUnsyncUserDataAction {
   type: 'UNSYNC_USER_DATA'
   uid: string
 }
 
-export interface SyncDataAction {
+export interface ISyncDataAction {
   type: 'SYNC_DATA'
 }
 
 export type BaseAction =
-  | SyncUserDataAction
-  | UnsyncUserDataAction
-  | SyncDataAction
+  | ISyncUserDataAction
+  | IUnsyncUserDataAction
+  | ISyncDataAction

@@ -1,14 +1,14 @@
 import * as React from 'react'
-import { BooleanDependentQuestionDescriptor } from '../../../business/types'
+import { IBooleanDependentQuestionDescriptor } from '../../../business/types'
 import { MARGIN } from '../../../common/constants/style'
-import { QuestionFieldProps } from './QuestionField'
+import { IProps } from './QuestionField'
 import QuestionField from './QuestionField'
 import SelectBox from './SelectBox'
 
 import QuestionSet from './QuestionSet'
 
-interface BooleanDependentQuestionProps extends QuestionFieldProps {
-  descriptor: BooleanDependentQuestionDescriptor<any>
+interface IBooleanDependentQuestionProps extends IProps {
+  descriptor: IBooleanDependentQuestionDescriptor<any>
   value: any
   onChange: (id: string, value: any) => void
   onBlur?: () => void
@@ -17,9 +17,9 @@ interface BooleanDependentQuestionProps extends QuestionFieldProps {
 }
 
 export default class BooleanDependentQuestion extends React.Component<
-  BooleanDependentQuestionProps
+  IBooleanDependentQuestionProps
 > {
-  render() {
+  public render() {
     const id = this.props.descriptor.id
     const reverse = this.props.descriptor.reverse
     const value = this.props.value
@@ -62,7 +62,7 @@ export default class BooleanDependentQuestion extends React.Component<
         dependentQuestions
           ? <QuestionSet
               questions={dependentQuestions}
-              answers={answers}
+              answers={answers || {}}
               onChange={this.props.onChange}
             />
           : null}

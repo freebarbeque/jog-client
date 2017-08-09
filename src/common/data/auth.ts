@@ -1,5 +1,5 @@
 import * as firebase from 'firebase'
-import { FirebaseUser } from '../types'
+import { IFirebaseUser } from '../types'
 
 const errors = {
   'auth/invalid-email': 'Invalid email address supplied.',
@@ -18,8 +18,10 @@ const errors = {
 
 // Decorates firebase calls converting errors into user readable errors and warning when this
 // is impossible.
-function errorWrapper(fn: Function): (...args: any[]) => Promise<any> {
-  return async function(...args: any[]) {
+function errorWrapper(
+  fn: (...args: any[]) => {},
+): (...args: any[]) => Promise<any> {
+  return async (...args: any[]) => {
     try {
       await fn(...args)
     } catch (err) {
@@ -80,11 +82,11 @@ export const confirmPasswordReset: (
 )
 
 export function userSubscribe(
-  callback: (user: FirebaseUser | null) => void,
+  callback: (user: IFirebaseUser | null) => void,
 ): () => void {
   return firebase
     .auth()
-    .onAuthStateChanged(u => callback(u ? u.toJSON() as FirebaseUser : null))
+    .onAuthStateChanged(u => callback(u ? u.toJSON() as IFirebaseUser : null))
 }
 
 /**
@@ -92,9 +94,9 @@ export function userSubscribe(
  *
  * It's useful in scenarios where we need to assert that a user is logged in i.e. whereby
  * the code should never be executed if there is no authenticated user.
- * @returns {FirebaseUser}
+ * @returns {IFirebaseUser}
  */
-export function demandCurrentUser(): FirebaseUser {
+export function demandCurrentUser(): IFirebaseUser {
   const currentUser = firebase.auth().currentUser
   if (currentUser) return currentUser.toJSON() as any
   throw new Error('No user is logged in.')

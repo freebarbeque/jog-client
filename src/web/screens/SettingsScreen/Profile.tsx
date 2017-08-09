@@ -7,20 +7,20 @@ import { MARGIN } from '../../../common/constants/style'
 import { updateUserProfilePicture } from '../../../common/store/auth/actions'
 import {
   Dispatch,
-  FirebaseUser,
-  ReduxState,
-  UserDetails,
+  IFirebaseUser,
+  IReduxState,
+  IUserDetails,
 } from '../../../common/types'
 import BigRedFullWidthButton from '../../components/BigRedFullWidthButton'
 import Button from '../../components/Button'
 import Collapsible from '../../components/Collapsible'
 import { getFile } from '../../upload'
 
-interface ProfileProps {
+interface IProps {
   dispatch: Dispatch
   // eslint-disable-next-line react/no-unused-prop-types
-  user: FirebaseUser
-  userDetails: UserDetails | null
+  user: IFirebaseUser
+  userDetails: IUserDetails | null
 }
 
 // language=SCSS prefix=dummy{ suffix=}
@@ -86,18 +86,12 @@ const Field = props =>
     </FieldValue>
   </FieldContainer>
 
-class Profile extends React.Component<ProfileProps> {
-  static handleSupportPress() {}
-
-  handleProfilePicturePress = () => {
-    getFile().then((file: File) => {
-      this.props.dispatch(updateUserProfilePicture({ file }))
-    })
+class Profile extends React.Component<IProps> {
+  public static handleSupportPress() {
+    // TODO?
   }
 
-  handleCapture = () => {}
-
-  render() {
+  public render() {
     const userDetails = this.props.userDetails || {}
     const address = userDetails.address
     const hasAddress =
@@ -169,9 +163,19 @@ class Profile extends React.Component<ProfileProps> {
       </Collapsible>
     )
   }
+
+  private handleProfilePicturePress = () => {
+    getFile().then((file: File) => {
+      this.props.dispatch(updateUserProfilePicture({ file }))
+    })
+  }
+
+  private handleCapture = () => {
+    // TODO?
+  }
 }
 
-const mapStateToProps = (state: ReduxState) => {
+const mapStateToProps = (state: IReduxState) => {
   return {
     user: state.auth.user,
     userDetails: state.auth.details,

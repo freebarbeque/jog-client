@@ -2,6 +2,7 @@ import { applyMiddleware, compose, createStore as _createStore } from 'redux'
 import createSagaMiddleware from 'redux-saga'
 import devTools from 'remote-redux-devtools'
 
+// tslint:disable-next-line:no-var-requires
 const freeze = require('redux-freeze')
 
 import { authSaga, pollUserSaga, userSyncSaga } from './auth/sagas'
@@ -12,37 +13,37 @@ import { syncInsurersSaga } from './insurers/sagas'
 import {
   addMarketEntitySaga,
   syncAddressesSaga,
-  syncDriversSaga,
   syncCarsSaga,
+  syncDriversSaga,
 } from './markets/index'
+import { quoteRequestsSyncSaga } from './markets/quoteRequests'
 import { policyOperationsSaga, syncPoliciesSaga } from './policies/sagas'
 import saga from './sagas'
 import { addPolicySaga } from './screens/addManualPolicy/sagas'
 import { addPolicyScreenSaga } from './screens/addPolicyScreen/sagas'
 import authScreenSaga from './screens/auth/sagas'
-import { quoteRequestsSyncSaga } from './markets/quoteRequests'
 
-let store = null
+let store: any = null
 let navigationAdaptor: any = null
 let uploadAdaptor: any = null
 
-interface CreateStoreOpts {
+interface ICreateStoreOpts {
   enableDevTools?: boolean
   freeze?: boolean
   reducer: any
-  sagas?: Function[]
+  sagas?: any[]
   navigationAdaptor: any
   uploadAdaptor: any
   middleware: any[]
 }
 
-export default function createStore(_opts: CreateStoreOpts): Store {
+export default function createStore(additionalOpts: ICreateStoreOpts): Store {
   const opts = {
     enableDevTools: false,
     freeze: false,
     sagas: [],
     middleware: [],
-    ..._opts,
+    ...additionalOpts,
   }
 
   if (!store) {
@@ -58,7 +59,7 @@ export default function createStore(_opts: CreateStoreOpts): Store {
 
     let enhancer
 
-    // eslint-disable-next-line valid-typeof
+    // tslint:disable-next-line:typeof-compare
     if (typeof window === undefined) {
       enhancer = compose(
         applyMiddleware(...middleware),

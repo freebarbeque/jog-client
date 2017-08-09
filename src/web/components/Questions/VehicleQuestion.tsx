@@ -4,23 +4,23 @@ import { connect, DispatchProp } from 'react-redux'
 
 import { push } from 'react-router-redux'
 import { vehicleQuestion } from '../../../business/motor'
-import { Car, SelectQuestionDescriptor } from '../../../business/types'
-import { FirebaseUser, ReduxState } from '../../../common/types'
+import { ICar, ISelectQuestionDescriptor } from '../../../business/types'
+import { IFirebaseUser, IReduxState } from '../../../common/types'
 import SelectQuestion from './SelectQuestion'
 
-interface Props extends DispatchProp<any> {
-  cars: { [id: string]: Car }
-  user: FirebaseUser
+interface IProps extends DispatchProp<any> {
+  cars: { [id: string]: ICar }
+  user: IFirebaseUser
   value: string
   onChange: (id: string) => void
 }
 
-interface VehicleQuestionState {
+interface IVehicleQuestionState {
   value: string | null
 }
 
-class VehicleQuestion extends React.Component<Props, VehicleQuestionState> {
-  constructor(props: Props) {
+class VehicleQuestion extends React.Component<IProps, IVehicleQuestionState> {
+  constructor(props: IProps) {
     super(props)
     const value = props.value
     this.state = {
@@ -28,18 +28,12 @@ class VehicleQuestion extends React.Component<Props, VehicleQuestionState> {
     }
   }
 
-  handleSpecialOptionClick = (value: string) => {
-    if (value === 'new-car') {
-      this.props.dispatch(push('/app/tabs/markets/motor/vehicle'))
-    }
-  }
-
-  render() {
-    const descriptor: SelectQuestionDescriptor<any> = {
+  public render() {
+    const descriptor: ISelectQuestionDescriptor<any> = {
       ...vehicleQuestion,
       type: 'select',
       options: [
-        ..._.values(this.props.cars).map((car: Car) => {
+        ..._.values(this.props.cars).map((car: ICar) => {
           return {
             value: car.id,
             label: `${car.make} ${car.model}`,
@@ -60,9 +54,15 @@ class VehicleQuestion extends React.Component<Props, VehicleQuestionState> {
       />
     )
   }
+
+  private handleSpecialOptionClick = (value: string) => {
+    if (value === 'new-car') {
+      this.props.dispatch(push('/app/tabs/markets/motor/vehicle'))
+    }
+  }
 }
 
-export default connect((state: ReduxState) => ({
+export default connect((state: IReduxState) => ({
   cars: state.markets.cars,
   user: state.auth.user,
 }))(VehicleQuestion)

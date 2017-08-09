@@ -1,3 +1,4 @@
+// tslint:disable-next-line:no-var-requires
 const validator = require('email-validator')
 
 export function emailValidator(email: string): string | null {

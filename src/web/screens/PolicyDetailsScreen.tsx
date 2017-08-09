@@ -5,13 +5,14 @@ import { withRouter } from 'react-router-dom'
 import { push } from 'react-router-redux'
 import styled from 'styled-components'
 
+// tslint:disable-next-line:no-var-requires
 const moment = require('moment')
 
 import { BLUE, CREAM, WHITE, YELLOW } from '../../common/constants/palette'
 import { MARGIN } from '../../common/constants/style'
 import { selectPolicies } from '../../common/store/policies/selectors'
 
-import { Dispatch, MotorPolicy, ReduxState } from '../../common/types'
+import { Dispatch, IMotorPolicy, IReduxState } from '../../common/types'
 
 import { Action, LEVEL_OF_COVER } from '../../common/types'
 
@@ -133,79 +134,16 @@ const Row = props => {
   )
 }
 
-interface PolicyDetailsScreenProps {
-  policies: { [id: string]: MotorPolicy }
+interface IProps {
+  policies: { [id: string]: IMotorPolicy }
   initialised: boolean
   isHandset: boolean
 }
 
 class PolicyDetailsScreen extends React.Component<
-  PolicyDetailsScreenProps & DispatchProp<Action> & RouteComponentProps<any>
+  IProps & DispatchProp<Action> & RouteComponentProps<any>
 > {
-  handleDocumentUploadPress = () => {
-    const policy = this.getPolicy()
-    if (policy) {
-      const policyId = policy.id
-      if (policyId)
-        this.props.dispatch(push(`/app/tabs/policies/${policyId}/documents`))
-      else throw new Error('Policy must have an id to upload documents')
-    }
-  }
-
-  getPolicy(): MotorPolicy | null {
-    const match = this.props.match
-    const policyId = match.params.policyId
-    let policy: MotorPolicy | null = null
-
-    // Typecheck demanded by Flow
-    if (typeof policyId === 'string') {
-      policy = this.props.policies[policyId]
-    } else {
-      throw new TypeError(
-        'PolicyDetailsScreen was expecting a policyId of type string in the navigation params.',
-      )
-    }
-
-    if (!policy && this.props.initialised) {
-      throw new Error(
-        `Policy with id ${policyId} does not exist so cannot render the policy details screen`,
-      )
-    }
-
-    return policy
-  }
-
-  renderPolicyDocumentsButton() {
-    const policy = this.getPolicy()
-
-    if (policy && !policy.complete && _.values(policy.documents).length) {
-      return (
-        <BigRedFullWidthButton
-          style={{
-            marginTop: MARGIN.base,
-            backgroundColor: YELLOW,
-            color: BLUE,
-          }}
-          onClick={this.handleDocumentUploadPress}
-        >
-          {"We're currently processing your policy documents."}
-        </BigRedFullWidthButton>
-      )
-    } else if (policy && !policy.complete) {
-      return (
-        <BigRedFullWidthButton
-          style={{ marginTop: MARGIN.base }}
-          onClick={this.handleDocumentUploadPress}
-        >
-          Please upload your policy documentation for a profile
-        </BigRedFullWidthButton>
-      )
-    }
-
-    return null
-  }
-
-  render() {
+  public render() {
     const policy = this.getPolicy() || {}
     const expiryDate = moment(policy.expiryDate)
     const drivers = policy.drivers || []
@@ -290,9 +228,72 @@ class PolicyDetailsScreen extends React.Component<
       </div>
     )
   }
+
+  private handleDocumentUploadPress = () => {
+    const policy = this.getPolicy()
+    if (policy) {
+      const policyId = policy.id
+      if (policyId)
+        this.props.dispatch(push(`/app/tabs/policies/${policyId}/documents`))
+      else throw new Error('Policy must have an id to upload documents')
+    }
+  }
+
+  private getPolicy(): IMotorPolicy | null {
+    const match = this.props.match
+    const policyId = match.params.policyId
+    let policy: IMotorPolicy | null = null
+
+    // Typecheck demanded by Flow
+    if (typeof policyId === 'string') {
+      policy = this.props.policies[policyId]
+    } else {
+      throw new TypeError(
+        'PolicyDetailsScreen was expecting a policyId of type string in the navigation params.',
+      )
+    }
+
+    if (!policy && this.props.initialised) {
+      throw new Error(
+        `Policy with id ${policyId} does not exist so cannot render the policy details screen`,
+      )
+    }
+
+    return policy
+  }
+
+  private renderPolicyDocumentsButton() {
+    const policy = this.getPolicy()
+
+    if (policy && !policy.complete && _.values(policy.documents).length) {
+      return (
+        <BigRedFullWidthButton
+          style={{
+            marginTop: MARGIN.base,
+            backgroundColor: YELLOW,
+            color: BLUE,
+          }}
+          onClick={this.handleDocumentUploadPress}
+        >
+          {"We're currently processing your policy documents."}
+        </BigRedFullWidthButton>
+      )
+    } else if (policy && !policy.complete) {
+      return (
+        <BigRedFullWidthButton
+          style={{ marginTop: MARGIN.base }}
+          onClick={this.handleDocumentUploadPress}
+        >
+          Please upload your policy documentation for a profile
+        </BigRedFullWidthButton>
+      )
+    }
+
+    return null
+  }
 }
 
-const mapStateToProps = (state: ReduxState) => ({
+const mapStateToProps = (state: IReduxState) => ({
   policies: selectPolicies(state),
   initialised: state.policies.initialised,
   isHandset: selectors.isHandset(state),

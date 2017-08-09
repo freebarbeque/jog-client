@@ -41,28 +41,29 @@ const Touchable = styled.div`
   margin-bottom: ${MARGIN.base}px;
 `
 
-interface RadioInputProps {
+interface IProps<T> {
   options: Array<{
     // eslint-disable-next-line react/no-unused-prop-types
     label: string
-    value: string
+    value: T
   }>
-  value: string
-  onChange: (value: string) => void
+  value?: T
+  onChange: (value: T) => void
   style?: any
 }
 
-export default class RadioInput extends React.Component {
-  props: RadioInputProps
-
-  render() {
+export default class RadioInput<T> extends React.Component<IProps<T>> {
+  public render() {
     const { options, onChange, style, value } = this.props
 
     return (
       <Container style={style || {}}>
         <div>
           {options.map(o =>
-            <Touchable key={o.value} onClick={() => onChange(o.value)}>
+            <Touchable
+              key={`${o.value}${o.label}`}
+              onClick={() => onChange(o.value)}
+            >
               <Radio>
                 {o.value === value ? <InnerRadio /> : null}
               </Radio>

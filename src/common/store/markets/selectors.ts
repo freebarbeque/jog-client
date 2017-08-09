@@ -1,17 +1,17 @@
 import * as _ from 'lodash'
 import { createSelector } from 'reselect'
-import { Car, IQuoteRequest, Person } from '../../../business/types'
-import { ReduxState } from '../../types'
+import { ICar, IPerson, IQuoteRequest } from '../../../business/types'
+import { IReduxState } from '../../types'
 
 export interface INormalQuoteRequest extends IQuoteRequest {
   normalCar?: INormalCar | null
 }
 
-export interface INormalCar extends Car {
+export interface INormalCar extends ICar {
   description: string
 }
 
-function normaliseCar(car: Car): INormalCar {
+function normaliseCar(car: ICar): INormalCar {
   let description = `Unknown`
 
   if (car.make && car.model) {
@@ -34,8 +34,8 @@ function normaliseCar(car: Car): INormalCar {
 
 // Generate presentable quoteR
 export const selectNormalisedQRs = createSelector(
-  (state: ReduxState) => state.markets.cars,
-  (state: ReduxState) => state.markets.quoteRequests,
+  (state: IReduxState) => state.markets.cars,
+  (state: IReduxState) => state.markets.quoteRequests,
   (cars, quoteRequests) => {
     const nQuoteRequests: { [id: string]: INormalQuoteRequest } = {}
     _.forEach(quoteRequests, (qr: IQuoteRequest) => {

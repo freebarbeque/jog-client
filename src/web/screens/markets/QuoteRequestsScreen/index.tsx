@@ -8,7 +8,7 @@ import styled from 'styled-components'
 const uuid = require('uuid/v4')
 
 import { IQuoteRequest } from '../../../../business/types'
-import { ReduxState } from '../../../../common/types'
+import { IReduxState } from '../../../../common/types'
 
 import { BLUE } from '../../../../common/constants/palette'
 import { MARGIN } from '../../../../common/constants/style'
@@ -58,6 +58,6 @@ class QuoteRequestsScreen extends React.Component<IProps> {
   }
 }
 
-export default connect((state: ReduxState) => ({
+export default connect((state: IReduxState) => ({
   quoteRequests: selectNormalisedQRs(state),
 }))(QuoteRequestsScreen)

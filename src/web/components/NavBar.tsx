@@ -46,14 +46,10 @@ const NavBarRight = styled.div`
   }
 `
 
-interface Props {}
-interface ConnectedProps
-  extends RouteComponentProps<any>,
-    DispatchProp<any>,
-    Props {}
+interface IConnectedProps extends RouteComponentProps<any>, DispatchProp<any> {}
 
-class NavBar extends React.Component<ConnectedProps> {
-  render() {
+class NavBar extends React.Component<IConnectedProps> {
+  public render() {
     const iconElementRight = (
       <NavBarRight className="NavBarRight">
         <div className="Menu">
@@ -96,10 +92,11 @@ const connectOptions = {
   pure: false, // Required to always re-render the component and update the active NavLink
 }
 
-const ConnectedNavBar: React.ComponentClass<Props> = connect(
-  null,
+const ConnectedNavBar: React.ComponentClass<{}> = connect(
+  null as any,
   null,
   null,
   connectOptions,
 )(withRouter(NavBar))
+
 export default ConnectedNavBar

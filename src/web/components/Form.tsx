@@ -1,5 +1,6 @@
 import * as React from 'react'
 import styled from 'styled-components'
+// tslint:disable-next-line:no-var-requires
 const FontAwesome: any = require('react-fontawesome')
 import Form from '../../common/components/Form'
 import { PINK } from '../../common/constants/palette'
@@ -18,40 +19,7 @@ const ErrorText = styled.div`
 `
 
 export default class WebForm extends Form {
-  renderField = (f: FormField) => {
-    const fieldError = this.props.validationErrors[f.key]
-    const value = this.props.values[f.key]
-
-    if (f.type === 'text') {
-      return (
-        <LabelledTextInput
-          label={f.label}
-          key={f.label}
-          onChange={e => {
-            const newValues = { ...this.props.values }
-            const validationErrors = { ...this.props.validationErrors }
-            newValues[f.key] = e.target.value
-            validationErrors[f.key] = null
-            this.props.onValuesChanged(newValues)
-            this.props.onValidationErrorsChanged(validationErrors)
-          }}
-          onBlur={() => this.handleBlur(f)}
-          disabled={this.props.disabled}
-          value={value}
-          error={fieldError}
-          {...f.inputProps}
-        />
-      )
-    } else if (f.type === 'options') {
-      throw new Error('TODO: options field')
-    }
-
-    const type: any = (f as any).type
-
-    throw new Error(`Unknown field type ${type}`)
-  }
-
-  render() {
+  public render() {
     const {
       accessory,
       fields,
@@ -98,5 +66,38 @@ export default class WebForm extends Form {
         </div>
       </div>
     )
+  }
+
+  private renderField = (f: FormField) => {
+    const fieldError = this.props.validationErrors[f.key]
+    const value = this.props.values[f.key]
+
+    if (f.type === 'text') {
+      return (
+        <LabelledTextInput
+          label={f.label}
+          key={f.label}
+          onChange={e => {
+            const newValues = { ...this.props.values }
+            const validationErrors = { ...this.props.validationErrors }
+            newValues[f.key] = e.target.value
+            validationErrors[f.key] = null
+            this.props.onValuesChanged(newValues)
+            this.props.onValidationErrorsChanged(validationErrors)
+          }}
+          onBlur={() => this.handleBlur(f)}
+          disabled={this.props.disabled}
+          value={value}
+          error={fieldError}
+          {...f.inputProps}
+        />
+      )
+    } else if (f.type === 'options') {
+      throw new Error('TODO: options field')
+    }
+
+    const type: any = (f as any).type
+
+    throw new Error(`Unknown field type ${type}`)
   }
 }

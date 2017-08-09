@@ -7,7 +7,7 @@ import AuthHome from './AuthHomeScreen'
 import LoginScreen from './LoginScreen'
 import RegisterScreen from './RegisterScreen'
 
-import { FirebaseUser, ReduxState } from '../../common/types'
+import { IFirebaseUser, IReduxState } from '../../common/types'
 import AuthNavBar from '../components/AuthNavBar'
 import ConfirmPasswordResetScreen from './ConfirmPasswordResetScreen'
 import EmailVerificationScreen from './EmailVerificationScreen'
@@ -20,13 +20,13 @@ const Container = styled.div`
   flex: 1;
 `
 
-interface AuthScreenProps extends DispatchProp<any> {
-  user: FirebaseUser | null
+interface IAuthScreenProps extends DispatchProp<any> {
+  user: IFirebaseUser | null
   initialised: boolean
 }
 
-class AuthScreen extends React.Component<AuthScreenProps> {
-  render() {
+class AuthScreen extends React.Component<IAuthScreenProps> {
+  public render() {
     return (
       <Container>
         <Route path="/auth(/?.+)" component={AuthNavBar} />
@@ -56,7 +56,7 @@ class AuthScreen extends React.Component<AuthScreenProps> {
   }
 }
 
-const mapStateToProps = (state: ReduxState) => ({
+const mapStateToProps = (state: IReduxState) => ({
   user: state.auth.user,
   initialised: state.auth.initialised,
 })

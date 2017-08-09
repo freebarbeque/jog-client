@@ -1,6 +1,6 @@
 import { ErrorAction } from './actionTypes'
 
-export interface ErrorsReduxState {
+export interface IErrorsReduxState {
   error: boolean
   text: string
 }
@@ -11,7 +11,7 @@ const DEFAULT_STATE = {
 }
 
 export default function reducer(
-  state: ErrorsReduxState = DEFAULT_STATE,
+  state: IErrorsReduxState = DEFAULT_STATE,
   action: ErrorAction,
 ) {
   if (action.type === 'errors/DECLARE') {

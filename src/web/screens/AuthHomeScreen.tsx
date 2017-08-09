@@ -25,7 +25,7 @@ const Menu = styled.ul`
 `
 
 class AuthHomeScreen extends React.Component {
-  render() {
+  public render() {
     return (
       <FlexCentredContainer>
         <div>

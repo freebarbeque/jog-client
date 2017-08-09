@@ -1,14 +1,14 @@
 // @flow
 
-import { AuthReduxState } from '../../types'
+import { IAuthReduxState } from '../../types'
 import { AuthAction } from './actionTypes'
 
 const DEFAULT_STATE = { user: null, details: null, initialised: false }
 
 export default function reducer(
-  state: AuthReduxState = DEFAULT_STATE,
+  state: IAuthReduxState = DEFAULT_STATE,
   action: AuthAction,
-): AuthReduxState {
+): IAuthReduxState {
   if (action.type === 'auth/RECEIVE_USER') {
     return {
       ...state,

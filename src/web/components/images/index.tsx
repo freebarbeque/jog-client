@@ -1,5 +1,6 @@
 import * as React from 'react'
 
+// tslint:disable-next-line:no-var-requires
 const cn = require('classnames')
 
 interface ImageProps {

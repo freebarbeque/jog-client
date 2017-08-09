@@ -1,13 +1,13 @@
 import { SettingsScreenAction } from './actions'
 
-export interface SettingsScreenReduxState {
+export interface ISettingsScreenReduxState {
   activeSection: number | null
 }
 
 export default function reducer(
-  state: SettingsScreenReduxState = { activeSection: null },
+  state: ISettingsScreenReduxState = { activeSection: null },
   action: SettingsScreenAction,
-): SettingsScreenReduxState {
+): ISettingsScreenReduxState {
   if (action.type === 'settings/SET_ACTIVE_SECTION') {
     return {
       ...state,

@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { connect } from 'react-redux'
+import { connect, DispatchProp } from 'react-redux'
 
 import { MARGIN } from '../../common/constants/style'
 import {
@@ -7,31 +7,22 @@ import {
   savePolicy,
   updateManualPolicy,
 } from '../../common/store/screens/addManualPolicy/actions'
-import { ManualPolicyUpdate } from '../../common/store/screens/addManualPolicy/actions'
-import { Dispatch, ReduxState } from '../../common/types'
+import {
+  IManualPolicyUpdate,
+  MotorPolicyOwnership,
+} from '../../common/store/screens/addManualPolicy/actions'
+import { IReduxState } from '../../common/types'
 import AddPolicyScreenContainer from '../components/AddPolicyScreenContainer'
 import RadioInput from '../components/RadioInput'
 
-interface VehicleOwnershipScreenProps {
-  dispatch: Dispatch
-  policy: ManualPolicyUpdate
+interface IVehicleOwnershipScreenProps extends DispatchProp<any> {
+  policy: IManualPolicyUpdate
 }
 
 class VehicleOwnershipScreen extends React.Component<
-  VehicleOwnershipScreenProps
+  IVehicleOwnershipScreenProps
 > {
-  handleNextPress = () => {
-    const policy = this.props.policy
-    this.props.dispatch(savePolicy(policy))
-  }
-
-  handleChange = ownership => {
-    this.props.dispatch(
-      updateManualPolicy({ ownership: motorPolicyOwnership[ownership] }),
-    )
-  }
-
-  render() {
+  public render() {
     return (
       <AddPolicyScreenContainer
         showNextButton
@@ -53,9 +44,20 @@ class VehicleOwnershipScreen extends React.Component<
       </AddPolicyScreenContainer>
     )
   }
+
+  private handleNextPress = () => {
+    const policy = this.props.policy
+    this.props.dispatch(savePolicy(policy))
+  }
+
+  private handleChange = ownership => {
+    this.props.dispatch(
+      updateManualPolicy({ ownership: motorPolicyOwnership[ownership] }),
+    )
+  }
 }
 
-const mapStateToProps = (state: ReduxState) => ({
+const mapStateToProps = (state: IReduxState) => ({
   policy: state.screens.addManualPolicy,
 })
 

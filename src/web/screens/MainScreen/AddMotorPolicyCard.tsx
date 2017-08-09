@@ -3,14 +3,14 @@ import * as React from 'react'
 import { Plus } from '../../components/images/index'
 import PolicyCard from './PolicyCard'
 
-export interface AddMotorPolicyCardProps {
+export interface IAddMotorPolicyCardProps {
   onPress: () => void
 }
 
-export default class AddMotorPolicyCard extends React.Component {
-  props: AddMotorPolicyCardProps
-
-  render() {
+export default class AddMotorPolicyCard extends React.Component<
+  IAddMotorPolicyCardProps
+> {
+  public render() {
     return (
       <PolicyCard
         title="Add a Policy"

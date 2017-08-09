@@ -1,76 +1,76 @@
-import { FirebaseUser, ValidationErrorsMap, ValuesMap } from '../../../types'
+import { IFirebaseUser, IValidationErrorsMap, IValuesMap } from '../../../types'
 
-export interface LoginAction {
+export interface ILoginAction {
   type: 'screens/auth/LOGIN'
   email: string
   password: string
 }
 
-export interface RegisterAction {
+export interface IRegisterAction {
   type: 'screens/auth/REGISTER'
   name: string
   email: string
   password: string
 }
 
-export interface PasswordResetAction {
+export interface IPasswordResetAction {
   type: 'screens/auth/PASSWORD_RESET'
   email: string
 }
 
-interface SetValuesAction {
+interface ISetValuesAction {
   type: 'screens/auth/SET_VALUES'
-  values: ValuesMap
+  values: IValuesMap
 }
 
-interface SetValidationErrors {
+interface ISetValidationErrors {
   type: 'screens/auth/SET_VALIDATION_ERRORS'
-  validationErrors: ValidationErrorsMap
+  validationErrors: IValidationErrorsMap
 }
 
-interface SetLoadingAction {
+interface ISetLoadingAction {
   type: 'screens/auth/SET_LOADING'
   loading: boolean
 }
 
-interface SetLoginErrorAction {
+interface ISetLoginErrorAction {
   type: 'screens/auth/SET_LOGIN_ERROR'
   loginError: string | null
 }
 
-interface SetRegisterErrorAction {
+interface ISetRegisterErrorAction {
   type: 'screens/auth/SET_REGISTER_ERROR'
   registerError: string | null
 }
 
-interface SetPasswordResetErrorAction {
+interface ISetPasswordResetErrorAction {
   type: 'screens/auth/SET_PASSWORD_RESET_ERROR'
   passwordResetError: string | null
 }
 
-interface ClearAction {
+interface IClearAction {
   type: 'screens/auth/CLEAR'
 }
 
-export interface SendEmailVerificationEmailAction {
+export interface ISendEmailVerificationEmailAction {
   type: 'screens/auth/SEND_VERIFICATION_EMAIL'
-  user: FirebaseUser
+  user: IFirebaseUser
 }
 
 export type CommonAuthAction =
-  | SetValuesAction
-  | SetValidationErrors
-  | SetLoadingAction
-  | SetLoginErrorAction
-  | SetRegisterErrorAction
-  | SetPasswordResetErrorAction
-  | LoginAction
-  | RegisterAction
-  | PasswordResetAction
-  | ClearAction
-  | SendEmailVerificationEmailAction
+  | ISetValuesAction
+  | ISetValidationErrors
+  | ISetLoadingAction
+  | ISetLoginErrorAction
+  | ISetRegisterErrorAction
+  | ISetPasswordResetErrorAction
+  | ILoginAction
+  | IRegisterAction
+  | IPasswordResetAction
+  | IClearAction
+  | ISendEmailVerificationEmailAction
 
-export function login(email: string, password: string): LoginAction {
+export function login(email: string, password: string): ILoginAction {
   return {
     type: 'screens/auth/LOGIN',
     email,
@@ -78,7 +78,7 @@ export function login(email: string, password: string): LoginAction {
   }
 }
 
-export function passwordReset(email: string): PasswordResetAction {
+export function passwordReset(email: string): IPasswordResetAction {
   return {
     type: 'screens/auth/PASSWORD_RESET',
     email,
@@ -86,8 +86,8 @@ export function passwordReset(email: string): PasswordResetAction {
 }
 
 export function emailVerification(
-  user: FirebaseUser,
-): SendEmailVerificationEmailAction {
+  user: IFirebaseUser,
+): ISendEmailVerificationEmailAction {
   return {
     type: 'screens/auth/SEND_VERIFICATION_EMAIL',
     user,
@@ -98,7 +98,7 @@ export function register(
   name: string,
   email: string,
   password: string,
-): RegisterAction {
+): IRegisterAction {
   return {
     type: 'screens/auth/REGISTER',
     name,
@@ -107,7 +107,7 @@ export function register(
   }
 }
 
-export function setValues(values: ValuesMap): SetValuesAction {
+export function setValues(values: IValuesMap): ISetValuesAction {
   return {
     type: 'screens/auth/SET_VALUES',
     values,
@@ -115,22 +115,22 @@ export function setValues(values: ValuesMap): SetValuesAction {
 }
 
 export function setValidationErrors(
-  validationErrors: ValidationErrorsMap,
-): SetValidationErrors {
+  validationErrors: IValidationErrorsMap,
+): ISetValidationErrors {
   return {
     type: 'screens/auth/SET_VALIDATION_ERRORS',
     validationErrors,
   }
 }
 
-export function setLoading(loading: boolean): SetLoadingAction {
+export function setLoading(loading: boolean): ISetLoadingAction {
   return {
     type: 'screens/auth/SET_LOADING',
     loading,
   }
 }
 
-export function setLoginError(loginError: string | null): SetLoginErrorAction {
+export function setLoginError(loginError: string | null): ISetLoginErrorAction {
   return {
     type: 'screens/auth/SET_LOGIN_ERROR',
     loginError,
@@ -139,7 +139,7 @@ export function setLoginError(loginError: string | null): SetLoginErrorAction {
 
 export function setRegisterError(
   registerError: string | null,
-): SetRegisterErrorAction {
+): ISetRegisterErrorAction {
   return {
     type: 'screens/auth/SET_REGISTER_ERROR',
     registerError,
@@ -148,14 +148,14 @@ export function setRegisterError(
 
 export function setPasswordResetError(
   passwordResetError: string | null,
-): SetPasswordResetErrorAction {
+): ISetPasswordResetErrorAction {
   return {
     type: 'screens/auth/SET_PASSWORD_RESET_ERROR',
     passwordResetError,
   }
 }
 
-export function clear(): ClearAction {
+export function clear(): IClearAction {
   return {
     type: 'screens/auth/CLEAR',
   }

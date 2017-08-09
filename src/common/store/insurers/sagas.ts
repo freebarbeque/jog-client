@@ -3,7 +3,7 @@ import { call, cancel, cancelled, fork, put, take } from 'redux-saga/effects'
 
 import { syncInsurers } from '../../data/insurers'
 import { receiveInsurers } from './actions'
-import { SyncInsurers } from './actionTypes'
+import { ISyncInsurers } from './actionTypes'
 
 function policyEventChannel() {
   return eventChannel(emitter =>
@@ -30,7 +30,7 @@ function* syncInsurersTask() {
 }
 
 export function* syncInsurersSaga() {
-  let action: SyncInsurers
+  let action: ISyncInsurers
 
   // eslint-disable-next-line no-cond-assign
   while ((action = yield take('insurers/SYNC_INSURERS'))) {

@@ -1,12 +1,12 @@
 import * as React from 'react'
 import styled from 'styled-components'
-import { NumericQuestionDescriptor } from '../../../business/types'
+import { INumericQuestionDescriptor } from '../../../business/types'
 import { MARGIN } from '../../../common/constants/style'
-import { QuestionFieldProps } from './QuestionField'
+import { IProps } from './QuestionField'
 import QuestionField from './QuestionField'
 
-interface IntegerQuestionProps extends QuestionFieldProps {
-  descriptor: NumericQuestionDescriptor
+interface IntegerQuestionProps extends IProps {
+  descriptor: INumericQuestionDescriptor
   value: number
   onChange: (id: string, value: number) => void
   onBlur?: () => void
@@ -27,10 +27,10 @@ const Input = styled.input`
   border: none;
 `
 
-export default class IntegerQuestion extends React.Component {
-  props: IntegerQuestionProps
-  state: IntegerQuestionState
-
+export default class IntegerQuestion extends React.Component<
+  IntegerQuestionProps,
+  IntegerQuestionState
+> {
   constructor(props) {
     super(props)
     const value = props.value
@@ -39,19 +39,7 @@ export default class IntegerQuestion extends React.Component {
     }
   }
 
-  componentWillReceiveProps(props: IntegerQuestionProps) {
-    if (this.props.value !== props.value) {
-      this.setState({
-        value: props.value ? props.value.toString() : '0',
-      })
-    }
-  }
-
-  onKeyPress(e) {
-    return e.charCode >= 48 && e.charCode <= 57
-  }
-
-  render() {
+  public render() {
     const id = this.props.descriptor.id
 
     const error = this.props.error
@@ -81,5 +69,17 @@ export default class IntegerQuestion extends React.Component {
         />
       </QuestionField>
     )
+  }
+
+  public componentWillReceiveProps(props: IntegerQuestionProps) {
+    if (this.props.value !== props.value) {
+      this.setState({
+        value: props.value ? props.value.toString() : '0',
+      })
+    }
+  }
+
+  private onKeyPress(e) {
+    return e.charCode >= 48 && e.charCode <= 57
   }
 }

@@ -1,16 +1,16 @@
 import * as React from 'react'
 import styled from 'styled-components'
-import { TextQuestionDescriptor } from '../../../business/types'
+import { ITextQuestionDescriptor } from '../../../business/types'
 import { MARGIN } from '../../../common/constants/style'
 import QuestionField from './QuestionField'
 
-interface TextQuestionProps {
-  descriptor: TextQuestionDescriptor
+interface IProps {
+  descriptor: ITextQuestionDescriptor
   value: string
   onChange: (id: string, value: string) => void
   onBlur?: (id: string) => void
   onFocus?: (id: string) => void
-  error?: string
+  error?: string | null
   index?: number
 }
 
@@ -24,8 +24,8 @@ const Input = styled.input`
   border: none;
 `
 
-export default class TextQuestion extends React.Component<TextQuestionProps> {
-  render() {
+export default class TextQuestion extends React.Component<IProps> {
+  public render() {
     const id = this.props.descriptor.id
 
     const error = this.props.error

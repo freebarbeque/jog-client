@@ -6,7 +6,7 @@ import styled from 'styled-components'
 
 import { BLUE } from '../common/constants/palette'
 import { syncData } from '../common/store/actions'
-import { Dispatch, FirebaseUser, ReduxState } from '../common/types'
+import { Dispatch, IFirebaseUser, IReduxState } from '../common/types'
 import ActionModal from './components/ActionModal'
 import history from './history'
 import AuthScreen from './screens/AuthScreen'
@@ -51,19 +51,19 @@ const Container = styled.div`
   }
 `
 
-interface AppProps {
-  user: FirebaseUser | null
+interface IAppProps {
+  user: IFirebaseUser | null
   initialised: boolean
   dispatch: Dispatch
 }
 
-class App extends React.Component<AppProps> {
-  componentDidMount() {
+class App extends React.Component<IAppProps> {
+  public componentDidMount() {
     this.props.dispatch(syncData())
     this.props.dispatch(subscribeDimensions())
   }
 
-  render() {
+  public render() {
     return this.props.initialised
       ? <ConnectedRouter history={history}>
           <Container>
@@ -103,7 +103,7 @@ class App extends React.Component<AppProps> {
   }
 }
 
-const mapStateToProps = (state: ReduxState) => ({
+const mapStateToProps = (state: IReduxState) => ({
   user: state.auth.user,
   initialised: state.auth.initialised,
 })

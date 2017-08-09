@@ -2,20 +2,20 @@ import * as _ from 'lodash'
 import { createSelector } from 'reselect'
 
 import {
+  IMotorPolicy,
+  IMotorPolicyMap,
   InsurersReduxState,
-  MotorPolicy,
-  MotorPolicyMap,
-  PoliciesState,
-  ReduxState,
+  IPoliciesState,
+  IReduxState,
 } from '../../types'
 
 /**
  * Evaluates a policy returning true if all important details are present
  *
- * @param {MotorPolicy} policy
+ * @param {IMotorPolicy} policy
  * @returns boolean - true if all policy details are present
  */
-function policyIsComplete(policy: MotorPolicy): boolean {
+function policyIsComplete(policy: IMotorPolicy): boolean {
   return !!(
     (policy.drivers || []).length &&
     policy.companyId &&
@@ -33,18 +33,18 @@ function policyIsComplete(policy: MotorPolicy): boolean {
 }
 
 export const selectPolicies = createSelector(
-  (state: ReduxState) => state.policies,
-  (state: ReduxState) => state.insurers,
-  (policiesState: PoliciesState, insurersState: InsurersReduxState) => {
+  (state: IReduxState) => state.policies,
+  (state: IReduxState) => state.insurers,
+  (policiesState: IPoliciesState, insurersState: InsurersReduxState) => {
     const policies = policiesState.policies
     const insurers = insurersState.insurers
-    const selectedPolicies: MotorPolicyMap = {}
+    const selectedPolicies: IMotorPolicyMap = {}
 
     if (insurers) {
-      _.forEach(policies, (p: MotorPolicy, id: string) => {
+      _.forEach(policies, (p: IMotorPolicy, id: string) => {
         const companyId = p.companyId
-        let companyLogo = null
-        let companyName = null
+        let companyLogo: string | null = null
+        let companyName: string | null = null
 
         const insurer = companyId ? insurers[companyId] : null
 
@@ -68,8 +68,8 @@ export const selectPolicies = createSelector(
 // $FlowFixMe
 export const selectInitialisedPolicies = createSelector(
   selectPolicies,
-  (policies: MotorPolicyMap) => {
-    const selectedPolicies: MotorPolicyMap = {}
+  (policies: IMotorPolicyMap) => {
+    const selectedPolicies: IMotorPolicyMap = {}
 
     const filteredPolicies = _.filter(_.values(policies), p => {
       return p.companyId || p.documents

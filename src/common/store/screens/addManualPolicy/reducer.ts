@@ -1,9 +1,9 @@
-import { AddManualPolicyAction, ManualPolicyUpdate } from './actions'
+import { AddManualPolicyAction, IManualPolicyUpdate } from './actions'
 
 export default function reducer(
-  state: ManualPolicyUpdate = {},
+  state: IManualPolicyUpdate = {},
   action: AddManualPolicyAction,
-): ManualPolicyUpdate {
+): IManualPolicyUpdate {
   if (action.type === 'addManualPolicy/UPDATE_MANUAL_POLICY') {
     return {
       ...state,

@@ -1,31 +1,21 @@
 import * as React from 'react'
-import { connect } from 'react-redux'
+import { connect, DispatchProp } from 'react-redux'
 import { push } from 'react-router-redux'
 
 import { updateManualPolicy } from '../../common/store/screens/addManualPolicy/actions'
-import { Dispatch, ReduxState } from '../../common/types'
+import { IReduxState } from '../../common/types'
 
-import { ManualPolicyUpdate } from '../../common/store/screens/addManualPolicy/actions'
+import { IManualPolicyUpdate } from '../../common/store/screens/addManualPolicy/actions'
 
 import AddPolicyScreenContainer from '../components/AddPolicyScreenContainer'
 import Input from '../components/Input'
 
-interface PolicyNumberScreenProps {
-  dispatch: Dispatch
-  policy: ManualPolicyUpdate
+interface IProps extends DispatchProp<any> {
+  policy: IManualPolicyUpdate
 }
 
-class PolicyNumberScreen extends React.Component<PolicyNumberScreenProps> {
-  handleNextPress = () => {
-    this.props.dispatch(push('/app/addManualPolicy/expiryDate'))
-  }
-
-  handleChange = e => {
-    const text = e.target.value
-    this.props.dispatch(updateManualPolicy({ policyNo: text }))
-  }
-
-  render() {
+class PolicyNumberScreen extends React.Component<IProps> {
+  public render() {
     return (
       <AddPolicyScreenContainer
         showNextButton
@@ -42,9 +32,18 @@ class PolicyNumberScreen extends React.Component<PolicyNumberScreenProps> {
       </AddPolicyScreenContainer>
     )
   }
+
+  private handleNextPress = () => {
+    this.props.dispatch(push('/app/addManualPolicy/expiryDate'))
+  }
+
+  private handleChange = e => {
+    const text = e.target.value
+    this.props.dispatch(updateManualPolicy({ policyNo: text }))
+  }
 }
 
-const mapStateToProps = (state: ReduxState) => ({
+const mapStateToProps = (state: IReduxState) => ({
   policy: state.screens.addManualPolicy,
 })
 

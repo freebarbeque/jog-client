@@ -1,13 +1,13 @@
-export interface SetActiveSectionAction {
+export interface ISetActiveSectionAction {
   type: 'settings/SET_ACTIVE_SECTION'
   activeSection: number | null
 }
 
-export type SettingsScreenAction = SetActiveSectionAction
+export type SettingsScreenAction = ISetActiveSectionAction
 
 export function setActiveSection(
   activeSection: number | null,
-): SetActiveSectionAction {
+): ISetActiveSectionAction {
   return {
     type: 'settings/SET_ACTIVE_SECTION',
     activeSection,

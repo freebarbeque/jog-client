@@ -9,8 +9,6 @@ import HorizontalFlexCenteredContainer from '../components/HorizontalFlexCentere
 import RoundedButton from '../components/RoundedButton'
 import Title from '../components/Title'
 
-interface ConfirmPasswordResetScreenProps extends DispatchProp<any> {}
-
 // language=SCSS prefix=dummy{ suffix=}
 const Description = styled.div`
   text-align: center;
@@ -21,14 +19,8 @@ const Description = styled.div`
   margin-right: ${MARGIN.large}px;
 `
 
-class ConfirmPasswordResetScreen extends React.Component<
-  ConfirmPasswordResetScreenProps
-> {
-  goBack = () => {
-    this.props.dispatch(push('/auth'))
-  }
-
-  render() {
+class ConfirmPasswordResetScreen extends React.Component<DispatchProp<any>> {
+  public render() {
     return (
       <HorizontalFlexCenteredContainer>
         <Title>Password Reset</Title>
@@ -46,6 +38,10 @@ class ConfirmPasswordResetScreen extends React.Component<
         />
       </HorizontalFlexCenteredContainer>
     )
+  }
+
+  private goBack = () => {
+    this.props.dispatch(push('/auth'))
   }
 }
 

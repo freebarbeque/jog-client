@@ -2,7 +2,7 @@ import styled from 'styled-components'
 import { BLUE } from '../../../../common/constants/palette'
 
 // language=SCSS prefix=dummy{ suffix=}
-const Number = styled.div`
+const NumberField = styled.div`
   height: 34px;
   width: 34px;
   border-radius: 34px;
@@ -17,4 +17,4 @@ const Number = styled.div`
   font-weight: 300;
 `
 
-export default Number
+export default NumberField

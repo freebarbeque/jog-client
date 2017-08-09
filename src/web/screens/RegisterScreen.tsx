@@ -5,9 +5,9 @@ import { Link } from 'react-router-dom'
 
 import {
   Dispatch,
-  ReduxState,
-  ValidationErrorsMap,
-  ValuesMap,
+  IReduxState,
+  IValidationErrorsMap,
+  IValuesMap,
 } from '../../common/types'
 
 import {
@@ -32,17 +32,17 @@ import FlexCentredContainer from '../components/FlexCentredContainer'
 
 import { NAVIGATION_BAR_HEIGHT } from '../constants/style'
 
-interface RegisterProps {
+interface IProps {
   dispatch: Dispatch
-  values: ValuesMap
-  validationErrors: ValidationErrorsMap
+  values: IValuesMap
+  validationErrors: IValidationErrorsMap
   errors: { [key: string]: string }
   registerError: string | null
   loading: boolean
 }
 
-class RegisterScreen extends React.Component<RegisterProps> {
-  static formFields = [
+class RegisterScreen extends React.Component<IProps> {
+  public static formFields = [
     nameField,
     emailField,
     {
@@ -54,31 +54,7 @@ class RegisterScreen extends React.Component<RegisterProps> {
     },
   ]
 
-  handleSubmit = values => {
-    // eslint-disable-next-line no-unused-vars
-    const { name, email, password } = values // TODO: Do something with name
-    this.props.dispatch(register(name, email, password))
-  }
-
-  renderFormAccessory() {
-    return (
-      <div
-        style={{
-          display: 'flex',
-          flexDirection: 'row',
-        }}
-      >
-        <FlatButton
-          style={{ fontWeight: 500, fontSize: 11, color: DARK_GRAY }}
-          containerElement={<Link to="/auth/login" />}
-        >
-          GOT AN ACCOUNT?
-        </FlatButton>
-      </div>
-    )
-  }
-
-  render() {
+  public render() {
     return (
       <FlexCentredContainer style={{ paddingBottom: NAVIGATION_BAR_HEIGHT }}>
         <div>
@@ -108,9 +84,33 @@ class RegisterScreen extends React.Component<RegisterProps> {
       </FlexCentredContainer>
     )
   }
+
+  private handleSubmit = values => {
+    // eslint-disable-next-line no-unused-vars
+    const { name, email, password } = values // TODO: Do something with name
+    this.props.dispatch(register(name, email, password))
+  }
+
+  private renderFormAccessory() {
+    return (
+      <div
+        style={{
+          display: 'flex',
+          flexDirection: 'row',
+        }}
+      >
+        <FlatButton
+          style={{ fontWeight: 500, fontSize: 11, color: DARK_GRAY }}
+          containerElement={<Link to="/auth/login" />}
+        >
+          GOT AN ACCOUNT?
+        </FlatButton>
+      </div>
+    )
+  }
 }
 
-const mapStateToProps = (state: ReduxState) => ({
+const mapStateToProps = (state: IReduxState) => ({
   ...state.screens.auth,
 })
 

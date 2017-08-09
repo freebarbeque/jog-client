@@ -2,13 +2,13 @@ import DatePicker from 'material-ui/DatePicker'
 import * as React from 'react'
 import { Component } from 'react'
 import styled from 'styled-components'
-import { DateQuestionDescriptor } from '../../../business/types'
+import { IDateQuestionDescriptor } from '../../../business/types'
 import { BLUE } from '../../../common/constants/palette'
 import { MARGIN } from '../../../common/constants/style'
-import QuestionField, { QuestionFieldProps } from './QuestionField'
+import QuestionField, { IProps } from './QuestionField'
 
-interface Props extends QuestionFieldProps {
-  descriptor: DateQuestionDescriptor
+interface IDateQuestionProps extends IProps {
+  descriptor: IDateQuestionDescriptor
   value: Date
   onChange: (id: string, value: Date) => void
 }
@@ -28,10 +28,10 @@ const MaterialUIDatePicker = styled(DatePicker)`
   }
 `
 
-export default class DateQuestion extends React.Component<Props> {
-  picker: any
+export default class DateQuestion extends React.Component<IDateQuestionProps> {
+  private picker: any
 
-  render() {
+  public render() {
     const id = this.props.descriptor.id
     const value = this.props.value
 
@@ -47,8 +47,8 @@ export default class DateQuestion extends React.Component<Props> {
           <MaterialUIDatePicker
             ref={e => (this.picker = e)}
             value={value}
-            onChange={(e, value) =>
-              this.props.onChange(this.props.descriptor.id, value)}
+            onChange={(e, v) =>
+              this.props.onChange(this.props.descriptor.id, v)}
             hintText="Date"
             name="Date"
             id={`${id}`}

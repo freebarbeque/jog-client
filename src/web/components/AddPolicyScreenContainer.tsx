@@ -10,7 +10,7 @@ import { MARGIN } from '../../common/constants/style'
 import { Dispatch } from '../../common/types'
 import { CarOutline, Cross, Logo } from './images/index'
 
-interface AddPolicyScreenContainerProps {
+interface IProps {
   title?: string
   onPrevPress?: () => void
   onNextPress?: () => void
@@ -23,11 +23,11 @@ interface AddPolicyScreenContainerProps {
   nextLabel?: string
 }
 
-interface ConnectedAddPolicyScreenContainerProps
+interface IConnectedAddPolicyScreenContainerProps
   extends DispatchProp<any>,
-    AddPolicyScreenContainerProps {}
+    IProps {}
 
-interface AddPolicyScreenContainerState {
+interface IAddPolicyScreenContainerState {
   keyboardHeight: number
 }
 
@@ -121,36 +121,24 @@ export const NavigationButton = (props: any) => {
 }
 
 class AddPolicyScreenContainer extends React.Component<
-  ConnectedAddPolicyScreenContainerProps,
-  AddPolicyScreenContainerState
+  IConnectedAddPolicyScreenContainerProps,
+  IAddPolicyScreenContainerState
 > {
-  static defaultProps = {
+  public static defaultProps = {
     showPrevButton: true,
     showNextButton: true,
     showSkipButton: false,
     disableNextButton: false,
   }
 
-  constructor(props: ConnectedAddPolicyScreenContainerProps) {
+  constructor(props: IConnectedAddPolicyScreenContainerProps) {
     super(props)
     this.state = {
       keyboardHeight: 0,
     }
   }
 
-  onPrevPress = () => {
-    if (this.props.onPrevPress) this.props.onPrevPress()
-  }
-
-  onNextPress = () => {
-    if (this.props.onNextPress) this.props.onNextPress()
-  }
-
-  onSkipPress = () => {
-    if (this.props.onSkipPress) this.props.onSkipPress()
-  }
-
-  render() {
+  public render() {
     const title = this.props.title
     return (
       <Container className="manual-add-policy-screen-container">
@@ -225,10 +213,22 @@ class AddPolicyScreenContainer extends React.Component<
       </Container>
     )
   }
+
+  private onPrevPress = () => {
+    if (this.props.onPrevPress) this.props.onPrevPress()
+  }
+
+  private onNextPress = () => {
+    if (this.props.onNextPress) this.props.onNextPress()
+  }
+
+  private onSkipPress = () => {
+    if (this.props.onSkipPress) this.props.onSkipPress()
+  }
 }
 
 const ConnectedAddPolicyScreenContainer: React.ComponentClass<
-  AddPolicyScreenContainerProps
+  IProps
 > = connect()(AddPolicyScreenContainer)
 
 export default ConnectedAddPolicyScreenContainer

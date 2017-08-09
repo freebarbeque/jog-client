@@ -11,12 +11,8 @@ import { Details, PolicyBots, Upload } from '../components/images/index'
 import Jumbotron from '../components/Jumbotron'
 import { max, min } from '../media'
 
+// tslint:disable-next-line:no-var-requires
 const background = require('../../static/background.png')
-
-interface GetStartedScreenProps {}
-interface ConnectedGetStartedScreenProps
-  extends DispatchProp<Action>,
-    GetStartedScreenProps {}
 
 // language=SCSS prefix=dummy{ suffix=}
 const BackgroundImage = styled.div`
@@ -145,12 +141,8 @@ const GridItemHeader = styled.div`
   justify-content: flex-end;
 `
 
-class GetStartedScreen extends React.Component<ConnectedGetStartedScreenProps> {
-  handleButtonPress = () => {
-    this.props.dispatch(push('/app/tabs/policies/addPolicy'))
-  }
-
-  render() {
+class GetStartedScreen extends React.Component<DispatchProp<Action>> {
+  public render() {
     return (
       <Container className="GetStartedScreen">
         <HeaderContainer className="HeaderContainer">
@@ -195,9 +187,13 @@ class GetStartedScreen extends React.Component<ConnectedGetStartedScreenProps> {
       </Container>
     )
   }
+
+  private handleButtonPress = () => {
+    this.props.dispatch(push('/app/tabs/policies/addPolicy'))
+  }
 }
 
-const ConnectedGetStartedScreen: React.ComponentClass<
-  GetStartedScreenProps
-> = connect()(GetStartedScreen)
+const ConnectedGetStartedScreen: React.ComponentClass<{}> = connect()(
+  GetStartedScreen,
+)
 export default ConnectedGetStartedScreen

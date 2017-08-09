@@ -19,12 +19,12 @@ const Container = styled.div`
   flex-direction: column;
 `
 
-interface ManualAddPolicyProps {
+interface IProps {
   isHandset: boolean
 }
 
-class ManualAddPolicy extends React.Component<ManualAddPolicyProps> {
-  componentWillReceiveProps(nextProps: ManualAddPolicyProps) {
+class ManualAddPolicy extends React.Component<IProps> {
+  public componentWillReceiveProps(nextProps: IProps) {
     const switchedToMobile = !this.props.isHandset && nextProps.isHandset
     const switchedToDesktop = this.props.isHandset && !nextProps.isHandset
     if (switchedToMobile || switchedToDesktop) {
@@ -33,7 +33,7 @@ class ManualAddPolicy extends React.Component<ManualAddPolicyProps> {
     }
   }
 
-  render() {
+  public render() {
     return (
       <Container>
         <Route

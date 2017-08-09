@@ -1,12 +1,12 @@
 import { InsurerMap } from '../../types'
 
-export interface ReceiveInsurers {
+export interface IReceiveInsurers {
   type: 'insurers/RECEIVE_INSURERS'
   insurers: InsurerMap
 }
 
-export interface SyncInsurers {
+export interface ISyncInsurers {
   type: 'insurers/SYNC_INSURERS'
 }
 
-export type InsurerActions = ReceiveInsurers | SyncInsurers
+export type InsurerActions = IReceiveInsurers | ISyncInsurers

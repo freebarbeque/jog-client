@@ -4,12 +4,12 @@ import { connect, DispatchProp } from 'react-redux'
 import { push } from 'react-router-redux'
 import { addressQuestion } from '../../../business/motor'
 import {
-  Address,
-  BaseQuestionDescriptor,
-  SelectQuestionDescriptor,
+  IAddress,
+  IBaseQuestionDescriptor,
+  ISelectQuestionDescriptor,
 } from '../../../business/types'
-import { ReduxState } from '../../../common/types'
-import { PickerOption } from '../Picker'
+import { IReduxState } from '../../../common/types'
+import { IPickerOption } from '../Picker'
 import Picker from '../Picker'
 import QuestionField from './QuestionField'
 import SelectQuestion from './SelectQuestion'
@@ -17,21 +17,21 @@ import SelectQuestion from './SelectQuestion'
 interface IProps {
   index?: number
   error?: string
-  descriptor: BaseQuestionDescriptor<any>
-  value?: Address
-  onChange?: (id: string, address: Address | null) => void
+  descriptor: IBaseQuestionDescriptor<any>
+  value?: IAddress
+  onChange?: (id: string, address: IAddress | null) => void
   onNew?: () => void
 }
 
-interface ConnectedProps extends IProps, DispatchProp<any> {
-  addresses: { [id: string]: Address }
+interface IConnectedProps extends IProps, DispatchProp<any> {
+  addresses: { [id: string]: IAddress }
 }
 
-interface State {
-  value: string | null
+interface IState {
+  value?: IAddress
 }
 
-class AddressQuestion extends React.Component<ConnectedProps, State> {
+class AddressQuestion extends React.Component<IConnectedProps, IState> {
   constructor(props) {
     super(props)
     const value = props.value
@@ -40,45 +40,23 @@ class AddressQuestion extends React.Component<ConnectedProps, State> {
     }
   }
 
-  componentWillReceiveProps(props) {
+  public componentWillReceiveProps(props) {
     const value = props.value
     this.setState({
       value: value ? value.id : null,
     })
   }
 
-  onChange = (opt: PickerOption) => {
-    this.setState({
-      value: opt.value,
-    })
-    if (opt.value === '_new' && this.props.onNew) {
-      this.props.onNew()
-    } else {
-      const onChange = this.props.onChange
-      if (onChange) {
-        const addresses = this.props.addresses
-        const address = _.find(_.values(addresses), a => a.id === opt.value)
-        onChange(this.props.descriptor.id, address || null)
-      }
-    }
-  }
-
-  handleSpecialOptionClick = (value: string) => {
-    if (value === 'new-address') {
-      this.props.dispatch(push('/app/tabs/markets/motor/address'))
-    }
-  }
-
-  render() {
+  public render() {
     const addresses = _.values(this.props.addresses).filter(
       a => (a.name ? a.name.trim() : a.name),
     )
 
-    const descriptor: SelectQuestionDescriptor<any> = {
+    const descriptor: ISelectQuestionDescriptor<any> = {
       ...addressQuestion,
       type: 'select',
       options: [
-        ..._.values(addresses).map((a: Address) => {
+        ..._.values(addresses).map((a: IAddress) => {
           const value: string = a.id
           const label = `${a.name}`
 
@@ -100,13 +78,30 @@ class AddressQuestion extends React.Component<ConnectedProps, State> {
       />
     )
   }
+
+  private onChange = (id: string, value?: IAddress) => {
+    this.setState({
+      value,
+    })
+    const onChange = this.props.onChange
+    if (onChange) {
+      const addresses = this.props.addresses
+      onChange(this.props.descriptor.id, value || null)
+    }
+  }
+
+  private handleSpecialOptionClick = (value: string) => {
+    if (value === 'new-address') {
+      this.props.dispatch(push('/app/tabs/markets/motor/address'))
+    }
+  }
 }
 
 const ConnectedAddressQuestion: React.ComponentClass<IProps> = connect<
   {},
   {},
   IProps
->((state: ReduxState) => ({
+>((state: IReduxState) => ({
   addresses: state.markets.addresses,
 }))(AddressQuestion)
 
