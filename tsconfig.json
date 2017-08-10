@@ -21,6 +21,9 @@
       ],
       "jog-common/*": [
         "modules/common/src/*"
+      ],
+      "firebase": [
+        "node_modules/firebase"
       ]
     }
   },
