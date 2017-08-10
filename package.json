@@ -4,7 +4,7 @@
   "scripts": {
     "build:web:dev": "JOG_ENVIRONMENT=DEBUG webpack",
     "build:web:prod": "JOG_ENVIRONMENT=RELEASE webpack",
-    "ci": "yarn flow && yarn eslint",
+    "ci": "yarn lint",
     "precommit": "lint-staged && yarn lint",
     "commit": "yarn flow && yarn fix && git commit -a",
     "copy:assets": "./scripts/copy-assets.sh",
@@ -21,7 +21,7 @@
     "generate:policies": "NODE_PATH=../ babel-node scripts/mock/generateMockPolicies.js -b es2015",
     "postinstall": "yarn setup:submodules && remotedev-debugger --hostname localhost --port 5678 --injectserver",
     "lint": "yarn lint:js",
-    "lint:js": "tslint 'src/**/*.ts?(x)'",
+    "lint:js": "tslint --project . --type-check 'src/**/*.ts?(x)'",
     "run:android": "react-native run-android",
     "run:ios": "react-native run-ios",
     "run:web": "JOG_ENVIRONMENT=DEBUG webpack-dev-server",
