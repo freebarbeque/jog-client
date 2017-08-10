@@ -7,7 +7,7 @@ import styled from 'styled-components'
 // tslint:disable-next-line:no-var-requires
 const uuid = require('uuid/v4')
 
-import { IQuoteRequest } from '../../../../business/types'
+import { IQuoteRequest } from 'jog-common/business/types'
 import { IReduxState } from '../../../../common/types'
 
 import { BLUE } from '../../../../common/constants/palette'

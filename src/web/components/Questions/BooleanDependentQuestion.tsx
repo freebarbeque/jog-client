@@ -1,5 +1,5 @@
+import { IBooleanDependentQuestionDescriptor } from 'jog-common/business/types'
 import * as React from 'react'
-import { IBooleanDependentQuestionDescriptor } from '../../../business/types'
 import { MARGIN } from '../../../common/constants/style'
 import { IProps } from './QuestionField'
 import QuestionField from './QuestionField'

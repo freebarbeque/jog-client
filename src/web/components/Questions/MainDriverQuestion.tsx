@@ -2,9 +2,9 @@ import * as _ from 'lodash'
 import * as React from 'react'
 import { connect, DispatchProp } from 'react-redux'
 
+import { policyHolderQuestion } from 'jog-common/business/motor'
+import { IPerson, ISelectQuestionDescriptor } from 'jog-common/business/types'
 import { push } from 'react-router-redux'
-import { policyHolderQuestion } from '../../../business/motor'
-import { IPerson, ISelectQuestionDescriptor } from '../../../business/types'
 import { IFirebaseUser, IReduxState } from '../../../common/types'
 import SelectQuestion from './SelectQuestion'
 

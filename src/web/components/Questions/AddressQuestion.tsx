@@ -1,13 +1,13 @@
-import * as _ from 'lodash'
-import * as React from 'react'
-import { connect, DispatchProp } from 'react-redux'
-import { push } from 'react-router-redux'
-import { addressQuestion } from '../../../business/motor'
+import { addressQuestion } from 'jog-common/business/motor'
 import {
   IAddress,
   IBaseQuestionDescriptor,
   ISelectQuestionDescriptor,
-} from '../../../business/types'
+} from 'jog-common/business/types'
+import * as _ from 'lodash'
+import * as React from 'react'
+import { connect, DispatchProp } from 'react-redux'
+import { push } from 'react-router-redux'
 import { IReduxState } from '../../../common/types'
 import { IPickerOption } from '../Picker'
 import Picker from '../Picker'

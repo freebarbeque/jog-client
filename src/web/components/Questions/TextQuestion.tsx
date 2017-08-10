@@ -1,6 +1,6 @@
+import { ITextQuestionDescriptor } from 'jog-common/business/types'
 import * as React from 'react'
 import styled from 'styled-components'
-import { ITextQuestionDescriptor } from '../../../business/types'
 import { MARGIN } from '../../../common/constants/style'
 import QuestionField from './QuestionField'
 

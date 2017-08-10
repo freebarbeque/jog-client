@@ -1,6 +1,6 @@
+import { ICar, IPerson, IQuoteRequest } from 'jog-common/business/types'
 import * as _ from 'lodash'
 import { createSelector } from 'reselect'
-import { ICar, IPerson, IQuoteRequest } from '../../../business/types'
 import { IReduxState } from '../../types'
 
 export interface INormalQuoteRequest extends IQuoteRequest {

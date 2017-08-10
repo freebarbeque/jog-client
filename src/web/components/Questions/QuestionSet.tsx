@@ -4,8 +4,8 @@ import * as React from 'react'
 import {
   IBaseQuestionDescriptor,
   IValidationErrors,
-} from '../../../business/types'
-import { validate } from '../../../business/validation'
+} from 'jog-common/business/types'
+import { validate } from 'jog-common/business/validation'
 import { BLUE } from '../../../common/constants/palette'
 import BooleanDependentQuestion from './BooleanDependentQuestion'
 import BooleanQuestion from './BooleanQuestion'

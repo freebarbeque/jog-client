@@ -2,7 +2,7 @@ import * as React from 'react'
 
 import styled from 'styled-components'
 
-import { IBaseQuestionDescriptor } from '../../../business/types'
+import { IBaseQuestionDescriptor } from 'jog-common/business/types'
 import { BLUE, PINK } from '../../../common/constants/palette'
 import { MARGIN } from '../../../common/constants/style'
 import NumberField from '../../screens/markets/AddressScreen/Number'

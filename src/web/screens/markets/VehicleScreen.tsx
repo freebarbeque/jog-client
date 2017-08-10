@@ -3,9 +3,12 @@ import { connect, DispatchProp } from 'react-redux'
 import { addCar, setCarAnswer } from '../../../common/store/markets/index'
 import { IReduxState } from '../../../common/types'
 
-import { constructCar, questions as carQuestions } from '../../../business/car'
-import { ICar, IValidationErrors } from '../../../business/types'
-import { validate } from '../../../business/validation'
+import {
+  constructCar,
+  questions as carQuestions,
+} from 'jog-common/business/car'
+import { ICar, IValidationErrors } from 'jog-common/business/types'
+import { validate } from 'jog-common/business/validation'
 import { MARGIN } from '../../../common/constants/style'
 import Container from '../../components/Container'
 import Panel from '../../components/Panel'

@@ -1,5 +1,5 @@
+import { ISelectQuestionDescriptor } from 'jog-common/business/types'
 import * as React from 'react'
-import { ISelectQuestionDescriptor } from '../../../business/types'
 import { PINK } from '../../../common/constants/palette'
 import { MARGIN } from '../../../common/constants/style'
 import QuestionField from './QuestionField'
