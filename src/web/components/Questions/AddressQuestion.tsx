@@ -14,6 +14,9 @@ import Picker from '../Picker'
 import QuestionField from './QuestionField'
 import SelectQuestion from './SelectQuestion'
 
+// TODO: Why is the typing not working for AddressQuestion?
+const Q = SelectQuestion as any
+
 interface IProps {
   index?: number
   error?: string
@@ -69,7 +72,7 @@ class AddressQuestion extends React.Component<IConnectedProps, IState> {
     }
 
     return (
-      <SelectQuestion
+      <Q
         value={this.props.value}
         descriptor={descriptor}
         onChange={this.props.onChange}

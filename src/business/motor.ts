@@ -1,5 +1,8 @@
 import * as _ from 'lodash'
 
+// tslint:disable-next-line:no-var-requires
+const moment = require('moment')
+
 import {
   BasicQuestion,
   DrivingRestriction,
@@ -254,18 +257,18 @@ export const questions = [
 export const questionMap = _.keyBy(questions, q => q.id)
 
 export interface IQuoteAnswers {
-  'motor/main-driver': string
-  'motor/vehicle': string
-  'motor/license-length': number
-  'motor/where-license-issued': string
-  'motor/manual-or-auto': string
-  'motor/other-driving-qualifications': IDrivingQualification[]
-  'motor/dvla-medical-conditions': DrivingRestriction | null
-  'motor/other-cars': string[] | null
-  'motor/convictions': IMotoringConviction[]
-  'motor/incidents': IMotoringIncident[]
-  'motor/no-claims': number
-  'motor/start-date': Date
+  'motor/main-driver'?: string
+  'motor/vehicle'?: string
+  'motor/license-length'?: number
+  'motor/where-license-issued'?: string
+  'motor/manual-or-auto'?: string
+  'motor/other-driving-qualifications'?: IDrivingQualification[]
+  'motor/dvla-medical-conditions'?: DrivingRestriction | null
+  'motor/other-cars'?: string[] | null
+  'motor/convictions'?: IMotoringConviction[]
+  'motor/incidents'?: IMotoringIncident[]
+  'motor/no-claims'?: number
+  'motor/start-date'?: Date | null
 }
 
 export function constructQuoteRequest(
@@ -305,6 +308,8 @@ export function constructAnswers(quote: IQuoteRequest): IQuoteAnswers {
     'motor/convictions': quote.motoringConvictions,
     'motor/incidents': quote.motoringIncidents,
     'motor/no-claims': quote.noClaimsDiscount,
-    'motor/start-date': quote.startDate,
+    'motor/start-date': quote.startDate
+      ? moment(quote.startDate).toDate()
+      : null,
   }
 }

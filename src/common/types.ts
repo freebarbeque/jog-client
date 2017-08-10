@@ -195,7 +195,7 @@ export interface IMotorPolicy {
   createdDate?: number // Date added to jog as opposed to insurance start date
   companyId?: string
   documents?: { [id: string]: IPolicyDocument }
-  cost?: number
+  cost?: number | null
   uid?: string // Firebase user id.
   excess?: number
   // reselect

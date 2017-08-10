@@ -7,9 +7,9 @@ import SelectBox from './SelectBox'
 
 const SpecialSelectBox = SelectBox.extend`background-color: ${PINK};`
 
-interface ISelectQuestionProps<T> {
+interface IProps<T> {
   descriptor: ISelectQuestionDescriptor<T>
-  value?: T
+  value: T
   onChange: (id: string, value: T) => void
   onBlur?: () => void
   onFocus?: () => void
@@ -19,9 +19,7 @@ interface ISelectQuestionProps<T> {
   error?: string
 }
 
-export default class SelectQuestion<T> extends React.Component<
-  ISelectQuestionProps<T>
-> {
+export default class SelectQuestion<T> extends React.Component<IProps<T>> {
   public render() {
     const onSpecialOptionClick =
       this.props.onSpecialOptionClick ||

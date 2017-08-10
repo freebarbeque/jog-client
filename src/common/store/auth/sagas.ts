@@ -29,7 +29,7 @@ import {
   subscribePushNotifications,
   unsubscribePushNotifications,
 } from '../../../native/store/push/actions'
-import { IReduxState } from '../../types'
+import { IFirebaseUser, IReduxState, IUserDetails } from '../../types'
 import { syncUserData, unsyncUserData } from '../actions'
 import { getNavigationAdapter, getStore, getUploadAdapter } from '../index'
 import {
@@ -49,8 +49,12 @@ function createUserPollChannel(ms: number = 1000) {
       () =>
         throttle(async () => {
           const user = firebase.auth().currentUser
-          await user.reload()
-          emit(user.toJSON())
+          if (user) {
+            await user.reload()
+            emit(user.toJSON())
+          } else {
+            emit({})
+          }
         }),
       ms,
     )
@@ -63,12 +67,12 @@ function createUserPollChannel(ms: number = 1000) {
 
 function createUserSubscribeChannel() {
   return eventChannel(emit => {
-    let user = null
-    let details = null
-    let unsubscribeDetails = null
+    let user: IFirebaseUser | null = null
+    let details: IUserDetails | null = null
+    let unsubscribeDetails: (() => void) | null = null
 
     const unsubscribeUser = userSubscribe(newUser => {
-      const uid = user && user.uid
+      const uid = user ? user.uid : null
       const newUid = newUser && newUser.uid
 
       user = newUser
@@ -204,7 +208,7 @@ function* updateUserProfilePictureTask(action: IUpdateUserProfilePicture) {
   let extension
   if (fileUrl) {
     const fileName = _.last(fileUrl.split('/'))
-    extension = _.last(fileName.split('.'))
+    extension = fileName ? _.last(fileName.split('.')) : ''
     contentType = mime.lookup(fileName)
   } else if (file) {
     contentType = file.type

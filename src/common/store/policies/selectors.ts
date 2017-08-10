@@ -76,7 +76,7 @@ export const selectInitialisedPolicies = createSelector(
     })
 
     filteredPolicies.forEach(p => {
-      selectedPolicies[p.id] = p
+      if (p.id) selectedPolicies[p.id] = p
     })
 
     return selectedPolicies

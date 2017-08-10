@@ -23,6 +23,7 @@ function* login(action: ILoginAction) {
     yield call(authApi.signInWithEmailAndPassword, email, password)
     yield put(setLoading(false))
     const user = firebase.auth().currentUser
+    if (!user) throw { message: 'No user present despite being logged in.' }
     if (user.emailVerified) {
       yield put(getNavigationAdapter().hideAuthModal())
     } else {
@@ -68,6 +69,7 @@ function* verificationEmail() {
   try {
     const user = firebase.auth().currentUser
     yield put(setLoading(true))
+    if (!user) throw { message: 'No user present despite being logged in.' }
     yield call(() => user.sendEmailVerification())
     yield put(setLoading(false))
   } catch (e) {

@@ -17,6 +17,7 @@ export default function register() {
         .then(registration => {
           registration.onupdatefound = () => {
             const installingWorker = registration.installing
+            if (!installingWorker) throw new Error('No installing worker...')
             installingWorker.onstatechange = () => {
               if (installingWorker.state === 'installed') {
                 if (navigator.serviceWorker.controller) {

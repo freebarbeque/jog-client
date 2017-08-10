@@ -32,7 +32,7 @@ interface IMotorQuoteScreenProps
 }
 
 class MotorQuoteScreen extends React.Component<IMotorQuoteScreenProps> {
-  private questionSetComp: QuestionSet
+  private questionSetComp: QuestionSet | null
 
   public componentDidMount() {
     const quoteId = this.props.match.params.quoteId
@@ -102,6 +102,10 @@ class MotorQuoteScreen extends React.Component<IMotorQuoteScreenProps> {
 
   private handleSubmit = () => {
     // TODO: Mark as pending as opposed to incomplete, as it has now passed validation.
+    if (!this.questionSetComp)
+      throw new Error(
+        'How is submit being pressed before everything is mounted?',
+      )
     const errors = this.questionSetComp.validateAllFields()
     if (!errors.hasError) {
       this.saveQuote()

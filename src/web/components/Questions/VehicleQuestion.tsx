@@ -15,19 +15,11 @@ interface IProps extends DispatchProp<any> {
   onChange: (id: string) => void
 }
 
-interface IVehicleQuestionState {
+interface IState {
   value: string | null
 }
 
-class VehicleQuestion extends React.Component<IProps, IVehicleQuestionState> {
-  constructor(props: IProps) {
-    super(props)
-    const value = props.value
-    this.state = {
-      value,
-    }
-  }
-
+class VehicleQuestion extends React.Component<IProps, IState> {
   public render() {
     const descriptor: ISelectQuestionDescriptor<any> = {
       ...vehicleQuestion,
