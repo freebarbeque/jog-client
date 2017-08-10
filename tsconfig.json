@@ -22,6 +22,7 @@
       "jog-common/*": [
         "modules/common/src/*"
       ],
+      // Hack: importing firebase was resolving to firebase.json, we don't want that!
       "firebase": [
         "node_modules/firebase"
       ]
