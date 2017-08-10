@@ -72,6 +72,7 @@ function createUserSubscribeChannel() {
     let unsubscribeDetails: (() => void) | null = null
 
     const unsubscribeUser = userSubscribe(newUser => {
+      console.log(newUser)
       const uid = user ? user.uid : null
       const newUid = newUser && newUser.uid
 

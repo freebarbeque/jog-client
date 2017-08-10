@@ -10,8 +10,13 @@ import {
   takeLatest,
 } from 'redux-saga/effects'
 
+import {
+  IAddress,
+  ICar,
+  IPerson,
+  IQuoteRequest,
+} from 'jog-common/business/types'
 import { goBack } from 'react-router-redux'
-import { IAddress, ICar, IPerson, IQuoteRequest } from '../../../business/types'
 import { demandCurrentUser } from '../../data/auth'
 import {
   setAddress,

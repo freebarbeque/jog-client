@@ -4,7 +4,7 @@ import * as _ from 'lodash'
 import * as React from 'react'
 import styled from 'styled-components'
 
-import { IMultiSelectQuestionDescriptor } from '../../../business/types'
+import { IMultiSelectQuestionDescriptor } from 'jog-common/business/types'
 import { MARGIN } from '../../../common/constants/style'
 import { IProps } from './QuestionField'
 import QuestionField from './QuestionField'

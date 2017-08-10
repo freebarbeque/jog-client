@@ -1,5 +1,10 @@
 import * as firebase from 'firebase'
-import { IAddress, ICar, IPerson, IQuoteRequest } from '../../business/types'
+import {
+  IAddress,
+  ICar,
+  IPerson,
+  IQuoteRequest,
+} from 'jog-common/business/types'
 
 export function setAddress(uid: string, address: IAddress) {
   const db = firebase.database()

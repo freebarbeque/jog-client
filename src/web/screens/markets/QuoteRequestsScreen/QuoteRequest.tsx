@@ -7,7 +7,7 @@ import styled from 'styled-components'
 // tslint:disable-next-line:no-var-requires
 const moment = require('moment')
 
-import { ICar } from '../../../../business/types'
+import { ICar } from 'jog-common/business/types'
 import { IReduxState } from '../../../../common/types'
 
 import { BLUE } from '../../../../common/constants/palette'

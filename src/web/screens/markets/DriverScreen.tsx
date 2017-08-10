@@ -6,9 +6,9 @@ import { Dispatch, IReduxState } from '../../../common/types'
 import {
   constructDriver,
   questions as driverQuestions,
-} from '../../../business/driver'
-import { IValidationErrors } from '../../../business/types'
-import { validate } from '../../../business/validation'
+} from 'jog-common/business/driver'
+import { IValidationErrors } from 'jog-common/business/types'
+import { validate } from 'jog-common/business/validation'
 import { MARGIN } from '../../../common/constants/style'
 import Container from '../../components/Container'
 import Panel from '../../components/Panel'

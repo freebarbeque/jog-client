@@ -19,12 +19,13 @@
     "flow-typed": "flow-typed",
     "format:js": "prettier --single-quote --trailing-comma all --no-semi --write src/**/*.ts src/**/*.tsx src/**/*.js src/**/*.jsx",
     "generate:policies": "NODE_PATH=../ babel-node scripts/mock/generateMockPolicies.js -b es2015",
-    "postinstall": "remotedev-debugger --hostname localhost --port 5678 --injectserver",
+    "postinstall": "yarn setup:submodules && remotedev-debugger --hostname localhost --port 5678 --injectserver",
     "lint": "yarn lint:js",
     "lint:js": "tslint 'src/**/*.ts?(x)'",
     "run:android": "react-native run-android",
     "run:ios": "react-native run-ios",
     "run:web": "JOG_ENVIRONMENT=DEBUG webpack-dev-server",
+    "setup:submodules": "git submodule update --init --recursive && (cd modules/common && yarn install)",
     "start": "yarn start:packager",
     "start:packager": "node node_modules/react-native/local-cli/cli.js start"
   },
@@ -125,6 +126,7 @@
     "eslint-plugin-import": "2.3.0",
     "eslint-plugin-jsx-a11y": "5.0.3",
     "eslint-plugin-react": "7.0.1",
+    "firebase-tools": "^3.9.2",
     "flow-bin": "^0.42.0",
     "husky": "^0.13.4",
     "jest": "20.0.4",
@@ -147,12 +149,9 @@
   "engineStrict": true,
   "private": true,
   "lint-staged": {
-    "src/**/*.ts": [
+    "{src,test}/**/*.ts{,x}": [
       "yarn format:js --",
-      "git add"
-    ],
-    "src/**/*.tsx": [
-      "yarn format:js --",
+      "tslint --fix",
       "git add"
     ]
   },

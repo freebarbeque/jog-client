@@ -6,13 +6,13 @@ import {
 } from '../../../common/store/markets/index'
 import { IReduxState } from '../../../common/types'
 
-import { RouteComponentProps, withRouter } from 'react-router'
 import {
   constructAnswers,
   constructQuoteRequest,
   questions as motorQuestions,
-} from '../../../business/motor'
-import { IQuoteRequest } from '../../../business/types'
+} from 'jog-common/business/motor'
+import { IQuoteRequest } from 'jog-common/business/types'
+import { RouteComponentProps, withRouter } from 'react-router'
 import { MARGIN } from '../../../common/constants/style'
 import { addQuoteRequest } from '../../../common/store/markets/quoteRequests'
 import Container from '../../components/Container'
