@@ -1,4 +1,5 @@
 const webpack = require('webpack')
+const { TsConfigPathsPlugin } = require('awesome-typescript-loader');
 
 module.exports = {
   entry: [
@@ -21,6 +22,9 @@ module.exports = {
   resolve: {
     // Add '.ts' and '.tsx' as resolvable extensions.
     extensions: ['.ts', '.tsx', '.js', '.json'],
+    plugins: [
+      new TsConfigPathsPlugin()
+    ]
   },
 
   module: {

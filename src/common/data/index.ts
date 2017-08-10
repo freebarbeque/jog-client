@@ -5,6 +5,7 @@ let initialised = false
 
 export default function initialiseFirebase(config: IEnvironmentConfig) {
   if (!initialised) {
+    console.log(firebase)
     const firebaseOptions = config.firebase
     if (!firebaseOptions)
       throw new Error(

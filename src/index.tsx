@@ -10,6 +10,7 @@ import createStore from './common/store/index'
 import { dimensionsSubscriptionSaga } from './web/store/dimensions/sagas'
 import reducer from './web/store/reducer'
 
+import cat from 'jog-common/example'
 import { WHITE } from './common/constants/palette'
 import initialiseFirebase from './common/data/index'
 import './index.css'
@@ -19,6 +20,8 @@ import env from './web/env'
 import history from './web/history'
 import { WebNavigationAdapter } from './web/WebNavigationAdapter'
 import WebUploadAdapter from './web/WebUploadAdapter'
+console.log('Website starting :)')
+console.log(cat('cat!'))
 
 // tslint:disable-next-line:no-var-requires
 const injectTapEventPlugin = require('react-tap-event-plugin')

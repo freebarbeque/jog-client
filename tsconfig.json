@@ -13,11 +13,23 @@
     ],
     "allowJs": true,
     "skipLibCheck": true,  // TODO: Remove,
-    "strictNullChecks": true
+    "strictNullChecks": true,
+    "baseUrl": ".",
+    "rootDir": ".",
+    "paths": {
+      "~/*": [
+        "src/*"
+      ],
+      "jog-common/*": [
+        "modules/common/src/*"
+      ]
+    }
   },
   "include": [
     "./src/**/*.ts",
-    "./src/**/*.tsx"
+    "./src/**/*.tsx",
+    "./modules/common/src/**/*.ts",
+    "./modules/common/src/**/*.js"
   ],
   "compileOnSave": false,
   "noStrictGenericChecks": true

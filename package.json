@@ -19,12 +19,13 @@
     "flow-typed": "flow-typed",
     "format:js": "prettier --single-quote --trailing-comma all --no-semi --write src/**/*.ts src/**/*.tsx src/**/*.js src/**/*.jsx",
     "generate:policies": "NODE_PATH=../ babel-node scripts/mock/generateMockPolicies.js -b es2015",
-    "postinstall": "remotedev-debugger --hostname localhost --port 5678 --injectserver",
+    "postinstall": "yarn setup:submodules && remotedev-debugger --hostname localhost --port 5678 --injectserver",
     "lint": "yarn lint:js",
     "lint:js": "tslint 'src/**/*.ts?(x)'",
     "run:android": "react-native run-android",
     "run:ios": "react-native run-ios",
     "run:web": "JOG_ENVIRONMENT=DEBUG webpack-dev-server",
+    "setup:submodules": "git submodule update --init --recursive && (cd modules/common && yarn install)",
     "start": "yarn start:packager",
     "start:packager": "node node_modules/react-native/local-cli/cli.js start"
   },
@@ -153,6 +154,10 @@
     ],
     "src/**/*.tsx": [
       "yarn format:js --",
+      "git add"
+    ],
+    "{src,test}/**/*.ts{,x}": [
+      "tslint --fix",
       "git add"
     ]
   },
