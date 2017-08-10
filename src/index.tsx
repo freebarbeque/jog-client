@@ -20,7 +20,7 @@ import env from './web/env'
 import history from './web/history'
 import { WebNavigationAdapter } from './web/WebNavigationAdapter'
 import WebUploadAdapter from './web/WebUploadAdapter'
-console.log('Website starting :)')
+
 console.log(cat('cat!'))
 
 // tslint:disable-next-line:no-var-requires
