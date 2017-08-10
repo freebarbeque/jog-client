@@ -14,12 +14,13 @@
     "allowJs": true,
     "skipLibCheck": true,  // TODO: Remove,
     "strictNullChecks": true,
+    "baseUrl": ".",
     "paths": {
       "~/*": [
-        "./src/*"
+        "src/*"
       ],
       "jog-common/*": [
-        "./modules/common/src/*"
+        "modules/common/src/*"
       ]
     }
   },
