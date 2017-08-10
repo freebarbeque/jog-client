@@ -148,15 +148,8 @@
   "engineStrict": true,
   "private": true,
   "lint-staged": {
-    "src/**/*.ts": [
-      "yarn format:js --",
-      "git add"
-    ],
-    "src/**/*.tsx": [
-      "yarn format:js --",
-      "git add"
-    ],
     "{src,test}/**/*.ts{,x}": [
+      "yarn format:js --",
       "tslint --fix",
       "git add"
     ]
