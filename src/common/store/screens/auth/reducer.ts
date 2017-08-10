@@ -30,23 +30,26 @@ export default function reducer(
   } else if (action.type === 'screens/auth/CLEAR') {
     return DEFAULT_STATE
   } else if (action.type === 'screens/auth/SET_LOGIN_ERROR') {
-    return {
-      ...state,
-      errors: { ...state.errors, loginError: action.loginError },
-    }
+    if (action.loginError)
+      return {
+        ...state,
+        errors: { ...state.errors, loginError: action.loginError },
+      }
   } else if (action.type === 'screens/auth/SET_REGISTER_ERROR') {
-    return {
-      ...state,
-      errors: { ...state.errors, registerError: action.registerError },
-    }
+    if (action.registerError)
+      return {
+        ...state,
+        errors: { ...state.errors, registerError: action.registerError },
+      }
   } else if (action.type === 'screens/auth/SET_PASSWORD_RESET_ERROR') {
-    return {
-      ...state,
-      errors: {
-        ...state.errors,
-        passwordResetError: action.passwordResetError,
-      },
-    }
+    if (action.passwordResetError)
+      return {
+        ...state,
+        errors: {
+          ...state.errors,
+          passwordResetError: action.passwordResetError,
+        },
+      }
   }
   return state
 }

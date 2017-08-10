@@ -42,9 +42,11 @@ export const selectNormalisedQRs = createSelector(
       const carId = qr.vehicle
       const car = carId ? cars[carId] : null
 
-      nQuoteRequests[qr.id] = {
-        ...qr,
-        normalCar: car ? normaliseCar(car) : null,
+      if (qr.id) {
+        nQuoteRequests[qr.id] = {
+          ...qr,
+          normalCar: car ? normaliseCar(car) : null,
+        }
       }
     })
     return nQuoteRequests

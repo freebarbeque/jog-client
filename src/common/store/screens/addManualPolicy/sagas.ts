@@ -22,7 +22,7 @@ function* savePolicyTask(action: ISavePolicyAction) {
     .toDate()
     .getTime()
   policy.companyId = policyUpdate.companyId
-  policy.cost = parseFloat(policyUpdate.cost)
+  policy.cost = policyUpdate.cost ? parseFloat(policyUpdate.cost) : null
   policy.uid = demandCurrentUser().uid
   policy.noClaimsBonus = 0
   policy.id = uuid()

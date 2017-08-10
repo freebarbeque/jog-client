@@ -49,11 +49,11 @@ export function updatePolicies(policies: { [id: string]: IMotorPolicy }) {
   return ref.update(policies)
 }
 
-export async function clearPolicies(uid: string): Promise<void> {
+export async function clearPolicies(uid: string): Promise<any> {
   const policiesRef = firebase.database().ref('policies')
   const ref = policiesRef.orderByChild('uid').equalTo(uid)
   const snapshot = await ref.once('value')
-  const promises = []
+  const promises: Array<firebase.Promise<any>> = []
   snapshot.forEach(childSnapshot => {
     promises.push(policiesRef.child(childSnapshot.key).remove())
   })
