@@ -34,11 +34,13 @@ interface IProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   label?: string
   loading?: boolean
   disabled?: boolean
+  style?: any
+  labelColor?: string
 }
 
 const RoundedButton = (props: IProps) =>
   <Button disabled={props.loading || props.disabled} {...props}>
-    <div>
+    <div style={{ color: props.labelColor || 'white' }}>
       {props.label}
     </div>
     {props.loading &&

@@ -46,7 +46,7 @@ export function constructAddTask(
       const value = action[actionKey]
       const db = firebase.database()
       const ref = db.ref(generatedKey)
-      console.log('constructAddTask', generatedKey, value)
+      value.lastUpdated = firebase.database.ServerValue.TIMESTAMP
       return ref.set(value)
     })
     const shouldGoBack = typeof goBack === 'function' ? goBack(action) : goBack

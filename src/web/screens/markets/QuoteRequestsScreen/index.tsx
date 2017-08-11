@@ -56,7 +56,11 @@ class QuoteRequestsScreen extends React.Component<IProps> {
               this.props.dispatch(push(`/app/tabs/markets/motor/${q.id}`))}
           />,
         )}
-        <RoundedButton onClick={this.handleClick} label="New Quote" />
+        <RoundedButton
+          onClick={this.handleClick}
+          label="New Quote"
+          style={{ color: 'white' }}
+        />
       </Container>
     )
   }

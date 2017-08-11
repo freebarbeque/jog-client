@@ -11,7 +11,7 @@ import { ICar } from 'jog-common/business/types'
 import { IReduxState } from '../../../../common/types'
 
 import { Car } from '~/web/components/images'
-import { BLUE } from '../../../../common/constants/palette'
+import { BLUE, VERY_LIGHT_GRAY } from '../../../../common/constants/palette'
 import { MARGIN } from '../../../../common/constants/style'
 import { INormalQuoteRequest } from '../../../../common/store/markets/selectors'
 import Button from '../../../components/Button'
@@ -25,10 +25,13 @@ const Container = styled.div`
   width: 100%;
   align-items: center;
   justify-content: flex-start;
+  border-style: solid;
+  border-width: 1px;
+  border-color: rgb(224, 224, 224);
+  border-radius: 4px;
   * {
     color: ${BLUE};
   }
-  padding: ${MARGIN.base}px;
 `
 
 const Table = styled.table`margin: ${MARGIN.base};`
@@ -78,35 +81,55 @@ export default class QuoteRequest extends React.Component<IProps, {}> {
           <Car scale={0.7} />
           <span style={{ marginTop: MARGIN.base / 2 }}>Car Insurance</span>
         </div>
-        <div style={{ flex: 1 }}>
-          <Table>
-            <tbody>
-              <tr>
-                <LeftCell>Car</LeftCell>
-                <RightCell>
-                  {quoteRequest.normalCar
-                    ? quoteRequest.normalCar.description
-                    : 'Not Specified'}
-                </RightCell>
-              </tr>
-              <tr>
-                <LeftCell>Policy Holder</LeftCell>
-                <RightCell>
-                  {quoteRequest.normalMainDriver
-                    ? quoteRequest.normalMainDriver.description
-                    : 'Not Specified'}
-                </RightCell>
-              </tr>
-              <tr>
-                <LeftCell>Start Date</LeftCell>
-                <RightCell>
-                  {startDate && startDateValid
-                    ? startDate.format('DD/MM/YYYY')
-                    : 'Not Specified'}
-                </RightCell>
-              </tr>
-            </tbody>
-          </Table>
+        <div
+          style={{
+            flex: 1,
+            borderRightStyle: 'solid',
+            borderRightWidth: 1,
+            borderRightColor: 'rgb(224, 224, 224)',
+            borderLeftStyle: 'solid',
+            borderLeftWidth: 1,
+            borderLeftColor: 'rgb(224, 224, 224)',
+            padding: MARGIN.base,
+          }}
+        >
+          <div>
+            {quoteRequest.lastUpdated
+              ? <div
+                  style={{ fontStyle: 'italic', marginBottom: MARGIN.small }}
+                >
+                  Last updated {moment(quoteRequest.lastUpdated).fromNow()}
+                </div>
+              : null}
+            <Table>
+              <tbody>
+                <tr>
+                  <LeftCell>Car</LeftCell>
+                  <RightCell>
+                    {quoteRequest.normalCar
+                      ? quoteRequest.normalCar.description
+                      : 'Not Specified'}
+                  </RightCell>
+                </tr>
+                <tr>
+                  <LeftCell>Policy Holder</LeftCell>
+                  <RightCell>
+                    {quoteRequest.normalMainDriver
+                      ? quoteRequest.normalMainDriver.description
+                      : 'Not Specified'}
+                  </RightCell>
+                </tr>
+                <tr>
+                  <LeftCell>Start Date</LeftCell>
+                  <RightCell>
+                    {startDate && startDateValid
+                      ? startDate.format('DD/MM/YYYY')
+                      : 'Not Specified'}
+                  </RightCell>
+                </tr>
+              </tbody>
+            </Table>
+          </div>
         </div>
         <div
           style={{
@@ -114,6 +137,7 @@ export default class QuoteRequest extends React.Component<IProps, {}> {
             alignItems: 'center',
             justifyContent: 'center',
             flexDirection: 'column',
+            padding: MARGIN.base,
           }}
         >
           <RoundedButton onClick={this.props.onClick} label="Change Details" />
