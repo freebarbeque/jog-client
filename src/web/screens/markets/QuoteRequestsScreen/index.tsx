@@ -10,6 +10,7 @@ const uuid = require('uuid/v4')
 import { IQuoteRequest } from 'jog-common/business/types'
 import { IReduxState } from '../../../../common/types'
 
+import { deleteQuoteRequest } from '~/common/store/markets/quoteRequests'
 import { BLUE } from '../../../../common/constants/palette'
 import { MARGIN } from '../../../../common/constants/style'
 import {
@@ -44,6 +45,13 @@ class QuoteRequestsScreen extends React.Component<IProps> {
         {_.values(quoteRequests).map(q =>
           <QuoteRequest
             quoteRequest={q}
+            onDeleteClick={() => {
+              if (q.id) {
+                this.props.dispatch(deleteQuoteRequest(q.id))
+              } else {
+                throw new Error('All quotes should have an id')
+              }
+            }}
             onClick={() =>
               this.props.dispatch(push(`/app/tabs/markets/motor/${q.id}`))}
           />,

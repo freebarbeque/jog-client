@@ -32,6 +32,7 @@ import {
 import { finishLoading, startLoading } from '../loading/actions'
 import {
   addQuoteRequestTask,
+  deleteQuoteRequestTask,
   IAddQuoteRequest,
   QuoteRequestAction,
 } from './quoteRequests'
@@ -315,6 +316,10 @@ export function* addMarketEntitySaga() {
   yield takeLatest(
     'markets/quoteRequests/ADD_QUOTE_REQUEST',
     addQuoteRequestTask,
+  )
+  yield takeLatest(
+    'markets/quoteRequests/DELETE_QUOTE_REQUEST',
+    deleteQuoteRequestTask,
   )
 }
 

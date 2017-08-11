@@ -16,7 +16,7 @@ const Button = styled.button`
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  color: white;
+  color: white !important;
   border: none;
   font-size: 14px;
   cursor: pointer;

@@ -21,6 +21,11 @@ export function setCar(uid: string, car: ICar) {
   return db.ref(`/cars/${uid}/${car.id}`).set(car)
 }
 
+export function deleteQuoteRequest(uid: string, quoteId: string) {
+  const db = firebase.database()
+  return db.ref(`/quoteRequests/${uid}/${quoteId}`).remove()
+}
+
 export function sync<T>(
   key: string,
   cb: (items: { [id: string]: T }) => void,

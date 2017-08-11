@@ -17,6 +17,9 @@ import {
   IQuoteRequest,
 } from 'jog-common/business/types'
 import { goBack } from 'react-router-redux'
+
+import * as _ from 'lodash'
+
 import { demandCurrentUser } from '../../data/auth'
 import {
   setAddress,
@@ -25,7 +28,11 @@ import {
   syncCars,
   syncPeople,
 } from '../../data/quotes'
-import { constructAddTask, constructSyncSaga } from '../../sagaHelpers/index'
+import {
+  constructAddTask,
+  constructDeleteTask,
+  constructSyncSaga,
+} from '../../sagaHelpers/index'
 import { finishLoading, startLoading } from '../loading/actions'
 
 //
@@ -51,15 +58,29 @@ export interface IReceiveQuoteRequestsAction {
   type: 'markets/quoteRequests/RECEIVE_QUOTE_REQUESTS'
   quoteRequests: { [id: string]: IQuoteRequest }
 }
+
+export interface IDeleteQuoteRequestAction {
+  type: 'markets/quoteRequests/DELETE_QUOTE_REQUEST'
+  id: string
+}
+
 export type QuoteRequestAction =
   | IAddQuoteRequest
   | ISyncQuoteRequests
   | IUnsyncQuoteRequestsAction
   | IReceiveQuoteRequestsAction
+  | IDeleteQuoteRequestAction
 
 //
 // Action Creators
 //
+
+export function deleteQuoteRequest(id: string): IDeleteQuoteRequestAction {
+  return {
+    type: 'markets/quoteRequests/DELETE_QUOTE_REQUEST',
+    id,
+  }
+}
 
 export function addQuoteRequest(
   quoteRequest: IQuoteRequest,
@@ -105,7 +126,11 @@ export const addQuoteRequestTask = constructAddTask(
   (action: any) =>
     `quoteRequest/${demandCurrentUser().uid}/${action.quoteRequest.id}`,
   'quoteRequest',
-  (action: any) => action.goBack,
+  (action: any) => _.get(action, 'back'),
+)
+
+export const deleteQuoteRequestTask = constructDeleteTask(
+  (action: any) => `quoteRequest/${demandCurrentUser().uid}/${action.id}`,
 )
 
 export const quoteRequestsSyncSaga = constructSyncSaga({

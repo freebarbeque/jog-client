@@ -5,9 +5,14 @@ import { IReduxState } from '../../types'
 
 export interface INormalQuoteRequest extends IQuoteRequest {
   normalCar?: INormalCar | null
+  normalMainDriver?: INormalPerson | null
 }
 
 export interface INormalCar extends ICar {
+  description: string
+}
+
+export interface INormalPerson extends IPerson {
   description: string
 }
 
@@ -32,20 +37,34 @@ function normaliseCar(car: ICar): INormalCar {
   }
 }
 
+function normalisePerson(person: IPerson): INormalPerson {
+  return {
+    ...person,
+    description: `${person.firstName}${person.lastName
+      ? ' '
+      : ''}${person.lastName}`,
+  }
+}
+
 // Generate presentable quoteR
 export const selectNormalisedQRs = createSelector(
   (state: IReduxState) => state.markets.cars,
+  (state: IReduxState) => state.markets.drivers,
   (state: IReduxState) => state.markets.quoteRequests,
-  (cars, quoteRequests) => {
+  (cars, drivers, quoteRequests) => {
     const nQuoteRequests: { [id: string]: INormalQuoteRequest } = {}
     _.forEach(quoteRequests, (qr: IQuoteRequest) => {
       const carId = qr.vehicle
       const car = carId ? cars[carId] : null
 
+      const mainDriverId = qr.mainDriver
+      const mainDriver = mainDriverId ? drivers[mainDriverId] : null
+
       if (qr.id) {
         nQuoteRequests[qr.id] = {
           ...qr,
           normalCar: car ? normaliseCar(car) : null,
+          normalMainDriver: mainDriver ? normalisePerson(mainDriver) : null,
         }
       }
     })

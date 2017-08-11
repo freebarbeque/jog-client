@@ -51,9 +51,25 @@ export function constructAddTask(
     })
     const shouldGoBack = typeof goBack === 'function' ? goBack(action) : goBack
 
+    console.log('goBack', goBack)
+
     if (shouldGoBack) {
       yield put(back())
     }
+  }
+}
+
+export function constructDeleteTask(
+  firebaseKey: string | ((action: any) => string),
+) {
+  return function* generatedDeleteTask(action: any) {
+    const generatedKey =
+      typeof firebaseKey === 'string' ? firebaseKey : firebaseKey(action)
+    yield call(() => {
+      const db = firebase.database()
+      const ref = db.ref(generatedKey)
+      return ref.remove()
+    })
   }
 }
 

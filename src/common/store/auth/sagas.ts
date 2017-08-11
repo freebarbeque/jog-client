@@ -2,6 +2,7 @@
 
 import * as firebase from 'firebase'
 import { eventChannel } from 'redux-saga'
+
 import {
   call,
   cancel,
