@@ -10,6 +10,7 @@ const moment = require('moment')
 import { ICar } from 'jog-common/business/types'
 import { IReduxState } from '../../../../common/types'
 
+import { capitalise } from '~/common/util'
 import { Car } from '~/web/components/images'
 import { BLUE, VERY_LIGHT_GRAY } from '../../../../common/constants/palette'
 import { MARGIN } from '../../../../common/constants/style'
@@ -125,6 +126,12 @@ export default class QuoteRequest extends React.Component<IProps, {}> {
                     {startDate && startDateValid
                       ? startDate.format('DD/MM/YYYY')
                       : 'Not Specified'}
+                  </RightCell>
+                </tr>
+                <tr>
+                  <LeftCell>Status</LeftCell>
+                  <RightCell>
+                    {capitalise(quoteRequest.status || 'incomplete')}
                   </RightCell>
                 </tr>
               </tbody>
