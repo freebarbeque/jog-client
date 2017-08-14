@@ -1,6 +1,9 @@
 import * as firebase from 'firebase'
 
+import Logger, { Levels } from '~/common/Logger'
 import { IMotorPolicy, IMotorPolicyMap, IPolicyDocument } from '../types'
+
+const log = new Logger('common/data/policies', Levels.TRACE)
 
 export function syncMotorPolicies(
   uid: string,
@@ -36,9 +39,9 @@ export async function getMotorPolicies(uid: string): Promise<IMotorPolicyMap> {
 export async function setMotorPolicy(policy: IMotorPolicy): Promise<void> {
   const id = policy.id
   if (id) {
-    console.log(`setMotorPolicy: saving policy with id ${id}`)
+    log.trace(`saving policy with id ${id}`)
     await firebase.database().ref(`policies/${id}`).set(policy)
-    console.log(`setMotorPolicy: saved policy with id ${id}`)
+    log.debug(`saved policy with id ${id}`)
     return
   }
   throw new TypeError('Policy does not have an id')

@@ -42,6 +42,13 @@ export function constructAddTask(
   return function* generatedAddTask(action: any) {
     const generatedKey =
       typeof firebaseKey === 'string' ? firebaseKey : firebaseKey(action)
+
+    const shouldGoBack = typeof goBack === 'function' ? goBack(action) : goBack
+
+    if (shouldGoBack) {
+      yield put(startLoading('Submitting'))
+    }
+
     yield call(() => {
       const value = action[actionKey]
       const db = firebase.database()
@@ -49,9 +56,10 @@ export function constructAddTask(
       value.lastUpdated = firebase.database.ServerValue.TIMESTAMP
       return ref.set(value)
     })
-    const shouldGoBack = typeof goBack === 'function' ? goBack(action) : goBack
 
-    console.log('goBack', goBack)
+    if (shouldGoBack) {
+      yield put(finishLoading())
+    }
 
     if (shouldGoBack) {
       yield put(back())

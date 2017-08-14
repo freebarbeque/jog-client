@@ -7,6 +7,9 @@ import styled from 'styled-components'
 // tslint:disable-next-line:no-var-requires
 const uuid = require('uuid/v4')
 
+// tslint:disable-next-line:no-var-requires
+const moment = require('moment')
+
 import { IQuoteRequest } from 'jog-common/business/types'
 import { IReduxState } from '../../../../common/types'
 
@@ -33,7 +36,10 @@ const Container = styled.div`
 
 class QuoteRequestsScreen extends React.Component<IProps> {
   public render() {
-    const quoteRequests = this.props.quoteRequests
+    const quoteRequests = _.chain(this.props.quoteRequests)
+      .sortBy(q => moment(q.lastUpdated).toDate())
+      .reverse()
+      .value()
     const hasQuoteRequests = _.isEmpty(quoteRequests)
     const numRequests = _.keys(quoteRequests).length
 

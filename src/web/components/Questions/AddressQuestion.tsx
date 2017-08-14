@@ -78,6 +78,8 @@ class AddressQuestion extends React.Component<IConnectedProps, IState> {
         onChange={this.props.onChange}
         specialOptions={[{ label: 'Add new address', value: 'new-address' }]}
         onSpecialOptionClick={this.handleSpecialOptionClick}
+        error={this.props.error}
+        index={this.props.index}
       />
     )
   }

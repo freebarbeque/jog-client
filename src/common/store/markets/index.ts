@@ -3,6 +3,7 @@
 //
 
 import { eventChannel } from 'redux-saga'
+
 import {
   call,
   cancel,
@@ -20,6 +21,7 @@ import {
   IQuoteRequest,
 } from 'jog-common/business/types'
 import { goBack } from 'react-router-redux'
+
 import { demandCurrentUser } from '../../data/auth'
 import {
   setAddress,
@@ -36,6 +38,10 @@ import {
   IAddQuoteRequest,
   QuoteRequestAction,
 } from './quoteRequests'
+
+import Logger, { Levels } from '~/common/Logger'
+
+const log = new Logger('common/store/markets', Levels.TRACE)
 
 // region Action types
 export interface ISetAddressAnswerAction {
@@ -285,10 +291,13 @@ export function receiveDrivers(drivers: {
 // region Sagas
 export function* addAddressTask(action: IAddAddressAction) {
   const address = action.address
+  log.trace(`Adding address with id ${address.id}`, address)
   yield put(startLoading('Adding new address'))
   const user = demandCurrentUser()
   yield call(() => setAddress(user.uid, address))
+  log.debug(`Added address with id ${address.id}`, address)
   yield put(finishLoading())
+  yield put(goBack())
 }
 
 export function* addDriverTask(action: IAddDriverAction) {
@@ -353,7 +362,7 @@ function* syncDriversTask({ uid }) {
     // eslint-disable-next-line no-constant-condition
     while (true) {
       const drivers = yield take(channel)
-      console.log('syncDriversTask received new policies', drivers)
+      log.trace('received new drivers', drivers)
       yield put(receiveDrivers(drivers))
     }
   } finally {
@@ -369,7 +378,7 @@ function* syncAddressesTask({ uid }) {
     // eslint-disable-next-line no-constant-condition
     while (true) {
       const addresses = yield take(channel)
-      console.log('syncMotorPoliciesTask received new policies', addresses)
+      log.trace('received new addresses', addresses)
       yield put(receiveAddresses(addresses))
     }
   } finally {
@@ -385,7 +394,7 @@ function* syncCarsTask({ uid }) {
     // eslint-disable-next-line no-constant-condition
     while (true) {
       const cars = yield take(channel)
-      console.log('syncCarsTask received new cars', cars)
+      log.trace('received new cars', cars)
       yield put(receiveCars(cars))
     }
   } finally {

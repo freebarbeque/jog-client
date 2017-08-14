@@ -39,7 +39,10 @@ import {
   IUpdateUserProfilePicture,
 } from './actionTypes'
 
+import Logger, { Levels } from '~/common/Logger'
 import { receiveUser, receiveUserDetails } from './actions'
+
+const log = new Logger('common/store/auth/sagas', Levels.TRACE)
 
 const throttle = createThrottle(1)
 
@@ -73,7 +76,7 @@ function createUserSubscribeChannel() {
     let unsubscribeDetails: (() => void) | null = null
 
     const unsubscribeUser = userSubscribe(newUser => {
-      console.log(newUser)
+      log.trace('User event channel received new user', newUser)
       const uid = user ? user.uid : null
       const newUid = newUser && newUser.uid
 
@@ -91,7 +94,7 @@ function createUserSubscribeChannel() {
               ref
                 .getDownloadURL()
                 .then(url => {
-                  console.log('profilePhoto', profilePhoto, url)
+                  log.trace('profilePhoto', profilePhoto, url)
                   details = {
                     ...details,
                     profilePhotoURL: url,
@@ -99,7 +102,7 @@ function createUserSubscribeChannel() {
                   emit({ user, details })
                 })
                 .catch(err => {
-                  console.warn('Error downloading profile photo', err)
+                  log.warn('Error downloading profile photo', err)
                 })
             }
           })
@@ -154,21 +157,19 @@ function* syncUserTask() {
             yield put(subscribePushNotifications())
           }
         } else if (details) {
-          console.log(
+          log.trace(
             'Unsubscribing from push notifications as user disabled push notifications',
           )
           yield put(unsubscribePushNotifications())
         } else {
-          console.log(
+          log.trace(
             'Unsubscribing from push notifications as there are no user details',
           )
           yield put(unsubscribePushNotifications())
         }
         yield put(syncUserData(user.uid))
       } else {
-        console.log(
-          'Unsubscribing from push notifications as no user logged in',
-        )
+        log.trace('Unsubscribing from push notifications as no user logged in')
         yield put(unsubscribePushNotifications())
       }
     }
@@ -187,7 +188,7 @@ function* logout() {
     yield put(unsyncUserData(user.uid))
     yield put(setLoading(false))
   } else {
-    console.warn(
+    log.warn(
       'Attempted to logout when no user was logged in. This indicates that the user was able to access the Sign Out button without being logged in.',
     )
   }
@@ -238,7 +239,7 @@ function* updateUserProfilePictureTask(action: IUpdateUserProfilePicture) {
       updateCurrentUserDetails({ profilePhoto: fileStoragePath }),
     )
   } catch (e) {
-    console.warn('Error uploading image', e, e.stack)
+    log.warn('Error uploading image', e, e.stack)
     yield put(declareError('Unable to upload document'))
     return
   }

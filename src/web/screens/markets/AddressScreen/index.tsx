@@ -22,7 +22,7 @@ interface IProps extends DispatchProp<any> {
 }
 
 interface IState {
-  errors?: IValidationErrors
+  errors?: { [id: string]: string }
   blurred: { [id: string]: boolean }
 }
 
@@ -86,7 +86,7 @@ class AddressScreen extends React.Component<IProps, IState> {
               marginTop: MARGIN.xxl,
             }}
             onClick={this.handleAddAddressClick}
-            disabled={this.state.errors && this.state.errors.hasError}
+            disabled={Boolean(_.keys(this.state.errors).length)}
           />
         </Panel>
       </Container>

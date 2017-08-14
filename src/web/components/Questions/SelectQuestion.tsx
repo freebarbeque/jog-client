@@ -1,11 +1,20 @@
 import { ISelectQuestionDescriptor } from 'jog-common/business/types'
 import * as React from 'react'
+import styled from 'styled-components'
+
 import { PINK } from '../../../common/constants/palette'
 import { MARGIN } from '../../../common/constants/style'
 import QuestionField from './QuestionField'
 import SelectBox from './SelectBox'
 
 const SpecialSelectBox = SelectBox.extend`background-color: ${PINK};`
+
+const Accessory = styled.div`
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  transition: opacity .20s ease-in-out;
+`
 
 interface IProps<T> {
   descriptor: ISelectQuestionDescriptor<T>
@@ -17,9 +26,24 @@ interface IProps<T> {
   onSpecialOptionClick?: (value: string) => void
   index?: number
   error?: string
+  renderAccessory?: (o: { label: string; value: T }) => React.ReactElement<any>
 }
 
-export default class SelectQuestion<T> extends React.Component<IProps<T>> {
+interface IState {
+  hovering: boolean
+}
+
+export default class SelectQuestion<T> extends React.Component<
+  IProps<T>,
+  IState
+> {
+  constructor(props: IProps<T>) {
+    super(props)
+    this.state = {
+      hovering: false,
+    }
+  }
+
   public render() {
     const onSpecialOptionClick =
       this.props.onSpecialOptionClick ||
@@ -41,8 +65,17 @@ export default class SelectQuestion<T> extends React.Component<IProps<T>> {
                 className={`${o.value === this.props.value ? 'selected' : ''}`}
                 onClick={() =>
                   this.props.onChange(this.props.descriptor.id, o.value)}
+                onMouseOver={() => this.setState({ hovering: true })}
+                onMouseLeave={() => this.setState({ hovering: false })}
               >
-                {o.label}
+                <div>
+                  {o.label}
+                </div>
+                {this.props.renderAccessory
+                  ? <Accessory style={{ opacity: this.state.hovering ? 1 : 0 }}>
+                      {this.props.renderAccessory(o)}
+                    </Accessory>
+                  : null}
               </SelectBox>
             )
           })}

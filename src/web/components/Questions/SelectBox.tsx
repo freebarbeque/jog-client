@@ -14,6 +14,10 @@ const SelectBox = styled.button`
   background-color: rgb(240, 240, 240);
   border: none;
   cursor: pointer;
+  border-radius: 6px;
+  padding-left: 14px;
+  padding-right: 14px;
+  position: relative;
 
   &.selected {
     background-color: ${PINK};

@@ -1,18 +1,60 @@
 import * as _ from 'lodash'
 import * as React from 'react'
 import { connect, DispatchProp } from 'react-redux'
+import styled from 'styled-components'
 
 import { vehicleQuestion } from 'jog-common/business/motor'
 import { ICar, ISelectQuestionDescriptor } from 'jog-common/business/types'
 import { push } from 'react-router-redux'
+
+import { BLUE, WHITE } from '~/common/constants/palette'
+
 import { IFirebaseUser, IReduxState } from '../../../common/types'
 import SelectQuestion from './SelectQuestion'
+
+const Accessories = styled.div`
+  display: flex;
+  flex-direction: row;
+
+  button {
+    background-color: ${BLUE};
+    border: none;
+    border-radius: 100px;
+    color: ${WHITE};
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: opacity .20s ease-in-out;
+    height: 23px;
+    width: 23px;
+    margin-right: 3px;
+
+    &:last-child {
+      margin-right: 0 !important;
+    }
+
+    &:hover {
+      opacity: 0.8;
+    }
+
+    .fa {
+      position: relative;
+      top: 1px;
+    }
+  }
+`
+
+// tslint:disable-next-line:no-var-requires
+const FontAwesome: any = require('react-fontawesome')
 
 interface IProps extends DispatchProp<any> {
   cars: { [id: string]: ICar }
   user: IFirebaseUser
   value: string
   onChange: (id: string) => void
+  error?: string
+  index?: number
 }
 
 interface IState {
@@ -43,6 +85,20 @@ class VehicleQuestion extends React.Component<IProps, IState> {
         onChange={this.props.onChange}
         specialOptions={[{ label: 'Add new vehicle', value: 'new-car' }]}
         onSpecialOptionClick={this.handleSpecialOptionClick}
+        error={this.props.error}
+        index={this.props.index}
+        renderAccessory={(o: { label: string; value: string }) => {
+          return (
+            <Accessories>
+              <button>
+                <FontAwesome name="pencil" color={'white'} size={15} />
+              </button>
+              <button>
+                <FontAwesome name="times" color={'white'} size={15} />
+              </button>
+            </Accessories>
+          )
+        }}
       />
     )
   }

@@ -2,6 +2,7 @@ import * as firebase from 'firebase'
 import * as _ from 'lodash'
 import mime from 'react-native-mime-types'
 import { eventChannel } from 'redux-saga'
+
 import {
   call,
   cancel,
@@ -21,6 +22,7 @@ import {
   syncMotorPolicies,
 } from '../../data/policies'
 
+import Logger, { Levels } from '~/common/Logger'
 import { declareError } from '../errors/actions'
 import { getUploadAdapter } from '../index'
 import { finishLoading, startLoading } from '../loading/actions'
@@ -31,6 +33,8 @@ import {
   IUploadPolicyDocumentAction,
   IUploadPolicyDocumentsAction,
 } from './actionTypes'
+
+const log = new Logger('common/store/policies/sagas', Levels.TRACE)
 
 //
 // Sync policies
@@ -50,7 +54,7 @@ function* syncMotorPoliciesTask({ uid }) {
     // eslint-disable-next-line no-constant-condition
     while (true) {
       const policies = yield take(channel)
-      console.log('syncMotorPoliciesTask received new policies', policies)
+      log.trace('received new policies', policies)
       yield put(receiveMotorPolicies(policies))
     }
   } finally {
@@ -107,7 +111,7 @@ function* uploadPolicyDocumentsTask(action: IUploadPolicyDocumentsAction) {
         }),
       )
     } catch (e) {
-      console.warn('Error uploading image', e)
+      log.warn('Error uploading image', e)
       yield put(declareError(`Unable to upload ${fileName}`))
       return
     }
@@ -124,7 +128,7 @@ function* uploadPolicyDocumentsTask(action: IUploadPolicyDocumentsAction) {
         }),
       )
     } catch (e) {
-      console.error('Error uploading file metadata', e)
+      log.error('Error uploading file metadata', e)
       yield put(declareError('Unable to upload file metadata'))
       return
     }
@@ -154,7 +158,7 @@ function* uploadPolicyDocumentTask(action: IUploadPolicyDocumentAction) {
     // For whatever reason, the firebase module claims the base64 data from RNFetchBlob is invalid so we decode it manually.
     const contentType = file ? file.type : mime.lookup(fileName)
 
-    console.error(
+    log.error(
       file
         ? `Uploading ${file.name} to ${fileStoragePath}`
         : `Uploading document at ${fileUrl ||
@@ -171,12 +175,12 @@ function* uploadPolicyDocumentTask(action: IUploadPolicyDocumentAction) {
       }),
     )
   } catch (e) {
-    console.warn('Error uploading image', e)
+    log.warn('Error uploading image', e)
     yield put(declareError(`Unable to upload ${fileName || ''}`))
     return
   }
 
-  console.log(`Stored at ${fileStoragePath}`)
+  log.trace(`Stored at ${fileStoragePath}`)
 
   try {
     // Firebase storage does not have an API for listing files in folders and therefore we
@@ -196,7 +200,7 @@ function* uploadPolicyDocumentTask(action: IUploadPolicyDocumentAction) {
       )
     }
   } catch (e) {
-    console.log('Error uploading file metadata', e)
+    log.warn('Error uploading file metadata', e)
     yield put(declareError('Unable to upload file metadata'))
     return
   }
@@ -221,7 +225,7 @@ function* deletePolicyDocumentTask({
   try {
     yield call(() => removePolicyDocument(policyId, documentId))
   } catch (e) {
-    console.log('Error deleting file metadata', e)
+    log.warn('Error deleting file metadata', e)
     yield put(declareError('Unable to delete file metadata'))
     return
   }

@@ -27,7 +27,7 @@ interface IQuestionSetProps {
 interface IQuestionSetState {
   blurred: { [id: string]: boolean }
   submitted: boolean
-  errors: IValidationErrors | null
+  errors: { [id: string]: string } | null
 }
 
 export default class QuestionSet extends React.Component<
@@ -70,13 +70,13 @@ export default class QuestionSet extends React.Component<
     }
 
     return (
-      <div>
+      <div className="QuestionSet">
         {this.props.questions.map(q => {
           const type = q.type
           const config = map[type]
           if (config) {
             const Comp = config.component
-            const error = this.state.errors && this.state.errors.field[q.id]
+            const error = this.state.errors && this.state.errors[q.id]
             const blurred = this.state.blurred[q.id]
 
             return (
@@ -100,17 +100,21 @@ export default class QuestionSet extends React.Component<
     )
   }
 
-  public validateAllFields(): IValidationErrors {
+  public validateAllFields(): { [id: string]: string } {
     const blurred = { ...this.state.blurred }
+
     _.forEach(this.props.questions, q => {
       const id = q.id
       blurred[id] = true
     })
+
     const errors = this.validateAnswers(
       this.props.questions,
       this.props.answers,
     )
+
     this.setState({ blurred, errors })
+
     return errors
   }
 

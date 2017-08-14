@@ -15,6 +15,8 @@ interface IProps {
   onChange: (id: string) => void
   onBlur?: () => void
   onFocus?: () => void
+  error?: string
+  index?: number
 }
 
 interface IConnectedProps extends IProps, DispatchProp<any> {}
@@ -57,6 +59,8 @@ class MainDriverQuestion extends React.Component<IConnectedProps, {}> {
         onFocus={this.props.onFocus}
         specialOptions={[{ label: 'Add new driver', value: 'new-driver' }]}
         onSpecialOptionClick={this.handleSpecialOptionClick}
+        error={this.props.error}
+        index={this.props.index}
       />
     )
   }
