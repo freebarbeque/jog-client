@@ -106,6 +106,7 @@ class VehicleScreen extends React.Component<IProps, IState> {
     const errors = this.questionSetComp
       ? this.questionSetComp.validateAllFields()
       : null
+
     if (errors && !errors.hasError) {
       const driver = constructCar(
         this.props.carAnswers,

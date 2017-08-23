@@ -10,6 +10,7 @@ import { push } from 'react-router-redux'
 
 import { BLUE, WHITE } from '~/common/constants/palette'
 
+import { setCarAnswers } from '~/common/store/markets'
 import { IFirebaseUser, IReduxState } from '../../../common/types'
 import SelectQuestion from './SelectQuestion'
 
@@ -114,6 +115,7 @@ class VehicleQuestion extends React.Component<IProps, IState> {
 
   private handleSpecialOptionClick = (value: string) => {
     if (value === 'new-car') {
+      this.props.dispatch(setCarAnswers({}))
       this.props.dispatch(push('/app/tabs/markets/motor/vehicle'))
     }
   }
