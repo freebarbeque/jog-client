@@ -1,14 +1,13 @@
 import * as React from 'react'
 import { connect, DispatchProp } from 'react-redux'
 import { addDriver, setDriverAnswer } from '../../../common/store/markets/index'
-import { Dispatch, IReduxState } from '../../../common/types'
+import { IReduxState } from '../../../common/types'
 
 import {
   constructDriver,
   questions as driverQuestions,
 } from 'jog-common/business/driver'
 import { IValidationErrors } from 'jog-common/business/types'
-import { validate } from 'jog-common/business/validation'
 import { MARGIN } from '../../../common/constants/style'
 import Container from '../../components/Container'
 import Panel from '../../components/Panel'
@@ -25,7 +24,7 @@ interface IState {
   blurred: { [id: string]: boolean }
 }
 
-class DriverScreen extends React.Component<IProps> {
+class DriverScreen extends React.Component<IProps, IState> {
   private questionSetComp: QuestionSet | null
 
   public render() {

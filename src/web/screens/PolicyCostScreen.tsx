@@ -2,9 +2,11 @@ import * as React from 'react'
 import { connect, DispatchProp } from 'react-redux'
 import { push } from 'react-router-redux'
 
-import { updateManualPolicy } from '../../common/store/screens/addManualPolicy/actions'
-import { IManualPolicyUpdate } from '../../common/store/screens/addManualPolicy/actions'
-import { Dispatch, IReduxState } from '../../common/types'
+import {
+  IManualPolicyUpdate,
+  updateManualPolicy,
+} from '../../common/store/screens/addManualPolicy/actions'
+import { IReduxState } from '../../common/types'
 import AccessoryInput from '../components/AccessoryInput'
 import AddPolicyScreenContainer from '../components/AddPolicyScreenContainer'
 

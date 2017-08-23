@@ -12,9 +12,12 @@ import { BLUE, CREAM, WHITE, YELLOW } from '../../common/constants/palette'
 import { MARGIN } from '../../common/constants/style'
 import { selectPolicies } from '../../common/store/policies/selectors'
 
-import { Dispatch, IMotorPolicy, IReduxState } from '../../common/types'
-
-import { Action, LEVEL_OF_COVER } from '../../common/types'
+import {
+  Action,
+  IMotorPolicy,
+  IReduxState,
+  LEVEL_OF_COVER,
+} from '../../common/types'
 
 import { RouteComponentProps } from 'react-router'
 import BigRedFullWidthButton from '../components/BigRedFullWidthButton'

@@ -1,10 +1,7 @@
 import * as _ from 'lodash'
 import * as React from 'react'
 
-import {
-  IBaseQuestionDescriptor,
-  IValidationErrors,
-} from 'jog-common/business/types'
+import { IBaseQuestionDescriptor } from 'jog-common/business/types'
 import { validate } from 'jog-common/business/validation'
 import { BLUE } from '../../../common/constants/palette'
 import BooleanDependentQuestion from './BooleanDependentQuestion'
@@ -83,7 +80,7 @@ export default class QuestionSet extends React.Component<
               <Comp
                 key={q.id}
                 descriptor={q}
-                onChange={this.props.onChange}
+                onChange={this.onChange}
                 value={answers[q.id]}
                 error={blurred ? error : null}
                 {...config.props || {}}

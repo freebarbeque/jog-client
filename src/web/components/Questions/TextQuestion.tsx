@@ -30,9 +30,6 @@ export default class TextQuestion extends React.Component<IProps> {
 
     const error = this.props.error
 
-    const onBlur = this.props.onBlur
-    const onFocus = this.props.onFocus
-
     return (
       <QuestionField
         descriptor={this.props.descriptor}

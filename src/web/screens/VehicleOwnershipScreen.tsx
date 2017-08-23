@@ -3,13 +3,10 @@ import { connect, DispatchProp } from 'react-redux'
 
 import { MARGIN } from '../../common/constants/style'
 import {
+  IManualPolicyUpdate,
   motorPolicyOwnership,
   savePolicy,
   updateManualPolicy,
-} from '../../common/store/screens/addManualPolicy/actions'
-import {
-  IManualPolicyUpdate,
-  MotorPolicyOwnership,
 } from '../../common/store/screens/addManualPolicy/actions'
 import { IReduxState } from '../../common/types'
 import AddPolicyScreenContainer from '../components/AddPolicyScreenContainer'

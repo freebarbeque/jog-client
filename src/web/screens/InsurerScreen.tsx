@@ -3,15 +3,12 @@ import * as React from 'react'
 import { connect, DispatchProp } from 'react-redux'
 import { push } from 'react-router-redux'
 
-import { updateManualPolicy } from '../../common/store/screens/addManualPolicy/actions'
-import { IManualPolicyUpdate } from '../../common/store/screens/addManualPolicy/actions'
 import {
-  Action,
-  Dispatch,
-  Insurer,
-  InsurerMap,
-  IReduxState,
-} from '../../common/types'
+  IManualPolicyUpdate,
+  updateManualPolicy,
+} from '../../common/store/screens/addManualPolicy/actions'
+
+import { Action, Insurer, InsurerMap, IReduxState } from '../../common/types'
 import AddPolicyScreenContainer from '../components/AddPolicyScreenContainer'
 import Picker from '../components/Picker'
 

@@ -8,7 +8,6 @@ import {
   questions as carQuestions,
 } from 'jog-common/business/car'
 import { ICar, IValidationErrors } from 'jog-common/business/types'
-import { validate } from 'jog-common/business/validation'
 import { MARGIN } from '../../../common/constants/style'
 import Container from '../../components/Container'
 import Panel from '../../components/Panel'
@@ -25,7 +24,7 @@ interface IState {
   blurred: { [id: string]: boolean }
 }
 
-class VehicleScreen extends React.Component<IProps> {
+class VehicleScreen extends React.Component<IProps, IState> {
   private questionSetComp: QuestionSet | null
 
   public render() {

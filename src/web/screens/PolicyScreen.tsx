@@ -7,7 +7,7 @@ import styled from 'styled-components'
 
 import { RouteComponentProps, withRouter } from 'react-router'
 import { BLUE, DARK_GRAY, PINK } from '../../common/constants/palette'
-import { Action, Dispatch } from '../../common/types'
+import { Action } from '../../common/types'
 import BackgroundHeader from '../components/BackgroundHeader'
 import PolicyDetailsScreen from './PolicyDetailsScreen'
 import PolicyDocumentsScreen from './PolicyDocumentsScreen'

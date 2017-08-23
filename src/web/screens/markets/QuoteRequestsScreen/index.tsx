@@ -10,17 +10,14 @@ const uuid = require('uuid/v4')
 // tslint:disable-next-line:no-var-requires
 const moment = require('moment')
 
-import { IQuoteRequest } from 'jog-common/business/types'
 import { IReduxState } from '../../../../common/types'
 
 import { deleteQuoteRequest } from '~/common/store/markets/quoteRequests'
 import { BLUE } from '../../../../common/constants/palette'
-import { MARGIN } from '../../../../common/constants/style'
 import {
   INormalQuoteRequest,
   selectNormalisedQRs,
 } from '../../../../common/store/markets/selectors'
-import Button from '../../../components/Button'
 import RoundedButton from '../../../components/RoundedButton'
 import QuoteRequest from './QuoteRequest'
 
@@ -40,7 +37,6 @@ class QuoteRequestsScreen extends React.Component<IProps> {
       .sortBy(q => moment(q.lastUpdated).toDate())
       .reverse()
       .value()
-    const hasQuoteRequests = _.isEmpty(quoteRequests)
     const numRequests = _.keys(quoteRequests).length
 
     return (

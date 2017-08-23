@@ -169,10 +169,6 @@ class Profile extends React.Component<IProps> {
       this.props.dispatch(updateUserProfilePicture({ file }))
     })
   }
-
-  private handleCapture = () => {
-    // TODO?
-  }
 }
 
 const mapStateToProps = (state: IReduxState) => {

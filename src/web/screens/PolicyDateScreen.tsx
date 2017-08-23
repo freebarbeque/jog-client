@@ -5,9 +5,11 @@ import { push } from 'react-router-redux'
 // tslint:disable-next-line:no-var-requires
 const moment = require('moment')
 
-import { updateManualPolicy } from '../../common/store/screens/addManualPolicy/actions'
-import { IManualPolicyUpdate } from '../../common/store/screens/addManualPolicy/actions'
-import { Action, Dispatch, IReduxState } from '../../common/types'
+import {
+  IManualPolicyUpdate,
+  updateManualPolicy,
+} from '../../common/store/screens/addManualPolicy/actions'
+import { Action, IReduxState } from '../../common/types'
 import AddPolicyScreenContainer from '../components/AddPolicyScreenContainer'
 import DatePicker from '../components/DatePicker'
 

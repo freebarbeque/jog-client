@@ -6,12 +6,7 @@ import styled from 'styled-components'
 
 import { BLUE } from '../../common/constants/palette'
 import { MARGIN } from '../../common/constants/style'
-import {
-  Action,
-  Dispatch,
-  IFirebaseUser,
-  IReduxState,
-} from '../../common/types'
+import { Action, IFirebaseUser, IReduxState } from '../../common/types'
 import { Cross, Logo } from '../components/images/index'
 
 interface IEmailPolicyScreenProps extends DispatchProp<Action> {

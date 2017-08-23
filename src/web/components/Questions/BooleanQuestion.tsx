@@ -3,8 +3,7 @@ import styled from 'styled-components'
 
 import { IBooleanQuestionDescriptor } from 'jog-common/business/types'
 import { MARGIN } from '../../../common/constants/style'
-import { IProps } from './QuestionField'
-import QuestionField from './QuestionField'
+import QuestionField, { IProps } from './QuestionField'
 import SelectBox from './SelectBox'
 
 interface IBooleanQuestionProps extends IProps {

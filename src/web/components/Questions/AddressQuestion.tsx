@@ -9,9 +9,6 @@ import * as React from 'react'
 import { connect, DispatchProp } from 'react-redux'
 import { push } from 'react-router-redux'
 import { IReduxState } from '../../../common/types'
-import { IPickerOption } from '../Picker'
-import Picker from '../Picker'
-import QuestionField from './QuestionField'
 import SelectQuestion from './SelectQuestion'
 
 // TODO: Why is the typing not working for AddressQuestion?
@@ -75,7 +72,7 @@ class AddressQuestion extends React.Component<IConnectedProps, IState> {
       <Q
         value={this.props.value}
         descriptor={descriptor}
-        onChange={this.props.onChange}
+        onChange={this.onChange}
         specialOptions={[{ label: 'Add new address', value: 'new-address' }]}
         onSpecialOptionClick={this.handleSpecialOptionClick}
         error={this.props.error}
@@ -90,7 +87,6 @@ class AddressQuestion extends React.Component<IConnectedProps, IState> {
     })
     const onChange = this.props.onChange
     if (onChange) {
-      const addresses = this.props.addresses
       onChange(this.props.descriptor.id, value || null)
     }
   }

@@ -2,8 +2,7 @@ import { INumericQuestionDescriptor } from 'jog-common/business/types'
 import * as React from 'react'
 import styled from 'styled-components'
 import { MARGIN } from '../../../common/constants/style'
-import { IProps } from './QuestionField'
-import QuestionField from './QuestionField'
+import QuestionField, { IProps } from './QuestionField'
 
 interface IntegerQuestionProps extends IProps {
   descriptor: INumericQuestionDescriptor

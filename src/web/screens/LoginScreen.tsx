@@ -9,7 +9,6 @@ import {
   setValues,
 } from '../../common/store/screens/auth/actions'
 import {
-  Dispatch,
   IReduxState,
   IValidationErrorsMap,
   IValuesMap,

@@ -5,7 +5,7 @@ import styled from 'styled-components'
 
 import { BLUE, PINK } from '../../common/constants/palette'
 import { MARGIN } from '../../common/constants/style'
-import { Action, Dispatch } from '../../common/types'
+import { Action } from '../../common/types'
 import Container from '../components/Container'
 import { Details, PolicyBots, Upload } from '../components/images/index'
 import Jumbotron from '../components/Jumbotron'

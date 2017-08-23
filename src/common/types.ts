@@ -1,6 +1,6 @@
 import { NavigationAction } from 'react-navigation'
 import { RouterAction } from 'react-router-redux'
-import { Dispatch as ReduxDispatch, Store as ReduxStore } from 'redux'
+import { Store as ReduxStore } from 'redux'
 import { IPushNotificationsReduxState } from '../native/store/push/reducer'
 import { DimensionAction } from '../web/store/dimensions/actionTypes'
 import { BaseAction } from './store/actionTypes'
@@ -11,7 +11,6 @@ import { InsurerActions } from './store/insurers/actionTypes'
 import { LoadingAction } from './store/loading/actionTypes'
 import { ILoadingReduxState } from './store/loading/reducer'
 import { IMarketsReduxState, MarketsAction } from './store/markets/index'
-import { QuoteRequestAction } from './store/markets/quoteRequests'
 import { PoliciesAction } from './store/policies/actionTypes'
 import {
   AddManualPolicyAction,

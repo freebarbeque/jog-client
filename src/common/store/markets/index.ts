@@ -35,7 +35,6 @@ import { finishLoading, startLoading } from '../loading/actions'
 import {
   addQuoteRequestTask,
   deleteQuoteRequestTask,
-  IAddQuoteRequest,
   QuoteRequestAction,
 } from './quoteRequests'
 

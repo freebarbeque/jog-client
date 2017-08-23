@@ -4,13 +4,14 @@ import { call, put, takeLatest } from 'redux-saga/effects'
 import * as authApi from '../../../data/auth'
 
 import {
+  ILoginAction,
+  IPasswordResetAction,
+  IRegisterAction,
   setLoading,
   setLoginError,
   setPasswordResetError,
   setRegisterError,
 } from './actions'
-
-import { ILoginAction, IPasswordResetAction, IRegisterAction } from './actions'
 
 import { getNavigationAdapter } from '../../index'
 

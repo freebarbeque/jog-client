@@ -4,7 +4,6 @@ import { push } from 'react-router-redux'
 import styled from 'styled-components'
 
 import { MARGIN } from '../../common/constants/style'
-import { Dispatch } from '../../common/types'
 import HorizontalFlexCenteredContainer from '../components/HorizontalFlexCenteredContainer'
 import RoundedButton from '../components/RoundedButton'
 import Title from '../components/Title'

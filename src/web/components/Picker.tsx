@@ -77,7 +77,7 @@ const Container = styled.div`
 
 export default class Picker extends React.Component<IPickerProps> {
   public render() {
-    const { value = null, options, ...props } = this.props
+    const { value = null, options } = this.props
     return (
       <Container>
         <SelectField

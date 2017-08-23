@@ -6,8 +6,7 @@ import styled from 'styled-components'
 
 import { IMultiSelectQuestionDescriptor } from 'jog-common/business/types'
 import { MARGIN } from '../../../common/constants/style'
-import { IProps } from './QuestionField'
-import QuestionField from './QuestionField'
+import QuestionField, { IProps } from './QuestionField'
 import SelectBox from './SelectBox'
 
 // language=SCSS prefix=dummy{ suffix=}

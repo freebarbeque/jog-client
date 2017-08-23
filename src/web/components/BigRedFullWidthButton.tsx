@@ -1,7 +1,6 @@
 import * as React from 'react'
 import styled from 'styled-components'
 
-import { LinkHTMLAttributes } from 'react'
 import { PINK } from '../../common/constants/palette'
 import { MARGIN } from '../../common/constants/style'
 import { Chevron } from './images/index'
@@ -40,7 +39,7 @@ const Content = styled.div`
   color: white !important;
 `
 
-interface IProps extends LinkHTMLAttributes<HTMLLinkElement> {
+interface IProps extends React.LinkHTMLAttributes<HTMLLinkElement> {
   onClick?: () => void
   children?: any
   style?: any

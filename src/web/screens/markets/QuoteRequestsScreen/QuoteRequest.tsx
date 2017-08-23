@@ -1,21 +1,14 @@
-import * as _ from 'lodash'
 import * as React from 'react'
-import { connect, DispatchProp } from 'react-redux'
-import { push } from 'react-router-redux'
 import styled from 'styled-components'
 
 // tslint:disable-next-line:no-var-requires
 const moment = require('moment')
 
-import { ICar } from 'jog-common/business/types'
-import { IReduxState } from '../../../../common/types'
-
 import { capitalise } from '~/common/util'
 import { Car } from '~/web/components/images'
-import { BLUE, VERY_LIGHT_GRAY } from '../../../../common/constants/palette'
+import { BLUE } from '../../../../common/constants/palette'
 import { MARGIN } from '../../../../common/constants/style'
 import { INormalQuoteRequest } from '../../../../common/store/markets/selectors'
-import Button from '../../../components/Button'
 import RoundedButton from '../../../components/RoundedButton'
 
 const Container = styled.div`

@@ -1,12 +1,8 @@
 import * as React from 'react'
-import { connect, DispatchProp } from 'react-redux'
 import { Redirect, Route, Switch } from 'react-router'
 
 // tslint:disable-next-line:no-var-requires
 const uuid = require('uuid/v4')
-
-import { IMarketsReduxState } from '../../../common/store/markets/index'
-import { Dispatch, IReduxState } from '../../../common/types'
 
 import Container from '../../components/Container'
 import AddressScreen from './AddressScreen'

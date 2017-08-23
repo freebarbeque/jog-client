@@ -5,7 +5,6 @@ import { connect, DispatchProp } from 'react-redux'
 import { push } from 'react-router-redux'
 
 import { logout } from '../../common/store/auth/actions'
-import { Dispatch } from '../../common/types'
 import { Cross, Logo } from './images'
 
 class AuthNavBar extends React.Component<DispatchProp<any>> {

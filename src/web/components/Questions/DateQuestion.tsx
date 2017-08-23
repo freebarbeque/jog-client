@@ -1,7 +1,6 @@
 import { IDateQuestionDescriptor } from 'jog-common/business/types'
 import DatePicker from 'material-ui/DatePicker'
 import * as React from 'react'
-import { Component } from 'react'
 import styled from 'styled-components'
 import { BLUE } from '../../../common/constants/palette'
 import { MARGIN } from '../../../common/constants/style'

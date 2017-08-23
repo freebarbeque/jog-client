@@ -1,39 +1,14 @@
-import { eventChannel } from 'redux-saga'
-
-import {
-  call,
-  cancel,
-  cancelled,
-  fork,
-  put,
-  take,
-  takeLatest,
-} from 'redux-saga/effects'
-
-import {
-  IAddress,
-  ICar,
-  IPerson,
-  IQuoteRequest,
-} from 'jog-common/business/types'
-import { goBack } from 'react-router-redux'
+import { IQuoteRequest } from 'jog-common/business/types'
 
 import * as _ from 'lodash'
 
 import { demandCurrentUser } from '../../data/auth'
-import {
-  setAddress,
-  setCar,
-  setPerson,
-  syncCars,
-  syncPeople,
-} from '../../data/quotes'
+
 import {
   constructAddTask,
   constructDeleteTask,
   constructSyncSaga,
 } from '../../sagaHelpers/index'
-import { finishLoading, startLoading } from '../loading/actions'
 
 //
 // Action Types
@@ -119,8 +94,6 @@ export function receiveQuoteRequests(quoteRequests: {
 //
 // Sagas & Tasks
 //
-
-const keyGen = () => `quoteRequest/${demandCurrentUser().uid}`
 
 export const addQuoteRequestTask = constructAddTask(
   (action: any) =>

@@ -1,5 +1,4 @@
 import { constructAddress, questions } from 'jog-common/business/address'
-import { IValidationErrors } from 'jog-common/business/types'
 import { validate } from 'jog-common/business/validation'
 import * as _ from 'lodash'
 import * as React from 'react'
@@ -8,10 +7,10 @@ import styled from 'styled-components'
 import { MARGIN } from '../../../../common/constants/style'
 import {
   addAddress,
+  IMarketsReduxState,
   setAddressAnswer,
 } from '../../../../common/store/markets/index'
-import { IMarketsReduxState } from '../../../../common/store/markets/index'
-import { Dispatch, IReduxState } from '../../../../common/types'
+import { IReduxState } from '../../../../common/types'
 import Container from '../../../components/Container'
 import Panel from '../../../components/Panel'
 import TextQuestion from '../../../components/Questions/TextQuestion'

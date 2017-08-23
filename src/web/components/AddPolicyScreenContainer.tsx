@@ -7,7 +7,6 @@ import styled from 'styled-components'
 
 import { BLUE, PINK, WHITE } from '../../common/constants/palette'
 import { MARGIN } from '../../common/constants/style'
-import { Dispatch } from '../../common/types'
 import { CarOutline, Cross, Logo } from './images/index'
 
 interface IProps {

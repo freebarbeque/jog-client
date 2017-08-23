@@ -9,7 +9,7 @@ import {
   stopPollingRefreshUser,
 } from '../../common/store/auth/actions'
 import { emailVerification } from '../../common/store/screens/auth/actions'
-import { Dispatch, IFirebaseUser, IReduxState } from '../../common/types'
+import { IFirebaseUser, IReduxState } from '../../common/types'
 import FlexCenteredContainer from '../components/FlexCenteredContainer'
 import RoundedButton from '../components/RoundedButton'
 import Title from '../components/Title'
