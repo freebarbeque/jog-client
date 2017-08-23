@@ -32,6 +32,12 @@ export default class MarketsScreen extends React.Component {
           />
           <Route
             path="/app/tabs/markets/motor/vehicle"
+            exact
+            component={VehicleScreen}
+          />
+          <Route
+            path="/app/tabs/markets/motor/vehicle/:vehicleId"
+            exact
             component={VehicleScreen}
           />
           <Route

@@ -38,6 +38,7 @@ import {
   QuoteRequestAction,
 } from './quoteRequests'
 
+import { ICarAnswers } from 'jog-common/business/car'
 import Logger, { Levels } from '~/common/Logger'
 
 const log = new Logger('common/store/markets', Levels.TRACE)
@@ -75,6 +76,11 @@ export interface ISetCarAnswer {
   type: 'markets/cars/SET_CAR_ANSWER'
   key: string
   value: any
+}
+
+export interface ISetCarAnswers {
+  type: 'markets/cars/SET_CAR_ANSWERS'
+  answers: ICarAnswers
 }
 
 export interface IAddCarAction {
@@ -147,6 +153,7 @@ export type MarketsAction =
   | IUnsyncCarsAction
   | IReceiveCarsAction
   | ISetCarAnswer
+  | ISetCarAnswers
   | QuoteRequestAction
 
 // endregion
@@ -186,6 +193,13 @@ export function setCarAnswer(key: string, value: any): ISetCarAnswer {
     type: 'markets/cars/SET_CAR_ANSWER',
     key,
     value,
+  }
+}
+
+export function setCarAnswers(answers: ICarAnswers): ISetCarAnswers {
+  return {
+    type: 'markets/cars/SET_CAR_ANSWERS',
+    answers,
   }
 }
 
@@ -310,6 +324,7 @@ export function* addDriverTask(action: IAddDriverAction) {
 
 export function* addCarTask(action: IAddCarAction) {
   const car = action.car
+  log.debug(`Adding car with id ${car.id}`, car)
   yield put(startLoading('Adding vehicle'))
   const user = demandCurrentUser()
   yield call(() => setCar(user.uid, car))
@@ -505,6 +520,11 @@ export default function reducer(
     return {
       ...state,
       carAnswers,
+    }
+  } else if (action.type === 'markets/cars/SET_CAR_ANSWERS') {
+    return {
+      ...state,
+      carAnswers: action.answers,
     }
   } else if (action.type === 'markets/drivers/SET_DRIVER_ANSWER') {
     const driverAnswers = { ...state.driverAnswers }

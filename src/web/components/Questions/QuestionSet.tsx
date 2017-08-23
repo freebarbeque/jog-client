@@ -122,13 +122,11 @@ export default class QuestionSet extends React.Component<
   }
 
   private validateAnswers = (questions, answers) => {
-    console.log('validating', questions, answers)
     const validationErrors = validate(questions, answers)
     return validationErrors
   }
 
   private onBlur = (id: string) => {
-    console.log('onBlur', id)
     const blurred = {
       ...this.state.blurred,
     }
@@ -141,8 +139,7 @@ export default class QuestionSet extends React.Component<
     }
   }
 
-  private onChange(id: string, answer: any) {
-    console.log('onChange', id, answer)
+  private onChange = (id: string, answer: any) => {
     const blurred = {
       ...this.state.blurred,
     }

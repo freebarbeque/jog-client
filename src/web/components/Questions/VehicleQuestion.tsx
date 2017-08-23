@@ -1,6 +1,7 @@
 import * as _ from 'lodash'
 import * as React from 'react'
 import { connect, DispatchProp } from 'react-redux'
+import { RouteComponentProps, withRouter } from 'react-router'
 import styled from 'styled-components'
 
 import { vehicleQuestion } from 'jog-common/business/motor'
@@ -48,7 +49,7 @@ const Accessories = styled.div`
 // tslint:disable-next-line:no-var-requires
 const FontAwesome: any = require('react-fontawesome')
 
-interface IProps extends DispatchProp<any> {
+interface IProps extends DispatchProp<any>, RouteComponentProps<{}> {
   cars: { [id: string]: ICar }
   user: IFirebaseUser
   value: string
@@ -90,10 +91,10 @@ class VehicleQuestion extends React.Component<IProps, IState> {
         renderAccessory={(o: { label: string; value: string }) => {
           return (
             <Accessories>
-              <button>
+              <button onClick={() => this.onEditPress(o.value)}>
                 <FontAwesome name="pencil" color={'white'} size={15} />
               </button>
-              <button>
+              <button onClick={() => this.onDeletePress(o.value)}>
                 <FontAwesome name="times" color={'white'} size={15} />
               </button>
             </Accessories>
@@ -101,6 +102,14 @@ class VehicleQuestion extends React.Component<IProps, IState> {
         }}
       />
     )
+  }
+
+  private onEditPress = (vehicleId: string) => {
+    this.props.dispatch(push(`/app/tabs/markets/motor/vehicle/${vehicleId}`))
+  }
+
+  private onDeletePress = (vehicleId: string) => {
+    // TODO
   }
 
   private handleSpecialOptionClick = (value: string) => {
@@ -113,4 +122,4 @@ class VehicleQuestion extends React.Component<IProps, IState> {
 export default connect((state: IReduxState) => ({
   cars: state.markets.cars,
   user: state.auth.user,
-}))(VehicleQuestion)
+}))(withRouter(VehicleQuestion))
