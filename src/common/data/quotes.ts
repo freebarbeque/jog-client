@@ -21,6 +21,21 @@ export function setCar(uid: string, car: ICar) {
   return db.ref(`/cars/${uid}/${car.id}`).set(car)
 }
 
+export function deleteCar(uid: string, carId: string) {
+  const db = firebase.database()
+  return db.ref(`/cars/${uid}/${carId}`).remove()
+}
+
+export function deletePerson(uid: string, personId: string) {
+  const db = firebase.database()
+  return db.ref(`/drivers/${uid}/${personId}`).remove()
+}
+
+export function deleteAddress(uid: string, addressId: string) {
+  const db = firebase.database()
+  return db.ref(`/addresses/${uid}/${addressId}`).remove()
+}
+
 export function deleteQuoteRequest(uid: string, quoteId: string) {
   const db = firebase.database()
   return db.ref(`/quoteRequests/${uid}/${quoteId}`).remove()

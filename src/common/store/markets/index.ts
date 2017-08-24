@@ -24,6 +24,9 @@ import { goBack } from 'react-router-redux'
 
 import { demandCurrentUser } from '../../data/auth'
 import {
+  deleteAddress,
+  deleteCar,
+  deletePerson,
   setAddress,
   setCar,
   setPerson,
@@ -77,6 +80,21 @@ export interface ISetDriverAnswerAction {
 export interface ISetDriverAnswersAction {
   type: 'markets/drivers/SET_DRIVER_ANSWERS'
   answers: IDriverAnswers
+}
+
+export interface IDeleteDriverAction {
+  type: 'markets/drivers/DELETE_DRIVER'
+  id: string
+}
+
+export interface IDeleteCarAction {
+  type: 'markets/cars/DELETE_CAR'
+  id: string
+}
+
+export interface IDeleteAddressAction {
+  type: 'markets/addresses/DELETE_ADDRESS'
+  id: string
 }
 
 export interface IAddDriverAction {
@@ -169,10 +187,34 @@ export type MarketsAction =
   | ISetCarAnswer
   | ISetCarAnswers
   | QuoteRequestAction
+  | IDeleteCarAction
+  | IDeleteDriverAction
+  | IDeleteAddressAction
 
 // endregion
 
 // region Action creators
+export function deleteCarAction(id: string): IDeleteCarAction {
+  return {
+    type: 'markets/cars/DELETE_CAR',
+    id,
+  }
+}
+
+export function deleteAddressAction(id: string): IDeleteAddressAction {
+  return {
+    type: 'markets/addresses/DELETE_ADDRESS',
+    id,
+  }
+}
+
+export function deleteDriverAction(id: string): IDeleteDriverAction {
+  return {
+    type: 'markets/drivers/DELETE_DRIVER',
+    id,
+  }
+}
+
 export function setAddressAnswer(
   key: string,
   value: string,
@@ -363,10 +405,38 @@ export function* addCarTask(action: IAddCarAction) {
   yield put(goBack())
 }
 
+export function* deleteCarTask(action: IDeleteCarAction) {
+  const carId = action.id
+  log.debug(`Deleting car with id ${carId}`)
+  yield put(startLoading('Deleting car'))
+  const user = demandCurrentUser()
+  yield call(() => deleteCar(user.uid, carId))
+  yield put(finishLoading())
+}
+
+export function* deleteAddressTask(action: IDeleteAddressAction) {
+  const addressId = action.id
+  log.debug(`Deleting address with id ${addressId}`)
+  const user = demandCurrentUser()
+  yield call(() => deleteAddress(user.uid, addressId))
+  yield put(finishLoading())
+}
+
+export function* deleteDriverTask(action: IDeleteDriverAction) {
+  const driverId = action.id
+  log.debug(`Deleting driver with id ${driverId}`)
+  const user = demandCurrentUser()
+  yield call(() => deletePerson(user.uid, driverId))
+  yield put(finishLoading())
+}
+
 export function* addMarketEntitySaga() {
   yield takeLatest('markets/addresses/ADD_ADDRESS', addAddressTask)
   yield takeLatest('markets/drivers/ADD_DRIVER', addDriverTask)
   yield takeLatest('markets/cars/ADD_CAR', addCarTask)
+  yield takeLatest('markets/cars/DELETE_CAR', deleteCarTask)
+  yield takeLatest('markets/addresses/DELETE_ADDRESS', deleteAddressTask)
+  yield takeLatest('markets/drivers/DELETE_DRIVER', deleteDriverTask)
   yield takeLatest(
     'markets/quoteRequests/ADD_QUOTE_REQUEST',
     addQuoteRequestTask,

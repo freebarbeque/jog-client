@@ -10,6 +10,7 @@ import * as React from 'react'
 import { connect, DispatchProp } from 'react-redux'
 import { push } from 'react-router-redux'
 
+import { deleteAddressAction } from '~/common/store/markets'
 import EditDeleteSelectAccessories from '~/web/components/Questions/EditDeleteSelectAccessories'
 import { IReduxState } from '../../../common/types'
 import SelectQuestion from './SelectQuestion'
@@ -97,7 +98,7 @@ class AddressQuestion extends React.Component<IConnectedProps, IState> {
   }
 
   private onDeletePress = (addressId: string) => {
-    // TODO
+    this.props.dispatch(deleteAddressAction(addressId))
   }
 
   private onChange = (id: string, value?: IAddress) => {

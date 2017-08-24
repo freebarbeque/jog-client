@@ -5,6 +5,7 @@ import { connect, DispatchProp } from 'react-redux'
 import { policyHolderQuestion } from 'jog-common/business/motor'
 import { IPerson, ISelectQuestionDescriptor } from 'jog-common/business/types'
 import { push } from 'react-router-redux'
+import { deleteDriverAction } from '~/common/store/markets'
 import EditDeleteSelectAccessories from '~/web/components/Questions/EditDeleteSelectAccessories'
 import { IFirebaseUser, IReduxState } from '../../../common/types'
 import SelectQuestion from './SelectQuestion'
@@ -79,7 +80,7 @@ class MainDriverQuestion extends React.Component<IConnectedProps, {}> {
   }
 
   private onDeletePress = (driverId: string) => {
-    // TODO
+    this.props.dispatch(deleteDriverAction(driverId))
   }
 
   private handleSpecialOptionClick = (value: string) => {

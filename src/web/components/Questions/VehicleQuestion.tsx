@@ -7,7 +7,7 @@ import { vehicleQuestion } from 'jog-common/business/motor'
 import { ICar, ISelectQuestionDescriptor } from 'jog-common/business/types'
 import { push } from 'react-router-redux'
 
-import { setCarAnswers } from '~/common/store/markets'
+import { deleteCarAction, setCarAnswers } from '~/common/store/markets'
 import EditDeleteSelectAccessories from '~/web/components/Questions/EditDeleteSelectAccessories'
 import { IFirebaseUser, IReduxState } from '../../../common/types'
 import SelectQuestion from './SelectQuestion'
@@ -68,7 +68,7 @@ class VehicleQuestion extends React.Component<IProps, IState> {
   }
 
   private onDeletePress = (vehicleId: string) => {
-    // TODO
+    this.props.dispatch(deleteCarAction(vehicleId))
   }
 
   private handleSpecialOptionClick = (value: string) => {
