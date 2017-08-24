@@ -2,53 +2,15 @@ import * as _ from 'lodash'
 import * as React from 'react'
 import { connect, DispatchProp } from 'react-redux'
 import { RouteComponentProps, withRouter } from 'react-router'
-import styled from 'styled-components'
 
 import { vehicleQuestion } from 'jog-common/business/motor'
 import { ICar, ISelectQuestionDescriptor } from 'jog-common/business/types'
 import { push } from 'react-router-redux'
 
-import { BLUE, WHITE } from '~/common/constants/palette'
-
 import { setCarAnswers } from '~/common/store/markets'
+import EditDeleteSelectAccessories from '~/web/components/Questions/EditDeleteSelectAccessories'
 import { IFirebaseUser, IReduxState } from '../../../common/types'
 import SelectQuestion from './SelectQuestion'
-
-const Accessories = styled.div`
-  display: flex;
-  flex-direction: row;
-
-  button {
-    background-color: ${BLUE};
-    border: none;
-    border-radius: 100px;
-    color: ${WHITE};
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    transition: opacity .20s ease-in-out;
-    height: 23px;
-    width: 23px;
-    margin-right: 3px;
-
-    &:last-child {
-      margin-right: 0 !important;
-    }
-
-    &:hover {
-      opacity: 0.8;
-    }
-
-    .fa {
-      position: relative;
-      top: 1px;
-    }
-  }
-`
-
-// tslint:disable-next-line:no-var-requires
-const FontAwesome: any = require('react-fontawesome')
 
 interface IProps extends DispatchProp<any>, RouteComponentProps<{}> {
   cars: { [id: string]: ICar }
@@ -91,14 +53,10 @@ class VehicleQuestion extends React.Component<IProps, IState> {
         index={this.props.index}
         renderAccessory={(o: { label: string; value: string }) => {
           return (
-            <Accessories>
-              <button onClick={() => this.onEditPress(o.value)}>
-                <FontAwesome name="pencil" color={'white'} size={15} />
-              </button>
-              <button onClick={() => this.onDeletePress(o.value)}>
-                <FontAwesome name="times" color={'white'} size={15} />
-              </button>
-            </Accessories>
+            <EditDeleteSelectAccessories
+              onDeletePress={() => this.onDeletePress(o.value)}
+              onEditPress={() => this.onEditPress(o.value)}
+            />
           )
         }}
       />

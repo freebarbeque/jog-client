@@ -1,5 +1,8 @@
 import * as firebase from 'firebase'
 import * as React from 'react'
+import Logger, { Levels } from '~/common/Logger'
+
+const log = new Logger('components/FirebaseImage', Levels.TRACE)
 
 interface IProps {
   imagePath?: string | null
@@ -65,7 +68,7 @@ export default class FirebaseImage extends React.Component<IProps, IState> {
 
   private downloadImage(imagePath?: string | null) {
     if (imagePath) {
-      console.debug(`Fetching ${imagePath} from firebase storage`)
+      log.debug(`Fetching ${imagePath} from firebase storage`)
       const ref = firebase.storage().ref(imagePath)
       this.setState({ imageUrl: null, dimensions: null })
       ref.getDownloadURL().then(url => {

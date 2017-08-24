@@ -5,6 +5,7 @@ import { connect, DispatchProp } from 'react-redux'
 import { policyHolderQuestion } from 'jog-common/business/motor'
 import { IPerson, ISelectQuestionDescriptor } from 'jog-common/business/types'
 import { push } from 'react-router-redux'
+import EditDeleteSelectAccessories from '~/web/components/Questions/EditDeleteSelectAccessories'
 import { IFirebaseUser, IReduxState } from '../../../common/types'
 import SelectQuestion from './SelectQuestion'
 
@@ -61,8 +62,24 @@ class MainDriverQuestion extends React.Component<IConnectedProps, {}> {
         onSpecialOptionClick={this.handleSpecialOptionClick}
         error={this.props.error}
         index={this.props.index}
+        renderAccessory={(o: { label: string; value: string }) => {
+          return (
+            <EditDeleteSelectAccessories
+              onDeletePress={() => this.onDeletePress(o.value)}
+              onEditPress={() => this.onEditPress(o.value)}
+            />
+          )
+        }}
       />
     )
+  }
+
+  private onEditPress = (driverId: string) => {
+    this.props.dispatch(push(`/app/tabs/markets/motor/driver/${driverId}`))
+  }
+
+  private onDeletePress = (driverId: string) => {
+    // TODO
   }
 
   private handleSpecialOptionClick = (value: string) => {

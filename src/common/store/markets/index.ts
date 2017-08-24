@@ -38,7 +38,9 @@ import {
   QuoteRequestAction,
 } from './quoteRequests'
 
+import { IAddressAnswers } from 'jog-common/business/address'
 import { ICarAnswers } from 'jog-common/business/car'
+import { IDriverAnswers } from 'jog-common/business/driver'
 import Logger, { Levels } from '~/common/Logger'
 
 const log = new Logger('common/store/markets', Levels.TRACE)
@@ -48,6 +50,11 @@ export interface ISetAddressAnswerAction {
   type: 'markets/addresses/SET_ADDRESS_ANSWER'
   key: string
   value: string
+}
+
+export interface ISetAddressAnswersAction {
+  type: 'markets/addresses/SET_ADDRESS_ANSWERS'
+  answers: IAddressAnswers
 }
 
 export interface ISetMotorAnswerAction {
@@ -65,6 +72,11 @@ export interface ISetDriverAnswerAction {
   type: 'markets/drivers/SET_DRIVER_ANSWER'
   key: string
   value: any
+}
+
+export interface ISetDriverAnswersAction {
+  type: 'markets/drivers/SET_DRIVER_ANSWERS'
+  answers: IDriverAnswers
 }
 
 export interface IAddDriverAction {
@@ -137,6 +149,7 @@ export interface IReceiveAddressesAction {
 
 export type MarketsAction =
   | ISetAddressAnswerAction
+  | ISetAddressAnswersAction
   | ISetMotorAnswersAction
   | IAddAddressAction
   | IReceiveAddressesAction
@@ -145,6 +158,7 @@ export type MarketsAction =
   | ISetMotorAnswerAction
   | IAddDriverAction
   | ISetDriverAnswerAction
+  | ISetDriverAnswersAction
   | ISyncDriversAction
   | IUnsyncDriversAction
   | IReceiveDriversAction
@@ -170,7 +184,15 @@ export function setAddressAnswer(
   }
 }
 
-// region Action creators
+export function setAddressAnswers(
+  answers: IAddressAnswers,
+): ISetAddressAnswersAction {
+  return {
+    type: 'markets/addresses/SET_ADDRESS_ANSWERS',
+    answers,
+  }
+}
+
 export function setMotorAnswer(key: string, value: any): ISetMotorAnswerAction {
   return {
     type: 'markets/cars/SET_MOTOR_ANSWER',
@@ -211,6 +233,15 @@ export function setDriverAnswer(
     type: 'markets/drivers/SET_DRIVER_ANSWER',
     key,
     value,
+  }
+}
+
+export function setDriverAnswers(
+  answers: IDriverAnswers,
+): ISetDriverAnswersAction {
+  return {
+    type: 'markets/drivers/SET_DRIVER_ANSWERS',
+    answers,
   }
 }
 
@@ -469,7 +500,7 @@ export function* syncCarsSaga() {
 
 // region State
 export interface IMarketsReduxState {
-  addressAnswers: { [id: string]: string }
+  addressAnswers: { [id: string]: any }
   motorAnswers: { [id: string]: any }
   driverAnswers: { [id: string]: any }
   carAnswers: { [id: string]: any }
@@ -502,6 +533,11 @@ export default function reducer(
       ...state,
       addressAnswers,
     }
+  } else if (action.type === 'markets/addresses/SET_ADDRESS_ANSWERS') {
+    return {
+      ...state,
+      addressAnswers: action.answers,
+    }
   } else if (action.type === 'markets/cars/SET_MOTOR_ANSWER') {
     const motorAnswers = { ...state.motorAnswers }
     motorAnswers[action.key] = action.value
@@ -532,6 +568,11 @@ export default function reducer(
     return {
       ...state,
       driverAnswers,
+    }
+  } else if (action.type === 'markets/drivers/SET_DRIVER_ANSWERS') {
+    return {
+      ...state,
+      driverAnswers: action.answers,
     }
   } else if (action.type === 'markets/addresses/RECEIVE_ADDRESSES') {
     return {
