@@ -13,6 +13,7 @@ interface IBooleanDependentQuestionProps extends IProps {
   onBlur?: () => void
   onFocus?: () => void
   answers?: { [id: string]: any }
+  extraComponents?: { [id: string]: { component: React.ComponentClass } }
 }
 
 export default class BooleanDependentQuestion extends React.Component<
@@ -61,6 +62,7 @@ export default class BooleanDependentQuestion extends React.Component<
         dependentQuestions
           ? <QuestionSet
               questions={dependentQuestions}
+              extraComponents={this.props.extraComponents}
               answers={answers || {}}
               onChange={this.props.onChange}
             />

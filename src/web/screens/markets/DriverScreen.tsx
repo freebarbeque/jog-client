@@ -35,7 +35,7 @@ interface IState {
 }
 
 class DriverScreen extends React.Component<IProps, IState> {
-  private questionSetComp: QuestionSet | null
+  private questionSetComp: QuestionSet<{ [id: string]: any }> | null
 
   public componentDidMount() {
     const driverId = this.props.match.params.driverId

@@ -38,7 +38,7 @@ interface IState {
 }
 
 class VehicleScreen extends React.Component<IProps, IState> {
-  private questionSetComp: QuestionSet | null
+  private questionSetComp: QuestionSet<{ [id: string]: any }> | null
 
   public componentDidMount() {
     const vehicleId = this.props.match.params.vehicleId

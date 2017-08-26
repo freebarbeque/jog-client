@@ -7,19 +7,23 @@ import {
 import { IReduxState } from '../../../common/types'
 
 import {
+  claimsAndConvictionsQuestions,
   constructAnswers,
   constructQuoteRequest,
   insuranceQuestions,
   youAndYourCarQuestions,
   yourLicenseQuestions,
 } from 'jog-common/business/motor'
+
 import { IQuoteRequest } from 'jog-common/business/types'
 import * as _ from 'lodash'
 import { RouteComponentProps, withRouter } from 'react-router'
 import { BLUE } from '~/common/constants/palette'
 import { MARGIN } from '~/common/constants/style'
+import MotoringConvictionQuestion from '~/web/components/MotoringConvictionQuestion'
 import { addQuoteRequest } from '../../../common/store/markets/quoteRequests'
 import RootContainer from '../../components/Container'
+import MotoringIncidentQuestion from '../../components/MotoringIncidentQuestion'
 import Panel from '../../components/Panel'
 import AddressQuestion from '../../components/Questions/AddressQuestion'
 import MainDriverQuestion from '../../components/Questions/MainDriverQuestion'
@@ -46,9 +50,12 @@ interface IMotorQuoteScreenProps
 }
 
 class MotorQuoteScreen extends React.Component<IMotorQuoteScreenProps> {
-  private youAndYourCarQuestionSet: QuestionSet | null
-  private yourLicenseQuestionSet: QuestionSet | null
-  private insuranceQuestionSet: QuestionSet | null
+  private youAndYourCarQuestionSet: QuestionSet<{ [id: string]: any }> | null
+  private yourLicenseQuestionSet: QuestionSet<{ [id: string]: any }> | null
+  private claimsAndConvictionsQuestionSet: QuestionSet<{
+    [id: string]: any
+  }> | null
+  private insuranceQuestionSet: QuestionSet<{ [id: string]: any }> | null
 
   public componentDidMount() {
     const quoteId = this.props.match.params.quoteId
@@ -79,6 +86,8 @@ class MotorQuoteScreen extends React.Component<IMotorQuoteScreenProps> {
       'motor/address': { component: AddressQuestion },
       'motor/main-driver': { component: MainDriverQuestion },
       'motor/vehicle': { component: VehicleQuestion },
+      'motor/incidents': { component: MotoringIncidentQuestion },
+      'motor/convictions': { component: MotoringConvictionQuestion },
     }
 
     return (
@@ -97,6 +106,14 @@ class MotorQuoteScreen extends React.Component<IMotorQuoteScreenProps> {
           <QuestionSet
             ref={e => (this.yourLicenseQuestionSet = e)}
             questions={yourLicenseQuestions}
+            extraComponents={extraComponents}
+            answers={this.props.motorAnswers}
+            onChange={this.onChange}
+          />
+          <h3>Claims & Convictions</h3>
+          <QuestionSet
+            ref={e => (this.claimsAndConvictionsQuestionSet = e)}
+            questions={claimsAndConvictionsQuestions}
             extraComponents={extraComponents}
             answers={this.props.motorAnswers}
             onChange={this.onChange}

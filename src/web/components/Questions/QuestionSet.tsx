@@ -12,23 +12,23 @@ import MultiSelectQuestion from './MultiSelectQuestion'
 import SelectQuestion from './SelectQuestion'
 import TextQuestion from './TextQuestion'
 
-interface IQuestionSetProps {
+export interface IQuestionSetProps<T> {
   questions: Array<IBaseQuestionDescriptor<any>>
-  answers: { [id: string]: any }
+  answers: T
   onChange: (id: string, answer: any) => void
   extraComponents?: { [id: string]: { component: React.ComponentClass } }
   onFocus?: (id: string) => void
   onBlur?: (id: string) => void
 }
 
-interface IQuestionSetState {
+export interface IQuestionSetState {
   blurred: { [id: string]: boolean }
   submitted: boolean
   errors: { [id: string]: string } | null
 }
 
-export default class QuestionSet extends React.Component<
-  IQuestionSetProps,
+export default class QuestionSet<T> extends React.Component<
+  IQuestionSetProps<T>,
   IQuestionSetState
 > {
   constructor(props) {
