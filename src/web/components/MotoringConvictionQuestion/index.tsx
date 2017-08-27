@@ -58,7 +58,11 @@ export default class MotoringConvictionQuestion extends React.Component<
           ? <RoundedButton
               onClick={this.initNewConviction}
               label="Create New Conviction"
-              style={{ marginTop: MARGIN.base }}
+              style={{
+                marginTop: MARGIN.base,
+                width: 180,
+                marginBottom: MARGIN.large,
+              }}
             />
           : null}
         {currentConvictionAnswers

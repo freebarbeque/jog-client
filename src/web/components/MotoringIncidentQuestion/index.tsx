@@ -60,7 +60,7 @@ export default class MotoringIncidentQuestion extends React.Component<
           ? <RoundedButton
               onClick={this.initNewIncident}
               label="Create New Incident"
-              style={{ marginTop: MARGIN.base }}
+              style={{ marginTop: MARGIN.base, width: 172 }}
             />
           : null}
         {currentIncidentAnswers

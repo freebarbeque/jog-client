@@ -89,7 +89,7 @@ export default class SelectQuestion<T> extends React.Component<
       })
 
     return (
-      <div>
+      <div style={{ display: 'inline-block' }}>
         {this.props.specialOptions
           ? this.props.specialOptions.map(o => {
               return (

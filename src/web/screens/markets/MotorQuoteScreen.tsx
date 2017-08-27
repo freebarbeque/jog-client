@@ -19,7 +19,6 @@ import { IQuoteRequest } from 'jog-common/business/types'
 import * as _ from 'lodash'
 import { RouteComponentProps, withRouter } from 'react-router'
 import { BLUE } from '~/common/constants/palette'
-import { MARGIN } from '~/common/constants/style'
 import MotoringConvictionQuestion from '~/web/components/MotoringConvictionQuestion'
 import { addQuoteRequest } from '../../../common/store/markets/quoteRequests'
 import RootContainer from '../../components/Container'
@@ -29,7 +28,7 @@ import AddressQuestion from '../../components/Questions/AddressQuestion'
 import MainDriverQuestion from '../../components/Questions/MainDriverQuestion'
 import QuestionSet from '../../components/Questions/QuestionSet'
 import VehicleQuestion from '../../components/Questions/VehicleQuestion'
-import RoundedButton from '../../components/RoundedButton'
+import SubmitButton from '../../components/SubmitButton'
 
 const Container = RootContainer.extend`
   h1 {
@@ -43,7 +42,11 @@ const Container = RootContainer.extend`
   }
 
   .QuestionSet {
-    margin-bottom: ${MARGIN.xxl}px;
+    > div {
+      &:last-child {
+        margin-bottom: 0 !important;
+      }
+    }
   }
 `
 
@@ -138,16 +141,7 @@ class MotorQuoteScreen extends React.Component<IMotorQuoteScreenProps> {
             onChange={this.onChange}
           />
         </Panel>
-        <RoundedButton
-          label="Submit"
-          style={{
-            width: 200,
-            fontSize: 16,
-            marginLeft: 52,
-            marginTop: MARGIN.xxl,
-          }}
-          onClick={this.handleSubmit}
-        />
+        <SubmitButton label="Submit" onClick={this.handleSubmit} />
       </Container>
     )
   }
