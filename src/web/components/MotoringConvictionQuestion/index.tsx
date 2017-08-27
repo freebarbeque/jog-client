@@ -6,11 +6,19 @@ import {
 } from 'jog-common/business/motoringConvictions'
 import { IMotoringConviction } from 'jog-common/business/types'
 import * as React from 'react'
+import styled from 'styled-components'
+import { LIGHT_CREAM } from '~/common/constants/palette'
 import { MARGIN } from '~/common/constants/style'
 import ConvictionTable from '~/web/components/MotoringConvictionQuestion/ConvictionTable'
 import _QuestionSet from '~/web/components/Questions/QuestionSet'
 import RoundedButton from '~/web/components/RoundedButton'
 import CancelButton from '../MotoringIncidentQuestion/CancelButton'
+
+const CurrentConviction = styled.div`
+  background-color: ${LIGHT_CREAM};
+  margin-top: ${MARGIN.base}px;
+  padding: ${MARGIN.base}px;
+`
 
 class QuestionSet extends _QuestionSet<IMotoringConvictionAnswer> {}
 
@@ -54,7 +62,7 @@ export default class MotoringConvictionQuestion extends React.Component<
             />
           : null}
         {currentConvictionAnswers
-          ? <div className="CurrentConviction">
+          ? <CurrentConviction className="CurrentConviction">
               <QuestionSet
                 questions={questions}
                 answers={currentConvictionAnswers}
@@ -71,7 +79,7 @@ export default class MotoringConvictionQuestion extends React.Component<
               >
                 Cancel
               </CancelButton>
-            </div>
+            </CurrentConviction>
           : null}
       </div>
     )
