@@ -30,11 +30,16 @@ import MainDriverQuestion from '../../components/Questions/MainDriverQuestion'
 import QuestionSet from '../../components/Questions/QuestionSet'
 import VehicleQuestion from '../../components/Questions/VehicleQuestion'
 import RoundedButton from '../../components/RoundedButton'
-import Header from './Header'
 
 const Container = RootContainer.extend`
+  h1 {
+    color: ${BLUE};
+  }
+
   h3 {
     color: ${BLUE};
+    margin-top: 0;
+    padding-top: 0;
   }
 
   .QuestionSet {
@@ -92,8 +97,8 @@ class MotorQuoteScreen extends React.Component<IMotorQuoteScreenProps> {
 
     return (
       <Container className="MarketsScreen">
+        <h1>Motor Policy</h1>
         <Panel>
-          <Header>Motor Policy</Header>
           <h3>You and your car</h3>
           <QuestionSet
             ref={e => (this.youAndYourCarQuestionSet = e)}
@@ -102,6 +107,8 @@ class MotorQuoteScreen extends React.Component<IMotorQuoteScreenProps> {
             answers={this.props.motorAnswers}
             onChange={this.onChange}
           />
+        </Panel>
+        <Panel>
           <h3>Your license</h3>
           <QuestionSet
             ref={e => (this.yourLicenseQuestionSet = e)}
@@ -110,6 +117,8 @@ class MotorQuoteScreen extends React.Component<IMotorQuoteScreenProps> {
             answers={this.props.motorAnswers}
             onChange={this.onChange}
           />
+        </Panel>
+        <Panel>
           <h3>Claims & Convictions</h3>
           <QuestionSet
             ref={e => (this.claimsAndConvictionsQuestionSet = e)}
@@ -118,6 +127,8 @@ class MotorQuoteScreen extends React.Component<IMotorQuoteScreenProps> {
             answers={this.props.motorAnswers}
             onChange={this.onChange}
           />
+        </Panel>
+        <Panel>
           <h3>Your policy</h3>
           <QuestionSet
             ref={e => (this.insuranceQuestionSet = e)}
@@ -126,17 +137,17 @@ class MotorQuoteScreen extends React.Component<IMotorQuoteScreenProps> {
             answers={this.props.motorAnswers}
             onChange={this.onChange}
           />
-          <RoundedButton
-            label="Submit"
-            style={{
-              width: 200,
-              fontSize: 16,
-              marginLeft: 52,
-              marginTop: MARGIN.xxl,
-            }}
-            onClick={this.handleSubmit}
-          />
         </Panel>
+        <RoundedButton
+          label="Submit"
+          style={{
+            width: 200,
+            fontSize: 16,
+            marginLeft: 52,
+            marginTop: MARGIN.xxl,
+          }}
+          onClick={this.handleSubmit}
+        />
       </Container>
     )
   }
