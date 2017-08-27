@@ -40,7 +40,10 @@ export default class MotoringConvictionQuestion extends React.Component<
     return (
       <div className="MotoringConvictionQuestion">
         {convictions.length
-          ? <ConvictionTable convictions={convictions} />
+          ? <ConvictionTable
+              convictions={convictions}
+              onRemovePress={this.handleRemovePress}
+            />
           : <div>No incidents</div>}
         {!currentConvictionAnswers
           ? <button onClick={this.initNewConviction}>
@@ -59,6 +62,15 @@ export default class MotoringConvictionQuestion extends React.Component<
           : null}
       </div>
     )
+  }
+
+  private handleRemovePress = (i: number) => {
+    const questionId = motoringConvictionsQuestion.id
+    if (this.props.value && this.props.onChange) {
+      const value = [...this.props.value]
+      value.splice(i, 1)
+      this.props.onChange(questionId, value)
+    }
   }
 
   private onChange = (id: string, answer: any) => {

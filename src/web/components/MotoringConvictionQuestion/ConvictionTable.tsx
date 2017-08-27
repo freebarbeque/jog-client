@@ -1,41 +1,31 @@
-import { IMotoringConviction } from 'jog-common/business/types'
+import {
+  IMotoringConviction,
+  MotoringConvictionType,
+} from 'jog-common/business/types'
 import * as React from 'react'
-import styled from 'styled-components'
-import { BLUE } from '~/common/constants/palette'
+import Table from '~/web/components/MotoringIncidentQuestion/Table'
 
 // tslint:disable-next-line:no-var-requires
 const moment = require('moment')
 
 interface IProps {
   convictions: IMotoringConviction[]
+  onRemovePress: (index: number) => void
 }
-
-const Table = styled.table`
-  td {
-    color: ${BLUE} !important;
-  }
-`
 
 export default class ConvictionTable extends React.Component<IProps> {
   public render() {
     const convictions = this.props.convictions
     return (
-      <Table className="ConvictionTable">
-        <tbody>
-          {convictions.map(conviction => {
-            return (
-              <tr
-                className="Conviction"
-                key={`${conviction.code}-${conviction.date}`}
-              >
-                <td>
-                  {moment(conviction.date).format()}
-                </td>
-              </tr>
-            )
-          })}
-        </tbody>
-      </Table>
+      <Table
+        onRemovePress={this.props.onRemovePress}
+        rows={convictions.map(c => ({
+          date: moment(c.date).format('DD MMM YYYY'),
+          content: c.code
+            ? MotoringConvictionType[c.code] || c.code
+            : 'Unknown Conviction',
+        }))}
+      />
     )
   }
 }
