@@ -9,25 +9,17 @@ import { IMotoringIncident } from 'jog-common/business/types'
 import * as React from 'react'
 import styled from 'styled-components'
 
-import { BLUE, LIGHT_CREAM } from '~/common/constants/palette'
+import { LIGHT_CREAM } from '~/common/constants/palette'
 import { MARGIN } from '~/common/constants/style'
 import IncidentTable from '~/web/components/MotoringIncidentQuestion/IncidentTable'
 import _QuestionSet from '~/web/components/Questions/QuestionSet'
+import RoundedButton from '~/web/components/RoundedButton'
+import CancelButton from './CancelButton'
 
 const CurrentIncident = styled.div`
   background-color: ${LIGHT_CREAM};
   margin-top: ${MARGIN.base}px;
   padding: ${MARGIN.base}px;
-`
-
-const CancelButton = styled.a`
-  text-decoration: underline;
-  color: ${BLUE} !important;
-
-  &:hover {
-    color: ${BLUE} !important;
-    text-decoration: none;
-  }
 `
 
 class QuestionSet extends _QuestionSet<IMotoringIncidentAnswer> {}
@@ -60,14 +52,16 @@ export default class MotoringIncidentQuestion extends React.Component<
 
     return (
       <div className="MotoringIncidentQuestion">
-        {incidents.length
-          ? <IncidentTable
-              incidents={incidents}
-              onRemovePress={this.handleRemovePress}
-            />
-          : <div>No incidents</div>}
+        <IncidentTable
+          incidents={incidents}
+          onRemovePress={this.handleRemovePress}
+        />
         {!currentIncidentAnswers
-          ? <button onClick={this.initNewIncident}>Create New Incident</button>
+          ? <RoundedButton
+              onClick={this.initNewIncident}
+              label="Create New Incident"
+              style={{ marginTop: MARGIN.base }}
+            />
           : null}
         {currentIncidentAnswers
           ? <CurrentIncident className="CurrentIncident">
@@ -76,8 +70,18 @@ export default class MotoringIncidentQuestion extends React.Component<
                 answers={currentIncidentAnswers}
                 onChange={this.onChange}
               />
-              <button onClick={this.addIncident}>Add Incident</button>
-              <CancelButton onClick={this.handleCancel}>Cancel</CancelButton>
+              ?{' '}
+              <RoundedButton
+                onClick={this.addIncident}
+                label="Add Incident"
+                style={{ marginTop: MARGIN.base }}
+              />
+              <CancelButton
+                onClick={this.handleCancel}
+                style={{ marginTop: MARGIN.base }}
+              >
+                Cancel
+              </CancelButton>
             </CurrentIncident>
           : null}
       </div>

@@ -6,8 +6,11 @@ import {
 } from 'jog-common/business/motoringConvictions'
 import { IMotoringConviction } from 'jog-common/business/types'
 import * as React from 'react'
+import { MARGIN } from '~/common/constants/style'
 import ConvictionTable from '~/web/components/MotoringConvictionQuestion/ConvictionTable'
 import _QuestionSet from '~/web/components/Questions/QuestionSet'
+import RoundedButton from '~/web/components/RoundedButton'
+import CancelButton from '../MotoringIncidentQuestion/CancelButton'
 
 class QuestionSet extends _QuestionSet<IMotoringConvictionAnswer> {}
 
@@ -39,16 +42,16 @@ export default class MotoringConvictionQuestion extends React.Component<
 
     return (
       <div className="MotoringConvictionQuestion">
-        {convictions.length
-          ? <ConvictionTable
-              convictions={convictions}
-              onRemovePress={this.handleRemovePress}
-            />
-          : <div>No incidents</div>}
+        <ConvictionTable
+          convictions={convictions}
+          onRemovePress={this.handleRemovePress}
+        />
         {!currentConvictionAnswers
-          ? <button onClick={this.initNewConviction}>
-              Create New Conviction
-            </button>
+          ? <RoundedButton
+              onClick={this.initNewConviction}
+              label="Create New Conviction"
+              style={{ marginTop: MARGIN.base }}
+            />
           : null}
         {currentConvictionAnswers
           ? <div className="CurrentConviction">
@@ -57,11 +60,27 @@ export default class MotoringConvictionQuestion extends React.Component<
                 answers={currentConvictionAnswers}
                 onChange={this.onChange}
               />
-              <button onClick={this.addConviction}>Add Conviction</button>
+              <RoundedButton
+                onClick={this.addConviction}
+                label="Add Conviction"
+                style={{ marginTop: MARGIN.base }}
+              />
+              <CancelButton
+                onClick={this.handleCancel}
+                style={{ marginTop: MARGIN.base }}
+              >
+                Cancel
+              </CancelButton>
             </div>
           : null}
       </div>
     )
+  }
+
+  private handleCancel = () => {
+    this.setState({
+      currentConvictionAnswers: null,
+    })
   }
 
   private handleRemovePress = (i: number) => {
