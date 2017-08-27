@@ -7,8 +7,28 @@ import {
 import { IMotoringIncident } from 'jog-common/business/types'
 // import * as _ from "lodash";
 import * as React from 'react'
+import styled from 'styled-components'
+
+import { BLUE, LIGHT_CREAM } from '~/common/constants/palette'
+import { MARGIN } from '~/common/constants/style'
 import IncidentTable from '~/web/components/MotoringIncidentQuestion/IncidentTable'
 import _QuestionSet from '~/web/components/Questions/QuestionSet'
+
+const CurrentIncident = styled.div`
+  background-color: ${LIGHT_CREAM};
+  margin-top: ${MARGIN.base}px;
+  padding: ${MARGIN.base}px;
+`
+
+const CancelButton = styled.a`
+  text-decoration: underline;
+  color: ${BLUE} !important;
+
+  &:hover {
+    color: ${BLUE} !important;
+    text-decoration: none;
+  }
+`
 
 class QuestionSet extends _QuestionSet<IMotoringIncidentAnswer> {}
 
@@ -41,23 +61,42 @@ export default class MotoringIncidentQuestion extends React.Component<
     return (
       <div className="MotoringIncidentQuestion">
         {incidents.length
-          ? <IncidentTable incidents={incidents} />
+          ? <IncidentTable
+              incidents={incidents}
+              onRemovePress={this.handleRemovePress}
+            />
           : <div>No incidents</div>}
         {!currentIncidentAnswers
           ? <button onClick={this.initNewIncident}>Create New Incident</button>
           : null}
         {currentIncidentAnswers
-          ? <div className="CurrentIncident">
+          ? <CurrentIncident className="CurrentIncident">
               <QuestionSet
                 questions={incidentQuestions}
                 answers={currentIncidentAnswers}
                 onChange={this.onChange}
               />
               <button onClick={this.addIncident}>Add Incident</button>
-            </div>
+              <CancelButton onClick={this.handleCancel}>Cancel</CancelButton>
+            </CurrentIncident>
           : null}
       </div>
     )
+  }
+
+  private handleCancel = () => {
+    this.setState({
+      currentIncidentAnswers: null,
+    })
+  }
+
+  private handleRemovePress = (idx: number) => {
+    const questionId = motoringIncidentsQuestion.id
+    if (this.props.value && this.props.onChange) {
+      const value = [...this.props.value]
+      value.splice(idx, 1)
+      this.props.onChange(questionId, value)
+    }
   }
 
   private onChange = (id: string, answer: any) => {
@@ -65,7 +104,6 @@ export default class MotoringIncidentQuestion extends React.Component<
       ...this.state.currentIncidentAnswers,
     }
     currentIncidentAnswers[id] = answer
-
     this.setState({
       currentIncidentAnswers,
     })
@@ -78,6 +116,7 @@ export default class MotoringIncidentQuestion extends React.Component<
   private addIncident = () => {
     const questionId = motoringIncidentsQuestion.id
     const incidents = this.props.value || []
+
     const incident = this.state.currentIncidentAnswers
       ? constructIncident(this.state.currentIncidentAnswers)
       : null
