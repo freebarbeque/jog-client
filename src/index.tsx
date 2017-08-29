@@ -12,6 +12,7 @@ import reducer from './web/store/reducer'
 
 import { WHITE } from './common/constants/palette'
 import initialiseFirebase from './common/data/index'
+import { setMixPanelToken } from './common/mixpanel'
 import './index.css'
 import registerServiceWorker from './registerServiceWorker'
 import App from './web/App'
@@ -28,6 +29,7 @@ const PINK = '#ff4d62'
 const GRAY = '#797e9a'
 
 initialiseFirebase(env)
+setMixPanelToken(env.mixPanel.token)
 
 const store = createStore({
   reducer,

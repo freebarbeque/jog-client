@@ -40,6 +40,7 @@ import {
 } from './actionTypes'
 
 import Logger, { Levels } from '~/common/Logger'
+import { addUserInfoInMixPanel, setDistinctId } from '~/common/mixpanel'
 import { receiveUser, receiveUserDetails } from './actions'
 
 const log = new Logger('common/store/auth/sagas', Levels.TRACE)
@@ -247,6 +248,17 @@ function* updateUserProfilePictureTask(action: IUpdateUserProfilePicture) {
   yield put(finishLoading())
 }
 
+function* receiveUserTask(action) {
+  setDistinctId(action.user.uid)
+  yield call(() =>
+    addUserInfoInMixPanel({
+      $set: {
+        $email: action.user.email,
+      },
+    }),
+  )
+}
+
 /**
  * Unfortunately, firebase.auth().onAuthStateChanged only fires when the user changes but not when
  * user properties change.
@@ -278,4 +290,8 @@ export function* userSyncSaga() {
   while ((action = yield take('auth/SYNC_USER'))) {
     yield fork(syncUserTask, action)
   }
+}
+
+export function* receiveUserSaga() {
+  yield takeLatest('auth/RECEIVE_USER', receiveUserTask)
 }

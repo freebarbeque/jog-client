@@ -17,7 +17,7 @@
     "fix:sort-package-json": "sort-package-json",
     "flow": "flow",
     "flow-typed": "flow-typed",
-    "format:js": "prettier --single-quote --trailing-comma all --no-semi --write src/**/*.ts src/**/*.tsx src/**/*.js src/**/*.jsx",
+    "format:js": "prettier --single-quote --trailing-comma all --no-semi --write \"src/**/*.ts src/**/*.tsx src/**/*.js src/**/*.jsx\"",
     "generate:policies": "NODE_PATH=../ babel-node scripts/mock/generateMockPolicies.js -b es2015",
     "postinstall": "yarn setup:submodules && remotedev-debugger --hostname localhost --port 5678 --injectserver",
     "lint": "yarn lint:js",
