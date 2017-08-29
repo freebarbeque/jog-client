@@ -12,7 +12,7 @@ import reducer from './web/store/reducer'
 
 import { WHITE } from './common/constants/palette'
 import initialiseFirebase from './common/data/index'
-import { setMixPanelToken } from './common/mixpanel'
+import { setMixPanelToken } from './common/mixPanel'
 import './index.css'
 import registerServiceWorker from './registerServiceWorker'
 import App from './web/App'

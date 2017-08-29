@@ -40,7 +40,7 @@ import {
 } from './actionTypes'
 
 import Logger, { Levels } from '~/common/Logger'
-import { addUserInfoInMixPanel, setDistinctId } from '~/common/mixpanel'
+import { addUserInfoInMixPanel, setDistinctId } from '~/common/mixPanel'
 import { receiveUser, receiveUserDetails } from './actions'
 
 const log = new Logger('common/store/auth/sagas', Levels.TRACE)
