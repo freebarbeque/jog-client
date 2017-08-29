@@ -34,7 +34,6 @@ export const addUserInfoInMixPanel = properties => {
   if (!token) {
     throw new Error('token not set')
   }
-  console.log(properties)
   return sendMixpanelRequest(MIXPANEL_ENGAGE_ENDPOINT, {
     $token: token,
     $distinct_id: distinctId,
