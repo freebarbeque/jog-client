@@ -1,6 +1,7 @@
 import { ITextQuestionDescriptor } from 'jog-common/business/types'
 import * as React from 'react'
 import styled from 'styled-components'
+import { INPUT_BACKGROUND_COLOR } from '~/common/constants/palette'
 import { MARGIN } from '../../../common/constants/style'
 import QuestionField from './QuestionField'
 
@@ -20,7 +21,7 @@ const Input = styled.input`
   height: 10px;
   padding: ${MARGIN.large}px;
   font-size: 16px;
-  background-color: rgb(240, 240, 240);
+  background-color: ${INPUT_BACKGROUND_COLOR};
   border: none;
 `
 
@@ -41,7 +42,7 @@ export default class TextQuestion extends React.Component<IProps> {
           name={id}
           onChange={(e: any) => this.props.onChange(id, e.target.value)}
           style={{
-            backgroundColor: error ? '#efc9c9' : 'rgb(240, 240, 240)',
+            backgroundColor: error ? '#efc9c9' : INPUT_BACKGROUND_COLOR,
           }}
           onBlur={() => {
             if (this.props.onBlur) this.props.onBlur(id)

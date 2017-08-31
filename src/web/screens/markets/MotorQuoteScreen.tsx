@@ -7,34 +7,46 @@ import {
 import { IReduxState } from '../../../common/types'
 
 import {
+  claimsAndConvictionsQuestions,
   constructAnswers,
   constructQuoteRequest,
   insuranceQuestions,
   youAndYourCarQuestions,
   yourLicenseQuestions,
 } from 'jog-common/business/motor'
+
 import { IQuoteRequest } from 'jog-common/business/types'
 import * as _ from 'lodash'
 import { RouteComponentProps, withRouter } from 'react-router'
 import { BLUE } from '~/common/constants/palette'
-import { MARGIN } from '~/common/constants/style'
+import MotoringConvictionQuestion from '~/web/components/MotoringConvictionQuestion'
 import { addQuoteRequest } from '../../../common/store/markets/quoteRequests'
 import RootContainer from '../../components/Container'
+import MotoringIncidentQuestion from '../../components/MotoringIncidentQuestion'
 import Panel from '../../components/Panel'
 import AddressQuestion from '../../components/Questions/AddressQuestion'
 import MainDriverQuestion from '../../components/Questions/MainDriverQuestion'
 import QuestionSet from '../../components/Questions/QuestionSet'
 import VehicleQuestion from '../../components/Questions/VehicleQuestion'
-import RoundedButton from '../../components/RoundedButton'
-import Header from './Header'
+import SubmitButton from '../../components/SubmitButton'
 
 const Container = RootContainer.extend`
-  h3 {
+  h1 {
     color: ${BLUE};
   }
 
+  h3 {
+    color: ${BLUE};
+    margin-top: 0;
+    padding-top: 0;
+  }
+
   .QuestionSet {
-    margin-bottom: ${MARGIN.xxl}px;
+    > div {
+      &:last-child {
+        margin-bottom: 0 !important;
+      }
+    }
   }
 `
 
@@ -46,9 +58,12 @@ interface IMotorQuoteScreenProps
 }
 
 class MotorQuoteScreen extends React.Component<IMotorQuoteScreenProps> {
-  private youAndYourCarQuestionSet: QuestionSet | null
-  private yourLicenseQuestionSet: QuestionSet | null
-  private insuranceQuestionSet: QuestionSet | null
+  private youAndYourCarQuestionSet: QuestionSet<{ [id: string]: any }> | null
+  private yourLicenseQuestionSet: QuestionSet<{ [id: string]: any }> | null
+  private claimsAndConvictionsQuestionSet: QuestionSet<{
+    [id: string]: any
+  }> | null
+  private insuranceQuestionSet: QuestionSet<{ [id: string]: any }> | null
 
   public componentDidMount() {
     const quoteId = this.props.match.params.quoteId
@@ -79,12 +94,14 @@ class MotorQuoteScreen extends React.Component<IMotorQuoteScreenProps> {
       'motor/address': { component: AddressQuestion },
       'motor/main-driver': { component: MainDriverQuestion },
       'motor/vehicle': { component: VehicleQuestion },
+      'motor/incidents': { component: MotoringIncidentQuestion },
+      'motor/convictions': { component: MotoringConvictionQuestion },
     }
 
     return (
       <Container className="MarketsScreen">
+        <h1>Motor Policy</h1>
         <Panel>
-          <Header>Motor Policy</Header>
           <h3>You and your car</h3>
           <QuestionSet
             ref={e => (this.youAndYourCarQuestionSet = e)}
@@ -93,6 +110,8 @@ class MotorQuoteScreen extends React.Component<IMotorQuoteScreenProps> {
             answers={this.props.motorAnswers}
             onChange={this.onChange}
           />
+        </Panel>
+        <Panel>
           <h3>Your license</h3>
           <QuestionSet
             ref={e => (this.yourLicenseQuestionSet = e)}
@@ -101,6 +120,18 @@ class MotorQuoteScreen extends React.Component<IMotorQuoteScreenProps> {
             answers={this.props.motorAnswers}
             onChange={this.onChange}
           />
+        </Panel>
+        <Panel>
+          <h3>Claims & Convictions</h3>
+          <QuestionSet
+            ref={e => (this.claimsAndConvictionsQuestionSet = e)}
+            questions={claimsAndConvictionsQuestions}
+            extraComponents={extraComponents}
+            answers={this.props.motorAnswers}
+            onChange={this.onChange}
+          />
+        </Panel>
+        <Panel>
           <h3>Your policy</h3>
           <QuestionSet
             ref={e => (this.insuranceQuestionSet = e)}
@@ -109,17 +140,8 @@ class MotorQuoteScreen extends React.Component<IMotorQuoteScreenProps> {
             answers={this.props.motorAnswers}
             onChange={this.onChange}
           />
-          <RoundedButton
-            label="Submit"
-            style={{
-              width: 200,
-              fontSize: 16,
-              marginLeft: 52,
-              marginTop: MARGIN.xxl,
-            }}
-            onClick={this.handleSubmit}
-          />
         </Panel>
+        <SubmitButton label="Submit" onClick={this.handleSubmit} />
       </Container>
     )
   }

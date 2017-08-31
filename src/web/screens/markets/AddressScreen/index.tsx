@@ -9,9 +9,7 @@ import * as _ from 'lodash'
 import * as React from 'react'
 import { connect, DispatchProp } from 'react-redux'
 import { RouteComponentProps, withRouter } from 'react-router'
-import styled from 'styled-components'
 import Logger from '~/common/Logger'
-import { MARGIN } from '../../../../common/constants/style'
 import {
   addAddress,
   IMarketsReduxState,
@@ -22,7 +20,8 @@ import { IReduxState } from '../../../../common/types'
 import Container from '../../../components/Container'
 import Panel from '../../../components/Panel'
 import TextQuestion from '../../../components/Questions/TextQuestion'
-import RoundedButton from '../../../components/RoundedButton'
+import SubmitButton from '../../../components/SubmitButton'
+import Header from '../Header'
 
 const log = new Logger('markets/AddressScreen')
 
@@ -37,14 +36,6 @@ interface IState {
   errors?: { [id: string]: string }
   blurred: { [id: string]: boolean }
 }
-
-// language=SCSS prefix=dummy{ suffix=}
-const HR = styled.div`
-  width: 100%;
-  height: 1px;
-  background-color: rgb(200, 200, 200);
-  margin-top: ${MARGIN.base}px;
-`
 
 class AddressScreen extends React.Component<IProps, IState> {
   constructor(props: IProps) {
@@ -90,24 +81,13 @@ class AddressScreen extends React.Component<IProps, IState> {
 
     return (
       <Container className="MarketsScreen">
+        <Header>Add a new address</Header>
         <Panel>
-          <div
-            style={{
-              color: 'rgb(200, 200, 200)',
-              fontSize: 18,
-              marginBottom: MARGIN.extraLarge,
-            }}
-          >
-            Add a new address
-            <HR />
-          </div>
-
           {questions.map((q, idx) => {
             const errors = this.state.errors
 
             return (
               <TextQuestion
-                index={idx + 1}
                 descriptor={q}
                 value={addressAnswers[q.id]}
                 onChange={this.onChange}
@@ -120,18 +100,12 @@ class AddressScreen extends React.Component<IProps, IState> {
               />
             )
           })}
-          <RoundedButton
-            label="Add new address"
-            style={{
-              width: 200,
-              fontSize: 16,
-              marginLeft: 52,
-              marginTop: MARGIN.xxl,
-            }}
-            onClick={this.handleAddAddressClick}
-            disabled={Boolean(_.keys(this.state.errors).length)}
-          />
         </Panel>
+        <SubmitButton
+          label="Add new address"
+          onClick={this.handleAddAddressClick}
+          disabled={Boolean(_.keys(this.state.errors).length)}
+        />
       </Container>
     )
   }

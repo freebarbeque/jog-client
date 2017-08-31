@@ -16,11 +16,10 @@ import {
 } from 'jog-common/business/car'
 import { ICar, IValidationErrors } from 'jog-common/business/types'
 import Logger, { Levels } from '~/common/Logger'
-import { MARGIN } from '../../../common/constants/style'
 import Container from '../../components/Container'
 import Panel from '../../components/Panel'
 import QuestionSet from '../../components/Questions/QuestionSet'
-import RoundedButton from '../../components/RoundedButton'
+import SubmitButton from '../../components/SubmitButton'
 import Header from './Header'
 
 const log = new Logger('screens/markets/VehicleScreen', Levels.TRACE)
@@ -38,7 +37,7 @@ interface IState {
 }
 
 class VehicleScreen extends React.Component<IProps, IState> {
-  private questionSetComp: QuestionSet | null
+  private questionSetComp: QuestionSet<{ [id: string]: any }> | null
 
   public componentDidMount() {
     const vehicleId = this.props.match.params.vehicleId
@@ -68,8 +67,8 @@ class VehicleScreen extends React.Component<IProps, IState> {
   public render() {
     return (
       <Container className="VehicleScreen">
+        <Header>Car</Header>
         <Panel>
-          <Header>Car</Header>
           <QuestionSet
             ref={e => (this.questionSetComp = e)}
             questions={carQuestions}
@@ -79,17 +78,8 @@ class VehicleScreen extends React.Component<IProps, IState> {
               this.props.dispatch(setCarAnswer(id, value))
             }}
           />
-          <RoundedButton
-            label="Add car"
-            style={{
-              width: 200,
-              fontSize: 16,
-              marginLeft: 52,
-              marginTop: MARGIN.xxl,
-            }}
-            onClick={this.handleAddClick}
-          />
         </Panel>
+        <SubmitButton label="Add car" onClick={this.handleAddClick} />
       </Container>
     )
   }

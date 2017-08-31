@@ -19,71 +19,25 @@ interface IPickerProps {
   name: string
   getItemStyle?: (option: IPickerOption) => any
   className?: string
+  height?: number
+  backgroundColor?: string
+  textColor?: string
+  borderColor?: string
+  width?: number
 }
-
-// language=SCSS prefix=dummy{ suffix=}
-const Container = styled.div`
-  background-color: white;
-  border-radius: 4px;
-  height: 60px;
-
-  div {
-    color: ${BLUE} !important;
-    // Used by material-ui for some reason...
-    -webkit-text-fill-color: ${BLUE} !important;
-    top: 0 !important;
-  }
-
-  button {
-    height: 60px !important;
-    border-left-color: ${BLUE} !important;
-    border-left-width: 1px !important;
-    border-left-style: solid !important;
-
-    svg {
-      path {
-        stroke: ${BLUE} !important;
-        fill: ${BLUE} !important;
-      }
-    }
-  }
-
-  hr {
-    display: none;
-  }
-
-  span[role="menuitem"] {
-    div {
-      color: ${BLUE} !important;
-    }
-  }
-
-  .select-field {
-    > div:nth-child(2) {
-      > div:first-child {
-        > div:nth-child(2) {
-          height: 60px !important;
-          padding-left: 15px !important;
-          padding-top: 1.5px !important;
-        }
-      }
-    }
-  }
-
-  > div {
-    height: 60px !important;
-  }
-`
 
 export default class Picker extends React.Component<IPickerProps> {
   public render() {
     const { value = null, options } = this.props
+    const Container = this.constructContainer()
+
     return (
       <Container>
         <SelectField
           className="select-field"
           value={value}
           labelStyle={{ color: 'white' }}
+          autoWidth={true}
         >
           {options.map(o =>
             <MenuItem
@@ -98,5 +52,65 @@ export default class Picker extends React.Component<IPickerProps> {
         </SelectField>
       </Container>
     )
+  }
+
+  private constructContainer() {
+    const height = this.props.height || 60
+    const textColor = this.props.textColor || BLUE
+    const backgroundColor = this.props.backgroundColor || 'white'
+    const borderColor = this.props.borderColor || BLUE
+
+    return styled.div`
+      background-color: ${backgroundColor};
+      border-radius: 4px;
+      height: ${height}px;
+
+      div {
+        color: ${textColor} !important;
+        // Used by material-ui for some reason...
+        -webkit-text-fill-color: ${textColor} !important;
+        top: 0 !important;
+      }
+
+      button {
+        height: ${height}px !important;
+        border-left-color: ${borderColor} !important;
+        border-left-width: 1px !important;
+        border-left-style: solid !important;
+
+        svg {
+          path {
+            stroke: ${textColor} !important;
+            fill: ${textColor} !important;
+          }
+        }
+      }
+
+      hr {
+        display: none;
+      }
+
+      span[role="menuitem"] {
+        div {
+          color: ${textColor} !important;
+        }
+      }
+
+      .select-field {
+        > div:nth-child(2) {
+          > div:first-child {
+            > div:nth-child(2) {
+              height: ${height}px !important;
+              padding-left: 15px !important;
+              padding-top: 1.5px !important;
+            }
+          }
+        }
+      }
+
+      > div {
+        height: ${height}px !important;
+      }
+    `
   }
 }

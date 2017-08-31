@@ -15,11 +15,10 @@ import {
   questions as driverQuestions,
 } from 'jog-common/business/driver'
 import { IPerson, IValidationErrors } from 'jog-common/business/types'
-import { MARGIN } from '../../../common/constants/style'
 import Container from '../../components/Container'
 import Panel from '../../components/Panel'
 import QuestionSet from '../../components/Questions/QuestionSet'
-import RoundedButton from '../../components/RoundedButton'
+import SubmitButton from '../../components/SubmitButton'
 import Header from './Header'
 
 interface IProps
@@ -35,7 +34,7 @@ interface IState {
 }
 
 class DriverScreen extends React.Component<IProps, IState> {
-  private questionSetComp: QuestionSet | null
+  private questionSetComp: QuestionSet<{ [id: string]: any }> | null
 
   public componentDidMount() {
     const driverId = this.props.match.params.driverId
@@ -67,8 +66,8 @@ class DriverScreen extends React.Component<IProps, IState> {
   public render() {
     return (
       <Container className="DriversScreen">
+        <Header>Driver</Header>
         <Panel>
-          <Header>Driver</Header>
           <QuestionSet
             ref={e => (this.questionSetComp = e)}
             questions={driverQuestions}
@@ -78,17 +77,8 @@ class DriverScreen extends React.Component<IProps, IState> {
               this.props.dispatch(setDriverAnswer(id, value))
             }}
           />
-          <RoundedButton
-            label="Add driver"
-            style={{
-              width: 200,
-              fontSize: 16,
-              marginLeft: 52,
-              marginTop: MARGIN.xxl,
-            }}
-            onClick={this.handleAddClick}
-          />
         </Panel>
+        <SubmitButton label="Add driver" onClick={this.handleAddClick} />
       </Container>
     )
   }

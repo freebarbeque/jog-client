@@ -13,6 +13,7 @@ interface IBooleanDependentQuestionProps extends IProps {
   onBlur?: () => void
   onFocus?: () => void
   answers?: { [id: string]: any }
+  extraComponents?: { [id: string]: { component: React.ComponentClass } }
 }
 
 export default class BooleanDependentQuestion extends React.Component<
@@ -26,46 +27,62 @@ export default class BooleanDependentQuestion extends React.Component<
     const answers = this.props.answers
     const answered = value !== null && value !== undefined
 
+    const condition = this.props.descriptor.condition
+    const conditional = Boolean(condition)
+    const visible = conditional ? condition && condition(answers || {}) : true
+
     if (dependentQuestions && !answers) {
       throw new Error(
         'If have dependent questions, must pass answers to BooleanQuestion',
       )
     }
 
+    return visible
+      ? <div>
+          {!conditional
+            ? <QuestionField
+                descriptor={this.props.descriptor}
+                index={this.props.index}
+                error={this.props.error}
+              >
+                <div style={{ position: 'relative', right: MARGIN.base }}>
+                  <SelectBox
+                    className={`${value ? 'selected' : ''}`}
+                    onClick={() => this.props.onChange(id, true)}
+                  >
+                    Yes
+                  </SelectBox>
+                  <SelectBox
+                    className={`${!value &&
+                    value !== undefined &&
+                    value !== null
+                      ? 'selected'
+                      : ''}`}
+                    onClick={() => this.props.onChange(id, false)}
+                  >
+                    No
+                  </SelectBox>
+                </div>
+              </QuestionField>
+            : this.renderDependendentQuestions()}
+          {((!reverse && value) || (reverse && !value)) &&
+          answered &&
+          !conditional &&
+          dependentQuestions
+            ? this.renderDependendentQuestions()
+            : null}
+        </div>
+      : null
+  }
+
+  private renderDependendentQuestions = () => {
     return (
-      <div>
-        <QuestionField
-          descriptor={this.props.descriptor}
-          index={this.props.index}
-          error={this.props.error}
-        >
-          <div style={{ position: 'relative', right: MARGIN.base }}>
-            <SelectBox
-              className={`${value ? 'selected' : ''}`}
-              onClick={() => this.props.onChange(id, true)}
-            >
-              Yes
-            </SelectBox>
-            <SelectBox
-              className={`${!value && value !== undefined && value !== null
-                ? 'selected'
-                : ''}`}
-              onClick={() => this.props.onChange(id, false)}
-            >
-              No
-            </SelectBox>
-          </div>
-        </QuestionField>
-        {((!reverse && value) || (reverse && !value)) &&
-        answered &&
-        dependentQuestions
-          ? <QuestionSet
-              questions={dependentQuestions}
-              answers={answers || {}}
-              onChange={this.props.onChange}
-            />
-          : null}
-      </div>
+      <QuestionSet
+        questions={this.props.descriptor.dependentQuestions}
+        extraComponents={this.props.extraComponents}
+        answers={this.props.answers || {}}
+        onChange={this.props.onChange}
+      />
     )
   }
 }
