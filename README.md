@@ -24,6 +24,10 @@ yarn ios
 yarn android
 ```
 
+### API ENDPOINT
+
+`JOG_WEB_API_ENDPOINT="http://localhost:5000" npm run run:web`
+
 ### Device
 
 First of all download and run the expo app from the app store or play store then run the following:

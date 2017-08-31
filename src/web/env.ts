@@ -10,6 +10,8 @@ const environments = {
     mixPanel: {
       token: '054c5167f564933f9cb01fd9276b2538',
     },
+    webApiEndpoint:
+      process.env.JOG_WEB_API_ENDPOINT || 'https://jog-api-dev.now.sh',
   },
   RELEASE: {
     firebase: {
@@ -22,6 +24,7 @@ const environments = {
     mixPanel: {
       token: '5345c9f6ba77c5e8c9810b97a73dbb06',
     },
+    webApiEndpoint: 'https://jog-api-prod.now.sh',
   },
 }
 
