@@ -51,7 +51,11 @@ module.exports = {
   },
 
   plugins: [
-    new webpack.EnvironmentPlugin({JOG_ENVIRONMENT: 'DEBUG', NODE_ENV: 'development'}),
+    new webpack.EnvironmentPlugin({
+      JOG_ENVIRONMENT: process.env.JOG_ENVIRONMENT || 'DEBUG', 
+      NODE_ENV: process.env.NODE_ENV || 'development',
+      JOG_WEB_API_ENDPOINT: process.env.JOG_WEB_API_ENDPOINT
+    }),
     new CaseSensitivePathsPlugin()
   ]
 }
