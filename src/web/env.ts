@@ -7,6 +7,9 @@ const environments = {
       storageBucket: 'jog-dev-10fe9.appspot.com',
       messagingSenderId: '98399119405',
     },
+    mixPanel: {
+      token: '054c5167f564933f9cb01fd9276b2538',
+    },
   },
   RELEASE: {
     firebase: {
@@ -15,6 +18,9 @@ const environments = {
       databaseURL: 'https://jog-prod.firebaseio.com',
       storageBucket: 'jog-prod.appspot.com',
       messagingSenderId: '122459291249',
+    },
+    mixPanel: {
+      token: '5345c9f6ba77c5e8c9810b97a73dbb06',
     },
   },
 }

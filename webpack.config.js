@@ -1,5 +1,6 @@
 const webpack = require('webpack')
 const { TsConfigPathsPlugin } = require('awesome-typescript-loader');
+const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin');
 
 module.exports = {
   entry: [
@@ -50,6 +51,7 @@ module.exports = {
   },
 
   plugins: [
-    new webpack.EnvironmentPlugin({JOG_ENVIRONMENT: 'DEBUG', NODE_ENV: 'development'})
+    new webpack.EnvironmentPlugin({JOG_ENVIRONMENT: 'DEBUG', NODE_ENV: 'development'}),
+    new CaseSensitivePathsPlugin()
   ]
 }
