@@ -4,10 +4,14 @@ import {
   IBaseQuestionDescriptor,
   ISelectQuestionDescriptor,
 } from 'jog-common/business/types'
+
 import * as _ from 'lodash'
 import * as React from 'react'
 import { connect, DispatchProp } from 'react-redux'
 import { push } from 'react-router-redux'
+
+import { deleteAddressAction } from '~/common/store/markets'
+import EditDeleteSelectAccessories from '~/web/components/Questions/EditDeleteSelectAccessories'
 import { IReduxState } from '../../../common/types'
 import SelectQuestion from './SelectQuestion'
 
@@ -77,8 +81,24 @@ class AddressQuestion extends React.Component<IConnectedProps, IState> {
         onSpecialOptionClick={this.handleSpecialOptionClick}
         error={this.props.error}
         index={this.props.index}
+        renderAccessory={(o: { label: string; value: string }) => {
+          return (
+            <EditDeleteSelectAccessories
+              onDeletePress={() => this.onDeletePress(o.value)}
+              onEditPress={() => this.onEditPress(o.value)}
+            />
+          )
+        }}
       />
     )
+  }
+
+  private onEditPress = (addressId: string) => {
+    this.props.dispatch(push(`/app/tabs/markets/motor/address/${addressId}`))
+  }
+
+  private onDeletePress = (addressId: string) => {
+    this.props.dispatch(deleteAddressAction(addressId))
   }
 
   private onChange = (id: string, value?: IAddress) => {

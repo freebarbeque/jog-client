@@ -24,6 +24,9 @@ import { goBack } from 'react-router-redux'
 
 import { demandCurrentUser } from '../../data/auth'
 import {
+  deleteAddress,
+  deleteCar,
+  deletePerson,
   setAddress,
   setCar,
   setPerson,
@@ -38,7 +41,9 @@ import {
   QuoteRequestAction,
 } from './quoteRequests'
 
+import { IAddressAnswers } from 'jog-common/business/address'
 import { ICarAnswers } from 'jog-common/business/car'
+import { IDriverAnswers } from 'jog-common/business/driver'
 import Logger, { Levels } from '~/common/Logger'
 
 const log = new Logger('common/store/markets', Levels.TRACE)
@@ -48,6 +53,11 @@ export interface ISetAddressAnswerAction {
   type: 'markets/addresses/SET_ADDRESS_ANSWER'
   key: string
   value: string
+}
+
+export interface ISetAddressAnswersAction {
+  type: 'markets/addresses/SET_ADDRESS_ANSWERS'
+  answers: IAddressAnswers
 }
 
 export interface ISetMotorAnswerAction {
@@ -65,6 +75,26 @@ export interface ISetDriverAnswerAction {
   type: 'markets/drivers/SET_DRIVER_ANSWER'
   key: string
   value: any
+}
+
+export interface ISetDriverAnswersAction {
+  type: 'markets/drivers/SET_DRIVER_ANSWERS'
+  answers: IDriverAnswers
+}
+
+export interface IDeleteDriverAction {
+  type: 'markets/drivers/DELETE_DRIVER'
+  id: string
+}
+
+export interface IDeleteCarAction {
+  type: 'markets/cars/DELETE_CAR'
+  id: string
+}
+
+export interface IDeleteAddressAction {
+  type: 'markets/addresses/DELETE_ADDRESS'
+  id: string
 }
 
 export interface IAddDriverAction {
@@ -137,6 +167,7 @@ export interface IReceiveAddressesAction {
 
 export type MarketsAction =
   | ISetAddressAnswerAction
+  | ISetAddressAnswersAction
   | ISetMotorAnswersAction
   | IAddAddressAction
   | IReceiveAddressesAction
@@ -145,6 +176,7 @@ export type MarketsAction =
   | ISetMotorAnswerAction
   | IAddDriverAction
   | ISetDriverAnswerAction
+  | ISetDriverAnswersAction
   | ISyncDriversAction
   | IUnsyncDriversAction
   | IReceiveDriversAction
@@ -155,10 +187,34 @@ export type MarketsAction =
   | ISetCarAnswer
   | ISetCarAnswers
   | QuoteRequestAction
+  | IDeleteCarAction
+  | IDeleteDriverAction
+  | IDeleteAddressAction
 
 // endregion
 
 // region Action creators
+export function deleteCarAction(id: string): IDeleteCarAction {
+  return {
+    type: 'markets/cars/DELETE_CAR',
+    id,
+  }
+}
+
+export function deleteAddressAction(id: string): IDeleteAddressAction {
+  return {
+    type: 'markets/addresses/DELETE_ADDRESS',
+    id,
+  }
+}
+
+export function deleteDriverAction(id: string): IDeleteDriverAction {
+  return {
+    type: 'markets/drivers/DELETE_DRIVER',
+    id,
+  }
+}
+
 export function setAddressAnswer(
   key: string,
   value: string,
@@ -170,7 +226,15 @@ export function setAddressAnswer(
   }
 }
 
-// region Action creators
+export function setAddressAnswers(
+  answers: IAddressAnswers,
+): ISetAddressAnswersAction {
+  return {
+    type: 'markets/addresses/SET_ADDRESS_ANSWERS',
+    answers,
+  }
+}
+
 export function setMotorAnswer(key: string, value: any): ISetMotorAnswerAction {
   return {
     type: 'markets/cars/SET_MOTOR_ANSWER',
@@ -211,6 +275,15 @@ export function setDriverAnswer(
     type: 'markets/drivers/SET_DRIVER_ANSWER',
     key,
     value,
+  }
+}
+
+export function setDriverAnswers(
+  answers: IDriverAnswers,
+): ISetDriverAnswersAction {
+  return {
+    type: 'markets/drivers/SET_DRIVER_ANSWERS',
+    answers,
   }
 }
 
@@ -332,10 +405,38 @@ export function* addCarTask(action: IAddCarAction) {
   yield put(goBack())
 }
 
+export function* deleteCarTask(action: IDeleteCarAction) {
+  const carId = action.id
+  log.debug(`Deleting car with id ${carId}`)
+  yield put(startLoading('Deleting car'))
+  const user = demandCurrentUser()
+  yield call(() => deleteCar(user.uid, carId))
+  yield put(finishLoading())
+}
+
+export function* deleteAddressTask(action: IDeleteAddressAction) {
+  const addressId = action.id
+  log.debug(`Deleting address with id ${addressId}`)
+  const user = demandCurrentUser()
+  yield call(() => deleteAddress(user.uid, addressId))
+  yield put(finishLoading())
+}
+
+export function* deleteDriverTask(action: IDeleteDriverAction) {
+  const driverId = action.id
+  log.debug(`Deleting driver with id ${driverId}`)
+  const user = demandCurrentUser()
+  yield call(() => deletePerson(user.uid, driverId))
+  yield put(finishLoading())
+}
+
 export function* addMarketEntitySaga() {
   yield takeLatest('markets/addresses/ADD_ADDRESS', addAddressTask)
   yield takeLatest('markets/drivers/ADD_DRIVER', addDriverTask)
   yield takeLatest('markets/cars/ADD_CAR', addCarTask)
+  yield takeLatest('markets/cars/DELETE_CAR', deleteCarTask)
+  yield takeLatest('markets/addresses/DELETE_ADDRESS', deleteAddressTask)
+  yield takeLatest('markets/drivers/DELETE_DRIVER', deleteDriverTask)
   yield takeLatest(
     'markets/quoteRequests/ADD_QUOTE_REQUEST',
     addQuoteRequestTask,
@@ -469,7 +570,7 @@ export function* syncCarsSaga() {
 
 // region State
 export interface IMarketsReduxState {
-  addressAnswers: { [id: string]: string }
+  addressAnswers: { [id: string]: any }
   motorAnswers: { [id: string]: any }
   driverAnswers: { [id: string]: any }
   carAnswers: { [id: string]: any }
@@ -502,6 +603,11 @@ export default function reducer(
       ...state,
       addressAnswers,
     }
+  } else if (action.type === 'markets/addresses/SET_ADDRESS_ANSWERS') {
+    return {
+      ...state,
+      addressAnswers: action.answers,
+    }
   } else if (action.type === 'markets/cars/SET_MOTOR_ANSWER') {
     const motorAnswers = { ...state.motorAnswers }
     motorAnswers[action.key] = action.value
@@ -532,6 +638,11 @@ export default function reducer(
     return {
       ...state,
       driverAnswers,
+    }
+  } else if (action.type === 'markets/drivers/SET_DRIVER_ANSWERS') {
+    return {
+      ...state,
+      driverAnswers: action.answers,
     }
   } else if (action.type === 'markets/addresses/RECEIVE_ADDRESSES') {
     return {
