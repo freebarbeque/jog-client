@@ -1,53 +1,58 @@
-/* @flow */
-
-import React, { Component } from 'react'
-import { View, StyleSheet, ScrollView } from 'react-native'
-import { connect } from 'react-redux'
+import * as _ from 'lodash'
+import * as React from 'react'
+import { ScrollView, StyleSheet, View } from 'react-native'
 import { NavigationActions } from 'react-navigation'
-import _ from 'lodash'
+import { connect, DispatchProp } from 'react-redux'
 
-import type {
-  ReduxState,
-  FirebaseUser,
-  MotorPolicy,
-  MotorPolicyMap,
-  Dispatch,
-} from 'jog/src/common/types'
-import { CREAM, PINK } from 'jog/src/common/constants/palette'
-import { MARGIN } from 'jog/src/common/constants/style'
-import { clearPolicies } from 'jog/src/common/data/policies'
-import { selectInitialisedPolicies } from 'jog/src/common/store/policies/selectors'
-import BackgroundHeader from 'jog/src/native/components/BackgroundHeader'
-import Spinner from 'jog/src/native/components/Spinner'
+import { CREAM, PINK } from '~/common/constants/palette'
+import { MARGIN } from '~/common/constants/style'
+import { selectInitialisedPolicies } from '~/common/store/policies/selectors'
+import {
+  IFirebaseUser,
+  IMotorPolicy,
+  IMotorPolicyMap,
+  IReduxState,
+} from '~/common/types'
+import BackgroundHeader from '~/native/components/BackgroundHeader'
+import Spinner from '~/native/components/Spinner'
 
-import MotorPolicyCard from './MotorPolicyCard'
-import AddMotorPolicyCard from './AddMotorPolicyCard'
 import GetStartedScreen from '../GetStartedScreen'
+import AddMotorPolicyCard from './AddMotorPolicyCard'
+import MotorPolicyCard from './MotorPolicyCard'
 
-type PoliciesProps = {
-  user: FirebaseUser | null,
-  policies: MotorPolicyMap,
-  initialised: boolean,
-  dispatch: Dispatch,
+interface IPoliciesProps extends DispatchProp<any> {
+  user: IFirebaseUser | null
+  policies: IMotorPolicyMap
+  initialised: boolean
 }
 
-class PoliciesScreen extends Component {
-  props: PoliciesProps
+class PoliciesScreen extends React.Component<IPoliciesProps> {
+  public render() {
+    const policies = this.props.policies
+    const initialised = this.props.initialised
+    const numPolicies = _.keys(policies).length
 
-  clearMockPolicies = () => {
-    const user = this.props.user
-    if (user) {
-      clearPolicies(user.uid)
-        .then(() => {
-          console.info('Cleared mock policies')
-        })
-        .catch(err => {
-          console.error('Error adding mock policies', err.stack)
-        })
+    if (initialised) {
+      return (
+        <View style={styles.container}>
+          {numPolicies ? this.renderPolicies() : this.renderNoPolicies()}
+        </View>
+      )
     }
+
+    return (
+      <View
+        style={[
+          styles.content,
+          { alignItems: 'center', justifyContent: 'center' },
+        ]}
+      >
+        <Spinner text="Loading your policies..." />
+      </View>
+    )
   }
 
-  renderNoPolicies() {
+  private renderNoPolicies() {
     return (
       <GetStartedScreen
         onGetStartedPress={() => {
@@ -61,7 +66,7 @@ class PoliciesScreen extends Component {
     )
   }
 
-  renderPolicies() {
+  private renderPolicies() {
     const policies = this.props.policies
     const numPolicies = _.keys(policies).length
 
@@ -73,7 +78,7 @@ class PoliciesScreen extends Component {
           enableBackPress={false}
         />
         <ScrollView style={styles.content}>
-          {_.map(_.values(policies), (policy: MotorPolicy, idx: number) => {
+          {_.map(_.values(policies), (policy: IMotorPolicy, idx: number) => {
             return (
               <MotorPolicyCard
                 key={idx}
@@ -106,31 +111,6 @@ class PoliciesScreen extends Component {
       </View>
     )
   }
-
-  render() {
-    const policies = this.props.policies
-    const initialised = this.props.initialised
-    const numPolicies = _.keys(policies).length
-
-    if (initialised) {
-      return (
-        <View style={styles.container}>
-          {numPolicies ? this.renderPolicies() : this.renderNoPolicies()}
-        </View>
-      )
-    }
-
-    return (
-      <View
-        style={[
-          styles.content,
-          { alignItems: 'center', justifyContent: 'center' },
-        ]}
-      >
-        <Spinner text="Loading your policies..." />
-      </View>
-    )
-  }
 }
 
 const styles = StyleSheet.create({
@@ -153,7 +133,7 @@ const styles = StyleSheet.create({
   },
 })
 
-const mapStateToProps = (state: ReduxState) => ({
+const mapStateToProps = (state: IReduxState) => ({
   user: state.auth.user,
   policies: selectInitialisedPolicies(state),
   initialised: state.policies.initialised,

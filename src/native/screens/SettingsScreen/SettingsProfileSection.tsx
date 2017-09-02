@@ -1,40 +1,29 @@
-/* @flow */
-
-import React, { Component } from 'react'
+import * as React from 'react'
 import {
-  View,
-  StyleSheet,
-  TouchableOpacity,
+  Image,
   Linking,
   Platform,
-  Image,
+  StyleSheet,
+  TouchableOpacity,
+  View,
 } from 'react-native'
-import { connect } from 'react-redux'
-import type {
-  ReduxState,
-  Dispatch,
-  FirebaseUser,
-  UserDetails,
-} from 'jog/src/common/types'
-import Text from 'jog/src/native/components/Text'
-import { AddProfilePicture } from 'jog/src/native/components/images/index'
-import { BLUE, VERY_LIGHT_GRAY, WHITE } from 'jog/src/common/constants/palette'
-import { MARGIN } from 'jog/src/common/constants/style'
-import CameraModal from 'jog/src/native/components/CameraModal'
-import { useIOSCamera } from 'jog/src/native/util/files'
-import type { iOSImageResponse } from 'jog/src/native/util/files'
-import { declareError } from 'jog/src/common/store/errors/actions'
-import { updateUserProfilePicture } from 'jog/src/common/store/auth/actions'
+import { connect, DispatchProp } from 'react-redux'
+import { BLUE, VERY_LIGHT_GRAY, WHITE } from '~/common/constants/palette'
+import { MARGIN } from '~/common/constants/style'
+import { updateUserProfilePicture } from '~/common/store/auth/actions'
+import { declareError } from '~/common/store/errors/actions'
+import { IFirebaseUser, IReduxState, IUserDetails } from '~/common/types'
+import CameraModal from '~/native/components/CameraModal'
+import { AddProfilePicture } from '~/native/components/images/index'
+import Text from '~/native/components/Text'
+import { IIOSImageResponse, useIOSCamera } from '~/native/util/files'
 import BigRedFullWidthButton from '../../components/BigRedFullWidthButton'
 
-type SettingsProfileSectionProps = {
-  dispatch: Dispatch,
+interface ISettingsProfileSectionProps extends DispatchProp<any> {
   // eslint-disable-next-line react/no-unused-prop-types
-  user: FirebaseUser,
-  userDetails: UserDetails | null,
+  user: IFirebaseUser
+  userDetails: IUserDetails | null
 }
-
-type SettingsProfileSectionState = {}
 
 const Field = props =>
   <View style={[styles.fieldContainer, props.style || {}]}>
@@ -46,44 +35,21 @@ const Field = props =>
     </Text>
   </View>
 
-class SettingsProfileSection extends Component {
-  props: SettingsProfileSectionProps
-  state: SettingsProfileSectionState
-  cameraModal: CameraModal
-
-  static handleSupportPress() {
+class SettingsProfileSection extends React.Component<
+  ISettingsProfileSectionProps
+> {
+  private static handleSupportPress() {
     Linking.openURL('mailto:support@jog.com?subject=Support')
   }
 
-  constructor(props: SettingsProfileSectionProps) {
+  private cameraModal: any
+
+  constructor(props: ISettingsProfileSectionProps) {
     super(props)
     this.state = {}
   }
 
-  handleProfilePicturePress = () => {
-    if (Platform.OS === 'ios') {
-      useIOSCamera()
-        .then((response: iOSImageResponse | null) => {
-          if (response) {
-            // If no response, user cancelled.
-            this.props.dispatch(
-              updateUserProfilePicture({ fileUrl: response.uri }),
-            )
-          }
-        })
-        .catch(err => {
-          this.props.dispatch(declareError(err))
-        })
-    } else {
-      this.cameraModal.setModalVisible(true)
-    }
-  }
-
-  handleCapture = fileUrl => {
-    this.props.dispatch(updateUserProfilePicture({ fileUrl }))
-  }
-
-  render() {
+  public render() {
     const userDetails = this.props.userDetails || {}
     const address = userDetails.address
     const hasAddress =
@@ -160,6 +126,29 @@ class SettingsProfileSection extends Component {
       </View>
     )
   }
+
+  private handleProfilePicturePress = () => {
+    if (Platform.OS === 'ios') {
+      useIOSCamera()
+        .then((response: IIOSImageResponse | null) => {
+          if (response) {
+            // If no response, user cancelled.
+            this.props.dispatch(
+              updateUserProfilePicture({ fileUrl: response.uri }),
+            )
+          }
+        })
+        .catch(err => {
+          this.props.dispatch(declareError(err))
+        })
+    } else {
+      this.cameraModal.setModalVisible(true)
+    }
+  }
+
+  private handleCapture = fileUrl => {
+    this.props.dispatch(updateUserProfilePicture({ fileUrl }))
+  }
 }
 
 const styles = StyleSheet.create({
@@ -203,7 +192,7 @@ const styles = StyleSheet.create({
   profilePhoto: { width: 77, height: 77, borderRadius: 77 / 2 },
 })
 
-const mapStateToProps = (state: ReduxState) => {
+const mapStateToProps = (state: IReduxState) => {
   return {
     user: state.auth.user,
     userDetails: state.auth.details,

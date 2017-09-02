@@ -1,4 +1,3 @@
-import dismissKeyboard from 'dismissKeyboard'
 import * as React from 'react'
 import { StyleSheet, View } from 'react-native'
 import Icon from 'react-native-vector-icons/FontAwesome'
@@ -13,6 +12,8 @@ import Text from '../Text'
 
 import Form from '~/common/components/Form'
 import Picker, { IPickerOption } from '../Picker'
+
+const dismissKeyboard = require('dismissKeyboard')
 
 export default class NativeForm extends Form {
   public render() {
@@ -35,7 +36,7 @@ export default class NativeForm extends Form {
           style={styles.button}
           label={buttonLabel}
           onPress={() => this.handleSubmit()}
-          loading={disabled}
+          loading={Boolean(disabled)}
         />
         {error &&
           <Text style={styles.errorText}>

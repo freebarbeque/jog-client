@@ -1,23 +1,22 @@
-// @flow
-import React, { Component } from 'react'
-import { View, StyleSheet } from 'react-native'
+import * as React from 'react'
+import { StyleSheet, View } from 'react-native'
 
-import { Car, Plus } from 'jog/src/native/components/images/index'
-import FirebaseImage from 'jog/src/native/components/FirebaseImage'
-import type { MotorPolicy } from 'jog/src/common/types'
+import { IMotorPolicy } from '~/common/types'
+import FirebaseImage from '~/native/components/FirebaseImage'
+import { Car, Plus } from '~/native/components/images/index'
 
 import PolicyCard from './PolicyCard'
 
-export type MotorPolicyCardProps = {
-  policy: MotorPolicy,
-  onPress: () => void,
-  index: number,
+export interface IMotorPolicyCardProps {
+  policy: IMotorPolicy
+  onPress: () => void
+  index: number
 }
 
-export default class MotorPolicyCard extends Component {
-  props: MotorPolicyCardProps
-
-  render() {
+export default class MotorPolicyCard extends React.Component<
+  IMotorPolicyCardProps
+> {
+  public render() {
     const policy = this.props.policy
     const description = policy.complete
       ? 'Add more details'

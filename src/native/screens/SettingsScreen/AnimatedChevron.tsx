@@ -1,12 +1,15 @@
-import React, { Component } from 'react'
-import PropTypes from 'prop-types'
+import * as React from 'react'
 import { Animated, Easing } from 'react-native'
 
-export default class AnimatedChevron extends Component {
-  static propTypes = {
-    rotation: PropTypes.oneOf(['up', 'down']),
-  }
+interface IProps {
+  rotation?: 'up' | 'down'
+}
 
+interface IState {
+  spinValue: Animated.Value
+}
+
+export default class AnimatedChevron extends React.Component<IProps, IState> {
   constructor(props) {
     super(props)
     this.state = {
@@ -14,7 +17,7 @@ export default class AnimatedChevron extends Component {
     }
   }
 
-  componentWillUpdate(nextProps) {
+  public componentWillUpdate(nextProps) {
     if (this.props.rotation !== nextProps.rotation) {
       if (nextProps.rotation === 'up') {
         Animated.timing(this.state.spinValue, {
@@ -32,7 +35,7 @@ export default class AnimatedChevron extends Component {
     }
   }
 
-  render() {
+  public render() {
     const spin = this.state.spinValue.interpolate({
       inputRange: [0, 1],
       outputRange: ['0deg', '180deg'],

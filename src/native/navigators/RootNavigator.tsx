@@ -10,7 +10,6 @@ import { connect, DispatchProp } from 'react-redux'
 import EmailPolicyScreen from '~/native/screens/EmailPolicyScreen'
 
 import {
-  Dispatch,
   IAuthReduxState,
   IFirebaseUser,
   INavReduxState,

@@ -1,29 +1,12 @@
-/* @flow */
+import * as React from 'react'
+import { StyleSheet, View } from 'react-native'
+import { connect, DispatchProp } from 'react-redux'
+import { BLUE, VERY_LIGHT_GRAY } from '~/common/constants/palette'
+import { MARGIN } from '~/common/constants/style'
+import Text from '~/native/components/Text'
 
-import React, { Component } from 'react'
-import { View, StyleSheet } from 'react-native'
-import { connect } from 'react-redux'
-import type { ReduxState, Dispatch } from 'jog/src/common/types'
-import Text from 'jog/src/native/components/Text'
-import { VERY_LIGHT_GRAY, BLUE } from 'jog/src/common/constants/palette'
-import { MARGIN } from 'jog/src/common/constants/style'
-
-type SettingsAboutUsSectionProps = {
-  dispatch: Dispatch,
-}
-
-type SettingsAboutUsSectionState = {}
-
-class SettingsAboutUsSection extends Component {
-  props: SettingsAboutUsSectionProps
-  state: SettingsAboutUsSectionState
-
-  constructor(props: SettingsAboutUsSectionProps) {
-    super(props)
-    this.state = {}
-  }
-
-  render() {
+class SettingsAboutUsSection extends React.Component<DispatchProp<any>> {
+  public render() {
     return (
       <View style={styles.container}>
         <Text style={{ color: BLUE }}>
@@ -54,10 +37,4 @@ const styles = StyleSheet.create({
   },
 })
 
-const mapStateToProps = (state: ReduxState) => {
-  return {
-    ...state,
-  }
-}
-
-export default connect(mapStateToProps)(SettingsAboutUsSection)
+export default connect()(SettingsAboutUsSection)

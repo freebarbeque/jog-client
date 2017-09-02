@@ -1,67 +1,46 @@
-/* @flow */
-
-import React, { Component } from 'react'
-import { View, StyleSheet, Dimensions } from 'react-native'
-import { connect } from 'react-redux'
+import * as React from 'react'
+import { Dimensions, StyleSheet, View } from 'react-native'
 import { NavigationActions } from 'react-navigation'
+import { connect, DispatchProp } from 'react-redux'
 
-import type {
-  Dispatch,
-  ReduxState,
-  FirebaseUser,
-  ReactNavProp,
-} from 'jog/src/common/types'
+import { IFirebaseUser, INavReduxState, IReduxState } from '~/common/types'
 
-import { BLUE } from 'jog/src/common/constants/palette'
-import Text from 'jog/src/native/components/Text'
-import { MARGIN } from 'jog/src/common/constants/style'
-import RoundedButton from 'jog/src/native/components/RoundedButton'
-import { emailVerification } from 'jog/src/common/store/screens/auth/actions'
+import * as _ from 'lodash'
+import { BLUE } from '~/common/constants/palette'
+import { MARGIN } from '~/common/constants/style'
 import {
   pollRefreshUser,
   stopPollingRefreshUser,
-} from 'jog/src/common/store/auth/actions'
+} from '~/common/store/auth/actions'
+import { emailVerification } from '~/common/store/screens/auth/actions'
+import RoundedButton from '~/native/components/RoundedButton'
+import Text from '~/native/components/Text'
 
-type EmailVerificationScreenProps = {
-  dispatch: Dispatch,
-  user: FirebaseUser | null,
-  loading: boolean,
-  nav: ReactNavProp,
+interface IEmailVerificationScreenProps extends DispatchProp<any> {
+  user: IFirebaseUser | null
+  loading: boolean
+  nav: INavReduxState
 }
 
-class EmailVerificationScreen extends Component {
-  props: EmailVerificationScreenProps
-
-  componentDidMount() {
+class EmailVerificationScreen extends React.Component<
+  IEmailVerificationScreenProps
+> {
+  public componentDidMount() {
     this.props.dispatch(pollRefreshUser())
   }
 
-  componentWillReceiveProps(props: EmailVerificationScreenProps) {
+  public componentWillReceiveProps(props: IEmailVerificationScreenProps) {
     const user = props.user
     if (user && user.emailVerified) {
       this.hideModal()
     }
   }
 
-  componentWillUnmount() {
+  public componentWillUnmount() {
     this.props.dispatch(stopPollingRefreshUser())
   }
 
-  hideModal = () => {
-    const routes = this.props.nav.routes
-    const authRoute = _.find(routes, route => route.routeName === 'Auth')
-    const key = authRoute.key
-    this.props.dispatch(NavigationActions.back({ key }))
-  }
-
-  handleResendClick = () => {
-    const user = this.props.user
-    if (user) {
-      this.props.dispatch(emailVerification(user))
-    }
-  }
-
-  render() {
+  public render() {
     const window = Dimensions.get('window')
     const windowWidth = window.width
 
@@ -96,6 +75,24 @@ class EmailVerificationScreen extends Component {
       </View>
     )
   }
+
+  private hideModal = () => {
+    const routes = this.props.nav.routes
+    const authRoute = _.find(routes, route => route.routeName === 'Auth')
+    if (authRoute) {
+      const key = authRoute.key
+      this.props.dispatch(NavigationActions.back({ key }))
+    } else {
+      throw new Error('No route with routeName Auth')
+    }
+  }
+
+  private handleResendClick = () => {
+    const user = this.props.user
+    if (user) {
+      this.props.dispatch(emailVerification(user))
+    }
+  }
 }
 
 const styles = StyleSheet.create({
@@ -129,7 +126,7 @@ const styles = StyleSheet.create({
   },
 })
 
-const mapStateToProps = (state: ReduxState) => ({
+const mapStateToProps = (state: IReduxState) => ({
   user: state.auth.user,
   loading: state.screens.auth.loading,
   nav: state.nav,

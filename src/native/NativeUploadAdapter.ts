@@ -6,7 +6,8 @@ export default class NativeUploadAdapter {
     const filepath = opts.filePath
 
     if (filepath) {
-      return getFirestack().storage.uploadFile(opts.fileStoragePath, filepath, {
+      const fireStack = getFirestack()
+      return fireStack.storage.uploadFile(opts.fileStoragePath, filepath, {
         contentType: opts.contentEncoding,
         contentEncoding: opts.contentEncoding,
       })

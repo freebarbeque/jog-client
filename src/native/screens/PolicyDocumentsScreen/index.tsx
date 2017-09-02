@@ -1,107 +1,36 @@
-/* @flow */
-
-import React, { Component } from 'react'
+import * as React from 'react'
 import {
+  Platform,
   ScrollView,
-  View,
   StyleSheet,
   TouchableOpacity,
-  Platform,
+  View,
 } from 'react-native'
-import { connect } from 'react-redux'
 import { NavigationActions } from 'react-navigation'
+import { connect, DispatchProp } from 'react-redux'
 
-import type {
-  ReduxState,
-  ReactNavigationProp,
-  Dispatch,
-  MotorPolicyMap,
-  PolicyDocument,
-} from 'jog/src/common/types'
-import Text from 'jog/src/native/components/Text'
-import { BLUE, CREAM } from 'jog/src/common/constants/palette'
-import { MARGIN } from 'jog/src/common/constants/style'
-import Panel from 'jog/src/native/components/Panel'
-import { uploadPolicyDocument } from 'jog/src/common/store/policies/actions'
-import { pickFile, useIOSCamera } from 'jog/src/native/util/files'
-import { selectPolicies } from 'jog/src/common/store/policies/selectors'
-import PolicyDocumentThumbnail from 'jog/src/native/components/PolicyDocumentThumbnail'
-import CameraModal from 'jog/src/native/components/CameraModal'
-import type { iOSImageResponse } from 'jog/src/native/util/files'
-import { declareError } from 'jog/src/common/store/errors/actions'
+import * as _ from 'lodash'
+import { BLUE, CREAM } from '~/common/constants/palette'
+import { MARGIN } from '~/common/constants/style'
+import { declareError } from '~/common/store/errors/actions'
+import { uploadPolicyDocument } from '~/common/store/policies/actions'
+import { selectPolicies } from '~/common/store/policies/selectors'
+import { IMotorPolicyMap, IPolicyDocument, IReduxState } from '~/common/types'
+import CameraModal from '~/native/components/CameraModal'
+import Panel from '~/native/components/Panel'
+import PolicyDocumentThumbnail from '~/native/components/PolicyDocumentThumbnail'
+import Text from '~/native/components/Text'
+import { IIOSImageResponse, pickFile, useIOSCamera } from '~/native/util/files'
 
-type PolicyDocumentsScreenProps = {
-  // eslint-disable-next-line react/no-unused-prop-types
-  dispatch: Dispatch,
-  // eslint-disable-next-line react/no-unused-prop-types
-  navigation: ReactNavigationProp,
-  policies: MotorPolicyMap,
+interface IProps extends DispatchProp<any> {
+  policies: IMotorPolicyMap
 }
 
-class PolicyDocumentsScreen extends Component {
-  props: PolicyDocumentsScreenProps
-  cameraModal: any
+class PolicyDocumentsScreen extends React.Component<IProps> {
+  private cameraModal: any
 
-  handleBrowseFilesPress = () => {
-    pickFile().then(resp => {
-      const policyId = this.props.navigation.state.params.policyId
-      const fileUrl = resp.url
-      console.log('fileUrl', fileUrl)
-      this.props.dispatch(
-        uploadPolicyDocument({
-          fileUrl,
-          policyId,
-          extension: resp.extension,
-          fileName: resp.fileName,
-        }),
-      )
-    })
-  }
-
-  handleUseCameraPress = () => {
-    if (Platform.OS === 'ios') {
-      useIOSCamera()
-        .then((response: iOSImageResponse | null) => {
-          if (response) {
-            // If no response, user cancelled.
-            const path = response.uri.split('file://').pop()
-
-            const policyId = this.props.navigation.state.params.policyId
-            this.props.dispatch(
-              uploadPolicyDocument({
-                fileUrl: path,
-                policyId,
-                extension: response.extension,
-                fileName: response.fileName,
-              }),
-            )
-          }
-        })
-        .catch(err => {
-          this.props.dispatch(declareError(err))
-        })
-    } else {
-      this.cameraModal.setModalVisible(true)
-    }
-  }
-
-  handleCapture = fileUrl => {
-    const policyId = this.props.navigation.state.params.policyId
-    const fileName = fileUrl.split('/').pop()
-    const extension = fileName.split('.').pop().toLowerCase()
-
-    this.props.dispatch(
-      uploadPolicyDocument({
-        fileUrl,
-        policyId,
-        extension,
-        fileName,
-      }),
-    )
-  }
-
-  render() {
-    const policyId = this.props.navigation.state.params.policyId
+  public render() {
+    const policyId = (this.props as any).navigation.state.params.policyId
     const policy = this.props.policies[policyId]
     const documents = _.values(policy.documents)
 
@@ -111,7 +40,7 @@ class PolicyDocumentsScreen extends Component {
           ? <Panel style={styles.panel}>
               <Text style={styles.header}>Scanned documents</Text>
               <View style={{ flexDirection: 'row', flexWrap: 'wrap' }}>
-                {documents.map((d: PolicyDocument) => {
+                {documents.map((d: IPolicyDocument) => {
                   return (
                     <PolicyDocumentThumbnail
                       key={d.id}
@@ -123,7 +52,7 @@ class PolicyDocumentsScreen extends Component {
                       onPress={() => {
                         const params = {
                           documentId: d.id,
-                          policyId: policyId,
+                          policyId,
                           documentName: d.name,
                         }
                         this.props.dispatch(
@@ -168,6 +97,64 @@ class PolicyDocumentsScreen extends Component {
       </ScrollView>
     )
   }
+
+  private handleBrowseFilesPress = () => {
+    pickFile().then(resp => {
+      const policyId = (this.props as any).navigation.state.params.policyId
+      const fileUrl = resp.url
+      this.props.dispatch(
+        uploadPolicyDocument({
+          fileUrl,
+          policyId,
+          extension: resp.extension || undefined,
+          fileName: resp.fileName || undefined,
+        }),
+      )
+    })
+  }
+
+  private handleUseCameraPress = () => {
+    if (Platform.OS === 'ios') {
+      useIOSCamera()
+        .then((response: IIOSImageResponse | null) => {
+          if (response) {
+            // If no response, user cancelled.
+            const path = response.uri.split('file://').pop()
+
+            const policyId = (this.props as any).navigation.state.params
+              .policyId
+            this.props.dispatch(
+              uploadPolicyDocument({
+                fileUrl: path,
+                policyId,
+                extension: response.extension,
+                fileName: response.fileName,
+              }),
+            )
+          }
+        })
+        .catch(err => {
+          this.props.dispatch(declareError(err))
+        })
+    } else {
+      this.cameraModal.setModalVisible(true)
+    }
+  }
+
+  private handleCapture = fileUrl => {
+    const policyId = (this.props as any).navigation.state.params.policyId
+    const fileName = fileUrl.split('/').pop()
+    const extension = fileName.split('.').pop().toLowerCase()
+
+    this.props.dispatch(
+      uploadPolicyDocument({
+        fileUrl,
+        policyId,
+        extension,
+        fileName,
+      }),
+    )
+  }
 }
 
 const styles = StyleSheet.create({
@@ -210,7 +197,7 @@ const styles = StyleSheet.create({
   },
 })
 
-const mapStateToProps = (state: ReduxState) => ({
+const mapStateToProps = (state: IReduxState) => ({
   policies: selectPolicies(state),
 })
 

@@ -1,36 +1,31 @@
-/* @flow */
-
-import React, { Component } from 'react'
-import { View, ScrollView, StyleSheet } from 'react-native'
-import { connect } from 'react-redux'
+import * as React from 'react'
+import { ScrollView, StyleSheet, View } from 'react-native'
 import Accordion from 'react-native-collapsible/Accordion'
+import { connect, DispatchProp } from 'react-redux'
 
-import type { ReduxState, Dispatch } from 'jog/src/common/types'
-import Text from 'jog/src/native/components/Text'
-import { BLUE, WHITE, CREAM } from 'jog/src/common/constants/palette'
-import { MARGIN } from 'jog/src/common/constants/style'
-import { setActiveSection } from 'jog/src/common/store/screens/settings/actions'
+import { BLUE, CREAM, WHITE } from '~/common/constants/palette'
+import { MARGIN } from '~/common/constants/style'
+import { setActiveSection } from '~/common/store/screens/settings/actions'
+import { IReduxState } from '~/common/types'
+import Text from '~/native/components/Text'
 
 import AnimatedChevron from './AnimatedChevron'
-import SettingsProfileSection from './SettingsProfileSection'
-import SettingsPrivacyPolicySection from './SettingsPrivacyPolicySection'
-import SettingsTermsAndConditionsSection from './SettingsTermsAndConditionsSection'
 import SettingsAboutUsSection from './SettingsAboutUsSection'
 import SettingsNotificationsSection from './SettingsNotificationsSection'
+import SettingsPrivacyPolicySection from './SettingsPrivacyPolicySection'
+import SettingsProfileSection from './SettingsProfileSection'
+import SettingsTermsAndConditionsSection from './SettingsTermsAndConditionsSection'
 
-type SettingsProps = {
-  dispatch: Dispatch,
-  activeSection: number | null,
+interface ISettingsProps extends DispatchProp<any> {
+  activeSection: number | null
 }
 
-type SettingsState = {}
-
-type AccordionSection = {
-  title: string,
-  component: any,
+interface IAccordionSection {
+  title: string
+  component: any
 }
 
-const ACCORDION_SECTIONS: AccordionSection[] = [
+const ACCORDION_SECTIONS: IAccordionSection[] = [
   { title: 'My profile', component: SettingsProfileSection },
   { title: 'Notifications', component: SettingsNotificationsSection },
   { title: 'About us', component: SettingsAboutUsSection },
@@ -41,17 +36,25 @@ const ACCORDION_SECTIONS: AccordionSection[] = [
   { title: 'Privacy policy', component: SettingsPrivacyPolicySection },
 ]
 
-class SettingsScreen extends Component {
-  props: SettingsProps
-  state: SettingsState
-
-  constructor(props: SettingsProps) {
-    super(props)
-    this.state = {}
+class SettingsScreen extends React.Component<ISettingsProps> {
+  public render() {
+    return (
+      <ScrollView style={styles.container}>
+        <Accordion
+          sections={ACCORDION_SECTIONS}
+          renderHeader={this.renderHeader}
+          renderContent={this.renderContent}
+          activeSection={this.props.activeSection}
+          onChange={(index: number) => {
+            this.props.dispatch(setActiveSection(index))
+          }}
+        />
+      </ScrollView>
+    )
   }
 
-  renderHeader = (
-    section: AccordionSection,
+  private renderHeader = (
+    section: IAccordionSection,
     index: number,
     isActive: boolean,
   ) => {
@@ -74,25 +77,9 @@ class SettingsScreen extends Component {
     )
   }
 
-  renderContent = (section: AccordionSection) => {
+  private renderContent = (section: IAccordionSection) => {
     const Comp = section.component
     return <Comp />
-  }
-
-  render() {
-    return (
-      <ScrollView style={styles.container}>
-        <Accordion
-          sections={ACCORDION_SECTIONS}
-          renderHeader={this.renderHeader}
-          renderContent={this.renderContent}
-          activeSection={this.props.activeSection}
-          onChange={(index: number) => {
-            this.props.dispatch(setActiveSection(index))
-          }}
-        />
-      </ScrollView>
-    )
   }
 }
 
@@ -125,8 +112,7 @@ const styles = StyleSheet.create({
   },
 })
 
-const mapStateToProps = (state: ReduxState) => ({
-  user: state.auth.user,
+const mapStateToProps = (state: IReduxState) => ({
   activeSection: state.screens.settings.activeSection,
 })
 

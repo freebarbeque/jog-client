@@ -1,29 +1,15 @@
-/* @flow */
-
-import React, { Component } from 'react'
-import { View, StyleSheet, Dimensions } from 'react-native'
-import { connect } from 'react-redux'
+import * as React from 'react'
+import { Dimensions, StyleSheet, View } from 'react-native'
 import { NavigationActions } from 'react-navigation'
+import { connect, DispatchProp } from 'react-redux'
 
-import type { Dispatch } from 'jog/src/common/types'
+import { BLUE } from '~/common/constants/palette'
+import { MARGIN } from '~/common/constants/style'
+import RoundedButton from '~/native/components/RoundedButton'
+import Text from '~/native/components/Text'
 
-import { BLUE } from 'jog/src/common/constants/palette'
-import Text from 'jog/src/native/components/Text'
-import { MARGIN } from 'jog/src/common/constants/style'
-import RoundedButton from 'jog/src/native/components/RoundedButton'
-
-type ConfirmPasswordResetScreenProps = {
-  dispatch: Dispatch,
-}
-
-class ConfirmPasswordResetScreen extends Component {
-  props: ConfirmPasswordResetScreenProps
-
-  goBack = () => {
-    this.props.dispatch(NavigationActions.back())
-  }
-
-  render() {
+class ConfirmPasswordResetScreen extends React.Component<DispatchProp<any>> {
+  public render() {
     const window = Dimensions.get('window')
     const windowWidth = window.width
 
@@ -56,6 +42,10 @@ class ConfirmPasswordResetScreen extends Component {
         </View>
       </View>
     )
+  }
+
+  private goBack = () => {
+    this.props.dispatch(NavigationActions.back())
   }
 }
 

@@ -1,35 +1,25 @@
-/* @flow */
-
-import React, { Component } from 'react'
-import { View, StyleSheet, TouchableOpacity } from 'react-native'
+import * as React from 'react'
+import { StyleSheet, TouchableOpacity, View } from 'react-native'
 import { NavigationActions } from 'react-navigation'
-import { connect } from 'react-redux'
-import type { ReduxState, Dispatch } from 'jog/src/common/types'
-import Text from 'jog/src/native/components/Text'
+import { connect, DispatchProp } from 'react-redux'
 import {
   BLUE,
   CREAM,
-  WHITE,
-  VERY_LIGHT_GRAY,
   DARK_GRAY,
   PINK,
-} from 'jog/src/common/constants/palette'
-import { MARGIN } from 'jog/src/common/constants/style'
-import { clearManualPolicy } from 'jog/src/common/store/screens/addManualPolicy/actions'
+  VERY_LIGHT_GRAY,
+  WHITE,
+} from '~/common/constants/palette'
+import { MARGIN } from '~/common/constants/style'
+import { clearManualPolicy } from '~/common/store/screens/addManualPolicy/actions'
+import Text from '~/native/components/Text'
 
-import { Camera, Command, Mail } from '../components/images/index'
 import { uploadPolicy } from '../../common/store/screens/addPolicyScreen/actions'
 import BackgroundHeader from '../components/BackgroundHeader'
+import { Camera, Command, Mail } from '../components/images/index'
 
-type AddPolicyScreenProps = {
-  dispatch: Dispatch,
-  // user: FirebaseUser | null,
-}
-
-class AddPolicyScreen extends Component {
-  props: AddPolicyScreenProps
-
-  render() {
+class AddPolicyScreen extends React.Component<DispatchProp<any>> {
+  public render() {
     return (
       <View style={{ flex: 1 }}>
         <BackgroundHeader headerText={'Add Policy'} />
@@ -131,8 +121,4 @@ const styles = StyleSheet.create({
   },
 })
 
-const mapStateToProps = (state: ReduxState) => ({
-  user: state.auth.user,
-})
-
-export default connect(mapStateToProps)(AddPolicyScreen)
+export default connect()(AddPolicyScreen)

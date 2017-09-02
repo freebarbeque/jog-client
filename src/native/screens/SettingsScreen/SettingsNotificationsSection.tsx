@@ -1,36 +1,25 @@
-/* @flow */
-
-import React, { Component } from 'react'
-import { View, StyleSheet, Switch } from 'react-native'
-import { connect } from 'react-redux'
-import type { ReduxState, Dispatch, UserDetails } from 'jog/src/common/types'
-import Text from 'jog/src/native/components/Text'
-import { VERY_LIGHT_GRAY, BLUE } from 'jog/src/common/constants/palette'
-import { MARGIN } from 'jog/src/common/constants/style'
+import * as React from 'react'
+import { StyleSheet, Switch, View } from 'react-native'
+import { connect, DispatchProp } from 'react-redux'
+import { BLUE, VERY_LIGHT_GRAY } from '~/common/constants/palette'
+import { MARGIN } from '~/common/constants/style'
+import { IReduxState, IUserDetails } from '~/common/types'
+import Text from '~/native/components/Text'
 import {
   disablePushNotifications,
   enablePushNotifications,
   showPushNotificationsModal,
-} from 'jog/src/native/store/push/actions'
-import { isAndroid } from 'jog/src/native/util/system'
+} from '~/native/store/push/actions'
+import { isAndroid } from '~/native/util/system'
 
-type SettingsNotificationsProps = {
-  dispatch: Dispatch,
-  userDetails: UserDetails,
+interface ISettingsNotificationsProps extends DispatchProp<any> {
+  userDetails: IUserDetails
 }
 
-type SettingsNotificationsState = {}
-
-class SettingsNotificationsSection extends Component {
-  props: SettingsNotificationsProps
-  state: SettingsNotificationsState
-
-  constructor(props: SettingsNotificationsProps) {
-    super(props)
-    this.state = {}
-  }
-
-  render() {
+class SettingsNotificationsSection extends React.Component<
+  ISettingsNotificationsProps
+> {
+  public render() {
     const userDetails = this.props.userDetails || {}
 
     return (
@@ -76,7 +65,7 @@ const styles = StyleSheet.create({
   },
 })
 
-const mapStateToProps = (state: ReduxState) => {
+const mapStateToProps = (state: IReduxState) => {
   return {
     userDetails: state.auth.details,
   }

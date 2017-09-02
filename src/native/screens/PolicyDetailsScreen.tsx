@@ -1,26 +1,25 @@
-// @flow
-
-import React, { Component } from 'react'
-import { ScrollView, View, StyleSheet } from 'react-native'
-import { connect } from 'react-redux'
-import moment from 'moment'
+import * as React from 'react'
+import { ScrollView, StyleSheet, View } from 'react-native'
 import { NavigationActions } from 'react-navigation'
-import _ from 'lodash'
+import { connect, DispatchProp } from 'react-redux'
 
-import Text from 'jog/src/native/components/Text'
+import Text from '~/native/components/Text'
 
-import type {
-  Dispatch,
-  MotorPolicy,
-  ReactNavigationProp,
-} from 'jog/src/common/types'
-import { LEVEL_OF_COVER } from 'jog/src/common/types'
-import { selectPolicies } from 'jog/src/common/store/policies/selectors'
-import { BLUE, CREAM, WHITE, YELLOW } from 'jog/src/common/constants/palette'
-import { MARGIN } from 'jog/src/common/constants/style'
+import * as _ from 'lodash'
+import { BLUE, CREAM, WHITE, YELLOW } from '~/common/constants/palette'
+import { MARGIN } from '~/common/constants/style'
+import { selectPolicies } from '~/common/store/policies/selectors'
+import {
+  IMotorPolicy,
+  IMotorPolicyMap,
+  IReactNavigationProp,
+  LEVEL_OF_COVER,
+} from '~/common/types'
+import BigRedFullWidthButton from '../components/BigRedFullWidthButton'
 import { CarOutline } from '../components/images/index'
 import Panel from '../components/Panel'
-import BigRedFullWidthButton from '../components/BigRedFullWidthButton'
+
+const moment = require('moment')
 
 const Field = props =>
   <View style={styles.fieldContainer}>
@@ -42,73 +41,13 @@ const Row = props => {
   )
 }
 
-type PolicyDetailsScreenProps = {
-  policies: MotorPolicy,
-  navigation: ReactNavigationProp,
-  dispatch: Dispatch,
+interface IProps extends DispatchProp<any> {
+  policies: IMotorPolicyMap
+  navigation: IReactNavigationProp
 }
 
-class PolicyDetailsScreen extends Component {
-  props: PolicyDetailsScreenProps
-
-  handleDocumentUploadPress = () => {
-    this.props.dispatch(NavigationActions.navigate({ routeName: 'Documents' }))
-  }
-
-  getPolicy(): MotorPolicy {
-    const navigationState = this.props.navigation.state
-    console.log('navigation', this.props.navigation)
-    const policyId = navigationState.params.policyId
-
-    let policy: MotorPolicy
-
-    // Typecheck demanded by Flow
-    if (typeof policyId === 'string') {
-      policy = this.props.policies[policyId]
-    } else {
-      throw new TypeError(
-        'PolicyDetailsScreen was expecting a policyId of type string in the navigation params.',
-      )
-    }
-
-    if (!policy) {
-      throw new Error(
-        `Policy with id ${policyId} does not exist so cannot render the policy details screen`,
-      )
-    }
-
-    return policy
-  }
-
-  renderPolicyDocumentsButton() {
-    const policy = this.getPolicy()
-
-    if (policy && !policy.complete && _.values(policy.documents).length) {
-      return (
-        <BigRedFullWidthButton
-          style={{ marginTop: MARGIN.base, backgroundColor: YELLOW }}
-          onPress={this.handleDocumentUploadPress}
-        >
-          <Text style={{ color: BLUE }}>
-            {"We're currently processing your policy documents."}
-          </Text>
-        </BigRedFullWidthButton>
-      )
-    } else if (policy && !policy.complete) {
-      return (
-        <BigRedFullWidthButton
-          style={{ marginTop: MARGIN.base }}
-          onPress={this.handleDocumentUploadPress}
-        >
-          <Text>Please upload your policy documentation for a profile</Text>
-        </BigRedFullWidthButton>
-      )
-    }
-
-    return null
-  }
-
-  render() {
+class PolicyDetailsScreen extends React.Component<IProps> {
+  public render() {
     const policy = this.getPolicy()
 
     const expiryDate = policy.expiryDate ? moment(policy.expiryDate) : ''
@@ -173,6 +112,63 @@ class PolicyDetailsScreen extends Component {
         {this.renderPolicyDocumentsButton()}
       </ScrollView>
     )
+  }
+
+  private handleDocumentUploadPress = () => {
+    this.props.dispatch(NavigationActions.navigate({ routeName: 'Documents' }))
+  }
+
+  private getPolicy(): IMotorPolicy {
+    const navigationState = this.props.navigation.state
+    console.log('navigation', this.props.navigation)
+    const policyId = navigationState.params.policyId
+
+    let policy: IMotorPolicy
+
+    // Typecheck demanded by Flow
+    if (typeof policyId === 'string') {
+      policy = this.props.policies[policyId]
+    } else {
+      throw new TypeError(
+        'PolicyDetailsScreen was expecting a policyId of type string in the navigation params.',
+      )
+    }
+
+    if (!policy) {
+      throw new Error(
+        `Policy with id ${policyId} does not exist so cannot render the policy details screen`,
+      )
+    }
+
+    return policy
+  }
+
+  private renderPolicyDocumentsButton() {
+    const policy = this.getPolicy()
+
+    if (policy && !policy.complete && _.values(policy.documents).length) {
+      return (
+        <BigRedFullWidthButton
+          style={{ marginTop: MARGIN.base, backgroundColor: YELLOW }}
+          onPress={this.handleDocumentUploadPress}
+        >
+          <Text style={{ color: BLUE }}>
+            {"We're currently processing your policy documents."}
+          </Text>
+        </BigRedFullWidthButton>
+      )
+    } else if (policy && !policy.complete) {
+      return (
+        <BigRedFullWidthButton
+          style={{ marginTop: MARGIN.base }}
+          onPress={this.handleDocumentUploadPress}
+        >
+          <Text>Please upload your policy documentation for a profile</Text>
+        </BigRedFullWidthButton>
+      )
+    }
+
+    return null
   }
 }
 

@@ -1,49 +1,26 @@
-/* @flow */
-
-import React, { Component } from 'react'
-import { View, StyleSheet } from 'react-native'
-import { connect } from 'react-redux'
+import * as React from 'react'
+import { StyleSheet, View } from 'react-native'
 import { NavigationActions } from 'react-navigation'
+import { connect, DispatchProp } from 'react-redux'
 
-import type { Dispatch } from 'jog/src/common/types'
-
-import { clear } from 'jog/src/common/store/screens/auth/actions'
-import AccessoryButton from 'jog/src/native/components/AccessoryButton'
-import { BLUE } from 'jog/src/common/constants/palette'
-import { MARGIN } from 'jog/src/common/constants/style'
+import { BLUE } from '~/common/constants/palette'
+import { MARGIN } from '~/common/constants/style'
+import { clear } from '~/common/store/screens/auth/actions'
+import AccessoryButton from '~/native/components/AccessoryButton'
 import { Logo } from '../components/images/index'
 
 import Jumbotron from '../components/Jumbotron'
 
-type AuthHomeProps = {
-  dispatch: Dispatch,
-  loading: boolean,
+interface IAuthHomeProps extends DispatchProp<any> {
+  loading: boolean
 }
 
-class AuthHomeScreen extends Component {
-  props: AuthHomeProps
-
-  componentWillUnmount() {
+class AuthHomeScreen extends React.Component<IAuthHomeProps> {
+  public componentWillUnmount() {
     this.props.dispatch(clear())
   }
 
-  handleLoginPress = () => {
-    this.props.dispatch(
-      NavigationActions.navigate({
-        routeName: 'Login',
-      }),
-    )
-  }
-
-  handleRegisterNowPress = () => {
-    this.props.dispatch(
-      NavigationActions.navigate({
-        routeName: 'Register',
-      }),
-    )
-  }
-
-  render() {
+  public render() {
     return (
       <View style={styles.container}>
         <View style={{ alignItems: 'center' }}>
@@ -67,6 +44,22 @@ class AuthHomeScreen extends Component {
           />
         </View>
       </View>
+    )
+  }
+
+  private handleLoginPress = () => {
+    this.props.dispatch(
+      NavigationActions.navigate({
+        routeName: 'Login',
+      }),
+    )
+  }
+
+  private handleRegisterNowPress = () => {
+    this.props.dispatch(
+      NavigationActions.navigate({
+        routeName: 'Register',
+      }),
     )
   }
 }

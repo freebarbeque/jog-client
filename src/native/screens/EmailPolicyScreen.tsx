@@ -1,31 +1,26 @@
-/* @flow */
-
-import React, { Component } from 'react'
-import { TouchableOpacity, View, StyleSheet, Clipboard } from 'react-native'
-import { NavigationActions } from 'react-navigation'
-import { connect } from 'react-redux'
+import * as React from 'react'
+import { Clipboard, StyleSheet, TouchableOpacity, View } from 'react-native'
 import FadeInView from 'react-native-fade-in-view'
+import { NavigationActions } from 'react-navigation'
+import { connect, DispatchProp } from 'react-redux'
 
-import { MARGIN } from 'jog/src/common/constants/style'
-import { BLUE, PINK } from 'jog/src/common/constants/palette'
-import type { ReduxState, FirebaseUser } from 'jog/src/common/types'
+import { BLUE, PINK } from '~/common/constants/palette'
+import { MARGIN } from '~/common/constants/style'
+import { IFirebaseUser, IReduxState } from '~/common/types'
 
 import { Cancel, Logo } from '../components/images'
 import Text from '../components/Text'
 
-type EmailPolicyScreenProps = {
-  user: FirebaseUser,
+interface IProps extends DispatchProp<any> {
+  user: IFirebaseUser
 }
 
-type EmailPolicyScreenState = {
-  copiedToClipboard: boolean,
+interface IState {
+  copiedToClipboard: boolean
 }
 
-class EmailPolicyScreen extends Component {
-  props: EmailPolicyScreenProps
-  state: EmailPolicyScreenState
-
-  static navigationOptions = ({ navigation }) => {
+class EmailPolicyScreen extends React.Component<IProps, IState> {
+  public static navigationOptions = ({ navigation }) => {
     const { dispatch } = navigation
 
     return {
@@ -58,12 +53,12 @@ class EmailPolicyScreen extends Component {
     }
   }
 
-  handleEmailClick = () => {
+  public handleEmailClick = () => {
     this.setState({ copiedToClipboard: true })
     Clipboard.setString('policies@jog.insure')
   }
 
-  render() {
+  public render() {
     return (
       <View style={styles.container}>
         <Text>
@@ -117,6 +112,6 @@ const styles = StyleSheet.create({
   },
 })
 
-const mapStateToProps = (state: ReduxState) => ({ user: state.auth.user })
+const mapStateToProps = (state: IReduxState) => ({ user: state.auth.user })
 
 export default connect(mapStateToProps)(EmailPolicyScreen)

@@ -4,18 +4,18 @@ import { NavigationActions, TabNavigator } from 'react-navigation'
 import { connect, DispatchProp } from 'react-redux'
 
 import { selectPolicies } from '~/common/store/policies/selectors'
-import PolicyDetailsScreen from '~/native/screens/PolicyDetailsScreen'
+import IPolicyDetailsScreen from '~/native/screens/PolicyDetailsScreen'
 import PolicyDocumentsScreen from '~/native/screens/PolicyDocumentsScreen'
 
 import { BLUE, PINK, WHITE } from '../../common/constants/palette'
 
 import {
-  Dispatch,
+  IMotorPolicy,
   IMotorPolicyMap,
-  MotorPolicy,
-  ReactNavigationProp,
-  ReduxState,
-  Route,
+  INavReduxState,
+  IReactNavigationProp,
+  IReduxState,
+  IRoute,
 } from '../../common/types'
 
 import BackgroundHeader from '../components/BackgroundHeader'
@@ -68,7 +68,7 @@ const styles = StyleSheet.create({
 
 const PolicyDetailsTabNavigator = TabNavigator(
   {
-    Details: { screen: PolicyDetailsScreen },
+    Details: { screen: IPolicyDetailsScreen },
     Documents: { screen: PolicyDocumentsScreen },
   },
   {
@@ -92,24 +92,28 @@ const PolicyDetailsTabNavigator = TabNavigator(
   },
 )
 
-interface IPolicyDetailsNavigatorHeaderProps extends DispatchProp<any> {
+interface IPolicyDetailsNavigatorHeaderProps {
   policyId: string
   policyIndex: number
-  policies: IMotorPolicyMap
 }
 
-class PolicyDetailsNavigatorHeader extends React.Component<
-  IPolicyDetailsNavigatorHeaderProps
-> {}
+interface IPolicyDetailsNavigatorHeaderConnectedProps
+  extends IPolicyDetailsNavigatorHeaderProps,
+    DispatchProp<any> {
+  policies: IMotorPolicyMap
+  nav: INavReduxState
+}
 
-const PolicyDetailsNavigatorHeader = connect((state: ReduxState) => ({
+const PolicyDetailsNavigatorHeader: React.ComponentClass<
+  IPolicyDetailsNavigatorHeaderProps
+> = connect((state: IReduxState) => ({
   policies: selectPolicies(state),
   nav: state.nav,
-}))((props: any) => {
+}))((props: IPolicyDetailsNavigatorHeaderConnectedProps) => {
   const { policies, policyId, policyIndex, nav, dispatch } = props
 
   // If unmounting (e.g. on clear mock policies) or policies not loaded, policy can be null
-  const policy: MotorPolicy | null = policies[policyId]
+  const policy: IMotorPolicy | null = policies[policyId]
 
   if (policy) {
     return (
@@ -127,15 +131,16 @@ const PolicyDetailsNavigatorHeader = connect((state: ReduxState) => ({
   }
 
   return null
-})
+}) as any
 
 interface IPolicyDetailsNavigatorProps extends DispatchProp<any> {
-  navigation: ReactNavigationProp
+  navigation: IReactNavigationProp
 }
 
 // Subclassed to allow addition of custom header. The reason for this is that react-navigation
 // ignores the header property within navigationOptions on nested tab navigators.
-class PolicyDetailsNavigator extends PolicyDetailsTabNavigator<
+// tslint:disable-next-line:max-classes-per-file
+class PolicyDetailsNavigator extends (PolicyDetailsTabNavigator as any)<
   IPolicyDetailsNavigatorProps
 > {
   private props: IPolicyDetailsNavigatorProps
@@ -167,7 +172,7 @@ class PolicyDetailsNavigator extends PolicyDetailsTabNavigator<
   }
 
   private getParams(): { [key: string]: any } {
-    let state = this.props.navigation.state
+    let state: any = this.props.navigation.state
     let params = state.params
 
     // May have navigated straight to a subroute, e.g. documents
@@ -220,7 +225,7 @@ class PolicyDetailsNavigator extends PolicyDetailsTabNavigator<
     const navigation = this.props.navigation
     const routes = navigation.state.routes
 
-    return routes.map((r: Route, idx: number) => {
+    return routes.map((r: IRoute, idx: number) => {
       const routeName = r.routeName
       const isActive = navigation.state.index === idx
       return (

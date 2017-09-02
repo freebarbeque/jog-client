@@ -1,42 +1,34 @@
-/* @flow */
-
-import React, { Component } from 'react'
-import { View, StyleSheet, TouchableOpacity } from 'react-native'
-import { connect } from 'react-redux'
+import * as React from 'react'
+import { StyleSheet, TouchableOpacity, View } from 'react-native'
 import { NavigationActions } from 'react-navigation'
+import { connect, DispatchProp } from 'react-redux'
 
-import type {
-  ReduxState,
-  MotorPolicy,
-  PolicyDocument,
-  Dispatch,
-  ReactNavigationProp,
-} from 'jog/src/common/types'
+import {
+  IMotorPolicy,
+  IPolicyDocument,
+  IReactNavigationProp,
+  IReduxState,
+} from '~/common/types'
 
-import { selectPolicies } from 'jog/src/common/store/policies/selectors'
-import { BLUE, CREAM, PINK } from 'jog/src/common/constants/palette'
-import { MARGIN } from 'jog/src/common/constants/style'
-import { deletePolicyDocument } from 'jog/src/common/store/policies/actions'
+import { BLUE, CREAM, PINK } from '~/common/constants/palette'
+import { MARGIN } from '~/common/constants/style'
+import { deletePolicyDocument } from '~/common/store/policies/actions'
+import { selectPolicies } from '~/common/store/policies/selectors'
 
-import Text from '../components/Text'
+import DocumentViewer from '../components/DocumentViewer'
 import { Cancel } from '../components/images/index'
 import Spinner from '../components/Spinner'
-import DocumentViewer from '../components/DocumentViewer'
+import Text from '../components/Text'
 
-type PolicyDocumentScreenProps = {
-  // eslint-disable-next-line react/no-unused-prop-types
-  dispatch: Dispatch,
-  // eslint-disable-next-line react/no-unused-prop-types
-  policy: MotorPolicy,
-  document?: PolicyDocument,
-  // eslint-disable-next-line react/no-unused-prop-types
-  navigation: ReactNavigationProp,
+interface IProps extends DispatchProp<any> {
+  policy: IMotorPolicy
+  document?: IPolicyDocument
+  navigation: IReactNavigationProp
 }
 
-class PolicyDocumentScreen extends Component {
-  props: PolicyDocumentScreenProps
-
-  static navigationOptions = ({ navigation }) => {
+class PolicyDocumentScreen extends React.Component<IProps> {
+  // tslint:disable-next-line:no-unused-variable
+  private static navigationOptions = ({ navigation }) => {
     const { state, dispatch } = navigation
     const { params } = state
     const { documentName, policyId, documentId } = params
@@ -76,7 +68,7 @@ class PolicyDocumentScreen extends Component {
     }
   }
 
-  renderDocument() {
+  public renderDocument() {
     const { document } = this.props
     const name = document ? document.name : ''
 
@@ -87,7 +79,7 @@ class PolicyDocumentScreen extends Component {
     return <Spinner text={`Loading ${name}`} />
   }
 
-  render() {
+  public render() {
     return (
       <View style={styles.container}>
         {this.renderDocument()}
@@ -114,13 +106,9 @@ const styles = StyleSheet.create({
   },
 })
 
-const mapStateToProps = (state: ReduxState) => state
+const mapStateToProps = (state: IReduxState) => state
 
-const mergeProps = (
-  state: ReduxState,
-  { dispatch },
-  ownProps: PolicyDocumentScreenProps,
-) => {
+const mergeProps = (state: IReduxState, { dispatch }, ownProps: IProps) => {
   const policies = selectPolicies(state)
   const navigationParams = ownProps.navigation.state.params
   const policyId = navigationParams.policyId
@@ -146,10 +134,12 @@ const mergeProps = (
       dispatch,
       policy,
       document,
+      navigation: ownProps.navigation,
     }
   }
   throw new Error(`No policy with id ${policyId}`)
 }
 
-// $FlowFixMe
-export default connect(mapStateToProps, null, mergeProps)(PolicyDocumentScreen)
+export default connect(mapStateToProps, null as any, mergeProps)(
+  PolicyDocumentScreen as any,
+)

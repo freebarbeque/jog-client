@@ -6,7 +6,6 @@ import { connect, DispatchProp } from 'react-redux'
 
 import { WHITE } from '~/common/constants/palette'
 import { logout } from '~/common/store/auth/actions'
-import { Dispatch } from '~/common/types'
 import Text from '~/native/components/Text'
 
 interface IProps {

@@ -1,30 +1,27 @@
-// @flow
-import React, { Component } from 'react'
-import { View, StyleSheet, TouchableOpacity } from 'react-native'
+import * as React from 'react'
+import { StyleSheet, TouchableOpacity, View } from 'react-native'
 import {
   BLUE,
   DARK_GRAY,
   VERY_LIGHT_GRAY,
   WHITE,
-} from 'jog/src/common/constants/palette'
-import { Ellipses } from 'jog/src/native/components/images/index'
-import Text from 'jog/src/native/components/Text'
-import { MARGIN } from 'jog/src/common/constants/style'
+} from '~/common/constants/palette'
+import { MARGIN } from '~/common/constants/style'
+import { Ellipses } from '~/native/components/images/index'
+import Text from '~/native/components/Text'
 
-export type PolicyCardProps = {
-  title: string,
-  onMenuPress?: () => void,
-  onPress?: () => void,
-  image: any,
-  topImage?: any,
-  bottomImage?: any,
-  description: string,
+export interface IPolicyCardProps {
+  title: string
+  onMenuPress?: () => void
+  onPress?: () => void
+  image: any
+  topImage?: any
+  bottomImage?: any
+  description: string
 }
 
-export default class PolicyCard extends Component {
-  props: PolicyCardProps
-
-  render() {
+export default class PolicyCard extends React.Component<IPolicyCardProps> {
+  public render() {
     return (
       <TouchableOpacity style={styles.card} onPress={this.props.onPress}>
         <View

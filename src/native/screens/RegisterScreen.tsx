@@ -1,48 +1,46 @@
-/* @flow */
-
-import React, { Component } from 'react'
-import { View, StyleSheet, Dimensions } from 'react-native'
-import { connect } from 'react-redux'
-import { NavigationActions } from 'react-navigation'
+import * as React from 'react'
+import { Dimensions, StyleSheet, View } from 'react-native'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
-
-import type {
-  Dispatch,
-  ReduxState,
-  ValuesMap,
-  ValidationErrorsMap,
-} from 'jog/src/common/types'
+import { NavigationActions } from 'react-navigation'
+import { connect } from 'react-redux'
 
 import {
-  setValues,
-  setValidationErrors,
+  Dispatch,
+  IReduxState,
+  IValidationErrorsMap,
+  IValuesMap,
+} from '~/common/types'
+
+import { BLUE } from '~/common/constants/palette'
+import { MARGIN } from '~/common/constants/style'
+import {
   register,
-} from 'jog/src/common/store/screens/auth/actions'
-import { BLUE } from 'jog/src/common/constants/palette'
-import Text from 'jog/src/native/components/Text'
-import { MARGIN } from 'jog/src/common/constants/style'
-import Form from 'jog/src/native/components/Form'
-import AccessoryButton from 'jog/src/native/components/AccessoryButton'
-import { Logo } from 'jog/src/native/components/images'
+  setValidationErrors,
+  setValues,
+} from '~/common/store/screens/auth/actions'
+import AccessoryButton from '~/native/components/AccessoryButton'
+import Form from '~/native/components/Form'
+import { Logo } from '~/native/components/images'
+import Text from '~/native/components/Text'
 
 import {
   emailField,
   nameField,
   validatedPasswordField,
-} from 'jog/src/native/components/Form/fields'
+} from '~/native/components/Form/fields'
 
-type RegisterProps = {
-  dispatch: Dispatch,
-  values: ValuesMap,
-  validationErrors: ValidationErrorsMap,
-  registerError: string | null,
-  loading: boolean,
+interface IRegisterProps {
+  dispatch: Dispatch
+  values: IValuesMap
+  validationErrors: IValidationErrorsMap
+  registerError: string | null
+  loading: boolean
+  errors: { [key: string]: string }
 }
 
-class RegisterScreen extends Component {
-  props: RegisterProps
-
-  static navigationOptions = {
+class RegisterScreen extends React.Component<IRegisterProps> {
+  // tslint:disable-next-line:no-unused-variable
+  private static navigationOptions = {
     title: null,
     headerLeft: (
       <Logo
@@ -53,31 +51,9 @@ class RegisterScreen extends Component {
     headerStyle: { backgroundColor: BLUE },
   }
 
-  static formFields = [nameField, emailField, validatedPasswordField]
+  private static formFields = [nameField, emailField, validatedPasswordField]
 
-  handleLoginPress = () => {
-    this.props.dispatch(NavigationActions.back())
-  }
-
-  handleSubmit = values => {
-    // eslint-disable-next-line no-unused-vars
-    const { name, email, password } = values // TODO: Do something with name
-    this.props.dispatch(register(name, email, password))
-  }
-
-  renderFormAccessory() {
-    return (
-      <View style={{ flexDirection: 'row' }}>
-        <AccessoryButton
-          label="got an account?"
-          onPress={this.handleLoginPress}
-          disabled={this.props.loading}
-        />
-      </View>
-    )
-  }
-
-  render() {
+  public render() {
     const window = Dimensions.get('window')
     const windowWidth = window.width
 
@@ -124,6 +100,28 @@ class RegisterScreen extends Component {
       </KeyboardAwareScrollView>
     )
   }
+
+  private handleLoginPress = () => {
+    this.props.dispatch(NavigationActions.back())
+  }
+
+  private handleSubmit = values => {
+    // eslint-disable-next-line no-unused-vars
+    const { name, email, password } = values // TODO: Do something with name
+    this.props.dispatch(register(name, email, password))
+  }
+
+  private renderFormAccessory() {
+    return (
+      <View style={{ flexDirection: 'row' }}>
+        <AccessoryButton
+          label="got an account?"
+          onPress={this.handleLoginPress}
+          disabled={this.props.loading}
+        />
+      </View>
+    )
+  }
 }
 
 const styles = StyleSheet.create({
@@ -149,7 +147,7 @@ const styles = StyleSheet.create({
   },
 })
 
-const mapStateToProps = (state: ReduxState) => ({
+const mapStateToProps = (state: IReduxState) => ({
   ...state.screens.auth,
 })
 

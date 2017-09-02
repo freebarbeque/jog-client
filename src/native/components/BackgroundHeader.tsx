@@ -9,14 +9,16 @@ import { WHITE } from '../../common/constants/palette'
 import { Background, Chevron } from './images/index'
 import Text from './Text'
 
-interface IBackgroundHeaderProps extends DispatchProp<any> {
+interface IProps {
   headerText: string
   subheaderText?: string | null
   onPress?: () => void
   enableBackPress?: boolean
 }
 
-class BackgroundHeader extends React.Component<IBackgroundHeaderProps> {
+interface IConnectedProps extends DispatchProp<any>, IProps {}
+
+class BackgroundHeader extends React.Component<IConnectedProps> {
   public static defaultProps = {
     enableBackPress: true,
   }
@@ -80,7 +82,6 @@ const styles = StyleSheet.create({
   backgroundImage: {
     height: 100,
     resizeMode: 'cover',
-    width: null,
     justifyContent: 'center',
     padding: MARGIN.large,
   },
@@ -89,4 +90,8 @@ const styles = StyleSheet.create({
   },
 })
 
-export default connect()(BackgroundHeader)
+const ConnectedBackgroundHeader: React.ComponentClass<IProps> = connect()(
+  BackgroundHeader,
+)
+
+export default ConnectedBackgroundHeader

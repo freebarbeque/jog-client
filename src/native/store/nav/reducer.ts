@@ -1,4 +1,4 @@
-import { RootStackNavigator } from 'jog/src/native/navigators/RootNavigator'
+import { RootStackNavigator } from '~/native/navigators/RootNavigator'
 
 export default (state, action) => {
   const newState = RootStackNavigator.router.getStateForAction(action, state)

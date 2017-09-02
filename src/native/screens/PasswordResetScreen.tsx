@@ -1,67 +1,37 @@
-/* @flow */
-
-import React, { Component } from 'react'
-import { View, StyleSheet, Dimensions } from 'react-native'
-import { connect } from 'react-redux'
-import { NavigationActions } from 'react-navigation'
+import * as React from 'react'
+import { Dimensions, StyleSheet, View } from 'react-native'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
+import { NavigationActions } from 'react-navigation'
+import { connect, DispatchProp } from 'react-redux'
 
-import type {
-  Dispatch,
-  ReduxState,
-  ValuesMap,
-  ValidationErrorsMap,
-} from 'jog/src/common/types'
+import { IReduxState, IValidationErrorsMap, IValuesMap } from '~/common/types'
 
 import {
-  setValues,
-  setValidationErrors,
   passwordReset,
-} from 'jog/src/common/store/screens/auth/actions'
+  setValidationErrors,
+  setValues,
+} from '~/common/store/screens/auth/actions'
 
-import { BLUE } from 'jog/src/common/constants/palette'
-import Text from 'jog/src/native/components/Text'
-import { MARGIN } from 'jog/src/common/constants/style'
+import { BLUE } from '~/common/constants/palette'
+import { MARGIN } from '~/common/constants/style'
+import Text from '~/native/components/Text'
 
-import { emailField } from 'jog/src/native/components/Form/fields'
-import AccessoryButton from 'jog/src/native/components/AccessoryButton'
-import Form from 'jog/src/native/components/Form/index'
+import AccessoryButton from '~/native/components/AccessoryButton'
+import { emailField } from '~/native/components/Form/fields'
+import Form from '~/native/components/Form/index'
 
-type PasswordResetScreenProps = {
-  dispatch: Dispatch,
-  values: ValuesMap,
-  validationErrors: ValidationErrorsMap,
-  passwordResetError: string | null,
-  loading: boolean,
+interface IPasswordResetScreenProps extends DispatchProp<any> {
+  values: IValuesMap
+  validationErrors: IValidationErrorsMap
+  passwordResetError: string | null
+  loading: boolean
+  errors: { [key: string]: string }
 }
 
-class PasswordResetScreen extends Component {
-  props: PasswordResetScreenProps
+class PasswordResetScreen extends React.Component<IPasswordResetScreenProps> {
+  private static formFields = [emailField]
 
-  static formFields = [emailField]
-
-  handleLoginPress = () => {
-    this.props.dispatch(NavigationActions.back())
-  }
-
-  handleSubmit = values => {
-    const { email } = values
-    this.props.dispatch(passwordReset(email))
-  }
-
-  renderFormAccessory() {
-    return (
-      <View style={{ flexDirection: 'row' }}>
-        <AccessoryButton
-          label="know your password?"
-          onPress={this.handleLoginPress}
-          disabled={this.props.loading}
-        />
-      </View>
-    )
-  }
-
-  render() {
+  public render() {
     const window = Dimensions.get('window')
     const windowWidth = window.width
 
@@ -103,6 +73,27 @@ class PasswordResetScreen extends Component {
       </KeyboardAwareScrollView>
     )
   }
+
+  private handleLoginPress = () => {
+    this.props.dispatch(NavigationActions.back())
+  }
+
+  private handleSubmit = values => {
+    const { email } = values
+    this.props.dispatch(passwordReset(email))
+  }
+
+  private renderFormAccessory() {
+    return (
+      <View style={{ flexDirection: 'row' }}>
+        <AccessoryButton
+          label="know your password?"
+          onPress={this.handleLoginPress}
+          disabled={this.props.loading}
+        />
+      </View>
+    )
+  }
 }
 
 const styles = StyleSheet.create({
@@ -128,7 +119,7 @@ const styles = StyleSheet.create({
   },
 })
 
-const mapStateToProps = (state: ReduxState) => ({
+const mapStateToProps = (state: IReduxState) => ({
   ...state.screens.auth,
 })
 

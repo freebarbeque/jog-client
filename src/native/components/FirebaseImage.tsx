@@ -3,7 +3,7 @@ import * as React from 'react'
 import { Image, View } from 'react-native'
 
 interface IFirebaseImageProps {
-  imagePath: string | null
+  imagePath?: string | null
   width: number
 }
 
@@ -27,12 +27,12 @@ export default class FirebaseImage extends React.Component<
   }
 
   public componentDidMount() {
-    this.downloadImage(this.props.imagePath)
+    if (this.props.imagePath) this.downloadImage(this.props.imagePath)
   }
 
   public componentWillReceiveProps(props: IFirebaseImageProps) {
     if (props.imagePath !== this.props.imagePath) {
-      this.downloadImage(props.imagePath)
+      this.downloadImage(props.imagePath || null)
     }
   }
 

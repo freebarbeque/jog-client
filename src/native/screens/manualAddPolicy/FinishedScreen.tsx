@@ -3,7 +3,7 @@ import { StyleSheet, View } from 'react-native'
 import { NavigationActions } from 'react-navigation'
 import { connect, DispatchProp } from 'react-redux'
 
-import { Dispatch, INavReduxState, IReduxState } from '~/common/types'
+import { INavReduxState, IReduxState } from '~/common/types'
 
 import * as _ from 'lodash'
 import { BLUE } from '~/common/constants/palette'

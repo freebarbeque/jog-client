@@ -1,20 +1,16 @@
-/* @flow */
+import * as React from 'react'
+import { StyleSheet, TouchableOpacity, View } from 'react-native'
+import { PINK } from '~/common/constants/palette'
+import { Background } from '~/native/components/images/index'
+import Jumbotron from '~/native/components/Jumbotron'
+import Text from '~/native/components/Text'
 
-import React, { Component } from 'react'
-import { View, StyleSheet, TouchableOpacity } from 'react-native'
-import Text from 'jog/src/native/components/Text'
-import Jumbotron from 'jog/src/native/components/Jumbotron'
-import { PINK } from 'jog/src/common/constants/palette'
-import { Background } from 'jog/src/native/components/images/index'
-
-type GetStartedScreenProps = {
-  onGetStartedPress: () => void,
+interface IProps {
+  onGetStartedPress: () => void
 }
 
-export default class GetStartedScreen extends Component {
-  props: GetStartedScreenProps
-
-  render() {
+export default class GetStartedScreen extends React.Component<IProps> {
+  public render() {
     return (
       <View style={styles.container}>
         <Background style={styles.backgroundImage}>
@@ -41,8 +37,8 @@ const styles = StyleSheet.create({
   backgroundImage: {
     flex: 1,
     resizeMode: 'cover',
-    width: null,
-    height: null,
+    width: 'default',
+    height: 'default',
     alignItems: 'center',
     justifyContent: 'center',
   },
