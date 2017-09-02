@@ -1,31 +1,22 @@
-/* @flow */
-
-import React, { Component } from 'react'
-import { connect } from 'react-redux'
+import * as React from 'react'
 import { NavigationActions } from 'react-navigation'
+import { connect, DispatchProp } from 'react-redux'
 
-import type { Dispatch, ReduxState } from 'jog/src/common/types'
+import { IReduxState } from '~/common/types'
 
-import AddPolicyScreenContainer from 'jog/src/native/components/AddPolicyScreenContainer'
-import type { ManualPolicyUpdate } from 'jog/src/common/store/screens/addManualPolicy/actions'
-import { updateManualPolicy } from 'jog/src/common/store/screens/addManualPolicy/actions'
-import AccessoryTextInput from 'jog/src/native/components/AccessoryTextInput'
+import {
+  IManualPolicyUpdate,
+  updateManualPolicy,
+} from '~/common/store/screens/addManualPolicy/actions'
+import AccessoryTextInput from '~/native/components/AccessoryTextInput'
+import AddPolicyScreenContainer from '~/native/components/AddPolicyScreenContainer'
 
-type PolicyCostScreenProps = {
-  dispatch: Dispatch,
-  policy: ManualPolicyUpdate,
+interface IProps extends DispatchProp<any> {
+  policy: IManualPolicyUpdate
 }
 
-class PolicyCostScreen extends Component {
-  props: PolicyCostScreenProps
-
-  handleNextPress = () => {
-    this.props.dispatch(
-      NavigationActions.navigate({ routeName: 'LicensePlate' }),
-    )
-  }
-
-  render() {
+class PolicyCostScreen extends React.Component<IProps> {
+  public render() {
     const cost = this.props.policy.cost || ''
 
     return (
@@ -52,9 +43,15 @@ class PolicyCostScreen extends Component {
       </AddPolicyScreenContainer>
     )
   }
+
+  private handleNextPress = () => {
+    this.props.dispatch(
+      NavigationActions.navigate({ routeName: 'LicensePlate' }),
+    )
+  }
 }
 
-const mapStateToProps = (state: ReduxState) => ({
+const mapStateToProps = (state: IReduxState) => ({
   policy: state.screens.addManualPolicy,
 })
 

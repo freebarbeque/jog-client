@@ -9,7 +9,7 @@ const moment = require('moment')
 import Text from './Text'
 
 interface IJogDatePickerProps {
-  date: string
+  date?: string
   onDateChange: (date: string) => void
 }
 

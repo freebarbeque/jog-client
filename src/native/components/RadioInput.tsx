@@ -10,7 +10,7 @@ interface IRadioInputProps {
     label: string
     value: string
   }>
-  value: string
+  value?: string
   onChange: (value: string) => void
   style?: any
 }

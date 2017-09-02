@@ -1,29 +1,24 @@
 /* @flow */
 
-import React, { Component } from 'react'
-import { connect } from 'react-redux'
+import * as React from 'react'
 import { NavigationActions } from 'react-navigation'
+import { connect, DispatchProp } from 'react-redux'
 
-import type { Dispatch, ReduxState } from 'jog/src/common/types'
+import { IReduxState } from '~/common/types'
 
-import AddPolicyScreenContainer from 'jog/src/native/components/AddPolicyScreenContainer'
-import type { ManualPolicyUpdate } from 'jog/src/common/store/screens/addManualPolicy/actions'
-import { updateManualPolicy } from 'jog/src/common/store/screens/addManualPolicy/actions'
-import TextInput from 'jog/src/native/components/TextInput'
+import {
+  IManualPolicyUpdate,
+  updateManualPolicy,
+} from '~/common/store/screens/addManualPolicy/actions'
+import AddPolicyScreenContainer from '~/native/components/AddPolicyScreenContainer'
+import TextInput from '~/native/components/TextInput'
 
-type PolicyNumberScreenProps = {
-  dispatch: Dispatch,
-  policy: ManualPolicyUpdate,
+interface IProps extends DispatchProp<any> {
+  policy: IManualPolicyUpdate
 }
 
-class PolicyNumberScreen extends Component {
-  props: PolicyNumberScreenProps
-
-  handleNextPress = () => {
-    this.props.dispatch(NavigationActions.navigate({ routeName: 'PolicyDate' }))
-  }
-
-  render() {
+class PolicyNumberScreen extends React.Component<IProps> {
+  public render() {
     return (
       <AddPolicyScreenContainer
         showNextButton
@@ -47,9 +42,13 @@ class PolicyNumberScreen extends Component {
       </AddPolicyScreenContainer>
     )
   }
+
+  private handleNextPress = () => {
+    this.props.dispatch(NavigationActions.navigate({ routeName: 'PolicyDate' }))
+  }
 }
 
-const mapStateToProps = (state: ReduxState) => ({
+const mapStateToProps = (state: IReduxState) => ({
   policy: state.screens.addManualPolicy,
 })
 

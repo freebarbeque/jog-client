@@ -1,7 +1,7 @@
-import type { NavReduxState } from '../../common/types'
+import { INavReduxState } from '../../common/types'
 
 export function getRouteKey(
-  nav: NavReduxState,
+  nav: INavReduxState,
   routeName: string,
 ): string | null {
   let route: any = nav

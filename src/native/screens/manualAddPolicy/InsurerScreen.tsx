@@ -1,44 +1,40 @@
 /* @flow */
 
-import React, { Component } from 'react'
-import { connect } from 'react-redux'
+import * as React from 'react'
 import { NavigationActions } from 'react-navigation'
+import { connect } from 'react-redux'
 
-import type {
-  Dispatch,
-  ReduxState,
-  InsurerMap,
-  Insurer,
-} from 'jog/src/common/types'
-import AddPolicyScreenContainer from 'jog/src/native/components/AddPolicyScreenContainer'
-import Picker from 'jog/src/native/components/Picker'
-import type { ManualPolicyUpdate } from 'jog/src/common/store/screens/addManualPolicy/actions'
-import { updateManualPolicy } from 'jog/src/common/store/screens/addManualPolicy/actions'
+import * as _ from 'lodash'
+import {
+  IManualPolicyUpdate,
+  updateManualPolicy,
+} from '~/common/store/screens/addManualPolicy/actions'
+import { Dispatch, Insurer, InsurerMap, IReduxState } from '~/common/types'
+import AddPolicyScreenContainer from '~/native/components/AddPolicyScreenContainer'
+import Picker from '~/native/components/Picker'
 
-type InsurerScreenProps = {
-  dispatch: Dispatch,
-  insurers: InsurerMap,
-  policy: ManualPolicyUpdate,
+interface IInsurerScreenProps {
+  dispatch: Dispatch
+  insurers: InsurerMap
+  policy: IManualPolicyUpdate
 }
 
-class InsurerScreen extends Component {
-  props: InsurerScreenProps
-
-  handleNextPress = () => {
+class InsurerScreen extends React.Component<IInsurerScreenProps> {
+  public handleNextPress = () => {
     this.props.dispatch(
       NavigationActions.navigate({ routeName: 'PolicyNumber' }),
     )
   }
 
-  onChange = ({ value }) => {
+  public onChange = ({ value }) => {
     this.props.dispatch(updateManualPolicy({ companyId: value }))
   }
 
-  render() {
+  public render() {
     const options = [
       ..._.map(this.props.insurers, (insurer: Insurer, id: string) => {
         return {
-          label: insurer.name,
+          label: insurer.name || '',
           value: id,
         }
       }),
@@ -52,11 +48,10 @@ class InsurerScreen extends Component {
     let company
 
     if (companyId) {
-      if (companyId === 'other') {
-        company = { name: 'Other' }
-      } else {
-        company = this.props.insurers[companyId]
-      }
+      company =
+        companyId === 'other'
+          ? { name: 'Other' }
+          : this.props.insurers[companyId]
     }
 
     return (
@@ -82,7 +77,7 @@ class InsurerScreen extends Component {
   }
 }
 
-const mapStateToProps = (state: ReduxState) => ({
+const mapStateToProps = (state: IReduxState) => ({
   insurers: state.insurers.insurers,
   policy: state.screens.addManualPolicy,
 })

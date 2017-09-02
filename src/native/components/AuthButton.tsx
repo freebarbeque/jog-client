@@ -9,11 +9,13 @@ import { logout } from '~/common/store/auth/actions'
 import { Dispatch } from '~/common/types'
 import Text from '~/native/components/Text'
 
-interface IAuthButtonProps extends DispatchProp<any> {
+interface IProps {
   style: any
 }
 
-class AuthButton extends React.Component<IAuthButtonProps> {
+interface IConnectedProps extends DispatchProp<any>, IProps {}
+
+class AuthButton extends React.Component<IConnectedProps> {
   public render() {
     return (
       <TouchableOpacity style={this.props.style} onPress={this.handlePress}>
@@ -29,4 +31,6 @@ class AuthButton extends React.Component<IAuthButtonProps> {
   }
 }
 
-export default connect()(AuthButton)
+const ConnectedAuthButton: React.ComponentClass<IProps> = connect()(AuthButton)
+
+export default ConnectedAuthButton

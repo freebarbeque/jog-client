@@ -1,13 +1,12 @@
-import React from 'react'
-import { StyleSheet, Platform } from 'react-native'
+import * as React from 'react'
+import { Platform, StyleSheet } from 'react-native'
 import { TabNavigator } from 'react-navigation'
 
-import SettingsScreen from 'jog/src/native/screens/SettingsScreen'
-// import MarketsScreen from 'jog/src/native/screens/MarketsScreen'
-import { BLUE, DARK_GRAY, PINK } from 'jog/src/common/constants/palette'
-import { Logo } from 'jog/src/native/components/images/index'
-import AuthButton from 'jog/src/native/components/AuthButton'
-import { MARGIN } from 'jog/src/common/constants/style'
+import { BLUE, DARK_GRAY, PINK } from '~/common/constants/palette'
+import { MARGIN } from '~/common/constants/style'
+import AuthButton from '~/native/components/AuthButton'
+import { Logo } from '~/native/components/images/index'
+import SettingsScreen from '~/native/screens/SettingsScreen'
 
 import PoliciesNavigator from './PoliciesNavigator'
 
@@ -43,7 +42,6 @@ const styles = StyleSheet.create({
 const tabNavigator = TabNavigator(
   {
     Policies: { screen: PoliciesNavigator },
-    // Markets: { screen: MarketsScreen },
     Settings: { screen: SettingsScreen },
   },
   {
@@ -51,11 +49,6 @@ const tabNavigator = TabNavigator(
     animationEnabled: false,
     tabBarPosition: 'top',
     tabBarOptions: {
-      order: [
-        'Policies',
-        // 'Markets',
-        'Settings',
-      ],
       style: styles.tabBar,
       labelStyle: styles.tabBarLabel,
       activeTintColor: PINK,

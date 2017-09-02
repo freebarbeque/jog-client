@@ -1,22 +1,21 @@
 /*
 Provides a common interface to android & iOS files, camera & images
-
-@flow
  */
-import { Platform, NativeModules } from 'react-native'
-import DeviceInfo from 'react-native-device-info'
-import ImagePicker from 'react-native-image-picker'
+import { NativeModules, Platform } from 'react-native'
+
+const DeviceInfo = require('react-native-device-info')
+const ImagePicker = require('react-native-image-picker')
 
 const iOSFilePicker = NativeModules.RNDocumentPicker
 const androidFilePicker = NativeModules.FilePickerManager
 
-export type PickFileResponse = {
-  url: string,
-  extension: string,
-  fileName: string,
+export interface IPickFileResponse {
+  url: string
+  extension: string | null
+  fileName: string | null
 }
 
-export function pickFile(): Promise<PickFileResponse> {
+export function pickFile(): Promise<IPickFileResponse> {
   return new Promise((resolve, reject) => {
     if (Platform.OS === 'ios') {
       iOSFilePicker.show(
@@ -28,8 +27,14 @@ export function pickFile(): Promise<PickFileResponse> {
           else {
             const decodedUrl = decodeURIComponent(url)
             const path = decodedUrl.split('file://').pop()
-            const extension = path.split('.').pop().toLowerCase()
-            const fileName = path.split('/').pop()
+
+            let extension
+            let fileName
+
+            if (path) {
+              extension = ((path.split('.') || []).pop() || '').toLowerCase()
+              fileName = path.split('/').pop()
+            }
 
             resolve({
               url: decodedUrl,
@@ -45,8 +50,9 @@ export function pickFile(): Promise<PickFileResponse> {
           reject(response.error)
         } else {
           const url = decodeURIComponent(response.path)
-          const extension = url.split('.').pop().toLowerCase()
-          const fileName = url.split('/').pop()
+          const extension =
+            ((url.split('.') || []).pop() || '').toLowerCase() || null
+          const fileName = url.split('/').pop() || null
           resolve({ url, extension, fileName })
         }
       })
@@ -54,18 +60,18 @@ export function pickFile(): Promise<PickFileResponse> {
   })
 }
 
-export type iOSImageResponse = {
-  origURL: string,
-  uri: string,
-  fileName: string,
-  width: number,
-  height: number,
-  extension: string,
-  fileSize: number,
-  isVertical: boolean,
+export interface IIOSImageResponse {
+  origURL: string
+  uri: string
+  fileName: string
+  width: number
+  height: number
+  extension: string
+  fileSize: number
+  isVertical: boolean
 }
 
-export function useIOSCamera(): Promise<iOSImageResponse | null> {
+export function useIOSCamera(): Promise<IIOSImageResponse | null> {
   return new Promise((resolve, reject) => {
     const isSimulator = DeviceInfo.getModel() === 'Simulator'
     // The simulator has no camera access so use image library instead for testing

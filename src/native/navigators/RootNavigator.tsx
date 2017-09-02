@@ -1,30 +1,29 @@
-// @flow
-
-import React, { Component } from 'react'
+import * as React from 'react'
+import FadeInView from 'react-native-fade-in-view'
 import {
   addNavigationHelpers,
   NavigationActions,
   StackNavigator,
 } from 'react-navigation'
-import FadeInView from 'react-native-fade-in-view'
-import { connect } from 'react-redux'
+import { connect, DispatchProp } from 'react-redux'
 
-import EmailPolicyScreen from 'jog/src/native/screens/EmailPolicyScreen'
+import EmailPolicyScreen from '~/native/screens/EmailPolicyScreen'
 
-import type {
-  AuthReduxState,
+import {
   Dispatch,
-  NavReduxState,
-  ReduxState,
-  FirebaseUser,
+  IAuthReduxState,
+  IFirebaseUser,
+  INavReduxState,
+  IReduxState,
 } from '../../common/types'
-import LoadingScreen from '../screens/LoadingScreen'
-import { BLUE } from '../../common/constants/palette'
 
-import TabNavigator from './TabNavigator'
-import AuthNavigator from './AuthNavigator'
+import { BLUE } from '../../common/constants/palette'
+import LoadingScreen from '../screens/LoadingScreen'
+
 import PolicyDocumentScreen from '../screens/PolicyDocumentScreen'
 import AddPolicyNavigator from './AddPolicyNavigator'
+import AuthNavigator from './AuthNavigator'
+import TabNavigator from './TabNavigator'
 
 export const RootStackNavigator = StackNavigator(
   {
@@ -41,26 +40,22 @@ export const RootStackNavigator = StackNavigator(
   },
 )
 
-type RootNavigatorProps = {
-  dispatch: Dispatch,
-  nav: NavReduxState,
-  auth: AuthReduxState,
+interface IProps extends DispatchProp<any> {
+  nav: INavReduxState
+  auth: IAuthReduxState
 }
 
-type RootNavigatorState = {
-  initialised: boolean,
+interface IState {
+  initialised: boolean
 }
 
-class RootNavigator extends Component {
-  props: RootNavigatorProps
-  state: RootNavigatorState
-
+class RootNavigator extends React.Component<IProps, IState> {
   constructor(props) {
     super(props)
     this.state = { initialised: false }
   }
 
-  componentDidMount() {
+  public componentDidMount() {
     const auth = this.props.auth
     const { user, initialised } = auth
     if (initialised) {
@@ -68,7 +63,7 @@ class RootNavigator extends Component {
     }
   }
 
-  componentWillReceiveProps(props: RootNavigatorProps) {
+  public componentWillReceiveProps(props: IProps) {
     const { user, initialised } = props.auth
 
     const authDidInitialise = !this.props.auth.initialised && initialised
@@ -78,7 +73,7 @@ class RootNavigator extends Component {
     }
   }
 
-  configureNavigationStack(user: FirebaseUser | null) {
+  public configureNavigationStack(user: IFirebaseUser | null) {
     if (!user) {
       this.props.dispatch(NavigationActions.navigate({ routeName: 'Auth' }))
     } else if (!user.emailVerified) {
@@ -94,7 +89,7 @@ class RootNavigator extends Component {
     this.delayedInitialisation()
   }
 
-  delayedInitialisation() {
+  public delayedInitialisation() {
     // Super hacky way to avoid showing the modal animation - seems to impossible to remove i.e.
     // there is no property you can pass to the navigate action above that disables the animation!
     setTimeout(() => {
@@ -104,7 +99,7 @@ class RootNavigator extends Component {
     }, 300)
   }
 
-  render() {
+  public render() {
     const { dispatch, nav } = this.props
     const { initialised } = this.state
 
@@ -113,7 +108,7 @@ class RootNavigator extends Component {
       return (
         <FadeInView style={{ flex: 1, backgroundColor: BLUE }} duration={300}>
           <RootStackNavigator
-            navigation={addNavigationHelpers({ dispatch, state: nav })}
+            navigation={addNavigationHelpers({ dispatch, state: nav } as any)} // TODO: Fix any cast
           />
         </FadeInView>
       )
@@ -123,7 +118,7 @@ class RootNavigator extends Component {
   }
 }
 
-export default connect((state: ReduxState) => ({
+export default connect((state: IReduxState) => ({
   nav: state.nav,
   auth: state.auth,
 }))(RootNavigator)
