@@ -40,7 +40,7 @@ interface IRegisterProps {
 
 class RegisterScreen extends React.Component<IRegisterProps> {
   // tslint:disable-next-line:no-unused-variable
-  private static navigationOptions = {
+  public static navigationOptions = {
     title: null,
     headerLeft: (
       <Logo

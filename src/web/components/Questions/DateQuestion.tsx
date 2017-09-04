@@ -46,7 +46,7 @@ export default class DateQuestion extends React.Component<IDateQuestionProps> {
           <MaterialUIDatePicker
             ref={e => (this.picker = e)}
             value={value}
-            onChange={(e, v) =>
+            onChange={(_e, v) =>
               this.props.onChange(this.props.descriptor.id, v)}
             hintText="Date"
             name="Date"

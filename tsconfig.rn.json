@@ -5,13 +5,16 @@
     "moduleResolution": "node",
     "jsx": "react",
     "outDir": "artifacts",
-    "rootDir": "src",
+    "rootDir": ".",
+    "baseUrl": ".",
     "allowSyntheticDefaultImports": true,
     "noImplicitAny": false,
     "preserveConstEnums": true,
     "allowJs": false,
     "sourceMap": true,
-    "noImplicitReturns": true,
+    "noImplicitReturns": false,
+    "strictNullChecks": true,
+    "skipLibCheck": true,  // TODO: Remove,    
     "noUnusedParameters": true,
     "noUnusedLocals": true,
     "experimentalDecorators": true,
@@ -43,7 +46,8 @@
     "android",
     "ios",
     "build",
-    "node_modules"
+    "node_modules",
+    "modules/common/node_modules"
   ],
   "compileOnSave": false
 }

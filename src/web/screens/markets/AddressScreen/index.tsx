@@ -83,7 +83,7 @@ class AddressScreen extends React.Component<IProps, IState> {
       <Container className="MarketsScreen">
         <Header>Add a new address</Header>
         <Panel>
-          {questions.map((q, idx) => {
+          {questions.map(q => {
             const errors = this.state.errors
 
             return (

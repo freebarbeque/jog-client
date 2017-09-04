@@ -101,7 +101,7 @@ class AddressQuestion extends React.Component<IConnectedProps, IState> {
     this.props.dispatch(deleteAddressAction(addressId))
   }
 
-  private onChange = (id: string, value?: IAddress) => {
+  private onChange = (_id: string, value?: IAddress) => {
     this.setState({
       value,
     })

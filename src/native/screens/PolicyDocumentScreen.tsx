@@ -28,7 +28,7 @@ interface IProps extends DispatchProp<any> {
 
 class PolicyDocumentScreen extends React.Component<IProps> {
   // tslint:disable-next-line:no-unused-variable
-  private static navigationOptions = ({ navigation }) => {
+  public static navigationOptions = ({ navigation }) => {
     const { state, dispatch } = navigation
     const { params } = state
     const { documentName, policyId, documentId } = params

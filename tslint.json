@@ -18,6 +18,9 @@
     "curly": false,
     "space-before-function-paren": false,
     "trailing-comma": false,
+    "variable-name": [
+      false
+    ],
     "whitespace": false,
     "jsx-alignment": false,
     "no-unused-variable": true,

@@ -50,7 +50,7 @@ class PolicyDateScreen extends React.Component<IPolicyDateScreenProps> {
     this.props.dispatch(push('/app/addManualPolicy/cost'))
   }
 
-  private handleChange = (e, date) => {
+  private handleChange = (_e, date) => {
     const expiryDate = moment(date).format('DD/MM/YYYY')
     this.props.dispatch(updateManualPolicy({ expiryDate }))
   }
