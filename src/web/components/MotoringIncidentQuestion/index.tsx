@@ -1,4 +1,3 @@
-import { motoringIncidentsQuestion } from 'jog-common/business/motor'
 import {
   constructIncident,
   IMotoringIncidentAnswer,
@@ -9,6 +8,7 @@ import { IMotoringIncident } from 'jog-common/business/types'
 import * as React from 'react'
 import styled from 'styled-components'
 
+import { motoringIncidentsQuestion } from 'jog-common/business/driver'
 import { LIGHT_CREAM } from '~/common/constants/palette'
 import { MARGIN } from '~/common/constants/style'
 import IncidentTable from '~/web/components/MotoringIncidentQuestion/IncidentTable'

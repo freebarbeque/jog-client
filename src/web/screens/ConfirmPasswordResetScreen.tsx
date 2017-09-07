@@ -32,7 +32,7 @@ class ConfirmPasswordResetScreen extends React.Component<DispatchProp<any>> {
             marginLeft: 'auto',
             marginRight: 'auto',
           }}
-          label={'Back'}
+          label="Back"
           onClick={this.goBack}
         />
       </HorizontalFlexCenteredContainer>

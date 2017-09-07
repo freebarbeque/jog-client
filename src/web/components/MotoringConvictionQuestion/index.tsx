@@ -1,4 +1,4 @@
-import { motoringConvictionsQuestion } from 'jog-common/business/motor'
+import { motoringConvictionsQuestion } from 'jog-common/business/driver'
 import {
   constructConviction,
   IMotoringConvictionAnswer,

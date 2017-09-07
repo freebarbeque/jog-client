@@ -34,6 +34,7 @@ import { IFirebaseUser, IReduxState, IUserDetails } from '../../types'
 import { syncUserData, unsyncUserData } from '../actions'
 import { getNavigationAdapter, getStore, getUploadAdapter } from '../index'
 import {
+  IReceiveUserAction,
   ISyncUserAction,
   IUpdateUserDetails,
   IUpdateUserProfilePicture,
@@ -248,15 +249,18 @@ function* updateUserProfilePictureTask(action: IUpdateUserProfilePicture) {
   yield put(finishLoading())
 }
 
-function* receiveUserTask(action) {
-  setDistinctId(action.user.uid)
-  yield call(() =>
-    addUserInfoInMixPanel({
-      $set: {
-        $email: action.user.email,
-      },
-    }),
-  )
+function* receiveUserTask(action: IReceiveUserAction) {
+  const user = action.user
+  if (user) {
+    setDistinctId(user.uid)
+    yield call(() =>
+      addUserInfoInMixPanel({
+        $set: {
+          $email: user.email,
+        },
+      }),
+    )
+  }
 }
 
 /**

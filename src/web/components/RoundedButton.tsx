@@ -43,10 +43,6 @@ const RoundedButton = (props: IProps) =>
     <div style={{ color: props.labelColor || 'white' }}>
       {props.label}
     </div>
-    {props.loading &&
-      <div style={{ marginLeft: MARGIN.small }}>
-        <Circle size={15} color={WHITE} />
-      </div>}
   </Button>
 
 export default RoundedButton
