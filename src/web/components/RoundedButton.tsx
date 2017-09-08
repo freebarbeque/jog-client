@@ -1,10 +1,6 @@
 import * as React from 'react'
 import styled from 'styled-components'
-import { PINK, WHITE } from '../../common/constants/palette'
-import { MARGIN } from '../../common/constants/style'
-
-// tslint:disable-next-line:no-var-requires
-const Circle = require('better-react-spinkit')
+import { PINK } from '../../common/constants/palette'
 
 // language=SCSS prefix=dummy{ suffix=}
 const Button = styled.button`

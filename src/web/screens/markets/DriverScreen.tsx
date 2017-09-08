@@ -21,6 +21,7 @@ import { IPerson, IValidationErrors } from 'jog-common/business/types'
 import * as _ from 'lodash'
 import MotoringConvictionQuestion from '~/web/components/MotoringConvictionQuestion'
 import MotoringIncidentQuestion from '~/web/components/MotoringIncidentQuestion'
+import AddressQuestion from '~/web/components/Questions/AddressQuestion'
 import Container from '../../components/Container'
 import Panel from '../../components/Panel'
 import QuestionSet from '../../components/Questions/QuestionSet'
@@ -80,8 +81,9 @@ class DriverScreen extends React.Component<IProps, IState> {
     }
 
     const extraComponents = {
-      'person/incidents': { component: MotoringIncidentQuestion },
-      'person/convictions': { component: MotoringConvictionQuestion },
+      'motor/incidents': { component: MotoringIncidentQuestion },
+      'motor/convictions': { component: MotoringConvictionQuestion },
+      'motor/address': { component: AddressQuestion },
     }
 
     return (
@@ -153,6 +155,8 @@ class DriverScreen extends React.Component<IProps, IState> {
         this.licenseQuestionSet.validateAllFields(),
         this.personalDetailsQuestionSet.validateAllFields(),
       )
+
+      console.log('errors', errors)
 
       if (!_.keys(errors).length) {
         const driver = constructDriver(
