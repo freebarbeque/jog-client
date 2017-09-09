@@ -76,12 +76,25 @@ export default class QuestionSet<T> extends React.Component<
             const error = this.state.errors && this.state.errors[q.id]
             const blurred = this.state.blurred[q.id]
 
+            const getValue = () => {
+              let answer = answers[q.id]
+              if (!answer) {
+                if (q.defaultValue) {
+                  answer =
+                    typeof q.defaultValue === 'function'
+                      ? q.defaultValue()
+                      : q.defaultValue
+                }
+              }
+              return answer
+            }
+
             return (
               <Comp
                 key={q.id}
                 descriptor={q}
                 onChange={this.onChange}
-                value={answers[q.id]}
+                value={getValue()}
                 error={blurred ? error : null}
                 {...config.props || {}}
               />
