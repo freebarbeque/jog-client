@@ -12,11 +12,15 @@ import { IReduxState } from '../../../common/types'
 import {
   constructCar,
   deconstructCar,
-  questions as carQuestions,
+  ownerQuestions,
+  securityQuestions,
+  vehicleQuestions,
 } from 'jog-common/business/car'
 import { ICar, IValidationErrors } from 'jog-common/business/types'
+import * as _ from 'lodash'
+import { BLUE } from '~/common/constants/palette'
 import Logger, { Levels } from '~/common/Logger'
-import Container from '../../components/Container'
+import RootContainer from '../../components/Container'
 import Panel from '../../components/Panel'
 import QuestionSet from '../../components/Questions/QuestionSet'
 import SubmitButton from '../../components/SubmitButton'
@@ -36,8 +40,18 @@ interface IState {
   blurred: { [id: string]: boolean }
 }
 
+const Container = RootContainer.extend`
+  h1,
+  h2,
+  h3 {
+    color: ${BLUE};
+  }
+`
+
 class VehicleScreen extends React.Component<IProps, IState> {
-  private questionSetComp: QuestionSet<{ [id: string]: any }> | null
+  private securityQuestionSetComp: QuestionSet<{}> | null
+  private ownerQuestionSetComp: QuestionSet<{}> | null
+  private vehicleQuestionSetComp: QuestionSet<{}> | null
 
   public componentDidMount() {
     const vehicleId = this.props.match.params.vehicleId
@@ -65,18 +79,41 @@ class VehicleScreen extends React.Component<IProps, IState> {
   }
 
   public render() {
+    const onChange = (id, value) => {
+      this.props.dispatch(setCarAnswer(id, value))
+    }
+
     return (
       <Container className="VehicleScreen">
         <Header>Car</Header>
         <Panel>
+          <h3>Your Vehicle</h3>
           <QuestionSet
-            ref={e => (this.questionSetComp = e)}
-            questions={carQuestions}
+            ref={e => (this.vehicleQuestionSetComp = e)}
+            questions={vehicleQuestions}
             extraComponents={{}}
             answers={this.props.carAnswers}
-            onChange={(id, value) => {
-              this.props.dispatch(setCarAnswer(id, value))
-            }}
+            onChange={onChange}
+          />
+        </Panel>
+        <Panel>
+          <h3>Ownership</h3>
+          <QuestionSet
+            ref={e => (this.ownerQuestionSetComp = e)}
+            questions={ownerQuestions}
+            extraComponents={{}}
+            answers={this.props.carAnswers}
+            onChange={onChange}
+          />
+        </Panel>
+        <Panel>
+          <h3>Security</h3>
+          <QuestionSet
+            ref={e => (this.securityQuestionSetComp = e)}
+            questions={securityQuestions}
+            extraComponents={{}}
+            answers={this.props.carAnswers}
+            onChange={onChange}
           />
         </Panel>
         <SubmitButton label="Add car" onClick={this.handleAddClick} />
@@ -93,16 +130,25 @@ class VehicleScreen extends React.Component<IProps, IState> {
   }
 
   private handleAddClick = () => {
-    const errors = this.questionSetComp
-      ? this.questionSetComp.validateAllFields()
-      : null
-
-    if (errors && !errors.hasError) {
-      const driver = constructCar(
-        this.props.carAnswers,
-        this.props.match.params.vehicleId,
+    if (
+      this.ownerQuestionSetComp &&
+      this.securityQuestionSetComp &&
+      this.vehicleQuestionSetComp
+    ) {
+      const errors = _.merge(
+        {},
+        this.ownerQuestionSetComp.validateAllFields(),
+        this.securityQuestionSetComp.validateAllFields(),
+        this.vehicleQuestionSetComp.validateAllFields(),
       )
-      this.props.dispatch(addCar(driver))
+
+      if (errors && !errors.hasError) {
+        const driver = constructCar(
+          this.props.carAnswers,
+          this.props.match.params.vehicleId,
+        )
+        this.props.dispatch(addCar(driver))
+      }
     }
   }
 }

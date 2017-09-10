@@ -141,8 +141,6 @@ class MotorQuoteScreen extends React.Component<IMotorQuoteScreenProps> {
       this.youAndYourCarQuestionSet.validateAllFields(),
     )
 
-    console.log('errors', errors)
-
     if (!_.keys(errors).length) {
       this.saveQuote(
         this.props.match.params.quoteId,
