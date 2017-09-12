@@ -12,6 +12,7 @@ const environments = {
     },
     webApiEndpoint:
       process.env.JOG_WEB_API_ENDPOINT || 'https://jog-api-dev.now.sh',
+    getAddressIoApiKey: '14fBYWjLs0u4Z664Kb73uQ10102',
   },
   RELEASE: {
     firebase: {
@@ -25,6 +26,7 @@ const environments = {
       token: '5345c9f6ba77c5e8c9810b97a73dbb06',
     },
     webApiEndpoint: 'https://jog-api-prod.now.sh',
+    getAddressIoApiKey: '14fBYWjLs0u4Z664Kb73uQ10102',
   },
 }
 
