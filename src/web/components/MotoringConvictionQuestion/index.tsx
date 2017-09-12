@@ -1,10 +1,8 @@
 import { motoringConvictionsQuestion } from 'jog-common/business/driver'
 import {
-  constructConviction,
   IMotoringConvictionAnswer,
   questions,
 } from 'jog-common/business/motoringConvictions'
-import { IMotoringConviction } from 'jog-common/business/types'
 import * as React from 'react'
 import styled from 'styled-components'
 import { LIGHT_CREAM } from '~/common/constants/palette'
@@ -24,8 +22,8 @@ class QuestionSet extends _QuestionSet<IMotoringConvictionAnswer> {}
 
 interface IProps {
   error?: string
-  value?: IMotoringConviction[]
-  onChange?: (id: string, convictions: IMotoringConviction[]) => void
+  value?: IMotoringConvictionAnswer[]
+  onChange?: (id: string, convictions: IMotoringConvictionAnswer[]) => void
 }
 
 interface IState {
@@ -123,8 +121,6 @@ export default class MotoringConvictionQuestion extends React.Component<
     const questionId = motoringConvictionsQuestion.id
     const convictions = this.props.value || []
     const conviction = this.state.currentConvictionAnswers
-      ? constructConviction(this.state.currentConvictionAnswers)
-      : null
 
     if (this.props.onChange && conviction) {
       this.props.onChange(questionId, [...convictions, conviction])
