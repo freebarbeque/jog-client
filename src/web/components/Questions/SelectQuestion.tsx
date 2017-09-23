@@ -3,12 +3,10 @@ import * as React from 'react'
 import styled from 'styled-components'
 
 import Picker from '~/web/components/Picker'
-import { INPUT_BACKGROUND_COLOR, PINK } from '../../../common/constants/palette'
+import { INPUT_BACKGROUND_COLOR } from '../../../common/constants/palette'
 import { MARGIN } from '../../../common/constants/style'
 import QuestionField from './QuestionField'
 import SelectBox from './SelectBox'
-
-const SpecialSelectBox = SelectBox.extend`background-color: ${PINK};`
 
 const Accessory = styled.div`
   position: absolute;
@@ -50,7 +48,6 @@ export default class SelectQuestion<T> extends React.Component<
     return (
       <QuestionField
         descriptor={this.props.descriptor}
-        index={this.props.index}
         error={this.props.error}
       >
         {dropdown ? this.renderDropdown() : this.renderSelectBox()}
@@ -88,34 +85,59 @@ export default class SelectQuestion<T> extends React.Component<
         /* Do nothing */
       })
 
-    return (
-      <div style={{ display: 'inline-block' }}>
-        {this.props.specialOptions
-          ? this.props.specialOptions.map(o => {
-              return (
-                <SpecialSelectBox
-                  key={o.value}
-                  onClick={() => onSpecialOptionClick(o.value)}
-                >
-                  {o.label}
-                </SpecialSelectBox>
-              )
-            })
-          : null}
-      </div>
-    )
+    const specialOptions =
+      this.props.specialOptions && this.props.specialOptions
+
+    return specialOptions && specialOptions.length
+      ? <div style={{ display: 'block' }}>
+          <div
+            style={{
+              color: '#192142',
+              fontSize: 12,
+              fontWeight: 500,
+              marginTop: MARGIN.base,
+              textAlign: 'center',
+            }}
+          >
+            OR
+          </div>
+          {specialOptions.map((o, i) => {
+            const isOdd = Boolean(specialOptions.length % 2)
+            const shouldFill = isOdd && i === specialOptions.length - 1
+            const width = shouldFill ? 450 : 220
+            return (
+              <SelectBox
+                key={o.value}
+                style={{
+                  width,
+                }}
+                onClick={() => onSpecialOptionClick(o.value)}
+              >
+                {o.label}
+              </SelectBox>
+            )
+          })}
+        </div>
+      : null
   }
 
   private renderSelectBox() {
+    const options = this.props.descriptor.options
     return (
       <div style={{ position: 'relative', right: MARGIN.base }}>
-        {this.props.descriptor.options.map(o => {
+        {options.map((o, i) => {
+          const isOdd = Boolean(options.length % 2)
+          const shouldFill = isOdd && i === options.length - 1
+          const width = shouldFill ? 450 : 220
           return (
             <SelectBox
               key={`${o.value}${o.label}`}
               className={`${o.value === this.props.value ? 'selected' : ''}`}
               onClick={() =>
                 this.props.onChange(this.props.descriptor.id, o.value)}
+              style={{
+                width,
+              }}
               onMouseOver={() => this.setState({ hovering: true })}
               onMouseLeave={() => this.setState({ hovering: false })}
             >

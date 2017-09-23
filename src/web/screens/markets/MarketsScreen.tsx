@@ -4,7 +4,6 @@ import { Redirect, Route, Switch } from 'react-router'
 // tslint:disable-next-line:no-var-requires
 const uuid = require('uuid/v4')
 
-import Container from '../../components/Container'
 import AddressScreen from './AddressScreen'
 import DriverScreen from './DriverScreen'
 import MotorQuoteScreen from './MotorQuoteScreen'
@@ -14,7 +13,7 @@ import VehicleScreen from './VehicleScreen'
 export default class MarketsScreen extends React.Component {
   public render() {
     return (
-      <Container className="MarketsScreen">
+      <div className="MarketsScreen">
         <Route path="/app/tabs/markets" exact component={QuoteRequestsScreen} />
         <Route
           path="/app/tabs/markets/motor"
@@ -56,7 +55,7 @@ export default class MarketsScreen extends React.Component {
             component={MotorQuoteScreen}
           />
         </Switch>
-      </Container>
+      </div>
     )
   }
 }

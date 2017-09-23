@@ -42,7 +42,6 @@ export default class BooleanDependentQuestion extends React.Component<
           {!conditional
             ? <QuestionField
                 descriptor={this.props.descriptor}
-                index={this.props.index}
                 error={this.props.error}
               >
                 <div style={{ position: 'relative', right: MARGIN.base }}>

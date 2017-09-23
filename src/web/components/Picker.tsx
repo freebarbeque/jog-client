@@ -55,7 +55,7 @@ export default class Picker extends React.Component<IPickerProps> {
   }
 
   private constructContainer() {
-    const height = this.props.height || 60
+    const height = this.props.height || 40
     const textColor = this.props.textColor || BLUE
     const backgroundColor = this.props.backgroundColor || 'white'
     const borderColor = this.props.borderColor || BLUE
@@ -64,6 +64,10 @@ export default class Picker extends React.Component<IPickerProps> {
       background-color: ${backgroundColor};
       border-radius: 4px;
       height: ${height}px;
+      border-width: 1px;
+      border-color: rgb(222, 222, 222);
+      border-style: solid;
+      position: relative;
 
       div {
         color: ${textColor} !important;

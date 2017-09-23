@@ -5,10 +5,8 @@ import styled from 'styled-components'
 import { IBaseQuestionDescriptor } from 'jog-common/business/types'
 import { BLUE, PINK } from '../../../common/constants/palette'
 import { MARGIN } from '../../../common/constants/style'
-import NumberField from '../../screens/markets/AddressScreen/Number'
 
 export interface IProps {
-  index?: number
   error?: string | null
   children?: any
   descriptor: IBaseQuestionDescriptor<any>
@@ -30,7 +28,12 @@ const Error = styled.div.attrs({ className: 'Error' })`
 `
 
 // language=SCSS prefix=dummy{ suffix=}
-const Header = styled.div`font-size: 16px;`
+const Header = styled.div`
+  font-size: 20px;
+  font-weight: 500;
+  text-align: center;
+  margin-top: ${MARGIN.large}px;
+`
 // language=SCSS prefix=dummy{ suffix=}
 const Subheader = styled.div`
   font-size: 12px;
@@ -40,19 +43,12 @@ const Subheader = styled.div`
 
 export default class QuestionField extends React.Component<IProps> {
   public render() {
-    const { error, descriptor, index, children } = this.props
+    const { error, descriptor, children } = this.props
     const { required, hint, questionText } = descriptor
 
     return (
       <Container>
-        {index
-          ? <div style={{ position: 'relative', bottom: 8, marginRight: 15 }}>
-              <NumberField>
-                {index}
-              </NumberField>
-            </div>
-          : null}
-        <div>
+        <div style={{ width: '100%' }}>
           <Header
             style={{
               fontWeight: required ? 500 : 300,

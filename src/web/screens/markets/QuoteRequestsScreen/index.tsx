@@ -2,7 +2,6 @@ import * as _ from 'lodash'
 import * as React from 'react'
 import { connect, DispatchProp } from 'react-redux'
 import { push } from 'react-router-redux'
-import styled from 'styled-components'
 
 // tslint:disable-next-line:no-var-requires
 const uuid = require('uuid/v4')
@@ -18,6 +17,7 @@ import {
   INormalQuoteRequest,
   selectNormalisedQRs,
 } from '../../../../common/store/markets/selectors'
+import Container from '../../../components/Container'
 import RoundedButton from '../../../components/RoundedButton'
 import QuoteRequest from './QuoteRequest'
 
@@ -25,7 +25,7 @@ interface IProps extends DispatchProp<any> {
   quoteRequests: { [id: string]: INormalQuoteRequest }
 }
 
-const Container = styled.div`
+const QRContainer = Container.extend`
   p {
     color: ${BLUE} !important;
   }
@@ -40,7 +40,7 @@ class QuoteRequestsScreen extends React.Component<IProps> {
     const numRequests = _.keys(quoteRequests).length
 
     return (
-      <Container className="QuoteRequestsScreen">
+      <QRContainer className="QuoteRequestsScreen">
         <p>
           You have {numRequests} ongoing quote request{numRequests === 1 ? '' : 's'}.
         </p>
@@ -63,7 +63,7 @@ class QuoteRequestsScreen extends React.Component<IProps> {
           label="New Quote"
           style={{ color: 'white' }}
         />
-      </Container>
+      </QRContainer>
     )
   }
 

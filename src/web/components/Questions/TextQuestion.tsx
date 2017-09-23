@@ -1,28 +1,40 @@
 import { ITextQuestionDescriptor } from 'jog-common/business/types'
 import * as React from 'react'
 import styled from 'styled-components'
-import { INPUT_BACKGROUND_COLOR } from '~/common/constants/palette'
+import { BLUE, INPUT_BACKGROUND_COLOR } from '~/common/constants/palette'
 import { MARGIN } from '../../../common/constants/style'
 import QuestionField from './QuestionField'
 
 interface IProps {
-  descriptor: ITextQuestionDescriptor
+  // descriptor: ITextQuestionDescriptor
   value: string
   onChange: (id: string, value: string) => void
   onBlur?: (id: string) => void
   onFocus?: (id: string) => void
   error?: string | null
   index?: number
+  descriptor: ITextQuestionDescriptor
 }
 
 // language=SCSS prefix=dummy{ suffix=}
-const Input = styled.input`
+export const TextInput = styled.input`
   margin-top: ${MARGIN.base}px;
   height: 10px;
-  padding: ${MARGIN.large}px;
+  padding: 15px;
   font-size: 16px;
   background-color: ${INPUT_BACKGROUND_COLOR};
-  border: none;
+  border-width: 1px;
+  border-color: rgb(222, 222, 222);
+  border-style: solid;
+  color: ${BLUE} !important;
+  width: 420px;
+  &::placeholder {
+    color: #7c8495 !important;
+  }
+
+  &.error {
+    border: 2px solid #ff4867 !important;
+  }
 `
 
 export default class TextQuestion extends React.Component<IProps> {
@@ -34,16 +46,13 @@ export default class TextQuestion extends React.Component<IProps> {
     return (
       <QuestionField
         descriptor={this.props.descriptor}
-        index={this.props.index}
         error={this.props.error}
       >
-        <Input
+        <TextInput
           value={this.props.value}
           name={id}
           onChange={(e: any) => this.props.onChange(id, e.target.value)}
-          style={{
-            backgroundColor: error ? '#efc9c9' : INPUT_BACKGROUND_COLOR,
-          }}
+          className={error ? 'error' : ''}
           onBlur={() => {
             if (this.props.onBlur) this.props.onBlur(id)
           }}

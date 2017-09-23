@@ -3,7 +3,7 @@ import DatePicker from 'material-ui/DatePicker'
 import * as React from 'react'
 import styled from 'styled-components'
 
-import { BLUE } from '../../../common/constants/palette'
+import { BLUE, INPUT_BACKGROUND_COLOR } from '../../../common/constants/palette'
 import { MARGIN } from '../../../common/constants/style'
 import QuestionField, { IProps } from './QuestionField'
 
@@ -18,12 +18,24 @@ interface IDateQuestionProps extends IProps {
 
 const MaterialUIDatePicker = styled(DatePicker)`
   input {
-    margin-top: ${MARGIN.base}px;
-    color: ${BLUE} !important;
+    margin-top: ${MARGIN.base}px !important;
     height: 10px !important;
-    padding: ${MARGIN.large}px !important;
-    background-color: rgb(240, 240, 240) !important;
-    max-width: 167px;
+    padding: 15px !important;
+    font-size: 16px !important;
+    background-color: ${INPUT_BACKGROUND_COLOR} !important;
+    border-width: 1px !important;
+    border-color: rgb(222,222,222) !important;
+    border-style: solid !important;
+    color: ${BLUE} !important;
+    &::placeholder {
+      color: #7C8495 !important;
+    }
+  }
+
+  &.error {
+    input {
+      border: 2px solid #FF4867 !important;
+    }
   }
 
   hr {
@@ -38,13 +50,10 @@ export default class DateQuestion extends React.Component<IDateQuestionProps> {
     const id = this.props.descriptor.id
     const value = this.props.value
 
-    console.log('value', value)
-
     return (
       <div>
         <QuestionField
           descriptor={this.props.descriptor}
-          index={this.props.index}
           error={this.props.error}
         >
           <MaterialUIDatePicker

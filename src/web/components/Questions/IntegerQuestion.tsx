@@ -1,7 +1,6 @@
 import { INumericQuestionDescriptor } from 'jog-common/business/types'
 import * as React from 'react'
-import styled from 'styled-components'
-import { MARGIN } from '../../../common/constants/style'
+import { TextInput } from '~/web/components/Questions/TextQuestion'
 import QuestionField, { IProps } from './QuestionField'
 
 interface IntegerQuestionProps extends IProps {
@@ -15,16 +14,6 @@ interface IntegerQuestionProps extends IProps {
 interface IntegerQuestionState {
   value: string
 }
-
-// language=SCSS prefix=dummy{ suffix=}
-const Input = styled.input`
-  margin-top: ${MARGIN.base}px;
-  height: 10px;
-  padding: ${MARGIN.large}px;
-  font-size: 16px;
-  background-color: rgb(240, 240, 240);
-  border: none;
-`
 
 export default class IntegerQuestion extends React.Component<
   IntegerQuestionProps,
@@ -46,22 +35,19 @@ export default class IntegerQuestion extends React.Component<
     return (
       <QuestionField
         descriptor={this.props.descriptor}
-        index={this.props.index}
         error={this.props.error}
       >
-        <Input
+        <TextInput
           value={this.state.value}
           onKeyPress={this.onKeyPress}
           name={id}
           type="number"
+          className={error ? 'error' : ''}
           onChange={(e: any) => {
             this.setState({
               value: e.target.value,
             })
             this.props.onChange(id, parseInt(e.target.value, 10))
-          }}
-          style={{
-            backgroundColor: error ? '#efc9c9' : 'rgb(240, 240, 240)',
           }}
           onBlur={this.props.onBlur}
           onFocus={this.props.onFocus}

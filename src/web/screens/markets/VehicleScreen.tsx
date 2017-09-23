@@ -20,11 +20,11 @@ import { ICar, IValidationErrors } from 'jog-common/business/types'
 import * as _ from 'lodash'
 import { BLUE } from '~/common/constants/palette'
 import Logger, { Levels } from '~/common/Logger'
+import { QuestionsScreenHeader } from '~/web/components/QuestionsScreenHeader'
 import RootContainer from '../../components/Container'
-import Panel from '../../components/Panel'
+import Panel from '../../components/QuestionPanel'
 import QuestionSet from '../../components/Questions/QuestionSet'
 import SubmitButton from '../../components/SubmitButton'
-import Header from './Header'
 
 const log = new Logger('screens/markets/VehicleScreen', Levels.TRACE)
 
@@ -84,40 +84,41 @@ class VehicleScreen extends React.Component<IProps, IState> {
     }
 
     return (
-      <Container className="VehicleScreen">
-        <Header>Car</Header>
-        <Panel>
-          <h3>Your Vehicle</h3>
-          <QuestionSet
-            ref={e => (this.vehicleQuestionSetComp = e)}
-            questions={vehicleQuestions}
-            extraComponents={{}}
-            answers={this.props.carAnswers}
-            onChange={onChange}
-          />
-        </Panel>
-        <Panel>
-          <h3>Ownership</h3>
-          <QuestionSet
-            ref={e => (this.ownerQuestionSetComp = e)}
-            questions={ownerQuestions}
-            extraComponents={{}}
-            answers={this.props.carAnswers}
-            onChange={onChange}
-          />
-        </Panel>
-        <Panel>
-          <h3>Security</h3>
-          <QuestionSet
-            ref={e => (this.securityQuestionSetComp = e)}
-            questions={securityQuestions}
-            extraComponents={{}}
-            answers={this.props.carAnswers}
-            onChange={onChange}
-          />
-        </Panel>
-        <SubmitButton label="Add car" onClick={this.handleAddClick} />
-      </Container>
+      <div>
+        <QuestionsScreenHeader>
+          <Container>Add/Edit Vehicle</Container>
+        </QuestionsScreenHeader>
+        <Container className="VehicleScreen">
+          <Panel title="Your Vehicle">
+            <QuestionSet
+              ref={e => (this.vehicleQuestionSetComp = e)}
+              questions={vehicleQuestions}
+              extraComponents={{}}
+              answers={this.props.carAnswers}
+              onChange={onChange}
+            />
+          </Panel>
+          <Panel title="Ownership">
+            <QuestionSet
+              ref={e => (this.ownerQuestionSetComp = e)}
+              questions={ownerQuestions}
+              extraComponents={{}}
+              answers={this.props.carAnswers}
+              onChange={onChange}
+            />
+          </Panel>
+          <Panel title="Security">
+            <QuestionSet
+              ref={e => (this.securityQuestionSetComp = e)}
+              questions={securityQuestions}
+              extraComponents={{}}
+              answers={this.props.carAnswers}
+              onChange={onChange}
+            />
+          </Panel>
+          <SubmitButton label="Add car" onClick={this.handleAddClick} />
+        </Container>
+      </div>
     )
   }
 

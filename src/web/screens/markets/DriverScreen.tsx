@@ -22,11 +22,11 @@ import * as _ from 'lodash'
 import MotoringConvictionQuestion from '~/web/components/MotoringConvictionQuestion'
 import MotoringIncidentQuestion from '~/web/components/MotoringIncidentQuestion'
 import AddressQuestion from '~/web/components/Questions/AddressQuestion'
+import { QuestionsScreenHeader } from '~/web/components/QuestionsScreenHeader'
 import Container from '../../components/Container'
-import Panel from '../../components/Panel'
+import Panel from '../../components/QuestionPanel'
 import QuestionSet from '../../components/Questions/QuestionSet'
 import SubmitButton from '../../components/SubmitButton'
-import Header from './Header'
 
 interface IProps
   extends DispatchProp<any>,
@@ -87,50 +87,50 @@ class DriverScreen extends React.Component<IProps, IState> {
     }
 
     return (
-      <Container className="DriversScreen">
-        <Header>Driver</Header>
-        <Panel>
-          <h3>Personal Details</h3>
-          <QuestionSet
-            ref={e => (this.personalDetailsQuestionSet = e)}
-            questions={personalDetailsQuestions}
-            extraComponents={extraComponents}
-            answers={answers}
-            onChange={onChange}
-          />
-        </Panel>
-        <Panel>
-          <h3>Employment Details</h3>
-          <QuestionSet
-            ref={e => (this.employmentDetailsQuestionSet = e)}
-            questions={employmentQuestions}
-            extraComponents={extraComponents}
-            answers={answers}
-            onChange={onChange}
-          />
-        </Panel>
-        <Panel>
-          <h3>Insurance History</h3>
-          <QuestionSet
-            ref={e => (this.insuranceHistoryQuestionSet = e)}
-            questions={insuranceHistoryQuestions}
-            extraComponents={extraComponents}
-            answers={answers}
-            onChange={onChange}
-          />
-        </Panel>
-        <Panel>
-          <h3>Your License</h3>
-          <QuestionSet
-            ref={e => (this.licenseQuestionSet = e)}
-            questions={licenseInsuranceQuestions}
-            extraComponents={extraComponents}
-            answers={answers}
-            onChange={onChange}
-          />
-        </Panel>
-        <SubmitButton label="Add driver" onClick={this.handleAddClick} />
-      </Container>
+      <div>
+        <QuestionsScreenHeader>
+          <Container>Add/Edit Driver</Container>
+        </QuestionsScreenHeader>
+        <Container className="DriversScreen">
+          <Panel title="Personal Details">
+            <QuestionSet
+              ref={e => (this.personalDetailsQuestionSet = e)}
+              questions={personalDetailsQuestions}
+              extraComponents={extraComponents}
+              answers={answers}
+              onChange={onChange}
+            />
+          </Panel>
+          <Panel title="Employment Details">
+            <QuestionSet
+              ref={e => (this.employmentDetailsQuestionSet = e)}
+              questions={employmentQuestions}
+              extraComponents={extraComponents}
+              answers={answers}
+              onChange={onChange}
+            />
+          </Panel>
+          <Panel title="Insurance History">
+            <QuestionSet
+              ref={e => (this.insuranceHistoryQuestionSet = e)}
+              questions={insuranceHistoryQuestions}
+              extraComponents={extraComponents}
+              answers={answers}
+              onChange={onChange}
+            />
+          </Panel>
+          <Panel title="Your License">
+            <QuestionSet
+              ref={e => (this.licenseQuestionSet = e)}
+              questions={licenseInsuranceQuestions}
+              extraComponents={extraComponents}
+              answers={answers}
+              onChange={onChange}
+            />
+          </Panel>
+          <SubmitButton label="Add driver" onClick={this.handleAddClick} />
+        </Container>
+      </div>
     )
   }
 

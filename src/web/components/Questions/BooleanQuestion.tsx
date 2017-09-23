@@ -27,7 +27,6 @@ export default class BooleanQuestion extends React.Component<
       <Container>
         <QuestionField
           descriptor={this.props.descriptor}
-          index={this.props.index}
           error={this.props.error}
         >
           <div style={{ position: 'relative', right: MARGIN.base }}>

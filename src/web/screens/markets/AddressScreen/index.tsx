@@ -10,6 +10,7 @@ import * as React from 'react'
 import { connect, DispatchProp } from 'react-redux'
 import { RouteComponentProps, withRouter } from 'react-router'
 import Logger from '~/common/Logger'
+import { QuestionsScreenHeader } from '~/web/components/QuestionsScreenHeader'
 import {
   addAddress,
   IMarketsReduxState,
@@ -18,10 +19,9 @@ import {
 } from '../../../../common/store/markets/index'
 import { IReduxState } from '../../../../common/types'
 import Container from '../../../components/Container'
-import Panel from '../../../components/Panel'
+import Panel from '../../../components/QuestionPanel'
 import TextQuestion from '../../../components/Questions/TextQuestion'
 import SubmitButton from '../../../components/SubmitButton'
-import Header from '../Header'
 
 const log = new Logger('markets/AddressScreen')
 
@@ -80,33 +80,36 @@ class AddressScreen extends React.Component<IProps, IState> {
     const addressAnswers = this.props.markets.addressAnswers
 
     return (
-      <Container className="MarketsScreen">
-        <Header>Add a new address</Header>
-        <Panel>
-          {questions.map((q, idx) => {
-            const errors = this.state.errors
-
-            return (
-              <TextQuestion
-                descriptor={q}
-                value={addressAnswers[q.id]}
-                onChange={this.onChange}
-                error={
-                  this.state.blurred[q.id]
-                    ? _.get(errors, `field.${q.id}`)
-                    : null
-                }
-                onBlur={() => this.handleBlur(q.id)}
-              />
-            )
-          })}
-        </Panel>
-        <SubmitButton
-          label="Add new address"
-          onClick={this.handleAddAddressClick}
-          disabled={Boolean(_.keys(this.state.errors).length)}
-        />
-      </Container>
+      <div>
+        <QuestionsScreenHeader>
+          <Container>Add/Edit Address</Container>
+        </QuestionsScreenHeader>
+        <Container className="MarketsScreen">
+          <Panel>
+            {questions.map((q, idx) => {
+              const errors = this.state.errors
+              return (
+                <TextQuestion
+                  descriptor={q}
+                  value={addressAnswers[q.id]}
+                  onChange={this.onChange}
+                  error={
+                    this.state.blurred[q.id]
+                      ? _.get(errors, `field.${q.id}`)
+                      : null
+                  }
+                  onBlur={() => this.handleBlur(q.id)}
+                />
+              )
+            })}
+          </Panel>
+          <SubmitButton
+            label="Add new address"
+            onClick={this.handleAddAddressClick}
+            disabled={Boolean(_.keys(this.state.errors).length)}
+          />
+        </Container>
+      </div>
     )
   }
 

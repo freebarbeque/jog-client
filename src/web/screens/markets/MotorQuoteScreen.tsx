@@ -17,9 +17,10 @@ import { IQuoteRequest } from 'jog-common/business/types'
 import * as _ from 'lodash'
 import { RouteComponentProps, withRouter } from 'react-router'
 import { BLUE } from '~/common/constants/palette'
+import { QuestionsScreenHeader } from '~/web/components/QuestionsScreenHeader'
 import { addQuoteRequest } from '../../../common/store/markets/quoteRequests'
 import RootContainer from '../../components/Container'
-import Panel from '../../components/Panel'
+import Panel from '../../components/QuestionPanel'
 import AddressQuestion from '../../components/Questions/AddressQuestion'
 import MainDriverQuestion from '../../components/Questions/MainDriverQuestion'
 import QuestionSet from '../../components/Questions/QuestionSet'
@@ -75,30 +76,32 @@ class MotorQuoteScreen extends React.Component<IMotorQuoteScreenProps> {
     }
 
     return (
-      <Container className="MarketsScreen">
-        <h1>Motor Policy</h1>
-        <Panel>
-          <h3>You and your car</h3>
-          <QuestionSet
-            ref={e => (this.youAndYourCarQuestionSet = e)}
-            questions={youAndYourCarQuestions}
-            extraComponents={extraComponents}
-            answers={this.props.motorAnswers}
-            onChange={this.onChange}
-          />
-        </Panel>
-        <Panel>
-          <h3>Your policy</h3>
-          <QuestionSet
-            ref={e => (this.insuranceQuestionSet = e)}
-            questions={insuranceQuestions}
-            extraComponents={extraComponents}
-            answers={this.props.motorAnswers}
-            onChange={this.onChange}
-          />
-        </Panel>
-        <SubmitButton label="Submit" onClick={this.handleSubmit} />
-      </Container>
+      <div>
+        <QuestionsScreenHeader>
+          <Container>Motor Policy</Container>
+        </QuestionsScreenHeader>
+        <Container className="MarketsScreen">
+          <Panel title="You and your car">
+            <QuestionSet
+              ref={e => (this.youAndYourCarQuestionSet = e)}
+              questions={youAndYourCarQuestions}
+              extraComponents={extraComponents}
+              answers={this.props.motorAnswers}
+              onChange={this.onChange}
+            />
+          </Panel>
+          <Panel title="Your policy">
+            <QuestionSet
+              ref={e => (this.insuranceQuestionSet = e)}
+              questions={insuranceQuestions}
+              extraComponents={extraComponents}
+              answers={this.props.motorAnswers}
+              onChange={this.onChange}
+            />
+          </Panel>
+          <SubmitButton label="Submit" onClick={this.handleSubmit} />
+        </Container>
+      </div>
     )
   }
 

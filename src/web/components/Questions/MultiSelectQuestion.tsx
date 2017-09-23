@@ -31,7 +31,6 @@ export default class MultiSelectQuestion extends React.Component<
     return (
       <QuestionField
         descriptor={this.props.descriptor}
-        index={this.props.index}
         error={this.props.error}
       >
         <div style={{ position: 'relative', right: MARGIN.base }}>
