@@ -10,6 +10,7 @@ import * as React from 'react'
 import { connect, DispatchProp } from 'react-redux'
 import { push } from 'react-router-redux'
 
+import { RouteComponentProps, withRouter } from 'react-router'
 import { deleteAddressAction } from '~/common/store/markets'
 import EditDeleteSelectAccessories from '~/web/components/Questions/EditDeleteSelectAccessories'
 import { IReduxState } from '../../../common/types'
@@ -27,7 +28,10 @@ interface IProps {
   onNew?: () => void
 }
 
-interface IConnectedProps extends IProps, DispatchProp<any> {
+interface IConnectedProps
+  extends IProps,
+    DispatchProp<any>,
+    RouteComponentProps<{ policyId?: string }> {
   addresses: { [id: string]: IAddress }
 }
 
@@ -94,7 +98,12 @@ class AddressQuestion extends React.Component<IConnectedProps, IState> {
   }
 
   private onEditPress = (addressId: string) => {
-    this.props.dispatch(push(`/app/tabs/markets/motor/address/${addressId}`))
+    this.props.dispatch(
+      push(
+        `/app/tabs/policies/${this.props.match.params
+          .policyId}/quotes/motor/address/${addressId}`,
+      ),
+    )
   }
 
   private onDeletePress = (addressId: string) => {
@@ -113,7 +122,12 @@ class AddressQuestion extends React.Component<IConnectedProps, IState> {
 
   private handleSpecialOptionClick = (value: string) => {
     if (value === 'new-address') {
-      this.props.dispatch(push('/app/tabs/markets/motor/address'))
+      this.props.dispatch(
+        push(
+          `/app/tabs/policies/${this.props.match.params
+            .policyId}/quotes/motor/address`,
+        ),
+      )
     }
   }
 }
@@ -124,6 +138,6 @@ const ConnectedAddressQuestion: React.ComponentClass<IProps> = connect<
   IProps
 >((state: IReduxState) => ({
   addresses: state.markets.addresses,
-}))(AddressQuestion)
+}))(withRouter(AddressQuestion))
 
 export default ConnectedAddressQuestion

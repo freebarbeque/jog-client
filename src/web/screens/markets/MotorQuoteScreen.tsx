@@ -35,7 +35,7 @@ const Container = RootContainer.extend`
 
 interface IMotorQuoteScreenProps
   extends DispatchProp<any>,
-    RouteComponentProps<{ quoteId: string }> {
+    RouteComponentProps<{ quoteId: string; policyId: string }> {
   motorAnswers: { [id: string]: any }
   quoteRequests: { [id: string]: IQuoteRequest }
 }
@@ -69,10 +69,14 @@ class MotorQuoteScreen extends React.Component<IMotorQuoteScreenProps> {
   }
 
   public render() {
+    const policyId = this.props.match.params.policyId
     const extraComponents = {
-      'motor/address': { component: AddressQuestion },
-      'motor/main-driver': { component: MainDriverQuestion },
-      'motor/vehicle': { component: VehicleQuestion },
+      'motor/address': { component: AddressQuestion, props: { policyId } },
+      'motor/main-driver': {
+        component: MainDriverQuestion,
+        props: { policyId },
+      },
+      'motor/vehicle': { component: VehicleQuestion, props: { policyId } },
     }
 
     return (

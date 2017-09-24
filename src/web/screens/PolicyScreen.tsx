@@ -6,6 +6,7 @@ import { push } from 'react-router-redux'
 import styled from 'styled-components'
 
 import { RouteComponentProps, withRouter } from 'react-router'
+import PolicyQuotesScreen from '~/web/screens/PolicyQuotesScreen'
 import { BLUE, DARK_GRAY, PINK } from '../../common/constants/palette'
 import { Action } from '../../common/types'
 import BackgroundHeader from '../components/BackgroundHeader'
@@ -77,6 +78,13 @@ class PolicyScreen extends React.Component<
           >
             Documents
           </MenuButton>
+          <MenuButton
+            containerElement={
+              <NavLink to={`/app/tabs/policies/${policyId}/quotes`} />
+            }
+          >
+            Quotes
+          </MenuButton>
         </Menu>
         <Switch>
           <Route
@@ -87,6 +95,10 @@ class PolicyScreen extends React.Component<
           <Route
             path="/app/tabs/policies/:policyId/documents"
             component={PolicyDocumentsScreen}
+          />
+          <Route
+            path="/app/tabs/policies/:policyId/quotes"
+            component={PolicyQuotesScreen}
           />
         </Switch>
       </div>

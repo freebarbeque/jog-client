@@ -1,7 +1,6 @@
 import * as _ from 'lodash'
 import * as React from 'react'
 import { connect, DispatchProp } from 'react-redux'
-import { RouteComponentProps, withRouter } from 'react-router'
 
 import { vehicleQuestion } from 'jog-common/business/motor'
 import { ICar, ISelectQuestionDescriptor } from 'jog-common/business/types'
@@ -12,13 +11,14 @@ import EditDeleteSelectAccessories from '~/web/components/Questions/EditDeleteSe
 import { IFirebaseUser, IReduxState } from '../../../common/types'
 import SelectQuestion from './SelectQuestion'
 
-interface IProps extends DispatchProp<any>, RouteComponentProps<{}> {
+interface IProps extends DispatchProp<any> {
   cars: { [id: string]: ICar }
   user: IFirebaseUser
   value: string
   onChange: (id: string) => void
   error?: string
   index?: number
+  policyId?: string
 }
 
 interface IState {
@@ -64,7 +64,12 @@ class VehicleQuestion extends React.Component<IProps, IState> {
   }
 
   private onEditPress = (vehicleId: string) => {
-    this.props.dispatch(push(`/app/tabs/markets/motor/vehicle/${vehicleId}`))
+    this.props.dispatch(
+      push(
+        `/app/tabs/policies/${this.props
+          .policyId}/quotes/motor/vehicle/${vehicleId}`,
+      ),
+    )
   }
 
   private onDeletePress = (vehicleId: string) => {
@@ -74,7 +79,9 @@ class VehicleQuestion extends React.Component<IProps, IState> {
   private handleSpecialOptionClick = (value: string) => {
     if (value === 'new-car') {
       this.props.dispatch(setCarAnswers({}))
-      this.props.dispatch(push('/app/tabs/markets/motor/vehicle'))
+      this.props.dispatch(
+        push(`/app/tabs/policies/${this.props.policyId}/quotes/motor/vehicle`),
+      )
     }
   }
 }
@@ -82,4 +89,4 @@ class VehicleQuestion extends React.Component<IProps, IState> {
 export default connect((state: IReduxState) => ({
   cars: state.markets.cars,
   user: state.auth.user,
-}))(withRouter(VehicleQuestion))
+}))(VehicleQuestion)

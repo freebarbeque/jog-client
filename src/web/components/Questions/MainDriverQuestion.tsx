@@ -19,6 +19,7 @@ interface IProps {
   onFocus?: () => void
   error?: string
   index?: number
+  policyId?: string
 }
 
 interface IConnectedProps extends IProps, DispatchProp<any> {}
@@ -76,7 +77,12 @@ class MainDriverQuestion extends React.Component<IConnectedProps, {}> {
   }
 
   private onEditPress = (driverId: string) => {
-    this.props.dispatch(push(`/app/tabs/markets/motor/driver/${driverId}`))
+    this.props.dispatch(
+      push(
+        `/app/tabs/policies/${this.props
+          .policyId}/quotes/motor/driver/${driverId}`,
+      ),
+    )
   }
 
   private onDeletePress = (driverId: string) => {
@@ -85,7 +91,9 @@ class MainDriverQuestion extends React.Component<IConnectedProps, {}> {
 
   private handleSpecialOptionClick = (value: string) => {
     if (value === 'new-driver') {
-      this.props.dispatch(push('/app/tabs/markets/motor/driver'))
+      this.props.dispatch(
+        push(`/app/tabs/policies/${this.props.policyId}/quotes/motor/driver`),
+      )
     }
   }
 }

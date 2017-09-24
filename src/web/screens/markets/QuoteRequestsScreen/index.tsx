@@ -11,6 +11,7 @@ const moment = require('moment')
 
 import { IReduxState } from '../../../../common/types'
 
+import { RouteComponentProps } from 'react-router'
 import { deleteQuoteRequest } from '~/common/store/markets/quoteRequests'
 import { BLUE } from '../../../../common/constants/palette'
 import {
@@ -21,7 +22,9 @@ import Container from '../../../components/Container'
 import RoundedButton from '../../../components/RoundedButton'
 import QuoteRequest from './QuoteRequest'
 
-interface IProps extends DispatchProp<any> {
+interface IProps
+  extends DispatchProp<any>,
+    RouteComponentProps<{ policyId?: string }> {
   quoteRequests: { [id: string]: INormalQuoteRequest }
 }
 
@@ -55,7 +58,12 @@ class QuoteRequestsScreen extends React.Component<IProps> {
               }
             }}
             onClick={() =>
-              this.props.dispatch(push(`/app/tabs/markets/motor/${q.id}`))}
+              this.props.dispatch(
+                push(
+                  `/app/tabs/policies/${this.props.match.params
+                    .policyId}/quotes/motor/${q.id}`,
+                ),
+              )}
           />,
         )}
         <RoundedButton
@@ -68,7 +76,12 @@ class QuoteRequestsScreen extends React.Component<IProps> {
   }
 
   private handleClick = () => {
-    this.props.dispatch(push(`/app/tabs/markets/motor/${uuid()}`))
+    this.props.dispatch(
+      push(
+        `/app/tabs/policies/${this.props.match.params
+          .policyId}/quotes/motor/${uuid()}`,
+      ),
+    )
   }
 }
 

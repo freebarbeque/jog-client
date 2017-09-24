@@ -3,7 +3,6 @@ import * as React from 'react'
 import { Link, Route, withRouter } from 'react-router-dom'
 import styled from 'styled-components'
 
-import MarketsScreen from '../markets/MarketsScreen'
 import SettingsScreen from '../SettingsScreen'
 import PoliciesTab from './PoliciesTab'
 
@@ -34,7 +33,9 @@ const MobileTabs = styled(Tabs)`
   `}
 `
 
-class TabsScreen extends React.Component<RouteComponentProps<any>> {
+class TabsScreen extends React.Component<
+  RouteComponentProps<{ policyId?: string }>
+> {
   public render() {
     const location = this.props.location
     const pathname = location.pathname
@@ -50,13 +51,6 @@ class TabsScreen extends React.Component<RouteComponentProps<any>> {
             label="Policies"
             containerElement={<Link to="/app/tabs/policies" />}
           />
-
-          <Tab
-            value="markets"
-            label="Markets"
-            containerElement={<Link to="/app/tabs/markets" />}
-          />
-
           <Tab
             value="settings"
             label="Settings"
@@ -71,7 +65,6 @@ class TabsScreen extends React.Component<RouteComponentProps<any>> {
           style={{ flex: 1 }}
         >
           <Route path="/app/tabs/policies" component={PoliciesTab} />
-          <Route path="/app/tabs/markets" component={MarketsScreen} />
           <Route path="/app/tabs/settings" component={SettingsScreen} />
         </SwipeableViews>
       </Container>

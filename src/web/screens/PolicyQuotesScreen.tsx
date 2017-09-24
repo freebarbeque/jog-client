@@ -4,16 +4,16 @@ import { Redirect, Route, Switch } from 'react-router'
 // tslint:disable-next-line:no-var-requires
 const uuid = require('uuid/v4')
 
-import AddressScreen from './AddressScreen'
-import DriverScreen from './DriverScreen'
-import MotorQuoteScreen from './MotorQuoteScreen'
-import QuoteRequestsScreen from './QuoteRequestsScreen'
-import VehicleScreen from './VehicleScreen'
+import AddressScreen from './markets/AddressScreen'
+import DriverScreen from './markets/DriverScreen'
+import MotorQuoteScreen from './markets/MotorQuoteScreen'
+import QuoteRequestsScreen from './markets/QuoteRequestsScreen'
+import VehicleScreen from './markets/VehicleScreen'
 
-export default class MarketsScreen extends React.Component {
+export default class PolicyQuotesScreen extends React.Component {
   public render() {
     return (
-      <div className="MarketsScreen">
+      <div className="PolicyQuotesScreen">
         <Route
           path="/app/tabs/policies/:policyId/quotes"
           exact
