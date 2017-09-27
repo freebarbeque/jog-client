@@ -49,7 +49,7 @@ class EmailVerificationScreen extends React.Component<
               marginLeft: 'auto',
               marginRight: 'auto',
             }}
-            label={'Resend'}
+            label="Resend"
             onClick={this.handleResendClick}
             loading={this.props.loading}
           />

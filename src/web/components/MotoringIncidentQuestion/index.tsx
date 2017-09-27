@@ -1,14 +1,12 @@
-import { motoringIncidentsQuestion } from 'jog-common/business/motor'
 import {
-  constructIncident,
   IMotoringIncidentAnswer,
   incidentQuestions,
 } from 'jog-common/business/motoringIncidents'
-import { IMotoringIncident } from 'jog-common/business/types'
 // import * as _ from "lodash";
 import * as React from 'react'
 import styled from 'styled-components'
 
+import { motoringIncidentsQuestion } from 'jog-common/business/driver'
 import { LIGHT_CREAM } from '~/common/constants/palette'
 import { MARGIN } from '~/common/constants/style'
 import IncidentTable from '~/web/components/MotoringIncidentQuestion/IncidentTable'
@@ -26,8 +24,8 @@ class QuestionSet extends _QuestionSet<IMotoringIncidentAnswer> {}
 
 interface IProps {
   error?: string
-  value?: IMotoringIncident[]
-  onChange?: (id: string, incidents: IMotoringIncident[]) => void
+  value?: IMotoringIncidentAnswer[]
+  onChange?: (id: string, incidents: IMotoringIncidentAnswer[]) => void
 }
 
 interface IState {
@@ -122,8 +120,6 @@ export default class MotoringIncidentQuestion extends React.Component<
     const incidents = this.props.value || []
 
     const incident = this.state.currentIncidentAnswers
-      ? constructIncident(this.state.currentIncidentAnswers)
-      : null
 
     if (this.props.onChange && incident) {
       this.props.onChange(questionId, [...incidents, incident])

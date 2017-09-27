@@ -1,7 +1,8 @@
 import {
-  IMotoringConviction,
-  MotoringConvictionType,
-} from 'jog-common/business/types'
+  constructConviction,
+  IMotoringConvictionAnswer,
+} from 'jog-common/business/motoringConvictions'
+import { MotoringConvictionType } from 'jog-common/business/types'
 import * as React from 'react'
 import Table from '~/web/components/MotoringIncidentQuestion/Table'
 
@@ -9,13 +10,15 @@ import Table from '~/web/components/MotoringIncidentQuestion/Table'
 const moment = require('moment')
 
 interface IProps {
-  convictions: IMotoringConviction[]
+  convictions: IMotoringConvictionAnswer[]
   onRemovePress: (index: number) => void
 }
 
 export default class ConvictionTable extends React.Component<IProps> {
   public render() {
-    const convictions = this.props.convictions
+    const convictionAnswers = this.props.convictions
+    const convictions = convictionAnswers.map(c => constructConviction(c))
+
     return (
       <Table
         onRemovePress={this.props.onRemovePress}

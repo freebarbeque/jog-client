@@ -1,10 +1,6 @@
 import * as React from 'react'
 import styled from 'styled-components'
-import { PINK, WHITE } from '../../common/constants/palette'
-import { MARGIN } from '../../common/constants/style'
-
-// tslint:disable-next-line:no-var-requires
-const Circle = require('better-react-spinkit')
+import { PINK } from '../../common/constants/palette'
 
 // language=SCSS prefix=dummy{ suffix=}
 const Button = styled.button`
@@ -43,10 +39,6 @@ const RoundedButton = (props: IProps) =>
     <div style={{ color: props.labelColor || 'white' }}>
       {props.label}
     </div>
-    {props.loading &&
-      <div style={{ marginLeft: MARGIN.small }}>
-        <Circle size={15} color={WHITE} />
-      </div>}
   </Button>
 
 export default RoundedButton

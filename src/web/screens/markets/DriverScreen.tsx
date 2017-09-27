@@ -12,9 +12,16 @@ import { IReduxState } from '../../../common/types'
 import {
   constructDriver,
   deconstructDriver,
-  questions as driverQuestions,
+  employmentQuestions,
+  insuranceHistoryQuestions,
+  licenseInsuranceQuestions,
+  personalDetailsQuestions,
 } from 'jog-common/business/driver'
 import { IPerson, IValidationErrors } from 'jog-common/business/types'
+import * as _ from 'lodash'
+import MotoringConvictionQuestion from '~/web/components/MotoringConvictionQuestion'
+import MotoringIncidentQuestion from '~/web/components/MotoringIncidentQuestion'
+import AddressQuestion from '~/web/components/Questions/AddressQuestion'
 import Container from '../../components/Container'
 import Panel from '../../components/Panel'
 import QuestionSet from '../../components/Questions/QuestionSet'
@@ -34,7 +41,10 @@ interface IState {
 }
 
 class DriverScreen extends React.Component<IProps, IState> {
-  private questionSetComp: QuestionSet<{ [id: string]: any }> | null
+  private licenseQuestionSet: QuestionSet<{}> | null
+  private personalDetailsQuestionSet: QuestionSet<{}> | null
+  private employmentDetailsQuestionSet: QuestionSet<{}> | null
+  private insuranceHistoryQuestionSet: QuestionSet<{}> | null
 
   public componentDidMount() {
     const driverId = this.props.match.params.driverId
@@ -64,18 +74,59 @@ class DriverScreen extends React.Component<IProps, IState> {
   }
 
   public render() {
+    const answers = this.props.driverAnswers
+
+    const onChange = (id, value) => {
+      this.props.dispatch(setDriverAnswer(id, value))
+    }
+
+    const extraComponents = {
+      'motor/incidents': { component: MotoringIncidentQuestion },
+      'motor/convictions': { component: MotoringConvictionQuestion },
+      'motor/address': { component: AddressQuestion },
+    }
+
     return (
       <Container className="DriversScreen">
         <Header>Driver</Header>
         <Panel>
+          <h3>Personal Details</h3>
           <QuestionSet
-            ref={e => (this.questionSetComp = e)}
-            questions={driverQuestions}
-            extraComponents={{}}
-            answers={this.props.driverAnswers}
-            onChange={(id, value) => {
-              this.props.dispatch(setDriverAnswer(id, value))
-            }}
+            ref={e => (this.personalDetailsQuestionSet = e)}
+            questions={personalDetailsQuestions}
+            extraComponents={extraComponents}
+            answers={answers}
+            onChange={onChange}
+          />
+        </Panel>
+        <Panel>
+          <h3>Employment Details</h3>
+          <QuestionSet
+            ref={e => (this.employmentDetailsQuestionSet = e)}
+            questions={employmentQuestions}
+            extraComponents={extraComponents}
+            answers={answers}
+            onChange={onChange}
+          />
+        </Panel>
+        <Panel>
+          <h3>Insurance History</h3>
+          <QuestionSet
+            ref={e => (this.insuranceHistoryQuestionSet = e)}
+            questions={insuranceHistoryQuestions}
+            extraComponents={extraComponents}
+            answers={answers}
+            onChange={onChange}
+          />
+        </Panel>
+        <Panel>
+          <h3>Your License</h3>
+          <QuestionSet
+            ref={e => (this.licenseQuestionSet = e)}
+            questions={licenseInsuranceQuestions}
+            extraComponents={extraComponents}
+            answers={answers}
+            onChange={onChange}
           />
         </Panel>
         <SubmitButton label="Add driver" onClick={this.handleAddClick} />
@@ -91,15 +142,29 @@ class DriverScreen extends React.Component<IProps, IState> {
   }
 
   private handleAddClick = () => {
-    if (!this.questionSetComp) throw new Error('No question set?')
-
-    const errors = this.questionSetComp.validateAllFields()
-    if (!errors.hasError) {
-      const driver = constructDriver(
-        this.props.driverAnswers,
-        this.props.match.params.driverId,
+    if (
+      this.employmentDetailsQuestionSet &&
+      this.insuranceHistoryQuestionSet &&
+      this.licenseQuestionSet &&
+      this.personalDetailsQuestionSet
+    ) {
+      const errors = _.merge(
+        {},
+        this.employmentDetailsQuestionSet.validateAllFields(),
+        this.insuranceHistoryQuestionSet.validateAllFields(),
+        this.licenseQuestionSet.validateAllFields(),
+        this.personalDetailsQuestionSet.validateAllFields(),
       )
-      this.props.dispatch(addDriver(driver))
+
+      console.log('errors', errors)
+
+      if (!_.keys(errors).length) {
+        const driver = constructDriver(
+          this.props.driverAnswers,
+          this.props.match.params.driverId,
+        )
+        this.props.dispatch(addDriver(driver))
+      }
     }
   }
 }

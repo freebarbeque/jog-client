@@ -2,8 +2,9 @@ import { IQuoteRequest } from 'jog-common/business/types'
 
 import * as _ from 'lodash'
 
+import { call, put } from 'redux-saga/effects'
+import env from '~/web/env'
 import { demandCurrentUser } from '../../data/auth'
-
 import {
   constructAddTask,
   constructDeleteTask,
@@ -95,12 +96,33 @@ export function receiveQuoteRequests(quoteRequests: {
 // Sagas & Tasks
 //
 
-export const addQuoteRequestTask = constructAddTask(
-  (action: any) =>
-    `quoteRequest/${demandCurrentUser().uid}/${action.quoteRequest.id}`,
-  'quoteRequest',
-  (action: any) => _.get(action, 'back'),
-)
+const getQuotes = function*(action) {
+  yield put({ type: 'markets/getQuotes/REQUEST' })
+  try {
+    yield call(() =>
+      fetch(`${env.webApiEndpoint}/getQuotes/${action.quoteRequest.id}`, {
+        method: 'GET',
+        headers: {
+          token: _.get(demandCurrentUser(), 'stsTokenManager.accessToken'),
+        },
+      }),
+    )
+    yield put({ type: 'markets/getQuotes/SUCCESS' })
+  } catch (error) {
+    yield put({ type: 'markets/getQuotes/ERROR', payload: error })
+  }
+}
+
+export const addQuoteRequestTask = function*(action) {
+  const addQuoteToFirebase = constructAddTask(
+    (addAction: any) =>
+      `quoteRequest/${demandCurrentUser().uid}/${addAction.quoteRequest.id}`,
+    'quoteRequest',
+    (addAction: any) => _.get(addAction, 'back'),
+  )
+  yield call(() => addQuoteToFirebase(action))
+  yield call(() => getQuotes(action))
+}
 
 export const deleteQuoteRequestTask = constructDeleteTask(
   (action: any) => `quoteRequest/${demandCurrentUser().uid}/${action.id}`,

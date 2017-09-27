@@ -7,22 +7,18 @@ import {
 import { IReduxState } from '../../../common/types'
 
 import {
-  claimsAndConvictionsQuestions,
   constructAnswers,
   constructQuoteRequest,
   insuranceQuestions,
   youAndYourCarQuestions,
-  yourLicenseQuestions,
 } from 'jog-common/business/motor'
 
 import { IQuoteRequest } from 'jog-common/business/types'
 import * as _ from 'lodash'
 import { RouteComponentProps, withRouter } from 'react-router'
 import { BLUE } from '~/common/constants/palette'
-import MotoringConvictionQuestion from '~/web/components/MotoringConvictionQuestion'
 import { addQuoteRequest } from '../../../common/store/markets/quoteRequests'
 import RootContainer from '../../components/Container'
-import MotoringIncidentQuestion from '../../components/MotoringIncidentQuestion'
 import Panel from '../../components/Panel'
 import AddressQuestion from '../../components/Questions/AddressQuestion'
 import MainDriverQuestion from '../../components/Questions/MainDriverQuestion'
@@ -33,20 +29,6 @@ import SubmitButton from '../../components/SubmitButton'
 const Container = RootContainer.extend`
   h1 {
     color: ${BLUE};
-  }
-
-  h3 {
-    color: ${BLUE};
-    margin-top: 0;
-    padding-top: 0;
-  }
-
-  .QuestionSet {
-    > div {
-      &:last-child {
-        margin-bottom: 0 !important;
-      }
-    }
   }
 `
 
@@ -59,10 +41,6 @@ interface IMotorQuoteScreenProps
 
 class MotorQuoteScreen extends React.Component<IMotorQuoteScreenProps> {
   private youAndYourCarQuestionSet: QuestionSet<{ [id: string]: any }> | null
-  private yourLicenseQuestionSet: QuestionSet<{ [id: string]: any }> | null
-  private claimsAndConvictionsQuestionSet: QuestionSet<{
-    [id: string]: any
-  }> | null
   private insuranceQuestionSet: QuestionSet<{ [id: string]: any }> | null
 
   public componentDidMount() {
@@ -94,8 +72,6 @@ class MotorQuoteScreen extends React.Component<IMotorQuoteScreenProps> {
       'motor/address': { component: AddressQuestion },
       'motor/main-driver': { component: MainDriverQuestion },
       'motor/vehicle': { component: VehicleQuestion },
-      'motor/incidents': { component: MotoringIncidentQuestion },
-      'motor/convictions': { component: MotoringConvictionQuestion },
     }
 
     return (
@@ -106,26 +82,6 @@ class MotorQuoteScreen extends React.Component<IMotorQuoteScreenProps> {
           <QuestionSet
             ref={e => (this.youAndYourCarQuestionSet = e)}
             questions={youAndYourCarQuestions}
-            extraComponents={extraComponents}
-            answers={this.props.motorAnswers}
-            onChange={this.onChange}
-          />
-        </Panel>
-        <Panel>
-          <h3>Your license</h3>
-          <QuestionSet
-            ref={e => (this.yourLicenseQuestionSet = e)}
-            questions={yourLicenseQuestions}
-            extraComponents={extraComponents}
-            answers={this.props.motorAnswers}
-            onChange={this.onChange}
-          />
-        </Panel>
-        <Panel>
-          <h3>Claims & Convictions</h3>
-          <QuestionSet
-            ref={e => (this.claimsAndConvictionsQuestionSet = e)}
-            questions={claimsAndConvictionsQuestions}
             extraComponents={extraComponents}
             answers={this.props.motorAnswers}
             onChange={this.onChange}
@@ -174,13 +130,7 @@ class MotorQuoteScreen extends React.Component<IMotorQuoteScreenProps> {
 
   private handleSubmit = () => {
     // TODO: Mark as pending as opposed to incomplete, as it has now passed validation.
-    if (
-      !(
-        this.insuranceQuestionSet &&
-        this.youAndYourCarQuestionSet &&
-        this.yourLicenseQuestionSet
-      )
-    )
+    if (!(this.insuranceQuestionSet && this.youAndYourCarQuestionSet))
       throw new Error(
         'How is submit being pressed before everything is mounted?',
       )
@@ -189,10 +139,7 @@ class MotorQuoteScreen extends React.Component<IMotorQuoteScreenProps> {
       {},
       this.insuranceQuestionSet.validateAllFields(),
       this.youAndYourCarQuestionSet.validateAllFields(),
-      this.yourLicenseQuestionSet.validateAllFields(),
     )
-
-    console.log('errors', errors)
 
     if (!_.keys(errors).length) {
       this.saveQuote(

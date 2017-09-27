@@ -5,10 +5,16 @@ import devTools from 'remote-redux-devtools'
 // tslint:disable-next-line:no-var-requires
 const freeze = require('redux-freeze')
 
-import { authSaga, pollUserSaga, userSyncSaga } from './auth/sagas'
+import {
+  authSaga,
+  pollUserSaga,
+  receiveUserSaga,
+  userSyncSaga,
+} from './auth/sagas'
 
 import { Store } from '../types'
 
+import analyticsSaga from './analytics/sagas'
 import { syncInsurersSaga } from './insurers/sagas'
 import {
   addMarketEntitySaga,
@@ -79,10 +85,12 @@ export default function createStore(additionalOpts: ICreateStoreOpts): Store {
     store = _createStore(opts.reducer, undefined, enhancer)
 
     const sagas = [
+      analyticsSaga,
       authScreenSaga,
       authSaga,
       pollUserSaga,
       userSyncSaga,
+      receiveUserSaga,
       syncPoliciesSaga,
       policyOperationsSaga,
       syncInsurersSaga,

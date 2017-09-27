@@ -73,19 +73,33 @@ export default class QuestionSet<T> extends React.Component<
           const config = map[type]
           if (config) {
             const Comp = config.component
+            const condition = q.condition || (() => true)
             const error = this.state.errors && this.state.errors[q.id]
             const blurred = this.state.blurred[q.id]
 
-            return (
-              <Comp
-                key={q.id}
-                descriptor={q}
-                onChange={this.onChange}
-                value={answers[q.id]}
-                error={blurred ? error : null}
-                {...config.props || {}}
-              />
-            )
+            const getValue = () => {
+              let answer = answers[q.id]
+              if (!answer) {
+                if (q.defaultValue) {
+                  answer =
+                    typeof q.defaultValue === 'function'
+                      ? q.defaultValue()
+                      : q.defaultValue
+                }
+              }
+              return answer
+            }
+
+            return condition(answers)
+              ? <Comp
+                  key={q.id}
+                  descriptor={q}
+                  onChange={this.onChange}
+                  value={getValue()}
+                  error={blurred ? error : null}
+                  {...config.props || {}}
+                />
+              : null
           }
           return (
             <div style={{ color: BLUE }} key={q.id}>
