@@ -6,6 +6,7 @@ const storageBucket = 'jog-dev-10fe9.appspot.com'
 const messagingSenderId = '98399119405'
 
 const config: IEnvironmentConfig = {
+  isDebug: true,
   firebase: {
     apiKey,
     authDomain: 'jog-dev-10fe9.firebaseapp.com',

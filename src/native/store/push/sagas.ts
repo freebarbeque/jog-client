@@ -1,20 +1,18 @@
-// @flow
-
+import * as _ from 'lodash'
 import FCM, {
   FCMEvent,
+  NotificationType,
   RemoteNotificationResult,
   WillPresentNotificationResult,
-  NotificationType,
 } from 'react-native-fcm'
-import _ from 'lodash'
 
 import {
   call,
+  cancel,
+  cancelled,
+  fork,
   put,
   take,
-  fork,
-  cancelled,
-  cancel,
   takeEvery,
 } from 'redux-saga/effects'
 
@@ -22,24 +20,24 @@ import uuid from 'uuid/v4'
 
 import { eventChannel } from 'redux-saga'
 
-import { isAndroid } from 'jog/src/native/util/system'
-import type { NavReduxState, ReduxState } from 'jog/src/common/types'
+import { INavReduxState, IReduxState } from '~/common/types'
+import { isAndroid } from '~/native/util/system'
 
 import { updateUserDetails } from '../../../common/store/auth/actions'
 
-import type {
-  SubscribePushNotificationsAction,
-  ReceivePushNotification,
-} from './actionTypes'
-import * as actions from './actions'
 import { getNavigationAdapter, getStore } from '../../../common/store/index'
+import * as actions from './actions'
+import {
+  IReceivePushNotification,
+  ISubscribePushNotificationsAction,
+} from './actionTypes'
 
 // FCM doesn't clear the initial notification once you've received it, and there is no way to clear it.
 let processedInitialNotification = false
 
 function createPushNotificationsChannel() {
   return eventChannel(emit => {
-    let refreshTokenListener = null
+    let refreshTokenListener: any = null
 
     FCM.getFCMToken().then(token => emit({ token }))
 
@@ -91,7 +89,7 @@ function createPushNotificationsChannel() {
   })
 }
 
-export function* subscribePushNotifications<T>(): Iterable<T> {
+export function* subscribePushNotifications() {
   yield call(() => FCM.requestPermissions()) // For iOS
 
   const channel = yield call(createPushNotificationsChannel)
@@ -100,7 +98,7 @@ export function* subscribePushNotifications<T>(): Iterable<T> {
   try {
     // eslint-disable-next-line no-constant-condition
     while (true) {
-      const { token, notification } = (yield take(channel)) || {}
+      const { token, notification } = yield take(channel)
       if (token) {
         yield put(updateUserDetails({ fcmToken: token }, true))
       } else if (notification) {
@@ -116,18 +114,18 @@ export function* subscribePushNotifications<T>(): Iterable<T> {
   }
 }
 
-function* enablePushNotificationsTask<T>(): Iterable<T> {
+function* enablePushNotificationsTask() {
   yield put(updateUserDetails({ enableNotifications: true }, true))
   yield put(actions.subscribePushNotifications())
 }
 
-function* disablePushNotificationsTask<T>(): Iterable<T> {
+function* disablePushNotificationsTask() {
   yield put(updateUserDetails({ enableNotifications: false }, true))
   yield put(actions.unsubscribePushNotifications())
 }
 
 function getPolicyIndex(policyId) {
-  const state: ReduxState = getStore().getState()
+  const state: IReduxState = getStore().getState()
   const policies = state.policies.policies
   const policyIndex =
     _.findIndex(_.values(policies), p => p.id === policyId) + 1
@@ -148,7 +146,7 @@ function _policyDetailsScreenShowing(policyId, route) {
 }
 
 function policyDetailsScreenShowing(policyId) {
-  const navState: NavReduxState = getStore().getState().nav
+  const navState: INavReduxState = getStore().getState().nav
   const index = navState.index
   const route = navState.routes[index]
   return _policyDetailsScreenShowing(policyId, route)
@@ -162,9 +160,7 @@ function navigateToPolicyDetails(policyId) {
   )
 }
 
-function* receivePushNotificationTask<T>(
-  action: ReceivePushNotification,
-): Iterable<T> {
+function* receivePushNotificationTask(action: IReceivePushNotification) {
   const notification = action.notification
   const wasTapped = notification._notificationType === 'notification_response'
   const policyId = notification.policy
@@ -178,16 +174,18 @@ function* receivePushNotificationTask<T>(
     if (!notification.opened_from_tray) {
       const { body, title } = notification.fcm
 
-      FCM.presentLocalNotification({
-        id: uuid(),
-        title,
-        body,
-        sound: 'default',
-        priority: 'high',
-        click_action: 'fcm.action.OPEN_POLICY_DETAILS',
-        show_in_foreground: true,
-        policy: notification.policy,
-      })
+      FCM.presentLocalNotification(
+        {
+          id: uuid(),
+          title,
+          body,
+          sound: 'default',
+          priority: 'high',
+          click_action: 'fcm.action.OPEN_POLICY_DETAILS',
+          show_in_foreground: true,
+          policy: notification.policy,
+        } as any,
+      )
     }
   } else if (notification.local_notification && notification.opened_from_tray) {
     if (policyId && !policyDetailsScreenShowing(policyId)) {
@@ -196,7 +194,7 @@ function* receivePushNotificationTask<T>(
   }
 }
 
-export function* pushNotificationSaga<T>(): Iterable<T> {
+export function* pushNotificationSaga() {
   yield takeEvery('push/ENABLE_PUSH_NOTIFICATIONS', enablePushNotificationsTask)
   yield takeEvery(
     'push/DISABLE_PUSH_NOTIFICATIONS',
@@ -205,8 +203,8 @@ export function* pushNotificationSaga<T>(): Iterable<T> {
   yield takeEvery('push/RECEIVE_PUSH_NOTIFICATION', receivePushNotificationTask)
 }
 
-export function* pushNotificationSubscriptionSaga<T>(): Iterable<T> {
-  let action: ?SubscribePushNotificationsAction
+export function* pushNotificationSubscriptionSaga() {
+  let action: ISubscribePushNotificationsAction | undefined
 
   // eslint-disable-next-line no-cond-assign
   while ((action = yield take('push/SUBSCRIBE_PUSH_NOTIFICATIONS'))) {

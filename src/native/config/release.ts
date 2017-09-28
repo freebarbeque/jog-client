@@ -6,6 +6,7 @@ const databaseURL = 'https://jog-prod.firebaseio.com'
 const apiKey = 'AIzaSyByoJ2eeu1gM3-Xn3guqPtocEAG2h3Q97w'
 
 const config: IEnvironmentConfig = {
+  isDebug: true,
   firebase: {
     apiKey,
     authDomain: 'jog-prod.firebaseapp.com',
