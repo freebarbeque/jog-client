@@ -106,8 +106,12 @@ class LabelledTextInput extends React.Component<IProps> {
     )
   }
 
-  private blur() {
+  public blur() {
     return this.input.blur()
+  }
+
+  public focus() {
+    return this.input.focus()
   }
 }
 

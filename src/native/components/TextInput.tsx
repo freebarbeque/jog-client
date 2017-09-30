@@ -39,4 +39,12 @@ export default class JogTextInput extends React.Component<any> {
       />
     )
   }
+
+  public focus() {
+    this.input.focus()
+  }
+
+  public blur() {
+    this.input.blur()
+  }
 }
