@@ -1,6 +1,5 @@
 import * as React from 'react'
 import { ScrollView, StyleSheet, View } from 'react-native'
-import Accordion from 'react-native-collapsible/Accordion'
 import { connect, DispatchProp } from 'react-redux'
 
 import { BLUE, CREAM, WHITE } from '~/common/constants/palette'
@@ -15,6 +14,8 @@ import SettingsNotificationsSection from './SettingsNotificationsSection'
 import SettingsPrivacyPolicySection from './SettingsPrivacyPolicySection'
 import SettingsProfileSection from './SettingsProfileSection'
 import SettingsTermsAndConditionsSection from './SettingsTermsAndConditionsSection'
+
+const Accordion = require('react-native-collapsible/Accordion')
 
 interface ISettingsProps extends DispatchProp<any> {
   activeSection: number | null

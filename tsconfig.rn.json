@@ -47,7 +47,9 @@
     "ios",
     "build",
     "node_modules",
-    "modules/common/node_modules"
+    "modules/common/node_modules",
+    "src/index.tsx",
+    "src/web"
   ],
   "compileOnSave": false
 }
