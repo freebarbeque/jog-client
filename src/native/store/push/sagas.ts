@@ -16,7 +16,7 @@ import {
   takeEvery,
 } from 'redux-saga/effects'
 
-import uuid from 'uuid/v4'
+const uuid = require('uuid/v4')
 
 import { eventChannel } from 'redux-saga'
 

@@ -28,6 +28,12 @@ export class NativeNavigationAdapter {
     return NavigationActions.navigate(navigationOptions)
   }
 
+  public static navigateToPolicyFinished() {
+    return NavigationActions.navigate({
+      routeName: 'Finished',
+    })
+  }
+
   public static navigateToEmailVerification() {
     return NavigationActions.navigate({
       routeName: 'EmailVerification',

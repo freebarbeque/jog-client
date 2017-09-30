@@ -13,7 +13,8 @@ import {
 
 import * as _ from 'lodash'
 import mime from 'react-native-mime-types'
-import uuid from 'uuid/v4'
+
+const uuid = require('uuid/v4')
 
 // tslint:disable-next-line:no-var-requires
 const createThrottle = require('async-throttle')
@@ -94,7 +95,6 @@ function createUserSubscribeChannel() {
               ref
                 .getDownloadURL()
                 .then(url => {
-                  log.trace('profilePhoto', profilePhoto, url)
                   details = {
                     ...details,
                     profilePhotoURL: url,
@@ -102,7 +102,11 @@ function createUserSubscribeChannel() {
                   emit({ user, details })
                 })
                 .catch(err => {
-                  log.warn('Error downloading profile photo', err)
+                  log.warn(
+                    'Error downloading profile photo',
+                    err && (err as any).serverResponse,
+                  )
+                  emit({ user, details })
                 })
             }
           })
