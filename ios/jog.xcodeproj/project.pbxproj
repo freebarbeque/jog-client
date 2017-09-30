@@ -371,6 +371,7 @@
 		32DC999DF5AB452DA542AFFC /* WorkSans-SemiBold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "WorkSans-SemiBold.ttf"; path = "../assets/fonts/WorkSans-SemiBold.ttf"; sourceTree = "<group>"; };
 		36EE0AFD66EA4D55A4471551 /* libRNFetchBlob.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNFetchBlob.a; sourceTree = "<group>"; };
 		3BFF4AF61D9C44ED91CE595E /* Ionicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Ionicons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Ionicons.ttf"; sourceTree = "<group>"; };
+		40409F884DB442C993B5F7AF /* libRNFilePicker.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNFilePicker.a; sourceTree = "<group>"; };
 		4C3922CDAE004FA1B952250F /* Zocial.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Zocial.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Zocial.ttf"; sourceTree = "<group>"; };
 		4E10D52DE5C7B6EF64FE329B /* Pods_jog.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_jog.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		53FF88DD562F43C3AEC91400 /* libRCTCamera.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRCTCamera.a; sourceTree = "<group>"; };
@@ -395,6 +396,7 @@
 		A273520947144217BD681BDA /* FontAwesome.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome.ttf"; sourceTree = "<group>"; };
 		A73A0F526DFF4FC1B183760F /* WorkSans-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "WorkSans-Bold.ttf"; path = "../assets/fonts/WorkSans-Bold.ttf"; sourceTree = "<group>"; };
 		AA37D8D7AB454EA2B9571740 /* libReactNativeConfig.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libReactNativeConfig.a; sourceTree = "<group>"; };
+		ADF4D225059046B7B7509A49 /* libRNPDFView.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNPDFView.a; sourceTree = "<group>"; };
 		B3D1D95F12122258A77A30CD /* Pods-jog.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-jog.debug.xcconfig"; path = "Pods/Target Support Files/Pods-jog/Pods-jog.debug.xcconfig"; sourceTree = "<group>"; };
 		BC25C06B733B4C4CA038FAB2 /* MaterialCommunityIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialCommunityIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/MaterialCommunityIcons.ttf"; sourceTree = "<group>"; };
 		BD1BA1535EED45C4811A7544 /* ReactNativeConfig.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = ReactNativeConfig.xcodeproj; path = "../node_modules/react-native-config/ios/ReactNativeConfig.xcodeproj"; sourceTree = "<group>"; };
@@ -683,6 +685,26 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		6A9E9FB71F7F7EF400476492 /* Recovered References */ = {
+			isa = PBXGroup;
+			children = (
+				53FF88DD562F43C3AEC91400 /* libRCTCamera.a */,
+				AA37D8D7AB454EA2B9571740 /* libReactNativeConfig.a */,
+				D45D22DD1A154F23969498F4 /* libRNDeviceInfo.a */,
+				3269B4A3BE8D49CABA7555FC /* libRNDocumentPicker.a */,
+				36EE0AFD66EA4D55A4471551 /* libRNFetchBlob.a */,
+				76BEA6E950B8420F83FDCF27 /* libFirestack.a */,
+				0D73E2A281224DA48D2CD461 /* libRNImagePicker.a */,
+				A067CA3346D74E0BB38A35D2 /* libRNSpinkit.a */,
+				C77DAA98BA934543BD1956DC /* libRNVectorIcons.a */,
+				3001F5E5165F456AA46EA423 /* libRCTBEEPickerManager.a */,
+				9560E6F46F1E46E7888FE7B8 /* libRNFIRMessaging.a */,
+				40409F884DB442C993B5F7AF /* libRNFilePicker.a */,
+				ADF4D225059046B7B7509A49 /* libRNPDFView.a */,
+			);
+			name = "Recovered References";
+			sourceTree = "<group>";
+		};
 		78C398B11ACF4ADC00677621 /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -740,6 +762,7 @@
 				8D3F681C4AA3354FEFF7ADFA /* Pods */,
 				8C63C86C764826E50392A485 /* Frameworks */,
 				55936D58A613432AA12D4B1F /* Resources */,
+				6A9E9FB71F7F7EF400476492 /* Recovered References */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -1490,12 +1513,16 @@
 					"$(SRCROOT)/../node_modules/react-native-pdf-view/RNPDFView",
 					"$(SRCROOT)/../node_modules/react-native-picker/ios/RCTBEEPickerManager",
 					"$(SRCROOT)/../node_modules/react-native-fcm/ios",
+					"$(SRCROOT)/../node_modules/react-native-file-picker/ios/**",
+					"$(SRCROOT)/../node_modules/react-native-pdf-view/RNPDFView",
 				);
 				INFOPLIST_FILE = jogTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
@@ -1551,12 +1578,16 @@
 					"$(SRCROOT)/../node_modules/react-native-pdf-view/RNPDFView",
 					"$(SRCROOT)/../node_modules/react-native-picker/ios/RCTBEEPickerManager",
 					"$(SRCROOT)/../node_modules/react-native-fcm/ios",
+					"$(SRCROOT)/../node_modules/react-native-file-picker/ios/**",
+					"$(SRCROOT)/../node_modules/react-native-pdf-view/RNPDFView",
 				);
 				INFOPLIST_FILE = jogTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
@@ -1597,6 +1628,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_TEAM = 6T4T578YR3;
+				GCC_INPUT_FILETYPE = automatic;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-camera/ios",
@@ -1616,9 +1648,12 @@
 					"$(SRCROOT)/../node_modules/react-native-pdf-view/RNPDFView",
 					"$(SRCROOT)/../node_modules/react-native-picker/ios/RCTBEEPickerManager",
 					"$(SRCROOT)/../node_modules/react-native-fcm/ios",
+					"$(SRCROOT)/../node_modules/react-native-file-picker/ios/**",
+					"$(SRCROOT)/../node_modules/react-native-pdf-view/RNPDFView",
 				);
 				INFOPLIST_FILE = jog/Info.plist;
 				INFOPLIST_PREPROCESS = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				JOG_ENVIRONMENT = DEBUG;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
@@ -1645,6 +1680,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 6T4T578YR3;
+				GCC_INPUT_FILETYPE = automatic;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-camera/ios",
@@ -1664,9 +1700,12 @@
 					"$(SRCROOT)/../node_modules/react-native-pdf-view/RNPDFView",
 					"$(SRCROOT)/../node_modules/react-native-picker/ios/RCTBEEPickerManager",
 					"$(SRCROOT)/../node_modules/react-native-fcm/ios",
+					"$(SRCROOT)/../node_modules/react-native-file-picker/ios/**",
+					"$(SRCROOT)/../node_modules/react-native-pdf-view/RNPDFView",
 				);
 				INFOPLIST_FILE = jog/Info.plist;
 				INFOPLIST_PREPROCESS = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				JOG_ENVIRONMENT = RELEASE;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (

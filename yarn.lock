@@ -7664,9 +7664,9 @@ react-native-fade-in-view@^1.0.4:
   version "1.0.4"
   resolved "https://registry.yarnpkg.com/react-native-fade-in-view/-/react-native-fade-in-view-1.0.4.tgz#ce5614c74675fdc68419817c179e0abb5eaa58b6"
 
-react-native-fcm@^6.2.3:
-  version "6.2.3"
-  resolved "https://registry.yarnpkg.com/react-native-fcm/-/react-native-fcm-6.2.3.tgz#676a6b91ac363e29eb7fd3e7c44b7df0177e6fb7"
+react-native-fcm@9.7.0:
+  version "9.7.0"
+  resolved "https://registry.yarnpkg.com/react-native-fcm/-/react-native-fcm-9.7.0.tgz#d446f6b1f96bdd5a2c77b04842debf3ce00e4bf3"
 
 react-native-fetch-blob@^0.10.4:
   version "0.10.5"
