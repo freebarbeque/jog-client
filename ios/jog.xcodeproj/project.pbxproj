@@ -683,6 +683,24 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		6A161D741F7D1177001B61F5 /* Recovered References */ = {
+			isa = PBXGroup;
+			children = (
+				53FF88DD562F43C3AEC91400 /* libRCTCamera.a */,
+				AA37D8D7AB454EA2B9571740 /* libReactNativeConfig.a */,
+				D45D22DD1A154F23969498F4 /* libRNDeviceInfo.a */,
+				3269B4A3BE8D49CABA7555FC /* libRNDocumentPicker.a */,
+				36EE0AFD66EA4D55A4471551 /* libRNFetchBlob.a */,
+				76BEA6E950B8420F83FDCF27 /* libFirestack.a */,
+				0D73E2A281224DA48D2CD461 /* libRNImagePicker.a */,
+				A067CA3346D74E0BB38A35D2 /* libRNSpinkit.a */,
+				C77DAA98BA934543BD1956DC /* libRNVectorIcons.a */,
+				3001F5E5165F456AA46EA423 /* libRCTBEEPickerManager.a */,
+				9560E6F46F1E46E7888FE7B8 /* libRNFIRMessaging.a */,
+			);
+			name = "Recovered References";
+			sourceTree = "<group>";
+		};
 		78C398B11ACF4ADC00677621 /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -740,6 +758,7 @@
 				8D3F681C4AA3354FEFF7ADFA /* Pods */,
 				8C63C86C764826E50392A485 /* Frameworks */,
 				55936D58A613432AA12D4B1F /* Resources */,
+				6A161D741F7D1177001B61F5 /* Recovered References */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";

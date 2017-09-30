@@ -48,7 +48,7 @@ const Container = RootContainer.extend`
   }
 `
 
-class VehicleScreen extends React.Component<IProps, IState> {
+class AddVehicleScreen extends React.Component<IProps, IState> {
   private securityQuestionSetComp: QuestionSet<{}> | null
   private ownerQuestionSetComp: QuestionSet<{}> | null
   private vehicleQuestionSetComp: QuestionSet<{}> | null
@@ -157,4 +157,4 @@ class VehicleScreen extends React.Component<IProps, IState> {
 export default connect((state: IReduxState) => ({
   carAnswers: state.markets.carAnswers,
   cars: state.markets.cars,
-}))(VehicleScreen)
+}))(AddVehicleScreen)

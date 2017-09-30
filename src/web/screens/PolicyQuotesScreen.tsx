@@ -5,10 +5,10 @@ import { Redirect, Route, Switch } from 'react-router'
 const uuid = require('uuid/v4')
 
 import AddressScreen from './markets/AddressScreen'
+import AddVehicleScreen from './markets/AddVehicleScreen'
 import DriverScreen from './markets/DriverScreen'
 import MotorQuoteScreen from './markets/MotorQuoteScreen'
-import QuoteRequestsScreen from './markets/QuoteRequestsScreen'
-import VehicleScreen from './markets/VehicleScreen'
+import QuoteOverviewScreen from './markets/QuoteRequestsScreen'
 
 export default class PolicyQuotesScreen extends React.Component {
   public render() {
@@ -17,15 +17,12 @@ export default class PolicyQuotesScreen extends React.Component {
         <Route
           path="/app/tabs/policies/:policyId/quotes"
           exact
-          component={QuoteRequestsScreen}
+          component={QuoteOverviewScreen}
         />
         <Route
           path="/app/tabs/policies/:policyId/quotes/motor"
           exact
-          render={() =>
-            <Redirect
-              to={`/app/tabs/policies/:policyId/quotes/motor/${uuid()}`}
-            />}
+          component={MotorQuoteScreen}
         />
         <Switch>
           <Route
@@ -50,16 +47,11 @@ export default class PolicyQuotesScreen extends React.Component {
           <Route
             path="/app/tabs/policies/:policyId/quotes/motor/vehicle"
             exact
-            component={VehicleScreen}
+            component={AddVehicleScreen}
           />
           <Route
             path="/app/tabs/policies/:policyId/quotes/motor/vehicle/:vehicleId"
-            component={VehicleScreen}
-          />
-          <Route
-            path="/app/tabs/policies/:policyId/quotes/motor/:quoteId"
-            exact
-            component={MotorQuoteScreen}
+            component={AddVehicleScreen}
           />
         </Switch>
       </div>

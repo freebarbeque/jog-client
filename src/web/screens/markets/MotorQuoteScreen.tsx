@@ -35,7 +35,7 @@ const Container = RootContainer.extend`
 
 interface IMotorQuoteScreenProps
   extends DispatchProp<any>,
-    RouteComponentProps<{ quoteId: string; policyId: string }> {
+    RouteComponentProps<{ policyId: string }> {
   motorAnswers: { [id: string]: any }
   quoteRequests: { [id: string]: IQuoteRequest }
 }
@@ -45,9 +45,9 @@ class MotorQuoteScreen extends React.Component<IMotorQuoteScreenProps> {
   private insuranceQuestionSet: QuestionSet<{ [id: string]: any }> | null
 
   public componentDidMount() {
-    const quoteId = this.props.match.params.quoteId
-    if (quoteId) {
-      const qr = this.props.quoteRequests[quoteId]
+    const policyId = this.props.match.params.policyId
+    if (policyId) {
+      const qr = this.props.quoteRequests[policyId]
       this.updateAnswers(qr)
     } else {
       this.updateAnswers()
@@ -55,8 +55,8 @@ class MotorQuoteScreen extends React.Component<IMotorQuoteScreenProps> {
   }
 
   public componentWillReceiveProps(nextProps: IMotorQuoteScreenProps) {
-    const newQuoteId = nextProps.match.params.quoteId
-    const oldQuoteId = this.props.match.params.quoteId
+    const newQuoteId = nextProps.match.params.policyId
+    const oldQuoteId = this.props.match.params.policyId
     const newQuote = nextProps.quoteRequests[newQuoteId]
     const oldQuote = this.props.quoteRequests[oldQuoteId]
 
@@ -111,10 +111,10 @@ class MotorQuoteScreen extends React.Component<IMotorQuoteScreenProps> {
 
   private onChange = (id, value) => {
     this.props.dispatch(setMotorAnswer(id, value))
-    const quoteId: string | undefined = this.props.match.params.quoteId
+    const policyId: string | undefined = this.props.match.params.policyId
     const motorAnswers = { ...this.props.motorAnswers }
     motorAnswers[id] = value
-    this.saveQuote(quoteId, motorAnswers)
+    this.saveQuote(policyId, motorAnswers)
   }
 
   private updateAnswers(qr?: IQuoteRequest | null) {
@@ -126,13 +126,13 @@ class MotorQuoteScreen extends React.Component<IMotorQuoteScreenProps> {
     }
   }
 
-  private saveQuote(quoteId, answers, submit: boolean = false) {
-    const qr = constructQuoteRequest(answers, quoteId)
+  private saveQuote(policyId, answers, submit: boolean = false) {
+    const qr = constructQuoteRequest(answers, policyId)
     if (submit) {
       // Submit the quote for processing by API
       qr.status = 'pending'
     }
-    this.props.dispatch(addQuoteRequest(qr, quoteId, submit))
+    this.props.dispatch(addQuoteRequest(qr, policyId, submit))
   }
 
   private handleSubmit = () => {
@@ -150,7 +150,7 @@ class MotorQuoteScreen extends React.Component<IMotorQuoteScreenProps> {
 
     if (!_.keys(errors).length) {
       this.saveQuote(
-        this.props.match.params.quoteId,
+        this.props.match.params.policyId,
         this.props.motorAnswers,
         true,
       )

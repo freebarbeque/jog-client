@@ -3,7 +3,7 @@ import * as _ from 'lodash'
 import { createSelector } from 'reselect'
 import { IReduxState } from '../../types'
 
-export interface INormalQuoteRequest extends IQuoteRequest {
+export interface IResolvedQuoteRequest extends IQuoteRequest {
   normalCar?: INormalCar | null
   normalMainDriver?: INormalPerson | null
 }
@@ -52,7 +52,7 @@ export const selectNormalisedQRs = createSelector(
   (state: IReduxState) => state.markets.drivers,
   (state: IReduxState) => state.markets.quoteRequests,
   (cars, drivers, quoteRequests) => {
-    const nQuoteRequests: { [id: string]: INormalQuoteRequest } = {}
+    const nQuoteRequests: { [id: string]: IResolvedQuoteRequest } = {}
     _.forEach(quoteRequests, (qr: IQuoteRequest) => {
       const carId = qr.vehicle
       const car = carId ? cars[carId] : null

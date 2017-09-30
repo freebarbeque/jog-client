@@ -36,9 +36,9 @@ export function deleteAddress(uid: string, addressId: string) {
   return db.ref(`/addresses/${uid}/${addressId}`).remove()
 }
 
-export function deleteQuoteRequest(uid: string, quoteId: string) {
+export function deleteQuoteRequest(uid: string, policyId: string) {
   const db = firebase.database()
-  return db.ref(`/quoteRequests/${uid}/${quoteId}`).remove()
+  return db.ref(`/quoteRequests/${uid}/${policyId}`).remove()
 }
 
 export function sync<T>(

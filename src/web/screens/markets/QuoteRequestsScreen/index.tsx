@@ -15,71 +15,31 @@ import { RouteComponentProps } from 'react-router'
 import { deleteQuoteRequest } from '~/common/store/markets/quoteRequests'
 import { BLUE } from '../../../../common/constants/palette'
 import {
-  INormalQuoteRequest,
+  IResolvedQuoteRequest,
   selectNormalisedQRs,
 } from '../../../../common/store/markets/selectors'
 import Container from '../../../components/Container'
 import RoundedButton from '../../../components/RoundedButton'
-import QuoteRequest from './QuoteRequest'
 
 interface IProps
   extends DispatchProp<any>,
     RouteComponentProps<{ policyId?: string }> {
-  quoteRequests: { [id: string]: INormalQuoteRequest }
+  quoteRequests: { [id: string]: IResolvedQuoteRequest }
 }
 
-const QRContainer = Container.extend`
-  p {
-    color: ${BLUE} !important;
-  }
-`
-
-class QuoteRequestsScreen extends React.Component<IProps> {
+class QuoteOverviewScreen extends React.Component<IProps> {
   public render() {
-    const quoteRequests = _.chain(this.props.quoteRequests)
-      .sortBy(q => moment(q.lastUpdated).toDate())
-      .reverse()
-      .value()
-    const numRequests = _.keys(quoteRequests).length
+    const policyId = this.props.match.params.policyId
+    if (!policyId) throw new Error('Overview screen requires policyId')
+    const quoteRequest = this.props.quoteRequests[policyId]
 
-    return (
-      <QRContainer className="QuoteRequestsScreen">
-        <p>
-          You have {numRequests} ongoing quote request{numRequests === 1 ? '' : 's'}.
-        </p>
-        {_.values(quoteRequests).map(q =>
-          <QuoteRequest
-            quoteRequest={q}
-            onDeleteClick={() => {
-              if (q.id) {
-                this.props.dispatch(deleteQuoteRequest(q.id))
-              } else {
-                throw new Error('All quotes should have an id')
-              }
-            }}
-            onClick={() =>
-              this.props.dispatch(
-                push(
-                  `/app/tabs/policies/${this.props.match.params
-                    .policyId}/quotes/motor/${q.id}`,
-                ),
-              )}
-          />,
-        )}
-        <RoundedButton
-          onClick={this.handleClick}
-          label="New Quote"
-          style={{ color: 'white' }}
-        />
-      </QRContainer>
-    )
+    return <Container className="QuoteOverviewScreen" />
   }
 
   private handleClick = () => {
     this.props.dispatch(
       push(
-        `/app/tabs/policies/${this.props.match.params
-          .policyId}/quotes/motor/${uuid()}`,
+        `/app/tabs/policies/${this.props.match.params.policyId}/quotes/motor`,
       ),
     )
   }
@@ -87,4 +47,4 @@ class QuoteRequestsScreen extends React.Component<IProps> {
 
 export default connect((state: IReduxState) => ({
   quoteRequests: selectNormalisedQRs(state),
-}))(QuoteRequestsScreen)
+}))(QuoteOverviewScreen)
