@@ -12,8 +12,8 @@ import {
 } from 'redux-saga/effects'
 
 import * as _ from 'lodash'
-import mime from 'react-native-mime-types'
 
+const mime = require('react-native-mime-types')
 const uuid = require('uuid/v4')
 
 // tslint:disable-next-line:no-var-requires
