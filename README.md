@@ -28,14 +28,14 @@ We've built this project in https://circleci.com it's very easy to setup and the
 
 ### Prerequisite installs
 
-Node 8 latest version (use `nvm` if possible)
+Node 7 latest version (use `nvm` if possible)
 
 ### Setup
 
 Open `package.json` make sure: `"react": "^15.6.1"`
 
 ```bash
-nvm use 8
+nvm use 7
 rm -rf node_modules #(if present)
 npm install
 ```
