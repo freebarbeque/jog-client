@@ -1,9 +1,5 @@
 import * as React from 'react'
-import { Redirect, Route, Switch } from 'react-router'
-
-// tslint:disable-next-line:no-var-requires
-const uuid = require('uuid/v4')
-
+import { Route, Switch } from 'react-router'
 import AddressScreen from './markets/AddressScreen'
 import AddVehicleScreen from './markets/AddVehicleScreen'
 import DriverScreen from './markets/DriverScreen'
