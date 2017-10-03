@@ -21,7 +21,7 @@
     "fix:sort-package-json": "sort-package-json",
     "format:js": "prettier --single-quote --trailing-comma all --no-semi --write \"src/**/*.ts src/**/*.tsx src/**/*.js src/**/*.jsx\"",
     "generate:policies": "NODE_PATH=../ babel-node scripts/mock/generateMockPolicies.js -b es2015",
-    "postinstall": "yarn setup:submodules && remotedev-debugger --hostname localhost --port 5678 --injectserver",
+    "postinstall": "yarn setup:submodules && (cd ios && pod install) && remotedev-debugger --hostname localhost --port 5678 --injectserver",
     "lint": "yarn lint:js",
     "lint:js": "tslint --project . --type-check 'src/**/*.ts?(x)'",
     "run:android": "yarn build && concurrently -r 'yarn watch' 'react-native run-android'",
