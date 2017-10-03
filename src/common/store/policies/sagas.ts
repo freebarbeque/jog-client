@@ -1,7 +1,8 @@
 import * as firebase from 'firebase'
 import * as _ from 'lodash'
-import mime from 'react-native-mime-types'
 import { eventChannel } from 'redux-saga'
+
+const mime = require('react-native-mime-types')
 
 import {
   call,
@@ -12,7 +13,8 @@ import {
   take,
   takeLatest,
 } from 'redux-saga/effects'
-import uuid from 'uuid/v4'
+
+const uuid = require('uuid/v4')
 
 import { demandCurrentUser } from '../../data/auth'
 import {
@@ -158,7 +160,7 @@ function* uploadPolicyDocumentTask(action: IUploadPolicyDocumentAction) {
     // For whatever reason, the firebase module claims the base64 data from RNFetchBlob is invalid so we decode it manually.
     const contentType = file ? file.type : mime.lookup(fileName)
 
-    log.error(
+    log.info(
       file
         ? `Uploading ${file.name} to ${fileStoragePath}`
         : `Uploading document at ${fileUrl ||

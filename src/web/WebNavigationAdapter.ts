@@ -10,7 +10,7 @@ export class WebNavigationAdapter {
   }
 
   // eslint-disable-next-line no-unused-vars
-  public static navigateToPolicyDetails(policyId: string, policyIndex: number) {
+  public static navigateToPolicyDetails() {
     // TODO?
   }
 

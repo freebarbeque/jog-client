@@ -1,0 +1,11 @@
+{
+  "plugins": [
+    ["babel-plugin-root-import", [{
+      "rootPathPrefix": "~",
+      "rootPathSuffix": "artifacts/src/"
+    }, {
+      "rootPathPrefix": "jog-common",
+      "rootPathSuffix": "artifacts/modules/common/src"
+    }]]
+  ]
+}

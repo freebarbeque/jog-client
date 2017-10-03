@@ -859,6 +859,12 @@ babel-plugin-react-transform@2.0.2:
   dependencies:
     lodash "^4.6.1"
 
+babel-plugin-root-import@^5.1.0:
+  version "5.1.0"
+  resolved "https://registry.yarnpkg.com/babel-plugin-root-import/-/babel-plugin-root-import-5.1.0.tgz#80ea1cd5945b463a5e3f7e204a69478c573e328c"
+  dependencies:
+    slash "^1.0.0"
+
 babel-plugin-syntax-async-functions@^6.5.0, babel-plugin-syntax-async-functions@^6.8.0:
   version "6.13.0"
   resolved "https://registry.yarnpkg.com/babel-plugin-syntax-async-functions/-/babel-plugin-syntax-async-functions-6.13.0.tgz#cad9cad1191b5ad634bf30ae0872391e0647be95"
@@ -2446,7 +2452,7 @@ create-hmac@^1.1.0, create-hmac@^1.1.2, create-hmac@^1.1.4:
     safe-buffer "^5.0.1"
     sha.js "^2.4.8"
 
-create-react-class@^15.5.3, create-react-class@^15.6.0:
+create-react-class@^15.5.3:
   version "15.6.0"
   resolved "https://registry.yarnpkg.com/create-react-class/-/create-react-class-15.6.0.tgz#ab448497c26566e1e29413e883207d57cfe7bed4"
   dependencies:
@@ -7658,9 +7664,9 @@ react-native-fade-in-view@^1.0.4:
   version "1.0.4"
   resolved "https://registry.yarnpkg.com/react-native-fade-in-view/-/react-native-fade-in-view-1.0.4.tgz#ce5614c74675fdc68419817c179e0abb5eaa58b6"
 
-react-native-fcm@^6.2.3:
-  version "6.2.3"
-  resolved "https://registry.yarnpkg.com/react-native-fcm/-/react-native-fcm-6.2.3.tgz#676a6b91ac363e29eb7fd3e7c44b7df0177e6fb7"
+react-native-fcm@9.7.0:
+  version "9.7.0"
+  resolved "https://registry.yarnpkg.com/react-native-fcm/-/react-native-fcm-9.7.0.tgz#d446f6b1f96bdd5a2c77b04842debf3ce00e4bf3"
 
 react-native-fetch-blob@^0.10.4:
   version "0.10.5"
@@ -7715,9 +7721,11 @@ react-native-picker@^4.0.18:
   version "4.0.18"
   resolved "https://registry.yarnpkg.com/react-native-picker/-/react-native-picker-4.0.18.tgz#cd75244bb7819e29c2910171120e62be8bf690fb"
 
-react-native-spinkit@^1.0.2:
-  version "1.0.2"
-  resolved "https://registry.yarnpkg.com/react-native-spinkit/-/react-native-spinkit-1.0.2.tgz#0d31b019556e038aa8e953038562550cb0ead8d2"
+react-native-spinkit@1.1.1:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/react-native-spinkit/-/react-native-spinkit-1.1.1.tgz#3ae512f3978bc750b7c02639911e1710750d8539"
+  dependencies:
+    prop-types "^15.5.8"
 
 react-native-svg-uri@^1.2.0:
   version "1.2.0"
@@ -7969,15 +7977,13 @@ react-transition-group@^1.1.2, react-transition-group@^1.2.0:
     prop-types "^15.5.6"
     warning "^3.0.0"
 
-react@^15.6.1:
-  version "15.6.1"
-  resolved "https://registry.yarnpkg.com/react/-/react-15.6.1.tgz#baa8434ec6780bde997cdc380b79cd33b96393df"
+react@16.0.0-alpha.6:
+  version "16.0.0-alpha.6"
+  resolved "https://registry.yarnpkg.com/react/-/react-16.0.0-alpha.6.tgz#2ccb1afb4425ccc12f78a123a666f2e4c141adb9"
   dependencies:
-    create-react-class "^15.6.0"
     fbjs "^0.8.9"
     loose-envify "^1.1.0"
     object-assign "^4.1.0"
-    prop-types "^15.5.10"
 
 read-all-stream@^3.0.0:
   version "3.1.0"
@@ -8434,7 +8440,13 @@ right-align@^0.1.1:
   dependencies:
     align-text "^0.1.1"
 
-rimraf@2, rimraf@2.6.1, rimraf@2.x.x, rimraf@^2.2.8, rimraf@^2.5.1, rimraf@^2.5.4, rimraf@^2.6.1:
+rimraf@2, rimraf@2.x.x, rimraf@^2.2.8, rimraf@^2.5.1, rimraf@^2.5.4, rimraf@^2.6.1, rimraf@^2.6.2:
+  version "2.6.2"
+  resolved "https://registry.yarnpkg.com/rimraf/-/rimraf-2.6.2.tgz#2ed8150d24a16ea8651e6d6ef0f47c4158ce7a36"
+  dependencies:
+    glob "^7.0.5"
+
+rimraf@2.6.1:
   version "2.6.1"
   resolved "https://registry.yarnpkg.com/rimraf/-/rimraf-2.6.1.tgz#c2338ec643df7a1b7fe5c54fa86f57428a55f33d"
   dependencies:

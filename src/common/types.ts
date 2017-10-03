@@ -269,6 +269,7 @@ export interface IUploadFileOpts {
 }
 
 export interface IEnvironmentConfig {
+  isDebug: boolean
   firebase: {
     apiKey: string
     authDomain: string
