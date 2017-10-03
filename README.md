@@ -1,93 +1,121 @@
 # Jog 
 
-##Prerequisite Knowledge
+This codebase contains the Jog website and the Jog app. We suggest you clone it twice - once for each.
+
+### Tech Stack
 
 * ECMAScript 6
+* Typescript
 * React
 * React Native
-* Flow
-* Exponent
+* Redux
+* Webpack
+* Git submodules
 * Testing
     * CircleCI
-    * Jest
-    * Enzyme
+    
+### Git Submodule
 
-##Setup
+Some of the code for this project is in a submodule (shared with the jog-api project)
+
+You must make sure you have access to that repo as well. I'd recommend checking it out first seperately. It will get checked automatically out after you run `yarn install` or `npm install`.
+
+### Continous Integration
+
+We've built this project in https://circleci.com it's very easy to setup and the config is already committed `circel.yml`. 
+
+## Website
+
+### Prerequisite installs
+
+Node 8 latest version (use `nvm` if possible)
+
+### Setup
+
+Open `package.json` make sure: `"react": "^15.6.1"`
+
 ```bash
-yarn install
+nvm use 8
+rm -rf node_modules #(if present)
+npm install
 ```
 
-### Simulator
 
-```bash
-yarn ios
-yarn android
-```
+
+### Running
+
+`npm run run:web`
+
+then navigate to http://localhost:3000
 
 ### API ENDPOINT
+You can manually set the API endpoint using this environment variable.
 
 `JOG_WEB_API_ENDPOINT="http://localhost:5000" npm run run:web`
 
-### Device
+### Deployment
 
-First of all download and run the expo app from the app store or play store then run the following:
+The site is deployed to [firebase](https://firebase.google.com/docs/hosting/).
 
-```bash
-yarn start
-```
+Deploy it with: `npm run deploy:web:dev` and `npm run deploy:web:prod`. 
 
-A QR code will be displayed in terminal - scan this using the expo app to run on your device with hot reload and all the other goodies.
+## App
 
-## Testing
+The App works on both Android and iOS. 
 
-### Local
+### Prerequisite installs
 
-```bash
-yarn test # Run tests once
-yarn ci # Run linting, flow checks and tests
-yarn test:watch # Watch for changes & run tests on each change
-```
+Node 7 latest version (use `nvm` if possible)
 
-### CI
+All the usual React Native installs:
+https://facebook.github.io/react-native/docs/getting-started.html
 
-Configured in `circle.yml`. Results are at https://circleci.com/gh/z-dev/jog-app for each commit.
+(Hit building projects with native code, macos, ios and android)
 
-## Deployment
+We've run the project using xcode 8.3.3 and 9.0. https://stackoverflow.com/questions/10335747/how-to-download-xcode-dmg-or-xip-file
 
-### Testing
+yarn: `npm install -g yarn`
 
-#### Expo Client
+Install `fastlane` (for deployments etc.): https://github.com/fastlane/fastlane#installation (recommend using brew or standalone installer script to avoid ruby problems).
 
-First of all you need to be running XDE, then run the following:
+### Setup
+
+Open `package.json` make sure: `"react": "16.0.0-alpha.6"`
 
 ```bash
-exp publish
+nvm use 7
+rm -rf node_modules #(if present)
+yarn install
 ```
 
-#### Testflight
+#### Get the provisioning profiles
 
-TODO
+We use fastlane match to manage the provisioning profiles. Which makes setting up new team members much easier.
 
-#### Play Store (Beta)
+`fastlane match --readonly`  <- todo: this is wrong
 
-##### Setup
+### Running
+
+`yarn start:packager` to run the packager.
+
+#### iOS
+
+`open ios/jog.xcworkspace` Note: you must open .xcworkspace file *not* project file.
+
+#### Android
+
+Run on the commandline with `react-native run-android`
+
+or: open the `./android` folder in android studio and hit play. Don't let Android studio change any of the files though / upgrade gradle or similar.
+
+### Deployment
 
 ```bash
-# install fastlane
-sudo gem install fastlane
-# create a private key for signing the APK
-keytool -genkey -v -keystore my-release-key.jks -keyalg RSA -keysize 2048 -validity 10000 -alias my-alias
-# configure environemnt variables
-set -x JOG_GP_JSON_KEY=/path/to/key.json
-set -x JOG_KEY_STORE=/path/to/key.jks
+yarn deploy:android:alpha
+yarn deploy:ios:beta
 ```
 
-##### Deploy
-
-```bash
-yarn build:android
-yarn deploy:android:alpha 
-```
+You can then login to the play store and itunes connect to see the builds and use play store / testflight to install them to a device.
 
 
 
