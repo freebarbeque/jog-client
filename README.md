@@ -1,4 +1,4 @@
-# Jog 
+# Jog
 
 This codebase contains the Jog website and the Jog app. We suggest you clone it twice - once for each.
 
@@ -13,7 +13,7 @@ This codebase contains the Jog website and the Jog app. We suggest you clone it 
 * Git submodules
 * Testing
     * CircleCI
-    
+
 ### Git Submodule
 
 Some of the code for this project is in a submodule (shared with the jog-api project)
@@ -22,7 +22,7 @@ You must make sure you have access to that repo as well. I'd recommend checking 
 
 ### Continous Integration
 
-We've built this project in https://circleci.com it's very easy to setup and the config is already committed `circel.yml`. 
+We've built this project in https://circleci.com it's very easy to setup and the config is already committed `circel.yml`.
 
 ## Website
 
@@ -57,11 +57,11 @@ You can manually set the API endpoint using this environment variable.
 
 The site is deployed to [firebase](https://firebase.google.com/docs/hosting/).
 
-Deploy it with: `npm run deploy:web:dev` and `npm run deploy:web:prod`. 
+Deploy it with: `npm run deploy:web:dev` and `npm run deploy:web:prod`.
 
 ## App
 
-The App works on both Android and iOS. 
+The App works on both Android and iOS.
 
 ### Prerequisite installs
 
@@ -78,6 +78,7 @@ yarn: `npm install -g yarn`
 
 Install `fastlane` (for deployments etc.): https://github.com/fastlane/fastlane#installation (recommend using brew or standalone installer script to avoid ruby problems).
 
+Install cocoapods (so you can run `pod install` on the command line)
 ### Setup
 
 Open `package.json` make sure: `"react": "16.0.0-alpha.6"`
