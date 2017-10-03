@@ -4,7 +4,10 @@ machine:
   environment:
     PATH: "${PATH}:${HOME}/${CIRCLE_PROJECT_REPONAME}/node_modules/.bin"
 
+
 dependencies:
+  pre:
+    - echo "echo 'pods not installed'" > /home/ubuntu/bin/pod && chmod u+x /home/ubuntu/bin/pod
   override:
     - yarn install --pure-lockfile
   cache_directories:
