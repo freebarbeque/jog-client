@@ -61,27 +61,27 @@ export default class Logger implements ILoggerInterface {
     })
   }
 
-  public trace(...args: any[]) {
+  public trace(..._args: any[]) {
     throw new Error('Method not implemented.')
   }
 
-  public debug(...args: any[]) {
+  public debug(..._args: any[]) {
     throw new Error('Method not implemented.')
   }
 
-  public info(...args: any[]) {
+  public info(..._args: any[]) {
     throw new Error('Method not implemented.')
   }
 
-  public warn(...args: any[]) {
+  public warn(..._args: any[]) {
     throw new Error('Method not implemented.')
   }
 
-  public error(...args: any[]) {
+  public error(..._args: any[]) {
     throw new Error('Method not implemented.')
   }
 
-  public fatal(...args: any[]) {
+  public fatal(..._args: any[]) {
     throw new Error('Method not implemented.')
   }
 

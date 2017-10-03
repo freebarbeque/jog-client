@@ -18,6 +18,9 @@
     "curly": false,
     "space-before-function-paren": false,
     "trailing-comma": false,
+    "variable-name": [
+      false
+    ],
     "whitespace": false,
     "jsx-alignment": false,
     "no-unused-variable": true,
@@ -31,6 +34,7 @@
     "object-literal-sort-keys": [
       false
     ],
+    "no-var-requires": false,
     "no-conditional-assignment": false,
     "space-in-parens": false,
     "ter-arrow-parens": false,

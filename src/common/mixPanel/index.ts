@@ -21,24 +21,32 @@ const sendMixpanelRequest = (endpoint, data) => {
 }
 
 export const trackInMixPanel = (event, properties) => {
-  if (!token) {
-    throw new Error('token not set')
+  if (token) {
+    return sendMixpanelRequest(MIXPANEL_TRACK_ENDPOINT, {
+      event,
+      properties: { distinct_id: distinctId, ...properties, token },
+    })
+  } else {
+    console.warn(
+      'Mixpanel token not set, so mixpanel updates are currently disabled.',
+    )
+    return Promise.resolve()
   }
-  return sendMixpanelRequest(MIXPANEL_TRACK_ENDPOINT, {
-    event,
-    properties: { distinct_id: distinctId, ...properties, token },
-  })
 }
 
 export const addUserInfoInMixPanel = properties => {
-  if (!token) {
-    throw new Error('token not set')
+  if (token) {
+    return sendMixpanelRequest(MIXPANEL_ENGAGE_ENDPOINT, {
+      $token: token,
+      $distinct_id: distinctId,
+      ...properties,
+    })
+  } else {
+    console.warn(
+      'Mixpanel token not set, so mixpanel updates are currently disabled.',
+    )
+    return Promise.resolve()
   }
-  return sendMixpanelRequest(MIXPANEL_ENGAGE_ENDPOINT, {
-    $token: token,
-    $distinct_id: distinctId,
-    ...properties,
-  })
 }
 
 export const setMixPanelToken = mixPanelToken => {

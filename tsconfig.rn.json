@@ -1,0 +1,55 @@
+{
+  "compilerOptions": {
+    "target": "es2015",
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "jsx": "react",
+    "outDir": "artifacts",
+    "rootDir": ".",
+    "baseUrl": ".",
+    "allowSyntheticDefaultImports": true,
+    "noImplicitAny": false,
+    "preserveConstEnums": true,
+    "allowJs": false,
+    "sourceMap": true,
+    "noImplicitReturns": false,
+    "strictNullChecks": true,
+    "skipLibCheck": true,  // TODO: Remove,    
+    "noUnusedParameters": true,
+    "noUnusedLocals": true,
+    "experimentalDecorators": true,
+    "paths": {
+      "~/*": [
+        "src/*"
+      ],
+      "jog-common/*": [
+        "modules/common/src/*"
+      ],
+      // Hack: importing firebase was resolving to firebase.json, we don't want that!
+      "firebase": [
+        "node_modules/firebase"
+      ]
+    }
+  },
+  "filesGlob": [
+    "src/native/**/*.ts",
+    "src/native/**/*.tsx",
+    "src/common/**/*.tsx",
+    "src/common/**/*.ts"
+  ],
+  "types": [
+    "react",
+    "react-native",
+    "jest"
+  ],
+  "exclude": [
+    "android",
+    "ios",
+    "build",
+    "node_modules",
+    "modules/common/node_modules",
+    "src/index.tsx",
+    "src/web"
+  ],
+  "compileOnSave": false
+}

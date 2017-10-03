@@ -2,7 +2,7 @@ import * as React from 'react'
 import { connect, DispatchProp } from 'react-redux'
 import { IReduxState } from '../../../../common/types'
 
-import { RouteComponentProps } from 'react-router'
+import { Redirect, RouteComponentProps } from 'react-router'
 import {
   IResolvedQuoteRequest,
   selectNormalisedQRs,
@@ -20,7 +20,16 @@ class QuoteOverviewScreen extends React.Component<IProps> {
     const policyId = this.props.match.params.policyId
     if (!policyId) throw new Error('Overview screen requires policyId')
 
-    return <Container className="QuoteOverviewScreen" />
+    // Temporarily redirect to questions screen.
+    // This overview screen should eventually match designs, e.g. give overview of question completion.
+    return (
+      <Container className="QuoteOverviewScreen">
+        <Redirect
+          to={`/app/tabs/policies/${this.props.match.params
+            .policyId}/quotes/motor`}
+        />
+      </Container>
+    )
   }
 }
 

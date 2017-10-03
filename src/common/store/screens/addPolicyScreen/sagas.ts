@@ -1,5 +1,6 @@
 import { call, put, takeLatest } from 'redux-saga/effects'
-import uuid from 'uuid/v4'
+
+const uuid = require('uuid/v4')
 
 import { demandCurrentUser } from '../../../data/auth'
 import { setMotorPolicy } from '../../../data/policies'

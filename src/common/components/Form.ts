@@ -33,7 +33,7 @@ export default class Form extends Component<IFormProps> {
     }
   }
 
-  protected handleSubmit = (): void => {
+  protected handleSubmit() {
     const validationErrors = this.validate()
     const hasValidationErrors = _.some(_.values(validationErrors))
     if (!hasValidationErrors) {

@@ -19,7 +19,7 @@ function constructSyncTask(
   key: string,
   receiveActionCreator: (items: any) => Action,
 ) {
-  return function* task(action) {
+  return function* task() {
     const channel = yield call(constructEventChannel, key)
     try {
       while (true) {
