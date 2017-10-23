@@ -1,7 +1,0 @@
-flow-typed/**/*.js
-flow/**/*.js
-globals.js
-scripts/**/*.js
-functions/**/*.js
-__tests__/**/*.js
-node_modules/**/*.js

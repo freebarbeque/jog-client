@@ -1,5 +1,0 @@
-Features in this release:
-- Manually add motor insurance policies.
-- Email motor insurance policies.
-- Upload policy documents.
-- Receive notifications when policies are soon to expire/already expired.

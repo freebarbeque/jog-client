@@ -1,3 +1,0 @@
-[submodule "modules/common"]
-	path = modules/common
-	url = https://github.com/z-dev/jog-common.git

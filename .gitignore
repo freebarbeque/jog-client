@@ -1,3 +1,6 @@
+# Typescript
+build
+
 # OSX
 #
 .DS_Store
@@ -51,20 +54,3 @@ buck-out/
 fastlane/report.xml
 fastlane/Preview.html
 fastlane/screenshots
-
-ios/Pods
-ios/Podfile.lock
-.idea
-
-ios/jog.xcworkspace/xcuserdata/*.xcuserdatad
-
-android/app/app-release.apk
-android/fastlane-privatekey.json
-android/my-release-key.jks
-
-Preview.html
-
-dist
-.vscode
-
-artifacts
