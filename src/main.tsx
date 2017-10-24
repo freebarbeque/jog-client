@@ -1,6 +1,5 @@
 import React from 'react';
 import { Provider } from 'react-redux';
-// import Navigation from './src/nav/main/NavigationContainer';
 import Navigation from './nav/main/NavigationContainer'
 import createStore from "./modules/store/store";
 
