@@ -1,12 +1,23 @@
 import * as React from 'react';
-import {  Text } from 'react-native';
+import {  Text, View } from 'react-native';
+import TabNavigation from './TabNavigation';
+import { addNavigationHelpers } from 'react-navigation';
+import InfoHeader from './InfoHeader';
+import styles from '../PolicyInfoStyles';
+
+interface Props {
+    dispatch: Function;
+    nav: any;
+    navigation: any
+}
 
 
-const PolicyInfo = () => {
+const PolicyInfo:React.StatelessComponent<Props> = ({dispatch, nav, navigation}) => {
     return (
-        <Text>Policy Info
-            <Text>IN PROGRESS</Text>
-        </Text>
+        <View style={styles.policy_info_container}>
+            <InfoHeader navigation={navigation}/>
+            <TabNavigation navigationOptions={addNavigationHelpers({dispatch, ...nav})} />
+        </View>
         
     )
 };
