@@ -28,6 +28,7 @@ const TabNavigation = TabNavigator({
     
     swipeEnabled: true,
     tabBarComponent: TabBarTop,
+    initialRouteName: 'Documents',
     tabBarPosition: 'top',
     tabBarOptions: {
         indicatorStyle: styles.tab_active_indicator,

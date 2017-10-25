@@ -1,11 +1,11 @@
 import { StyleSheet } from 'react-native';
-import { WHITE, PINK, CREME, LIGHT_GREY, GREY_SETTINGS_BG, PURPLE } from '../../cfg/globStyles';
+import { WHITE, PINK, CREME, LIGHT_GREY, GREY_SETTINGS_BG, PURPLE, GREY } from '../../cfg/globStyles';
 
 export const SCANNED_IMG = require('../../../img/scanned.png');
 
 const styles = StyleSheet.create({
     documents_container: {
-
+        backgroundColor: CREME
     },
     scanned_container: {
         display: 'flex',
@@ -39,6 +39,40 @@ const styles = StyleSheet.create({
     scanned_doc_name: {
         fontSize: 12,
         textAlign: 'center'
+    },
+    upload_container: {
+        backgroundColor: WHITE,
+        marginTop: 20,
+        paddingLeft: 20,
+        paddingRight: 20,
+        marginBottom: 100
+    },
+    camera_touch: {
+        borderStyle: 'dashed',
+        borderWidth: 2,
+        borderColor: LIGHT_GREY,
+        height: 135,
+        borderRadius: 15,
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginBottom: 30
+    },
+    camera_label: {
+        fontSize: 18,
+        color: '#CCC'
+    },
+    browse_touch: {
+        backgroundColor: '#E2E3E5',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        height: 65,
+        marginBottom: 25
+    },
+    browse_label: {
+        fontSize: 16,
+        color: '#4D6077'
     }
 });
 
