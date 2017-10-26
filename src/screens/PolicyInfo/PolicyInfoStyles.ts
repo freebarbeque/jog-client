@@ -8,10 +8,14 @@ const styles = StyleSheet.create({
     policy_info_container: {
         height: '100%'
     },
+    policy_info_scroll: {
+        backgroundColor: CREME
+    },
     header_container: {
         backgroundColor: PURPLE,
         paddingTop: 30,
-        paddingLeft: 20
+        paddingLeft: 20,
+        paddingBottom: 10
     },
     logo_container: {
         display: 'flex',
@@ -38,8 +42,9 @@ const styles = StyleSheet.create({
         display: 'flex',
         flexDirection: 'row',
         justifyContent: 'flex-start',
-        marginBottom: 10,
-        marginTop: 45
+        paddingBottom: 10,
+        paddingTop: 35,
+        backgroundColor: PURPLE
     },
     header_title_container: {
         display: 'flex',
