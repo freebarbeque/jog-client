@@ -22,14 +22,11 @@ const renderAccordionHeader = (header) => {
 }
 
 const renderAccordionContent = (inner) => {
-    console.log('renderAccordionContent', inner);
-    
     return (
         <View style={styles.drop_item_content_view}> 
             {inner.renderer ? inner.renderer() : <Text>{inner.content}</Text>}
         </View>
     )
-    
 }
 
 const renderDropPolicySection = () => {
@@ -57,10 +54,12 @@ const renderDropPolicySection = () => {
 
 const policySections = [{title: 'Policy', content: 'Policy', renderer: renderDropPolicySection}];
 
-const Overview: React.StatelessComponent<Props> = ({navigation}) => {
+const Overview: React.StatelessComponent<Props> = (props) => {
+    const {navigation: {state: {key}, navigate}} = props;
+    
     return (
         <View style={styles.overview_container}>
-            <ScrollView>
+            <View>
                 <View style={styles.price_container}>
                     <View style={styles.round_img_cover}>
                         <Image style={styles.policy_img} source={policy.policy_img} />
@@ -121,11 +120,7 @@ const Overview: React.StatelessComponent<Props> = ({navigation}) => {
                     {HelpElement()}
                 </View>
 
-            </ScrollView>
-            <TouchableOpacity style={styles.upload_docs}>
-                <Text style={styles.upload_docs_text}>{`Please upload your policy\ndocumentation for complete profile`}</Text>
-                <Image style={styles.upload_docs_arrow} source={UPLOAD_ARROW}/>
-            </TouchableOpacity>
+            </View>
         </View>
         
 

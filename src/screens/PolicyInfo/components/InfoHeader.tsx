@@ -20,17 +20,6 @@ const InfoHeader:React.StatelessComponent<Props> = ({navigation}) => {
                     <Image style={styles.logo_img} source={LOGO_IMG} />
                 </TouchableOpacity>
             </View>
-            <View style={styles.header_info_container}>
-                <View style={styles.policy_img_container}>
-                    <View style={styles.round_img_container}>
-                    <Image style={styles.round_img} source={policy.seller_img}/>
-                    </View>
-                </View>
-                <View style={styles.header_title_container}>
-                    <Text style={styles.header_title}>{policy.name}</Text>
-                    <Text style={styles.header_sub_title}>{policy.policy_seller}</Text>
-                </View>
-            </View>
         </View>
         
     )
