@@ -5063,9 +5063,19 @@ react-native-drawer-layout@1.3.2:
   dependencies:
     react-native-dismiss-keyboard "1.0.0"
 
+react-native-linear-gradient@^2.3.0:
+  version "2.3.0"
+  resolved "https://registry.yarnpkg.com/react-native-linear-gradient/-/react-native-linear-gradient-2.3.0.tgz#757997197e35edf52e290891a11566e462845da1"
+  dependencies:
+    prop-types "^15.5.10"
+
 react-native-media-queries@^0.3.0:
   version "0.3.0"
   resolved "https://registry.yarnpkg.com/react-native-media-queries/-/react-native-media-queries-0.3.0.tgz#21d0d43cc4914a7ac7b1141625614d55836d13fe"
+
+react-native-pie@^0.4.0:
+  version "0.4.0"
+  resolved "https://registry.yarnpkg.com/react-native-pie/-/react-native-pie-0.4.0.tgz#655f81378f27c8a8b1602913ce2b42cb6e35ad96"
 
 react-native-tab-view@^0.0.69:
   version "0.0.69"
