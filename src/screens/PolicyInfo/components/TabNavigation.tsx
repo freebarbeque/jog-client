@@ -25,10 +25,9 @@ const TabNavigation = TabNavigator({
     Documents: {screen: DocumentsContainer},
     Quote: {screen: QuoteContainer},
 },{
-    
     swipeEnabled: true,
     tabBarComponent: TabBarTop,
-    initialRouteName: 'Documents',
+    initialRouteName: 'Quote',
     tabBarPosition: 'top',
     tabBarOptions: {
         indicatorStyle: styles.tab_active_indicator,

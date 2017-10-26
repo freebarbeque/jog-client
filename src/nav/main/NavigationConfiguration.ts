@@ -7,9 +7,13 @@ import SettingsContainer from '../../screens/Settings/SettingsContainer';
 import WarrantiesContainer from '../../screens/Warranties/WarrantiesContainer';
 import MotorContainer from '../../screens/Motor/MotorContainer';
 import PolicyInfoContainer from '../../screens/PolicyInfo/PolicyInfoContainer';
+import CarQuestionsContainer from '../../screens/CarQuestions/CarQuestionsContainer';
 
 
 export const MainNavNavigator = StackNavigator({   
+    CarQuestions: {
+        screen: CarQuestionsContainer
+    },
     Home: {
         screen: HomeContainer
     },
