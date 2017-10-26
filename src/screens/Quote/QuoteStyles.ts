@@ -1,9 +1,6 @@
 import { StyleSheet } from 'react-native';
 import { WHITE, PINK, CREME, LIGHT_GREY, GREY_SETTINGS_BG, GREY } from '../../cfg/globStyles';
 
-export const ARROW = require('../../../img/arrow_bold.png');
-export const COMPLETE_ICON = require('../../../img/done_icon.png');
-
 const styles = StyleSheet.create({
     quote_container: {
         backgroundColor: CREME,
@@ -105,5 +102,13 @@ const styles = StyleSheet.create({
         height: 15
     }
 });
+
+export const ARROW = require('../../../img/arrow_bold.png');
+export const COMPLETE_ICON = require('../../../img/done_icon.png');
+export const QUOTE_SECTIONS_IMG = [
+    {source: require('../../../img/questions_car.png'), style: styles.car_img},
+    {source:  require('../../../img/questions_driver.png'), style: styles.driver_img},
+    {source:  require('../../../img/questions_usage.png'), style: styles.usage_img}
+]
 
 export default styles;

@@ -4,7 +4,8 @@ import { compose } from 'recompose';
 
 const mapStateToProps = (state) => {
     return {
-
+        carQuestions: state.carQuestions.questions,
+        quoteSections: state.quote.quoteSections
     }
 };
 
@@ -15,9 +16,5 @@ const mapDispatchToProps = (dispatch) => {
 };
 
 
-export default compose(
-    connect(mapStateToProps, mapDispatchToProps)
-)(Quote);
 
-
-
+export default connect(mapStateToProps, mapDispatchToProps)(Quote);

@@ -11,21 +11,21 @@ const policiesList:[any] = [{
     },
     route: 'Motor'
 },{
-    title: 'Travel',
+    title: 'Coming soon...',
     img: {
         source: TRAVEL_IMG,
         styles: {width: 164, height: 91, position: 'absolute', right: 50, bottom: 5}
     },
     route: null
 },{
-    title: 'Home & Contents',
+    title: 'Coming soon...',
     img: {
         source: HOME_IMG,
         styles: {width: 170, height: 80, position: 'absolute', right: 50, bottom: 5}
     },
     route: null
 },{
-    title: 'Warranties',
+    title: 'Coming soon...',
     img: {
         source: WARRANTIES_IMG,
         styles: {width: 134, height: 79, position: 'absolute', right: 50, bottom: 5}
