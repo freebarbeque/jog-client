@@ -7,7 +7,6 @@ export const COMPLETE_ICON = require('../../../img/done_icon.png');
 const styles = StyleSheet.create({
     quote_container: {
         backgroundColor: CREME,
-        // height: '100%'
         flex: 0
     },
     quote_title: {

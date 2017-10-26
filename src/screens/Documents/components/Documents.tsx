@@ -38,9 +38,9 @@ const renderScannedDocs = () => scannedDocs.map((doc, i) => (
     </View>
 ))
 
-const Documents: React.StatelessComponent<Props> = ({navigation}) => {
+const Documents: React.StatelessComponent<Props> = (props) => {
     return (
-        <ScrollView style={styles.documents_container}>
+        <View style={styles.documents_container}>
             <View style={styles.scanned_container}>
                 <Text style={styles.scanned_title}>Scanned documents</Text>
                 <View style={styles.list_of_scanned_container}>
@@ -48,7 +48,7 @@ const Documents: React.StatelessComponent<Props> = ({navigation}) => {
                 </View>
             </View>
             { renderUploadDocs() }
-        </ScrollView>
+        </View>
     )
 }
 
