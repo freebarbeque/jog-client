@@ -3,7 +3,7 @@ import {  Text, View, TouchableOpacity, Image } from 'react-native';
 import styles from '../HeaderStyles';
 import { LOGO } from '../../../cfg/globStyles';
 
-const policiesHighlighter = (route) => ['Policies', 'Warranties', 'Motor'].indexOf(route) >= 0 ? styles.red_btn : null
+const policiesHighlighter = (route) => ['Policies', 'Warranties', 'Motor', 'MotorNewPolicy'].indexOf(route) >= 0 ? styles.red_btn : null
 
 const Header = ({navigation}) => {
     return (
