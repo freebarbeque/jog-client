@@ -9,30 +9,33 @@ import MotorContainer from '../../screens/Motor/MotorContainer';
 import PolicyInfoContainer from '../../screens/PolicyInfo/PolicyInfoContainer';
 import CarQuestionsContainer from '../../screens/CarQuestions/CarQuestionsContainer';
 import MotorNewPolicyContainer from '../../screens/MotorNewPolicy/MotorNewPolicyContainer';
+import ManualEntryContainer from '../../screens/ManualEntry/ManualEntryContainer';
 
 
 export const MainNavNavigator = StackNavigator({  
+    Policies: {
+        screen: PoliciesContainer
+    },
+    Home: {
+        screen: HomeContainer
+    },
+    ManualEntry: {
+        screen: ManualEntryContainer
+    },
+    CarQuestions: {
+        screen: CarQuestionsContainer
+    },
     MotorNewPolicy: {
         screen: MotorNewPolicyContainer
     },
     Motor: {
         screen: MotorContainer
     },
-    Home: {
-        screen: HomeContainer
-    },
-    CarQuestions: {
-        screen: CarQuestionsContainer
-    },
     PolicyInfo: {
         screen: PolicyInfoContainer
     },
-    
     Settings: {
         screen: SettingsContainer
-    },
-    Policies: {
-        screen: PoliciesContainer
     },
     Warranties: {
         screen: WarrantiesContainer

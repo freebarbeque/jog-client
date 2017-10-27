@@ -14,10 +14,8 @@ const mapDispatchToProps = (dispatch) => {
     }
 };
 
+export default connect(mapStateToProps, mapDispatchToProps)(Policies)
 
-export default compose(
-    connect(mapStateToProps, mapDispatchToProps)
-)(Policies);
 
 
 

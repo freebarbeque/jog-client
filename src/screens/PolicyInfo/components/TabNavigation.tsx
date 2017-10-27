@@ -6,21 +6,7 @@ import OverviewContainer from '../../Overview/OverviewContainer';
 import DocumentsContainer from '../../Documents/DocumentsContainer';
 import QuoteContainer from '../../Quote/QuoteContainer';
 
-OverviewContainer.navigationOptions = {
-    title: `Overview`
-};
-
-DocumentsContainer.navigationOptions = {
-    title: `Documents`
-
-};
-
-QuoteContainer.navigationOptions = {
-    title: `Quote`
-
-};
-
-const TabNavigation = TabNavigator({
+export default TabNavigator({
     Overview: {screen: OverviewContainer},
     Documents: {screen: DocumentsContainer},
     Quote: {screen: QuoteContainer},
@@ -36,5 +22,3 @@ const TabNavigation = TabNavigator({
         upperCaseLabel: false
     }
 });
-
-export default TabNavigation;

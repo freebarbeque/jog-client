@@ -6,6 +6,7 @@ import mainNavReducer from "../../nav/main/NavigationReducer";
 import policyInfoReducer from '../../screens/PolicyInfo/policyInfoReducer';
 import CarQuestionsReducer from '../../screens/CarQuestions/CarQuestionsReducer';
 import QuoteReducer from '../../screens/Quote/QuoteReducer';
+import ManualEntryReducer from '../../screens/ManualEntry/ManualEntryReducer';
 
 let middleWare = [thunkMiddleware, promiseMiddleware];
 
@@ -15,7 +16,8 @@ export default () => (
             mainNav: mainNavReducer,
             policyInfo: policyInfoReducer,
             carQuestions: CarQuestionsReducer,
-            quote: QuoteReducer
+            quote: QuoteReducer,
+            manualEntry: ManualEntryReducer,
         }),
         composeWithDevTools(applyMiddleware(...middleWare))
     )

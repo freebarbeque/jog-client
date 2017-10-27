@@ -5097,6 +5097,10 @@ react-native-media-queries@^0.3.0:
   version "0.3.0"
   resolved "https://registry.yarnpkg.com/react-native-media-queries/-/react-native-media-queries-0.3.0.tgz#21d0d43cc4914a7ac7b1141625614d55836d13fe"
 
+react-native-modal-dropdown@^0.5.0:
+  version "0.5.0"
+  resolved "https://registry.yarnpkg.com/react-native-modal-dropdown/-/react-native-modal-dropdown-0.5.0.tgz#f6c4cd4d077792e56902b43b14d83959f5f40f46"
+
 react-native-pie@^0.4.0:
   version "0.4.0"
   resolved "https://registry.yarnpkg.com/react-native-pie/-/react-native-pie-0.4.0.tgz#655f81378f27c8a8b1602913ce2b42cb6e35ad96"

@@ -1,20 +1,21 @@
 import { connect } from "react-redux";
 import PolicyInfo from "./components/PolicyInfo";
-import { compose, withState, withHandlers, withPropsOnChange } from 'recompose';
 
-export default compose(
-    connect((state, props) => {
-        
-        return {
-            policyInfoState: state.policyInfo
-        }
-    }),
-    withPropsOnChange([], (props) => {
-        
-        
-        return {
-          
-        }
-    })
-)(PolicyInfo)
+const mapStateToProps = (state) => {
+    console.log('state', state);
+    
+    return {
+        tabNav: state.policyInfo
+    }
+};
+
+const mapDispatchToProps = (dispatch) => {
+    console.log('mapDispatchToProps', dispatch);
+    
+    return {
+
+    }
+};
+
+export default connect(mapStateToProps)(PolicyInfo);
 

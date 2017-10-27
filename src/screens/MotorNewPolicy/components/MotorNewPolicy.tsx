@@ -22,7 +22,7 @@ const MotorNewPolicy = ({navigation}) => {
                     <Text style={styles.opt_title}>Photograph your policy</Text>
                     <Image style={[styles.opt_img, styles.photo_img]} source={PHOTO_IMG}/>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.option}>
+                <TouchableOpacity style={styles.option} onPress={() => navigation.navigate('ManualEntry')}>
                     <Text style={styles.opt_title}>Manual entry</Text>
                     <Image style={[styles.opt_img, styles.type_img]} source={TYPE_IMG} />
                 </TouchableOpacity>

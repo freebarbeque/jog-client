@@ -6,10 +6,6 @@ export default (state, action) => {
 
     switch (action.type) {
 
-        case "GO":
-            nextState = MainNavNavigator.router.getStateForAction(NavigationActions.navigate({routeName:'Home'}), state);
-            break;
-
         default:
             nextState = MainNavNavigator.router.getStateForAction(action, state);
             break;

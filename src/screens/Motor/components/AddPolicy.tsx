@@ -2,9 +2,9 @@ import * as React from 'react';
 import { Text, View, TouchableOpacity, Image } from 'react-native';
 import styles, {ADD_ICON} from '../MotorStyles';
 
-const AddPolicy = () => {
+const AddPolicy = ({navigation}) => {
     return (
-        <TouchableOpacity style={styles.item_container}>
+        <TouchableOpacity style={styles.item_container} onPress={() => navigation.navigate('MotorNewPolicy')}>
         <View style={styles.item_cover}>
             <View style={styles.item_img_cover}>
                 
