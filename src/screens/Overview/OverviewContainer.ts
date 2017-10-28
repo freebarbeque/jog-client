@@ -14,10 +14,4 @@ const mapDispatchToProps = (dispatch) => {
     }
 };
 
-
-export default compose(
-    connect(mapStateToProps, mapDispatchToProps)
-)(Overview);
-
-
-
+export default connect(mapStateToProps, mapDispatchToProps)(Overview);

@@ -6,17 +6,19 @@ import QuoteSection from './QuoteSection';
 interface Props {
     navigation: any;
     quoteSections: any;
-    carQuestions: any
+    carQuestions: any;
+    goTo: Function;
 }
 
 const Quote: React.StatelessComponent<Props> = (props) => { 
-    const {quoteSections, carQuestions} = props;
+    const {quoteSections, carQuestions, goTo} = props;
     return (
         <View style={styles.quote_container}>
             <Text style={styles.quote_title}>Answer all sections to get a quote</Text>
             { 
                 quoteSections.map((item, i) => (
                     <QuoteSection 
+                        goTo={goTo}
                         title={item.title} 
                         key={i} 
                         carQuestions={item.title === 'Car' ? carQuestions : []}

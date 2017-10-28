@@ -1,0 +1,10 @@
+export const HOME_ROUTE = 'Home';
+export const MOTOR_ROUTE = 'Motor';
+export const POLICIES_ROUTE = 'Policies';
+export const MANUAL_ENTRY_ROUTE = 'ManualEntry';
+export const GETTING_QUOTES_ROUTE = 'GettingQuotes';
+export const CAR_QUESTIONS_ROUTE = 'CarQuestions';
+export const MOTOR_NEW_POLICY_ROUTE = 'MotorNewPolicy';
+export const POLICY_INFO = 'PolicyInfo';
+export const SETTINGS_ROUTE = 'Settings';
+export const WARRANTIES_ROUTE = 'Warranties';

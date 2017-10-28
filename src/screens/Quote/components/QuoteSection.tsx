@@ -2,6 +2,7 @@ import * as React from 'react';
 import { Text, View, ScrollView, TouchableOpacity, Image } from 'react-native';
 import Pie from 'react-native-pie'
 import LinearGradient from 'react-native-linear-gradient';
+import {CAR_QUESTIONS_ROUTE} from '../../../nav/main/routes';
 
 import styles, {ARROW, COMPLETE_ICON} from '../QuoteStyles';
 
@@ -19,7 +20,8 @@ interface Props {
     image: {
         source: any;
         style: any;
-    }
+    },
+    goTo: Function;
 }
 
 const renderPie = (percent) => {
@@ -41,9 +43,9 @@ const renderPie = (percent) => {
 const renderQuestionsProgress = (questions) => questions > 0 ? `${questions} MORE QUESTIONS TO ANSWER` : `COMPLETE! CLICK TO EDIT`
 
 const QuoteSection: React.StatelessComponent<Props> = (props) => {
-    const {title, percent, questions, image, route, navigation, carQuestions} = props;
+    const {title, percent, questions, image, route, navigation, carQuestions, goTo} = props;
     return (
-        <TouchableOpacity style={styles.section} onPress={() => navigation.navigate(route)}>
+        <TouchableOpacity style={styles.section} onPress={() => goTo(CAR_QUESTIONS_ROUTE)}>
             <View style={styles.sub_section}>
                 <View style={styles.title_section}>
                     <Image style={image.style} source={image.source} />

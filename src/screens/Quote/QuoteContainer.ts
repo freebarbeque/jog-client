@@ -1,6 +1,7 @@
 import { connect } from "react-redux";
 import Quote from "./components/Quote";
 import { compose } from 'recompose';
+import { GOTO_ACTION } from '../../cfg/actions';
 
 const mapStateToProps = (state) => {
     return {
@@ -11,7 +12,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-
+        goTo: (route) => dispatch({type: GOTO_ACTION, payload: route})
     }
 };
 

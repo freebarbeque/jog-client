@@ -14,18 +14,20 @@ import GettingQuotesContainer from '../../screens/GettingQuotes/GettingQuotesCon
 
 
 export const MainNavNavigator = StackNavigator({  
-    GettingQuotes: {
-        screen: GettingQuotesContainer
+    Motor: {
+        screen: MotorContainer
+    },
+    Home: {
+        screen: HomeContainer
     },
     Policies: {
         screen: PoliciesContainer
     },
-    
-    Home: {
-        screen: HomeContainer
-    },
     ManualEntry: {
         screen: ManualEntryContainer
+    },
+    GettingQuotes: {
+        screen: GettingQuotesContainer
     },
     CarQuestions: {
         screen: CarQuestionsContainer
@@ -33,9 +35,7 @@ export const MainNavNavigator = StackNavigator({
     MotorNewPolicy: {
         screen: MotorNewPolicyContainer
     },
-    Motor: {
-        screen: MotorContainer
-    },
+    
     PolicyInfo: {
         screen: PolicyInfoContainer
     },
