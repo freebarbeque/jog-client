@@ -10,12 +10,17 @@ import PolicyInfoContainer from '../../screens/PolicyInfo/PolicyInfoContainer';
 import CarQuestionsContainer from '../../screens/CarQuestions/CarQuestionsContainer';
 import MotorNewPolicyContainer from '../../screens/MotorNewPolicy/MotorNewPolicyContainer';
 import ManualEntryContainer from '../../screens/ManualEntry/ManualEntryContainer';
+import GettingQuotesContainer from '../../screens/GettingQuotes/GettingQuotesContainer';
 
 
 export const MainNavNavigator = StackNavigator({  
+    GettingQuotes: {
+        screen: GettingQuotesContainer
+    },
     Policies: {
         screen: PoliciesContainer
     },
+    
     Home: {
         screen: HomeContainer
     },
