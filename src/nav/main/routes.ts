@@ -8,3 +8,4 @@ export const MOTOR_NEW_POLICY_ROUTE = 'MotorNewPolicy';
 export const POLICY_INFO = 'PolicyInfo';
 export const SETTINGS_ROUTE = 'Settings';
 export const WARRANTIES_ROUTE = 'Warranties';
+export const YOUR_QUOTES_ROUTE = 'YourQuotes';

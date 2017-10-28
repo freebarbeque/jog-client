@@ -11,9 +11,17 @@ import CarQuestionsContainer from '../../screens/CarQuestions/CarQuestionsContai
 import MotorNewPolicyContainer from '../../screens/MotorNewPolicy/MotorNewPolicyContainer';
 import ManualEntryContainer from '../../screens/ManualEntry/ManualEntryContainer';
 import GettingQuotesContainer from '../../screens/GettingQuotes/GettingQuotesContainer';
+import YourQuotesContainer from '../../screens/YourQuotes/YourQuotesContainer';
 
 
-export const MainNavNavigator = StackNavigator({  
+export const MainNavNavigator = StackNavigator({ 
+    GettingQuotes: {
+        screen: GettingQuotesContainer
+    },
+    YourQuotes: {
+        screen: YourQuotesContainer
+    },
+    
     Motor: {
         screen: MotorContainer
     },
@@ -26,16 +34,13 @@ export const MainNavNavigator = StackNavigator({
     ManualEntry: {
         screen: ManualEntryContainer
     },
-    GettingQuotes: {
-        screen: GettingQuotesContainer
-    },
+    
     CarQuestions: {
         screen: CarQuestionsContainer
     },
     MotorNewPolicy: {
         screen: MotorNewPolicyContainer
     },
-    
     PolicyInfo: {
         screen: PolicyInfoContainer
     },
