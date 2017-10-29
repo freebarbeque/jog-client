@@ -1,9 +1,17 @@
 import React from 'react';
 import { Image, View, Text } from 'react-native';
 import {TabBarTop, TabNavigator} from "react-navigation";
-
+import styles from '../YourQuotesStyles';
 import AnnualQuotes from '../../AnnualQuotes/AnnualQuotesContainer';
 import MonthlyQuotes from '../../MonthlyQuotes/MonthlyQuotesContainer';
+
+AnnualQuotes.navigationOptions = {
+    title: 'Annual'
+}
+
+MonthlyQuotes.navigationOptions = {
+    title: 'Monthly'
+}
 
 
 
@@ -13,7 +21,7 @@ export default TabNavigator({
 },{
     swipeEnabled: true,
     tabBarComponent: TabBarTop,
-    initialRouteName: 'Quote',
+    initialRouteName: 'AnnualQuotes',
     tabBarPosition: 'top',
     tabBarOptions: {
         indicatorStyle: styles.tab_active_indicator,

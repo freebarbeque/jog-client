@@ -3,9 +3,10 @@ import YourQuotes from './components/YourQuotes';
 import { compose } from 'recompose';
 
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state) => {  
     return {
-
+        yourQuotes: state.yourQuotes,
+        activeTab: state.yourQuotes.index === 0 ? 'AnnualQuotes' : 'MonthlyQuotes'
     }
 };
 
@@ -16,7 +17,7 @@ const mapDispatchToProps = (dispatch) => {
 };
 
 
-export default connect(mapStateToProps, mapDispatchToProps)(YourQuotes);
+export default connect(mapStateToProps)(YourQuotes);
 
 
 
