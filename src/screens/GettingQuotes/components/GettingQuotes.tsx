@@ -14,7 +14,7 @@ const GettingQuotes:React.StatelessComponent<Props> = (props) => {
     const {navigation} = props;
     return (
         <LinearGradient colors={['#181E3A', '#212A4A']} style={styles.getting_quotes_container}>
-        <Header navigation={navigation}/>
+        <Header navigation={navigation} title={'Getting Quotes'}/>
         <View style={styles.wait_container}>
             <Image style={styles.car_img} source={AUTO_IMG} />
             <Text style={styles.placeholder}>CAR</Text>

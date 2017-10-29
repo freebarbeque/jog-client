@@ -4,21 +4,13 @@ import {  View, ScrollView, Text } from 'react-native';
 interface Props {
     navigation: any
 }
-interface State {}
 
+const MonthlyQuotes = () => {
+    return (
+        <View>
+            <Text>MonthlyQuotes</Text>
+        </View>
+    )
+};
 
-export default class MonthlyQuotes extends React.Component<Props, State> {
-    constructor(props) {
-        super(props); 
-
-    }
-
-    render() {
-
-        return (
-            <View>
-                <Text>MonthlyQuotes</Text>
-            </View>
-        );
-    }
-}
+export default MonthlyQuotes;

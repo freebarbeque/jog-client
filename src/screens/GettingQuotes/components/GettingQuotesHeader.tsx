@@ -6,17 +6,18 @@ import Header from './GettingQuotesHeader';
 
 interface Props {
     navigation: any;
+    title: string;
 }
 
 
 const GettingQuotesHeader:React.StatelessComponent<Props> = (props) => {
-    const {navigation} = props;
+    const {navigation, title} = props;
     return (
         <View style={styles.getting_quotes_header}>
             <TouchableOpacity style={styles.back_touch} onPress={() => navigation.navigate('PolicyInfo')}>
                 <Image style={styles.back_img} source={BACK_ARROW}/>
             </TouchableOpacity>
-            <Text style={styles.header_title}>Getting Quotes</Text>
+            <Text style={styles.header_title}>{title}</Text>
         </View>
     )
 }

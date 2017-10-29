@@ -39,7 +39,7 @@ const PolicyInfo:React.StatelessComponent<Props> = (props) => {
             <InfoHeader navigation={navigation}/>
             <ScrollView bounces={false} style={styles.policy_info_scroll}>
                 { renderHeaderInfo(navigation) }
-                <TabNavigation navigationOptions={addNavigationHelpers({dispatch, ...tabNav})} />
+                <TabNavigation navigationOptions={addNavigationHelpers({dispatch, state: tabNav})} />
             </ScrollView>
             <TouchableOpacity style={styles_upl.upload_docs}>
                 <Text style={styles_upl.upload_docs_text}>{`Please upload your policy\ndocumentation for complete profile`}</Text>
