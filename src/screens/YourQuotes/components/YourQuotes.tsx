@@ -1,11 +1,17 @@
 import * as React from 'react';
 import { Text, View } from 'react-native';
 import styles from '../YourQuotesStyles';
+import Header from '../../GettingQuotes/components/GettingQuotesHeader';
 
-const YourQuotes = ({navigation}) => {
+interface Props {
+    navigation: any;
+}
+
+const YourQuotes: React.StatelessComponent<Props> = (props) => {
+    const {navigation} = props;
     return (
-        <View style={styles.warr_container}>
-            <Text>YQ</Text>
+        <View style={styles.your_quotes_container}>
+            <Header navigation={navigation} />
         </View>
     )
 }

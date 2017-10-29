@@ -1,10 +1,9 @@
+import MonthlyQuotes from './components/MontlyQuotes';
 import { connect } from "react-redux";
-import Home from "./components/Home";
-import { compose } from 'recompose';
 
 const mapStateToProps = (state) => {
     return {
-
+        
     }
 };
 
@@ -15,6 +14,4 @@ const mapDispatchToProps = (dispatch) => {
 };
 
 
-export default connect(mapStateToProps, mapDispatchToProps)(Home)
-
-
+export default connect(mapStateToProps, mapDispatchToProps)(MonthlyQuotes);
