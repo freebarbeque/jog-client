@@ -2,7 +2,8 @@ import * as React from 'react';
 import {  View, ScrollView, Text, Image, TouchableOpacity } from 'react-native';
 import styles, { SELLERS_LOGOS, ARROW_THIN, QUOTE_FEATURE_ICON } from '../AnnualQuotesStyles';
 
-const renderFeatures = () => {
+
+export const renderFeatures = () => {
     const features = ['Legal expenses', 'Personal accident', 'Windscreen cover', 'Courtesy car'];
 
     return features.map((feature, i) => (
@@ -14,7 +15,7 @@ const renderFeatures = () => {
 
 }
 
-const CurentQuote = ({showList, currentQuote}) => {
+const CurrentQuote = ({showList, currentQuote}) => {
     return (
         <View style={styles.curent_quote_container}>
             <TouchableOpacity style={styles.current_back} onPress={() => showList()}>
@@ -49,4 +50,4 @@ const CurentQuote = ({showList, currentQuote}) => {
     )
 }
 
-export default CurentQuote;
+export default CurrentQuote;

@@ -14,37 +14,67 @@ const initState = {
             extras: 14,
             excess: 340,
             annualy: '715.45',
-            ID: 'Admiral'
+            ID: 'Admiral',
+            monthly: {
+                price: '30.45',
+                excess: '30.45',
+                upfront: '30.45'
+            }
         },{
             name: 'Alianz',
             extras: 14,
             excess: 340,
             annualy: '734.44',
-            ID: 'Alianz'
+            ID: 'Alianz',
+            monthly: {
+                price: '33.45',
+                excess: '33.45',
+                upfront: '33.45'
+            }
         },{
             name: 'Aviva',
             extras: 14,
             excess: 340,
             annualy: '736.45',
-            ID: 'Aviva'
+            ID: 'Aviva',
+            monthly: {
+                price: '35.45',
+                excess: '30.45',
+                upfront: '30.45'
+            }
         },{
             name: '123',
             extras: 14,
             excess: 340,
             annualy: '715.45',
-            ID: 'seller123'
+            ID: 'seller123',
+            monthly: {
+                price: '36.45',
+                excess: '30.45',
+                upfront: '30.45'
+            }
         },{
             name: 'Aviva',
             extras: 14,
             excess: 340,
             annualy: '737.50',
-            ID: 'Aviva'
+            ID: 'Aviva',
+            monthly: {
+                price: '37.45',
+                excess: '30.45',
+                upfront: '30.45'
+            }
         },{
             name: 'Admiral',
             extras: 14,
             excess: 340,
             annualy: '740.44',
-            ID: 'Admiral'
+            ID: 'Admiral',
+            monthly: {
+                price: '38.45',
+                excess: '30.45',
+                upfront: '30.45'
+            }
         }
     ]
 }

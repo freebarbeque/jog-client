@@ -6,7 +6,9 @@ import { compose } from 'recompose';
 const mapStateToProps = (state) => {  
     return {
         localState: state.yourQuotes,
-        activeTab: state.yourQuotes.index === 0 ? 'AnnualQuotes' : 'MonthlyQuotes'
+        activeTab: state.yourQuotes.index === 0 ? 'AnnualQuotes' : 'MonthlyQuotes',
+        currentQuote: state.yourQuotes.currentQuote
+
     }
 };
 

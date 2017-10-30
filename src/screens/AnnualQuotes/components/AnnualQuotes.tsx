@@ -2,7 +2,7 @@ import * as React from 'react';
 import {  View, ScrollView, Text, Image, TouchableOpacity } from 'react-native';
 import styles, {ARROW_BOLD} from '../AnnualQuotesStyles';
 import ListOfQuotes from './ListOfQuotes';
-import CurentQuote from './CurrentQuote';
+import CurrentQuote from './CurrentQuote';
 
 interface Props {
     navigation: any;
@@ -28,7 +28,7 @@ export const renderTabs = () => {
 
 const renderListOrItem = (quotes, showQuote, showList, currentQuote) => {
     if (currentQuote.name) {
-        return <CurentQuote showList={showList} currentQuote={currentQuote}/>
+        return <CurrentQuote showList={showList} currentQuote={currentQuote}/>
     } else {
         return (
             <View>
@@ -46,7 +46,7 @@ const renderListOrItem = (quotes, showQuote, showList, currentQuote) => {
     
 
 
-const AnnualQuotes = (props) => {
+const AnnualQuotes: React.StatelessComponent<Props> = (props) => {
     const {quotes, showQuote, currentQuote, showList} = props;
     return (
         <ScrollView style={styles.annual_quotes_container}>

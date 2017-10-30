@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Text, View } from 'react-native';
+import { Text, View, TouchableOpacity } from 'react-native';
 import { addNavigationHelpers } from 'react-navigation';
 
 import styles from '../YourQuotesStyles';
@@ -13,16 +13,24 @@ interface Props {
     dispatch: Function;
     localState: any;
     activeTab: string;
+    currentQuote: any;
 }
 
+export const renderSelectBtn = () => (
+    <TouchableOpacity style={styles.select_btn}>
+        <Text style={styles.select_text}>Select</Text>
+    </TouchableOpacity>
+)
+
 const YourQuotes: React.StatelessComponent<Props> = (props) => {
-    const {navigation, dispatch, localState, activeTab} = props;
+    const {navigation, dispatch, localState, activeTab, currentQuote} = props;
     
     return (
         <View style={styles.your_quotes_container}>
             <Header navigation={navigation} title={'Your Quotes'}/>
             <SubHeader activeTab={activeTab} />
             <TabNavigation navigation={addNavigationHelpers({dispatch, state: localState})} />
+            { currentQuote.name ? renderSelectBtn() : null }
         </View>
     )
 }

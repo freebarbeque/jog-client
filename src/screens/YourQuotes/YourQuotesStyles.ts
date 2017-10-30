@@ -67,6 +67,17 @@ const styles = StyleSheet.create({
     car_monthly_model: {
         color: WHITE,
         fontSize: 16
+    },
+    select_btn: {
+        backgroundColor: PINK,
+        height: 45,
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center'
+    },
+    select_text: {
+        color: WHITE,
+        fontSize: 20
     }
 });
 
