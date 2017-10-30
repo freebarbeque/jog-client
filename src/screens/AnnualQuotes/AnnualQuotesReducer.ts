@@ -1,6 +1,7 @@
-import { SHOW_NEXT_QUESTION_ACTION, SHOW_PREV_QUESTION_ACTION, CAR_SET_ANSWER_ACTION } from '../../cfg/actions';
+import { SHOW_ANNUAL_QUOTE_ACTION, SHOW_ANNUAL_QUOTES_LIST_ACTION } from '../../cfg/actions';
 
 const initialState = {
+    currentQuote: {},
     quotes: [
         {
             name: 'Admiral',
@@ -45,8 +46,10 @@ const initialState = {
 export default (state = initialState, action:any={}) => {
     
     switch (action.type) {
-        
-
+        case SHOW_ANNUAL_QUOTE_ACTION:
+            return Object.assign({}, {...state, currentQuote: action.payload});
+        case SHOW_ANNUAL_QUOTES_LIST_ACTION:
+            return Object.assign({}, {...state, currentQuote: {}})
         default:
             return state;
     }

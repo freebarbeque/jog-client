@@ -1,10 +1,15 @@
 import * as React from 'react';
-import {  View, ScrollView, Text, Image } from 'react-native';
+import {  View, ScrollView, Text, Image, TouchableOpacity } from 'react-native';
 import styles, {ARROW_BOLD} from '../AnnualQuotesStyles';
 import ListOfQuotes from './ListOfQuotes';
+import CurentQuote from './CurrentQuote';
 
 interface Props {
-    navigation: any
+    navigation: any;
+    quotes: [any];
+    showQuote: Function;
+    currentQuote: any;
+    showList: Function;
 }
 
 export const renderTabs = () => {
@@ -19,20 +24,33 @@ export const renderTabs = () => {
     </View>
     )
 }
+
+
+const renderListOrItem = (quotes, showQuote, showList, currentQuote) => {
+    if (currentQuote.name) {
+        return <CurentQuote showList={showList} currentQuote={currentQuote}/>
+    } else {
+        return (
+            <View>
+                { renderTabs() }
+                <View style={styles.sort_section}>
+                    <Text style={styles.sort_title}>Sort by</Text>
+                    <Image style={styles.sort_arrow} source={ARROW_BOLD} />
+                </View>
+                <ListOfQuotes quotes={quotes} showQuote={showQuote}/>
+            </View>
+        )
+    }
+    
+}
     
 
 
 const AnnualQuotes = (props) => {
-    const {quotes} = props;
+    const {quotes, showQuote, currentQuote, showList} = props;
     return (
         <ScrollView style={styles.annual_quotes_container}>
-            { renderTabs() }
-            <View style={styles.sort_section}>
-                <Text style={styles.sort_title}>Sort by</Text>
-                <Image style={styles.sort_arrow} source={ARROW_BOLD} />
-            </View>
-            <ListOfQuotes quotes={quotes} />
-            
+            { renderListOrItem(quotes, showQuote, showList, currentQuote) }
         </ScrollView>
     )
 }

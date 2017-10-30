@@ -3,44 +3,48 @@ import {  View, ScrollView, Text, Image, TouchableOpacity } from 'react-native';
 import styles, {ARROW_BOLD, SELLERS_LOGOS} from '../AnnualQuotesStyles';
 
 interface Props {
-    quotes: [{}]
+    quotes: [{}];
+    showQuote: Function
 }
 
 
     
-const renderQuote = (quote, i) => {
+const renderQuote = (quote, i, showQuote) => {
     
     return (
-        <TouchableOpacity style={styles.quote} key={i}>
+        <TouchableOpacity style={styles.quote} key={i} onPress={() => showQuote(quote)}>
             <View style={styles.quote_info}>
                 <View style={styles.seller_logo}>
                     <Image style={styles.seller_logo_img} source={SELLERS_LOGOS[quote.ID].source} />
                 </View>
                 <View style={styles.price_container}>
                     <Text style={styles.price_pound}>
-                        {`£${quote.annualy.split(".")[0]}`}<Text style={styles.price_cent}>{`.${quote.annualy.split(".")[1]}`}</Text>
+                        {`£${quote.annualy.split(".")[0]}`}
+                        <Text style={styles.price_cent}>{`.${quote.annualy.split(".")[1]}`}</Text>
                     </Text>
-                    <Text style={styles.excess_label}>{`EXCESS`}</Text>
                 </View>
                 <View style={styles.divider} />
-                <View>
-                    <Text>{`£${quote.excess}`}</Text>
-                    <Text>{`EXCESS`}</Text>
+                <View style={styles.excess_conainer}>
+                    <Text style={styles.excess_amount}>{`£${quote.excess}`}</Text>
+                    <Text style={styles.excess_amount_label}>{`EXCESS`}</Text>
                 </View>
                 <Image style={styles.arrow_right} source={ARROW_BOLD} />
             </View>
             <View style={styles.quote_bottom}>
-                <Text>{quote.name.toUpperCase()}</Text>
-                <Text>{quote.extras + ` EXTRAS`}</Text>
+                <Text style={styles.bottom_text}>{quote.name.toUpperCase()}</Text>
+                <Text style={styles.bottom_text}>{quote.extras + ` EXTRAS`}</Text>
             </View>
         </TouchableOpacity>
     )
 }
 
-const ListOfQuotes = ({quotes}) => {
+const ListOfQuotes = ({quotes, showQuote}) => {
     return (
         <View style={styles.annual_list_of_quotes}>
-            {quotes.map((quote, i) => renderQuote(quote, i))}
+            {quotes.map((quote, i) => renderQuote(quote, i, showQuote))}
+            <View style={styles.see_more}>
+                <Text style={styles.see_more_text}>See more ></Text>
+            </View>
         </View>
     )
 }
