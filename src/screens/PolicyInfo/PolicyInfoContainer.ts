@@ -5,7 +5,7 @@ const mapStateToProps = (state) => {
     console.log('state', state);
     
     return {
-        tabNav: state.policyInfo
+        localState: state.policyInfo
     }
 };
 

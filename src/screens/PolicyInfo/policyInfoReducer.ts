@@ -10,9 +10,9 @@ const initialState = {
 };
 
 export default (state = initialState, action:any={}) => {
-
+    
     switch (action.type) {
         default:
-            return TabNavigation.router.getStateForAction(action, state);
+            return Object.assign({}, TabNavigation.router.getStateForAction(action, state))
     }
 };

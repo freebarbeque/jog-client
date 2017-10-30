@@ -10,7 +10,7 @@ import {policy} from '../__mocks';
 interface Props {
     dispatch: Function;
     navigation: any;
-    tabNav: any
+    localState: any
 }
 
 const renderHeaderInfo = (navigation) => {
@@ -31,15 +31,13 @@ const renderHeaderInfo = (navigation) => {
 
 
 const PolicyInfo:React.StatelessComponent<Props> = (props) => {
-    const {dispatch, navigation, tabNav} = props;
-    console.log('PolicyInfo', props);
-    
+    const {dispatch, navigation, localState} = props;
     return (
         <View style={styles.policy_info_container}>
             <InfoHeader navigation={navigation}/>
             <ScrollView bounces={false} style={styles.policy_info_scroll}>
                 { renderHeaderInfo(navigation) }
-                <TabNavigation navigationOptions={addNavigationHelpers({dispatch, state: tabNav})} />
+                <TabNavigation navigation={addNavigationHelpers({dispatch, state: localState})} />
             </ScrollView>
             <TouchableOpacity style={styles_upl.upload_docs}>
                 <Text style={styles_upl.upload_docs_text}>{`Please upload your policy\ndocumentation for complete profile`}</Text>
