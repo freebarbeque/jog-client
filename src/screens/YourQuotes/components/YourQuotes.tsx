@@ -11,19 +11,18 @@ import SubHeader from './SubHeader';
 interface Props {
     navigation: any;
     dispatch: Function;
-    yourQuotes: any;
+    localState: any;
     activeTab: string;
 }
 
 const YourQuotes: React.StatelessComponent<Props> = (props) => {
-    const {navigation, dispatch, yourQuotes, activeTab} = props;
+    const {navigation, dispatch, localState, activeTab} = props;
     
     return (
         <View style={styles.your_quotes_container}>
             <Header navigation={navigation} title={'Your Quotes'}/>
             <SubHeader activeTab={activeTab} />
-            <TabNavigation navigation={addNavigationHelpers({dispatch, state: yourQuotes})} />
-
+            <TabNavigation navigation={addNavigationHelpers({dispatch, state: localState})} />
         </View>
     )
 }
