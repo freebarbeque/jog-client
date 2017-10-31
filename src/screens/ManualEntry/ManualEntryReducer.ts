@@ -44,8 +44,6 @@ export default (state = initialState, action:any={}) => {
             return Object.assign({}, {...state, currentQuestion: state.currentQuestion + 1});
         
         case MANUAL_PREV_QUESTION_ACTION: 
-        console.log('MANUAL_PREV_QUESTION_ACTION');
-        
             return Object.assign({}, {...state, currentQuestion: state.currentQuestion - 1});
 
         default:

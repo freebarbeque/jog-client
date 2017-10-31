@@ -6,10 +6,14 @@ import Header from '../../Header/HeaderContainer';
 import { DROP_ARROW, ANS_ICON } from '../../../cfg/globStyles';
 import SETTINGS_SECTIONS from '../__mocks';
 
-const renderHeader = (header, i) => (
+interface Props {
+    navigation: any;
+}
+
+const renderHeader = (header, i, isActive) => (
     <View style={[styles.item_header, i === 1 && styles.top_border, i === 0 && styles.border_none]}>
         <Text style={styles.item_header_text}>{header.title}</Text>
-        <Image style={styles.drop_arrow} source={DROP_ARROW} />
+        <Image style={[styles.drop_arrow, isActive && styles.drop_arrow_down]} source={DROP_ARROW} />
     </View>
 )
 
@@ -30,7 +34,7 @@ export const HelpElement = () => (
 </TouchableOpacity>
 )
 
-const Settings = (props) => {
+const Settings: React.StatelessComponent<Props> = (props) => {
 
     const {navigation} = props;
     return (
@@ -38,6 +42,8 @@ const Settings = (props) => {
                 <Header navigation={navigation} />
                 <ScrollView contentContainerStyle={styles.list_cover}>
                     <Accordion
+                        duration={100}
+                        underlayColor={'#F4F0E6'}
                         sections={SETTINGS_SECTIONS}
                         renderHeader={renderHeader}
                         renderContent={renderContent}/>

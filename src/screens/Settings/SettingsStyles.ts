@@ -35,7 +35,11 @@ const styles = StyleSheet.create({
     },
     drop_arrow: {
         width: 20,
-        height: 20
+        height: 20,
+        transform: [{rotate: '180deg'}]
+    },
+    drop_arrow_down: {
+        transform: [{rotate: '0deg'}]
     },
     drop_item_content_view: {
         marginHorizontal: 20
