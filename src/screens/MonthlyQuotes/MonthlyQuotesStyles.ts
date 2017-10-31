@@ -91,10 +91,11 @@ const styles = StyleSheet.create({
     },
     divider: {
         width: 1,
-        height: 75,
-        backgroundColor: '#E2E2E2',
+        height: '40%',
+        backgroundColor: 'red',
         marginRight: 10,
-        marginLeft: 15
+        marginLeft: 15,
+
     },
     excess_conainer: {
         marginTop: 10

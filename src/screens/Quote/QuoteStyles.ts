@@ -37,7 +37,7 @@ const styles = StyleSheet.create({
         height: 11,
         width: 8,
         right: 30,
-        top: 20
+        top: 34
     },
     section_title: {
         fontSize: 17,

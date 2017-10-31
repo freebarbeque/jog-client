@@ -21,7 +21,6 @@ interface Props {
         source: any;
         style: any;
     },
-    goTo: Function;
 }
 
 const renderPie = (percent) => {
@@ -43,9 +42,9 @@ const renderPie = (percent) => {
 const renderQuestionsProgress = (questions) => questions > 0 ? `${questions} MORE QUESTIONS TO ANSWER` : `COMPLETE! CLICK TO EDIT`
 
 const QuoteSection: React.StatelessComponent<Props> = (props) => {
-    const {title, percent, questions, image, route, navigation, carQuestions, goTo} = props;
+    const {title, percent, questions, image, route, navigation, carQuestions } = props;
     return (
-        <TouchableOpacity style={styles.section} onPress={() => goTo(CAR_QUESTIONS_ROUTE)}>
+        <TouchableOpacity style={styles.section} onPress={() => navigation.navigate(route)}>
             <View style={styles.sub_section}>
                 <View style={styles.title_section}>
                     <Image style={image.style} source={image.source} />

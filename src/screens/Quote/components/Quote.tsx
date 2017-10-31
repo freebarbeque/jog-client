@@ -7,22 +7,21 @@ interface Props {
     navigation: any;
     quoteSections: any;
     carQuestions: any;
-    goTo: Function;
+    carCompletedPercent: number;
 }
 
 const Quote: React.StatelessComponent<Props> = (props) => { 
-    const {quoteSections, carQuestions, goTo} = props;
+    const { quoteSections, carQuestions, carCompletedPercent} = props;
     return (
         <View style={styles.quote_container}>
             <Text style={styles.quote_title}>Answer all sections to get a quote</Text>
             { 
                 quoteSections.map((item, i) => (
-                    <QuoteSection 
-                        goTo={goTo}
+                    <QuoteSection
                         title={item.title} 
                         key={i} 
                         carQuestions={item.title === 'Car' ? carQuestions : []}
-                        percent={item.percent} 
+                        percent={item.title === 'Car' ? carCompletedPercent : item.percent} 
                         questions={item.questions} 
                         image={QUOTE_SECTIONS_IMG[i]} 
                         route={item.route} 

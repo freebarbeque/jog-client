@@ -15,19 +15,17 @@ import YourQuotesContainer from '../../screens/YourQuotes/YourQuotesContainer';
 
 
 export const MainNavNavigator = StackNavigator({ 
+    Home: {
+        screen: HomeContainer
+    },
     YourQuotes: {
         screen: YourQuotesContainer
     },
     GettingQuotes: {
         screen: GettingQuotesContainer
     },
-    
-    
     Motor: {
         screen: MotorContainer
-    },
-    Home: {
-        screen: HomeContainer
     },
     Policies: {
         screen: PoliciesContainer
