@@ -3,6 +3,7 @@ import { WHITE, PINK, CREME, LIGHT_GREY, GREY_SETTINGS_BG, PURPLE } from '../../
 
 export const BACK_ARROW = require('../../../img/right_arrow.png');
 export const LOGO_IMG = require('../../../img/logo.png');
+export const SUB_HEADER_DROP_ARROW = require('../../../img/header_drop_arrow.png');
 
 const styles = StyleSheet.create({
     policy_info_container: {
@@ -44,7 +45,8 @@ const styles = StyleSheet.create({
         justifyContent: 'flex-start',
         paddingBottom: 10,
         paddingTop: 35,
-        backgroundColor: PURPLE
+        backgroundColor: PURPLE,
+        paddingLeft: 30
     },
     header_title_container: {
         display: 'flex',
@@ -78,7 +80,20 @@ const styles = StyleSheet.create({
         fontSize: 16,
         marginLeft: 20
     },
-
+    header_sub_title_started: {
+        opacity: 0.6,
+        fontSize: 12,
+        marginBottom: 5,
+        fontWeight: '600'
+    },
+    sub_header_drop_arrow: {
+        position: 'absolute',
+        height: 8,
+        width: 12,
+        top: 3,
+        right: 10,
+        zIndex: 2
+    },
     tab_active_indicator: {
         height: 5,
         backgroundColor: PINK
@@ -90,6 +105,23 @@ const styles = StyleSheet.create({
     },
     tab_bar: {
         backgroundColor: PURPLE
+    },
+    get_quote_disabled: {
+        height: 50,
+        display: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+    get_quote_text_disabled: {
+        fontSize: 19,
+
+    },
+    get_quote_enabled: {
+        backgroundColor: PINK
+    },
+    get_quote_text_enabled: {
+        color: WHITE
     }
 });
 

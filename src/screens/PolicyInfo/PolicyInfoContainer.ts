@@ -1,19 +1,20 @@
 import { connect } from "react-redux";
 import PolicyInfo from "./components/PolicyInfo";
+import { getCarCompletedPercent } from '../Quote/QuoteContainer';
+
+const getCurrentTab = (tabIndex) => {
+    switch (tabIndex) {
+        case 0: return 'Overview';
+        case 1: return 'Documents';
+        case 2: return 'Quote';
+    }
+}
 
 const mapStateToProps = (state) => {
-    console.log('state', state);
-    
     return {
-        localState: state.policyInfo
-    }
-};
-
-const mapDispatchToProps = (dispatch) => {
-    console.log('mapDispatchToProps', dispatch);
-    
-    return {
-
+        localState: state.policyInfo,
+        currentTab: getCurrentTab(state.policyInfo.index),
+        carCompletedPercent: getCarCompletedPercent(state.carQuestions.questions)
     }
 };
 
