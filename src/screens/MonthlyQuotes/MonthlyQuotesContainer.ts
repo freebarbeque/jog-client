@@ -15,6 +15,6 @@ const mapDispatchToProps = (dispatch) => {
         showList: () => dispatch({type: SHOW_ANNUAL_QUOTES_LIST_ACTION})
     }
 };
+const MonthlyQuotesContainer:any = connect(mapStateToProps, mapDispatchToProps)(MonthlyQuotes);
 
-
-export default connect(mapStateToProps, mapDispatchToProps)(MonthlyQuotes);
+export default MonthlyQuotesContainer;

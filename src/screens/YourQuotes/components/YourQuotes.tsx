@@ -24,12 +24,12 @@ export const renderSelectBtn = () => (
 
 const YourQuotes: React.StatelessComponent<Props> = (props) => {
     const {navigation, dispatch, localState, activeTab, currentQuote} = props;
-    
+    const tabNavProps:any = {dispatch, state: localState};
     return (
         <View style={styles.your_quotes_container}>
             <Header navigation={navigation} title={'Your Quotes'}/>
             <SubHeader activeTab={activeTab} />
-            <TabNavigation navigation={addNavigationHelpers({dispatch, state: localState})} />
+            <TabNavigation navigation={addNavigationHelpers(tabNavProps)} />
             { currentQuote.name ? renderSelectBtn() : null }
         </View>
     )

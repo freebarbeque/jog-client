@@ -74,12 +74,13 @@ const renderBottomSection = (currentTab, navigation, carCompletedPercent) => {
 
 const PolicyInfo:React.StatelessComponent<Props> = (props) => {
     const {dispatch, navigation, localState, currentTab, carCompletedPercent} = props;
+    const tabNavProps: any = {dispatch, state: localState};
     return (
         <View style={styles.policy_info_container}>
             <InfoHeader navigation={navigation}/>
             <ScrollView bounces={false} style={styles.policy_info_scroll}>
                 { renderHeaderInfo(navigation, currentTab) }
-                <TabNavigation navigation={addNavigationHelpers({dispatch, state: localState})} />
+                <TabNavigation navigation={addNavigationHelpers(tabNavProps)} />
             </ScrollView>
             { renderBottomSection(currentTab, navigation, carCompletedPercent) }
         </View>

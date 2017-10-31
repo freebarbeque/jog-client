@@ -16,6 +16,8 @@ const mapDispatchToProps = (dispatch) => {
     }
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(AnnualQuotes);
+const AnnualQuotesContainer:any = connect(mapStateToProps, mapDispatchToProps)(AnnualQuotes);
+
+export default AnnualQuotesContainer
 
 

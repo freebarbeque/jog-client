@@ -13,5 +13,6 @@ const mapStateToProps = (state) => {
 
 const MainNavComponent = ({dispatch, nav}) => <MainNavNavigator navigation={addNavigationHelpers({dispatch: dispatch, state: nav})}/>
 
+const NavigationContainer:any = connect(mapStateToProps)(MainNavComponent);
 
-export default connect(mapStateToProps)(MainNavComponent)
+export default NavigationContainer;

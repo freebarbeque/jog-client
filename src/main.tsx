@@ -3,17 +3,6 @@ import { Provider } from 'react-redux';
 import Navigation from './nav/main/NavigationContainer'
 import createStore from "./modules/store/store";
 
-interface Props {}
-interface State {}
+const store = createStore();
 
-export default class App extends React.Component<Props, State> {
-  store = createStore();
-
-  render() {
-    return (
-      <Provider store={this.store}>
-          <Navigation/>
-      </Provider>
-    );
-  }
-}
+export default () => <Provider store={store}><Navigation/></Provider>;
