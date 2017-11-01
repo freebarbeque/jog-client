@@ -6,7 +6,7 @@ export const SCANNED_IMG = require('../../../img/scanned.png');
 const styles = StyleSheet.create({
     documents_container: {
         backgroundColor: CREME,
-        flex: 0
+        flex: 1
     },
     scanned_container: {
         display: 'flex',
@@ -46,7 +46,6 @@ const styles = StyleSheet.create({
         marginTop: 20,
         paddingLeft: 20,
         paddingRight: 20,
-        // marginBottom: 100
     },
     camera_touch: {
         borderStyle: 'dashed',

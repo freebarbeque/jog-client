@@ -82,9 +82,10 @@ const styles = StyleSheet.create({
     },
     header_sub_title_started: {
         opacity: 0.6,
+        zIndex: 10,
         fontSize: 12,
         marginBottom: 5,
-        fontWeight: '600'
+        fontWeight: '600',
     },
     sub_header_drop_arrow: {
         position: 'absolute',

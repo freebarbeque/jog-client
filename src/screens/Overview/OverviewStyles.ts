@@ -16,7 +16,8 @@ const styles = StyleSheet.create({
         borderLeftColor: GRAY_BG_COLOR
     },
     overview_container: {
-        backgroundColor: CREME
+        backgroundColor: CREME,
+        flex: 1
     },
     price_container: {
         display: 'flex',

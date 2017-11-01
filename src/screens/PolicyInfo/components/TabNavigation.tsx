@@ -11,7 +11,8 @@ export default TabNavigator({
     Documents: {screen: DocumentsContainer},
     Quote: {screen: QuoteContainer},
 },{
-    swipeEnabled: true,
+    swipeEnabled: false,
+    animationEnabled: false,
     tabBarComponent: TabBarTop,
     initialRouteName: 'Quote',
     tabBarPosition: 'top',

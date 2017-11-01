@@ -4,7 +4,7 @@ import { WHITE, PINK, CREME, LIGHT_GREY, GREY_SETTINGS_BG, GREY } from '../../cf
 const styles = StyleSheet.create({
     quote_container: {
         backgroundColor: CREME,
-        flex: 0
+        flex: 1
     },
     quote_title: {
         fontSize: 16,

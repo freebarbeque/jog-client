@@ -25,7 +25,7 @@ const renderContent = (inner) => (
 )
 
 export const HelpElement = () => (
-<TouchableOpacity style={styles.help_rect}>
+<TouchableOpacity style={styles.help_rect} activeOpacity={0.9}>
     <View style={styles.help_rect_left} />
     <View style={styles.help_rect_center} />
     <View style={styles.help_rect_right} />
