@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Text, View, ScrollView, TouchableOpacity, Image } from 'react-native';
-import Pie from 'react-native-pie'
 import LinearGradient from 'react-native-linear-gradient';
+import PieChart from 'react-native-pie-chart';
 import {CAR_QUESTIONS_ROUTE} from '../../../nav/main/routes';
 
 import styles, {ARROW, COMPLETE_ICON} from '../QuoteStyles';
@@ -28,12 +28,14 @@ const renderPie = (percent) => {
     const notComplete = <LinearGradient colors={['#F9F9F9', '#E7E7E7']}  style={styles.not_complete}><Text style={styles.no_complete_text}>{`${percent}%`}</Text></LinearGradient>;
     return (
         <View style={styles.percent}>
-            <Pie
-                radius={30}
-                innerRadius={23}
-                series={[percent]}
-                colors={['#7CF286']}
-                backgroundColor='#E2E2E2' />
+            <PieChart
+                chart_wh={62}
+                series={[percent, 100 - percent]}
+                sliceColor={['#7CF286', '#E2E2E2']}
+                doughnut={false}
+                coverRadius={0.9}
+                coverFill={'#E2E2E2'}
+            />
             { percent === 100 ? complete : notComplete }
         </View> 
     )
