@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Text, View, ScrollView, Image, TouchableOpacity, TextInput } from 'react-native';
+import { Text, View, ScrollView, Image, TouchableOpacity, TextInput, Platform, KeyboardAvoidingView } from 'react-native';
 import styles, {CAR} from '../CarQuestionsStyles';
 import Header from './CarQuestionsHeader';
 
@@ -33,10 +33,12 @@ const Question = (props) => {
             <View style={styles.progress_container}>
                 <View style={[styles.progress, {width: ((qNumber + 1) / questions.length)*100 + '%'}]} />
             </View>
-            <View style={styles.inputs_container}>
+            <KeyboardAvoidingView keyboardVerticalOffset={-70} behavior={'position'} style={styles.inputs_container}>
                 <View style={styles.text_input_container}>
                     <View>
                         <TextInput 
+                            underlineColorAndroid={'transparent'}
+                            autoCapitalize={'none'}
                             style={styles.text_input} 
                             value={data.answer}
                             onChangeText={(answer) => answerOnChange(answer, qNumber)}/>
@@ -47,7 +49,7 @@ const Question = (props) => {
                     <View>{ renderNextBtn(qNumber, questions.length, onNext) }</View>
                 </View>
                 <Text style={styles.answered}>{`ANSWERED ${qNumber + 1} / ${questions.length}`}</Text>
-            </View>
+            </KeyboardAvoidingView>
         </View>
     )
 }
