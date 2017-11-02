@@ -30,7 +30,7 @@ const policiesList:[any] = [{
         source: WARRANTIES_IMG,
         styles: {width: 134, height: 79, position: 'absolute', right: 50, bottom: 5}
     },
-    route: 'Warranties'
+    route: null
 }]
 
 const renderPoliciesList = (navigation) => policiesList.map((item, i) => (

@@ -3,9 +3,9 @@ import Quote from "./components/Quote";
 import { compose } from 'recompose';
 
 
-export const getCarCompletedPercent = (quostions) => {
-    const questionsLength = quostions.length;
-    const answered = quostions.filter((item) => item.answer !== '').length;
+export const getCarCompletedPercent = (questions) => {
+    const questionsLength = questions.length;
+    const answered = questions.filter((item) => item.answer !== '').length;
 
     return answered === 0 ? 0 : Math.round(answered / questionsLength * 100);
 

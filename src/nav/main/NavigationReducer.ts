@@ -7,7 +7,7 @@ import { GOTO_ACTION } from '../../cfg/actions';
 export default (state, action) => {
     switch (action.type) {
         case GOTO_ACTION:
-            return MainNavNavigator.router.getStateForAction(NavigationActions.navigate({routeName: CAR_QUESTIONS_ROUTE}), state);
+            return MainNavNavigator.router.getStateForAction(NavigationActions.navigate({routeName: action.payload}), state);
         default:
             return MainNavNavigator.router.getStateForAction(action, state); 
     }
