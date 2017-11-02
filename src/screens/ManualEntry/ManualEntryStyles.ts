@@ -93,8 +93,15 @@ const styles = StyleSheet.create({
     finish_button_container: {
         display: 'flex',
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
 
+    },
+    thanks_container: {
+        marginBottom: 100,
+        marginTop: 50
+    },
+    thanks_text: {
+        fontSize: 26
     },
     button: {
         display: 'flex',

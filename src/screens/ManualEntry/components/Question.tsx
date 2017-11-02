@@ -37,18 +37,23 @@ const Question = (props) => {
             <View style={styles.progress_container}>
                 <View style={[styles.progress, {width: ((qNumber + 1) / questions.length)*100 + '%'}]} />
             </View>
-            <KeyboardAvoidingView style={styles.inputs_container} behavior={'position'} keyboardVerticalOffset={-70}>
-                <View style={styles.input_container}>{renderOption(data.ID)}</View>
+            <KeyboardAvoidingView style={styles.inputs_container} behavior={'position'} keyboardVerticalOffset={-70}> 
                 {
-                    qNumber + 1 === questions.length
+                    qNumber + 1 === questions.length  
                     ?
                     <View style={styles.finish_button_container}>
+                        <View style={styles.thanks_container}>
+                            <Text style={styles.thanks_text}>{`Thanks John,\nWe've set up a\nbasic account\nfor you `}</Text>
+                        </View>
                         <View>{ renderFinishBtn(navigation) }</View>
                     </View>
                     :
-                    <View style={styles.buttons_container}>
-                        <View>{ renderPrevBtn(qNumber, onPrev) }</View>
-                        <View>{ renderNextBtn(qNumber, questions.length, onNext) }</View>
+                    <View>
+                        <View style={styles.input_container}>{renderOption(data.ID)}</View>
+                        <View style={styles.buttons_container}>
+                            <View>{ renderPrevBtn(qNumber, onPrev) }</View>
+                            <View>{ renderNextBtn(qNumber, questions.length, onNext) }</View>
+                        </View>
                     </View>
                 }
                 <Text style={styles.answered}>{`ANSWERED ${qNumber + 1} / ${questions.length}`}</Text>
