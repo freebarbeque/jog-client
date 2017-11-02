@@ -63,8 +63,6 @@ const Question = (props) => {
 
 const CarQuestions:React.StatelessComponent<Props> = (props) => {
     const {navigation, questions, currentQuestionNumber, answerOnChange, onNextQuestion, onPrevQuestion, carCompletedPercent} = props;
-    console.log('CarQuestions', carCompletedPercent);
-    
     return (
         <View style={styles.car_questions_container}>
             <Header navigation={navigation}/>
