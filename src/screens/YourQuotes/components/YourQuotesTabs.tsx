@@ -10,7 +10,8 @@ AnnualQuotes.navigationOptions = {
 }
 
 MonthlyQuotes.navigationOptions = {
-    title: 'Monthly'
+    title: 'Monthly',
+    tabBarOnPress: ({route, index}) => undefined
 }
 
 
