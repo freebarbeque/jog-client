@@ -10,36 +10,33 @@ const initialState = {
             question: 'How much does your policy cost per year?',
             answer: ''
         },{
-            question: 'Question number 3',
+            question: 'Is the car the same as you currently have?',
             answer: ''
         },{
-            question: 'Question number 4',
+            question: 'What is the licencse plate number?',
             answer: ''
         },{
-            question: 'Question number 5',
+            question: 'Has the car been modified in anyway?',
             answer: ''
         },{
-            question: 'Question number 6',
+            question: 'Roughly how much do you think the car is worth?',
             answer: ''
         },{
-            question: 'Question number 7',
+            question: 'How many cars are there in your household?',
             answer: ''
         }
-        
     ]
 };
 
 export default (state = initialState, action:any={}) => {
-    
     switch (action.type) {
-        
         case SHOW_NEXT_QUESTION_ACTION:
             return Object.assign({}, {...state, currentQuestion: state.currentQuestion + 1});
-        
-        case SHOW_PREV_QUESTION_ACTION: 
+
+        case SHOW_PREV_QUESTION_ACTION:
             return Object.assign({}, {...state, currentQuestion: state.currentQuestion - 1});
 
-        case CAR_SET_ANSWER_ACTION: 
+        case CAR_SET_ANSWER_ACTION:
             return setCarQuestion(state, action.payload)
 
         default:
