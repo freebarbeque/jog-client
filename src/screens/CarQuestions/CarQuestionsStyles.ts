@@ -86,7 +86,8 @@ const styles = StyleSheet.create({
         backgroundColor: '#F4F0E6',
         width: 160,
         height: 60,
-        fontSize: 36
+        paddingLeft: 10,
+        fontSize: 22
     },
     inputs_container: {
         display: 'flex',
@@ -118,6 +119,9 @@ const styles = StyleSheet.create({
         borderBottomRightRadius: 30,
         borderTopLeftRadius: 30,
         borderTopRightRadius: 30
+    },
+    button_grey: {
+        backgroundColor: '#CCC'
     },
     red_button: {
         backgroundColor: PINK
