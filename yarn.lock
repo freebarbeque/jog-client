@@ -5115,6 +5115,10 @@ react-native-tab-view@^0.0.69:
   dependencies:
     prop-types "^15.5.8"
 
+react-native-testfairy@2.2.0:
+  version "2.2.0"
+  resolved "https://registry.yarnpkg.com/react-native-testfairy/-/react-native-testfairy-2.2.0.tgz#9d0390af136f0966c10ef21cdc17ec04e4ab4a58"
+
 react-native@0.44.0:
   version "0.44.0"
   resolved "https://registry.yarnpkg.com/react-native/-/react-native-0.44.0.tgz#06427a30053f2d555c60fe0b9afcc6c778db09de"

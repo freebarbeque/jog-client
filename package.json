@@ -49,6 +49,7 @@
     "babel-preset-es2015": "^6.24.1",
     "babel-preset-react-native": "^1.9.1",
     "jest": "19.0.2",
+    "react-native-testfairy": "2.2.0",
     "react-test-renderer": "16.0.0-alpha.6",
     "remote-redux-devtools": "^0.5.12",
     "rimraf": "^2.6.2",
