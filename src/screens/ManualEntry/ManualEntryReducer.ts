@@ -32,18 +32,14 @@ const initialState = {
             answer: '',
             ID: 'done'
         }
-        
     ]
 };
 
 export default (state = initialState, action:any={}) => {
-    
     switch (action.type) {
-        
         case MANUAL_NEXT_QUESTION_ACTION:
             return Object.assign({}, {...state, currentQuestion: state.currentQuestion + 1});
-        
-        case MANUAL_PREV_QUESTION_ACTION: 
+        case MANUAL_PREV_QUESTION_ACTION:
             return Object.assign({}, {...state, currentQuestion: state.currentQuestion - 1});
 
         default:

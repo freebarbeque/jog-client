@@ -12,7 +12,7 @@ const Policies = ({navigation}) => {
                 <Text style={styles.sub_header_text}>Dashboard</Text>
             </View>
             <ScrollView >
-                {renderPoliciesList(navigation)} 
+                {renderPoliciesList(navigation)}
             </ScrollView>
         </View>
     )

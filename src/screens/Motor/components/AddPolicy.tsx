@@ -7,7 +7,6 @@ const AddPolicy = ({navigation}) => {
         <TouchableOpacity style={styles.item_container} onPress={() => navigation.navigate('MotorNewPolicy')}>
         <View style={styles.item_cover}>
             <View style={styles.item_img_cover}>
-                
             </View>
             <View style={styles.item_info_container}>
                 <Text style={styles.warr_type_text}>{`Add a policy`}</Text>

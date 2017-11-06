@@ -19,12 +19,10 @@ const styles = StyleSheet.create({
     },
     logo_touchable: {
         marginTop: 30,
-
     },
     logo_img: {
-        width: 70,
-        height: 35,
-        
+        width: 60,
+        height: 30,
     },
     signout_touchable: {
         marginTop: 40

@@ -23,7 +23,7 @@ const ManualEntry: React.StatelessComponent<Props> = (props) => {
             <Header navigation={navigation}/>
             {
                 questions.map((currentQuestion, i) => i === currentQuestionNumber ? (
-                    <Question 
+                    <Question
                         key={i}
                         qNumber={i}
                         navigation={navigation}

@@ -17,12 +17,11 @@ const ManualEntryHeader:React.StatelessComponent<Props> = ({navigation}) => {
                 <TouchableOpacity style={styles.logo_touchable} onPress={() => navigation.navigate('Home')}>
                     <Image style={styles.logo_img} source={LOGO_IMG} />
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.close} onPress={() => navigation.navigate('Policies')}>
+                <TouchableOpacity style={styles.close} onPress={() => navigation.navigate('MotorNewPolicy')}>
                     <Image style={styles.close_icon} source={CLOSE_ICON} />
                 </TouchableOpacity>
             </View>
         </View>
-        
     )
 };
 

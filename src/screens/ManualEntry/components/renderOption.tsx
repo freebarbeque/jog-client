@@ -5,7 +5,7 @@ import ModalDropdown from 'react-native-modal-dropdown';
 
 export const renderOption = (ID) => {
     switch (ID) {
-        case 'insurer': 
+        case 'insurer':
             return insurerInput();
         case 'pol_number':
             return polNumberInput();
@@ -48,50 +48,48 @@ const plateNoInputs = () => {
             </View>
         </View>
     )
-} 
-    
-
+}
 
 const yearCostInput = () => (
     <View style={styles.year_cost_inputs_container}>
-        <ModalDropdown 
+        <ModalDropdown
             defaultValue={'£'}
-            dropdownStyle={[styles.menu_drop, styles.cost_menu_drop]} 
+            dropdownStyle={[styles.menu_drop, styles.cost_menu_drop]}
             textStyle={[styles.menu_text, styles.cost_menu_text]}
             dropdownTextStyle={[styles.menu_drop_text]}
-            style={[styles.menu, styles.cost_menu]} 
+            style={[styles.menu, styles.cost_menu]}
             options={['€', '$', '£']}/>
         <View style={styles.divider}/>
-        <TextInput 
-            underlineColorAndroid={'transparent'} 
+        <TextInput
+            underlineColorAndroid={'transparent'}
             defaultValue={'0'} style={[styles.text_input, styles.cost_text_input]}/>
     </View>
 )
 
 const expireNumberInput = () => (
     <View style={styles.multiple_dropdowns_container}>
-        <ModalDropdown 
+        <ModalDropdown
             defaultValue={'01'}
-            dropdownStyle={[styles.menu_drop, styles.menu_drop_multiple]} 
+            dropdownStyle={[styles.menu_drop, styles.menu_drop_multiple]}
             textStyle={[styles.menu_text, styles.menu_text_multiple]}
             dropdownTextStyle={[styles.menu_drop_text]}
-            style={[styles.menu, styles.menu_multiple]} 
+            style={[styles.menu, styles.menu_multiple]}
             options={['01', '02', '03', '04']}/>
         <View style={styles.divider}/>
-        <ModalDropdown 
+        <ModalDropdown
             defaultValue={'01'}
-            dropdownStyle={[styles.menu_drop, styles.menu_drop_multiple]} 
+            dropdownStyle={[styles.menu_drop, styles.menu_drop_multiple]}
             textStyle={[styles.menu_text, styles.menu_text_multiple]}
             dropdownTextStyle={styles.menu_drop_text}
-            style={[styles.menu, styles.menu_multiple]} 
+            style={[styles.menu, styles.menu_multiple]}
             options={['01', '02', '03', '04']}/>
         <View style={styles.divider}/>
-        <ModalDropdown 
+        <ModalDropdown
             defaultValue={'2017'}
-            dropdownStyle={[styles.menu_drop, styles.menu_drop_multiple]} 
+            dropdownStyle={[styles.menu_drop, styles.menu_drop_multiple]}
             textStyle={[styles.menu_text, styles.menu_text_multiple]}
             dropdownTextStyle={styles.menu_drop_text}
-            style={[styles.menu, styles.menu_multiple]} 
+            style={[styles.menu, styles.menu_multiple]}
             options={['2016', '2017', '2018']}/>
     </View>
 )
@@ -104,12 +102,12 @@ const polNumberInput = () => (
 
 const insurerInput = () => (
     <View>
-        <ModalDropdown 
+        <ModalDropdown
             defaultValue={'Other'}
-            dropdownStyle={styles.menu_drop} 
+            dropdownStyle={styles.menu_drop}
             textStyle={styles.menu_text}
             dropdownTextStyle={styles.menu_drop_text}
-            style={styles.menu} 
+            style={styles.menu}
             options={['option 1', 'option 2']}/>
         <Image style={styles.drop_arrow} source={DROW_ARROW} />
     </View>

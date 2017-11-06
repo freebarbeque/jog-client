@@ -5,14 +5,14 @@ import ModalDropdown from 'react-native-modal-dropdown';
 import {renderOption} from './renderOption';
 
 const renderPrevBtn = (number, onPrev) => (
-    !number ? null : 
+    !number ? null :
         <TouchableOpacity style={[styles.button]} onPress={onPrev}>
             <Text style={styles.btn_text_left}>Prev</Text>
         </TouchableOpacity>
 );
 
 const renderNextBtn = (number, questionsListLength, onNext) => (
-    number + 1 === questionsListLength ? null : 
+    number + 1 === questionsListLength ? null :
         <TouchableOpacity style={[styles.button, styles.red_button]} onPress={onNext}>
             <Text style={styles.btn_text_right}>Next</Text>
         </TouchableOpacity>
@@ -37,9 +37,9 @@ const Question = (props) => {
             <View style={styles.progress_container}>
                 <View style={[styles.progress, {width: ((qNumber + 1) / questions.length)*100 + '%'}]} />
             </View>
-            <KeyboardAvoidingView style={styles.inputs_container} behavior={'position'} keyboardVerticalOffset={-70}> 
+            <KeyboardAvoidingView style={styles.inputs_container} behavior={'position'} keyboardVerticalOffset={-70}>
                 {
-                    qNumber + 1 === questions.length  
+                    qNumber + 1 === questions.length
                     ?
                     <View style={styles.finish_button_container}>
                         <View style={styles.thanks_container}>
