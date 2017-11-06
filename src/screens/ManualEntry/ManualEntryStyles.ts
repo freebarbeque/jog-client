@@ -60,13 +60,11 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         paddingTop: 15,
         height: 145
-        
     },
     title: {
         flexWrap: 'wrap',
         flex: 1,
         paddingLeft: 65
-        
     },
     title_placeholder: {
         color: PINK,
@@ -169,7 +167,7 @@ const styles = StyleSheet.create({
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'center',
-        alignItems: 'flex-start',  
+        alignItems: 'flex-start',
     },
     menu_drop: {
         backgroundColor: '#F4F0E6',

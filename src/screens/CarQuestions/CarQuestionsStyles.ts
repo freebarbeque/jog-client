@@ -41,8 +41,8 @@ const styles = StyleSheet.create({
         backgroundColor: WHITE,
     },
     input: {
-        height: 30, 
-        width: 50, 
+        height: 30,
+        width: 50,
         backgroundColor: 'yellow'
     },
     title_container: {
@@ -54,7 +54,6 @@ const styles = StyleSheet.create({
         justifyContent: 'flex-start',
         alignItems: 'center',
         paddingTop: 15
-        
     },
     title_img: {
         width: 40,
@@ -65,7 +64,6 @@ const styles = StyleSheet.create({
     title: {
         flexWrap: 'wrap',
         flex: 1,
-        
     },
     title_placeholder: {
         color: PINK,

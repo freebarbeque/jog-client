@@ -7,7 +7,6 @@ const initialState = {
             percent: 30,
             questions: 6,
             route: 'CarQuestions',
-            
         },{
             title: 'Driver',
             percent: 100,
@@ -23,9 +22,7 @@ const initialState = {
 };
 
 export default (state = initialState, action:any={}) => {
-    
     switch (action.type) {
-
         default:
             return state;
     }
