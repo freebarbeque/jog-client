@@ -13,7 +13,7 @@ const initialState = {
             question: 'Is the car the same as you currently have?',
             answer: ''
         },{
-            question: 'What is the licencse plate number?',
+            question: 'What is the license plate number?',
             answer: ''
         },{
             question: 'Has the car been modified in anyway?',
