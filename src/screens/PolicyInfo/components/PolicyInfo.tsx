@@ -30,7 +30,6 @@ const renderHeaderInfo = (navigation, currentTab) => {
                         <Image style={styles.sub_header_drop_arrow} source={SUB_HEADER_DROP_ARROW}/>
                         <Text style={[styles.header_sub_title, styles.header_sub_title_started]}>{'POLICY STARTED'}</Text>
                         <Text style={styles.header_title}>{`25 May 2017`}</Text>
-                        
                     </View>
                 </View>
             );
@@ -60,9 +59,10 @@ const renderBottomSection = (currentTab, navigation, carCompletedPercent) => {
                     <Image style={styles_upl.upload_docs_arrow} source={UPLOAD_ARROW}/>
                 </TouchableOpacity>
             );
-        case 'Quote': 
+        case 'Quote':
             return (
-                <TouchableOpacity style={[styles.get_quote_disabled, carCompletedPercent > 50 && styles.get_quote_enabled]} onPress={() => navigation.navigate(GETTING_QUOTES_ROUTE)}>
+                <TouchableOpacity disabled={carCompletedPercent < 80}
+                style={[styles.get_quote_disabled, carCompletedPercent > 80 && styles.get_quote_enabled]} onPress={() => navigation.navigate(GETTING_QUOTES_ROUTE)}>
                     <Text style={[styles.get_quote_text_disabled, carCompletedPercent > 50 && styles.get_quote_text_enabled]}>{`Get a quote`}</Text>
                 </TouchableOpacity>
             );
