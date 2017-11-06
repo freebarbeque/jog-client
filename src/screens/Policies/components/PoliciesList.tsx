@@ -11,21 +11,24 @@ const policiesList:[any] = [{
     },
     route: 'Motor'
 },{
-    title: 'Coming soon...',
+    title: 'Travel',
+    sub_title: 'Coming soon...',
     img: {
         source: TRAVEL_IMG,
         styles: {width: 164, height: 91, position: 'absolute', right: 50, bottom: 5}
     },
     route: null
 },{
-    title: 'Coming soon...',
+    title: 'Home & Contents',
+    sub_title: 'Coming soon...',
     img: {
         source: HOME_IMG,
         styles: {width: 170, height: 80, position: 'absolute', right: 50, bottom: 5}
     },
     route: null
 },{
-    title: 'Coming soon...',
+    title: 'Warranties',
+    sub_title: 'Coming soon...',
     img: {
         source: WARRANTIES_IMG,
         styles: {width: 134, height: 79, position: 'absolute', right: 50, bottom: 5}
@@ -36,6 +39,7 @@ const policiesList:[any] = [{
 const renderPoliciesList = (navigation) => policiesList.map((item, i) => (
     <TouchableOpacity key={i} style={styles.item_container} onPress={() => navigation.navigate(item.route)}>
         <Text style={styles.item_title}>{item.title}</Text>
+        <Text style={styles.item_sub_title}>{item.sub_title}</Text>
         <Image style={item.img.styles} source={item.img.source} />
         <Image style={styles.item_arrow} source={ARROW_BOLD} />
     </TouchableOpacity>

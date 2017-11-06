@@ -35,15 +35,21 @@ const styles = StyleSheet.create({
         top: 20,
         fontWeight: '500'
     },
+    item_sub_title: {
+        color: GREY,
+        position: 'absolute',
+        fontSize: 12,
+        left: 30,
+        top: 42,
+        fontWeight: '200'
+    },
     item_arrow: {
         position: 'absolute',
         right: 20,
         top: 50,
         height: 11,
         width: 8
-
     }
-
 });
 
 export default styles;
