@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Text, View, ScrollView, TouchableOpacity } from 'react-native';
+import {Text, View, ScrollView, TouchableOpacity} from 'react-native';
 import styles, {QUOTE_SECTIONS_IMG} from '../QuoteStyles';
 import QuoteSection from './QuoteSection';
 
@@ -11,7 +11,7 @@ interface Props {
 }
 
 const Quote: React.StatelessComponent<Props> = (props) => {
-    const { quoteSections, carQuestions, carCompletedPercent} = props;
+    const {quoteSections, carQuestions, carCompletedPercent} = props;
     return (
         <View style={styles.quote_container}>
             <Text style={styles.quote_title}>Answer all sections to get a quote</Text>
@@ -25,7 +25,8 @@ const Quote: React.StatelessComponent<Props> = (props) => {
                         questions={item.questions}
                         image={QUOTE_SECTIONS_IMG[i]}
                         route={item.route}
-                        navigation={props.navigation}/>
+                        navigation={props.navigation}
+                    />
                 ))
             }
         </View>

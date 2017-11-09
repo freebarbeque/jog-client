@@ -4,18 +4,20 @@ import styles, {DROW_ARROW} from '../ManualEntryStyles';
 import ModalDropdown from 'react-native-modal-dropdown';
 import {renderOption} from './renderOption';
 
-const renderPrevBtn = (number, onPrev) => (
-    !number ? null :
+const renderPrevBtn = (btnNumber, onPrev) => (
+    !btnNumber ? null : (
         <TouchableOpacity style={[styles.button]} onPress={onPrev}>
             <Text style={styles.btn_text_left}>Prev</Text>
         </TouchableOpacity>
+    )
 );
 
-const renderNextBtn = (number, questionsListLength, onNext) => (
-    number + 1 === questionsListLength ? null :
+const renderNextBtn = (btnNumber, questionsListLength, onNext) => (
+    btnNumber + 1 === questionsListLength ? null : (
         <TouchableOpacity style={[styles.button, styles.red_button]} onPress={onNext}>
             <Text style={styles.btn_text_right}>Next</Text>
         </TouchableOpacity>
+    )
 );
 
 const renderFinishBtn = (navigation) => (
@@ -35,7 +37,7 @@ const Question = (props) => {
                 </View>
             </View>
             <View style={styles.progress_container}>
-                <View style={[styles.progress, {width: ((qNumber + 1) / questions.length)*100 + '%'}]} />
+                <View style={[styles.progress, {width: ((qNumber + 1) / questions.length) * 100 + '%'}]} />
             </View>
             <KeyboardAvoidingView style={styles.inputs_container} behavior={'position'} keyboardVerticalOffset={-70}>
                 {
@@ -45,14 +47,14 @@ const Question = (props) => {
                         <View style={styles.thanks_container}>
                             <Text style={styles.thanks_text}>{`Thanks John,\nWe've set up a\nbasic account\nfor you `}</Text>
                         </View>
-                        <View>{ renderFinishBtn(navigation) }</View>
+                        <View>{renderFinishBtn(navigation)}</View>
                     </View>
                     :
                     <View>
                         <View style={styles.input_container}>{renderOption(data.ID)}</View>
                         <View style={styles.buttons_container}>
-                            <View>{ renderPrevBtn(qNumber, onPrev) }</View>
-                            <View>{ renderNextBtn(qNumber, questions.length, onNext) }</View>
+                            <View>{renderPrevBtn(qNumber, onPrev)}</View>
+                            <View>{renderNextBtn(qNumber, questions.length, onNext)}</View>
                         </View>
                     </View>
                 }

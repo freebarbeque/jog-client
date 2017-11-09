@@ -10,7 +10,7 @@ const Header = ({navigation}) => {
         <View style={styles.container}>
             <View style={styles.logo_container}>
                 <TouchableOpacity style={styles.logo_touchable} onPress={() => navigation.navigate('Home')}>
-                    <Image source={LOGO} style={styles.logo_img}></Image>
+                    <Image source={LOGO} style={styles.logo_img}/>
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.signout_touchable}>
                     <Text style={styles.singout_text}>Sign Out</Text>

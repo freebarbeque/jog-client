@@ -22,8 +22,8 @@ const CurrentQuote: React.StatelessComponent<Props> = ({showList, currentQuote})
                 <View style={styles.current_seller_name}><Text style={styles.current_seller_name_text}>{currentQuote.name}</Text></View>
                 <View style={styles.current_price_container}>
                     <View style={styles.current_annually_container}>
-                        <Text style={styles.current_price_pound}>{`£${currentQuote.monthly.price.split(".")[0]}`}</Text>
-                        <Text style={styles.current_price_cent}>{`.${currentQuote.monthly.price.split(".")[1]}`}</Text>
+                        <Text style={styles.current_price_pound}>{`£${currentQuote.monthly.price.split('.')[0]}`}</Text>
+                        <Text style={styles.current_price_cent}>{`.${currentQuote.monthly.price.split('.')[1]}`}</Text>
                         <Text style={styles.current_amount_label}>{`PER MONTH`}</Text>
                     </View>
                     <View style={styles.divider} />
@@ -41,7 +41,7 @@ const CurrentQuote: React.StatelessComponent<Props> = ({showList, currentQuote})
                     
                 </View>
                 <View style={styles.features_list}>
-                    { renderFeatures() }
+                    {renderFeatures()}
                 </View>
                 <View style={styles.see_more}>
                     <Text style={styles.see_more_text}>See more ></Text>

@@ -17,7 +17,6 @@ const renderHeader = (header, i, isActive) => (
     </View>
 )
 
-
 const renderContent = (inner) => (
     <View style={styles.drop_item_content_view}> 
         {inner.renderer ? inner.renderer() : <Text>{inner.content}</Text>}
@@ -46,7 +45,8 @@ const Settings: React.StatelessComponent<Props> = (props) => {
                         underlayColor={'#F4F0E6'}
                         sections={SETTINGS_SECTIONS}
                         renderHeader={renderHeader}
-                        renderContent={renderContent}/>
+                        renderContent={renderContent}
+                    />
                     <View style={styles.help_container}>
                         {HelpElement()}
                     </View>

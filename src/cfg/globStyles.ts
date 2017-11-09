@@ -17,7 +17,7 @@ export const RIGHT_ARROW = require('../../img/right_arrow.png');
 export const DROP_ARROW = require('../../img/drop_arrow.png');
 export const MOCK_PROFILE_IMG = require('../../img/mock_profile.png');
 export const ANS_ICON = require('../../img/ans_ico.png');
-export const LANDING_FEATURES_IMG:[any] = [
+export const LANDING_FEATURES_IMG: [any] = [
     {source: require('../../img/feature1.png'), style: {width: 110, height: 120, alignSelf: 'center'}},
     {source: require('../../img/feature2.png'), style: {width: 90, height: 80, alignSelf: 'center'}},
     {source: require('../../img/feature3.png'), style: {width: 90, height: 64, alignSelf: 'center'}}

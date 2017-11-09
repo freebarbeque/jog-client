@@ -6,8 +6,6 @@ interface Props {
     quotes: [{}];
     showQuote: Function
 }
-
-
     
 const renderQuote = (quote, i, showQuote) => {
     
@@ -19,8 +17,8 @@ const renderQuote = (quote, i, showQuote) => {
                 </View>
                 <View style={styles.price_container}>
                     <Text style={styles.price_pound}>
-                        {`£${quote.annualy.split(".")[0]}`}
-                        <Text style={styles.price_cent}>{`.${quote.annualy.split(".")[1]}`}</Text>
+                        {`£${quote.annualy.split('.')[0]}`}
+                        <Text style={styles.price_cent}>{`.${quote.annualy.split('.')[1]}`}</Text>
                     </Text>
                 </View>
                 <View style={styles.divider} />

@@ -1,6 +1,5 @@
 import {ADMIRAL_LOGO}  from './MotorStyles';
 
-
 const motors = [
     {
         product: 'Philips Refrigerator',

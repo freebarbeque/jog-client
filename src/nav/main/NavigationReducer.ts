@@ -1,6 +1,6 @@
 import { NavigationActions } from 'react-navigation';
 
-import { MainNavNavigator } from "./NavigationConfiguration";
+import { MainNavNavigator } from './NavigationConfiguration';
 import { CAR_QUESTIONS_ROUTE } from './routes';
 import { GOTO_ACTION } from '../../cfg/actions';
 

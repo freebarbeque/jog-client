@@ -3,14 +3,12 @@ import { Text, View, ScrollView, Image, TouchableOpacity, TextInput } from 'reac
 import styles, {BACK_ARROW} from '../GettingQuotesStyles';
 import Header from './GettingQuotesHeader';
 
-
 interface Props {
     navigation: any;
     title: string;
 }
 
-
-const GettingQuotesHeader:React.StatelessComponent<Props> = (props) => {
+const GettingQuotesHeader: React.StatelessComponent<Props> = (props) => {
     const {navigation, title} = props;
     return (
         <View style={styles.getting_quotes_header}>

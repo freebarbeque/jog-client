@@ -11,7 +11,6 @@ export const SELLERS_LOGOS = {
     Aviva: {source: require('../../../img/logo_aviva.png'), style: {}},
 }
 
-
 const styles = StyleSheet.create({
     annual_quotes_container: {
         backgroundColor: WHITE,
@@ -135,7 +134,7 @@ const styles = StyleSheet.create({
         position: 'absolute',
         right: 20
     },
-    quote_bottom :{
+    quote_bottom: {
         backgroundColor: '#E2E2E2',
         display: 'flex',
         flexDirection: 'row',
@@ -198,11 +197,9 @@ const styles = StyleSheet.create({
     },
     current_seller_name_text: {
         fontSize: 20,
-        
-        
     },
     current_price_container: {
-        display:'flex',
+        display: 'flex',
         flexDirection: 'row',
         alignItems: 'flex-end',
         marginLeft: 80
@@ -212,7 +209,7 @@ const styles = StyleSheet.create({
         fontSize: 24
     },
     current_annually_container: {
-        display:'flex',
+        display: 'flex',
         flexDirection: 'row',
         alignItems: 'flex-end',
         marginTop: 25
@@ -289,8 +286,6 @@ const styles = StyleSheet.create({
         fontSize: 18,
         backgroundColor: 'transparent'
     }
-
-
 });
 
 export default styles;

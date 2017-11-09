@@ -10,7 +10,7 @@ interface Props {
     navigation: any;
 }
 
-const GettingQuotes:React.StatelessComponent<Props> = (props) => {
+const GettingQuotes: React.StatelessComponent<Props> = (props) => {
     const {navigation} = props;
     return (
         <LinearGradient colors={['#181E3A', '#212A4A']} style={styles.getting_quotes_container}>

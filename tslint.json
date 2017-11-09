@@ -20,7 +20,7 @@
         "indent": [
             true,
             "spaces",
-            2
+            4
         ],
         "interface-name": [
             true,
@@ -117,7 +117,6 @@
             true,
             "check-branch",
             "check-decl",
-            "check-module",
             "check-operator",
             "check-separator",
             "check-type",

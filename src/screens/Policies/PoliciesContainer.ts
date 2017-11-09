@@ -1,3 +1,3 @@
-import Policies from "./components/Policies";
+import Policies from './components/Policies';
 
 export default Policies;

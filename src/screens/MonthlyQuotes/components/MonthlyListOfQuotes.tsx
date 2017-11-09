@@ -30,8 +30,8 @@ const renderQuote = (quote, i, showQuote) => {
                 </View>
                 <View style={styles.price_container}>
                     <Text style={styles.price_pound}>
-                        {`£${quote.monthly.price.split(".")[0]}`}
-                        <Text style={styles.price_cent}>{`.${quote.monthly.price.split(".")[1]}`}</Text>
+                        {`£${quote.monthly.price.split('.')[0]}`}
+                        <Text style={styles.price_cent}>{`.${quote.monthly.price.split('.')[1]}`}</Text>
                     </Text>
                 </View>
                 <View style={styles.divider} />

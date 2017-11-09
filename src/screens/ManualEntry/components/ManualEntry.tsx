@@ -30,7 +30,8 @@ const ManualEntry: React.StatelessComponent<Props> = (props) => {
                         onPrev={onPrevQuestion}
                         onNext={onNextQuestion}
                         questions={questions}
-                        data={currentQuestion}/>
+                        data={currentQuestion}
+                    />
                 ) : null)
             }
         </View>

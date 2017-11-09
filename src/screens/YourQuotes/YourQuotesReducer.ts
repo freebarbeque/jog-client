@@ -20,7 +20,8 @@ const initState = {
                 excess: '30.45',
                 upfront: '30.45'
             }
-        },{
+        },
+        {
             name: 'Alianz',
             extras: 14,
             excess: 340,
@@ -31,7 +32,8 @@ const initState = {
                 excess: '33.45',
                 upfront: '33.45'
             }
-        },{
+        },
+        {
             name: 'Aviva',
             extras: 14,
             excess: 340,
@@ -42,7 +44,8 @@ const initState = {
                 excess: '30.45',
                 upfront: '30.45'
             }
-        },{
+        },
+        {
             name: '123',
             extras: 14,
             excess: 340,
@@ -53,7 +56,8 @@ const initState = {
                 excess: '30.45',
                 upfront: '30.45'
             }
-        },{
+        },
+        {
             name: 'Aviva',
             extras: 14,
             excess: 340,
@@ -64,7 +68,8 @@ const initState = {
                 excess: '30.45',
                 upfront: '30.45'
             }
-        },{
+        },
+        {
             name: 'Admiral',
             extras: 14,
             excess: 340,
@@ -79,7 +84,7 @@ const initState = {
     ]
 }
 
-export default (state: any = initState, action: {type: string, payload?:any}) => {
+export default (state: any = initState, action: {type: string, payload?: any}) => {
     switch (action.type) {
         case SHOW_ANNUAL_QUOTE_ACTION:
             return Object.assign({}, {...state, currentQuote: action.payload});

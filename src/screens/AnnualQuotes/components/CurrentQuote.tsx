@@ -2,7 +2,6 @@ import * as React from 'react';
 import {  View, ScrollView, Text, Image, TouchableOpacity } from 'react-native';
 import styles, { SELLERS_LOGOS, ARROW_THIN, QUOTE_FEATURE_ICON } from '../AnnualQuotesStyles';
 
-
 export const renderFeatures = () => {
     const features = ['Legal expenses', 'Personal accident', 'Windscreen cover', 'Courtesy car'];
 
@@ -29,8 +28,8 @@ const CurrentQuote = ({showList, currentQuote}) => {
                 <View style={styles.current_seller_name}><Text style={styles.current_seller_name_text}>{currentQuote.name}</Text></View>
                 <View style={styles.current_price_container}>
                     <View style={styles.current_annually_container}>
-                        <Text style={styles.current_price_pound}>{`£${currentQuote.annualy.split(".")[0]}`}</Text>
-                        <Text style={styles.current_price_cent}>{`.${currentQuote.annualy.split(".")[1]}`}</Text>
+                        <Text style={styles.current_price_pound}>{`£${currentQuote.annualy.split('.')[0]}`}</Text>
+                        <Text style={styles.current_price_cent}>{`.${currentQuote.annualy.split('.')[1]}`}</Text>
                         <Text style={styles.current_amount_label}>{`ANNUALLY`}</Text>
                     </View>
                     <View style={styles.divider} />
@@ -40,7 +39,7 @@ const CurrentQuote = ({showList, currentQuote}) => {
                     </View>
                 </View>
                 <View style={styles.features_list}>
-                    { renderFeatures() }
+                    {renderFeatures()}
                 </View>
                 <View style={styles.see_more}>
                     <Text style={styles.see_more_text}>See more ></Text>

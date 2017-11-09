@@ -1,7 +1,6 @@
-import { connect } from "react-redux";
-import Quote from "./components/Quote";
+import { connect } from 'react-redux';
+import Quote from './components/Quote';
 import { compose } from 'recompose';
-
 
 export const getCarCompletedPercent = (questions) => {
     const questionsLength = questions.length;
@@ -24,7 +23,5 @@ const mapDispatchToProps = (dispatch) => {
 
     }
 };
-
-
 
 export default connect(mapStateToProps, mapDispatchToProps)(Quote);

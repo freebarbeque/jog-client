@@ -1,6 +1,3 @@
-import Documents from "./components/Documents";
+import Documents from './components/Documents';
 
 export default Documents;
-
-
-

@@ -1,5 +1,5 @@
-import { connect } from "react-redux";
-import PolicyInfo from "./components/PolicyInfo";
+import { connect } from 'react-redux';
+import PolicyInfo from './components/PolicyInfo';
 import { getCarCompletedPercent } from '../Quote/QuoteContainer';
 
 const getCurrentTab = (tabIndex) => {
@@ -7,6 +7,7 @@ const getCurrentTab = (tabIndex) => {
         case 0: return 'Overview';
         case 1: return 'Documents';
         case 2: return 'Quote';
+        default: return '';
     }
 }
 
@@ -19,4 +20,3 @@ const mapStateToProps = (state) => {
 };
 
 export default connect(mapStateToProps)(PolicyInfo);
-

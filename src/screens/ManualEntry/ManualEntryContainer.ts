@@ -1,5 +1,5 @@
-import { connect } from "react-redux";
-import ManualEntry from "./components/ManualEntry";
+import { connect } from 'react-redux';
+import ManualEntry from './components/ManualEntry';
 import {MANUAL_NEXT_QUESTION_ACTION, MANUAL_PREV_QUESTION_ACTION} from '../../cfg/actions'
 
 const mapStateToProps = (state) => {
@@ -19,7 +19,5 @@ const mapDispatchToProps = (dispatch) => {
         },
     }
 };
-
-
 
 export default connect(mapStateToProps, mapDispatchToProps)(ManualEntry)

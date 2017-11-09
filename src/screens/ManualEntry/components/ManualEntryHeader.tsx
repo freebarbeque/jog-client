@@ -7,7 +7,7 @@ interface Props {
     navigation: any
 }
 
-const ManualEntryHeader:React.StatelessComponent<Props> = ({navigation}) => {
+const ManualEntryHeader: React.StatelessComponent<Props> = ({navigation}) => {
     return (
         <View style={styles.header_container}>
             <View style={styles.logo_container}>

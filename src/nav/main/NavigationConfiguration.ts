@@ -1,7 +1,7 @@
-import { StackNavigator } from 'react-navigation';
-import { Animated, Easing } from 'react-native';
+import {StackNavigator} from 'react-navigation';
+import {Animated, Easing} from 'react-native';
 
-import HomeContainer from "../../screens/Home/HomeContainer";
+import HomeContainer from '../../screens/Home/HomeContainer';
 import PoliciesContainer from '../../screens/Policies/PoliciesContainer';
 import SettingsContainer from '../../screens/Settings/SettingsContainer';
 import WarrantiesContainer from '../../screens/Warranties/WarrantiesContainer';
@@ -13,50 +13,49 @@ import ManualEntryContainer from '../../screens/ManualEntry/ManualEntryContainer
 import GettingQuotesContainer from '../../screens/GettingQuotes/GettingQuotesContainer';
 import YourQuotesContainer from '../../screens/YourQuotes/YourQuotesContainer';
 
-
-export const MainNavNavigator = StackNavigator({ 
+export const MainNavNavigator = StackNavigator({
     Home: {
-        screen: HomeContainer
+      screen: HomeContainer
     },
     YourQuotes: {
-        screen: YourQuotesContainer
+      screen: YourQuotesContainer
     },
     GettingQuotes: {
-        screen: GettingQuotesContainer
+      screen: GettingQuotesContainer
     },
     Motor: {
-        screen: MotorContainer
+      screen: MotorContainer
     },
     Policies: {
-        screen: PoliciesContainer
+      screen: PoliciesContainer
     },
     ManualEntry: {
-        screen: ManualEntryContainer
+      screen: ManualEntryContainer
     },
-    
+
     CarQuestions: {
-        screen: CarQuestionsContainer
+      screen: CarQuestionsContainer
     },
     MotorNewPolicy: {
-        screen: MotorNewPolicyContainer
+      screen: MotorNewPolicyContainer
     },
     PolicyInfo: {
-        screen: PolicyInfoContainer
+      screen: PolicyInfoContainer
     },
     Settings: {
-        screen: SettingsContainer
+      screen: SettingsContainer
     },
     Warranties: {
-        screen: WarrantiesContainer
+      screen: WarrantiesContainer
     },
-    
-},{
-    headerMode:'none',
-    transitionConfig : () => ({
-        transitionSpec: {
-            duration: 0,
-            timing: Animated.timing,
-            easing: Easing.step0,
-        },
+  },
+  {
+    headerMode: 'none',
+    transitionConfig: () => ({
+      transitionSpec: {
+        duration: 0,
+        timing: Animated.timing,
+        easing: Easing.step0,
+      },
     }),
-});
+  });

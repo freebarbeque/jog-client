@@ -1,5 +1,5 @@
 import AnnualQuotes from './components/AnnualQuotes';
-import { connect } from "react-redux";
+import { connect } from 'react-redux';
 import { SHOW_ANNUAL_QUOTE_ACTION, SHOW_ANNUAL_QUOTES_LIST_ACTION } from '../../cfg/actions';
 
 const mapStateToProps = (state) => {
@@ -16,8 +16,6 @@ const mapDispatchToProps = (dispatch) => {
     }
 };
 
-const AnnualQuotesContainer:any = connect(mapStateToProps, mapDispatchToProps)(AnnualQuotes);
+const AnnualQuotesContainer: any = connect(mapStateToProps, mapDispatchToProps)(AnnualQuotes);
 
 export default AnnualQuotesContainer
-
-

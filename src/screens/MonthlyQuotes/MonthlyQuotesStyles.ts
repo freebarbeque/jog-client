@@ -217,13 +217,13 @@ const styles = StyleSheet.create({
         marginBottom: 10
     },
     current_price_container: {
-        display:'flex',
+        display: 'flex',
         flexDirection: 'row',
         alignItems: 'flex-start',
         marginLeft: 80
     },
     current_annually_container: {
-        display:'flex',
+        display: 'flex',
         flexDirection: 'row',
         alignItems: 'flex-end',
         marginTop: 23
@@ -269,8 +269,6 @@ const styles = StyleSheet.create({
         position: 'absolute',
         left: 10,
         top: 10
-
-        
     },
     current_upfront_label: {
         fontSize: 11,
@@ -279,7 +277,6 @@ const styles = StyleSheet.create({
         position: 'absolute',
         left: 10,
         top: 10
-
     },
     current_excess_amount: {
         fontSize: 20,

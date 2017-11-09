@@ -1,4 +1,3 @@
-import GettingQuotes from "./components/GettingQuotes";
+import GettingQuotes from './components/GettingQuotes';
 
-export default GettingQuotes
-
+export default GettingQuotes;

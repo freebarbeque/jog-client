@@ -9,7 +9,7 @@ interface Props {
     navigation: any
 }
 
-const InfoHeader:React.StatelessComponent<Props> = ({navigation}) => {
+const InfoHeader: React.StatelessComponent<Props> = ({navigation}) => {
     return (
         <View style={styles.header_container}>
             <View style={styles.logo_container}>

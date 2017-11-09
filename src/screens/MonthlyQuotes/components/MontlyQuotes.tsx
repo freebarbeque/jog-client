@@ -19,7 +19,7 @@ const renderListOrItem = (quotes, showQuote, showList, currentQuote) => {
     } else {
         return (
             <View>
-                { renderTabs() }
+                {renderTabs()}
                 <View style={styles.sort_section}>
                     <Text style={styles.sort_title}>Sort by</Text>
                     <Image style={styles.sort_arrow} source={ARROW_BOLD} />
@@ -35,7 +35,7 @@ const MonthlyQuotes: React.StatelessComponent<Props> = (props) => {
     const {quotes, showQuote, currentQuote, showList} = props;
     return (
         <ScrollView style={styles.annual_quotes_container}>
-            { renderListOrItem(quotes, showQuote, showList, currentQuote) }
+            {renderListOrItem(quotes, showQuote, showList, currentQuote)}
         </ScrollView>
     )
 };

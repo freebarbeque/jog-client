@@ -1,6 +1,3 @@
-import Motor from "./components/Motor";
+import Motor from './components/Motor';
 
 export default Motor;
-
-
-

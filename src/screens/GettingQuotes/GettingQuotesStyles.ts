@@ -30,8 +30,6 @@ const styles = StyleSheet.create({
         transform: [{rotate: '180deg'}],
         width: 20,
         height: 35,
-        
-        
     },
     header_title: {
         color: WHITE,

@@ -61,8 +61,11 @@ const renderBottomSection = (currentTab, navigation, carCompletedPercent) => {
             );
         case 'Quote':
             return (
-                <TouchableOpacity disabled={carCompletedPercent < 80}
-                style={[styles.get_quote_disabled, carCompletedPercent > 80 && styles.get_quote_enabled]} onPress={() => navigation.navigate(GETTING_QUOTES_ROUTE)}>
+                <TouchableOpacity
+                    disabled={carCompletedPercent < 80}
+                    style={[styles.get_quote_disabled, carCompletedPercent > 80 && styles.get_quote_enabled]}
+                    onPress={() => navigation.navigate(GETTING_QUOTES_ROUTE)}
+                >
                     <Text style={[styles.get_quote_text_disabled, carCompletedPercent > 50 && styles.get_quote_text_enabled]}>{`Get a quote`}</Text>
                 </TouchableOpacity>
             );
@@ -71,18 +74,17 @@ const renderBottomSection = (currentTab, navigation, carCompletedPercent) => {
     }
 }
 
-
-const PolicyInfo:React.StatelessComponent<Props> = (props) => {
+const PolicyInfo: React.StatelessComponent<Props> = (props) => {
     const {dispatch, navigation, localState, currentTab, carCompletedPercent} = props;
     const tabNavProps: any = {dispatch, state: localState};
     return (
         <View style={styles.policy_info_container}>
             <InfoHeader navigation={navigation}/>
             <ScrollView bounces={false} style={styles.policy_info_scroll}>
-                { renderHeaderInfo(navigation, currentTab) }
+                {renderHeaderInfo(navigation, currentTab)}
                 <TabNavigation navigation={addNavigationHelpers(tabNavProps)} />
             </ScrollView>
-            { renderBottomSection(currentTab, navigation, carCompletedPercent) }
+            {renderBottomSection(currentTab, navigation, carCompletedPercent)}
         </View>
     )
 };

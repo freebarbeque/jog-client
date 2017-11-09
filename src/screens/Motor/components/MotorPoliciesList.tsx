@@ -7,7 +7,7 @@ import AddPolicy from './AddPolicy';
 
 const renderItem = (item, i, navigation) => {
     return (
-        <TouchableOpacity key={i} onPress={() => navigation.navigate(item.route !== "" && item.route)} style={[styles.item_container, i === 0 && styles.first_container]}>
+        <TouchableOpacity key={i} onPress={() => navigation.navigate(item.route !== '' && item.route)} style={[styles.item_container, i === 0 && styles.first_container]}>
             <View style={styles.item_cover}>
                 <View style={styles.item_img_cover}>
                     <Image style={styles.item_img} source={MOTOR_COVER_IMG}/>
@@ -31,7 +31,7 @@ const MotorPoliciesList = ({navigation}) => {
             {motors.map((item, i) => renderItem(item, i, navigation))}
             <AddPolicy navigation={navigation}/>
             <View style={styles.help_container}>
-                { HelpElement() }
+                {HelpElement()}
             </View>
         </ScrollView>
     )

@@ -1,7 +1,7 @@
 import * as React from 'react';
-import { Text, View, ScrollView, Image, TouchableOpacity } from 'react-native';
-import styles, { WARR_ITEM_COVER }  from '../WarrantiesStyles';
-import { HelpElement } from '../../Settings/components/Settings';
+import {Text, View, ScrollView, Image, TouchableOpacity} from 'react-native';
+import styles, {WARR_ITEM_COVER}  from '../WarrantiesStyles';
+import {HelpElement} from '../../Settings/components/Settings';
 import warranties from '../__mocks';
 
 const renderItem = (item, i) => {
@@ -16,7 +16,7 @@ const renderItem = (item, i) => {
                     <Text style={styles.product_text}>{item.product}</Text>
                 </View>
                 <View style={styles.logo_round}>
-                    <Image style={[styles.item_logo_img, item.logo.style]} source={item.logo.source} />
+                    <Image style={[styles.item_logo_img, item.logo.style]} source={item.logo.source}/>
                 </View>
             </View>
         </TouchableOpacity>
@@ -28,7 +28,7 @@ const WarrantiesList = () => {
         <ScrollView style={styles.list}>
             {warranties.map((item, i) => renderItem(item, i))}
             <View style={styles.help_container}>
-                { HelpElement() }
+                {HelpElement()}
             </View>
         </ScrollView>
     )

@@ -1,3 +1,3 @@
-import MotorNewPolicy from "./components/MotorNewPolicy";
+import MotorNewPolicy from './components/MotorNewPolicy';
 
 export default MotorNewPolicy;

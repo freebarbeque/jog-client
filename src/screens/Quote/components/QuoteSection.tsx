@@ -36,11 +36,11 @@ const renderPie = (percent) => {
                 coverRadius={0.9}
                 coverFill={'#E2E2E2'}
             />
-            { percent === 100 ? complete : notComplete }
-        </View> 
+            {percent === 100 ? complete : notComplete}
+        </View>
     )
 }
-    
+
 const renderQuestionsProgress = (questions) => questions > 0 ? `${questions} MORE QUESTIONS TO ANSWER` : `COMPLETE! CLICK TO EDIT`
 
 const QuoteSection: React.StatelessComponent<Props> = (props) => {
@@ -52,10 +52,10 @@ const QuoteSection: React.StatelessComponent<Props> = (props) => {
                     <Image style={image.style} source={image.source} />
                     <Text style={styles.section_title}>{title}</Text>
                 </View>
-                { renderPie(percent) }
+                {renderPie(percent)}
                 <Image style={styles.arrow_right} source={ARROW} />
             </View>
-            <Text style={styles.questions}>{ renderQuestionsProgress(questions) }</Text>
+            <Text style={styles.questions}>{renderQuestionsProgress(questions)}</Text>
         </TouchableOpacity>
     )
 }

@@ -5,7 +5,6 @@ import { LANDING_FEATURES } from '../../../cfg/constants';
 
 import styles from '../HomeStyles';
 
-
 const Landing = () => {
     return(
         <View style={styles.land_container}>
@@ -26,8 +25,7 @@ const Landing = () => {
     )
 }
 
-
-const renderFeatures = () => LANDING_FEATURES.map((feature:any, i:number) => {
+const renderFeatures = () => LANDING_FEATURES.map((feature: any, i: number) => {
     return (
         <View style={styles.feature_item} key={i}>
             <Image style={LANDING_FEATURES_IMG[i].style} source={LANDING_FEATURES_IMG[i].source} />

@@ -37,5 +37,4 @@ const MyProfile = () => (
     </View>
 )
 
-
 export default MyProfile;

@@ -1,5 +1,5 @@
 import MonthlyQuotes from './components/MontlyQuotes';
-import { connect } from "react-redux";
+import { connect } from 'react-redux';
 import { SHOW_ANNUAL_QUOTE_ACTION, SHOW_ANNUAL_QUOTES_LIST_ACTION } from '../../cfg/actions';
 
 const mapStateToProps = (state) => {
@@ -15,6 +15,6 @@ const mapDispatchToProps = (dispatch) => {
         showList: () => dispatch({type: SHOW_ANNUAL_QUOTES_LIST_ACTION})
     }
 };
-const MonthlyQuotesContainer:any = connect(mapStateToProps, mapDispatchToProps)(MonthlyQuotes);
+const MonthlyQuotesContainer: any = connect(mapStateToProps, mapDispatchToProps)(MonthlyQuotes);
 
 export default MonthlyQuotesContainer;

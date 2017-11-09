@@ -21,10 +21,7 @@ const styles = StyleSheet.create({
         fontSize: 15,
         fontWeight: '500'
     },
-    list: {
-
-
-    },
+    list: {},
     item_container: {
         marginBottom: 20,  
         paddingLeft: 20,

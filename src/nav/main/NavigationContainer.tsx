@@ -1,9 +1,8 @@
 import * as React from 'react';
-import { addNavigationHelpers } from 'react-navigation'
-import { MainNavNavigator } from "./NavigationConfiguration"
+import { addNavigationHelpers } from 'react-navigation';
+import { MainNavNavigator } from './NavigationConfiguration';
 import { connect } from 'react-redux';
 import { compose } from 'recompose';
-
 
 const mapStateToProps = (state) => {
     return {
@@ -13,6 +12,6 @@ const mapStateToProps = (state) => {
 
 const MainNavComponent = ({dispatch, nav}) => <MainNavNavigator navigation={addNavigationHelpers({dispatch: dispatch, state: nav})}/>
 
-const NavigationContainer:any = connect(mapStateToProps)(MainNavComponent);
+const NavigationContainer: any = connect(mapStateToProps)(MainNavComponent);
 
 export default NavigationContainer;

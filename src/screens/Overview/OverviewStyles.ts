@@ -6,7 +6,6 @@ export const BOLD_ARROW_ICO = require('../../../img/arrow_bold.png');
 export const UPLOAD_ARROW = require('../../../img/drop_arrow.png')
 export const GRAY_BG_COLOR = '#C0BEC3';
 
-
 const styles = StyleSheet.create({
     gray_bg: {
         backgroundColor: '#F0F1F2'

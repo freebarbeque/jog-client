@@ -10,10 +10,12 @@ const scannedDocs = [
     {
         name: 'scanned_item1.jpg',
         img: SCANNED_IMG
-    },{
+    },
+    {
         name: 'scanned_item2.jpg',
         img: SCANNED_IMG
-    },{
+    },
+    {
         name: 'scanned_item3.jpg',
         img: SCANNED_IMG
     }
@@ -44,10 +46,10 @@ const Documents: React.StatelessComponent<Props> = (props) => {
             <View style={styles.scanned_container}>
                 <Text style={styles.scanned_title}>Scanned documents</Text>
                 <View style={styles.list_of_scanned_container}>
-                    { renderScannedDocs() }
+                    {renderScannedDocs()}
                 </View>
             </View>
-            { renderUploadDocs() }
+            {renderUploadDocs()}
         </View>
     )
 }

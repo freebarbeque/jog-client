@@ -9,11 +9,9 @@ interface Props {
 }
 interface State {}
 
-
 export default class HomeScreen extends React.Component<Props, State> {
-    constructor(props) {
-        super(props); 
-
+    constructor(props: Props) {
+        super(props);
     }
 
     render() {

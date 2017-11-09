@@ -10,8 +10,6 @@ interface Props {
     navigation: any
 }
 
-
-
 const renderAccordionHeader = (header) => {
     return (
         <View style={styles.accordion_item_header}>
@@ -114,7 +112,8 @@ const Overview: React.StatelessComponent<Props> = (props) => {
                     sections={policySections}
                     initiallyActiveSection={0}
                     renderHeader={renderAccordionHeader}
-                    renderContent={renderAccordionContent}/>
+                    renderContent={renderAccordionContent}
+                />
                 
                 <View style={styles.help_container}>
                     {HelpElement()}
@@ -122,10 +121,6 @@ const Overview: React.StatelessComponent<Props> = (props) => {
 
             </View>
         </View>
-        
-
-        
-        
     )
 }
 

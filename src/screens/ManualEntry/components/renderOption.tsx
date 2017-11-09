@@ -17,6 +17,8 @@ export const renderOption = (ID) => {
             return plateNoInputs();
         case 'your_vehicle':
             return vehicleInputs();
+        default:
+            return null;
     }
 }
 
@@ -58,11 +60,14 @@ const yearCostInput = () => (
             textStyle={[styles.menu_text, styles.cost_menu_text]}
             dropdownTextStyle={[styles.menu_drop_text]}
             style={[styles.menu, styles.cost_menu]}
-            options={['€', '$', '£']}/>
+            options={['€', '$', '£']}
+        />
         <View style={styles.divider}/>
         <TextInput
             underlineColorAndroid={'transparent'}
-            defaultValue={'0'} style={[styles.text_input, styles.cost_text_input]}/>
+            defaultValue={'0'}
+            style={[styles.text_input, styles.cost_text_input]}
+        />
     </View>
 )
 
@@ -74,7 +79,8 @@ const expireNumberInput = () => (
             textStyle={[styles.menu_text, styles.menu_text_multiple]}
             dropdownTextStyle={[styles.menu_drop_text]}
             style={[styles.menu, styles.menu_multiple]}
-            options={['01', '02', '03', '04']}/>
+            options={['01', '02', '03', '04']}
+        />
         <View style={styles.divider}/>
         <ModalDropdown
             defaultValue={'01'}
@@ -82,7 +88,8 @@ const expireNumberInput = () => (
             textStyle={[styles.menu_text, styles.menu_text_multiple]}
             dropdownTextStyle={styles.menu_drop_text}
             style={[styles.menu, styles.menu_multiple]}
-            options={['01', '02', '03', '04']}/>
+            options={['01', '02', '03', '04']}
+        />
         <View style={styles.divider}/>
         <ModalDropdown
             defaultValue={'2017'}
@@ -90,7 +97,8 @@ const expireNumberInput = () => (
             textStyle={[styles.menu_text, styles.menu_text_multiple]}
             dropdownTextStyle={styles.menu_drop_text}
             style={[styles.menu, styles.menu_multiple]}
-            options={['2016', '2017', '2018']}/>
+            options={['2016', '2017', '2018']}
+        />
     </View>
 )
 
@@ -108,7 +116,8 @@ const insurerInput = () => (
             textStyle={styles.menu_text}
             dropdownTextStyle={styles.menu_drop_text}
             style={styles.menu}
-            options={['option 1', 'option 2']}/>
+            options={['option 1', 'option 2']}
+        />
         <Image style={styles.drop_arrow} source={DROW_ARROW} />
     </View>
 )
