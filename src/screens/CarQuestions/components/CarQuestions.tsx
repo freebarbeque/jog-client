@@ -1,5 +1,8 @@
 import * as React from 'react';
-import { Text, View, ScrollView, Image, TouchableOpacity, TextInput, Platform, KeyboardAvoidingView } from 'react-native';
+import {
+    Text, View, ScrollView, Image, TouchableOpacity, TextInput, Platform, KeyboardAvoidingView, RegisteredStyle,
+    ImageStyle
+} from 'react-native';
 import styles, {CAR} from '../CarQuestionsStyles';
 import Header from './CarQuestionsHeader';
 
@@ -20,7 +23,7 @@ const renderPrevBtn = (number, onPrev) => !number ? null : <TouchableOpacity sty
 const renderNextBtn = (number, questionsListLength, currentQuestion, onNext, carCompletedPercent) => {
     const requiresResponse = currentQuestion.answer === ''
 
-    let buttonStyles = [];
+    let buttonStyles: ImageStyle[] = [];
     if (requiresResponse) {
       buttonStyles = [styles.button, styles.button_grey]
     } else {
