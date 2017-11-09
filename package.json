@@ -6,7 +6,7 @@
     "start": "node node_modules/react-native/local-cli/cli.js start --skipflow",
     "android": "node node_modules/react-native/local-cli/cli.js run-android",
     "ios": "node node_modules/react-native/local-cli/cli.js run-ios",
-    "prebuild": "node node_modules/.bin/rimraf build",
+    "prebuild": "rm -rf build",
     "watch": "yarn run build -- --watch",
     "build": "tsc",
     "pretest": "npm run build",
@@ -55,8 +55,7 @@
     "react-native-testfairy": "2.2.0",
     "react-test-renderer": "16.0.0-alpha.6",
     "remote-redux-devtools": "^0.5.12",
-    "rimraf": "^2.6.2",
-    "typescript": "^2.3.2"
+    "typescript": "2.3.2"
   },
   "jest": {
     "preset": "react-native",
