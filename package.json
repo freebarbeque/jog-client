@@ -10,7 +10,8 @@
     "watch": "yarn run build -- --watch",
     "build": "tsc",
     "pretest": "npm run build",
-    "test": "jest"
+    "test": "jest",
+    "lint": "tslint -c tslint.json 'src/**/*.{ts,tsx}'"
   },
   "dependencies": {
     "@types/ramda": "^0.24.14",
@@ -40,6 +41,8 @@
     "redux-logger": "^3.0.6",
     "redux-promise": "^0.5.3",
     "redux-thunk": "^2.2.0",
+    "tslint": "^5.8.0",
+    "tslint-react": "^3.2.0",
     "yo": "^2.0.0"
   },
   "devDependencies": {
