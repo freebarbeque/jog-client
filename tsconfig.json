@@ -55,7 +55,6 @@
     "src/**/*"
   ],
   "exclude": [
-    "__tests__",
     "index.android.js",
     "index.ios.js",
     "build",
