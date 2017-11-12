@@ -14,7 +14,7 @@
     "lint": "tslint -c tslint.json 'src/**/*.{ts,tsx}'"
   },
   "dependencies": {
-    "@types/material-ui": "0.17.19",
+    "@types/material-ui": "0.16.59",
     "@types/ramda": "0.24.14",
     "@types/react-navigation": "1.0.20",
     "@types/react-redux": "5.0.9",
