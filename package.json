@@ -3,13 +3,11 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "start": "node node_modules/react-native/local-cli/cli.js start --skipflow",
+    "start:native": "node node_modules/react-native/local-cli/cli.js start --skipflow & yarn run build:native -- --watch",
     "android": "node node_modules/react-native/local-cli/cli.js run-android",
     "ios": "node node_modules/react-native/local-cli/cli.js run-ios",
-    "prebuild": "rm -rf build",
-    "watch": "yarn run build -- --watch",
-    "build": "tsc",
-    "pretest": "npm run build",
+    "build:native": "rm -rf build && tsc",
+    "pretest": "npm run build:native",
     "test": "jest",
     "lint": "tslint -c tslint.json 'src/**/*.{ts,tsx}'"
   },
