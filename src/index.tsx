@@ -1,7 +1,7 @@
-/*import getMuiTheme from 'material-ui/styles/getMuiTheme'
- import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'*/
-import * as React from 'react'
-import * as ReactDOM from 'react-dom'
+import getMuiTheme from 'material-ui/styles/getMuiTheme';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import * as React from 'react';
+import * as ReactDOM from 'react-dom';
 /*import { Provider } from 'react-redux'
  import { routerMiddleware } from 'react-router-redux'
  import 'regenerator-runtime/runtime'
@@ -13,17 +13,20 @@ import * as ReactDOM from 'react-dom'
  import { setMixPanelToken } from './common/mixPanel'
  import './index.css'
  import registerServiceWorker from './registerServiceWorker'*/
-import App from './web/App'
+import App from './web/App';
 /*import env from './web/env'
  import history from './web/history'
  import { WebNavigationAdapter } from './web/WebNavigationAdapter'
  import WebUploadAdapter from './web/WebUploadAdapter'
  // tslint:disable-next-line:no-var-requires
- const injectTapEventPlugin = require('react-tap-event-plugin')
- const BLUE = '#131733'
- const PINK = '#ff4d62'
- const GRAY = '#797e9a'
- initialiseFirebase(env)
+ const injectTapEventPlugin = require('react-tap-event-plugin')*/
+
+const BLUE = '#131733';
+const PINK = '#ff4d62';
+const GRAY = '#797e9a';
+const WHITE = '#ffffff';
+
+/* initialiseFirebase(env)
  setMixPanelToken(env.mixPanel.token)
  const store = createStore({
  reducer,
@@ -32,29 +35,32 @@ import App from './web/App'
  uploadAdaptor: WebUploadAdapter,
  middleware: [routerMiddleware(history)],
  sagas: [dimensionsSubscriptionSaga],
- })
- const theme = getMuiTheme({
- palette: {
- primary1Color: BLUE,
- accent1Color: BLUE,
- textColor: BLUE,
- },
- tabs: {
- textColor: GRAY,
- selectedTextColor: PINK,
- },
- datePicker: {
- calendarTextColor: BLUE,
- },
- textField: {
- textColor: WHITE,
- hintColor: 'rgba(255,255,255,0.3)',
- },
  })*/
+
+const theme = getMuiTheme({
+    palette: {
+        primary1Color: BLUE,
+        accent1Color: BLUE,
+        textColor: BLUE,
+    },
+    tabs: {
+        textColor: GRAY,
+        selectedTextColor: PINK,
+    },
+    datePicker: {
+        calendarTextColor: BLUE,
+    },
+    textField: {
+        textColor: WHITE,
+        hintColor: 'rgba(255,255,255,0.3)',
+    },
+})
 
 const render = Component => {
     ReactDOM.render(
-        <Component />,
+        <MuiThemeProvider muiTheme={theme}>
+            <Component />
+        </MuiThemeProvider>,
         document.getElementById('root'),
     )
 }
