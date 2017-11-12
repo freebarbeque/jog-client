@@ -9,7 +9,7 @@
     "ios": "node node_modules/react-native/local-cli/cli.js run-ios",
     "build:native": "rm -rf build && tsc -p tsconfig.rn.json",
     "build:web": "webpack",
-    "pretest": "npm run build:native",
+    "pretest": "npm run build:native && npm run build:web",
     "test": "jest",
     "lint": "tslint -c tslint.json 'src/**/*.{ts,tsx}'"
   },
