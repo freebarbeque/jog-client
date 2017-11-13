@@ -4,7 +4,7 @@ import * as React from 'react';
 import { connect, DispatchProp } from 'react-redux';
 import { push, PushAction } from 'react-router-redux';
 import { Cross, Logo } from 'src/web/images';
-import {Action, bindActionCreators} from "redux";
+import {Action, bindActionCreators} from 'redux';
 
 interface IAuthNavBar {
   push: PushAction;

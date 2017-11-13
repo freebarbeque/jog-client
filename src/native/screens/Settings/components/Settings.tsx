@@ -6,7 +6,7 @@ import Header from '../../Header/HeaderContainer';
 import { DROP_ARROW, ANS_ICON } from '../../../cfg/globStyles';
 import SETTINGS_SECTIONS from '../__mocks';
 
-interface Props {
+interface IProps {
     navigation: any;
 }
 
@@ -33,7 +33,7 @@ export const HelpElement = () => (
 </TouchableOpacity>
 )
 
-const Settings: React.StatelessComponent<Props> = (props) => {
+const Settings: React.StatelessComponent<IProps> = (props) => {
 
     const {navigation} = props;
     return (

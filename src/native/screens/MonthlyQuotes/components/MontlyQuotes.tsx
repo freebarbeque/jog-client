@@ -5,7 +5,7 @@ import styles, { ARROW_BOLD } from '../MonthlyQuotesStyles';
 import MonthlyListOfQuotes from './MonthlyListOfQuotes';
 import MonthlyCurrentQuote from './MonthlyCurrentQuote';
 
-interface Props {
+interface IProps {
     navigation: any;
     quotes: [any];
     showQuote: Function;
@@ -31,7 +31,7 @@ const renderListOrItem = (quotes, showQuote, showList, currentQuote) => {
     
 }
 
-const MonthlyQuotes: React.StatelessComponent<Props> = (props) => {
+const MonthlyQuotes: React.StatelessComponent<IProps> = (props) => {
     const {quotes, showQuote, currentQuote, showList} = props;
     return (
         <ScrollView style={styles.annual_quotes_container}>

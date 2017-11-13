@@ -4,7 +4,7 @@ import styles from '../MonthlyQuotesStyles';
 import { SELLERS_LOGOS } from '../../AnnualQuotes/AnnualQuotesStyles';
 import { ARROW_BOLD } from '../../AnnualQuotes/AnnualQuotesStyles';
 
-interface Props {
+interface IProps {
     quotes: [{
         name: string,
         extras: number,
@@ -54,7 +54,7 @@ const renderQuote = (quote, i, showQuote) => {
     )
 }
 
-const MonthlyListOfQuotes: React.StatelessComponent<Props> = ({quotes, showQuote}) => {
+const MonthlyListOfQuotes: React.StatelessComponent<IProps> = ({quotes, showQuote}) => {
     return (
         <View style={styles.annual_list_of_quotes}>
             {quotes.map((quote, i) => renderQuote(quote, i, showQuote))}

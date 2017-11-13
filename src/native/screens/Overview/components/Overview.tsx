@@ -6,7 +6,7 @@ import { DROP_ARROW } from '../../../cfg/globStyles';
 import Accordion from 'react-native-collapsible/Accordion';
 import { HelpElement } from '../../Settings/components/Settings';
 
-interface Props {
+interface IProps {
     navigation: any
 }
 
@@ -52,7 +52,7 @@ const renderDropPolicySection = () => {
 
 const policySections = [{title: 'Policy', content: 'Policy', renderer: renderDropPolicySection}];
 
-const Overview: React.StatelessComponent<Props> = (props) => {
+const Overview: React.StatelessComponent<IProps> = (props) => {
     const {navigation: {state: {key}, navigate}} = props;
     
     return (

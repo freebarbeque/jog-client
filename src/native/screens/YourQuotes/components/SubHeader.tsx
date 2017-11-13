@@ -4,7 +4,7 @@ import { addNavigationHelpers } from 'react-navigation';
 
 import styles, { QUOTE_IMG } from '../YourQuotesStyles';
 
-interface Props {
+interface IProps {
     activeTab: string;
 }
 const renderAnnualQuotesSubHeader = () => {
@@ -28,6 +28,6 @@ const renderMonthlyQuotesSubHeader = () => {
     )
 }
 
-const SubHeader: React.StatelessComponent<Props> = ({activeTab}) => activeTab === 'AnnualQuotes' ? renderAnnualQuotesSubHeader() : renderMonthlyQuotesSubHeader()
+const SubHeader: React.StatelessComponent<IProps> = ({activeTab}) => activeTab === 'AnnualQuotes' ? renderAnnualQuotesSubHeader() : renderMonthlyQuotesSubHeader()
 
 export default SubHeader;

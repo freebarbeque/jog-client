@@ -5,11 +5,11 @@ import { addNavigationHelpers } from 'react-navigation';
 import styles, {BACK_ARROW, LOGO_IMG} from '../PolicyInfoStyles';
 import {policy} from '../__mocks';
 
-interface Props {
+interface IProps {
     navigation: any
 }
 
-const InfoHeader: React.StatelessComponent<Props> = ({navigation}) => {
+const InfoHeader: React.StatelessComponent<IProps> = ({navigation}) => {
     return (
         <View style={styles.header_container}>
             <View style={styles.logo_container}>

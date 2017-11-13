@@ -7,7 +7,7 @@ export const coreReducers = {
     form,
 };
 
-export function initReducer(reducers = {}) {
+export function initReducer(reducers: any = {}) {
     return combineReducers({
         ...reducers,
         ...coreReducers,

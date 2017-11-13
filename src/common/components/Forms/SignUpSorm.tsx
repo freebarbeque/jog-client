@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {reduxForm, Field} from 'redux-form';
 import Input from './FormFields/Input';
-const validate = require("validate.js");
+const validate = require('validate.js');
 import FlatButton from 'material-ui/FlatButton';
 import {Link} from 'react-router-dom';
 import {DARK_GRAY} from 'src/common/constants/palette';
@@ -68,24 +68,24 @@ class SignUpForm extends React.Component<ISignUpFormProps, {}> {
 const validationSchema = {
     name: {
         presence: {
-            message: "Please enter your name",
+            message: 'Please enter your name',
         },
     },
     email: {
         presence: {
-            message: "Please enter a valid email address",
+            message: 'Please enter a valid email address',
         },
         email: {
-            message: "Please enter a valid email address",
+            message: 'Please enter a valid email address',
         },
     },
     password: {
         presence: {
-            message: "Must be at least 8 characters long",
+            message: 'Must be at least 8 characters long',
         },
         length: {
             minimum: 8,
-            tooShort: "Must be at least 8 characters long",
+            tooShort: 'Must be at least 8 characters long',
         },
     }
 }

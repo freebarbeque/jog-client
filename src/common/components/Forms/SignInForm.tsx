@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {reduxForm, Field} from 'redux-form';
 import Input from './FormFields/Input';
-const validate = require("validate.js");
+const validate = require('validate.js');
 import FlatButton from 'material-ui/FlatButton';
 import { Link } from 'react-router-dom';
 import { DARK_GRAY } from 'src/common/constants/palette';
@@ -65,15 +65,15 @@ class SignInForm extends React.Component<ISignInFormProps, {}> {
 const validationSchema = {
     email: {
         presence: {
-            message: "Please enter a valid email address",
+            message: 'Please enter a valid email address',
         },
         email: {
-            message: "Please enter a valid email address",
+            message: 'Please enter a valid email address',
         },
     },
     password: {
         presence: {
-            message: "Please enter a valid password",
+            message: 'Please enter a valid password',
         },
     }
 }

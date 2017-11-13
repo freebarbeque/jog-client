@@ -7,7 +7,7 @@ import Header from '../../GettingQuotes/components/GettingQuotesHeader';
 import TabNavigation from './YourQuotesTabs';
 import SubHeader from './SubHeader';
 
-interface Props {
+interface IProps {
     navigation: any;
     dispatch: Function;
     localState: any;
@@ -21,7 +21,7 @@ export const renderSelectBtn = () => (
     </TouchableOpacity>
 )
 
-const YourQuotes: React.StatelessComponent<Props> = (props) => {
+const YourQuotes: React.StatelessComponent<IProps> = (props) => {
     const {navigation, dispatch, localState, activeTab, currentQuote} = props;
     const tabNavProps: any = {dispatch, state: localState};
     return (

@@ -3,11 +3,11 @@ import {  Text, View, TouchableOpacity, Image } from 'react-native';
 import { addNavigationHelpers } from 'react-navigation';
 import styles, {BACK_ARROW, LOGO_IMG, CLOSE_ICON} from '../ManualEntryStyles';
 
-interface Props {
+interface IProps {
     navigation: any
 }
 
-const ManualEntryHeader: React.StatelessComponent<Props> = ({navigation}) => {
+const ManualEntryHeader: React.StatelessComponent<IProps> = ({navigation}) => {
     return (
         <View style={styles.header_container}>
             <View style={styles.logo_container}>

@@ -2,7 +2,7 @@ import * as React from 'react';
 import {  View, ScrollView, Text, Image, TouchableOpacity } from 'react-native';
 import styles, {ARROW_BOLD, SELLERS_LOGOS} from '../AnnualQuotesStyles';
 
-interface Props {
+interface IProps {
     quotes: [{}];
     showQuote: Function
 }

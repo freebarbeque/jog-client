@@ -4,7 +4,7 @@ import styles, {ARROW_BOLD} from '../AnnualQuotesStyles';
 import ListOfQuotes from './ListOfQuotes';
 import CurrentQuote from './CurrentQuote';
 
-interface Props {
+interface IProps {
     navigation: any;
     quotes: [any];
     showQuote: Function;
@@ -43,7 +43,7 @@ const renderListOrItem = (quotes, showQuote, showList, currentQuote) => {
     
 }
 
-const AnnualQuotes: React.StatelessComponent<Props> = (props) => {
+const AnnualQuotes: React.StatelessComponent<IProps> = (props) => {
     const {quotes, showQuote, currentQuote, showList} = props;
     return (
         <ScrollView style={styles.annual_quotes_container}>

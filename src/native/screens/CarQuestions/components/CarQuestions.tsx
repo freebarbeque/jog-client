@@ -6,7 +6,7 @@ import {
 import styles, {CAR} from '../CarQuestionsStyles';
 import Header from './CarQuestionsHeader';
 
-interface Props {
+interface IProps {
     navigation: any,
     questions: [{
         question: string;
@@ -78,7 +78,7 @@ const Question = (props) => {
     )
 }
 
-const CarQuestions: React.StatelessComponent<Props> = (props) => {
+const CarQuestions: React.StatelessComponent<IProps> = (props) => {
     const {navigation, questions, currentQuestionNumber, answerOnChange, onNextQuestion, onPrevQuestion, carCompletedPercent} = props;
     return (
         <View style={styles.car_questions_container}>

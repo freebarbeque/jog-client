@@ -3,12 +3,12 @@ import {  View, ScrollView, Text, Image, TouchableOpacity } from 'react-native';
 import styles, { SELLERS_LOGOS, ARROW_THIN, QUOTE_FEATURE_ICON } from '../MonthlyQuotesStyles';
 import { renderFeatures } from '../../AnnualQuotes/components/CurrentQuote';
 
-interface Props {
+interface IProps {
     showList: Function;
     currentQuote: any;
 }
 
-const CurrentQuote: React.StatelessComponent<Props> = ({showList, currentQuote}) => {
+const CurrentQuote: React.StatelessComponent<IProps> = ({showList, currentQuote}) => {
     return (
         <View style={styles.curent_quote_container}>
             <TouchableOpacity style={styles.current_back} onPress={() => showList()}>

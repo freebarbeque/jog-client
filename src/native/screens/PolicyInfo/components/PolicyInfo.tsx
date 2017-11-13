@@ -8,7 +8,7 @@ import styles_upl, { UPLOAD_ARROW } from '../../Overview/OverviewStyles';
 import { policy } from '../__mocks';
 import { GETTING_QUOTES_ROUTE } from '../../../nav/main/routes';
 
-interface Props {
+interface IProps {
     dispatch: Function;
     navigation: any;
     localState: any;
@@ -74,7 +74,7 @@ const renderBottomSection = (currentTab, navigation, carCompletedPercent) => {
     }
 }
 
-const PolicyInfo: React.StatelessComponent<Props> = (props) => {
+const PolicyInfo: React.StatelessComponent<IProps> = (props) => {
     const {dispatch, navigation, localState, currentTab, carCompletedPercent} = props;
     const tabNavProps: any = {dispatch, state: localState};
     return (

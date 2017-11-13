@@ -1,7 +1,7 @@
 import {applyMiddleware, compose, createStore as _createStore, Store} from 'redux'
 import createSagaMiddleware from 'redux-saga'
 import devTools from 'remote-redux-devtools'
-import {ICreateStoreOpts, IReduxState} from "../interfaces/store";
+import {ICreateStoreOpts, IReduxState} from '../interfaces/store';
 
 // tslint:disable-next-line:no-var-requires
 const freeze = require('redux-freeze');

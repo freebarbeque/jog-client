@@ -6,11 +6,11 @@ import Header from './GettingQuotesHeader';
 import LinearGradient from 'react-native-linear-gradient';
 import {YOUR_QUOTES_ROUTE} from '../../../nav/main/routes';
 
-interface Props {
+interface IProps {
     navigation: any;
 }
 
-const GettingQuotes: React.StatelessComponent<Props> = (props) => {
+const GettingQuotes: React.StatelessComponent<IProps> = (props) => {
     const {navigation} = props;
     return (
         <LinearGradient colors={['#181E3A', '#212A4A']} style={styles.getting_quotes_container}>

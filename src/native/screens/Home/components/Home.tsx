@@ -4,13 +4,13 @@ import Header from '../../Header/HeaderContainer';
 import Landing from './Landing'
 import styles from '../HomeStyles';
 
-interface Props {
+interface IProps {
     navigation: any
 }
-interface State {}
+interface IState {}
 
-export default class HomeScreen extends React.Component<Props, State> {
-    constructor(props: Props) {
+export default class HomeScreen extends React.Component<IProps, IState> {
+    constructor(props: IProps) {
         super(props);
     }
 

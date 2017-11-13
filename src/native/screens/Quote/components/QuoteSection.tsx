@@ -6,7 +6,7 @@ import {CAR_QUESTIONS_ROUTE} from '../../../nav/main/routes';
 
 import styles, {ARROW, COMPLETE_ICON} from '../QuoteStyles';
 
-interface Props {
+interface IProps {
     title: String;
     key: Number;
     percent: Number;
@@ -43,7 +43,7 @@ const renderPie = (percent) => {
 
 const renderQuestionsProgress = (questions) => questions > 0 ? `${questions} MORE QUESTIONS TO ANSWER` : `COMPLETE! CLICK TO EDIT`
 
-const QuoteSection: React.StatelessComponent<Props> = (props) => {
+const QuoteSection: React.StatelessComponent<IProps> = (props) => {
     const {title, percent, questions, image, route, navigation, carQuestions } = props;
     return (
         <TouchableOpacity style={styles.section} onPress={() => navigation.navigate(route)}>

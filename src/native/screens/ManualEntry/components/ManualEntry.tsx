@@ -4,7 +4,7 @@ import styles from '../ManualEntryStyles';
 import Header from './ManualEntryHeader';
 import Question from './Question';
 
-interface Props {
+interface IProps {
     navigation: any;
     onNextQuestion: Function;
     onPrevQuestion: Function;
@@ -16,7 +16,7 @@ interface Props {
     }]
 }
 
-const ManualEntry: React.StatelessComponent<Props> = (props) => {
+const ManualEntry: React.StatelessComponent<IProps> = (props) => {
     const { navigation, onNextQuestion, onPrevQuestion, questions, currentQuestionNumber } = props;
     return (
         <View style={styles.manual_entry_container}>

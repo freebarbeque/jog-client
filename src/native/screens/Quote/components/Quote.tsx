@@ -3,14 +3,14 @@ import {Text, View, ScrollView, TouchableOpacity} from 'react-native';
 import styles, {QUOTE_SECTIONS_IMG} from '../QuoteStyles';
 import QuoteSection from './QuoteSection';
 
-interface Props {
+interface IProps {
     navigation: any;
     quoteSections: any;
     carQuestions: any;
     carCompletedPercent: number;
 }
 
-const Quote: React.StatelessComponent<Props> = (props) => {
+const Quote: React.StatelessComponent<IProps> = (props) => {
     const {quoteSections, carQuestions, carCompletedPercent} = props;
     return (
         <View style={styles.quote_container}>

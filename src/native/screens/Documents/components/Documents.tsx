@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Text, View, ScrollView, Image, TouchableOpacity } from 'react-native';
 import styles, {SCANNED_IMG} from '../DocumentsStyles';
 
-interface Props {
+interface IProps {
     navigation: any
 }
 
@@ -40,7 +40,7 @@ const renderScannedDocs = () => scannedDocs.map((doc, i) => (
     </View>
 ))
 
-const Documents: React.StatelessComponent<Props> = (props) => {
+const Documents: React.StatelessComponent<IProps> = (props) => {
     return (
         <View style={styles.documents_container}>
             <View style={styles.scanned_container}>

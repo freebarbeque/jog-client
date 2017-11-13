@@ -3,7 +3,7 @@ import {connect, DispatchProp} from 'react-redux';
 import {Redirect, Route} from 'react-router-dom';
 import styled from 'styled-components';
 import {IReduxState} from '~/common/interfaces/store';
-import {IUser} from "~/common/interfaces/user";
+import {IUser} from '~/common/interfaces/user';
 import AuthHome from './AuthHomeScreen';
 import AuthNavBar from './components/AuthNavBar';
 import LoginScreen from './LoginScreen';
