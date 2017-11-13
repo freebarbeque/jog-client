@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 const accessoryStyle = { fontWeight: 500, fontSize: 11, color: DARK_GRAY }
 
 export default () => (
-    <div style={{ display: 'flex', flexDirection: 'row' }}>
+    <div style={{ display: 'flex', flexDirection: 'row', marginTop: -20 }}>
         <FlatButton
             style={accessoryStyle as any}
             containerElement={<Link to="/auth/forgotPassword" />}

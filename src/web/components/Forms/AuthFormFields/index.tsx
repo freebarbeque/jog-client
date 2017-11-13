@@ -4,7 +4,7 @@ import Input from '../FormFields/Input';
 import {Link} from 'react-router-dom';
 import RoundedButton from 'src/web/components/RoundedButton';
 import {MARGIN} from 'src/common/constants/style';
-import {ReactNode} from "react";
+import {ReactNode} from 'react';
 
 interface IField {
     name: string;
