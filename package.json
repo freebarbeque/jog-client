@@ -22,9 +22,11 @@
     "amazon-cognito-identity-js": "1.21.0",
     "aws-sdk": "2.133.0",
     "babel-polyfill": "6.23.0",
+    "classnames": "2.2.5",
     "global": "4.3.2",
     "install": "0.10.1",
     "jest-cli": "21.2.1",
+    "material-ui": "0.18.7",
     "npm": "5.4.2",
     "ramda": "0.24.1",
     "react": "16.0.0-alpha.6",
@@ -39,24 +41,23 @@
     "react-native-pie-chart": "1.0.12",
     "react-navigation": "1.0.0-beta.11",
     "react-redux": "5.0.6",
+    "react-router": "4.1.1",
+    "react-router-dom": "4.1.1",
+    "react-router-redux": "5.0.0-alpha.4",
+    "react-tap-event-plugin": "2.0.1",
     "recompose": "0.26.0",
     "redux": "3.7.2",
+    "redux-form": "7.1.2",
+    "redux-freeze": "0.1.5",
     "redux-logger": "3.0.6",
     "redux-promise": "0.5.3",
+    "redux-saga": "0.15.3",
     "redux-thunk": "2.2.0",
+    "styled-components": "2.1.1",
     "tslint": "5.8.0",
     "tslint-react": "3.2.0",
     "webpack-dev-server": "2.6.1",
-    "yo": "2.0.0",
-    "material-ui": "0.18.7",
-    "redux-saga": "0.15.3",
-    "redux-freeze": "0.1.5",
-    "react-router": "4.1.1",
-    "react-router-redux": "5.0.0-alpha.4",
-    "react-router-dom": "4.1.1",
-    "styled-components": "2.1.1",
-    "classnames": "2.2.5",
-    "react-tap-event-plugin": "2.0.1"
+    "yo": "2.0.0"
   },
   "devDependencies": {
     "@types/jest": "21.1.5",
@@ -83,7 +84,9 @@
   },
   "jest": {
     "preset": "react-native",
-    "setupFiles": ["<rootDir>/jest/setup.js"],
+    "setupFiles": [
+      "<rootDir>/jest/setup.js"
+    ],
     "transform": {
       "^.+\\.js$": "<rootDir>/node_modules/babel-jest"
     },
