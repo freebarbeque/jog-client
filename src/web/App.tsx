@@ -1,9 +1,10 @@
 import * as React from 'react';
-import { Redirect, Route } from 'react-router-dom';
-import { ConnectedRouter } from 'react-router-redux';
+import {Redirect, Route} from 'react-router-dom';
+import {ConnectedRouter} from 'react-router-redux';
 import history from './history';
 import {BLUE} from 'src/common/constants/palette';
 import styled from 'styled-components';
+import Default from 'src/web/routes/Default';
 
 const Container = styled.div`
   background: ${BLUE};
@@ -43,15 +44,25 @@ const Container = styled.div`
 `
 
 class App extends React.Component<{}, {}> {
-  public render() {
-    return (
-        <ConnectedRouter history={history}>
-          <Container>
-            111
-          </Container>
-        </ConnectedRouter>
-    )
-  }
+    public render() {
+        return (
+            <ConnectedRouter history={history}>
+                <Container>
+                    <Route
+                        path="/"
+                        exact
+                        component={Default}
+                    />
+                    <Route
+                        path="/auth"
+                        render={() => (
+                            <div style={{color: '#fff'}}>Auth</div>
+                        )}
+                    />
+                </Container>
+            </ConnectedRouter>
+        )
+    }
 }
 
 export default App;
