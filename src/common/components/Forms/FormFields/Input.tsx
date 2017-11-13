@@ -4,7 +4,7 @@ import {MARGIN} from 'src/common/constants/style';
 import {PINK} from 'src/common/constants/palette';
 
 // tslint:disable-next-line:no-var-requires
-//const FontAwesome = require('react-fontawesome');
+const FontAwesome = require('react-fontawesome');
 
 // language=SCSS prefix=dummy{ suffix=}
 const Container = styled.div`margin-bottom: ${MARGIN.large}px;`;
@@ -42,6 +42,7 @@ interface IInputProps {
     },
     meta: {
         error?: string;
+        touched: boolean;
     }
 }
 
@@ -49,8 +50,9 @@ export default (props: IInputProps) => {
     const {
         label,
         input,
+        meta: {error, touched},
     } = props;
-    
+
     return (
         <Container>
             <div style={{display: 'flex', flexDirection: 'row'}}>
@@ -61,10 +63,18 @@ export default (props: IInputProps) => {
                     : null
                 }
                 <div style={{flex: 1}}/>
+                {error && touched &&
+                <div>
+                    <FontAwesome name="exclamation-triangle" color={PINK} />
+                    <ErrorText>
+                        {error[0].split(' ').slice(1).join(' ')}
+                    </ErrorText>
+                </div>}
             </div>
             <Input
                 onChange={(v: any) => input.onChange(v)}
                 value={input.value}
+                style={error && touched ? { borderColor: PINK } : {}}
             />
         </Container>
     )

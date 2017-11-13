@@ -21,7 +21,7 @@ class LoginScreen extends React.Component<ILoginProps, {}> {
                 style={{paddingBottom: NAVIGATION_BAR_HEIGHT}}
             >
                 <div className="LoginScreen__Inner">
-                    <SignInForm/>
+                    <SignInForm onSubmit={(values: any) => console.log(values)}/>
                 </div>
             </FlexCenteredContainer>
         )
