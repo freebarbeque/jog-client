@@ -1,12 +1,12 @@
 import * as React from 'react';
 import {reduxForm, Field} from 'redux-form';
-import Input from './FormFields/Input';
 const validate = require('validate.js');
-import FlatButton from 'material-ui/FlatButton';
 import {Link} from 'react-router-dom';
 import {DARK_GRAY} from 'src/common/constants/palette';
 import RoundedButton from 'src/web/components/RoundedButton';
 import {MARGIN} from 'src/common/constants/style';
+import AuthFormFields from '../AuthFormFields';
+import Accessories from './Accessories';
 
 interface ISignUpFormValues {
     email: string;
@@ -19,46 +19,16 @@ interface ISignUpFormProps {
 
 class SignUpForm extends React.Component<ISignUpFormProps, {}> {
     public render() {
-        const accessoryStyle = {fontWeight: 500, fontSize: 11, color: DARK_GRAY}
-
         return (
             <form onSubmit={this.props.handleSubmit}>
-                <Field
-                    name="name"
-                    component={Input}
-                    label="full name"
-                />
-                <Field
-                    name="email"
-                    component={Input}
-                    label="email"
-                />
-                <Field
-                    name="password"
-                    component={Input}
-                    label="password"
-                />
-                <div
-                    style={{
-                        display: 'flex',
-                        flexDirection: 'row',
-                    }}
-                >
-                    <FlatButton
-                        style={{ fontWeight: 500, fontSize: 11, color: DARK_GRAY }}
-                        containerElement={<Link to="/auth/login" />}
-                    >
-                        GOT AN ACCOUNT?
-                    </FlatButton>
-                </div>
-                <RoundedButton
-                    type="submit"
-                    label="REGISTER"
-                    style={{
-                        marginLeft: 'auto',
-                        marginRight: 'auto',
-                        marginTop: MARGIN.extraLarge,
-                    }}
+                <AuthFormFields
+                    fields={[
+                        {name: 'name', label: 'full name'},
+                        'email',
+                        'password',
+                    ]}
+                    Accessories={Accessories}
+                    buttonLabel="REGISTER"
                 />
             </form>
         );
