@@ -1,4 +1,4 @@
-import {IAuthReduxState} from '~/common/interfaces/auth';
+import {IAuthReduxState} from '../interfaces/auth';
 import {Action} from 'redux';
 
 const defaultState = {

@@ -2,7 +2,7 @@ import * as React from 'react'
 import { Link } from 'react-router-dom'
 import Title from 'src/web/components/Title';
 import FlexCentredContainer from 'src/web/components/FlexCentredContainer';
-import SignUpForm from 'src/common/components/Forms/SignUpSorm';
+import SignUpForm from 'src/web/components/Forms/SignUpSorm';
 
 import { NAVIGATION_BAR_HEIGHT } from 'src/web/constants/style';
 

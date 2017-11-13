@@ -2,7 +2,7 @@ import * as React from 'react'
 import {Link} from 'react-router-dom'
 import FlexCenteredContainer from 'src/web/components/FlexCenteredContainer';
 import {NAVIGATION_BAR_HEIGHT} from 'src/web/constants/style';
-import SignInForm from '../../../common/components/Forms/SignInForm';
+import SignInForm from '../../components/Forms/SignInForm';
 import Title from 'src/web/components/Title';
 
 class LoginScreen extends React.Component<{}, {}> {

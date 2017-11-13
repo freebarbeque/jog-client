@@ -1,4 +1,4 @@
-import {IAuthReduxState} from '~/common/interfaces/auth';
+import {IAuthReduxState} from './auth';
 
 export interface IReduxState {
     auth: IAuthReduxState;
