@@ -5,6 +5,7 @@ import history from './history';
 import {BLUE} from 'src/common/constants/palette';
 import styled from 'styled-components';
 import Default from 'src/web/routes/Default';
+import AuthScreen from './screens/Auth/AuthScreen';
 
 const Container = styled.div`
   background: ${BLUE};
@@ -55,9 +56,7 @@ class App extends React.Component<{}, {}> {
                     />
                     <Route
                         path="/auth"
-                        render={() => (
-                            <div style={{color: '#fff'}}>Auth</div>
-                        )}
+                        component={AuthScreen}
                     />
                 </Container>
             </ConnectedRouter>

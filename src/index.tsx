@@ -8,6 +8,7 @@ import history from './web/history'
 import createStore from './common/store/index';
 import reducer from './web/store/reducer';
 import App from './web/App';
+import './index.css';
 
 import {
     BLUE,
