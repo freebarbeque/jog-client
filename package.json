@@ -19,8 +19,6 @@
     "@types/react-navigation": "1.0.20",
     "@types/react-redux": "5.0.9",
     "@types/redux-promise": "0.5.27",
-    "@types/react-router-redux": "5.0.4",
-    "@types/react-router-dom": "^4.0.7",
     "amazon-cognito-identity-js": "1.21.0",
     "aws-sdk": "2.133.0",
     "babel-polyfill": "6.23.0",

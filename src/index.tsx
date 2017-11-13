@@ -4,7 +4,7 @@ import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import {Provider} from 'react-redux'
 import { routerMiddleware } from 'react-router-redux';
-import createHistory from 'history/createBrowserHistory'
+import history from './web/history'
 /* import 'regenerator-runtime/runtime'*/
 import createStore from './common/store/index';
 /* import { dimensionsSubscriptionSaga } from './web/store/dimensions/sagas'*/
@@ -29,8 +29,6 @@ const WHITE = '#ffffff';
 
 /* initialiseFirebase(env)
  setMixPanelToken(env.mixPanel.token)*/
-
-const history = createHistory();
 
 const store = createStore({
     reducer,
