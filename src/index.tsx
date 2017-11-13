@@ -9,6 +9,7 @@ import createStore from './common/store/index';
 import reducer from './web/store/reducer';
 import App from './web/App';
 import './index.css';
+const injectTapEventPlugin = require('react-tap-event-plugin');
 
 import {
     BLUE,
@@ -54,3 +55,7 @@ const render = Component => {
 }
 
 render(App);
+
+// Needed for onTouchTap
+// http://stackoverflow.com/a/34015469/988941
+injectTapEventPlugin();
