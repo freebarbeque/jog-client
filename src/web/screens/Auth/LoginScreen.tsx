@@ -1,20 +1,11 @@
 import * as React from 'react'
-import {connect, DispatchProp} from 'react-redux'
 import {Link} from 'react-router-dom'
 import FlexCenteredContainer from 'src/web/components/FlexCenteredContainer';
 import {NAVIGATION_BAR_HEIGHT} from 'src/web/constants/style';
 import SignInForm from '../../../common/components/Forms/SignInForm';
 import Title from 'src/web/components/Title';
 
-interface ILoginProps extends DispatchProp<any> {
-    loginError: string | null
-    loading: boolean
-    errors: {
-        [key: string]: string
-    }
-}
-
-class LoginScreen extends React.Component<ILoginProps, {}> {
+class LoginScreen extends React.Component<{}, {}> {
     public render() {
         return (
             <FlexCenteredContainer
