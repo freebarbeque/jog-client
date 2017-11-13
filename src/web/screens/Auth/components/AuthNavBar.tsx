@@ -20,9 +20,6 @@ class AuthNavBar extends React.Component<DispatchProp<any>, {}> {
       <AppBar
         className="NavBar"
         title={<Logo style={{ marginTop: 21 }} />}
-        onTitleTouchTap={() => {
-          // TODO: Go home
-        }}
         iconElementLeft={<div />}
         iconElementRight={rightButton}
       />

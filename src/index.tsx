@@ -41,7 +41,11 @@ const theme = getMuiTheme({
         textColor: WHITE,
         hintColor: 'rgba(255,255,255,0.3)',
     },
-})
+});
+
+// Needed for onTouchTap
+// http://stackoverflow.com/a/34015469/988941
+injectTapEventPlugin();
 
 const render = Component => {
     ReactDOM.render(
@@ -55,7 +59,3 @@ const render = Component => {
 }
 
 render(App);
-
-// Needed for onTouchTap
-// http://stackoverflow.com/a/34015469/988941
-injectTapEventPlugin();
