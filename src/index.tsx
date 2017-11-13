@@ -3,11 +3,12 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import {Provider} from 'react-redux'
-/* import { routerMiddleware } from 'react-router-redux'
- import 'regenerator-runtime/runtime'*/
-import createStore from './common/store/index'
+import { routerMiddleware } from 'react-router-redux';
+import createHistory from 'history/createBrowserHistory'
+/* import 'regenerator-runtime/runtime'*/
+import createStore from './common/store/index';
 /* import { dimensionsSubscriptionSaga } from './web/store/dimensions/sagas'*/
-import reducer from './web/store/reducer'
+import reducer from './web/store/reducer';
 /*import { WHITE } from './common/constants/palette'
  import initialiseFirebase from './common/data/index'
  import { setMixPanelToken } from './common/mixPanel'
@@ -29,10 +30,12 @@ const WHITE = '#ffffff';
 /* initialiseFirebase(env)
  setMixPanelToken(env.mixPanel.token)*/
 
+const history = createHistory();
+
 const store = createStore({
     reducer,
     freeze: true,
-    //middleware: [routerMiddleware(history)],
+    middleware: [routerMiddleware(history)],
     //sagas: [dimensionsSubscriptionSaga],
 })
 

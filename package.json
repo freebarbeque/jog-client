@@ -19,6 +19,8 @@
     "@types/react-navigation": "1.0.20",
     "@types/react-redux": "5.0.9",
     "@types/redux-promise": "0.5.27",
+    "@types/react-router-redux": "5.0.4",
+    "@types/react-router-dom": "^4.0.7",
     "amazon-cognito-identity-js": "1.21.0",
     "aws-sdk": "2.133.0",
     "babel-polyfill": "6.23.0",
@@ -50,7 +52,10 @@
     "yo": "2.0.0",
     "material-ui": "0.18.7",
     "redux-saga": "0.15.3",
-    "redux-freeze": "0.1.5"
+    "redux-freeze": "0.1.5",
+    "react-router": "4.1.1",
+    "react-router-redux": "5.0.0-alpha.4",
+    "react-router-dom": "4.1.1"
   },
   "devDependencies": {
     "@types/jest": "21.1.5",
