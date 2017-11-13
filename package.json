@@ -48,7 +48,9 @@
     "tslint-react": "3.2.0",
     "webpack-dev-server": "2.6.1",
     "yo": "2.0.0",
-    "material-ui": "0.18.7"
+    "material-ui": "0.18.7",
+    "redux-saga": "0.15.3",
+    "redux-freeze": "0.1.5"
   },
   "devDependencies": {
     "@types/jest": "21.1.5",

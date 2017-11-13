@@ -2,13 +2,13 @@ import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-/*import { Provider } from 'react-redux'
- import { routerMiddleware } from 'react-router-redux'
- import 'regenerator-runtime/runtime'
- import createStore from './common/store/index'
- import { dimensionsSubscriptionSaga } from './web/store/dimensions/sagas'
- import reducer from './web/store/reducer'
- import { WHITE } from './common/constants/palette'
+import {Provider} from 'react-redux'
+/* import { routerMiddleware } from 'react-router-redux'
+ import 'regenerator-runtime/runtime'*/
+import createStore from './common/store/index'
+/* import { dimensionsSubscriptionSaga } from './web/store/dimensions/sagas'*/
+import reducer from './web/store/reducer'
+/*import { WHITE } from './common/constants/palette'
  import initialiseFirebase from './common/data/index'
  import { setMixPanelToken } from './common/mixPanel'
  import './index.css'
@@ -27,15 +27,14 @@ const GRAY = '#797e9a';
 const WHITE = '#ffffff';
 
 /* initialiseFirebase(env)
- setMixPanelToken(env.mixPanel.token)
- const store = createStore({
- reducer,
- freeze: true,
- navigationAdaptor: WebNavigationAdapter,
- uploadAdaptor: WebUploadAdapter,
- middleware: [routerMiddleware(history)],
- sagas: [dimensionsSubscriptionSaga],
- })*/
+ setMixPanelToken(env.mixPanel.token)*/
+
+const store = createStore({
+    reducer,
+    freeze: true,
+    //middleware: [routerMiddleware(history)],
+    //sagas: [dimensionsSubscriptionSaga],
+})
 
 const theme = getMuiTheme({
     palette: {
@@ -59,7 +58,9 @@ const theme = getMuiTheme({
 const render = Component => {
     ReactDOM.render(
         <MuiThemeProvider muiTheme={theme}>
-            <Component />
+            <Provider store={store}>
+                <Component />
+            </Provider>
         </MuiThemeProvider>,
         document.getElementById('root'),
     )
