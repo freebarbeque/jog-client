@@ -2,15 +2,21 @@ import AppBar from 'material-ui/AppBar';
 import FlatButton from 'material-ui/FlatButton';
 import * as React from 'react';
 import { connect, DispatchProp } from 'react-redux';
-import { push } from 'react-router-redux';
-
+import { push, PushAction } from 'react-router-redux';
 import { Cross, Logo } from 'src/web/images';
+import {Action, bindActionCreators} from "redux";
 
-class AuthNavBar extends React.Component<DispatchProp<any>, {}> {
+interface IAuthNavBar {
+  push: PushAction;
+}
+
+class AuthNavBar extends React.Component<IAuthNavBar, {}> {
   public render() {
     const rightButton = (
       <FlatButton
-        onClick={() => {}}
+        onClick={() => {
+          this.props.push('/auth');
+        }}
       >
         <Cross />
       </FlatButton>
@@ -27,5 +33,8 @@ class AuthNavBar extends React.Component<DispatchProp<any>, {}> {
   }
 }
 
-const ConnectedAuthNavBar: React.ComponentClass<{}> = connect()(AuthNavBar);
-export default ConnectedAuthNavBar;
+const mapDispatchToProps = (dispatch: any) => bindActionCreators({
+  push,
+}, dispatch);
+
+export default connect(null, mapDispatchToProps)(AuthNavBar);
