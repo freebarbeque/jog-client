@@ -1,6 +1,6 @@
 import {IAuthReduxState} from '../interfaces/auth';
-import {SET_USER} from "~/common/constants/auth";
-import {IAction} from "~/common/interfaces/action";
+import {SET_USER} from '../constants/auth';
+import {IAction} from '../interfaces/action';
 
 const defaultState = {
     user: null,

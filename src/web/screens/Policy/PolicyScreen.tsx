@@ -8,7 +8,7 @@ import styled from 'styled-components'
 import { RouteComponentProps, withRouter } from 'react-router';
 import { BLUE, DARK_GRAY, PINK } from 'src/common/constants/palette';
 import BackgroundHeader from '../../components/BackgroundHeader';
-import {Action} from "redux";
+import {Action} from 'redux';
 
 // language=SCSS prefix=dummy{ suffix=}
 const Menu = styled.div`
@@ -60,23 +60,17 @@ class PolicyScreen extends React.Component<RouteComponentProps<any> & DispatchPr
         />
         <Menu>
           <MenuButton
-            containerElement={
-              <NavLink to={`/app/tabs/policies/${policyId}`} exact />
-            }
+            containerElement={<NavLink to={`/app/tabs/policies/${policyId}`} exact />}
           >
             Details
           </MenuButton>
           <MenuButton
-            containerElement={
-              <NavLink to={`/app/tabs/policies/${policyId}/documents`} />
-            }
+            containerElement={<NavLink to={`/app/tabs/policies/${policyId}/documents`} />}
           >
             Documents
           </MenuButton>
           <MenuButton
-            containerElement={
-              <NavLink to={`/app/tabs/policies/${policyId}/quotes`} />
-            }
+            containerElement={<NavLink to={`/app/tabs/policies/${policyId}/quotes`} />}
           >
             Quotes
           </MenuButton>

@@ -33,7 +33,7 @@ function* handleErrors (response: any) {
     }
 }
 
-export function* post(endpoint) {
+export function* post(endpoint: string) {
     const response = yield fetch(
         `${process.env.BASE_API}${endpoint}`,
         {

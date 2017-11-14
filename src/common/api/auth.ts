@@ -1,8 +1,8 @@
-import {IUser, IUserCreds} from "~/common/interfaces/user";
-import {post} from "~/common/api/request";
+import {IUser, IUserCreds} from '../interfaces/user';
+import {post} from '../api/request';
 
 export function* signIn(creds: IUserCreds) {
-    //const user = yield post('users/sign_in', creds);
+    // const user = yield post('users/sign_in', creds);
     const user = yield post(`users/sign_in?user[email]=${creds.email}&user[password]=${creds.password}`);
     return user;
 }

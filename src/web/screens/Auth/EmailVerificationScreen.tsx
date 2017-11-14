@@ -6,7 +6,6 @@ import FlexCenteredContainer from 'src/web/components/FlexCenteredContainer';
 import RoundedButton from 'src/web/components/RoundedButton';
 import Title from 'src/web/components/Title';
 import {NAVIGATION_BAR_HEIGHT} from 'src/web/constants/style';
-import {IUser} from "~/common/interfaces/user";
 
 // language=SCSS prefix=dummy{ suffix=}
 const Description = styled.div`
@@ -19,10 +18,6 @@ const Description = styled.div`
 `
 
 class EmailVerificationScreen extends React.Component<{}, {}> {
-    private handleResendClick() {
-        console.log('Will resend email')
-    }
-
     public render() {
         return (
             <FlexCenteredContainer style={{paddingBottom: NAVIGATION_BAR_HEIGHT}}>
@@ -45,6 +40,10 @@ class EmailVerificationScreen extends React.Component<{}, {}> {
                 </div>
             </FlexCenteredContainer>
         )
+    }
+
+    private handleResendClick() {
+        console.log('Will resend email')
     }
 }
 

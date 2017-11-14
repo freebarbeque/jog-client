@@ -139,7 +139,7 @@ class BackgroundHeader extends React.Component<IConnectedBackgroundHeaderProps, 
       return (
         <Button
           className="BackgroundHeader"
-          onClick={this.props.onPress || this.defaultBack}
+          onClick={this.props.onPress}
         >
           {this.renderInner()}
         </Button>
@@ -150,10 +150,6 @@ class BackgroundHeader extends React.Component<IConnectedBackgroundHeaderProps, 
         {this.renderInner()}
       </div>
     )
-  }
-
-  private defaultBack = () => {
-
   }
 
   private renderInner() {

@@ -6,8 +6,8 @@ import RoundedButton from 'src/web/components/RoundedButton';
 import {MARGIN} from 'src/common/constants/style';
 import ErrorText from 'src/web/components/Forms/ErrorText';
 import {connect} from 'react-redux';
-import {IReduxState} from "~/common/interfaces/store";
-import {getFormError} from "~/common/selectors/form";
+import {IReduxState} from '~/common/interfaces/store';
+import {getFormError} from '~/common/selectors/form';
 
 interface IField {
     name: string;

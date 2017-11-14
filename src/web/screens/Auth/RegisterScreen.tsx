@@ -7,8 +7,8 @@ import { NAVIGATION_BAR_HEIGHT } from 'src/web/constants/style';
 import {signUp} from 'src/common/actions/auth';
 import {Action, ActionCreator, bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
-import {ISignUpFormValues} from "~/common/interfaces/user";
-import {mapSignUpFormValuesToUser} from "~/common/utils/user";
+import {ISignUpFormValues} from '~/common/interfaces/user';
+import {mapSignUpFormValuesToUser} from '~/common/utils/user';
 
 interface IRegisterScreenProps {
     signUp: ActionCreator<Action>;

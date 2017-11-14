@@ -7,7 +7,7 @@ import Title from 'src/web/components/Title';
 import {signIn} from 'src/common/actions/auth';
 import {Action, ActionCreator, bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
-import {IUserCreds} from "~/common/interfaces/user";
+import {IUserCreds} from '~/common/interfaces/user';
 
 interface ILoginScreenProps {
     signIn: ActionCreator<Action>;

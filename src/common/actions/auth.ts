@@ -1,4 +1,4 @@
-import {IUser, IUserCreds} from "~/common/interfaces/user";
+import {IUser, IUserCreds} from '../interfaces/user';
 import {SIGN_IN, SIGN_UP, LOG_OUT, SET_USER} from '../constants/auth';
 
 export function signIn(creds: IUserCreds) {

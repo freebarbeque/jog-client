@@ -1,10 +1,10 @@
-import {put, race, select, take} from "redux-saga/effects";
+import {put, race, select, take} from 'redux-saga/effects';
 import {push} from 'react-router-redux';
-import {SIGN_IN, SIGN_UP} from "~/common/constants/auth";
-import {IUser, IUserCreds} from "~/common/interfaces/user";
+import {SIGN_IN, SIGN_UP} from '../constants/auth';
+import {IUser, IUserCreds} from '../interfaces/user';
 import {signIn, signUp} from '../api/auth';
 import {stopSubmit} from 'redux-form';
-import {setUser} from "~/common/actions/auth";
+import {setUser} from '../actions/auth';
 
 function* signInFlow(creds: IUserCreds) {
     const user = yield signIn(creds);
@@ -35,7 +35,7 @@ export default function* authenticationFlow() {
                 yield signUpFlow(signUp.user);
                 break;
             }
-        } catch(err) {
+        } catch (err) {
             yield put(stopSubmit(form, {_error: err.message}))
             console.log(err.message);
         }

@@ -17,7 +17,7 @@ export const breakpoints = {
   hugeDesktop: 1920,
 }
 
-function buildMinMedia(breakpoint, args) {
+function buildMinMedia(breakpoint: any, args: any) {
   return css`
     @media (min-width: ${breakpoint}px) {
       ${(css as any)(...args)}
@@ -25,7 +25,7 @@ function buildMinMedia(breakpoint, args) {
   `
 }
 
-function buildMaxmedia(breakpoint, args) {
+function buildMaxmedia(breakpoint: any, args: any) {
   return css`
     @media (max-width: ${breakpoint - 1}px) {
       ${(css as any)(...args)}
