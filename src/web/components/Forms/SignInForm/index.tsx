@@ -11,11 +11,11 @@ interface ISignInFormValues {
 
 interface ISignInFormProps {
     handleSubmit: any;
+    form: string;
 }
 
 class SignInForm extends React.Component<ISignInFormProps, {}> {
     public render() {
-
         return (
             <form onSubmit={this.props.handleSubmit}>
                 <AuthFormFields
@@ -25,6 +25,7 @@ class SignInForm extends React.Component<ISignInFormProps, {}> {
                     ]}
                     Accessories={Accessories}
                     buttonLabel="SIGN IN"
+                    form={this.props.form}
                 />
             </form>
         )
@@ -54,7 +55,7 @@ const validateForm = (values: ISignInFormValues) => {
 }
 
 const form = reduxForm({
-    form: 'signinForm',
+    form: 'signInForm',
     validate: validateForm,
 })(SignInForm);
 

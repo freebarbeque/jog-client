@@ -15,6 +15,7 @@ interface ISignUpFormValues {
 
 interface ISignUpFormProps {
     handleSubmit: any;
+    form: string;
 }
 
 class SignUpForm extends React.Component<ISignUpFormProps, {}> {
@@ -29,6 +30,7 @@ class SignUpForm extends React.Component<ISignUpFormProps, {}> {
                     ]}
                     Accessories={Accessories}
                     buttonLabel="REGISTER"
+                    form={this.props.form}
                 />
             </form>
         );
@@ -67,7 +69,7 @@ const validateForm = (values: ISignUpFormValues) => {
 }
 
 const form = reduxForm({
-    form: 'sigupForm',
+    form: 'signUpForm',
     validate: validateForm,
 })(SignUpForm);
 

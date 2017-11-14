@@ -2,6 +2,7 @@ import * as React from 'react';
 import styled from 'styled-components';
 import {MARGIN} from 'src/common/constants/style';
 import {PINK} from 'src/common/constants/palette';
+import ErrorText from 'src/web/components/Forms/ErrorText';
 
 // tslint:disable-next-line:no-var-requires
 const FontAwesome = require('react-fontawesome');
@@ -15,11 +16,6 @@ const Label = styled.div`
     font-size: 11px;
     color: white;
     text-transform: uppercase;
-`
-// language=SCSS prefix=dummy{ suffix=}
-const ErrorText = styled.div`
-  color: ${PINK};
-  font-size: 11px;
 `
 
 // language=SCSS prefix=dummy{ suffix=}

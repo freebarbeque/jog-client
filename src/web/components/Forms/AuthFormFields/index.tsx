@@ -4,7 +4,10 @@ import Input from '../Input/Input';
 import {Link} from 'react-router-dom';
 import RoundedButton from 'src/web/components/RoundedButton';
 import {MARGIN} from 'src/common/constants/style';
-import {ReactNode} from 'react';
+import ErrorText from 'src/web/components/Forms/ErrorText';
+import {connect} from 'react-redux';
+import {IReduxState} from "~/common/interfaces/store";
+import {getFormError} from "~/common/selectors/form";
 
 interface IField {
     name: string;
@@ -16,6 +19,8 @@ interface IAuthFormFieldsProps {
     fields: (IField|string)[];
     Accessories: any;
     buttonLabel: string;
+    error?: string;
+    form: string;
 }
 
 class AuthFormFields extends React.Component<IAuthFormFieldsProps, {}> {
@@ -37,6 +42,12 @@ class AuthFormFields extends React.Component<IAuthFormFieldsProps, {}> {
                     />
                 ))}
                 <Accessories/>
+                {this.props.error ?
+                    <ErrorText>
+                        {this.props.error}
+                    </ErrorText>
+                    : null
+                }
                 <RoundedButton
                     type="submit"
                     label={this.props.buttonLabel}
@@ -51,4 +62,8 @@ class AuthFormFields extends React.Component<IAuthFormFieldsProps, {}> {
     }
 }
 
-export default AuthFormFields;
+const mapStateToProps = (state: IReduxState, props: IAuthFormFieldsProps): Partial<IAuthFormFieldsProps> => ({
+    error: getFormError(state, props),
+});
+
+export default connect(mapStateToProps, null)(AuthFormFields);

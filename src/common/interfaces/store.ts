@@ -2,6 +2,7 @@ import {IAuthReduxState} from './auth';
 
 export interface IReduxState {
     auth: IAuthReduxState;
+    form: any;
 }
 
 export interface ICreateStoreOpts {

@@ -11,6 +11,7 @@ interface IPasswordResetFormValues {
 
 interface IPasswordResetFormProps {
     handleSubmit: any;
+    form: string;
 }
 
 class PasswordResetForm extends React.Component<IPasswordResetFormProps, {}> {
@@ -24,6 +25,7 @@ class PasswordResetForm extends React.Component<IPasswordResetFormProps, {}> {
                     ]}
                     Accessories={Accessories}
                     buttonLabel="Send email"
+                    form={this.props.form}
                 />
             </form>
         )
