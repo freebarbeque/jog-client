@@ -9,7 +9,7 @@ import {setUser} from "~/common/actions/auth";
 function* signInFlow(creds: IUserCreds) {
     const user = yield signIn(creds);
     yield put(setUser(user));
-    console.log(user);
+    yield put(push('/app/tabs/policies'));
 }
 
 function* signUpFlow(user: IUser) {
