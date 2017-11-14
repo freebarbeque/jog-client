@@ -16,14 +16,15 @@
   "dependencies": {
     "@types/material-ui": "0.16.59",
     "@types/ramda": "0.24.14",
+    "@types/react-fontawesome": "1.6.0",
     "@types/react-navigation": "1.0.20",
     "@types/react-redux": "5.0.9",
     "@types/redux-promise": "0.5.27",
-    "@types/react-fontawesome": "1.6.0",
     "amazon-cognito-identity-js": "1.21.0",
     "aws-sdk": "2.133.0",
     "babel-polyfill": "6.23.0",
     "classnames": "2.2.5",
+    "dotenv": "^4.0.0",
     "global": "4.3.2",
     "install": "0.10.1",
     "jest-cli": "21.2.1",
@@ -32,6 +33,7 @@
     "ramda": "0.24.1",
     "react": "16.0.0-alpha.6",
     "react-dom": "15.6.1",
+    "react-fontawesome": "1.6.1",
     "react-native": "0.44.0",
     "react-native-cli": "2.0.1",
     "react-native-collapsible": "0.9.0",
@@ -59,11 +61,11 @@
     "tslint-react": "3.2.0",
     "validate.js": "^0.12.0",
     "webpack-dev-server": "2.6.1",
-    "yo": "2.0.0",
-    "react-fontawesome": "1.6.1"
+    "yo": "2.0.0"
   },
   "devDependencies": {
     "@types/jest": "21.1.5",
+    "@types/node": "^8.0.51",
     "@types/react": "15.0.24",
     "@types/react-native": "0.48.8",
     "@types/react-test-renderer": "15.5.0",
