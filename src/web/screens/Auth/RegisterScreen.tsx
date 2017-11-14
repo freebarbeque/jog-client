@@ -7,6 +7,7 @@ import { NAVIGATION_BAR_HEIGHT } from 'src/web/constants/style';
 import {signUp} from 'src/common/actions/auth';
 import {Action, ActionCreator, bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
+import {IUser} from "~/common/interfaces/user";
 
 interface IRegisterScreenProps {
     signUp: ActionCreator<Action>;
@@ -18,7 +19,7 @@ class RegisterScreen extends React.Component<IRegisterScreenProps, {}> {
       <FlexCentredContainer style={{ paddingBottom: NAVIGATION_BAR_HEIGHT }}>
         <div>
           <Title>Register</Title>
-          <SignUpForm onSubmit={(values: any) => console.log(values)} />
+          <SignUpForm onSubmit={(values: IUser) => console.log(values)} />
         </div>
       </FlexCentredContainer>
     )

@@ -7,6 +7,7 @@ import Title from 'src/web/components/Title';
 import {signIn} from 'src/common/actions/auth';
 import {Action, ActionCreator, bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
+import {IUserCreds} from "~/common/interfaces/user";
 
 interface ILoginScreenProps {
     signIn: ActionCreator<Action>;
@@ -21,7 +22,7 @@ class LoginScreen extends React.Component<ILoginScreenProps, {}> {
             >
                 <div className="LoginScreen__Inner">
                     <Title>Sign In</Title>
-                    <SignInForm onSubmit={(values: any) => this.props.signIn(values)}/>
+                    <SignInForm onSubmit={(values: IUserCreds) => this.props.signIn(values)}/>
                 </div>
             </FlexCenteredContainer>
         )

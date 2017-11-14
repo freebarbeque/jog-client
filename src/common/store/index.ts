@@ -2,7 +2,7 @@ import {applyMiddleware, compose, createStore as _createStore, Store} from 'redu
 import createSagaMiddleware from 'redux-saga'
 import devTools from 'remote-redux-devtools'
 import {ICreateStoreOpts, IReduxState} from '../interfaces/store';
-import auth from '../sagas/auth';
+import root from '../sagas/root';
 
 // tslint:disable-next-line:no-var-requires
 const freeze = require('redux-freeze');
@@ -10,7 +10,7 @@ const freeze = require('redux-freeze');
 let store: any = null;
 
 const defaultSagas: any[] = [
-    auth,
+    root,
 ];
 
 export default function createStore(additionalOpts: ICreateStoreOpts): Store<IReduxState> {
