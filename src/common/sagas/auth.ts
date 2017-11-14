@@ -2,7 +2,7 @@ import {put, race, select, take} from "redux-saga/effects";
 import {push} from 'react-router-redux';
 import {SIGN_IN, SIGN_UP} from "~/common/constants/auth";
 import {IUser, IUserCreds} from "~/common/interfaces/user";
-import {signIn} from '../api/auth';
+import {signIn, signUp} from '../api/auth';
 
 function* signInFlow(creds: IUserCreds) {
     const user = yield signIn(creds);
@@ -10,7 +10,8 @@ function* signInFlow(creds: IUserCreds) {
 }
 
 function* signUpFlow(user: IUser) {
-    yield console.log(user);
+    const createdUser = yield signUp(user);
+    console.log(createdUser);
 }
 
 export default function* authenticationFlow() {

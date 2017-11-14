@@ -19,7 +19,7 @@ class RegisterScreen extends React.Component<IRegisterScreenProps, {}> {
       <FlexCentredContainer style={{ paddingBottom: NAVIGATION_BAR_HEIGHT }}>
         <div>
           <Title>Register</Title>
-          <SignUpForm onSubmit={(values: IUser) => console.log(values)} />
+          <SignUpForm onSubmit={(values: IUser) => this.props.signUp(values)} />
         </div>
       </FlexCentredContainer>
     )
