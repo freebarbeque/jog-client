@@ -4,7 +4,6 @@ import {ConnectedRouter} from 'react-router-redux';
 import history from './history';
 import {BLUE} from 'src/common/constants/palette';
 import styled from 'styled-components';
-import Default from 'src/web/routes/Default';
 import AuthScreen from './screens/Auth/AuthScreen';
 
 const Container = styled.div`
@@ -49,11 +48,6 @@ class App extends React.Component<{}, {}> {
         return (
             <ConnectedRouter history={history}>
                 <Container>
-                    <Route
-                        path="/"
-                        exact
-                        component={Default}
-                    />
                     <Route
                         path="/auth"
                         component={AuthScreen}
