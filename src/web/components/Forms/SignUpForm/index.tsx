@@ -25,7 +25,7 @@ class SignUpForm extends React.Component<ISignUpFormProps, {}> {
                     fields={[
                         {name: 'name', label: 'full name'},
                         'email',
-                        'password',
+                        {name: 'password', type: 'password'},
                     ]}
                     Accessories={Accessories}
                     buttonLabel="REGISTER"

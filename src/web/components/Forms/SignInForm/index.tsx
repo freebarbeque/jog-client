@@ -21,7 +21,7 @@ class SignInForm extends React.Component<ISignInFormProps, {}> {
                 <AuthFormFields
                     fields={[
                         'email',
-                        'password',
+                        {name: 'password', type: 'password'},
                     ]}
                     Accessories={Accessories}
                     buttonLabel="SIGN IN"

@@ -43,7 +43,8 @@ interface IInputProps {
     meta: {
         error?: string;
         touched: boolean;
-    }
+    },
+    type?: string;
 }
 
 export default (props: IInputProps) => {
@@ -51,6 +52,7 @@ export default (props: IInputProps) => {
         label,
         input,
         meta: {error, touched},
+        type,
     } = props;
 
     return (
@@ -75,6 +77,7 @@ export default (props: IInputProps) => {
                 onChange={(v: any) => input.onChange(v)}
                 value={input.value}
                 style={error && touched ? { borderColor: PINK } : {}}
+                type={type || 'text'}
             />
         </Container>
     )

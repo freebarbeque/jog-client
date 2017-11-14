@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {reduxForm, Field} from 'redux-form';
-import Input from '../FormFields/Input';
+import Input from '../Input/Input';
 import {Link} from 'react-router-dom';
 import RoundedButton from 'src/web/components/RoundedButton';
 import {MARGIN} from 'src/common/constants/style';
@@ -8,7 +8,8 @@ import {ReactNode} from 'react';
 
 interface IField {
     name: string;
-    label: string;
+    label?: string;
+    type?: string;
 }
 
 interface IAuthFormFieldsProps {
@@ -30,8 +31,9 @@ class AuthFormFields extends React.Component<IAuthFormFieldsProps, {}> {
                     <Field
                         name={typeof f === 'string' ? f : f.name}
                         component={Input}
-                        label={typeof f === 'string' ? f : f.label}
+                        label={typeof f === 'string' ? f : f.label || f.name}
                         key={i}
+                        type={typeof f === 'string' ? 'text' : f.type}
                     />
                 ))}
                 <Accessories/>
