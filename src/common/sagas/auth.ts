@@ -4,9 +4,11 @@ import {SIGN_IN, SIGN_UP} from "~/common/constants/auth";
 import {IUser, IUserCreds} from "~/common/interfaces/user";
 import {signIn, signUp} from '../api/auth';
 import {stopSubmit} from 'redux-form';
+import {setUser} from "~/common/actions/auth";
 
 function* signInFlow(creds: IUserCreds) {
     const user = yield signIn(creds);
+    yield put(setUser(user));
     console.log(user);
 }
 
