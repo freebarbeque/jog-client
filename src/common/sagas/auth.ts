@@ -14,7 +14,7 @@ function* signInFlow(creds: IUserCreds) {
 
 function* signUpFlow(user: IUser) {
     const createdUser = yield signUp(user);
-    console.log(createdUser);
+    yield put(push('/auth/verify'));
 }
 
 export default function* authenticationFlow() {

@@ -32,7 +32,8 @@ interface IProps {
   disabled?: boolean;
   style?: any;
   labelColor?: string;
-  type: string;
+  type?: string;
+  onClick?: any;
 }
 
 const RoundedButton = (props: IProps) => {

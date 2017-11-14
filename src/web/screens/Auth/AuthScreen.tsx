@@ -6,6 +6,7 @@ import AuthNavBar from './components/AuthNavBar';
 import LoginScreen from './LoginScreen';
 import RegisterScreen from './RegisterScreen';
 import PasswordResetScreen from './PasswordResetScreen';
+import EmailVerificationScreen from './EmailVerificationScreen';
 
 // language=SCSS prefix=dummy{ suffix=}
 const Container = styled.div`
@@ -22,6 +23,7 @@ class AuthScreen extends React.Component<{}, {}> {
                 <Route path="/auth" exact component={AuthHome}/>
                 <Route path="/auth/login" component={LoginScreen}/>
                 <Route path="/auth/register" component={RegisterScreen} />
+                <Route path="/auth/verify" component={EmailVerificationScreen} />
                 <Route path="/auth/forgotPassword" component={PasswordResetScreen} />
             </Container>
         )
