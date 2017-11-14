@@ -1,5 +1,5 @@
 import {IUser, IUserCreds} from "~/common/interfaces/user";
-import {SIGN_IN, SIGN_UP, SET_USER} from '../constants/auth';
+import {SIGN_IN, SIGN_UP, LOG_OUT, SET_USER} from '../constants/auth';
 
 export function signIn(creds: IUserCreds) {
     return {
@@ -15,7 +15,13 @@ export function signUp(user: IUser) {
     }
 }
 
-export function setUser(user: IUser) {
+export function logOut() {
+    return {
+        type: LOG_OUT,
+    }
+}
+
+export function setUser(user: IUser|null) {
     return {
         type: SET_USER,
         user,

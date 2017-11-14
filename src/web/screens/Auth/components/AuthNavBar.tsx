@@ -4,10 +4,12 @@ import * as React from 'react';
 import { connect, DispatchProp } from 'react-redux';
 import { push, PushAction } from 'react-router-redux';
 import { Cross, Logo } from 'src/web/images';
-import {Action, bindActionCreators} from 'redux';
+import {Action, ActionCreator, bindActionCreators} from 'redux';
+import {logOut} from 'src/common/actions/auth';
 
 interface IAuthNavBar {
   push: PushAction;
+  logOut: ActionCreator<Action>;
 }
 
 class AuthNavBar extends React.Component<IAuthNavBar, {}> {
@@ -16,6 +18,7 @@ class AuthNavBar extends React.Component<IAuthNavBar, {}> {
       <FlatButton
         onClick={() => {
           this.props.push('/auth');
+          this.props.logOut();
         }}
       >
         <Cross />
@@ -35,6 +38,7 @@ class AuthNavBar extends React.Component<IAuthNavBar, {}> {
 
 const mapDispatchToProps = (dispatch: any) => bindActionCreators({
   push,
+  logOut,
 }, dispatch);
 
 export default connect(null, mapDispatchToProps)(AuthNavBar);
