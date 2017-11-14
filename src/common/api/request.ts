@@ -14,6 +14,25 @@
     return response;
 }*/
 
+interface IApiError extends Error {
+    status?: number;
+}
+
+function* handleErrors (response: any) {
+    if (response.status === 200) {
+        return yield response.json();
+    } else {
+        let error = yield response.text();
+        if (error[0] === '{') {
+            error = JSON.parse(error).errors[0].body;
+        }
+
+        const err: IApiError = new Error(error);
+        err.status = response.status;
+        throw err;
+    }
+}
+
 export function* post(endpoint) {
     const response = yield fetch(
         `${process.env.BASE_API}${endpoint}`,
@@ -22,6 +41,6 @@ export function* post(endpoint) {
         }
     )
 
-    const body = yield response.json();
+    const body = yield handleErrors(response);
     return body;
 }

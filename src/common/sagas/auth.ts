@@ -15,14 +15,22 @@ function* signUpFlow(user: IUser) {
 }
 
 export default function* authenticationFlow() {
-    const {signIn, signUp} = yield race({
-        signIn: take(SIGN_IN),
-        signUp: take(SIGN_UP),
-    })
+    while (true) {
+        const {signIn, signUp} = yield race({
+            signIn: take(SIGN_IN),
+            signUp: take(SIGN_UP),
+        })
 
-    if (signIn) {
-        yield signInFlow(signIn.creds);
-    } else if (signUp) {
-        yield signUpFlow(signUp.user);
+        try {
+            if (signIn) {
+                yield signInFlow(signIn.creds);
+                break;
+            } else if (signUp) {
+                yield signUpFlow(signUp.user);
+                break;
+            }
+        } catch(err) {
+            console.log(err.message);
+        }
     }
 }

@@ -7,3 +7,7 @@ export interface IUser extends IUserCreds {
     first_name: string;
     last_name: string;
 }
+
+export interface ISignUpFormValues extends IUserCreds {
+    name: string;
+}

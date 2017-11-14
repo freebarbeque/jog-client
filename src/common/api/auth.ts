@@ -8,7 +8,6 @@ export function* signIn(creds: IUserCreds) {
 }
 
 export function* signUp(user: IUser) {
-    /*const createdUser = yield post('users/sign_in', user);
-    return createdUser;*/
-    yield console.log(user);
+    const createdUser = yield post(`users/register?user[first_name]=${user.first_name}&user[last_name]=${user.last_name}&user[email]=${user.email}&user[password]=${user.password}`);
+    return createdUser;
 }
