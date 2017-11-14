@@ -1,4 +1,4 @@
-export function* post(endpoint, data) {
+/*export function* post(endpoint, data) {
     const response = yield fetch(
         `${process.env.BASE_API}${endpoint}`,
         {
@@ -12,4 +12,16 @@ export function* post(endpoint, data) {
     );
 
     return response;
+}*/
+
+export function* post(endpoint) {
+    const response = yield fetch(
+        `${process.env.BASE_API}${endpoint}`,
+        {
+            method: 'POST',
+        }
+    )
+
+    const body = yield response.json();
+    return body;
 }
