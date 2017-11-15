@@ -21,6 +21,7 @@ interface IAuthFormFieldsProps {
     buttonLabel: string;
     error?: string;
     form: string;
+    isLoading: boolean;
 }
 
 class AuthFormFields extends React.Component<IAuthFormFieldsProps, {}> {
@@ -28,6 +29,7 @@ class AuthFormFields extends React.Component<IAuthFormFieldsProps, {}> {
         const {
             fields,
             Accessories,
+            isLoading,
         } = this.props;
 
         return (
@@ -56,6 +58,7 @@ class AuthFormFields extends React.Component<IAuthFormFieldsProps, {}> {
                         marginRight: 'auto',
                         marginTop: MARGIN.extraLarge,
                     }}
+                    disabled={isLoading}
                 />
             </div>
         )

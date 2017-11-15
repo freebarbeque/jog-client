@@ -3,6 +3,9 @@ import {reduxForm, Field} from 'redux-form';
 const validate = require('validate.js');
 import AuthFormFields from '../AuthFormFields';
 import Accessories from './Accessories';
+import {connect} from 'react-redux';
+import {IReduxState} from '~/common/interfaces/store';
+import {getIsLoading} from 'src/common/selectors/auth';
 
 interface IPasswordResetFormValues {
     email: string;
@@ -12,6 +15,7 @@ interface IPasswordResetFormValues {
 interface IPasswordResetFormProps {
     handleSubmit: any;
     form: string;
+    isLoading: boolean;
 }
 
 class PasswordResetForm extends React.Component<IPasswordResetFormProps, {}> {
@@ -26,6 +30,7 @@ class PasswordResetForm extends React.Component<IPasswordResetFormProps, {}> {
                     Accessories={Accessories}
                     buttonLabel="Send email"
                     form={this.props.form}
+                    isLoading={this.props.isLoading}
                 />
             </form>
         )
@@ -49,9 +54,13 @@ const validateForm = (values: IPasswordResetFormValues) => {
     return errors;
 }
 
+const mapStateToProps = (state: IReduxState) => ({
+    isLoading: getIsLoading(state)
+})
+
 const form = reduxForm({
     form: 'passwordResetForm',
     validate: validateForm,
-})(PasswordResetForm);
+})(connect(mapStateToProps, null)(PasswordResetForm));
 
 export default form;

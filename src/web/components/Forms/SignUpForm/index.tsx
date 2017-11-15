@@ -2,11 +2,11 @@ import * as React from 'react';
 import {reduxForm, Field} from 'redux-form';
 const validate = require('validate.js');
 import {Link} from 'react-router-dom';
-import {DARK_GRAY} from 'src/common/constants/palette';
-import RoundedButton from 'src/web/components/RoundedButton';
-import {MARGIN} from 'src/common/constants/style';
 import AuthFormFields from '../AuthFormFields';
 import Accessories from './Accessories';
+import {connect} from 'react-redux';
+import {IReduxState} from '~/common/interfaces/store';
+import {getIsLoading} from 'src/common/selectors/auth';
 
 interface ISignUpFormValues {
     email: string;
@@ -16,6 +16,7 @@ interface ISignUpFormValues {
 interface ISignUpFormProps {
     handleSubmit: any;
     form: string;
+    isLoading: boolean;
 }
 
 class SignUpForm extends React.Component<ISignUpFormProps, {}> {
@@ -31,6 +32,7 @@ class SignUpForm extends React.Component<ISignUpFormProps, {}> {
                     Accessories={Accessories}
                     buttonLabel="REGISTER"
                     form={this.props.form}
+                    isLoading={this.props.isLoading}
                 />
             </form>
         );
@@ -68,9 +70,13 @@ const validateForm = (values: ISignUpFormValues) => {
     return errors;
 }
 
+const mapStateToProps = (state: IReduxState) => ({
+    isLoading: getIsLoading(state)
+})
+
 const form = reduxForm({
     form: 'signUpForm',
     validate: validateForm,
-})(SignUpForm);
+})(connect(mapStateToProps, null)(SignUpForm));
 
 export default form;

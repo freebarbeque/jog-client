@@ -1,5 +1,11 @@
 import {IUser, IUserCreds} from '../interfaces/user';
-import {SIGN_IN, SIGN_UP, LOG_OUT, SET_USER} from '../constants/auth';
+import {
+    SIGN_IN,
+    SIGN_UP,
+    LOG_OUT,
+    SET_USER,
+    SET_IS_LOADING,
+} from '../constants/auth';
 
 export function signIn(creds: IUserCreds) {
     return {
@@ -25,5 +31,12 @@ export function setUser(user: IUser|null) {
     return {
         type: SET_USER,
         user,
+    }
+}
+
+export function setIsLoading(isLoading: boolean) {
+    return {
+        type: SET_IS_LOADING,
+        isLoading,
     }
 }
