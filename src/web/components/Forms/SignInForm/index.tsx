@@ -6,7 +6,7 @@ import Accessories from './Accessories';
 import {connect} from 'react-redux';
 import {IReduxState} from '~/common/interfaces/store';
 import {getIsLoading} from 'src/common/selectors/auth';
-import {IUserCreds} from "~/common/interfaces/user";
+import {IUserCreds} from '~/common/interfaces/user';
 import {SIGN_IN_FORM} from 'src/common/constants/auth';
 
 interface ISignInFormProps {

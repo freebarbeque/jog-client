@@ -15,3 +15,7 @@ export function* signUp(userToCreate: IUser) {
 export function* resendEmail(email: string) {
     yield post(`users/confirmation?user[email]=${email}`, false);
 }
+
+export function* requestPasswordChange(email: string) {
+    yield post(`users/password?user[email]=${email}`, false);
+}

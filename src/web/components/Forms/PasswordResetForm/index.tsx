@@ -7,10 +7,7 @@ import {connect} from 'react-redux';
 import {IReduxState} from '~/common/interfaces/store';
 import {getIsLoading} from 'src/common/selectors/auth';
 import {PASSWORD_RESET_FORM} from 'src/common/constants/auth';
-
-interface IPasswordResetFormValues {
-    email: string;
-}
+import {IPasswordResetFormValues} from 'src/common/interfaces/user';
 
 interface IPasswordResetFormProps {
     handleSubmit: any;

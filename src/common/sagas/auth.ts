@@ -1,7 +1,7 @@
 import {put, race, select, take} from 'redux-saga/effects';
 import {push, LOCATION_CHANGE} from 'react-router-redux';
 import {IUser, IUserCreds} from '../interfaces/user';
-import {resendEmail, signIn, signUp} from '../api/auth';
+import {requestPasswordChange, resendEmail, signIn, signUp} from '../api/auth';
 import {stopSubmit} from 'redux-form';
 import {setUser, setIsLoading} from '../actions/auth';
 
@@ -11,7 +11,16 @@ import {
     SIGN_UP,
     SIGN_IN_FORM,
     SIGN_UP_FORM,
+    REQUEST_PASSWORD_CHANGE,
+    PASSWORD_RESET_FORM,
 } from '../constants/auth';
+
+function* passwordResetFlow(email: string) {
+    yield put(setIsLoading(true));
+    yield requestPasswordChange(email);
+    yield put(push('/auth/confirmForgotPassword'));
+    yield put(setIsLoading(false));
+}
 
 function* signInFlow(creds: IUserCreds) {
     const user = yield signIn(creds);
@@ -45,9 +54,10 @@ function* signUpFlow(user: IUser) {
 
 export default function* authenticationFlow() {
     while (true) {
-        const {signIn, signUp} = yield race({
+        const {signIn, signUp, passwordChange} = yield race({
             signIn: take(SIGN_IN),
             signUp: take(SIGN_UP),
+            passwordChange: take(REQUEST_PASSWORD_CHANGE),
         });
 
         yield put(setIsLoading(true));
@@ -61,6 +71,10 @@ export default function* authenticationFlow() {
             } else if (signUp) {
                 form = SIGN_UP_FORM;
                 yield signUpFlow(signUp.user);
+                break;
+            } else if (passwordChange) {
+                form = PASSWORD_RESET_FORM;
+                yield passwordResetFlow(passwordChange.email);
                 break;
             }
         } catch (err) {

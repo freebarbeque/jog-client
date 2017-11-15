@@ -7,7 +7,7 @@ import RoundedButton from 'src/web/components/RoundedButton';
 import Title from 'src/web/components/Title';
 import {NAVIGATION_BAR_HEIGHT} from 'src/web/constants/style';
 import {resendEmail} from 'src/common/actions/auth';
-import {Action, ActionCreator, bindActionCreators} from "redux";
+import {Action, ActionCreator, bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import {IReduxState} from '~/common/interfaces/store';
 import {getIsLoading} from 'src/common/selectors/auth';

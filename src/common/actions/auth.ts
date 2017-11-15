@@ -1,4 +1,5 @@
 import {IUser, IUserCreds} from '../interfaces/user';
+
 import {
     SIGN_IN,
     SIGN_UP,
@@ -6,6 +7,7 @@ import {
     RESEND_EMAIL,
     SET_USER,
     SET_IS_LOADING,
+    REQUEST_PASSWORD_CHANGE,
 } from '../constants/auth';
 
 export function signIn(creds: IUserCreds) {
@@ -45,6 +47,13 @@ export function setIsLoading(isLoading: boolean) {
 export function resendEmail(email: string) {
     return {
         type: RESEND_EMAIL,
+        email,
+    }
+}
+
+export function requestPasswordChange(email: string) {
+    return {
+        type: REQUEST_PASSWORD_CHANGE,
         email,
     }
 }

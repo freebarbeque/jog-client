@@ -11,3 +11,7 @@ export interface IUser extends IUserCreds {
 export interface ISignUpFormValues extends IUserCreds {
     name: string;
 }
+
+export interface IPasswordResetFormValues {
+    email: string;
+}
