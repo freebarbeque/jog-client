@@ -6,6 +6,11 @@ import FlexCenteredContainer from 'src/web/components/FlexCenteredContainer';
 import RoundedButton from 'src/web/components/RoundedButton';
 import Title from 'src/web/components/Title';
 import {NAVIGATION_BAR_HEIGHT} from 'src/web/constants/style';
+import {resendEmail} from 'src/common/actions/auth';
+import {Action, ActionCreator, bindActionCreators} from "redux";
+import {connect} from 'react-redux';
+import {IReduxState} from '~/common/interfaces/store';
+import {getIsLoading} from 'src/common/selectors/auth';
 
 // language=SCSS prefix=dummy{ suffix=}
 const Description = styled.div`
@@ -15,9 +20,14 @@ const Description = styled.div`
   font-weight: 400;
   margin-left: ${MARGIN.large}px;
   margin-right: ${MARGIN.large}px;
-`
+`;
 
-class EmailVerificationScreen extends React.Component<{}, {}> {
+interface IEmailVerificationScreenProps {
+    resendEmail: ActionCreator<Action>;
+    isLoading: boolean;
+}
+
+class EmailVerificationScreen extends React.Component<IEmailVerificationScreenProps, {}> {
     public render() {
         return (
             <FlexCenteredContainer style={{paddingBottom: NAVIGATION_BAR_HEIGHT}}>
@@ -35,16 +45,21 @@ class EmailVerificationScreen extends React.Component<{}, {}> {
                             marginRight: 'auto',
                         }}
                         label="Resend"
-                        onClick={this.handleResendClick}
+                        onClick={() => this.props.resendEmail()}
+                        disabled={this.props.isLoading}
                     />
                 </div>
             </FlexCenteredContainer>
         )
     }
-
-    private handleResendClick() {
-        console.log('Will resend email')
-    }
 }
 
-export default EmailVerificationScreen;
+const mapStateToProps = (state: IReduxState) => ({
+    isLoading: getIsLoading(state)
+})
+
+const mapDispatchToProps = (dispatch: any) => bindActionCreators({
+    resendEmail,
+}, dispatch);
+
+export default connect(mapStateToProps, mapDispatchToProps)(EmailVerificationScreen);

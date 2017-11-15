@@ -3,11 +3,15 @@ import {post} from '../api/request';
 
 export function* signIn(creds: IUserCreds) {
     // const user = yield post('users/sign_in', creds);
-    const user = yield post(`users/sign_in?user[email]=${creds.email}&user[password]=${creds.password}`);
+    const {user} = yield post(`users/sign_in?user[email]=${creds.email}&user[password]=${creds.password}`);
     return user;
 }
 
-export function* signUp(user: IUser) {
-    const createdUser = yield post(`users/register?user[first_name]=${user.first_name}&user[last_name]=${user.last_name}&user[email]=${user.email}&user[password]=${user.password}`);
-    return createdUser;
+export function* signUp(userToCreate: IUser) {
+    const {user} = yield post(`users/register?user[first_name]=${userToCreate.first_name}&user[last_name]=${userToCreate.last_name}&user[email]=${userToCreate.email}&user[password]=${userToCreate.password}`);
+    return user;
+}
+
+export function* resendEmail(email: string) {
+    yield post(`users/confirmation?user[email]=${email}`);
 }

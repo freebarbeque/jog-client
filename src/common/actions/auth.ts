@@ -3,6 +3,7 @@ import {
     SIGN_IN,
     SIGN_UP,
     LOG_OUT,
+    RESEND_EMAIL,
     SET_USER,
     SET_IS_LOADING,
 } from '../constants/auth';
@@ -38,5 +39,12 @@ export function setIsLoading(isLoading: boolean) {
     return {
         type: SET_IS_LOADING,
         isLoading,
+    }
+}
+
+export function resendEmail(email: string) {
+    return {
+        type: RESEND_EMAIL,
+        email,
     }
 }
