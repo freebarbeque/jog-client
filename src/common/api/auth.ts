@@ -13,5 +13,5 @@ export function* signUp(userToCreate: IUser) {
 }
 
 export function* resendEmail(email: string) {
-    yield post(`users/confirmation?user[email]=${email}`);
+    yield post(`users/confirmation?user[email]=${email}`, false);
 }

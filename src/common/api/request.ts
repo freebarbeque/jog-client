@@ -18,9 +18,13 @@ interface IApiError extends Error {
     status?: number;
 }
 
-function* handleErrors (response: any) {
+function* handleErrors (response: any, parseBody: boolean = true) {
     if (response.status === 200) {
-        return yield response.json();
+        if (parseBody) {
+            return yield response.json();
+        } else {
+            return null;
+        }
     } else {
         let error = yield response.text();
         if (error[0] === '{') {
@@ -33,7 +37,7 @@ function* handleErrors (response: any) {
     }
 }
 
-export function* post(endpoint: string) {
+export function* post(endpoint: string, parseBody: boolean = true) {
     const response = yield fetch(
         `${process.env.BASE_API}${endpoint}`,
         {
@@ -41,6 +45,6 @@ export function* post(endpoint: string) {
         }
     )
 
-    const body = yield handleErrors(response);
+    const body = yield handleErrors(response, parseBody);
     return body;
 }
