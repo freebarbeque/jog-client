@@ -6,10 +6,10 @@ import Accessories from './Accessories';
 import {connect} from 'react-redux';
 import {IReduxState} from '~/common/interfaces/store';
 import {getIsLoading} from 'src/common/selectors/auth';
+import {PASSWORD_RESET_FORM} from 'src/common/constants/auth';
 
 interface IPasswordResetFormValues {
     email: string;
-    password: string;
 }
 
 interface IPasswordResetFormProps {
@@ -59,7 +59,7 @@ const mapStateToProps = (state: IReduxState) => ({
 })
 
 const form = reduxForm({
-    form: 'passwordResetForm',
+    form: PASSWORD_RESET_FORM,
     validate: validateForm,
 })(connect(mapStateToProps, null)(PasswordResetForm));
 

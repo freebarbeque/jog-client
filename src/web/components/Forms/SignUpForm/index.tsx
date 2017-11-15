@@ -7,11 +7,8 @@ import Accessories from './Accessories';
 import {connect} from 'react-redux';
 import {IReduxState} from '~/common/interfaces/store';
 import {getIsLoading} from 'src/common/selectors/auth';
-
-interface ISignUpFormValues {
-    email: string;
-    password: string;
-}
+import {SIGN_UP_FORM} from 'src/common/constants/auth';
+import {ISignUpFormValues} from 'src/common/interfaces/user';
 
 interface ISignUpFormProps {
     handleSubmit: any;
@@ -75,7 +72,7 @@ const mapStateToProps = (state: IReduxState) => ({
 })
 
 const form = reduxForm({
-    form: 'signUpForm',
+    form: SIGN_UP_FORM,
     validate: validateForm,
 })(connect(mapStateToProps, null)(SignUpForm));
 

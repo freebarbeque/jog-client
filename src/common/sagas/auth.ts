@@ -1,10 +1,17 @@
 import {put, race, select, take} from 'redux-saga/effects';
 import {push, LOCATION_CHANGE} from 'react-router-redux';
-import {RESEND_EMAIL, SIGN_IN, SIGN_UP} from '../constants/auth';
 import {IUser, IUserCreds} from '../interfaces/user';
 import {resendEmail, signIn, signUp} from '../api/auth';
 import {stopSubmit} from 'redux-form';
 import {setUser, setIsLoading} from '../actions/auth';
+
+import {
+    RESEND_EMAIL,
+    SIGN_IN,
+    SIGN_UP,
+    SIGN_IN_FORM,
+    SIGN_UP_FORM,
+} from '../constants/auth';
 
 function* signInFlow(creds: IUserCreds) {
     const user = yield signIn(creds);
@@ -48,11 +55,11 @@ export default function* authenticationFlow() {
         let form;
         try {
             if (signIn) {
-                form = 'signInForm';
+                form = SIGN_IN_FORM;
                 yield signInFlow(signIn.creds);
                 break;
             } else if (signUp) {
-                form = 'signUpForm';
+                form = SIGN_UP_FORM;
                 yield signUpFlow(signUp.user);
                 break;
             }

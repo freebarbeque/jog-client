@@ -7,6 +7,7 @@ import {connect} from 'react-redux';
 import {IReduxState} from '~/common/interfaces/store';
 import {getIsLoading} from 'src/common/selectors/auth';
 import {IUserCreds} from "~/common/interfaces/user";
+import {SIGN_IN_FORM} from 'src/common/constants/auth';
 
 interface ISignInFormProps {
     handleSubmit: any;
@@ -60,7 +61,7 @@ const mapStateToProps = (state: IReduxState) => ({
 })
 
 const form = reduxForm({
-    form: 'signInForm',
+    form: SIGN_IN_FORM,
     validate: validateForm,
 })(connect(mapStateToProps, null)(SignInForm));
 
