@@ -278,3 +278,36 @@ export const BannerShape = (props: {scale?: number}) => (
 
   />
 )
+
+export const TwitterIcon = (props: {width?: number, height?: number}) => (
+  <Image
+    src={require('./twitter-icon.svg')}
+    height={props.height || 24}
+    width={props.width || 24}
+    alt="twitter-icon"
+    className="twitter-icon"
+    {...props}
+  />
+)
+
+export const FacebookIcon = (props: {width?: number, height?: number}) => (
+  <Image
+    src={require('./fb-icon.svg')}
+    height={props.height || 24}
+    width={props.width || 24}
+    alt="fb-icon"
+    className="fb-icon"
+    {...props}
+  />
+)
+
+export const LinkedinIcon = (props: {width?: number, height?: number}) => (
+  <Image
+    src={require('./ld-icon.svg')}
+    height={props.height || 24}
+    width={props.width || 24}
+    alt="ld-icon"
+    className="ld-icon"
+    {...props}
+  />
+)

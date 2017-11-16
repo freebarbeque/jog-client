@@ -5,6 +5,7 @@ import Description from './components/Description';
 import {CREAM} from 'src/common/constants/palette';
 import Divider from './components/Divider';
 import BenefitsSection from './components/BenefitsSection';
+import Footer from './components/Footer';
 
 const LandingScreen = (props: any) => (
   <div className={props.className}>
@@ -14,6 +15,7 @@ const LandingScreen = (props: any) => (
       <Divider />
       <BenefitsSection />
     </Content>
+    <Footer />
   </div>
 );
 
@@ -22,6 +24,7 @@ const Content = styled.div`
   flex-direction: column;
   align-self: stretch;
   padding: 50px 45px;
+  flex-shrink: 0;
 `;
 
 const StyledLandingScreen = styled(LandingScreen)`
@@ -30,6 +33,7 @@ const StyledLandingScreen = styled(LandingScreen)`
   flex: 1;
   align-self: stretch;
   background-color: ${CREAM};
+  overflow-y: scroll;
 `;
 
 export default StyledLandingScreen;

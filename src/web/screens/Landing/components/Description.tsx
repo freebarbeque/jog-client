@@ -52,6 +52,7 @@ const StyledDescription = styled(Description)`
   justify-content: center;
   height: 367px;
   background-color: ${BLUE};
+  flex-shrink: 0;
   position: relative;
   & > .pink-shape-img {
     position: absolute;

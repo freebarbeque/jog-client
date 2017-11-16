@@ -31,6 +31,7 @@ const StyledBenefitsSection = styled(BenefitsSection)`
   display: flex;
   justify-content: space-between;
   margin-top: 40px;
+  flex-shrink: 0;
 `;
 
 export default StyledBenefitsSection;

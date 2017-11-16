@@ -35,6 +35,7 @@ const StyledHeader = styled(Header)`
   align-items: center;
   justify-content: space-between;
   padding: 0 43px;
+  flex-shrink: 0;
 `;
 
 export default StyledHeader;
