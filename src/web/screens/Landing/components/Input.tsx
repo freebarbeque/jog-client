@@ -15,6 +15,7 @@ interface IInputProps {
   placeholder?: string;
   meta: {
     error?: string;
+    touched?: boolean;
   };
 }
 
@@ -26,7 +27,7 @@ const Input = (props) => (
       onChange={props.input.onChange}
       placeholder={props.placeholder}
     />
-    {props.meta.error && <Error>{props.meta.error}</Error>}
+    {props.meta.error && props.meta.touched && <Error>{props.meta.error}</Error>}
   </div>
 );
 
@@ -36,7 +37,7 @@ const StyledInput = styled(Input)`
   display: flex;
   min-width: ${props => props.width}px;
   background-color ${props => props.bgColor || LANDING_INPUT_BG_COLOR};
-  border: 2px solid ${props => props.meta.error ? PINK : 'transparent'};
+  border: 2px solid ${props => props.meta.error && props.meta.touched ? PINK : 'transparent'};
   color:  ${props => props.color || FOOTER_BACKGROUND_COLOR};
   flex: 1;
   box-sizing: border-box;

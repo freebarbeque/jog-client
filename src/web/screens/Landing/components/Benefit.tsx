@@ -10,7 +10,7 @@ interface IBenefitProps {
   description?: string;
 }
 
-class Benefit extends React.Component<IBenefitProps,{}> {
+class Benefit extends React.Component<IBenefitProps, {}> {
   render() {
     return (
       <div className={this.props.className}>

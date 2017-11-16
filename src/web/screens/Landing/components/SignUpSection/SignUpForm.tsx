@@ -1,6 +1,7 @@
 import * as React from 'react';
 import styled from 'styled-components';
 import {Field, reduxForm} from 'redux-form';
+const validate = require('validate.js');
 import {connect} from 'react-redux';
 import Input from '../Input';
 import {LANDING_INPUT_BG_COLOR, FOOTER_BACKGROUND_COLOR} from 'src/common/constants/palette';
@@ -80,4 +81,35 @@ const ButtonContent = styled.div`
 const ButtonTitle = styled.div`
 `;
 
-export default reduxForm()(StyledSignUpForm);
+const validationSchema = {
+  fullName: {
+    presence: {
+      message: 'Please enter your name',
+    },
+  },
+  email: {
+    presence: {
+      message: 'Please enter a valid email address',
+    },
+    email: {
+      message: 'Please enter a valid email address',
+    },
+  },
+  password: {
+    presence: {
+      message: 'Must be at least 8 characters long',
+    },
+    length: {
+      minimum: 8,
+      tooShort: 'Must be at least 8 characters long',
+    },
+  }
+};
+
+const validateForm = (values: any) => {
+  const errors = validate(values, validationSchema, {fullMessages: false});
+
+  return errors;
+};
+
+export default reduxForm({validate: validateForm})(StyledSignUpForm);
