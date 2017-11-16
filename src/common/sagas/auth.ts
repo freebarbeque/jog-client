@@ -4,6 +4,7 @@ import {IUser, IUserCreds} from '../interfaces/user';
 import {requestPasswordChange, resendEmail, signIn, signUp} from '../api/auth';
 import {stopSubmit} from 'redux-form';
 import {setUser, setIsLoading} from '../actions/auth';
+import app from './app';
 
 import {
     RESEND_EMAIL,
@@ -25,7 +26,8 @@ function* passwordResetFlow(email: string) {
 function* signInFlow(creds: IUserCreds) {
     const user = yield signIn(creds);
     yield put(setUser(user));
-    yield put(push('/app/tabs/policies'));
+    yield put(push('/app'));
+    yield app();
     yield put(setIsLoading(false));
 }
 

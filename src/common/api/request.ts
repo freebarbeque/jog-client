@@ -19,6 +19,8 @@ interface IApiError extends Error {
 }
 
 function* handleErrors (response: any, parseBody: boolean = true) {
+    console.log(response.headers.get('Authorization'));
+
     if (response.status === 200) {
         if (parseBody) {
             return yield response.json();
