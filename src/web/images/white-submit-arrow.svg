@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="13px" height="20px" viewBox="0 0 13 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 46.2 (44496) - http://www.bohemiancoding.com/sketch -->
+    <title>Mask</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <path d="M5.97694585,15.9362013 L-2.33546432,6.0404524 C-2.83302144,5.57300954 -2.89120831,4.75140383 -2.46371293,4.20453474 C-2.03621755,3.66026979 -1.28572566,3.5964684 -0.789356024,4.06391126 L6.75,13.2331055 L14.289356,4.06391126 C14.7857257,3.59516633 15.5350301,3.65896772 15.9637129,4.20453474 C16.3912083,4.75140383 16.3330214,5.57300954 15.8354643,6.0404524 L7.52305415,15.9362013 C7.29980656,16.1458345 7.02549702,16.25 6.75,16.25 C6.47450298,16.25 6.20019344,16.1458345 5.97694585,15.9362013 Z" id="path-1"></path>
+    </defs>
+    <g id="01-Desktop" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="02A_Jog_Home-Page" transform="translate(-889.000000, -604.000000)">
+            <g id="Icon/Arrow-Right-Symbol" transform="translate(889.000000, 604.000000)">
+                <mask id="mask-2" fill="white">
+                    <use xlink:href="#path-1"></use>
+                </mask>
+                <use id="Mask" fill="#FFFFFF" transform="translate(6.750000, 10.000000) scale(-1, 1) rotate(90.000000) translate(-6.750000, -10.000000) " xlink:href="#path-1"></use>
+            </g>
+        </g>
+    </g>
+</svg>

@@ -11,3 +11,4 @@ export const INPUT_BACKGROUND_COLOR = 'white';
 export const FOOTER_BACKGROUND_COLOR = '#666B7F';
 export const LIGHT_GREY = '#A7AAB5';
 export const LANDING_INPUT_BG_COLOR = '#ECEDEF';
+export const SOCIAL_BUTTON_BG_COLOR = '#4065B4';

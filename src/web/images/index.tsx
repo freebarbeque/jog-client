@@ -219,12 +219,12 @@ export const Upload = (props: { scale?: number, width?: number, height?: number 
   )
 }
 
-export const Arrow = (props: { scale?: number; style?: any }) => {
+export const Arrow = (props: { scale?: number; style?: any, width?: number, height?: number }) => {
   return (
     <Image
       src={require('./arrow.svg')}
-      height={16.971}
-      width={20.152}
+      height={props.height || 16.971}
+      width={props.width || 20.152}
       alt="left facing arrow"
       className="arrow-img"
       {...props}
@@ -306,6 +306,17 @@ export const LinkedinIcon = (props: {width?: number, height?: number}) => (
     src={require('./ld-icon.svg')}
     height={props.height || 24}
     width={props.width || 24}
+    alt="ld-icon"
+    className="ld-icon"
+    {...props}
+  />
+)
+
+export const WhiteSubmitArrow = (props: {width?: number, height?: number}) => (
+  <Image
+    src={require('./white-submit-arrow.svg')}
+    height={props.height || 20}
+    width={props.width || 13}
     alt="ld-icon"
     className="ld-icon"
     {...props}
