@@ -8,3 +8,4 @@ export const VERY_LIGHT_GRAY = 'rgb(244,244,244)';
 export const CREAM = 'rgb(255,253,247)';
 export const LIGHT_CREAM = 'rgba(242,239,227,0.35)';
 export const INPUT_BACKGROUND_COLOR = 'white';
+export const FOOTER_BACKGROUND_COLOR = '#666B7F';

@@ -180,12 +180,12 @@ export const Chevron = (props: {
   )
 }
 
-export const Details = (props: { scale?: number }) => {
+export const Details = (props: { scale?: number, width?: number, height?: number }) => {
   return (
     <Image
       src={require('./details.svg')}
-      height={56.387}
-      width={66.425}
+      height={props.height || 56.387}
+      width={props.width || 66.425}
       alt="Policy Details"
       className="policy-details-img"
       {...props}
@@ -193,12 +193,12 @@ export const Details = (props: { scale?: number }) => {
   )
 }
 
-export const PolicyBots = (props: { scale?: number }) => {
+export const PolicyBots = (props: { scale?: number, width?: number, height?: number }) => {
   return (
     <Image
       src={require('./policy-bots.svg')}
-      height={47.607}
-      width={67.148}
+      height={props.height || 47.607}
+      width={props.width || 67.148}
       alt="Policy Bots"
       className="policy-bots-img"
       {...props}
@@ -206,12 +206,12 @@ export const PolicyBots = (props: { scale?: number }) => {
   )
 }
 
-export const Upload = (props: { scale?: number }) => {
+export const Upload = (props: { scale?: number, width?: number, height?: number }) => {
   return (
     <Image
       src={require('./upload.svg')}
-      height={91.643}
-      width={83.845}
+      height={props.height || 91.643}
+      width={props.width || 83.845}
       alt="Upload"
       className="upload-img"
       {...props}
