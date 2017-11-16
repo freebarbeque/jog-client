@@ -10,3 +10,4 @@ export const LIGHT_CREAM = 'rgba(242,239,227,0.35)';
 export const INPUT_BACKGROUND_COLOR = 'white';
 export const FOOTER_BACKGROUND_COLOR = '#666B7F';
 export const LIGHT_GREY = '#A7AAB5';
+export const LANDING_INPUT_BG_COLOR = '#ECEDEF';
