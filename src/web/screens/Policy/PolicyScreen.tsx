@@ -70,7 +70,7 @@ class PolicyScreen extends React.Component<RouteComponentProps<any> & DispatchPr
             Documents
           </MenuButton>
           <MenuButton
-            containerElement={<NavLink to={`/app/tabs/policies/${policyId}/quotes`} />}
+            containerElement={<NavLink to={`/landing`} />}
           >
             Quotes
           </MenuButton>

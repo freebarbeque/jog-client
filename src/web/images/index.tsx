@@ -244,3 +244,37 @@ export const Tick = (props: { scale?: number }) => {
     />
   )
 }
+
+export const PinkShape = (props: { scale?: number }) => (
+    <Image
+      src={require('./pink-shape.svg')}
+      height={231}
+      width={466}
+      alt="pink-shape"
+      className="pink-shape-img"
+      {...props}
+    />
+)
+
+export const GreyShape = (props: {scale?: number}) => (
+  <Image
+    src={require('./grey-shape.svg')}
+    height={367}
+    width={331}
+    alt="grey-shape"
+    className="grey-shape-img"
+    {...props}
+  />
+);
+
+export const BannerShape = (props: {scale?: number}) => (
+  <Image
+    src={require('./banner-shape.png')}
+    height={367}
+    width={263}
+    alt="banner-shape"
+    className="banner-shape-img"
+    {...props}
+
+  />
+)
