@@ -4,9 +4,11 @@ import {CREAM} from 'src/common/constants/palette';
 import Header from 'src/web/components/Header';
 import Footer from 'src/web/components/Footer';
 import BackgroundTitle from './components/BackgroundTitle';
+import NavigationBar from './components/NavigationBar';
 
 interface IDashboardProps {
   className?: string;
+  location?: any;
 }
 
 class Dashboard extends React.Component<IDashboardProps, {}> {
@@ -15,6 +17,7 @@ class Dashboard extends React.Component<IDashboardProps, {}> {
       <div className={this.props.className}>
         <Header />
         <BackgroundTitle />
+        <NavigationBar location={this.props.location.pathname} />
         <Footer />
       </div>
     )
