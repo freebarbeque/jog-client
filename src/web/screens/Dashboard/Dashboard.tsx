@@ -1,10 +1,12 @@
 import * as React from 'react';
 import styled from 'styled-components';
+import {Route} from 'react-router-dom';
 import {CREAM} from 'src/common/constants/palette';
 import Header from 'src/web/components/Header';
 import Footer from 'src/web/components/Footer';
 import BackgroundTitle from './components/BackgroundTitle';
 import NavigationBar from './components/NavigationBar';
+import PolicyContent from './components/PolicyContent';
 
 interface IDashboardProps {
   className?: string;
@@ -18,6 +20,7 @@ class Dashboard extends React.Component<IDashboardProps, {}> {
         <Header />
         <BackgroundTitle />
         <NavigationBar location={this.props.location.pathname} />
+        <Route exact path="/dashboard" component={PolicyContent}/>
         <Footer />
       </div>
     )

@@ -3,11 +3,7 @@ import styled from 'styled-components';
 import {NavLink} from 'react-router-dom';
 import {FOOTER_BACKGROUND_COLOR, DASHBOARD_INACTIVE_LINK_COLOR} from 'src/common/constants/palette';
 import {locationToTitleAndLink} from 'src/common/constants/dashboard';
-
-const parseDashboardLocation = (location: string) => {
-  const splittedLocation = location.slice(1).split('/');
-  return splittedLocation.map(location => locationToTitleAndLink[location]);
-};
+import {parseDashboardLocation} from 'src/common/utils/dashboard';
 
 const Slash = (props: any) => (
   <div>
@@ -17,7 +13,7 @@ const Slash = (props: any) => (
 
 const NavigationBar = (props: {location: any, className?: string}) => (
   <div className={props.className}>
-    {parseDashboardLocation(props.location).map((l, i, arr) => (
+    {parseDashboardLocation(props.location, locationToTitleAndLink).map((l, i, arr) => (
       <LinkContainer key={i}>
         <NavLink
           to={l.to}

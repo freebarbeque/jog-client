@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="11px" height="16px" viewBox="0 0 11 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 46.2 (44496) - http://www.bohemiancoding.com/sketch -->
+    <title>Mask</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <path d="M4.55734037,12.9468344 L-2.44258399,4.700377 C-2.86157946,4.31084128 -2.91057893,3.62616986 -2.55058282,3.17044562 C-2.19058671,2.71689149 -1.55859354,2.66372366 -1.14059806,3.05325938 L5.20833333,10.6942546 L11.5572647,3.05325938 C11.9752602,2.66263861 12.6062534,2.71580643 12.9672495,3.17044562 C13.3272456,3.62616986 13.2782461,4.31084128 12.8592507,4.700377 L5.8593263,12.9468344 C5.67132833,13.1215287 5.44033083,13.2083333 5.20833333,13.2083333 C4.97633584,13.2083333 4.74533834,13.1215287 4.55734037,12.9468344 Z" id="path-1"></path>
+    </defs>
+    <g id="01-Desktop" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="02C_Jog_Dashboard-Policy-" transform="translate(-471.000000, -388.000000)">
+            <g id="Icon/Arrow-Right-Symbol" transform="translate(471.000000, 388.000000)">
+                <mask id="mask-2" fill="white">
+                    <use xlink:href="#path-1"></use>
+                </mask>
+                <use id="Mask" fill="#000000" transform="translate(5.208333, 8.000000) scale(-1, 1) rotate(90.000000) translate(-5.208333, -8.000000) " xlink:href="#path-1"></use>
+            </g>
+        </g>
+    </g>
+</svg>

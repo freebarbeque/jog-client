@@ -333,3 +333,58 @@ export const RedSubmitArrow = (props: {width?: number, height?: number}) => (
         {...props}
     />
 )
+
+export const BlackArrow = (props: {width?: number, height?: number}) => (
+  <Image
+    src={require('./black-arrow.svg')}
+    height={props.height || 16}
+    width={props.width || 11}
+    alt="black-arrow"
+    className="black-arrow-img"
+    {...props}
+  />
+);
+
+export const PolicyCar = (props: {width?: number, height?: number}) => (
+  <Image
+    src={require('./policy-car.svg')}
+    height={props.height || 35}
+    width={props.width || 76}
+    alt="policy-car"
+    className="policy-car-icon"
+    {...props}
+  />
+);
+
+export const PolicyTravel = (props: {width?: number, height?: number}) => (
+  <Image
+    src={require('./policy-travel.svg')}
+    height={props.height || 44}
+    width={props.width || 55}
+    alt="policy-travel"
+    className="policy-travel-icon"
+    {...props}
+  />
+);
+
+export const PolicyHome = (props: {width?: number, height?: number}) => (
+  <Image
+    src={require('./policy-home.svg')}
+    height={props.height || 58}
+    width={props.width || 63}
+    alt="policy-home"
+    className="policy-home-icon"
+    {...props}
+  />
+);
+
+export const PolicyWarranties = (props: {width?: number, height?: number}) => (
+  <Image
+    src={require('./policy-warranties.svg')}
+    height={props.height || 54}
+    width={props.width || 43}
+    alt="policy-warranties"
+    className="policy-warranties-icon"
+    {...props}
+  />
+);
