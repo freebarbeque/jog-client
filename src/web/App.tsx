@@ -6,7 +6,6 @@ import {BLUE} from 'src/common/constants/palette';
 import styled from 'styled-components';
 import AuthScreen from './screens/Auth/AuthScreen';
 import MainScreen from './screens/App/MainScreen';
-import LandingScreen from './screens/Landing/LandingScreen';
 
 const Container = styled.div`
   background: ${BLUE};
@@ -50,10 +49,6 @@ class App extends React.Component<{}, {}> {
         return (
             <ConnectedRouter history={history}>
                 <Container>
-                    <Route
-                        path="/landing"
-                        component={LandingScreen}
-                    />
                     <Route
                         path="/auth"
                         component={AuthScreen}

@@ -22,7 +22,7 @@ const Header = (props: any) => (
       <Link to="/">Policies</Link>
       <Link to="/">Markets</Link>
       <Link to="/">Settings</Link>
-      <Link to="/">Login</Link>
+      <Link to="/auth/login">Login</Link>
     </LinksContainer>
   </div>
 );
