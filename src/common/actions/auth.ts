@@ -6,6 +6,7 @@ import {
     LOG_OUT,
     RESEND_EMAIL,
     SET_USER,
+    SET_SESSION_TOKEN,
     SET_IS_LOADING,
     REQUEST_PASSWORD_CHANGE,
 } from '../constants/auth';
@@ -55,5 +56,12 @@ export function requestPasswordChange(email: string) {
     return {
         type: REQUEST_PASSWORD_CHANGE,
         email,
+    }
+}
+
+export function setSessionToken(token: string) {
+    return {
+        type: SET_SESSION_TOKEN,
+        token,
     }
 }

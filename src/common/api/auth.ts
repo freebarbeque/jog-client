@@ -3,8 +3,8 @@ import {post} from '../api/request';
 
 export function* signIn(creds: IUserCreds) {
     // const user = yield post('users/sign_in', creds);
-    const {body} = yield post(`users/sign_in?user[email]=${creds.email}&user[password]=${creds.password}`);
-    return body;
+    const response = yield post(`users/sign_in?user[email]=${creds.email}&user[password]=${creds.password}`);
+    return response;
 }
 
 export function* signUp(userToCreate: IUser) {

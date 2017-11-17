@@ -5,6 +5,7 @@ export const RESEND_EMAIL = 'auth/RESEND_EMAIL';
 export const REQUEST_PASSWORD_CHANGE = 'auth/REQUEST_PASSWORD_CHANGE';
 
 export const SET_USER = 'auth/SET_USER';
+export const SET_SESSION_TOKEN = 'auth/SET_SESSION_TOKEN';
 export const SET_IS_LOADING = 'auth/SET_IS_LOADING';
 
 export const SIGN_IN_FORM = 'signInForm';

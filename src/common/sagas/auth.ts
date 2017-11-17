@@ -3,7 +3,7 @@ import {push, LOCATION_CHANGE} from 'react-router-redux';
 import {IUser, IUserCreds} from '../interfaces/user';
 import {requestPasswordChange, resendEmail, signIn, signUp} from '../api/auth';
 import {stopSubmit} from 'redux-form';
-import {setUser, setIsLoading} from '../actions/auth';
+import {setUser, setIsLoading, setSessionToken} from '../actions/auth';
 import app from './app';
 
 import {
@@ -24,8 +24,9 @@ function* passwordResetFlow(email: string) {
 }
 
 function* signInFlow(creds: IUserCreds) {
-    const user = yield signIn(creds);
-    yield put(setUser(user.user));
+    const {body, headers} = yield signIn(creds);
+    yield put(setUser(body.user));
+    yield put(setSessionToken(headers.get('Authorization')));
     yield put(push('/app'));
     yield app();
     yield put(setIsLoading(false));
