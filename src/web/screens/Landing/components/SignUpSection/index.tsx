@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import {FOOTER_BACKGROUND_COLOR} from 'src/common/constants/palette';
 import SignUpForm from './SignUpForm';
 import SocialSignInButton from './SocialSignInButton';
-import {SIGN_UP_FORM} from "~/common/constants/auth";
+import {SIGN_UP_FORM} from '~/common/constants/auth';
 import {signUp} from 'src/common/actions/auth';
 import {Action, ActionCreator, bindActionCreators} from 'redux';
 import {connect} from 'react-redux';

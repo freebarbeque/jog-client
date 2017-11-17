@@ -3,42 +3,57 @@ import styled from 'styled-components';
 import {Field, reduxForm} from 'redux-form';
 const validate = require('validate.js');
 import Input from '../Input';
-import {LANDING_INPUT_BG_COLOR, FOOTER_BACKGROUND_COLOR} from 'src/common/constants/palette';
+import {LANDING_INPUT_BG_COLOR, FOOTER_BACKGROUND_COLOR, PINK} from 'src/common/constants/palette';
 import {WhiteSubmitArrow} from 'src/web/images';
+import {IReduxState} from '~/common/interfaces/store';
+import {getFormError} from '~/common/selectors/form';
+import {connect} from 'react-redux';
 
-const SignUpForm = (props) => (
-  <form className={props.className} onSubmit={props.handleSubmit}>
-    <Field
-      name="name"
-      component={Input}
-      placeholder="Full name"
-      width={180}
-    />
-    <Field
-      name="email"
-      component={Input}
-      placeholder="Email Address"
-      width={235}
-    />
-    <Field
-      name="password"
-      component={Input}
-      placeholder="Create Password"
-      type="password"
-      width={235}
-    />
-    <SubmitButton
-      type="submit"
-    >
-      <ButtonContent>
-        <ButtonTitle>
-          LETS START
-        </ButtonTitle>
-        <WhiteSubmitArrow width={13} height={20} />
-      </ButtonContent>
-    </SubmitButton>
-  </form>
-);
+interface IAuthFormFieldsProps {
+    error?: string;
+    className?: string;
+    handleSubmit?: any;
+}
+
+const SignUpForm = (props: IAuthFormFieldsProps) => {
+    console.log(props.error);
+    return (
+        <div>
+            <form className={props.className} onSubmit={props.handleSubmit}>
+                <Field
+                    name="name"
+                    component={Input}
+                    placeholder="Full name"
+                    width={180}
+                />
+                <Field
+                    name="email"
+                    component={Input}
+                    placeholder="Email Address"
+                    width={235}
+                />
+                <Field
+                    name="password"
+                    component={Input}
+                    placeholder="Create Password"
+                    type="password"
+                    width={235}
+                />
+                <SubmitButton
+                    type="submit"
+                >
+                    <ButtonContent>
+                        <ButtonTitle>
+                            LETS START
+                        </ButtonTitle>
+                        <WhiteSubmitArrow width={13} height={20}/>
+                    </ButtonContent>
+                </SubmitButton>
+            </form>
+            {props.error && <Error>{props.error}</Error>}
+        </div>
+    );
+}
 
 const StyledSignUpForm = styled(SignUpForm)`
   display: flex;
@@ -80,35 +95,49 @@ const ButtonContent = styled.div`
 const ButtonTitle = styled.div`
 `;
 
+const Error = styled.div`
+  width: 100%;
+  text-align: right;
+  margin-top: -10px;
+  font-size: 12px;
+  line-height: 14px;
+  font-weight: 500;
+  color: ${PINK};
+`;
+
 const validationSchema = {
-  fullName: {
-    presence: {
-      message: 'Please enter your name',
-    },
-  },
-  email: {
-    presence: {
-      message: 'Please enter a valid email address',
+    name: {
+        presence: {
+            message: 'Please enter your name',
+        },
     },
     email: {
-      message: 'Please enter a valid email address',
+        presence: {
+            message: 'Please enter a valid email address',
+        },
+        email: {
+            message: 'Please enter a valid email address',
+        },
     },
-  },
-  password: {
-    presence: {
-      message: 'Must be at least 8 characters long',
-    },
-    length: {
-      minimum: 8,
-      tooShort: 'Must be at least 8 characters long',
-    },
-  }
+    password: {
+        presence: {
+            message: 'Must be at least 8 characters long',
+        },
+        length: {
+            minimum: 8,
+            tooShort: 'Must be at least 8 characters long',
+        },
+    }
 };
 
 const validateForm = (values: any) => {
-  const errors = validate(values, validationSchema, {fullMessages: false});
+    const errors = validate(values, validationSchema, {fullMessages: false});
 
-  return errors;
+    return errors;
 };
 
-export default reduxForm({validate: validateForm})(StyledSignUpForm);
+const mapStateToProps = (state: IReduxState, props: IAuthFormFieldsProps): Partial<IAuthFormFieldsProps> => ({
+    error: getFormError(state, props),
+});
+
+export default reduxForm({validate: validateForm})(connect(mapStateToProps, null)(StyledSignUpForm));
