@@ -3,8 +3,19 @@ import styled from 'styled-components';
 import {FOOTER_BACKGROUND_COLOR} from 'src/common/constants/palette';
 import SignUpForm from './SignUpForm';
 import SocialSignInButton from './SocialSignInButton';
+import {SIGN_UP_FORM} from "~/common/constants/auth";
+import {signUp} from 'src/common/actions/auth';
+import {Action, ActionCreator, bindActionCreators} from 'redux';
+import {connect} from 'react-redux';
+import {ISignUpFormValues} from '~/common/interfaces/user';
+import {mapSignUpFormValuesToUser} from '~/common/utils/user';
 
-const SignUpSection = (props: any) => (
+interface ISignUpSectionProps {
+    signUp: ActionCreator<Action>;
+    className?: string;
+}
+
+const SignUpSection = (props: ISignUpSectionProps) => (
   <div className={props.className}>
     <Title>
       Sign me up
@@ -12,7 +23,7 @@ const SignUpSection = (props: any) => (
     <TitleDescription>
       Create an account, start bringing your premiums down today
     </TitleDescription>
-    <SignUpForm form="signUp" onSubmit={(values) => console.log(values)} />
+    <SignUpForm form={SIGN_UP_FORM} onSubmit={(values: ISignUpFormValues) => props.signUp(mapSignUpFormValuesToUser(values))} />
     <Text>
       OR
     </Text>
@@ -52,4 +63,8 @@ const Text = styled.div`
   margin-bottom: 20px;
 `;
 
-export default StyledSignUpSection;
+const mapDispatchToProps = (dispatch: any): Partial<ISignUpSectionProps> => bindActionCreators({
+    signUp,
+}, dispatch);
+
+export default connect(null, mapDispatchToProps)(StyledSignUpSection);

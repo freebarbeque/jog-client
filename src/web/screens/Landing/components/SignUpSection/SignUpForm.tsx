@@ -2,7 +2,6 @@ import * as React from 'react';
 import styled from 'styled-components';
 import {Field, reduxForm} from 'redux-form';
 const validate = require('validate.js');
-import {connect} from 'react-redux';
 import Input from '../Input';
 import {LANDING_INPUT_BG_COLOR, FOOTER_BACKGROUND_COLOR} from 'src/common/constants/palette';
 import {WhiteSubmitArrow} from 'src/web/images';
@@ -10,7 +9,7 @@ import {WhiteSubmitArrow} from 'src/web/images';
 const SignUpForm = (props) => (
   <form className={props.className} onSubmit={props.handleSubmit}>
     <Field
-      name="fullName"
+      name="name"
       component={Input}
       placeholder="Full name"
       width={180}
