@@ -26,23 +26,29 @@ const SmallTitle = styled.div`
   margin-bottom: 10px;
 `;
 
-const Description = (props: any) => (
-  <div className={props.className}>
-    <PinkShape />
-    <TextContainer>
-      <BigTitle>
-        Your Insurance <br /> Memory
-      </BigTitle>
-      <SmallTitle>
-        Store your policies
-      </SmallTitle>
-      <SmallTitle>
-        Minimise your premiums
-      </SmallTitle>
-    </TextContainer>
-    <GreyShape />
-    <BannerShape />
-  </div>
+interface IDescriptionProps {
+    button?: React.ReactElement<any>;
+    className?: string;
+}
+
+const Description = (props: IDescriptionProps) => (
+    <div className={props.className}>
+        <PinkShape />
+        <TextContainer>
+            <BigTitle>
+                Your Insurance <br /> Memory
+            </BigTitle>
+            <SmallTitle>
+                Store your policies
+            </SmallTitle>
+            <SmallTitle>
+                Minimise your premiums
+            </SmallTitle>
+            {props.button || null}
+        </TextContainer>
+        <GreyShape />
+        <BannerShape />
+    </div>
 );
 
 const StyledDescription = styled(Description)`

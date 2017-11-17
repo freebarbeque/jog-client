@@ -11,7 +11,7 @@ import SignUpSection from './components/SignUpSection';
 const LandingScreen = (props: any) => (
     <div className={props.className}>
         <Header />
-        <Description />
+        <Description button={<div>111</div>} />
         <Content>
             <Divider />
             <BenefitsSection />
