@@ -59,7 +59,7 @@ export function requestPasswordChange(email: string) {
     }
 }
 
-export function setSessionToken(token: string) {
+export function setSessionToken(token: string | null) {
     return {
         type: SET_SESSION_TOKEN,
         token,

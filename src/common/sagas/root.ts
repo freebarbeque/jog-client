@@ -3,7 +3,7 @@ import {getUser} from '../selectors/auth';
 import {push} from 'react-router-redux';
 import authenticationFlow from './auth';
 import {LOG_OUT} from '../constants/auth';
-import {setUser} from '../actions/auth';
+import {setSessionToken, setUser} from '../actions/auth';
 import { REHYDRATE } from 'redux-persist';
 
 export default function* root () {
@@ -11,8 +11,10 @@ export default function* root () {
 
     while (true) {
         const user = yield select(getUser);
-        if (user) {
-            yield put(push('/app/tabs/policies'));
+        const sessionToken = yield select(getSelection);
+
+        if (user && sessionToken) {
+            yield put(push('/app'));
         } else {
             yield put(push('/auth'));
             yield authenticationFlow();
@@ -20,5 +22,6 @@ export default function* root () {
 
         yield take(LOG_OUT);
         yield put(setUser(null));
+        yield put(setSessionToken(null));
     }
 }

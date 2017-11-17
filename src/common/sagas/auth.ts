@@ -4,7 +4,7 @@ import {IUser, IUserCreds} from '../interfaces/user';
 import {requestPasswordChange, resendEmail, signIn, signUp} from '../api/auth';
 import {stopSubmit} from 'redux-form';
 import {setUser, setIsLoading, setSessionToken} from '../actions/auth';
-import app from './app';
+import appFlow from './app';
 
 import {
     RESEND_EMAIL,
@@ -28,7 +28,7 @@ function* signInFlow(creds: IUserCreds) {
     yield put(setUser(body.user));
     yield put(setSessionToken(headers.get('Authorization')));
     yield put(push('/app'));
-    yield app();
+    yield appFlow();
     yield put(setIsLoading(false));
 }
 

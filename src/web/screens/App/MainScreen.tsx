@@ -16,8 +16,8 @@ export default class MainScreen extends React.Component<{}, {}> {
     public render() {
         return (
             <Container>
-                <Route path="/app/get-started" exact component={GetStarted} />
-                <Route path="/app/tabs/policies" exact component={PolicyScreen} />
+                <Route path="/app/get_started" exact component={GetStarted} />
+                <Route path="/app/policies" exact component={PolicyScreen} />
             </Container>
         )
     }

@@ -14,6 +14,8 @@
     return response;
 }*/
 
+import {select} from "redux-saga/effects";
+import {getSessionToken} from "~/common/selectors/auth";
 interface IApiError extends Error {
     status?: number;
 }
@@ -42,6 +44,28 @@ export function* post(endpoint: string, parseBody: boolean = true) {
         `${process.env.BASE_API}${endpoint}`,
         {
             method: 'POST',
+            headers: new Headers({
+                'Content-type': 'application/json',
+            }),
+        }
+    )
+
+    const body = yield handleErrors(response, parseBody);
+    return {body, headers: response.headers};
+}
+
+export function* get(endpoint: string, parseBody: boolean = true) {
+    const sessionToken = yield select(getSessionToken);
+
+    const response = yield fetch(
+        `${process.env.BASE_API}${endpoint}`,
+        {
+            method: 'GET',
+            headers: new Headers({
+                'Content-type': 'application/json',
+                'Authorization': sessionToken,
+                'Accept': 'application/vnd.api+json',
+            }),
         }
     )
 
