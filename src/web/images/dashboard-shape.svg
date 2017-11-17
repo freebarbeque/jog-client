@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="323px" height="70px" viewBox="0 0 323 70" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 46.2 (44496) - http://www.bohemiancoding.com/sketch -->
+    <title>Rectangle 2</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <circle id="path-1" cx="421" cy="421" r="421"></circle>
+    </defs>
+    <g id="01-Desktop" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="02C_Jog_Dashboard-Policy-" transform="translate(0.000000, -185.000000)">
+            <g id="Rectangle-2" transform="translate(-331.000000, 185.000000)">
+                <mask id="mask-2" fill="white">
+                    <use xlink:href="#path-1"></use>
+                </mask>
+                <g id="Mask"></g>
+                <rect fill="#FF4867" mask="url(#mask-2)" x="330" y="-84" width="645" height="154"></rect>
+            </g>
+        </g>
+    </g>
+</svg>

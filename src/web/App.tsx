@@ -6,6 +6,7 @@ import {BLUE} from 'src/common/constants/palette';
 import styled from 'styled-components';
 import AuthScreen from './screens/Auth/AuthScreen';
 import MainScreen from './screens/App/MainScreen';
+import Dashboard from './screens/Dashboard/Dashboard';
 
 const Container = styled.div`
   background: ${BLUE};
@@ -56,6 +57,10 @@ class App extends React.Component<{}, {}> {
                     <Route
                         path="/app"
                         component={MainScreen}
+                    />
+                    <Route
+                        path="/dashboard"
+                        component={Dashboard}
                     />
                 </Container>
             </ConnectedRouter>

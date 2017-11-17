@@ -1,7 +1,7 @@
 import * as React from 'react';
 import styled from 'styled-components';
-import LinksColumn from './LinksColumn';
-import IconButton from './IconButton';
+import LinksColumn from '../screens/Landing/components/LinksColumn';
+import IconButton from '../screens/Landing/components/IconButton';
 import {FOOTER_BACKGROUND_COLOR} from 'src/common/constants/palette';
 import {companyLinks, legalLinks} from 'src/common/constants/footerLinks';
 import {TwitterIcon, FacebookIcon, LinkedinIcon} from 'src/web/images';
