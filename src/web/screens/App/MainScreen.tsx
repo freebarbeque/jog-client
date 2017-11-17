@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Redirect, Route } from 'react-router-dom';
 import styled from 'styled-components';
 import PolicyScreen from '../Policy/PolicyScreen';
-import GetStarted from './GetStarted';
+import GetStarted from '../Landing/GetStartedScreen';
 import {injectSaga} from "~/common/utils/saga";
 import {appFlow} from 'src/common/sagas/app';
 
