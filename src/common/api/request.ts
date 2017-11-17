@@ -1,21 +1,5 @@
-/*export function* post(endpoint, data) {
-    const response = yield fetch(
-        `${process.env.BASE_API}${endpoint}`,
-        {
-            method: 'POST',
-            headers: new Headers({
-                'Content-type': 'application/json',
-            }),
-            body: JSON.stringify(data),
-            mode: 'no-cors',
-        },
-    );
-
-    return response;
-}*/
-
-import {select} from "redux-saga/effects";
-import {getSessionToken} from "~/common/selectors/auth";
+import {select} from 'redux-saga/effects';
+import {getSessionToken} from '../selectors/auth';
 interface IApiError extends Error {
     status?: number;
 }

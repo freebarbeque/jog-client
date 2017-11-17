@@ -2,6 +2,10 @@ import * as React from 'react';
 import styled from 'styled-components';
 import { PINK } from 'src/common/constants/palette';
 
+interface IButtonProps extends IProps {
+    withArrow?: string;
+}
+
 // language=SCSS prefix=dummy{ suffix=}
 const Button = styled.button`
   background-color: ${PINK};
@@ -41,6 +45,7 @@ const RoundedButton = (props: IProps) => {
         loading,
         disabled,
         labelColor,
+        label,
         ...buttonProps,
     } = props;
 

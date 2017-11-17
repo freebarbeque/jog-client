@@ -322,3 +322,14 @@ export const WhiteSubmitArrow = (props: {width?: number, height?: number}) => (
     {...props}
   />
 )
+
+export const RedSubmitArrow = (props: {width?: number, height?: number}) => (
+    <Image
+        src={require('./red-submit-arrow.svg')}
+        height={props.height || 20}
+        width={props.width || 13}
+        alt="ld-icon"
+        className="ld-icon"
+        {...props}
+    />
+)

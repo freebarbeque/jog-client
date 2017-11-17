@@ -5,8 +5,8 @@ import {BLUE} from 'src/common/constants/palette';
 import {Logo} from 'src/web/images';
 import {getUser} from 'src/common/selectors/auth';
 import {connect} from 'react-redux';
-import {IUser} from "~/common/interfaces/user";
-import {IReduxState} from "~/common/interfaces/store";
+import {IUser} from '~/common/interfaces/user';
+import {IReduxState} from '~/common/interfaces/store';
 
 const LinksContainer = styled.div`
   display: flex;

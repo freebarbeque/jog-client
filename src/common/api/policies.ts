@@ -1,5 +1,5 @@
-import {get} from "../api/request";
-import {MOTOR_POLICY} from "../constants/policies";
+import {get} from '../api/request';
+import {MOTOR_POLICY} from '../constants/policies';
 
 export function* getPolicies(type: string, userId: number) {
     switch (type) {

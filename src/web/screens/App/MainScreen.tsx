@@ -3,7 +3,7 @@ import { Redirect, Route } from 'react-router-dom';
 import styled from 'styled-components';
 import PolicyScreen from '../Policy/PolicyScreen';
 import GetStarted from '../Landing/GetStartedScreen';
-import {injectSaga} from "~/common/utils/saga";
+import {injectSaga} from '~/common/utils/saga';
 import {appFlow} from 'src/common/sagas/app';
 
 // language=SCSS prefix=dummy{ suffix=}
@@ -15,7 +15,7 @@ const Container = styled.div`
 
 // tslint:disable-next-line:max-classes-per-file
 export default class MainScreen extends React.Component<{}, {}> {
-    private componentWillMount() {
+    componentWillMount() {
         injectSaga(appFlow);
     }
 

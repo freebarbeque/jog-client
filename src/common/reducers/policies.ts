@@ -1,6 +1,6 @@
-import {IPoliciesReduxState} from "~/common/interfaces/policies";
-import {IAction} from "~/common/interfaces/action";
-import {SET_MOTOR_POLICIES} from "~/common/constants/policies";
+import {IPoliciesReduxState} from '../interfaces/policies';
+import {IAction} from '../interfaces/action';
+import {SET_MOTOR_POLICIES} from '../constants/policies';
 
 const defaultState = {
     motorPolicies: null,

@@ -1,4 +1,4 @@
-import {IStore} from "~/common/interfaces/store";
+import {IStore} from '../interfaces/store';
 
 interface IWindow extends Window {
     store: IStore;

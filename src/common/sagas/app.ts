@@ -1,8 +1,8 @@
-import {put, select} from "redux-saga/effects";
-import {getUser} from "~/common/selectors/auth";
-import {getPolicies} from "~/common/api/policies";
+import {put, select} from 'redux-saga/effects';
+import {getUser} from '../selectors/auth';
+import {getPolicies} from '../api/policies';
 import {MOTOR_POLICY} from '../constants/policies';
-import {setMotorPolicies} from "~/common/actions/policies";
+import {setMotorPolicies} from '../actions/policies';
 import {push} from 'react-router-redux';
 
 export function* appFlow () {

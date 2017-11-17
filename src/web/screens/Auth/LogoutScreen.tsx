@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {logOut} from 'src/common/actions/auth';
-import {ActionCreator, connect} from "react-redux";
-import {Action, bindActionCreators} from "redux";
+import {ActionCreator, connect} from 'react-redux';
+import {Action, bindActionCreators} from 'redux';
 
 interface ILogoutScreenProps {
     logOut: ActionCreator<Action>;
