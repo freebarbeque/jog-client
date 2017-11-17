@@ -16,7 +16,6 @@ interface IAuthFormFieldsProps {
 }
 
 const SignUpForm = (props: IAuthFormFieldsProps) => {
-    console.log(props.error);
     return (
         <div>
             <form className={props.className} onSubmit={props.handleSubmit}>

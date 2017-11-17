@@ -8,8 +8,8 @@ export const coreReducers = {
 };
 
 export function initReducer(reducers: any = {}) {
-    return combineReducers({
+    return {
         ...reducers,
         ...coreReducers,
-    })
+    }
 }

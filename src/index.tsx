@@ -3,13 +3,14 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import {Provider} from 'react-redux'
-import { routerMiddleware } from 'react-router-redux';
+import {routerMiddleware} from 'react-router-redux';
 import history from './web/history'
 import createStore from './common/store/index';
 import reducer from './web/store/reducer';
 import App from './web/App';
 import './index.css';
 const injectTapEventPlugin = require('react-tap-event-plugin');
+import {PersistGate} from 'redux-persist/es/integration/react';
 
 import {
     BLUE,
@@ -18,7 +19,7 @@ import {
     WHITE,
 } from './common/constants/palette';
 
-const store = createStore({
+const {persistor, store} = createStore({
     reducer,
     freeze: true,
     middleware: [routerMiddleware(history)],
@@ -51,7 +52,9 @@ const render = Component => {
     ReactDOM.render(
         <MuiThemeProvider muiTheme={theme}>
             <Provider store={store}>
-                <Component />
+                <PersistGate persistor={persistor}>
+                    <Component />
+                </PersistGate>
             </Provider>
         </MuiThemeProvider>,
         document.getElementById('root'),

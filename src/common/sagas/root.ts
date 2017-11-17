@@ -4,11 +4,13 @@ import {push} from 'react-router-redux';
 import authenticationFlow from './auth';
 import {LOG_OUT} from '../constants/auth';
 import {setUser} from '../actions/auth';
+import { REHYDRATE } from 'redux-persist';
 
 export default function* root () {
+    yield take(REHYDRATE);
+
     while (true) {
         const user = yield select(getUser);
-
         if (user) {
             yield put(push('/app/tabs/policies'));
         } else {

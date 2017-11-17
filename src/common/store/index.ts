@@ -3,17 +3,20 @@ import createSagaMiddleware from 'redux-saga'
 import devTools from 'remote-redux-devtools'
 import {ICreateStoreOpts, IReduxState} from '../interfaces/store';
 import root from '../sagas/root';
+import { persistCombineReducers, persistStore } from 'redux-persist';
+import storage from 'redux-persist/lib/storage';
 
 // tslint:disable-next-line:no-var-requires
 const freeze = require('redux-freeze');
 
 let store: any = null;
+let persistor: any = null;
 
 const defaultSagas: any[] = [
     root,
 ];
 
-export default function createStore(additionalOpts: ICreateStoreOpts): Store<IReduxState> {
+export default function createStore(additionalOpts: ICreateStoreOpts): any {
     const opts = {
         enableDevTools: false,
         freeze: false,
@@ -50,7 +53,16 @@ export default function createStore(additionalOpts: ICreateStoreOpts): Store<IRe
             enhancer = composeEnhancers(applyMiddleware(...middleware));
         }
 
-        store = _createStore(opts.reducer, undefined, enhancer);
+        const config = {
+            key: 'root',
+            storage,
+            whitelist: 'auth',
+        }
+
+        const reducer = persistCombineReducers(config, opts.reducer)
+
+        store = _createStore(reducer, undefined, enhancer);
+        persistor = persistStore(store);
 
         const sagas = [...defaultSagas, ...opts.sagas];
         sagas.forEach(s => sagaMiddleware.run(s));
@@ -64,5 +76,5 @@ export default function createStore(additionalOpts: ICreateStoreOpts): Store<IRe
         // }
     }
 
-    return store
+    return {persistor, store}
 }
