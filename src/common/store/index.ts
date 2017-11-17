@@ -1,7 +1,7 @@
 import {applyMiddleware, compose, createStore as _createStore, Store} from 'redux'
 import createSagaMiddleware from 'redux-saga'
 import devTools from 'remote-redux-devtools'
-import {ICreateStoreOpts, IReduxState} from '../interfaces/store';
+import {ICreateStoreOpts, IReduxState, IStore} from '../interfaces/store';
 import root from '../sagas/root';
 import { persistCombineReducers, persistStore } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
@@ -15,6 +15,12 @@ let persistor: any = null;
 const defaultSagas: any[] = [
     root,
 ];
+
+interface IWindow extends Window {
+    store: IStore;
+}
+
+declare const window: IWindow;
 
 export default function createStore(additionalOpts: ICreateStoreOpts): any {
     const opts = {
@@ -62,10 +68,13 @@ export default function createStore(additionalOpts: ICreateStoreOpts): any {
         const reducer = persistCombineReducers(config, opts.reducer)
 
         store = _createStore(reducer, undefined, enhancer);
+        window.store = store;
         persistor = persistStore(store);
 
         const sagas = [...defaultSagas, ...opts.sagas];
         sagas.forEach(s => sagaMiddleware.run(s));
+
+        store.runSaga = sagaMiddleware.run;
 
         // if (module.hot) {
         //   // Enable Webpack hot module replacement for reducers
