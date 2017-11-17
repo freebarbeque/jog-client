@@ -11,7 +11,7 @@ const Slash = (props: any) => (
   </div>
 );
 
-const NavigationBar = (props: {location: any, className?: string}) => (
+const NavigationBar = (props: { location: any, className?: string }) => (
   <div className={props.className}>
     {parseDashboardLocation(props.location, locationToTitleAndLink).map((l, i, arr) => (
       <LinkContainer key={i}>

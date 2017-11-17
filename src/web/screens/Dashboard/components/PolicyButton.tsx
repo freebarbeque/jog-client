@@ -1,5 +1,5 @@
 import * as React from 'react';
-import styled from 'styled-components';
+import styled, { StyledFunction } from 'styled-components';
 import {FOOTER_BACKGROUND_COLOR} from 'src/common/constants/palette';
 import {BlackArrow} from 'src/web/images';
 
@@ -31,7 +31,6 @@ const IconContainer = styled.div`
   align-items: center;
   justify-content: center;
   align-self: stretch;
-  background-color: ${(props: any) => props.bgColor};
 `;
 
 const TitleContainer = styled.div`
