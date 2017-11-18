@@ -14,6 +14,7 @@ import {
     REQUEST_PASSWORD_CHANGE,
     PASSWORD_RESET_FORM,
 } from '../constants/auth';
+import {appFlow} from "~/common/sagas/app";
 
 function* passwordResetFlow(email: string) {
     yield put(setIsLoading(true));
@@ -26,7 +27,7 @@ function* signInFlow(creds: IUserCreds) {
     const {body, headers} = yield signIn(creds);
     yield put(setUser(body.user));
     yield put(setSessionToken(headers.get('Authorization')));
-    yield put(push('/app'));
+    yield appFlow();
     yield put(setIsLoading(false));
 }
 

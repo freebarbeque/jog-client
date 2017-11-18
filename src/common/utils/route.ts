@@ -2,6 +2,6 @@ export function isSecureRoute(url: string) {
     return /app/.test(url);
 }
 
-export function isUnsecureRoute(url: string) {
+export function isNotSecureRoute(url: string) {
     return !isSecureRoute(url);
 }

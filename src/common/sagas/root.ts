@@ -8,15 +8,16 @@ import {IAction} from '../interfaces/action';
 import {isSecureRoute} from '~/common/utils/route';
 import {takeEvery} from 'redux-saga/effects';
 import {LOCATION_CHANGE} from 'react-router-redux';
+import {appFlow} from "~/common/sagas/app";
 
 function* handleRoute({payload: {pathname}}: IAction) {
     const sessionToken = yield select(getSessionToken);
     const isSecure = isSecureRoute(pathname);
-    console.log(pathname, isSecure, !!sessionToken);
+    
     if (isSecure && !sessionToken) {
         yield put(push('/auth'));
     } else if (!isSecure && sessionToken) {
-        yield put(push('/app'));
+        yield appFlow();
     }
 }
 
