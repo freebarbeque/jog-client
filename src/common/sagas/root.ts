@@ -1,27 +1,33 @@
-import {put, race, select, take} from 'redux-saga/effects';
-import {getUser} from '../selectors/auth';
+import {all, put, race, select, take} from 'redux-saga/effects';
+import {getSessionToken, getUser} from '../selectors/auth';
 import {push} from 'react-router-redux';
-import authenticationFlow from './auth';
 import {LOG_OUT} from '../constants/auth';
 import {setSessionToken, setUser} from '../actions/auth';
 import { REHYDRATE } from 'redux-persist';
+import {IAction} from '../interfaces/action';
+import {isSecureRoute} from '~/common/utils/route';
+import {takeEvery} from 'redux-saga/effects';
+import {LOCATION_CHANGE} from 'react-router-redux';
 
-export default function* root () {
-    yield take(REHYDRATE);
-
-    while (true) {
-        const user = yield select(getUser);
-        const sessionToken = yield select(getSelection);
-
-        if (user && sessionToken) {
-            yield put(push('/app'));
-        } else {
-            yield put(push('/auth'));
-            yield authenticationFlow();
-        }
-
-        yield take(LOG_OUT);
-        yield put(setUser(null));
-        yield put(setSessionToken(null));
+function* handleRoute({payload: {pathname}}: IAction) {
+    const sessionToken = yield select(getSessionToken);
+    const isSecure = isSecureRoute(pathname);
+    console.log(pathname, isSecure, !!sessionToken);
+    if (isSecure && !sessionToken) {
+        yield put(push('/auth'));
+    } else if (!isSecure && sessionToken) {
+        yield put(push('/app'));
     }
+}
+
+function* handleLogout() {
+    yield put(setUser(null));
+    yield put(setSessionToken(null));
+}
+
+export default function* () {
+    yield all([
+        takeEvery(LOCATION_CHANGE, handleRoute),
+        takeEvery(LOG_OUT, handleLogout),
+    ])
 }

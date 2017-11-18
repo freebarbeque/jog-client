@@ -9,6 +9,8 @@ import EmailVerificationScreen from './EmailVerificationScreen';
 import ConfirmPasswordResetScreen from './ConfirmPasswordResetScreen';
 import LandingScreen from 'src/web/screens/Landing/LandingScreen';
 import LogoutScreen from 'src/web/screens/Auth/LogoutScreen';
+import {injectSaga} from '~/common/utils/saga';
+import authenticationFlow from 'src/common/sagas/auth';
 
 // language=SCSS prefix=dummy{ suffix=}
 const Container = styled.div`
@@ -18,6 +20,10 @@ const Container = styled.div`
 `
 
 class AuthScreen extends React.Component<{}, {}> {
+    componentWillMount() {
+        injectSaga(authenticationFlow);
+    }
+
     public render() {
         return (
             <Container>
