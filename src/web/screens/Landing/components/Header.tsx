@@ -7,6 +7,8 @@ import {getUser} from 'src/common/selectors/auth';
 import {connect} from 'react-redux';
 import {IUser} from '~/common/interfaces/user';
 import {IReduxState} from '~/common/interfaces/store';
+import {logOut} from 'src/common/actions/auth';
+import {Action, ActionCreator, bindActionCreators} from 'redux';
 
 const LinksContainer = styled.div`
   display: flex;
@@ -19,9 +21,16 @@ const LinksContainer = styled.div`
   };
 `;
 
+const A = styled.a`
+    &:hover {
+      cursor: pointer;
+    }
+`
+
 interface IHeaderProps {
     className: string;
     user: IUser | null;
+    logOut: ActionCreator<Action>;
 }
 
 const Header = (props: IHeaderProps) => (
@@ -32,7 +41,7 @@ const Header = (props: IHeaderProps) => (
             <Link to="/">Markets</Link>
             <Link to="/">Settings</Link>
             {props.user
-                ? <Link to="/auth/logout">Logout</Link>
+                ? <A onClick={() => props.logOut()}>Logout</A>
                 : <Link to="/auth/login">Login</Link>
             }
         </LinksContainer>
@@ -52,6 +61,10 @@ const StyledHeader = styled(Header)`
 
 const mapStateToProps = (state: IReduxState): Partial<IHeaderProps> => ({
     user: getUser(state),
-})
+});
 
-export default connect(mapStateToProps, null)(StyledHeader);
+const mapDispatchToProps = (dispatch: any): Partial<IHeaderProps> => bindActionCreators({
+    logOut,
+}, dispatch);
+
+export default connect(mapStateToProps, mapDispatchToProps)(StyledHeader);
