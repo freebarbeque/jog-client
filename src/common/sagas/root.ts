@@ -5,10 +5,10 @@ import {LOG_OUT} from '../constants/auth';
 import {setSessionToken, setUser} from '../actions/auth';
 import { REHYDRATE } from 'redux-persist';
 import {IAction} from '../interfaces/action';
-import {isSecureRoute} from '~/common/utils/route';
+import {isSecureRoute} from '../utils/route';
 import {takeEvery} from 'redux-saga/effects';
 import {LOCATION_CHANGE} from 'react-router-redux';
-import {appFlow} from '~/common/sagas/app';
+import {appFlow} from '../sagas/app';
 
 function* handleRoute({payload: {pathname}}: IAction) {
     const sessionToken = yield select(getSessionToken);

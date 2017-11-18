@@ -4,6 +4,7 @@ import {IUser, IUserCreds} from '../interfaces/user';
 import {requestPasswordChange, resendEmail, signIn, signUp} from '../api/auth';
 import {stopSubmit} from 'redux-form';
 import {setUser, setIsLoading, setSessionToken} from '../actions/auth';
+import {appFlow} from '../sagas/app';
 
 import {
     RESEND_EMAIL,
@@ -14,7 +15,6 @@ import {
     REQUEST_PASSWORD_CHANGE,
     PASSWORD_RESET_FORM,
 } from '../constants/auth';
-import {appFlow} from "~/common/sagas/app";
 
 function* passwordResetFlow(email: string) {
     yield put(setIsLoading(true));
@@ -77,7 +77,7 @@ export default function* authenticationFlow() {
             } else if (passwordChange) {
                 form = PASSWORD_RESET_FORM;
                 yield passwordResetFlow(passwordChange.email);
-                break;
+                continue;
             }
         } catch (err) {
             yield put(stopSubmit(form, {_error: err.message}))
