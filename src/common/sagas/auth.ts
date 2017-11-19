@@ -13,7 +13,7 @@ import {
     SIGN_IN_FORM,
     SIGN_UP_FORM,
     REQUEST_PASSWORD_CHANGE,
-    PASSWORD_RESET_FORM,
+    PASSWORD_RESET_FORM, LOG_OUT,
 } from '../constants/auth';
 
 function* passwordResetFlow(email: string) {

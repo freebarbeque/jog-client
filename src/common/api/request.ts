@@ -26,8 +26,6 @@ function* handleErrors (response: any, parseBody: boolean = true) {
 }
 
 function* sendRequest(endpoint: string, parseBody: boolean = true, method: string, headers: Headers) {
-    const sessionToken = yield select(getSessionToken);
-
     const response = yield fetch(
         `${process.env.BASE_API}${endpoint}`,
         {
@@ -43,7 +41,7 @@ function* sendRequest(endpoint: string, parseBody: boolean = true, method: strin
         if (err.status === 401) {
             console.error(err);
             yield put(logOut());
-            return {body: err, headers: response.headers}
+            return {body: {}, headers: response.headers, error: err}
         } else {
             throw err;
         }

@@ -18,6 +18,8 @@ function* handleRoute({payload: {pathname}}: IAction) {
         yield put(push('/auth'));
     } else if (!isSecure && sessionToken) {
         yield appFlow();
+    } else if (pathname === '/' && !sessionToken) {
+        yield put(push('/auth'));
     }
 }
 
@@ -28,8 +30,6 @@ function* handleLogout() {
 }
 
 export default function* () {
-    yield put(push('/auth'));
-
     yield all([
         takeEvery(LOCATION_CHANGE, handleRoute),
         takeEvery(LOG_OUT, handleLogout),

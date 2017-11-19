@@ -8,7 +8,9 @@ import {push} from 'react-router-redux';
 export function* appFlow () {
     const user = yield select(getUser);
     const {motor_policies} = yield getPolicies(MOTOR_POLICY, user.id);
-    yield put(setMotorPolicies(motor_policies));
+    if (motor_policies) {
+        yield put(setMotorPolicies(motor_policies));
+    }
 
     if (motor_policies.length) {
         yield put(push('/app/policies'));
