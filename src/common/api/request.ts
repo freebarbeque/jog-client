@@ -1,5 +1,6 @@
-import {select} from 'redux-saga/effects';
+import {put, select} from 'redux-saga/effects';
 import {getSessionToken} from '../selectors/auth';
+import {logOut} from '../actions/auth';
 interface IApiError extends Error {
     status?: number;
 }
@@ -19,6 +20,7 @@ function* handleErrors (response: any, parseBody: boolean = true) {
 
         const err: IApiError = new Error(error);
         err.status = response.status;
+
         throw err;
     }
 }
@@ -34,8 +36,18 @@ export function* post(endpoint: string, parseBody: boolean = true) {
         }
     )
 
-    const body = yield handleErrors(response, parseBody);
-    return {body, headers: response.headers};
+    try {
+        const body = yield handleErrors(response, parseBody);
+        return {body, headers: response.headers};
+    } catch (err) {
+        if (err.status === 401) {
+            console.error(err);
+            yield put(logOut());
+            return {body: err, headers: response.headers}
+        } else {
+            throw err;
+        }
+    }
 }
 
 export function* get(endpoint: string, parseBody: boolean = true) {
@@ -53,6 +65,16 @@ export function* get(endpoint: string, parseBody: boolean = true) {
         }
     )
 
-    const body = yield handleErrors(response, parseBody);
-    return {body, headers: response.headers};
+    try {
+        const body = yield handleErrors(response, parseBody);
+        return {body, headers: response.headers};
+    } catch (err) {
+        if (err.status === 401) {
+            console.error(err);
+            yield put(logOut());
+            return {body: err, headers: response.headers}
+        } else {
+            throw err;
+        }
+    }
 }
