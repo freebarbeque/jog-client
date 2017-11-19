@@ -18,7 +18,7 @@ function* handleErrors (response: any, parseBody: boolean = true) {
             error = JSON.parse(error).errors[0].body;
         }
 
-        const err: IApiError = new Error(error);
+        const err: IApiError = new Error(error || response.statusText);
         err.status = response.status;
 
         throw err;
@@ -38,8 +38,7 @@ function* sendRequest(endpoint: string, parseBody: boolean = true, method: strin
         const body = yield handleErrors(response, parseBody);
         return {body, headers: response.headers};
     } catch (err) {
-        if (err.status === 401) {
-            console.error(err);
+        if (err.status === 401 && err.message === 'Unauthorized') {
             yield put(logOut());
             return {body: {}, headers: response.headers, error: err}
         } else {
