@@ -5,6 +5,7 @@ import {requestPasswordChange, resendEmail, signIn, signUp} from '../api/auth';
 import {stopSubmit} from 'redux-form';
 import {setUser, setIsLoading, setSessionToken} from '../actions/auth';
 import {appFlow} from '../sagas/app';
+import {SET_MOTOR_POLICIES} from '../constants/policies';
 
 import {
     RESEND_EMAIL,
@@ -56,10 +57,11 @@ function* signUpFlow(user: IUser) {
 
 export default function* authenticationFlow() {
     while (true) {
-        const {signIn, signUp, passwordChange} = yield race({
+        const {signIn, signUp, passwordChange, onSecureRoute} = yield race({
             signIn: take(SIGN_IN),
             signUp: take(SIGN_UP),
             passwordChange: take(REQUEST_PASSWORD_CHANGE),
+            onSecureRoute: take(SET_MOTOR_POLICIES), // todo: a separate action from app saga
         });
 
         yield put(setIsLoading(true));
@@ -73,11 +75,21 @@ export default function* authenticationFlow() {
             } else if (signUp) {
                 form = SIGN_UP_FORM;
                 yield signUpFlow(signUp.user);
-                break;
+
+                const {payload: {pathname}} = yield take(LOCATION_CHANGE);
+
+                if (pathname === '/auth') {
+                    continue;
+                } else {
+                    break;
+                }
             } else if (passwordChange) {
                 form = PASSWORD_RESET_FORM;
                 yield passwordResetFlow(passwordChange.email);
                 continue;
+            } else if (onSecureRoute) {
+                yield put(setIsLoading(false));
+                break;
             }
         } catch (err) {
             yield put(stopSubmit(form, {_error: err.message}))
