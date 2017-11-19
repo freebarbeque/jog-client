@@ -4,7 +4,7 @@ import {IUser, IUserCreds} from '../interfaces/user';
 import {requestPasswordChange, resendEmail, signIn, signUp} from '../api/auth';
 import {stopSubmit} from 'redux-form';
 import {setUser, setIsLoading, setSessionToken} from '../actions/auth';
-import {appFlow} from '../sagas/app';
+import {appAfterSignInFlow} from '../sagas/app';
 import {SET_MOTOR_POLICIES} from '../constants/policies';
 
 import {
@@ -14,7 +14,7 @@ import {
     SIGN_IN_FORM,
     SIGN_UP_FORM,
     REQUEST_PASSWORD_CHANGE,
-    PASSWORD_RESET_FORM, LOG_OUT,
+    PASSWORD_RESET_FORM, LOG_OUT, SIGNED_IN,
 } from '../constants/auth';
 
 function* passwordResetFlow(email: string) {
@@ -28,7 +28,7 @@ function* signInFlow(creds: IUserCreds) {
     const {body, headers} = yield signIn(creds);
     yield put(setUser(body.user));
     yield put(setSessionToken(headers.get('Authorization')));
-    yield appFlow();
+    yield appAfterSignInFlow();
     yield put(setIsLoading(false));
 }
 
@@ -57,11 +57,11 @@ function* signUpFlow(user: IUser) {
 
 export default function* authenticationFlow() {
     while (true) {
-        const {signIn, signUp, passwordChange, onSecureRoute} = yield race({
+        const {signIn, signUp, passwordChange, signedIn} = yield race({
             signIn: take(SIGN_IN),
             signUp: take(SIGN_UP),
             passwordChange: take(REQUEST_PASSWORD_CHANGE),
-            onSecureRoute: take(SET_MOTOR_POLICIES), // todo: a separate action from app saga
+            signedIn: take(SIGNED_IN),
         });
 
         yield put(setIsLoading(true));
@@ -87,7 +87,7 @@ export default function* authenticationFlow() {
                 form = PASSWORD_RESET_FORM;
                 yield passwordResetFlow(passwordChange.email);
                 continue;
-            } else if (onSecureRoute) {
+            } else if (signedIn) {
                 yield put(setIsLoading(false));
                 break;
             }

@@ -3,6 +3,7 @@ export const SIGN_UP = 'auth/SIGN_UP';
 export const LOG_OUT = 'auth/LOG_OUT';
 export const RESEND_EMAIL = 'auth/RESEND_EMAIL';
 export const REQUEST_PASSWORD_CHANGE = 'auth/REQUEST_PASSWORD_CHANGE';
+export const SIGNED_IN = 'auth/SIGNED_IN';
 
 export const SET_USER = 'auth/SET_USER';
 export const SET_SESSION_TOKEN = 'auth/SET_SESSION_TOKEN';

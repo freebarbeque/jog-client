@@ -9,6 +9,7 @@ import {
     SET_SESSION_TOKEN,
     SET_IS_LOADING,
     REQUEST_PASSWORD_CHANGE,
+    SIGNED_IN,
 } from '../constants/auth';
 
 export function signIn(creds: IUserCreds) {
@@ -63,5 +64,11 @@ export function setSessionToken(token: string | null) {
     return {
         type: SET_SESSION_TOKEN,
         token,
+    }
+}
+
+export function signedIn() {
+    return {
+        type: SIGNED_IN,
     }
 }
