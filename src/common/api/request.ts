@@ -25,14 +25,14 @@ function* handleErrors (response: any, parseBody: boolean = true) {
     }
 }
 
-export function* post(endpoint: string, parseBody: boolean = true) {
+function* sendRequest(endpoint: string, parseBody: boolean = true, method: string, headers: Headers) {
+    const sessionToken = yield select(getSessionToken);
+
     const response = yield fetch(
         `${process.env.BASE_API}${endpoint}`,
         {
-            method: 'POST',
-            headers: new Headers({
-                'Content-type': 'application/json',
-            }),
+            method,
+            headers,
         }
     )
 
@@ -50,31 +50,23 @@ export function* post(endpoint: string, parseBody: boolean = true) {
     }
 }
 
+export function* post(endpoint: string, parseBody: boolean = true) {
+    const headers = new Headers({
+        'Content-type': 'application/json',
+    });
+
+    const response = yield sendRequest(endpoint, parseBody, 'POST', headers);
+    return response;
+}
+
 export function* get(endpoint: string, parseBody: boolean = true) {
     const sessionToken = yield select(getSessionToken);
+    const headers = new Headers({
+        'Content-type': 'application/json',
+        'Authorization': sessionToken,
+        'Accept': 'application/vnd.api+json',
+    });
 
-    const response = yield fetch(
-        `${process.env.BASE_API}${endpoint}`,
-        {
-            method: 'GET',
-            headers: new Headers({
-                'Content-type': 'application/json',
-                'Authorization': sessionToken,
-                'Accept': 'application/vnd.api+json',
-            }),
-        }
-    )
-
-    try {
-        const body = yield handleErrors(response, parseBody);
-        return {body, headers: response.headers};
-    } catch (err) {
-        if (err.status === 401) {
-            console.error(err);
-            yield put(logOut());
-            return {body: err, headers: response.headers}
-        } else {
-            throw err;
-        }
-    }
+    const response = yield sendRequest(endpoint, parseBody, 'GET', headers);
+    return response;
 }

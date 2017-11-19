@@ -26,7 +26,7 @@ function* passwordResetFlow(email: string) {
 function* signInFlow(creds: IUserCreds) {
     const {body, headers} = yield signIn(creds);
     yield put(setUser(body.user));
-    yield put(setSessionToken(headers.get('Authorization') + '123'));
+    yield put(setSessionToken(headers.get('Authorization')));
     yield appFlow();
     yield put(setIsLoading(false));
 }
