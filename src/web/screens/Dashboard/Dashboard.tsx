@@ -8,6 +8,7 @@ import BackgroundTitle from './components/BackgroundTitle';
 import NavigationBar from './components/NavigationBar';
 import PolicyContent from './components/PolicyContent';
 import MotorPoliciesContent from './components/MotorPoliciesContent';
+import {policies} from 'src/common/mocks/policy';
 
 interface IDashboardProps {
   className?: string;
@@ -23,7 +24,7 @@ class Dashboard extends React.Component<IDashboardProps, {}> {
         <BackgroundTitle />
         <NavigationBar location={this.props.location.pathname} />
         <Route exact path={this.props.match.url} component={PolicyContent}/>
-        <Route exact path={`${this.props.match.url}/motor`} component={MotorPoliciesContent}/>
+        <Route exact path={`${this.props.match.url}/motor`} render={() => <MotorPoliciesContent policies={policies} />}/>
         <Footer />
       </div>
     )

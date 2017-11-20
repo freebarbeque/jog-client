@@ -1,14 +1,33 @@
 import * as React from 'react';
 import styled from 'styled-components';
+import PolicyButtonWithDescription from './PolicyButtonWithDescription';
+import {PINK} from 'src/common/constants/palette';
+import {Add} from 'src/web/images';
+import {IPolicy} from 'src/common/mocks/policy'
 
 interface IMotorPoliciesContent {
   className?: string;
-  policies?: any[];
+  policies?: IPolicy[];
 }
 
 const MotorPoliciesContent = (props: IMotorPoliciesContent) => (
   <div className={props.className}>
-
+    {props.policies && props.policies.map(p => (
+      <PolicyButtonWithDescription
+        key={p.id}
+        circleImgUrl={p.policyAvatar}
+        policyType={p.type}
+        policyName={p.name}
+        policyStatus={p.status}
+      />
+    ))}
+    <PolicyButtonWithDescription
+      icon={<Add />}
+      circleBgColor={PINK}
+      policyName="Add Policy"
+      policyType="MOTOR VEHICLE"
+      policyStatus="Answer 7 questions to add new policy"
+    />
   </div>
 );
 
@@ -18,6 +37,11 @@ const StyledMotorPoliciesContent = styled(MotorPoliciesContent)`
   flex-shrink: 0;
   align-self: stretch;
   padding: 56px 22px 146px 42px;
+  flex-wrap: wrap;
+  & ${PolicyButtonWithDescription} {
+    margin-right: 20px;
+    margin-bottom: 5px;
+  }
 `;
 
 export default StyledMotorPoliciesContent;

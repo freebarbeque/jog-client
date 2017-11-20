@@ -410,3 +410,14 @@ export const PolicyWarranties = (props: {width?: number, height?: number}) => (
     {...props}
   />
 );
+
+export const Add = (props: {width?: number, height?: number}) => (
+  <Image
+    src={require('./add.svg')}
+    height={props.height || 30}
+    width={props.width || 29}
+    alt="add"
+    className="add-icon"
+    {...props}
+  />
+);
