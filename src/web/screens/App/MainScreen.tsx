@@ -1,8 +1,9 @@
 import * as React from 'react';
-import { Redirect, Route, Switch } from 'react-router-dom';
+import {Redirect, Route, Switch} from 'react-router-dom';
 import styled from 'styled-components';
 import GetStarted from '../Landing/GetStartedScreen';
 import Dashboard from '../Dashboard/Dashboard';
+import CreatePolicyScreen from '../Policy/CreatePolicyScreen';
 
 // language=SCSS prefix=dummy{ suffix=}å
 const Container = styled.div`
@@ -16,10 +17,11 @@ export default class MainScreen extends React.Component<{}, {}> {
     public render() {
         return (
             <Container>
-              <Switch>
-                <Route path="/app/get-started" component={GetStarted} />
-                <Route path="/app/dashboard" component={Dashboard} />
-              </Switch>
+                <Switch>
+                    <Route path="/app/get-started" component={GetStarted}/>
+                    <Route path="/app/dashboard" component={Dashboard}/>
+                    <Route path="/app/create/manual" exact component={CreatePolicyScreen}/>
+                </Switch>
             </Container>
         )
     }
