@@ -11,6 +11,7 @@ import LandingScreen from 'src/web/screens/Landing/LandingScreen';
 import LogoutScreen from 'src/web/screens/Auth/LogoutScreen';
 import {injectSaga} from '~/common/utils/saga';
 import authenticationFlow from 'src/common/sagas/auth';
+import VerifiedScreen from '~/web/screens/Auth/VerifiedScreen';
 
 // language=SCSS prefix=dummy{ suffix=}
 const Container = styled.div`
@@ -33,6 +34,7 @@ class AuthScreen extends React.Component<{}, {}> {
                 <Route path="/auth/logout" component={LogoutScreen}/>
                 <Route path="/auth/register" component={RegisterScreen}/>
                 <Route path="/auth/verify" component={EmailVerificationScreen}/>
+                <Route path="/auth/verification" component={VerifiedScreen}/>
                 <Route path="/auth/forgotPassword" component={PasswordResetScreen}/>
                 <Route path="/auth/confirmForgotPassword" component={ConfirmPasswordResetScreen}/>
             </Container>
