@@ -1,11 +1,11 @@
 import * as React from 'react';
 import styled from 'styled-components';
-import Header from './components/Header';
+import Header from '../../components/Header';
 import Description from './components/Description';
 import {CREAM} from 'src/common/constants/palette';
 import Divider from './components/Divider';
 import BenefitsSection from './components/BenefitsSection';
-import Footer from './components/Footer';
+import Footer from '../../components/Footer';
 import {RedSubmitArrow} from '../../images';
 import {LANDING_INPUT_BG_COLOR, FOOTER_BACKGROUND_COLOR, PINK} from 'src/common/constants/palette';
 

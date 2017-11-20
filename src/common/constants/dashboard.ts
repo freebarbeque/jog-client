@@ -1,14 +1,14 @@
 export const locationToTitleAndLink = {
   dashboard: {
     title: 'Policy dashboard',
-    to: '/dashboard',
+    to: '/app/dashboard',
   },
   motor: {
     title: 'Motor policies',
-    to: '/dashboard/motor',
+    to: '/app/dashboard/motor',
   },
   add: {
     title: 'Add a policy',
-    to: '/dashboard/motor/add',
+    to: '/app/dashboard/motor/add',
   },
 };

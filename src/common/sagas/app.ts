@@ -16,8 +16,8 @@ export function* appAfterSignInFlow () {
     yield put(signedIn());
 
     if (motor_policies.length) {
-        yield put(push('/app/policies'));
+        yield put(push('/app/dashboard'));
     } else {
-        yield put(push('/app/get_started'));
+        yield put(push('/app/get-started'));
     }
 }
