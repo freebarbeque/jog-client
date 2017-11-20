@@ -1,6 +1,7 @@
 import * as React from 'react';
 import styled from 'styled-components';
-import {BLUE, PINK} from 'src/common/constants/palette';
+import {BLUE, PINK, WHITE} from 'src/common/constants/palette';
+import {LeftArrow} from 'src/web/images';
 
 const TextContainer = styled.div`
   display: flex;
@@ -23,6 +24,36 @@ const SmallTitle = styled.div`
   margin-bottom: 10px;
 `;
 
+const ButtonContainer = styled.div`
+    margin: 0 10px;
+`;
+
+const PlusButton = styled.div`
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    background-color: ${WHITE};
+    color: #999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 64px;
+    font-weight: 200;
+    
+    &:hover {
+        cursor: pointer;
+    }
+`;
+
+const ArrowButton = styled.div`
+    width: 11px;
+    height: 16px;
+    
+    &:hover {
+        cursor: pointer;
+    }
+`
+
 interface IDescriptionProps {
     button?: React.ReactElement<any>;
     className?: string;
@@ -30,6 +61,12 @@ interface IDescriptionProps {
 
 const Description = (props: IDescriptionProps) => (
     <div className={props.className}>
+        <ArrowButton><LeftArrow/></ArrowButton>
+        <ButtonContainer>
+            <PlusButton>
+                +
+            </PlusButton>
+        </ButtonContainer>
         <TextContainer>
             <BigTitle>
                 New Policy
@@ -47,9 +84,11 @@ const StyledDescription = styled(Description)`
   align-items: center;
   justify-content: start;
   height: 160px;
-  background-color: ${PINK};
+  background-color: ${BLUE};
   flex-shrink: 0;
   position: relative;
+  padding: 0 25px;
+  
   & > .pink-shape-img {
     position: absolute;
     bottom: 0;
