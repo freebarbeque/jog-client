@@ -1,7 +1,8 @@
 import * as React from 'react';
-import {reduxForm} from 'redux-form';
+import {reduxForm, Field} from 'redux-form';
 import {CREATE_POLICY_FORM} from 'src/common/constants/policies';
 import styled from 'styled-components';
+import Select from 'src/web/components/Forms/Select';
 
 interface ICreatePolicyFormProps {
 
@@ -19,6 +20,10 @@ const Header = styled.div`
 const CreatePolicyForm = (props: ICreatePolicyFormProps) => (
     <form>
         <Header>Six quick questions to add your policy</Header>
+        <Field
+            name="insurer"
+            component={Select}
+        />
     </form>
 );
 
