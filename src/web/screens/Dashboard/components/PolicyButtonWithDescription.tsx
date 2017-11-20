@@ -3,15 +3,14 @@ import styled from 'styled-components';
 import {FOOTER_BACKGROUND_COLOR} from 'src/common/constants/palette';
 import {BlackArrow} from 'src/web/images';
 
-interface IPolicyButton {
+interface IPolicyButtonWithDescription {
   className?: string;
   icon?: JSX.Element;
-  title?: string;
   onClick?: any;
   disabled?: boolean;
 }
 
-const PolicyButton = (props: IPolicyButton) => (
+const PolicyButtonWithDescription = (props: IPolicyButtonWithDescription) => (
   <div
     className={props.className}
     onClick={props.onClick}
@@ -20,10 +19,7 @@ const PolicyButton = (props: IPolicyButton) => (
       {props.icon}
     </IconContainer>
     <TitleContainer>
-      <Title>
-        {props.title}
-      </Title>
-      <BlackArrow />
+    <BlackArrow />
     </TitleContainer>
   </div>
 );
@@ -46,13 +42,7 @@ const TitleContainer = styled.div`
   align-self: stretch;
 `;
 
-const Title = styled.div`
-  font-size: 18px;
-  font-weight: 400;
-  line-height: 24px;
-`;
-
-const StyledPolicyButton = styled(PolicyButton)`
+const StyledPolicyButtonWithDescription = styled(PolicyButtonWithDescription)`
   display: flex;
   align-items: center;
   box-shadow: 0 2px 4px rgba(51,51,51, 0.5);
@@ -88,4 +78,4 @@ const StyledPolicyButton = styled(PolicyButton)`
   }
 `;
 
-export default StyledPolicyButton;
+export default StyledPolicyButtonWithDescription;
