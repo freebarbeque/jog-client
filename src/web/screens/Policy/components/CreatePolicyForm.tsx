@@ -17,13 +17,20 @@ const Header = styled.div`
     padding: 0 10px;
 `;
 
+const Content = styled.div`
+    width: 80%;
+    padding: 10px;
+`;
+
 const CreatePolicyForm = (props: ICreatePolicyFormProps) => (
-    <form>
+    <form style={{display: 'flex', flexDirection: 'column'}}>
         <Header>Six quick questions to add your policy</Header>
-        <Field
-            name="insurer"
-            component={Select}
-        />
+        <Content>
+            <Field
+                name="insurer"
+                component={Select}
+            />
+        </Content>
     </form>
 );
 
