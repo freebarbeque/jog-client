@@ -1,7 +1,8 @@
 import * as React from 'react';
-import styled, { StyledFunction } from 'styled-components';
+import styled from 'styled-components';
 import {FOOTER_BACKGROUND_COLOR} from 'src/common/constants/palette';
 import {BlackArrow} from 'src/web/images';
+import {Link} from 'react-router-dom';
 
 interface IPolicyButton {
   className?: string;
@@ -12,7 +13,10 @@ interface IPolicyButton {
 }
 
 const PolicyButton = (props: IPolicyButton) => (
-  <div className={props.className} onClick={props.onClick}>
+  <div
+    className={props.className}
+    onClick={props.onClick}
+  >
     <IconContainer>
       {props.icon}
     </IconContainer>

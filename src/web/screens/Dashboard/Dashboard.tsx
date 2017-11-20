@@ -11,6 +11,7 @@ import PolicyContent from './components/PolicyContent';
 interface IDashboardProps {
   className?: string;
   location?: any;
+  match?: any;
 }
 
 class Dashboard extends React.Component<IDashboardProps, {}> {
@@ -20,7 +21,7 @@ class Dashboard extends React.Component<IDashboardProps, {}> {
         <Header />
         <BackgroundTitle />
         <NavigationBar location={this.props.location.pathname} />
-        <Route exact path="/dashboard" component={PolicyContent}/>
+        <Route exact path={this.props.match.url} component={PolicyContent}/>
         <Footer />
       </div>
     )
