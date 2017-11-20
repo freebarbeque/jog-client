@@ -334,6 +334,28 @@ export const RedSubmitArrow = (props: {width?: number, height?: number}) => (
     />
 )
 
+export const DashboardShape = (props: any) => (
+  <Image
+    src={require('./dashboard-shape.svg')}
+    height={70}
+    width={323}
+    alt="dashboard-shape"
+    className="dashboard-shape-img"
+    {...props}
+  />
+)
+
+export const CircleDashboardCar = (props: any) => (
+  <Image
+    src={require('./circle-dashboard-car.png')}
+    height={256}
+    width={256}
+    alt="circle-dashboard-car"
+    className="circle-dashboard-car-img"
+    {...props}
+  />
+)
+
 export const BlackArrow = (props: {width?: number, height?: number}) => (
   <Image
     src={require('./black-arrow.svg')}
