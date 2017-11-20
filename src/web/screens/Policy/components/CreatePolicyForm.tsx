@@ -9,7 +9,6 @@ interface ICreatePolicyFormProps {
 }
 
 const Header = styled.div`
-    width: 100%;
     height: 42px;
     background-color: #ECEDEF;
     display: flex;
