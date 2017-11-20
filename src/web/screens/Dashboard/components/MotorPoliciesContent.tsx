@@ -1,5 +1,8 @@
 import * as React from 'react';
 import styled from 'styled-components';
+import {connect} from 'react-redux';
+import {Action, ActionCreator, bindActionCreators} from 'redux';
+import {push} from 'react-router-redux';
 import PolicyButtonWithDescription from './PolicyButtonWithDescription';
 import {PINK} from 'src/common/constants/palette';
 import {Add} from 'src/web/images';
@@ -7,10 +10,12 @@ import {IPolicy} from 'src/common/mocks/policy'
 
 interface IMotorPoliciesContent {
   className?: string;
-  policies?: IPolicy[];
+  policies: IPolicy[];
+  match?: any;
+  push?: any;
 }
 
-const MotorPoliciesContent = (props: IMotorPoliciesContent) => (
+const MotorPoliciesContent: React.StatelessComponent<IMotorPoliciesContent> = (props) => (
   <div className={props.className}>
     {props.policies && props.policies.map(p => (
       <PolicyButtonWithDescription
@@ -27,6 +32,7 @@ const MotorPoliciesContent = (props: IMotorPoliciesContent) => (
       policyName="Add Policy"
       policyType="MOTOR VEHICLE"
       policyStatus="Answer 7 questions to add new policy"
+      onClick={() => props.push(`${props.match.url}/add`)}
     />
   </div>
 );
@@ -45,4 +51,8 @@ const StyledMotorPoliciesContent = styled(MotorPoliciesContent)`
   }
 `;
 
-export default StyledMotorPoliciesContent;
+const mapDispatchToProps = (dispatch: any): any => bindActionCreators({
+  push,
+}, dispatch);
+
+export default connect(null, mapDispatchToProps)(StyledMotorPoliciesContent);

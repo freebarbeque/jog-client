@@ -1,6 +1,6 @@
 import * as React from 'react';
 import styled from 'styled-components';
-import {FOOTER_BACKGROUND_COLOR} from 'src/common/constants/palette';
+import {FOOTER_BACKGROUND_COLOR, PINK} from 'src/common/constants/palette';
 import {BlackArrow} from 'src/web/images';
 
 interface IPolicyButton {
@@ -9,6 +9,7 @@ interface IPolicyButton {
   title?: string;
   onClick?: any;
   disabled?: boolean;
+  notification?: string;
 }
 
 const PolicyButton = (props: IPolicyButton) => (
@@ -23,6 +24,7 @@ const PolicyButton = (props: IPolicyButton) => (
       <Title>
         {props.title}
       </Title>
+      {props.notification && (<NotificationBox>{props.notification.toUpperCase()}</NotificationBox>)}
       <BlackArrow />
     </TitleContainer>
   </div>
@@ -50,6 +52,17 @@ const Title = styled.div`
   font-size: 18px;
   font-weight: 400;
   line-height: 24px;
+`;
+
+const NotificationBox = styled.div`
+  background-color: ${PINK};
+  height: 24px;
+  padding: 0 12px;
+  display: flex;
+  align-items: center;
+  color: #FFF;
+  font-size: 12px;
+  border-radius: 12px;
 `;
 
 const StyledPolicyButton = styled(PolicyButton)`

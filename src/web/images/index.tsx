@@ -421,3 +421,36 @@ export const Add = (props: {width?: number, height?: number}) => (
     {...props}
   />
 );
+
+export const PolicyMail = (props: {width?: number, height?: number}) => (
+  <Image
+    src={require('./policy-mail.svg')}
+    height={props.height || 33}
+    width={props.width || 56}
+    alt="policy-mail"
+    className="policy-mail"
+    {...props}
+  />
+);
+
+export const PolicyManual = (props: {width?: number, height?: number}) => (
+  <Image
+    src={require('./policy-manual.svg')}
+    height={props.height || 37}
+    width={props.width || 56}
+    alt="policy-manual"
+    className="policy-manual"
+    {...props}
+  />
+);
+
+export const PolicyPhoto = (props: {width?: number, height?: number}) => (
+  <Image
+    src={require('./policy-photo.svg')}
+    height={props.height || 41}
+    width={props.width || 56}
+    alt="policy-photo"
+    className="policy-photo"
+    {...props}
+  />
+);
