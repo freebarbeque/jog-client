@@ -37,6 +37,7 @@ const PolicyTabs: React.StatelessComponent<IPolicyTabsProps> = (props) => (
 const StyledPolicyTabs = styled(PolicyTabs)`
   display: flex;
   background-color: ${BLUE};
+  padding: 0 43px;
 `;
 
 const button = styledComponentWithProps<ITabProps, HTMLButtonElement>(styled.button);

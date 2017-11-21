@@ -480,3 +480,14 @@ export const PolicyPhoto = (props: {width?: number, height?: number}) => (
     {...props}
   />
 );
+
+export const EditIcon = (props: {width?: number, height?: number}) => (
+  <Image
+    src={require('./edit-icon.svg')}
+    height={props.height || 20}
+    width={props.width || 20}
+    alt="edit"
+    className="edit-icon"
+    {...props}
+  />
+);

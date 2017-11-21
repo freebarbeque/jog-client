@@ -6,6 +6,7 @@ import Header from 'src/web/components/Header';
 import Footer from 'src/web/components/Footer';
 import CurrentPolicy from './components/CurrentPolicy';
 import PolicyTabs from './components/PolicyTabs';
+import DocumentsPolicy from './components/DocumentsPolicy';
 
 import {CREAM} from 'src/common/constants/palette';
 
@@ -27,7 +28,7 @@ const MotorPolicyScreen: React.StatelessComponent<IMotorPolicyScreen> = (props) 
       <PolicyTabs />
       <Switch>
         <Route exact path={`${props.match.url}/overview`} render={() => (<div>Overview</div>)}/>
-        <Route exact path={`${props.match.url}/documents`} render={() => (<div>Documents</div>)}/>
+        <Route exact path={`${props.match.url}/documents`} component={DocumentsPolicy} />
         <Route exact path={`${props.match.url}/quote`} render={() => (<div>Quote</div>)}/>
         <Redirect to={`${props.match.url}/overview`} />
       </Switch>
