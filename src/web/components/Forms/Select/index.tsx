@@ -24,8 +24,6 @@ const Container = styled.div`
     button {
         top: 0!important;
         right: 0!important;
-        border-left: 1px solid #bbb!important;
-        border-radius: 0!important;
     }
 `;
 
@@ -49,11 +47,13 @@ class FormSelect extends React.Component<ISelectProps, {}> {
                         width: 600,
                         backgroundColor: '#ECEDEF',
                     }}
-                    iconButton={<DownArrow/>}
                     anchorOrigin={{vertical: 'bottom', horizontal: 'left'}}
                     menuStyle={{
                         width: 500,
                         backgroundColor: '#ECEDEF',
+                    }}
+                    iconStyle={{
+                        fill: 'black',
                     }}
                 >
                     {this.props.options.map((o, i) => <MenuItem key={i} value={o.id} primaryText={o.name} onClick={() => this.menu.close()}/>)}
