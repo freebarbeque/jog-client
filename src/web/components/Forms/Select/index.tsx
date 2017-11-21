@@ -1,6 +1,7 @@
 import * as React from 'react';
 import DropDownMenu from 'material-ui/DropDownMenu';
 import MenuItem from 'material-ui/MenuItem';
+import Menu from 'material-ui/Menu';
 import styled from 'styled-components';
 import {DownArrow} from 'src/web/images';
 
@@ -13,7 +14,7 @@ interface ISelectProps {
 
 const Container = styled.div`
     width: 100%;
-    align-self: center;
+    display: flex;
     button {
         top: 0!important;
         right: 0!important;
@@ -39,10 +40,15 @@ class FormSelect extends React.Component<ISelectProps, {}> {
                     multiple
                     ref={ref => this.menu = ref}
                     style={{
-                        width: '100%',
+                        width: 600,
                         backgroundColor: '#ECEDEF',
                     }}
                     iconButton={<DownArrow/>}
+                    anchorOrigin={{vertical: 'bottom', horizontal: 'left'}}
+                    menuStyle={{
+                        width: 500,
+                        backgroundColor: '#ECEDEF',
+                    }}
                 >
                     <MenuItem value={1} primaryText="Never" onClick={() => this.menu.close()}/>
                     <MenuItem value={2} primaryText="Every Night" onClick={() => this.menu.close()}/>

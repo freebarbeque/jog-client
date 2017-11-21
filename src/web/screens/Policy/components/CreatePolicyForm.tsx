@@ -17,7 +17,7 @@ const Header = styled.div`
 `;
 
 const Content = styled.div`
-    width: 70%;
+    width: 600px;
     padding: 10px;
     align-self: center;
 `;
