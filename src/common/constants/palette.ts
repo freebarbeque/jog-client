@@ -15,3 +15,4 @@ export const SOCIAL_BUTTON_BG_COLOR = '#4065B4';
 export const DASHBOARD_INACTIVE_LINK_COLOR = '#A1A4B0';
 export const SECTION_HEADER_COLOR = '#192142';
 export const SECTION_HEADER_BG_COLOR = '#ECEDEF';
+export const DROPZONE_COLOR = '#D7D9DC';

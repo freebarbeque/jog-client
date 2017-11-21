@@ -1,6 +1,7 @@
 import * as React from 'react';
 import styled from 'styled-components';
 import PolicySection from './PolicySection';
+import DocumentsDropzone from './DocumentsDropzone';
 
 interface IDocumentPolicyProps {
   className?: string;
@@ -9,7 +10,7 @@ interface IDocumentPolicyProps {
 const DocumentsPolicy: React.StatelessComponent<IDocumentPolicyProps> = (props) => (
   <div className={props.className}>
     <PolicySection title="Uploaded Documents">
-
+      <DocumentsDropzone />
     </PolicySection>
   </div>
 );
@@ -22,4 +23,3 @@ const StyledDocumentsPolicy = styled(DocumentsPolicy)`
 `;
 
 export default StyledDocumentsPolicy;
-
