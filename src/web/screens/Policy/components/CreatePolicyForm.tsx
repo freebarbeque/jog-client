@@ -2,7 +2,7 @@ import * as React from 'react';
 import {reduxForm, Field} from 'redux-form';
 import {CREATE_POLICY_FORM} from 'src/common/constants/policies';
 import styled from 'styled-components';
-import Select from 'src/web/components/Forms/Select';
+import FormSelect from 'src/web/components/Forms/Select';
 
 interface ICreatePolicyFormProps {
 
@@ -17,8 +17,9 @@ const Header = styled.div`
 `;
 
 const Content = styled.div`
-    width: 80%;
+    width: 70%;
     padding: 10px;
+    align-self: center;
 `;
 
 const CreatePolicyForm = (props: ICreatePolicyFormProps) => (
@@ -27,7 +28,7 @@ const CreatePolicyForm = (props: ICreatePolicyFormProps) => (
         <Content>
             <Field
                 name="insurer"
-                component={Select}
+                component={FormSelect}
             />
         </Content>
     </form>

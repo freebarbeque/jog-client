@@ -1,6 +1,8 @@
 import * as React from 'react';
 import DropDownMenu from 'material-ui/DropDownMenu';
 import MenuItem from 'material-ui/MenuItem';
+import styled from 'styled-components';
+import {DownArrow} from 'src/web/images';
 
 interface ISelectProps {
     input: {
@@ -8,6 +10,17 @@ interface ISelectProps {
         value: any;
     }
 }
+
+const Container = styled.div`
+    width: 100%;
+    align-self: center;
+    button {
+        top: 0!important;
+        right: 0!important;
+        border-left: 1px solid #bbb!important;
+        border-radius: 0!important;
+    }
+`;
 
 class FormSelect extends React.Component<ISelectProps, {}> {
 
@@ -17,22 +30,25 @@ class FormSelect extends React.Component<ISelectProps, {}> {
         this.props.input.onChange(`${value[value.length - 1]}`);
     }
 
-    render () {
+    render() {
         return (
-            <DropDownMenu
-                value={this.props.input.value}
-                onChange={this.handleChange}
-                multiple
-                ref={ref => this.menu = ref}
-                style={{
-                    width: 300,
-                    backgroundColor: '#ECEDEF',
-                }}
-            >
-                <MenuItem value={1} primaryText="Never" onClick={() => this.menu.close()} />
-                <MenuItem value={2} primaryText="Every Night" onClick={() => this.menu.close()} />
-                <MenuItem value={3} primaryText="Weeknights" onClick={() => this.menu.close()} />
-            </DropDownMenu>
+            <Container>
+                <DropDownMenu
+                    value={this.props.input.value}
+                    onChange={this.handleChange}
+                    multiple
+                    ref={ref => this.menu = ref}
+                    style={{
+                        width: '100%',
+                        backgroundColor: '#ECEDEF',
+                    }}
+                    iconButton={<DownArrow/>}
+                >
+                    <MenuItem value={1} primaryText="Never" onClick={() => this.menu.close()}/>
+                    <MenuItem value={2} primaryText="Every Night" onClick={() => this.menu.close()}/>
+                    <MenuItem value={3} primaryText="Weeknights" onClick={() => this.menu.close()}/>
+                </DropDownMenu>
+            </Container>
         )
     }
 }

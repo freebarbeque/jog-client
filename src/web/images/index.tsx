@@ -245,6 +245,19 @@ export const LeftArrow = (props: { scale?: number; style?: any, width?: number, 
     )
 }
 
+export const DownArrow = (props: { scale?: number; style?: any, width?: number, height?: number }) => {
+    return (
+        <Image
+            src={require('./down-arrow.svg')}
+            height={props.height || 16.971}
+            width={props.width || 20.152}
+            alt="left arrow"
+            className="arrow-img"
+            {...props}
+        />
+    )
+}
+
 export const Tick = (props: { scale?: number }) => {
   return (
     <Image
