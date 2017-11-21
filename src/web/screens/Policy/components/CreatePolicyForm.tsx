@@ -31,7 +31,8 @@ const Title = styled.div`
 `;
 
 const DateContainer = styled.div`
-    
+    display: flex;
+    justify-content: space-between;
 `
 
 const CreatePolicyForm = (props: ICreatePolicyFormProps) => (
@@ -55,7 +56,16 @@ const CreatePolicyForm = (props: ICreatePolicyFormProps) => (
                 }}
             />
             <Title>When does your policy expire?</Title>
-
+            <DateContainer>
+                <Field
+                    name="day"
+                    component={FormSelect}
+                    style={{width: 180}}
+                    menuStyle={{width: 180}}
+                    options={[]}
+                    defaultText="Day"
+                />
+            </DateContainer>
         </Content>
     </form>
 );

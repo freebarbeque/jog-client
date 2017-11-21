@@ -13,8 +13,10 @@ interface ISelectProps {
         onChange: (value: any) => void;
         value: any;
     },
-    meta: any;
     options: IFormSelectOption[];
+    style: any;
+    menuStyle: any;
+    defaultText?: string;
 }
 
 const Container = styled.div`
@@ -41,9 +43,9 @@ class FormSelect extends React.Component<ISelectProps, {}> {
         const {
             input,
             options,
-            children,
-            meta,
-            ...restProps,
+            style,
+            menuStyle,
+            defaultText,
         } = this.props;
 
         return (
@@ -56,21 +58,22 @@ class FormSelect extends React.Component<ISelectProps, {}> {
                     style={{
                         width: 600,
                         backgroundColor: '#ECEDEF',
+                        ...style,
                     }}
                     anchorOrigin={{vertical: 'bottom', horizontal: 'left'}}
                     menuStyle={{
                         width: 600,
                         backgroundColor: '#ECEDEF',
+                        ...menuStyle,
                     }}
                     iconStyle={{
                         fill: 'black',
                     }}
                     labelStyle={{opacity: 1, top: 0}}
                     autoWidth={false}
-                    {...restProps}
                 >
                     {options.map((o, i) => <MenuItem key={i} value={o.id} primaryText={o.name} onClick={() => this.menu.close()}/>)}
-                    <MenuItem value="default" primaryText="Select an Option" style={{display: 'none'}}/>
+                    <MenuItem value="default" primaryText={defaultText || 'Select an Option'} style={{display: 'none'}}/>
                 </DropDownMenu>
             </Container>
         )
