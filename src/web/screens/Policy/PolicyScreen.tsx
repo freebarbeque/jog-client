@@ -20,7 +20,7 @@ const Menu = styled.div`
 `
 
 // language=SCSS prefix=dummy{ suffix=}
-const MenuButton = styled(FlatButton).attrs({ className: 'MenuButton' })`
+const MenuButton = styled(FlatButton as React.StatelessComponent<any>).attrs({ className: 'MenuButton' })`
   flex: 1;
   height: 100% !important;
   color: ${DARK_GRAY} !important;
