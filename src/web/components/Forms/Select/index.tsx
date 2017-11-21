@@ -2,18 +2,14 @@ import * as React from 'react';
 import DropDownMenu from 'material-ui/DropDownMenu';
 import MenuItem from 'material-ui/MenuItem';
 import styled from 'styled-components';
-
-interface IFormSelectOption {
-    id: number|string;
-    name: string;
-}
+import {IDataSource} from '~/common/interfaces/dataSource';
 
 interface ISelectProps {
     input: {
         onChange: (value: any) => void;
         value: any;
     },
-    options: IFormSelectOption[];
+    dataSource: IDataSource[];
     style: any;
     menuStyle: any;
     defaultText?: string;
@@ -42,7 +38,7 @@ class FormSelect extends React.Component<ISelectProps, {}> {
     render() {
         const {
             input,
-            options,
+            dataSource,
             style,
             menuStyle,
             defaultText,
@@ -72,7 +68,7 @@ class FormSelect extends React.Component<ISelectProps, {}> {
                     labelStyle={{opacity: 1, top: 0}}
                     autoWidth={false}
                 >
-                    {options.map((o, i) => <MenuItem key={i} value={o.id} primaryText={o.name} onClick={() => this.menu.close()}/>)}
+                    {dataSource.map((o, i) => <MenuItem key={i} value={o.id} primaryText={o.name} onClick={() => this.menu.close()}/>)}
                     <MenuItem value="default" primaryText={defaultText || 'Select an Option'} style={{display: 'none'}}/>
                 </DropDownMenu>
             </Container>

@@ -23,6 +23,7 @@
     "aws-sdk": "2.133.0",
     "babel-polyfill": "6.23.0",
     "classnames": "2.2.5",
+    "date-fns": "^1.29.0",
     "dotenv": "^4.0.0",
     "global": "4.3.2",
     "install": "0.10.1",
