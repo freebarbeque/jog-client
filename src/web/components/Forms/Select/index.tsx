@@ -1,9 +1,7 @@
 import * as React from 'react';
 import DropDownMenu from 'material-ui/DropDownMenu';
 import MenuItem from 'material-ui/MenuItem';
-import Menu from 'material-ui/Menu';
 import styled from 'styled-components';
-import {DownArrow} from 'src/web/images';
 
 interface IFormSelectOption {
     id: number|string;

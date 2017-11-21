@@ -4,6 +4,7 @@ import {CREATE_POLICY_FORM} from 'src/common/constants/policies';
 import styled from 'styled-components';
 import FormSelect from 'src/web/components/Forms/Select';
 import {insurers} from 'src/common/mocks/policy';
+import Input from 'src/web/components/Forms/Input';
 
 interface ICreatePolicyFormProps {
 
@@ -38,6 +39,16 @@ const CreatePolicyForm = (props: ICreatePolicyFormProps) => (
                 name="insurer"
                 component={FormSelect}
                 options={insurers}
+            />
+            <Title>What is your policy number?</Title>
+            <Field
+                name="number"
+                component={Input}
+                style={{
+                    width: 560,
+                    border: '2px solid #dbdcde',
+                    borderRadius: 5,
+                }}
             />
         </Content>
     </form>

@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {reduxForm, Field} from 'redux-form';
-import Input from '../Input/Input';
+import Input from '../Input';
 import {Link} from 'react-router-dom';
 import RoundedButton from 'src/web/components/RoundedButton';
 import {MARGIN} from 'src/common/constants/style';

@@ -41,9 +41,16 @@ interface IInputProps {
         touched: boolean;
     },
     type?: string;
+    style?: any;
 }
 
-export default (props: IInputProps) => {
+const defaultProps = {
+    style: {},
+}
+
+export default (passedProps: IInputProps) => {
+    const props = {...defaultProps, ...passedProps};
+
     const {
         label,
         input,
@@ -72,7 +79,7 @@ export default (props: IInputProps) => {
             <Input
                 onChange={(v: any) => input.onChange(v)}
                 value={input.value}
-                style={error && touched ? { borderColor: PINK } : {}}
+                style={error && touched ? { ...props.style, borderColor: PINK } : props.style}
                 type={type || 'text'}
             />
         </Container>
