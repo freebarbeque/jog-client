@@ -6,7 +6,7 @@ import {push} from 'react-router-redux';
 import PolicyButtonWithDescription from './PolicyButtonWithDescription';
 import {PINK} from 'src/common/constants/palette';
 import {Add} from 'src/web/images';
-import {IPolicy} from 'src/common/mocks/policy'
+import {IPolicy} from 'src/common/interfaces/policies';
 
 interface IMotorPoliciesContent {
   className?: string;

@@ -1,10 +1,4 @@
-export interface IPolicy {
-  id: number | string;
-  name: string;
-  status: string;
-  policyAvatar: string;
-  type: string;
-}
+import {IInsurer, IPolicy} from '../interfaces/policies';
 
 export const policies: IPolicy[] = [
   {
@@ -29,3 +23,22 @@ export const policies: IPolicy[] = [
     type: 'Motor Vehicle',
   },
 ];
+
+export const insurers: IInsurer[] = [
+    {
+        id: 0,
+        name: 'Insurer 0',
+    },
+    {
+        id: 1,
+        name: 'Insurer 1',
+    },
+    {
+        id: 2,
+        name: 'Insurer 2',
+    },
+    {
+        id: 3,
+        name: 'Insurer 3',
+    }
+]

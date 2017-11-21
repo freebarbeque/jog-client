@@ -5,11 +5,17 @@ import Menu from 'material-ui/Menu';
 import styled from 'styled-components';
 import {DownArrow} from 'src/web/images';
 
+interface IFormSelectOption {
+    id: number|string;
+    name: string;
+}
+
 interface ISelectProps {
     input: {
         onChange: (value: any) => void;
         value: any;
     }
+    options: IFormSelectOption[];
 }
 
 const Container = styled.div`
@@ -35,7 +41,7 @@ class FormSelect extends React.Component<ISelectProps, {}> {
         return (
             <Container>
                 <DropDownMenu
-                    value={this.props.input.value}
+                    value={this.props.input.value || 'default'}
                     onChange={this.handleChange}
                     multiple
                     ref={ref => this.menu = ref}
@@ -50,9 +56,8 @@ class FormSelect extends React.Component<ISelectProps, {}> {
                         backgroundColor: '#ECEDEF',
                     }}
                 >
-                    <MenuItem value={1} primaryText="Never" onClick={() => this.menu.close()}/>
-                    <MenuItem value={2} primaryText="Every Night" onClick={() => this.menu.close()}/>
-                    <MenuItem value={3} primaryText="Weeknights" onClick={() => this.menu.close()}/>
+                    {this.props.options.map((o, i) => <MenuItem key={i} value={o.id} primaryText={o.name} onClick={() => this.menu.close()}/>)}
+                    <MenuItem value="default" primaryText="Select an Option" style={{display: 'none'}}/>
                 </DropDownMenu>
             </Container>
         )

@@ -3,6 +3,7 @@ import {reduxForm, Field} from 'redux-form';
 import {CREATE_POLICY_FORM} from 'src/common/constants/policies';
 import styled from 'styled-components';
 import FormSelect from 'src/web/components/Forms/Select';
+import {insurers} from 'src/common/mocks/policy';
 
 interface ICreatePolicyFormProps {
 
@@ -29,6 +30,7 @@ const CreatePolicyForm = (props: ICreatePolicyFormProps) => (
             <Field
                 name="insurer"
                 component={FormSelect}
+                options={insurers}
             />
         </Content>
     </form>
