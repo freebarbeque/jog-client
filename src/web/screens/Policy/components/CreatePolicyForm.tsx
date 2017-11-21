@@ -30,6 +30,10 @@ const Title = styled.div`
     margin: 25px 0 10px;
 `;
 
+const DateContainer = styled.div`
+    
+`
+
 const CreatePolicyForm = (props: ICreatePolicyFormProps) => (
     <form style={{display: 'flex', flexDirection: 'column'}}>
         <Header>Six quick questions to add your policy</Header>
@@ -50,6 +54,8 @@ const CreatePolicyForm = (props: ICreatePolicyFormProps) => (
                     borderRadius: 5,
                 }}
             />
+            <Title>When does your policy expire?</Title>
+
         </Content>
     </form>
 );

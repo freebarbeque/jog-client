@@ -12,7 +12,8 @@ interface ISelectProps {
     input: {
         onChange: (value: any) => void;
         value: any;
-    }
+    },
+    meta: any;
     options: IFormSelectOption[];
 }
 
@@ -30,14 +31,25 @@ class FormSelect extends React.Component<ISelectProps, {}> {
     private menu;
 
     handleChange = (event: any, index: number, value: any) => {
-        this.props.input.onChange(`${value[value.length - 1]}`);
+        const valueToSet = value[value.length - 1];
+        if (valueToSet) {
+            this.props.input.onChange(`${valueToSet}`);
+        }
     }
 
     render() {
+        const {
+            input,
+            options,
+            children,
+            meta,
+            ...restProps,
+        } = this.props;
+
         return (
             <Container>
                 <DropDownMenu
-                    value={this.props.input.value || 'default'}
+                    value={input.value || 'default'}
                     onChange={this.handleChange}
                     multiple
                     ref={ref => this.menu = ref}
@@ -47,14 +59,17 @@ class FormSelect extends React.Component<ISelectProps, {}> {
                     }}
                     anchorOrigin={{vertical: 'bottom', horizontal: 'left'}}
                     menuStyle={{
-                        width: 500,
+                        width: 600,
                         backgroundColor: '#ECEDEF',
                     }}
                     iconStyle={{
                         fill: 'black',
                     }}
+                    labelStyle={{opacity: 1, top: 0}}
+                    autoWidth={false}
+                    {...restProps}
                 >
-                    {this.props.options.map((o, i) => <MenuItem key={i} value={o.id} primaryText={o.name} onClick={() => this.menu.close()}/>)}
+                    {options.map((o, i) => <MenuItem key={i} value={o.id} primaryText={o.name} onClick={() => this.menu.close()}/>)}
                     <MenuItem value="default" primaryText="Select an Option" style={{display: 'none'}}/>
                 </DropDownMenu>
             </Container>
