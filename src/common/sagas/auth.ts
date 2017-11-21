@@ -6,6 +6,7 @@ import {stopSubmit} from 'redux-form';
 import {setUser, setIsLoading, setSessionToken, setAuthError} from '../actions/auth';
 import {appAfterSignInFlow} from '../sagas/app';
 import {getUser} from '../selectors/auth';
+import {getQueryString} from '../selectors/request';
 
 import {
     RESEND_EMAIL,
@@ -19,12 +20,16 @@ import {
 
 export function* emailVerifiedFlow() {
     const user = yield select(getUser);
-
-    try {
-        yield signInFlow(user);
-    } catch (err) {
-        yield put(setAuthError(err));
+    if (!user) {
+        yield put(setAuthError(new Error('User not found')));
+        return;
     }
+
+    const query = yield select(getQueryString);
+    const params = new URLSearchParams(query)
+    const sessionToken = params.get('token');
+    yield put(setSessionToken(`Bearer ${sessionToken}`));
+    yield put(push('/'));
 }
 
 function* passwordResetFlow(email: string) {

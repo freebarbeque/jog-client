@@ -8,6 +8,7 @@ export interface IStore extends Store<IReduxState> {
 export interface IReduxState {
     auth: IAuthReduxState;
     form: any;
+    router: IRouterState;
 }
 
 export interface ICreateStoreOpts {
@@ -16,4 +17,10 @@ export interface ICreateStoreOpts {
     reducer: any;
     sagas?: any[];
     middleware?: any[];
+}
+
+export interface IRouterState {
+    location: {
+        search: string;
+    }
 }
