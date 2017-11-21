@@ -3,9 +3,9 @@ import {push, LOCATION_CHANGE} from 'react-router-redux';
 import {IUser, IUserCreds} from '../interfaces/user';
 import {requestPasswordChange, resendEmail, signIn, signUp} from '../api/auth';
 import {stopSubmit} from 'redux-form';
-import {setUser, setIsLoading, setSessionToken} from '../actions/auth';
+import {setUser, setIsLoading, setSessionToken, setAuthError} from '../actions/auth';
 import {appAfterSignInFlow} from '../sagas/app';
-import {SET_MOTOR_POLICIES} from '../constants/policies';
+import {getUser} from '../selectors/auth';
 
 import {
     RESEND_EMAIL,
@@ -17,6 +17,16 @@ import {
     PASSWORD_RESET_FORM, LOG_OUT, SIGNED_IN,
 } from '../constants/auth';
 
+export function* emailVerifiedFlow() {
+    const user = yield select(getUser);
+
+    try {
+        yield signInFlow(user);
+    } catch (err) {
+        yield put(setAuthError(err));
+    }
+}
+
 function* passwordResetFlow(email: string) {
     yield put(setIsLoading(true));
     yield requestPasswordChange(email);
@@ -25,15 +35,21 @@ function* passwordResetFlow(email: string) {
 }
 
 function* signInFlow(creds: IUserCreds) {
-    const {body, headers} = yield signIn(creds);
-    yield put(setUser(body.user));
-    yield put(setSessionToken(headers.get('Authorization')));
-    yield appAfterSignInFlow();
-    yield put(setIsLoading(false));
+
+    if (creds) {
+        const {body, headers} = yield signIn(creds);
+        yield put(setUser(body.user));
+        yield put(setSessionToken(headers.get('Authorization')));
+        yield appAfterSignInFlow();
+        yield put(setIsLoading(false));
+    } else {
+        throw new Error('Credentials are not provided');
+    }
 }
 
 function* signUpFlow(user: IUser) {
-    const createdUser = yield signUp(user);
+    const body = yield signUp(user);
+    yield put(setUser(body.user));
     yield put(push('/auth/verify'));
 
     yield take(LOCATION_CHANGE);

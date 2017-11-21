@@ -10,6 +10,7 @@ import {
     SET_IS_LOADING,
     REQUEST_PASSWORD_CHANGE,
     SIGNED_IN,
+    SET_AUTH_ERROR,
 } from '../constants/auth';
 
 export function signIn(creds: IUserCreds) {
@@ -70,5 +71,12 @@ export function setSessionToken(token: string | null) {
 export function signedIn() {
     return {
         type: SIGNED_IN,
+    }
+}
+
+export function setAuthError(error: Error) {
+    return {
+        type: SET_AUTH_ERROR,
+        error,
     }
 }

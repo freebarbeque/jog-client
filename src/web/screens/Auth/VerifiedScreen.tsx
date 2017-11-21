@@ -8,6 +8,11 @@ import Title from 'src/web/components/Title';
 import {NAVIGATION_BAR_HEIGHT} from 'src/web/constants/style';
 import {Action, ActionCreator, bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
+import {injectSaga} from '~/common/utils/saga';
+import {emailVerifiedFlow} from 'src/common/sagas/auth';
+import {IReduxState} from '~/common/interfaces/store';
+import {getAuthError} from '~/common/selectors/auth';
+import ErrorText from 'src/web/components/Forms/ErrorText';
 
 // language=SCSS prefix=dummy{ suffix=}
 const Description = styled.div`
@@ -19,11 +24,22 @@ const Description = styled.div`
   margin-right: ${MARGIN.large}px;
 `;
 
+const ErrorContainer = styled.div`
+    display: flex;
+    justify-content: center;
+    margin-top: 25px;
+`;
+
 interface IVerifiedScreenProps {
     push: ActionCreator<Action>;
+    error: Error | null;
 }
 
 class VerifiedScreen extends React.Component<IVerifiedScreenProps, {}> {
+    componentWillMount() {
+        injectSaga(emailVerifiedFlow);
+    }
+
     public render() {
         return (
             <FlexCenteredContainer style={{paddingBottom: NAVIGATION_BAR_HEIGHT}}>
@@ -33,6 +49,14 @@ class VerifiedScreen extends React.Component<IVerifiedScreenProps, {}> {
                     <Description>
                         Your email was verified successfully. You will now be redirected to the application...
                     </Description>
+
+                    <ErrorContainer>
+                        {
+                            this.props.error &&
+                            <ErrorText>Automatic sign in has failed. Please, click 'Sign In' button below.</ErrorText>
+                        }
+                    </ErrorContainer>
+
                     <RoundedButton
                         style={{
                             marginTop: MARGIN.xxl,
@@ -48,8 +72,12 @@ class VerifiedScreen extends React.Component<IVerifiedScreenProps, {}> {
     }
 }
 
+const mapStateToProps = (state: IReduxState) => ({
+    error: getAuthError(state),
+})
+
 const mapDispatchToProps = (dispatch: any) => bindActionCreators({
     push,
 }, dispatch);
 
-export default connect(null, mapDispatchToProps)(VerifiedScreen);
+export default connect(mapStateToProps, mapDispatchToProps)(VerifiedScreen);

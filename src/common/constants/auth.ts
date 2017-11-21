@@ -8,6 +8,7 @@ export const SIGNED_IN = 'auth/SIGNED_IN';
 export const SET_USER = 'auth/SET_USER';
 export const SET_SESSION_TOKEN = 'auth/SET_SESSION_TOKEN';
 export const SET_IS_LOADING = 'auth/SET_IS_LOADING';
+export const SET_AUTH_ERROR = 'auth/SET_AUTH_ERROR';
 
 export const SIGN_IN_FORM = 'signInForm';
 export const SIGN_UP_FORM = 'signUpForm';

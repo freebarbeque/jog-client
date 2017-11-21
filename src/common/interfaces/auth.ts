@@ -4,4 +4,5 @@ export interface IAuthReduxState {
     user: IUser | null;
     sessionToken: number | null;
     isLoading: boolean;
+    error: Error | null;
 }
