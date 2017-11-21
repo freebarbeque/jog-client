@@ -7,6 +7,7 @@ export const policies: IPolicy[] = [
     status: 'Add more details to complete this policy',
     policyAvatar: 'http://www.newdesignfile.com/postpic/2014/10/procedure-policy-standards-icon_74483.png',
     type: 'Motor Vehicle',
+    insurer: 'Admiral Insurer',
   },
   {
     id: 1,
@@ -14,6 +15,7 @@ export const policies: IPolicy[] = [
     status: 'Add more details to complete this policy',
     policyAvatar: 'http://icons.iconarchive.com/icons/blackvariant/button-ui-requests-4/1024/Autodesk-360-icon.png',
     type: 'Motor Vehicle',
+    insurer: 'Admiral Insurer',
   },
   {
     id: 2,
@@ -21,6 +23,7 @@ export const policies: IPolicy[] = [
     status: 'Add more details to complete this policy',
     policyAvatar: 'http://www.buildingmobilebritain.org.uk/wp-content/uploads/2017/07/y4.png',
     type: 'Motor Vehicle',
+    insurer: 'Admiral Insurer',
   },
 ];
 

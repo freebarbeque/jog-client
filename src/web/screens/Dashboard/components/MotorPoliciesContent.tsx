@@ -24,6 +24,7 @@ const MotorPoliciesContent: React.StatelessComponent<IMotorPoliciesContent> = (p
         policyType={p.type}
         policyName={p.name}
         policyStatus={p.status}
+        onClick={() => props.push(`${props.match.url}/${p.id}`)}
       />
     ))}
     <PolicyButtonWithDescription

@@ -8,6 +8,7 @@ export interface IPolicy {
     status: string;
     policyAvatar: string;
     type: string;
+    insurer: string;
 }
 
 export interface IMotorPolicy extends IPolicy {

@@ -19,7 +19,7 @@ const AddPolicyContent: React.StatelessComponent<IAddPolicyContentProps> = (prop
       icon={<PolicyManual />}
     />
     <PolicyButton
-      title="Photograph your policy"
+      title="Upload or Drag and Drop a file"
       icon={<PolicyPhoto />}
     />
   </div>
