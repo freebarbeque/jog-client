@@ -1,6 +1,7 @@
 import * as React from 'react';
 import {IDataSource} from '~/common/interfaces/dataSource';
 import {RadioButton, RadioButtonGroup} from 'material-ui/RadioButton';
+import styled from 'styled-components';
 
 interface IRadioButtonProps {
     input: {
@@ -33,6 +34,7 @@ export default (props: IRadioButtonProps) => {
                     value={d.id}
                     label={d.name}
                     labelStyle={{width: 'unset'}}
+                    iconStyle={value === d.id ? {fill: '#50E3C2'} : {fill: '#dbdcde'}}
                 />
             ))}
         </RadioButtonGroup>

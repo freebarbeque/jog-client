@@ -1,5 +1,3 @@
-import {int} from "aws-sdk/clients/datapipeline";
-
 export interface IPoliciesReduxState {
     motorPolicies: IMotorPolicy[] | null;
 }
@@ -12,7 +10,7 @@ export interface IPolicy {
     type: string;
 }
 
-export interface IMotorPolicy extends IPolicy{
+export interface IMotorPolicy extends IPolicy {
 
 }
 

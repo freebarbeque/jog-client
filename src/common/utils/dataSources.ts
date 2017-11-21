@@ -1,5 +1,5 @@
 import {isLeapYear, getYear, getMonth, getDate} from 'date-fns';
-import {IDataSource} from '~/common/interfaces/dataSource';
+import {IDataSource} from '../interfaces/dataSource';
 
 const bigMonths = [1, 5, 7, 8, 10, 12];
 const months = [
