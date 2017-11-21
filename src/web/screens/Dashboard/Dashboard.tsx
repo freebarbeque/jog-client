@@ -26,7 +26,6 @@ class Dashboard extends React.Component<IDashboardProps, {}> {
         <NavigationBar location={this.props.location.pathname} />
         <Route exact path={this.props.match.url} component={PolicyContent}/>
         <Route exact path={`${this.props.match.url}/motor`} render={(routerProps: any) => <MotorPoliciesContent {...Object.assign({}, routerProps, {policies})}/>}/>
-
         <Route exact path={`${this.props.match.url}/motor/add`} component={AddPolicyContent}/>
         <Footer />
       </div>

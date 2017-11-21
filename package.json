@@ -57,6 +57,7 @@
     "redux-promise": "0.5.3",
     "redux-saga": "0.15.3",
     "redux-thunk": "2.2.0",
+    "reselect": "^3.0.1",
     "styled-components": "2.1.1",
     "tslint": "5.8.0",
     "tslint-react": "3.2.0",

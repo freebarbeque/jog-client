@@ -12,3 +12,18 @@ export const locationToTitleAndLink = {
     to: '/app/dashboard/motor/add',
   },
 };
+
+export const tabs = [
+  {
+    title: 'Overview',
+    link: '/overview'
+  },
+  {
+    title: 'Documents',
+    link: '/documents'
+  },
+  {
+    title: 'Quote',
+    link: '/quote'
+  }
+];

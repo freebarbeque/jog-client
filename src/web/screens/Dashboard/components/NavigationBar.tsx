@@ -1,6 +1,6 @@
 import * as React from 'react';
 import styled from 'styled-components';
-import {NavLink} from 'react-router-dom';
+import {NavLink, Redirect} from 'react-router-dom';
 import {FOOTER_BACKGROUND_COLOR, DASHBOARD_INACTIVE_LINK_COLOR} from 'src/common/constants/palette';
 import {locationToTitleAndLink} from 'src/common/constants/dashboard';
 import {parseDashboardLocation} from 'src/common/utils/dashboard';
@@ -14,15 +14,17 @@ const Slash = (props: any) => (
 const NavigationBar = (props: { location: any, className?: string }) => (
   <div className={props.className}>
     {parseDashboardLocation(props.location, locationToTitleAndLink).map((l, i, arr) => (
-      <LinkContainer key={i}>
-        <NavLink
-          to={l.to}
-          isActive={(match, location) => i === arr.length - 1}
-        >
-          {l.title}
-        </NavLink>
-        {i !== arr.length - 1 && <Slash />}
-      </LinkContainer>
+      l ? (
+        <LinkContainer key={i}>
+          <NavLink
+            to={l.to}
+            isActive={(match, location) => i === arr.length - 1}
+          >
+            {l.title}
+          </NavLink>
+          {i !== arr.length - 1 && <Slash />}
+        </LinkContainer>
+      ) : <Redirect key={i} to="/app/dashboard" />
     ))}
   </div>
 );
