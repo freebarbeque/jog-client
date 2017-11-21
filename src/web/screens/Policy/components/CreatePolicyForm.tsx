@@ -21,12 +21,19 @@ const Content = styled.div`
     width: 600px;
     padding: 10px;
     align-self: center;
+    text-align: center;
+`;
+
+const Title = styled.div`
+    font-size: 24px;
+    margin: 25px 0 10px;
 `;
 
 const CreatePolicyForm = (props: ICreatePolicyFormProps) => (
     <form style={{display: 'flex', flexDirection: 'column'}}>
         <Header>Six quick questions to add your policy</Header>
         <Content>
+            <Title>Who is your insurer?</Title>
             <Field
                 name="insurer"
                 component={FormSelect}
