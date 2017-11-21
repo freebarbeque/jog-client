@@ -7,7 +7,8 @@ import {insurers} from 'src/common/mocks/policy';
 import Input from 'src/web/components/Forms/Input';
 import {getMonthDays, getMonths, getYears} from '~/common/utils/dataSources';
 import {IReduxState} from '~/common/interfaces/store';
-import {connect} from "react-redux";
+import {connect} from 'react-redux';
+import RadioButton from 'src/web/components/Forms/RadioButton';
 
 interface ICreatePolicyFormValues {
     insurer: string;
@@ -16,7 +17,7 @@ interface ICreatePolicyFormValues {
     month: string;
     year: string;
     cost: string;
-    vehicle: 'owned'|'leased'|'financed';
+    vehicle: 'owned' | 'leased' | 'financed';
     multi: boolean;
 }
 
@@ -51,7 +52,6 @@ const DateContainer = styled.div`
 `
 
 const CreatePolicyForm = (props: ICreatePolicyFormProps) => {
-    console.log(props.year, props.month);
     return (
         <form style={{display: 'flex', flexDirection: 'column'}}>
             <Header>Six quick questions to add your policy</Header>
@@ -99,6 +99,26 @@ const CreatePolicyForm = (props: ICreatePolicyFormProps) => {
                         defaultText="Year"
                     />
                 </DateContainer>
+                <Title>How much does your policy cost per year?</Title>
+                <Field
+                    name="cost"
+                    component={Input}
+                    style={{
+                        width: 560,
+                        border: '2px solid #dbdcde',
+                        borderRadius: 5,
+                    }}
+                />
+                <Title>Is your vehicle:</Title>
+                <Field
+                    name="vehicle"
+                    component={RadioButton}
+                    dataSource={[
+                        {id: 0, name: 'Owned'},
+                        {id: 1, name: 'Leased'},
+                        {id: 2, name: 'Financed'},
+                    ]}
+                />
             </Content>
         </form>
     );
