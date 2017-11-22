@@ -18,7 +18,7 @@ export default class MainScreen extends React.Component<{}, {}> {
         return (
             <Container>
                 <Switch>
-                    <Route path="/app/get-started" component={GetStarted}/>
+                    <Route path="/app/get_started" component={GetStarted}/>
                     <Route path="/app/dashboard" component={Dashboard}/>
                     <Route path="/app/create/manual" exact component={CreatePolicyScreen}/>
                 </Switch>
