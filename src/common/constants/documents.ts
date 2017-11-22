@@ -1,0 +1,2 @@
+export const ADD_PENDING_DOCUMENTS = 'app/documents/ADD_PENDING_DOCUMENTS';
+export const REMOVE_PENDING_DOCUMENT = 'app/document/REMOVE_PENDING_DOCUMENT';

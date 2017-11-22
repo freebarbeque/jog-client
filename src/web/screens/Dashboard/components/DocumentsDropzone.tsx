@@ -5,26 +5,18 @@ import {SECTION_HEADER_BG_COLOR, DROPZONE_COLOR} from 'src/common/constants/pale
 
 interface IDocumentsDropzoneProps {
   className?: string;
+  onDrop?: any;
 }
 
-interface IDocumentsDropzoneState {
-  files: any[];
-}
-
-class DocumentsDropzone extends React.Component<IDocumentsDropzoneProps, IDocumentsDropzoneState> {
-  constructor() {
-    super();
-    this.state = {files: []}
-  }
+class DocumentsDropzone extends React.Component<IDocumentsDropzoneProps, {}> {
 
   handleDrop = (droppedFiles: any[]) => {
-    this.setState({
-      files: this.state.files.concat(...droppedFiles),
-    });
+    if (droppedFiles.length) {
+      this.props.onDrop(droppedFiles);
+    }
   };
 
   render() {
-    console.log(this.state.files);
     return (
       <div className={this.props.className}>
         <Dropzone

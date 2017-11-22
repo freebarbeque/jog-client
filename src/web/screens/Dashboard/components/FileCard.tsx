@@ -26,7 +26,6 @@ const FileCard: React.StatelessComponent<IFileCard> = (props) => (
     <FileName>
       {props.fileName}
     </FileName>
-
   </div>
 );
 
@@ -35,7 +34,7 @@ const StyledFileCard = styled(FileCard)`
   flex-direction: column;
   align-items: center;
   flex-shrink: 0;
-  width: 70px;
+  width: 136px;
 `;
 
 const Card = styled.div`
@@ -49,6 +48,7 @@ const Card = styled.div`
   background-color: ${SECTION_HEADER_BG_COLOR};
   box-shadow: 0 2px 4px rgba(51, 51, 51, 0.2);
   margin-bottom: 15px;
+  margin: 0 33px 15px 33px;
 `;
 
 const FileName = styled.div`
@@ -57,6 +57,8 @@ const FileName = styled.div`
   font-size: 14px;
   line-height: 16px;
   word-wrap: break-word;
+  padding: 0 10px;
+  text-align: center;
 `;
 
 const button = styledComponentWithProps<IDeleteButtonProps, HTMLButtonElement>(styled.button);
