@@ -12,20 +12,10 @@ import RadioButton from 'src/web/components/Forms/RadioButton';
 import RadioButtons from 'src/web/components/Forms/RadioButton/Buttons';
 import RoundedButton from 'src/web/components/RoundedButton';
 
-interface ICreatePolicyFormValues {
-    insurer: string;
-    number: string;
-    day: string;
-    month: string;
-    year: string;
-    cost: string;
-    vehicle: 'owned' | 'leased' | 'financed';
-    multi: boolean;
-}
-
 interface ICreatePolicyFormProps {
     year?: string;
     month?: string;
+    handleSubmit: any;
 }
 
 const Header = styled.div`
@@ -57,7 +47,7 @@ const DateContainer = styled.div`
 
 const CreatePolicyForm = (props: ICreatePolicyFormProps) => {
     return (
-        <form style={{display: 'flex', flexDirection: 'column'}}>
+        <form style={{display: 'flex', flexDirection: 'column'}} onSubmit={props.handleSubmit}>
             <Header>Six quick questions to add your policy</Header>
             <Content>
                 <Title>Who is your insurer?</Title>

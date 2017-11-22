@@ -18,3 +18,14 @@ export interface IInsurer {
     id: number | string;
     name: string;
 }
+
+export interface ICreatePolicyFormValues {
+    insurer: string;
+    number: string;
+    day: string;
+    month: string;
+    year: string;
+    cost: string;
+    vehicle: 'owned' | 'leased' | 'financed';
+    multi: boolean;
+}

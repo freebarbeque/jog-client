@@ -5,9 +5,7 @@ import styled from 'styled-components';
 import {CREAM, WHITE} from '~/common/constants/palette';
 import Footer from 'src/web/components/Footer';
 import CreatePolicyForm from './components/CreatePolicyForm';
-import SelectField from 'material-ui/SelectField';
-import MenuItem from 'material-ui/MenuItem';
-import DropDownMenu from 'material-ui/DropDownMenu';
+import {ICreatePolicyFormValues} from '~/common/interfaces/policies';
 
 interface ICreatePolicyScreenProps {
     className: string;
@@ -40,7 +38,7 @@ export default (props: ICreatePolicyScreenProps) => (
         <Description/>
         <Content>
             <Left>
-                <CreatePolicyForm/>
+                <CreatePolicyForm onSubmit={(values: ICreatePolicyFormValues) => console.log(values)}/>
             </Left>
         </Content>
         <Footer/>
