@@ -10,6 +10,7 @@ import {IReduxState} from '~/common/interfaces/store';
 import {connect} from 'react-redux';
 import RadioButton from 'src/web/components/Forms/RadioButton';
 import RadioButtons from 'src/web/components/Forms/RadioButton/Buttons';
+import RoundedButton from 'src/web/components/RoundedButton';
 
 interface ICreatePolicyFormValues {
     insurer: string;
@@ -40,6 +41,8 @@ const Content = styled.div`
     padding: 10px;
     align-self: center;
     text-align: center;
+    display: flex;
+    flex-direction: column;
 `;
 
 const Title = styled.div`
@@ -128,6 +131,19 @@ const CreatePolicyForm = (props: ICreatePolicyFormProps) => {
                         {id: 0, name: 'Yes'},
                         {id: 1, name: 'No'},
                     ]}
+                />
+                <RoundedButton
+                    type="submit"
+                    label="Set up my account"
+                    disabled={false}
+                    style={{
+                        width: 200,
+                        alignSelf: 'center',
+                        height: 56,
+                        borderRadius: 28,
+                        fontSize: 20,
+                        marginTop: 25,
+                    }}
                 />
             </Content>
         </form>

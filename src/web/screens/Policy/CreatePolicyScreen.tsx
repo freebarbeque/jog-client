@@ -42,9 +42,6 @@ export default (props: ICreatePolicyScreenProps) => (
             <Left>
                 <CreatePolicyForm/>
             </Left>
-            <Right>
-                111
-            </Right>
         </Content>
         <Footer/>
     </div>

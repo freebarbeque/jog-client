@@ -14,7 +14,8 @@ interface IRadioButtonProps {
 
 const Button = styled.div`
     height: 40px;
-    background-color: ${props => props.checked ? '#50e3c2' : '#dbdcde'} ;
+    background-color: ${props => props.checked ? '#50e3c2' : '#dbdcde'};
+    box-shadow: ${props => props.checked ? '0 4px 4px #ddd' : ''};
     border-radius: 5px;
     display: flex;
     justify-content: center;
