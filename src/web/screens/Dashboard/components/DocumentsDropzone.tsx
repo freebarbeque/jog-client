@@ -1,6 +1,7 @@
 import * as React from 'react';
 import styled from 'styled-components';
 import Dropzone from 'react-dropzone';
+const uuidv1 = require('uuid/v1');
 import {SECTION_HEADER_BG_COLOR, DROPZONE_COLOR} from 'src/common/constants/palette';
 
 interface IDocumentsDropzoneProps {
@@ -12,7 +13,7 @@ class DocumentsDropzone extends React.Component<IDocumentsDropzoneProps, {}> {
 
   handleDrop = (droppedFiles: any[]) => {
     if (droppedFiles.length) {
-      this.props.onDrop(droppedFiles);
+      this.props.onDrop(droppedFiles.map(f => Object.assign({}, {file: f}, {pendingId: uuidv1()})));
     }
   };
 

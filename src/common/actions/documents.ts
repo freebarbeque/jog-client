@@ -5,7 +5,7 @@ export const addPendingDocuments = (documents: any[]) => ({
   documents,
 });
 
-export const removePendingDocument = (documentIndex: number) => ({
+export const removePendingDocument = (documentId: string) => ({
   type: REMOVE_PENDING_DOCUMENT,
-  documentIndex,
+  documentId,
 });

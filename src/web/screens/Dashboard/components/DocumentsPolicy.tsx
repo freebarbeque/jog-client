@@ -6,13 +6,14 @@ import PolicySection from './PolicySection';
 import DocumentsDropzone from './DocumentsDropzone';
 import FileCard from './FileCard';
 import RoundedButton from 'src/web/components/RoundedButton';
-import {IDocument} from 'src/common/interfaces/documents';
-import {getDocuments} from 'src/common/selectors/documents';
+import {IDocument, IPendingDocument} from 'src/common/interfaces/documents';
+import {getPolicyDocuments, getPendingDocuments} from 'src/common/selectors/documents';
 import {addPendingDocuments, removePendingDocument} from 'src/common/actions/documents';
 
 interface IDocumentPolicyProps {
   className?: string;
-  documents: IDocument[];
+  policyDocuments?: IDocument[];
+  pendingDocuments?: IPendingDocument[];
   addPendingDocuments?: any;
   removePendingDocument?: any;
 }
@@ -26,22 +27,29 @@ const ButtonStyles = {
 
 class DocumentsPolicy extends React.Component<IDocumentPolicyProps, {}> {
 
-  handleRemoveDocument(documentId: string | undefined, documentIndex: number) {
-    return documentId ? () => console.log('can not remove document') : this.props.removePendingDocument(documentIndex);
+  handleRemovePendingDocument(id: string) {
+    return this.props.removePendingDocument(id);
   }
 
   render() {
+
+    const {
+      policyDocuments,
+      pendingDocuments
+    } = this.props;
+
     return (
       <div className={this.props.className}>
         <PolicySection title="Uploaded Documents">
           <ContentWrapper>
-            {this.props.documents.length && (
               <FilesContainer>
-                {this.props.documents.map((d, i) => (
-                  <FileCard key={i} fileName={d.name} onDeleteClick={() => this.handleRemoveDocument(d.id, i)} />
+                {policyDocuments && policyDocuments.map((d, i) => (
+                  <FileCard key={i} fileName={d.name} onDeleteClick={() => console.log(d.id)} />
+                ))}
+                {pendingDocuments && pendingDocuments.map((d, i) => (
+                  <FileCard key={i} fileName={d.file.name} onDeleteClick={() => this.handleRemovePendingDocument(d.pendingId)} />
                 ))}
               </FilesContainer>
-            )}
             <DocumentsDropzone onDrop={this.props.addPendingDocuments} />
             <RoundedButton
               label="Upload"
@@ -86,7 +94,8 @@ const ContentWrapper = styled.div`
 `;
 
 const mapStateToProps = (state: any) => ({
-  documents: getDocuments(state),
+  policyDocuments: getPolicyDocuments(state),
+  pendingDocuments: getPendingDocuments(state),
 });
 
 const mapDispatchToProps = (dispatch: any) => bindActionCreators({

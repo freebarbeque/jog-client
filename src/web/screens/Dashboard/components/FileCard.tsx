@@ -4,7 +4,6 @@ import {PDFFile, PolicyCross} from 'src/web/images';
 import {SECTION_HEADER_BG_COLOR, PINK, DARK_PINK} from 'src/common/constants/palette';
 import {styledComponentWithProps} from 'src/common/utils/types';
 
-
 interface IFileCard {
   className?: string;
   fileName?: string;
@@ -82,4 +81,3 @@ const DeleteButton = button`
 `;
 
 export default StyledFileCard;
-

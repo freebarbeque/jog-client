@@ -4,16 +4,17 @@ import {ADD_PENDING_DOCUMENTS, REMOVE_PENDING_DOCUMENT} from 'src/common/constan
 
 const defaultState = {
   policyDocuments: [],
+  pendingDocuments: [],
 };
 
 export default function (state: IDocumentsReduxState = defaultState, action: IAction) {
   switch (action.type) {
 
     case ADD_PENDING_DOCUMENTS:
-      return Object.assign({}, state, {policyDocuments: state.policyDocuments.concat(action.documents)});
+      return Object.assign({}, state, {pendingDocuments: state.pendingDocuments.concat(action.documents)});
 
     case REMOVE_PENDING_DOCUMENT:
-      return Object.assign({}, state, {policyDocuments: state.policyDocuments.filter((d, i) => i !== action.documentIndex)});
+      return Object.assign({}, state, {pendingDocuments: state.pendingDocuments.filter(d => d.pendingId !== action.documentId)});
 
     default: {
       return state;
