@@ -58,13 +58,13 @@ const CreatePolicyForm = (props: ICreatePolicyFormProps) => {
             <Content>
                 <Title>Who is your insurer?</Title>
                 <Field
-                    name="insurer"
+                    name="insurance_company_id"
                     component={FormSelect}
                     dataSource={props.insurersDataSource}
                 />
                 <Title>What is your policy number?</Title>
                 <Field
-                    name="number"
+                    name="policy_number"
                     component={Input}
                     style={{
                         width: 560,
@@ -101,7 +101,7 @@ const CreatePolicyForm = (props: ICreatePolicyFormProps) => {
                 </DateContainer>
                 <Title>How much does your policy cost per year?</Title>
                 <Field
-                    name="cost"
+                    name="annual_cost_cents"
                     component={Input}
                     style={{
                         width: 560,
@@ -110,26 +110,27 @@ const CreatePolicyForm = (props: ICreatePolicyFormProps) => {
                     }}
                     preCheck={onlyNumber}
                 />
-                <Title>Is your vehicle:</Title>
+                <Title>Level of cover</Title>
                 <Field
-                    name="vehicle"
+                    name="level_of_cover"
                     component={RadioButton}
                     dataSource={[
-                        {id: 0, name: 'Owned'},
-                        {id: 1, name: 'Leased'},
-                        {id: 2, name: 'Financed'},
+                        {id: 'Comprehensive', name: 'Comprehensive'},
+                        {id: '3rd Party', name: '3rd Party'},
+                        {id: '3rd Party, Fire & Theft', name: '3rd Party, Fire & Theft'},
                     ]}
                     defaultSelected={0}
                 />
-                <Title>Is this a multi car policy</Title>
+                <Title>Years of no claims bonus</Title>
                 <Field
-                    name="multi"
-                    component={RadioButtons}
-                    dataSource={[
-                        {id: 1, name: 'Yes'},
-                        {id: 0, name: 'No'},
-                    ]}
-                    defaultSelected={0}
+                    name="no_claims_bonus"
+                    component={Input}
+                    style={{
+                        width: 560,
+                        border: '2px solid #dbdcde',
+                        borderRadius: 5,
+                    }}
+                    preCheck={onlyNumber}
                 />
                 <RoundedButton
                     type="submit"
@@ -150,12 +151,12 @@ const CreatePolicyForm = (props: ICreatePolicyFormProps) => {
 }
 
 const validationSchema = {
-    insurer: {
+    insurance_company_id: {
         presence: {
             message: 'Please choose your insurer',
         },
     },
-    number: {
+    policy_number: {
         presence: {
             message: 'Please enter your policy number',
         },
@@ -175,7 +176,7 @@ const validationSchema = {
             message: 'Please choose the expiry year',
         },
     },
-    cost: {
+    annual_cost_cents: {
         presence: {
             message: 'Please enter your policy cost',
         },
@@ -199,8 +200,7 @@ const mapStateToProps = (state: IReduxState) => ({
 const form = reduxForm({
     form: CREATE_POLICY_FORM,
     initialValues: {
-        vehicle: 0,
-        multi: 0,
+        level_of_cover: '3rd Party, Fire & Theft',
     },
     validate: validateForm,
 })(connect(mapStateToProps, null)(CreatePolicyForm));

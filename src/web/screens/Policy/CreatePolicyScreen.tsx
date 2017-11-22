@@ -10,7 +10,7 @@ import {injectSaga} from '~/common/utils/saga';
 import {createPolicyFlow} from '~/common/sagas/policies';
 import {createPolicy} from 'src/common/actions/policies';
 import {Action, ActionCreator, bindActionCreators} from 'redux';
-import {connect} from "react-redux";
+import {connect} from 'react-redux';
 
 interface ICreatePolicyScreenProps {
     className: string;
