@@ -59,7 +59,7 @@ class FormSelect extends React.Component<ISelectProps, {}> {
             <div>
                 <Container error={error} touched={touched}>
                     <DropDownMenu
-                        value={input.value || 'default'}
+                        value={input.value ? [+input.value] : 'default'}
                         onChange={this.handleChange}
                         multiple
                         ref={ref => this.menu = ref}
