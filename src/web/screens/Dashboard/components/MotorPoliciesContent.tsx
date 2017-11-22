@@ -20,10 +20,10 @@ const MotorPoliciesContent: React.StatelessComponent<IMotorPoliciesContent> = (p
     {props.policies && props.policies.map(p => (
       <PolicyButtonWithDescription
         key={p.id}
-        circleImgUrl={p.policyAvatar}
+        circleImgUrl={p.avatar}
         policyType={p.type}
         policyName={p.name}
-        policyStatus={p.status}
+        policyStatus={'Add more details to complete this policy'}
         onClick={() => props.push(`${props.match.url}/${p.id}/overview`)}
       />
     ))}
