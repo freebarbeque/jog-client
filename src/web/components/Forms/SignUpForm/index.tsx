@@ -62,7 +62,7 @@ const validationSchema = {
 }
 
 const validateForm = (values: ISignUpFormValues) => {
-    const errors = validate(values, validationSchema);
+    const errors = validate(values, validationSchema, {fullMessages: false});
 
     return errors;
 }

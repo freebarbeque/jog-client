@@ -3,11 +3,16 @@ import DropDownMenu from 'material-ui/DropDownMenu';
 import MenuItem from 'material-ui/MenuItem';
 import styled from 'styled-components';
 import {IDataSource} from '~/common/interfaces/dataSource';
+import ErrorText from 'src/web/components/Forms/ErrorText';
 
 interface ISelectProps {
     input: {
         onChange: (value: any) => void;
         value: any;
+    },
+    meta: {
+        error?: string;
+        touched: boolean;
     },
     dataSource: IDataSource[];
     style: any;
@@ -41,6 +46,7 @@ class FormSelect extends React.Component<ISelectProps, {}> {
             style,
             menuStyle,
             defaultText,
+            meta: {error, touched},
         } = this.props;
 
         return (
@@ -70,6 +76,14 @@ class FormSelect extends React.Component<ISelectProps, {}> {
                     {dataSource.map((o, i) => <MenuItem key={i} value={o.id} primaryText={o.name} onClick={() => this.menu.close()}/>)}
                     <MenuItem value="default" primaryText={defaultText || 'Select an Option'} style={{display: 'none'}}/>
                 </DropDownMenu>
+                {
+                    error && touched &&
+                    <div>
+                        <ErrorText>
+                            {error}
+                        </ErrorText>
+                    </div>
+                }
             </Container>
         )
     }

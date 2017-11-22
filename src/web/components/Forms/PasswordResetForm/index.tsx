@@ -46,7 +46,7 @@ const validationSchema = {
 }
 
 const validateForm = (values: IPasswordResetFormValues) => {
-    const errors = validate(values, validationSchema);
+    const errors = validate(values, validationSchema, {fullMessages: false});
 
     return errors;
 }

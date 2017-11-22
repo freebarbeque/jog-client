@@ -78,12 +78,14 @@ export default (passedProps: IInputProps) => {
                 style={error && touched ? {...props.style, borderColor: PINK} : props.style}
                 type={type || 'text'}
             />
-            {error && touched &&
-            <div>
-                <ErrorText>
-                    {error[0].split(' ').slice(1).join(' ')}
-                </ErrorText>
-            </div>}
+            {
+                error && touched &&
+                <div>
+                    <ErrorText>
+                        {error}
+                    </ErrorText>
+                </div>
+            }
         </Container>
     )
 }
