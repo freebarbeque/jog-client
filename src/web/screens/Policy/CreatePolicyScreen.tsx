@@ -8,9 +8,13 @@ import CreatePolicyForm from './components/CreatePolicyForm';
 import {ICreatePolicyFormValues} from '~/common/interfaces/policies';
 import {injectSaga} from '~/common/utils/saga';
 import {createPolicyFlow} from '~/common/sagas/policies';
+import {createPolicy} from 'src/common/actions/policies';
+import {Action, ActionCreator, bindActionCreators} from 'redux';
+import {connect} from "react-redux";
 
 interface ICreatePolicyScreenProps {
     className: string;
+    createPolicy: ActionCreator<Action>;
 }
 
 const Content = styled.div`
@@ -46,7 +50,7 @@ class CreatePolicyScreen extends React.Component<ICreatePolicyScreenProps, {}> {
                 <Description/>
                 <Content>
                     <Left>
-                        <CreatePolicyForm onSubmit={(values: ICreatePolicyFormValues) => console.log(values)}/>
+                        <CreatePolicyForm onSubmit={(values: ICreatePolicyFormValues) => this.props.createPolicy(values)}/>
                     </Left>
                 </Content>
                 <Footer/>
@@ -55,4 +59,8 @@ class CreatePolicyScreen extends React.Component<ICreatePolicyScreenProps, {}> {
     }
 };
 
-export default CreatePolicyScreen;
+const mapDispatchToProps = (dispatch: any) => bindActionCreators({
+    createPolicy,
+}, dispatch)
+
+export default connect(null, mapDispatchToProps)(CreatePolicyScreen);
