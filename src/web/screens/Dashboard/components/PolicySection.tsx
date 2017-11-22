@@ -35,7 +35,7 @@ const StyledSection = styled(Section)`
   display: flex;
   flex-direction: column;
   align-self: stretch;
-  flex: 1;
+  flex: 1 0;
 `;
 
 const SectionHeader = styled.div`
@@ -51,8 +51,9 @@ const SectionHeader = styled.div`
 
 const SectionContent = styled.div`
   background-color: #FFF;
-  flex: 1;
   align-self: stretch;
+  display: flex;
+  flex-direction: column;
 `;
 
 const button = styledComponentWithProps<IEditButtonProps, HTMLButtonElement>(styled.button);

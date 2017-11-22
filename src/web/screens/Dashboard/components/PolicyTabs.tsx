@@ -38,6 +38,7 @@ const StyledPolicyTabs = styled(PolicyTabs)`
   display: flex;
   background-color: ${BLUE};
   padding: 0 43px;
+  flex-shrink: 0;
 `;
 
 const button = styledComponentWithProps<ITabProps, HTMLButtonElement>(styled.button);

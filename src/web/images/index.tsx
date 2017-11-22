@@ -41,12 +41,12 @@ export const Logo = (props: { scale?: number; style?: any }) => {
   )
 }
 
-export const Cross = (props: { scale?: number }) => {
+export const Cross = (props: { scale?: number, width?: number, height?: number }) => {
   return (
     <Image
       src={require('./cross.svg')}
-      height={14}
-      width={14}
+      height={props.height || 14}
+      width={props.width || 14}
       alt="logo"
       className="logo"
       {...props}
@@ -488,6 +488,28 @@ export const EditIcon = (props: {width?: number, height?: number}) => (
     width={props.width || 20}
     alt="edit"
     className="edit-icon"
+    {...props}
+  />
+);
+
+export const PDFFile = (props: {width?: number, height?: number}) => (
+  <Image
+    src={require('./pdf-file.svg')}
+    height={props.height || 70}
+    width={props.width || 50}
+    alt="pdf-file"
+    className="pdf-file-icon"
+    {...props}
+  />
+);
+
+export const PolicyCross = (props: {width?: number, height?: number}) => (
+  <Image
+    src={require('./policy-cross.svg')}
+    height={props.height || 10}
+    width={props.width || 10}
+    alt="policy-cross"
+    className="policy-cross-icon"
     {...props}
   />
 );

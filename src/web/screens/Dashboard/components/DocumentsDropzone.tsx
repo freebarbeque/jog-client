@@ -35,6 +35,7 @@ class DocumentsDropzone extends React.Component<IDocumentsDropzoneProps, IDocume
           activeClassName="dz-active"
           disabledClassName="dz-disabled"
           onDrop={this.handleDrop}
+          disablePreview
         >
           <div>{`Drag & drop your policy or click to choose a file.`}</div>
         </Dropzone>
