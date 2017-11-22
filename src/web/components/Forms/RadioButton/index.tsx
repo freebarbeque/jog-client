@@ -23,7 +23,7 @@ export default (props: IRadioButtonProps) => {
     return (
         <RadioButtonGroup
             name={name}
-            value={value}
+            valueSelected={value}
             onChange={(event: any, value: any) => onChange(value)}
             style={{display: 'flex'}}
         >

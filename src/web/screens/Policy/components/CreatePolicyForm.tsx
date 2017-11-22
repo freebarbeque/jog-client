@@ -122,15 +122,17 @@ const CreatePolicyForm = (props: ICreatePolicyFormProps) => {
                         {id: 1, name: 'Leased'},
                         {id: 2, name: 'Financed'},
                     ]}
+                    defaultSelected={0}
                 />
                 <Title>Is this a multi car policy</Title>
                 <Field
-                    name="vehicle"
+                    name="multi"
                     component={RadioButtons}
                     dataSource={[
-                        {id: 0, name: 'Yes'},
-                        {id: 1, name: 'No'},
+                        {id: 1, name: 'Yes'},
+                        {id: 0, name: 'No'},
                     ]}
+                    defaultSelected={0}
                 />
                 <RoundedButton
                     type="submit"
@@ -159,6 +161,10 @@ const mapStateToProps = (state: IReduxState) => ({
 
 const form = reduxForm({
     form: CREATE_POLICY_FORM,
+    initialValues: {
+        vehicle: 0,
+        multi: 0,
+    }
 })(connect(mapStateToProps, null)(CreatePolicyForm));
 
 export default form;

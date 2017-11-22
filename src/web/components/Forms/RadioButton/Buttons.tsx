@@ -42,7 +42,7 @@ export default (props: IRadioButtonProps) => {
         <Container>
             <RadioButtonGroup
                 name={name}
-                value={value}
+                valueSelected={value}
                 onChange={(event: any, value: any) => onChange(value)}
                 style={{display: 'flex', justifyContent: 'space-between', height: 40}}
             >
