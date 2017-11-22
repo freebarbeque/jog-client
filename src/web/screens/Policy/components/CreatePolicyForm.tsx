@@ -164,12 +164,12 @@ const validationSchema = {
     },
     month: {
         presence: {
-            message: 'Please choose the expiry date',
+            message: 'Please choose the expiry month',
         },
     },
     year: {
         presence: {
-            message: 'Please choose the expiry date',
+            message: 'Please choose the expiry year',
         },
     },
     cost: {

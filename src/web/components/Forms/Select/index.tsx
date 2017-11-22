@@ -1,7 +1,7 @@
 import * as React from 'react';
 import DropDownMenu from 'material-ui/DropDownMenu';
 import MenuItem from 'material-ui/MenuItem';
-import styled from 'styled-components';
+import styled, {StyledComponentClass} from 'styled-components';
 import {IDataSource} from '~/common/interfaces/dataSource';
 import ErrorText from 'src/web/components/Forms/ErrorText';
 
@@ -20,12 +20,18 @@ interface ISelectProps {
     defaultText?: string;
 }
 
-const Container = styled.div`
+interface IContainerProps {
+    error: string|undefined;
+    touched: boolean;
+}
+
+const Container: StyledComponentClass<IContainerProps, any, any> = styled.div`
     display: flex;
     button {
         top: 0!important;
         right: 0!important;
     }
+    border: ${(props: IContainerProps) => props.error && props.touched ? '1px solid red' : 'none'}
 `;
 
 class FormSelect extends React.Component<ISelectProps, {}> {
@@ -50,32 +56,34 @@ class FormSelect extends React.Component<ISelectProps, {}> {
         } = this.props;
 
         return (
-            <Container>
-                <DropDownMenu
-                    value={input.value || 'default'}
-                    onChange={this.handleChange}
-                    multiple
-                    ref={ref => this.menu = ref}
-                    style={{
-                        width: 600,
-                        backgroundColor: '#ECEDEF',
-                        ...style,
-                    }}
-                    anchorOrigin={{vertical: 'bottom', horizontal: 'left'}}
-                    menuStyle={{
-                        width: 600,
-                        backgroundColor: '#ECEDEF',
-                        ...menuStyle,
-                    }}
-                    iconStyle={{
-                        fill: 'black',
-                    }}
-                    labelStyle={{opacity: 1, top: 0}}
-                    autoWidth={false}
-                >
-                    {dataSource.map((o, i) => <MenuItem key={i} value={o.id} primaryText={o.name} onClick={() => this.menu.close()}/>)}
-                    <MenuItem value="default" primaryText={defaultText || 'Select an Option'} style={{display: 'none'}}/>
-                </DropDownMenu>
+            <div>
+                <Container error={error} touched={touched}>
+                    <DropDownMenu
+                        value={input.value || 'default'}
+                        onChange={this.handleChange}
+                        multiple
+                        ref={ref => this.menu = ref}
+                        style={{
+                            width: 600,
+                            backgroundColor: '#ECEDEF',
+                            ...style,
+                        }}
+                        anchorOrigin={{vertical: 'bottom', horizontal: 'left'}}
+                        menuStyle={{
+                            width: 600,
+                            backgroundColor: '#ECEDEF',
+                            ...menuStyle,
+                        }}
+                        iconStyle={{
+                            fill: 'black',
+                        }}
+                        labelStyle={{opacity: 1, top: 0}}
+                        autoWidth={false}
+                    >
+                        {dataSource.map((o, i) => <MenuItem key={i} value={o.id} primaryText={o.name} onClick={() => this.menu.close()}/>)}
+                        <MenuItem value="default" primaryText={defaultText || 'Select an Option'} style={{display: 'none'}}/>
+                    </DropDownMenu>
+                </Container>
                 {
                     error && touched &&
                     <div>
@@ -84,7 +92,7 @@ class FormSelect extends React.Component<ISelectProps, {}> {
                         </ErrorText>
                     </div>
                 }
-            </Container>
+            </div>
         )
     }
 }
