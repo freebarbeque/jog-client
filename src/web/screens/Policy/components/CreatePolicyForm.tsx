@@ -13,12 +13,15 @@ import RadioButtons from 'src/web/components/Forms/RadioButton/Buttons';
 import RoundedButton from 'src/web/components/RoundedButton';
 import {onlyNumber} from '~/common/utils/form';
 import {ICreatePolicyFormValues} from '~/common/interfaces/policies';
+import {getDataSource} from '~/common/selectors/dataSource';
+import {IDataSource} from '~/common/interfaces/dataSource';
 const validate = require('validate.js');
 
 interface ICreatePolicyFormProps {
     year?: string;
     month?: string;
     handleSubmit: any;
+    insurersDataSource: IDataSource;
 }
 
 const Header = styled.div`
@@ -57,7 +60,7 @@ const CreatePolicyForm = (props: ICreatePolicyFormProps) => {
                 <Field
                     name="insurer"
                     component={FormSelect}
-                    dataSource={insurers}
+                    dataSource={props.insurersDataSource}
                 />
                 <Title>What is your policy number?</Title>
                 <Field
@@ -190,6 +193,7 @@ const getValue = formValueSelector(CREATE_POLICY_FORM);
 const mapStateToProps = (state: IReduxState) => ({
     year: getValue(state, 'year'),
     month: getValue(state, 'month'),
+    insurersDataSource: getDataSource(state, 'insuranceCompanies'),
 })
 
 const form = reduxForm({
