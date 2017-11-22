@@ -9,6 +9,7 @@ import {getMonthDays, getMonths, getYears} from '~/common/utils/dataSources';
 import {IReduxState} from '~/common/interfaces/store';
 import {connect} from 'react-redux';
 import RadioButton from 'src/web/components/Forms/RadioButton';
+import RadioButtons from 'src/web/components/Forms/RadioButton/Buttons';
 
 interface ICreatePolicyFormValues {
     insurer: string;
@@ -117,6 +118,15 @@ const CreatePolicyForm = (props: ICreatePolicyFormProps) => {
                         {id: 0, name: 'Owned'},
                         {id: 1, name: 'Leased'},
                         {id: 2, name: 'Financed'},
+                    ]}
+                />
+                <Title>Is this a multi car policy</Title>
+                <Field
+                    name="vehicle"
+                    component={RadioButtons}
+                    dataSource={[
+                        {id: 0, name: 'Yes'},
+                        {id: 1, name: 'No'},
                     ]}
                 />
             </Content>
