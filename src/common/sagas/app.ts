@@ -9,15 +9,15 @@ import {signedIn} from '../actions/auth';
 export function* appAfterSignInFlow () {
     const user = yield select(getUser);
     const {motor_policies} = yield getPolicies(MOTOR_POLICY, user.id);
+
     if (motor_policies) {
         yield put(setMotorPolicies(motor_policies));
-    }
+        yield put(signedIn());
 
-    yield put(signedIn());
-
-    if (motor_policies.length) {
-        yield put(push('/app/dashboard'));
-    } else {
-        yield put(push('/app/get-started'));
+        if (motor_policies.length) {
+            yield put(push('/app/dashboard'));
+        } else {
+            yield put(push('/app/get-started'));
+        }
     }
 }

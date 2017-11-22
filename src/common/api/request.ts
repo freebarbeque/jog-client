@@ -38,6 +38,7 @@ function* sendRequest(endpoint: string, parseBody: boolean = true, method: strin
         const body = yield handleErrors(response, parseBody);
         return {body, headers: response.headers};
     } catch (err) {
+        console.log(err.status, err.message, err.status === 401 && err.message === 'Unauthorized')
         if (err.status === 401 && err.message === 'Unauthorized') {
             yield put(logOut());
             return {body: {}, headers: response.headers, error: err}
