@@ -1,4 +1,4 @@
-import {ADD_PENDING_DOCUMENTS, REMOVE_PENDING_DOCUMENT} from 'src/common/constants/documents';
+import {ADD_PENDING_DOCUMENTS, REMOVE_PENDING_DOCUMENT} from '../constants/documents';
 
 export const addPendingDocuments = (documents: any[]) => ({
   type: ADD_PENDING_DOCUMENTS,

@@ -1,6 +1,6 @@
 import {IDocumentsReduxState} from '../interfaces/documents';
 import {IAction} from '../interfaces/action';
-import {ADD_PENDING_DOCUMENTS, REMOVE_PENDING_DOCUMENT} from 'src/common/constants/documents';
+import {ADD_PENDING_DOCUMENTS, REMOVE_PENDING_DOCUMENT} from '../constants/documents';
 
 const defaultState = {
   policyDocuments: [],
