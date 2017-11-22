@@ -1,11 +1,14 @@
-import {take} from 'redux-saga/effects';
+import {put, take} from 'redux-saga/effects';
 import {CREATE_POLICY} from '~/common/constants/policies';
-import {getInsuranceCompanies} from "~/common/api/policies";
+import {getInsuranceCompanies} from '../api/policies';
+import {setDataSource} from '../actions/dataSource';
 
 export function* createPolicyFlow() {
     const {insurance_companies} = yield getInsuranceCompanies();
-    console.log(insurance_companies);
+    yield put(setDataSource('insuranceCompanies', insurance_companies.map(ic => ({id: ic.id, name: ic.name}))));
 
-    const {values} = yield take(CREATE_POLICY);
-    console.log(values);
+    while (true) {
+        const {values} = yield take(CREATE_POLICY);
+        console.log(values);
+    }
 }
