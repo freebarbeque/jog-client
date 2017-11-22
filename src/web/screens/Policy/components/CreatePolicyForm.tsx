@@ -105,11 +105,21 @@ const CreatePolicyForm = (props: ICreatePolicyFormProps) => {
                     component={Input}
                     sign="\u00A3"
                     style={{
-                        width: 560,
+                        width: 520,
                         border: '2px solid #dbdcde',
                         borderRadius: 5,
                     }}
                     preCheck={onlyNumber}
+                />
+                <Title>What is your car number?</Title>
+                <Field
+                    name="vehicle-registration"
+                    component={Input}
+                    style={{
+                        width: 560,
+                        border: '2px solid #dbdcde',
+                        borderRadius: 5,
+                    }}
                 />
                 <Title>Level of cover</Title>
                 <Field

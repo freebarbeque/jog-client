@@ -15,7 +15,6 @@ export interface IPolicy {
     excess_amount_cents: number;
     avatar: string;
     type: string;
-    insurer: string;
 }
 
 export interface IMotorPolicy extends IPolicy {

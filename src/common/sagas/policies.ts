@@ -1,5 +1,5 @@
 import {put, take} from 'redux-saga/effects';
-import {CREATE_POLICY} from '~/common/constants/policies';
+import {CREATE_POLICY} from '../constants/policies';
 import {getInsuranceCompanies} from '../api/policies';
 import {setDataSource} from '../actions/dataSource';
 import {mapCreatePolicyFormValues} from '../utils/policies';
