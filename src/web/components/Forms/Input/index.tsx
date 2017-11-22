@@ -42,10 +42,12 @@ interface IInputProps {
     },
     type?: string;
     style?: any;
+    preCheck?: (value: string) => boolean;
 }
 
 const defaultProps = {
     style: {},
+    preCheck: (value: string) => true,
 }
 
 export default (passedProps: IInputProps) => {
@@ -56,6 +58,7 @@ export default (passedProps: IInputProps) => {
         input,
         meta: {error, touched},
         type,
+        preCheck,
     } = props;
 
     return (
@@ -70,16 +73,16 @@ export default (passedProps: IInputProps) => {
                 <div style={{flex: 1}}/>
                 {error && touched &&
                 <div>
-                    <FontAwesome name="exclamation-triangle" color={PINK} />
+                    <FontAwesome name="exclamation-triangle" color={PINK}/>
                     <ErrorText>
                         {error[0].split(' ').slice(1).join(' ')}
                     </ErrorText>
                 </div>}
             </div>
             <Input
-                onChange={(v: any) => input.onChange(v)}
+                onChange={(e: any) => preCheck(e.target.value) && input.onChange(e.target.value)}
                 value={input.value}
-                style={error && touched ? { ...props.style, borderColor: PINK } : props.style}
+                style={error && touched ? {...props.style, borderColor: PINK} : props.style}
                 type={type || 'text'}
             />
         </Container>

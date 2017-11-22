@@ -11,6 +11,7 @@ import {connect} from 'react-redux';
 import RadioButton from 'src/web/components/Forms/RadioButton';
 import RadioButtons from 'src/web/components/Forms/RadioButton/Buttons';
 import RoundedButton from 'src/web/components/RoundedButton';
+import {onlyNumber} from "~/common/utils/form";
 
 interface ICreatePolicyFormProps {
     year?: string;
@@ -102,6 +103,7 @@ const CreatePolicyForm = (props: ICreatePolicyFormProps) => {
                         border: '2px solid #dbdcde',
                         borderRadius: 5,
                     }}
+                    preCheck={onlyNumber}
                 />
                 <Title>Is your vehicle:</Title>
                 <Field
