@@ -2,7 +2,7 @@ import * as React from 'react';
 import {reduxForm, Field, formValueSelector} from 'redux-form';
 import {CREATE_POLICY_FORM} from 'src/common/constants/policies';
 import styled from 'styled-components';
-import FormSelect from 'src/web/components/Forms/Select';
+import FormSelect from 'src/web/components/Forms/FormSelect';
 import {insurers} from 'src/common/mocks/policy';
 import Input from 'src/web/components/Forms/Input';
 import {getMonthDays, getMonths, getYears} from '~/common/utils/dataSources';
