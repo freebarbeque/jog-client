@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {IDataSource} from '~/common/interfaces/dataSource';
 import {RadioButton, RadioButtonGroup} from 'material-ui/RadioButton';
-import styled from "styled-components";
+import styled from 'styled-components';
 
 interface IRadioButtonProps {
     input: {

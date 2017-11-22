@@ -8,6 +8,10 @@ import BenefitsSection from './components/BenefitsSection';
 import Footer from '../../components/Footer';
 import {RedSubmitArrow} from '../../images';
 import {LANDING_INPUT_BG_COLOR, FOOTER_BACKGROUND_COLOR, PINK} from 'src/common/constants/palette';
+import {connect} from 'react-redux';
+import {push} from 'react-router-redux';
+import {ActionCreator, Action, bindActionCreators} from 'redux';
+import {ReactElement} from 'react';
 
 const Button = styled.button`
   width: 300px;
@@ -41,13 +45,17 @@ const ButtonContent = styled.div`
 const ButtonTitle = styled.div`
 `;
 
-const button = (
+interface IButtonProps {
+    push: ActionCreator<Action>;
+}
+
+const button = (props: IButtonProps): ReactElement<IButtonProps> => (
     <Button
         type="submit"
     >
         <ButtonContent>
             <div/>
-            <ButtonTitle>
+            <ButtonTitle onClick={() => props.push('/app/create/manual')}>
                 Add a policy to get started
             </ButtonTitle>
             <RedSubmitArrow width={13} height={20}/>
@@ -55,17 +63,24 @@ const button = (
     </Button>
 )
 
-const LandingScreen = (props: any) => (
-    <div className={props.className}>
-        <Header />
-        <Description button={button} />
-        <Content>
-            <Divider />
-            <BenefitsSection />
-        </Content>
-        <Footer />
-    </div>
-);
+interface ILandingPageProps {
+    push: ActionCreator<Action>;
+    className: string;
+}
+
+const LandingScreen = (props: ILandingPageProps) => {
+    return (
+        <div className={props.className}>
+            <Header />
+            <Description button={button(props)} />
+            <Content>
+                <Divider />
+                <BenefitsSection />
+            </Content>
+            <Footer />
+        </div>
+    );
+}
 
 const Content = styled.div`
   display: flex;
@@ -84,4 +99,8 @@ const StyledLandingScreen = styled(LandingScreen)`
   overflow-y: scroll;
 `;
 
-export default StyledLandingScreen;
+const mapDispatchToProps = (dispatch: any) => bindActionCreators({
+    push,
+}, dispatch);
+
+export default connect(null, mapDispatchToProps)(StyledLandingScreen);
