@@ -103,6 +103,7 @@ const CreatePolicyForm = (props: ICreatePolicyFormProps) => {
                 <Field
                     name="annual_cost_cents"
                     component={Input}
+                    sign="\u00A3"
                     style={{
                         width: 560,
                         border: '2px solid #dbdcde',

@@ -6,4 +6,6 @@ export function mapCreatePolicyFormValues(values: ICreatePolicyFormValues) {
     const mappedValues: Partial<IPolicy> = rest;
 
     mappedValues.expiry = format(`${year}-${month}-${day}`);
+
+    return mappedValues;
 }

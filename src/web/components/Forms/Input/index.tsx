@@ -1,5 +1,5 @@
 import * as React from 'react';
-import styled from 'styled-components';
+import styled, {StyledComponentClass} from 'styled-components';
 import {MARGIN} from 'src/common/constants/style';
 import {PINK} from 'src/common/constants/palette';
 import ErrorText from 'src/web/components/Forms/ErrorText';
@@ -8,7 +8,10 @@ import ErrorText from 'src/web/components/Forms/ErrorText';
 const FontAwesome = require('react-fontawesome');
 
 // language=SCSS prefix=dummy{ suffix=}
-const Container = styled.div`margin-bottom: ${MARGIN.large}px;`;
+const Container = styled.div`
+  margin-bottom: ${MARGIN.large}px;
+  position: relative;
+`;
 
 // language=SCSS prefix=dummy{ suffix=}
 const Label = styled.div`
@@ -18,17 +21,31 @@ const Label = styled.div`
     text-transform: uppercase;
 `
 
+interface IHtmlInputProps {
+    sign: boolean;
+}
+
 // language=SCSS prefix=dummy{ suffix=}
-const Input = styled.input`
+const Input: StyledComponentClass<IHtmlInputProps, any, any> = styled.input`
   margin-top: ${MARGIN.base}px;
   height: 50px;
   background-color: white;
-  padding-left: ${MARGIN.large}px;
+  padding-left: ${(props: IHtmlInputProps) => props.sign ? '60px' : `${MARGIN.large}px`};
   padding-right: ${MARGIN.large}px;
   font-size: 20px;
   border-radius: 0;
   border: 2px solid transparent;
 `
+
+const Sign = styled.div`
+    position: absolute;
+    top: 25px;
+    left: 10px;
+    font-size: 26px;
+    width: 40px;
+    border-right: 2px solid #dbdcde;
+    color: #dbdcde;
+`;
 
 interface IInputProps {
     label?: string;
@@ -43,6 +60,7 @@ interface IInputProps {
     type?: string;
     style?: any;
     preCheck?: (value: string) => boolean;
+    sign: string;
 }
 
 const defaultProps = {
@@ -59,6 +77,7 @@ export default (passedProps: IInputProps) => {
         meta: {error, touched},
         type,
         preCheck,
+        sign,
     } = props;
 
     return (
@@ -72,11 +91,13 @@ export default (passedProps: IInputProps) => {
                 }
                 <div style={{flex: 1}}/>
             </div>
+            {sign && <Sign>{sign}</Sign>}
             <Input
                 onChange={(e: any) => preCheck(e.target.value) && input.onChange(e.target.value)}
                 value={input.value}
                 style={error && touched ? {...props.style, borderColor: PINK} : props.style}
                 type={type || 'text'}
+                sign={sign}
             />
             {
                 error && touched &&
