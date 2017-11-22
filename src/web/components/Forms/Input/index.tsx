@@ -71,13 +71,6 @@ export default (passedProps: IInputProps) => {
                     : null
                 }
                 <div style={{flex: 1}}/>
-                {error && touched &&
-                <div>
-                    <FontAwesome name="exclamation-triangle" color={PINK}/>
-                    <ErrorText>
-                        {error[0].split(' ').slice(1).join(' ')}
-                    </ErrorText>
-                </div>}
             </div>
             <Input
                 onChange={(e: any) => preCheck(e.target.value) && input.onChange(e.target.value)}
@@ -85,6 +78,12 @@ export default (passedProps: IInputProps) => {
                 style={error && touched ? {...props.style, borderColor: PINK} : props.style}
                 type={type || 'text'}
             />
+            {error && touched &&
+            <div>
+                <ErrorText>
+                    {error[0].split(' ').slice(1).join(' ')}
+                </ErrorText>
+            </div>}
         </Container>
     )
 }

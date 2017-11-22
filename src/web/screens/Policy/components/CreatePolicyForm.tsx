@@ -11,7 +11,9 @@ import {connect} from 'react-redux';
 import RadioButton from 'src/web/components/Forms/RadioButton';
 import RadioButtons from 'src/web/components/Forms/RadioButton/Buttons';
 import RoundedButton from 'src/web/components/RoundedButton';
-import {onlyNumber} from "~/common/utils/form";
+import {onlyNumber} from '~/common/utils/form';
+import {ICreatePolicyFormValues} from '~/common/interfaces/policies';
+const validate = require('validate.js');
 
 interface ICreatePolicyFormProps {
     year?: string;
@@ -144,6 +146,45 @@ const CreatePolicyForm = (props: ICreatePolicyFormProps) => {
     );
 }
 
+const validationSchema = {
+    insurer: {
+        presence: {
+            message: 'Please choose your insurer',
+        },
+    },
+    number: {
+        presence: {
+            message: 'Please enter your policy number',
+        },
+    },
+    day: {
+        presence: {
+            message: 'Please choose the expiry date',
+        },
+    },
+    month: {
+        presence: {
+            message: 'Please choose the expiry date',
+        },
+    },
+    year: {
+        presence: {
+            message: 'Please choose the expiry date',
+        },
+    },
+    cost: {
+        presence: {
+            message: 'Please enter your policy cost',
+        },
+    },
+}
+
+const validateForm = (values: ICreatePolicyFormValues) => {
+    const errors = validate(values, validationSchema);
+
+    return errors;
+}
+
 const getValue = formValueSelector(CREATE_POLICY_FORM);
 
 const mapStateToProps = (state: IReduxState) => ({
@@ -156,7 +197,8 @@ const form = reduxForm({
     initialValues: {
         vehicle: 0,
         multi: 0,
-    }
+    },
+    validate: validateForm,
 })(connect(mapStateToProps, null)(CreatePolicyForm));
 
 export default form;

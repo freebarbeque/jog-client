@@ -6,6 +6,7 @@ import {PINK} from 'src/common/constants/palette';
 const ErrorText = styled.div`
   color: ${PINK};
   font-size: 11px;
+  text-align: right;
 `
 
 export default ErrorText;
