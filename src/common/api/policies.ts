@@ -13,3 +13,8 @@ export function* getPolicies(type: string, userId: number) {
         }
     }
 }
+
+export function* getInsuranceCompanies() {
+    const {body} = yield get('insurance_companies');
+    return body;
+}
