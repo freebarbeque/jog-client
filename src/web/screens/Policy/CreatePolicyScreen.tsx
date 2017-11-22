@@ -6,6 +6,8 @@ import {CREAM, WHITE} from '~/common/constants/palette';
 import Footer from 'src/web/components/Footer';
 import CreatePolicyForm from './components/CreatePolicyForm';
 import {ICreatePolicyFormValues} from '~/common/interfaces/policies';
+import {injectSaga} from '~/common/utils/saga';
+import {createPolicyFlow} from '~/common/sagas/policies';
 
 interface ICreatePolicyScreenProps {
     className: string;
@@ -32,15 +34,25 @@ const Right = ContentContainer.extend`
     width: calc(30% - 10px);
 `;
 
-export default (props: ICreatePolicyScreenProps) => (
-    <div className={props.className}>
-        <Header/>
-        <Description/>
-        <Content>
-            <Left>
-                <CreatePolicyForm onSubmit={(values: ICreatePolicyFormValues) => console.log(values)}/>
-            </Left>
-        </Content>
-        <Footer/>
-    </div>
-);
+class CreatePolicyScreen extends React.Component<ICreatePolicyScreenProps, {}> {
+    componentWillMount() {
+        injectSaga(createPolicyFlow);
+    }
+
+    render () {
+        return (
+            <div className={this.props.className}>
+                <Header/>
+                <Description/>
+                <Content>
+                    <Left>
+                        <CreatePolicyForm onSubmit={(values: ICreatePolicyFormValues) => console.log(values)}/>
+                    </Left>
+                </Content>
+                <Footer/>
+            </div>
+        )
+    }
+};
+
+export default CreatePolicyScreen;
