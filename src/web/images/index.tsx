@@ -513,3 +513,25 @@ export const PolicyCross = (props: {width?: number, height?: number}) => (
     {...props}
   />
 );
+
+export const WhiteTick = (props: {width?: number, height?: number}) => (
+  <Image
+    src={require('./white-tick.svg')}
+    height={props.height || 19}
+    width={props.width || 22}
+    alt="white-tick"
+    className="white-tick-icon"
+    {...props}
+  />
+);
+
+export const MoreCircles = (props: {width?: number, height?: number}) => (
+  <Image
+    src={require('./more-circles.svg')}
+    height={props.height || 7}
+    width={props.width || 26}
+    alt="more-circles"
+    className="more-circles-icon"
+    {...props}
+  />
+);
