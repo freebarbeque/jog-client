@@ -10,6 +10,8 @@ import {IMotorPolicy, IPolicy} from 'src/common/interfaces/policies';
 import {getPolicies} from '~/common/selectors/policies';
 import {MOTOR_POLICY} from '~/common/constants/policies';
 import {IReduxState} from '~/common/interfaces/store';
+import {injectSaga} from '~/common/utils/saga';
+import {motorPoliciesContentFlow} from '~/common/sagas/policies';
 
 interface IMotorPoliciesContent {
     className?: string;
@@ -19,6 +21,10 @@ interface IMotorPoliciesContent {
 }
 
 class MotorPoliciesContent extends React.Component<IMotorPoliciesContent, {}> {
+    componentWillMount() {
+        injectSaga(motorPoliciesContentFlow);
+    }
+
     render () {
         return (
             <div className={this.props.className}>

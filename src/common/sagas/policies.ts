@@ -1,11 +1,12 @@
 import {put, race, select, take} from 'redux-saga/effects';
 import {CREATE_POLICY, CREATE_POLICY_FORM, MOTOR_POLICY} from '../constants/policies';
-import {createPolicy, getInsuranceCompanies} from '../api/policies';
+import {createPolicy, getInsuranceCompanies, getPolicies} from '../api/policies';
 import {setDataSource} from '../actions/dataSource';
 import {mapCreatePolicyFormValues} from '../utils/policies';
 import {getUser} from '../selectors/auth';
 import {LOCATION_CHANGE, push} from 'react-router-redux';
 import {stopSubmit} from 'redux-form';
+import {setMotorPolicies} from '../actions/policies';
 
 export function* createPolicyFlow() {
     const {insurance_companies} = yield getInsuranceCompanies();
@@ -33,5 +34,14 @@ export function* createPolicyFlow() {
             yield put(stopSubmit(CREATE_POLICY_FORM, {_error: err.message}))
             continue;
         }
+    }
+}
+
+export function* motorPoliciesContentFlow() {
+    const user = yield select(getUser);
+    const {motor_policies} = yield getPolicies(MOTOR_POLICY, user.id);
+
+    if (motor_policies) {
+        yield put(setMotorPolicies(motor_policies));
     }
 }
