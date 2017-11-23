@@ -9,7 +9,7 @@ function* getHeaders(authorized: boolean) {
     if (authorized) {
         const sessionToken = yield select(getSessionToken);
         return new Headers({
-            'Content-type': 'multipart/form-data',
+            'Content-type': 'application/vnd.api+json',
             'Authorization': sessionToken,
             'Accept': 'application/vnd.api+json',
         });
@@ -40,7 +40,7 @@ function* handleErrors (response: any, parseResponseBody: boolean = true) {
     }
 }
 
-function* sendRequest(endpoint: string, parseResponseBody: boolean = true, method: string, headers: Headers, body?: string) {
+function* sendRequest(endpoint: string, parseResponseBody: boolean = true, method: string, headers: Headers, authorized: boolean, body?: string) {
     const response = yield fetch(
         `${process.env.BASE_API}${endpoint}`,
         {
@@ -54,7 +54,7 @@ function* sendRequest(endpoint: string, parseResponseBody: boolean = true, metho
         const body = yield handleErrors(response, parseResponseBody);
         return {body, headers: response.headers};
     } catch (err) {
-        if (err.status === 401 && err.message === 'Unauthorized') {
+        if (err.status === 401 && authorized) {
             yield put(logOut());
             return {body: {}, headers: response.headers, error: err}
         } else {
@@ -66,13 +66,13 @@ function* sendRequest(endpoint: string, parseResponseBody: boolean = true, metho
 export function* post(endpoint: string, body?: any, parseResponseBody: boolean = true, authorized: boolean = true) {
     const headers = yield getHeaders(authorized);
 
-    const response = yield sendRequest(endpoint, parseResponseBody, 'POST', headers, JSON.stringify(body));
+    const response = yield sendRequest(endpoint, parseResponseBody, 'POST', headers, authorized, JSON.stringify(body));
     return response;
 }
 
 export function* get(endpoint: string, parseResponseBody: boolean = true, authorized: boolean = true) {
     const headers = yield getHeaders(authorized);
 
-    const response = yield sendRequest(endpoint, parseResponseBody, 'GET', headers);
+    const response = yield sendRequest(endpoint, parseResponseBody, 'GET', headers, authorized);
     return response;
 }
