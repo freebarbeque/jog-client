@@ -9,7 +9,7 @@ function* getHeaders(authorized: boolean) {
     if (authorized) {
         const sessionToken = yield select(getSessionToken);
         return new Headers({
-            'Content-type': 'application/vnd.api+json',
+            'Content-type': 'multipart/form-data',
             'Authorization': sessionToken,
             'Accept': 'application/vnd.api+json',
         });
