@@ -1,6 +1,7 @@
 import {get, post} from '../api/request';
 import {MOTOR_POLICY} from '../constants/policies';
 import {IPolicy} from "~/common/interfaces/policies";
+import {getCreatePolicyQueryString} from "~/common/utils/policies";
 
 export function* getPolicies(type: string, userId: number) {
     switch (type) {
@@ -21,5 +22,16 @@ export function* getInsuranceCompanies() {
 }
 
 export function* createPolicy(userId: string|number, type: string, policy: Partial<IPolicy>) {
-    yield post(`users/$`)
+    let policyType;
+    switch (type) {
+        case MOTOR_POLICY: {
+            policyType = 'motor_policies';
+            break;
+        }
+        default: {
+            throw new Error('Unknown policy type');
+        }
+    }
+
+    yield post(`users/${userId}/${policyType}?data[type]=${policyType}${getCreatePolicyQueryString(policy)}`)
 }

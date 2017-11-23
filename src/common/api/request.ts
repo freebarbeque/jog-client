@@ -38,7 +38,6 @@ function* sendRequest(endpoint: string, parseBody: boolean = true, method: strin
         const body = yield handleErrors(response, parseBody);
         return {body, headers: response.headers};
     } catch (err) {
-        console.log(err.status, err.message, err.status === 401 && err.message === 'Unauthorized')
         if (err.status === 401 && err.message === 'Unauthorized') {
             yield put(logOut());
             return {body: {}, headers: response.headers, error: err}
@@ -60,7 +59,7 @@ export function* post(endpoint: string, parseBody: boolean = true) {
 export function* get(endpoint: string, parseBody: boolean = true) {
     const sessionToken = yield select(getSessionToken);
     const headers = new Headers({
-        'Content-type': 'application/json',
+        'Content-type': 'application/vnd.api+json',
         'Authorization': sessionToken,
         'Accept': 'application/vnd.api+json',
     });
