@@ -18,30 +18,32 @@ interface IMotorPoliciesContent {
     push?: any;
 }
 
-const MotorPoliciesContent: React.StatelessComponent<IMotorPoliciesContent> = (props) => {
-    console.log(props.policies);
-    return (
-        <div className={props.className}>
-            {props.policies && props.policies.map(p => (
+class MotorPoliciesContent extends React.Component<IMotorPoliciesContent, {}> {
+    render () {
+        return (
+            <div className={this.props.className}>
+                {this.props.policies && this.props.policies.map(p => (
+                    <PolicyButtonWithDescription
+                        key={p.id}
+                        circleImgUrl={p.avatar}
+                        policyType="Motor Vehicle"
+                        policyName={p.name}
+                        policyStatus={'Add more details to complete this policy'}
+                        onClick={() => this.props.push(`${this.props.match.url}/${p.id}/overview`)}
+                    />
+                ))}
                 <PolicyButtonWithDescription
-                    key={p.id}
-                    circleImgUrl={p.avatar}
-                    policyType="Motor Vehicle"
-                    policyName={p.name}
-                    policyStatus={'Add more details to complete this policy'}
-                    onClick={() => props.push(`${props.match.url}/${p.id}/overview`)}
+                    icon={<Add/>}
+                    circleBgColor={PINK}
+                    policyName="Add Policy"
+                    policyType="MOTOR VEHICLE"
+                    policyStatus="Answer 7 questions to add new policy"
+                    onClick={() => this.props.push(`${this.props.match.url}/add`)}
                 />
-            ))}
-            <PolicyButtonWithDescription
-                icon={<Add/>}
-                circleBgColor={PINK}
-                policyName="Add Policy"
-                policyType="MOTOR VEHICLE"
-                policyStatus="Answer 7 questions to add new policy"
-                onClick={() => props.push(`${props.match.url}/add`)}
-            />
-        </div>
-    );
+            </div>
+        );
+    }
+
 }
 
 const StyledMotorPoliciesContent = styled(MotorPoliciesContent)`
