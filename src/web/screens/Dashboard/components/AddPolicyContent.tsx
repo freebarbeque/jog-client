@@ -2,12 +2,16 @@ import * as React from 'react';
 import styled from 'styled-components';
 import PolicyButton from './PolicyButton';
 import {PolicyMail, PolicyManual, PolicyPhoto} from 'src/web/images';
+import {push} from 'react-router-redux';
+import {Action, ActionCreator, bindActionCreators} from 'redux';
+import {connect} from 'react-redux';
 
 interface IAddPolicyContentProps {
   className?: string;
+  push: ActionCreator<Action>;
 }
 
-const AddPolicyContent: React.StatelessComponent<IAddPolicyContentProps> = (props) => (
+const AddPolicyContent: React.StatelessComponent<IAddPolicyContentProps> = (props: IAddPolicyContentProps) => (
   <div className={props.className}>
     <PolicyButton
       notification="Recommended"
@@ -17,6 +21,7 @@ const AddPolicyContent: React.StatelessComponent<IAddPolicyContentProps> = (prop
     <PolicyButton
       title="Manual"
       icon={<PolicyManual />}
+      onClick={() => props.push('/app/dashboard/motor/add/manual')}
     />
     <PolicyButton
       title="Upload or Drag and Drop a file"
@@ -39,4 +44,8 @@ const StyledAddPolicy = styled(AddPolicyContent)`
   }
 `;
 
-export default StyledAddPolicy;
+const mapDispatchToProps = (dispatch: any) => bindActionCreators({
+    push,
+}, dispatch);
+
+export default connect(null, mapDispatchToProps)(StyledAddPolicy);
