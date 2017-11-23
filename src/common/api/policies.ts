@@ -1,5 +1,6 @@
-import {get} from '../api/request';
+import {get, post} from '../api/request';
 import {MOTOR_POLICY} from '../constants/policies';
+import {IPolicy} from "~/common/interfaces/policies";
 
 export function* getPolicies(type: string, userId: number) {
     switch (type) {
@@ -17,4 +18,8 @@ export function* getPolicies(type: string, userId: number) {
 export function* getInsuranceCompanies() {
     const {body} = yield get('insurance_companies');
     return body;
+}
+
+export function* createPolicy(userId: string|number, type: string, policy: Partial<IPolicy>) {
+    yield post(`users/$`)
 }
