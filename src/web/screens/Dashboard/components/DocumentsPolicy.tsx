@@ -12,6 +12,8 @@ import {addPendingDocuments, removePendingDocument} from 'src/common/actions/doc
 import {openModal} from 'src/web/actions/page';
 import {PDF_PREVIEW_MODAL} from '~/web/constants/documents';
 import {isModalOpen} from '~/web/selectors/page';
+import {injectSaga} from '~/common/utils/saga';
+import {documentsFlow} from '~/common/sagas/policies';
 
 interface IDocumentPolicyProps {
     className?: string;
@@ -24,14 +26,18 @@ interface IDocumentPolicyProps {
 }
 
 const ButtonStyles = {
-  width: '190px',
-  height: '56px',
-  borderRadius: '100px',
-  alignSelf: 'center',
-  fontSize: '18px',
+    width: '190px',
+    height: '56px',
+    borderRadius: '100px',
+    alignSelf: 'center',
+    fontSize: '18px',
 };
 
 class DocumentsPolicy extends React.Component<IDocumentPolicyProps, {}> {
+
+    componentWillMount() {
+        injectSaga(documentsFlow);
+    }
 
     handleRemovePendingDocument(id: string) {
         return this.props.removePendingDocument(id);

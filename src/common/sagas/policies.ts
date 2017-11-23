@@ -45,3 +45,7 @@ export function* motorPoliciesContentFlow() {
         yield put(setMotorPolicies(motor_policies));
     }
 }
+
+export function* documentsFlow() {
+    yield console.log('documentsFlow');
+}
