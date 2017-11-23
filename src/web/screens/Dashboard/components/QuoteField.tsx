@@ -2,6 +2,8 @@ import * as React from 'react';
 import styled from 'styled-components';
 import {BLUE, DASHBOARD_INACTIVE_LINK_COLOR, LIGHT_GREEN} from 'src/common/constants/palette';
 import {BlackArrow, WhiteTick, MoreCircles} from 'src/web/images';
+import PolicyDatePicker from './PolicyDatePicker';
+const moment = require('moment');
 
 interface IQuoteFieldProps {
   className?: string;
@@ -24,9 +26,7 @@ const QuoteField: React.StatelessComponent<IQuoteFieldProps> = (props) => (
         {props.title}
       </Title>
       {props.withDatePicker ? (
-        <div>
-          Date Picker
-        </div>
+        <PolicyDatePicker />
       ) : (
         <StatusContainer>
           <StatusText>
@@ -96,7 +96,7 @@ const StyledQuoteField = styled(QuoteField)`
   height: 90px;
   width: ${props => props.width || '721'}px;
   box-shadow: 0 2px 4px rgba(51,51,51, 0.2);
-  cursor: pointer;
+  cursor: ${props => props.withDatePicker ? 'default' : 'pointer'};
   pointer-events: ${props => props.disabled ? 'none' : 'auto'};
   
   & {
@@ -115,16 +115,20 @@ const StyledQuoteField = styled(QuoteField)`
   
   &:hover {
     ${IconBox} {
-      background-color: #D4D5D7;
+      background-color: ${props => props.withDatePicker ? '#ECEDEF' : '#D4D5D7'};
     }
     ${ContentBox} {
-      background-color: #E6E6E6; 
+      background-color: ${props => props.withDatePicker ? '#FFF' : '#E6E6E6'}; 
     }
   }
   
   &:active {
-    ${IconBox}, ${ContentBox} {
-      background-color: #C8C9CB;
+    ${IconBox} {
+      background-color: ${props => props.withDatePicker ? '#ECEDEF' : '#C8C9CB'};
+    }
+    
+    ${ContentBox} {
+       background-color: ${props => props.withDatePicker ? '#FFF' : '#C8C9CB'};
     }
   }
 `;

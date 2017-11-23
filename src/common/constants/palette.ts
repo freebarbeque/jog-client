@@ -18,3 +18,4 @@ export const SECTION_HEADER_BG_COLOR = '#ECEDEF';
 export const DROPZONE_COLOR = '#D7D9DC';
 export const DARK_PINK = '#d93d57';
 export const LIGHT_GREEN = '#41EDC1';
+export const DATEPICKER_BORDER = '#D9DEE3';
