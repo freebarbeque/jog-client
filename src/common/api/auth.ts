@@ -1,5 +1,7 @@
 import {IUser, IUserCreds} from '../interfaces/user';
 import {post} from '../api/request';
+import {select} from "redux-saga/effects";
+import {getSessionToken} from "~/common/selectors/auth";
 
 export function* signIn(creds: IUserCreds) {
     // const user = yield post('users/sign_in', creds);
@@ -13,9 +15,9 @@ export function* signUp(userToCreate: IUser) {
 }
 
 export function* resendEmail(email: string) {
-    yield post(`users/confirmation?user[email]=${email}`, false);
+    yield post(`users/confirmation`, {user: {email}}, false, false);
 }
 
 export function* requestPasswordChange(email: string) {
-    yield post(`users/password?user[email]=${email}`, false);
+    yield post(`users/password`, {user: {email}}, false, false);
 }

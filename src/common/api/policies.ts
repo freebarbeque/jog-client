@@ -1,8 +1,6 @@
 import {get, post} from '../api/request';
 import {MOTOR_POLICY} from '../constants/policies';
 import {IPolicy} from '../interfaces/policies';
-import {select} from 'redux-saga/effects';
-import {getSessionToken} from '../selectors/auth';
 
 export function* getPolicies(type: string, userId: number) {
     switch (type) {
