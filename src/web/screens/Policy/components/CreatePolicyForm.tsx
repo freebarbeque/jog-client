@@ -33,7 +33,7 @@ const Header = styled.div`
 `;
 
 const Content = styled.div`
-    width: 600px;
+    width: 70%;
     padding: 10px;
     align-self: center;
     text-align: center;
@@ -48,7 +48,9 @@ const Title = styled.div`
 
 const DateContainer = styled.div`
     display: flex;
-    justify-content: space-between;
+    > div {
+        width: 100%;
+    }
 `
 
 const CreatePolicyForm = (props: ICreatePolicyFormProps) => {
@@ -67,7 +69,7 @@ const CreatePolicyForm = (props: ICreatePolicyFormProps) => {
                     name="policy_number"
                     component={Input}
                     style={{
-                        width: 560,
+                        width: 'calc(100% - 40px)',
                         border: '2px solid #dbdcde',
                         borderRadius: 5,
                     }}
@@ -77,24 +79,19 @@ const CreatePolicyForm = (props: ICreatePolicyFormProps) => {
                     <Field
                         name="day"
                         component={FormSelect}
-                        style={{width: 180}}
-                        menuStyle={{width: 180}}
                         dataSource={getMonthDays(props.month, props.year)}
                         defaultText="Day"
                     />
                     <Field
                         name="month"
                         component={FormSelect}
-                        style={{width: 180}}
-                        menuStyle={{width: 180}}
+                        style={{margin: '0 10px'}}
                         dataSource={getMonths(props.year)}
                         defaultText="Month"
                     />
                     <Field
                         name="year"
                         component={FormSelect}
-                        style={{width: 180}}
-                        menuStyle={{width: 180}}
                         dataSource={getYears()}
                         defaultText="Year"
                     />
@@ -105,7 +102,7 @@ const CreatePolicyForm = (props: ICreatePolicyFormProps) => {
                     component={Input}
                     sign="\u00A3"
                     style={{
-                        width: 520,
+                        width: 'calc(100% - 80px)',
                         border: '2px solid #dbdcde',
                         borderRadius: 5,
                     }}
@@ -116,7 +113,7 @@ const CreatePolicyForm = (props: ICreatePolicyFormProps) => {
                     name="vehicle_registration"
                     component={Input}
                     style={{
-                        width: 560,
+                        width: 'calc(100% - 40px)',
                         border: '2px solid #dbdcde',
                         borderRadius: 5,
                     }}
@@ -137,7 +134,7 @@ const CreatePolicyForm = (props: ICreatePolicyFormProps) => {
                     name="no_claims_bonus"
                     component={Input}
                     style={{
-                        width: 560,
+                        width: 'calc(100% - 40px)',
                         border: '2px solid #dbdcde',
                         borderRadius: 5,
                     }}

@@ -64,13 +64,12 @@ class FormSelect extends React.Component<ISelectProps, {}> {
                         multiple
                         ref={ref => this.menu = ref}
                         style={{
-                            width: 600,
+                            width: '100%',
                             backgroundColor: '#ECEDEF',
                             ...style,
                         }}
                         anchorOrigin={{vertical: 'bottom', horizontal: 'left'}}
                         menuStyle={{
-                            width: 600,
                             backgroundColor: '#ECEDEF',
                             ...menuStyle,
                         }}
