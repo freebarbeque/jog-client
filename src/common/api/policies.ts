@@ -32,12 +32,10 @@ export function* createPolicy(userId: string | number, type: string, policy: Par
         }
     }
 
-    const {level_of_cover, ...rest} = policy; // todo: use full policy when API is ready
-
     const body = {
         data: {
             type: policyType,
-            attributes: rest,
+            attributes: policy,
         }
     };
     yield post(`users/${userId}/${policyType}`, body);

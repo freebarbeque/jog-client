@@ -34,6 +34,6 @@ export interface ICreatePolicyFormValues {
     month: number;
     year: number;
     annual_cost_cents: number;
-    level_of_cover: 'Comprehensive' | '3rd Party' | '3rd Party, Fire & Theft';
+    level_of_cover: 'Third party' | 'Third party, fire and theft' | 'Comprehensive';
     no_claims_bonus: number;
 }

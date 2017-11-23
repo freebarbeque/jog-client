@@ -113,7 +113,7 @@ const CreatePolicyForm = (props: ICreatePolicyFormProps) => {
                 />
                 <Title>What is your car number?</Title>
                 <Field
-                    name="vehicle-registration"
+                    name="vehicle_registration"
                     component={Input}
                     style={{
                         width: 560,
@@ -127,8 +127,8 @@ const CreatePolicyForm = (props: ICreatePolicyFormProps) => {
                     component={RadioButton}
                     dataSource={[
                         {id: 'Comprehensive', name: 'Comprehensive'},
-                        {id: '3rd Party', name: '3rd Party'},
-                        {id: '3rd Party, Fire & Theft', name: '3rd Party, Fire & Theft'},
+                        {id: 'Third party', name: '3rd Party'},
+                        {id: 'Third party, fire and theft', name: '3rd Party, Fire & Theft'},
                     ]}
                     defaultSelected={0}
                 />
@@ -198,6 +198,11 @@ const validationSchema = {
             message: 'Please enter your policy cost',
         },
     },
+    vehicle_registration: {
+        presence: {
+            message: 'Please enter your car number',
+        },
+    }
 }
 
 const validateForm = (values: ICreatePolicyFormValues) => {
@@ -217,7 +222,8 @@ const mapStateToProps = (state: IReduxState) => ({
 const form = reduxForm({
     form: CREATE_POLICY_FORM,
     initialValues: {
-        level_of_cover: '3rd Party, Fire & Theft',
+        level_of_cover: 'Comprehensive',
+        no_claims_bonus : 0,
     },
     validate: validateForm,
 })(connect(mapStateToProps, null)(CreatePolicyForm));

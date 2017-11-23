@@ -1,7 +1,5 @@
 import {IUser, IUserCreds} from '../interfaces/user';
 import {post} from '../api/request';
-import {select} from "redux-saga/effects";
-import {getSessionToken} from "~/common/selectors/auth";
 
 export function* signIn(creds: IUserCreds) {
     // const user = yield post('users/sign_in', creds);
