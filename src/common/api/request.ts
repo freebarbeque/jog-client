@@ -25,7 +25,7 @@ function* handleErrors (response: any, parseBody: boolean = true) {
     }
 }
 
-function* sendRequest(endpoint: string, parseBody: boolean = true, method: string, headers: Headers) {
+function* sendRequest(endpoint: string, parseBody: boolean = true, method: string, headers: Headers, body?: string) {
     const response = yield fetch(
         `${process.env.BASE_API}${endpoint}`,
         {
@@ -47,12 +47,15 @@ function* sendRequest(endpoint: string, parseBody: boolean = true, method: strin
     }
 }
 
-export function* post(endpoint: string, parseBody: boolean = true) {
+export function* post(endpoint: string, parseBody: boolean = true, body?: any) {
+    const sessionToken = yield select(getSessionToken);
     const headers = new Headers({
-        'Content-type': 'application/json',
+        'Content-type': 'application/vnd.api+json',
+        'Authorization': sessionToken,
+        'Accept': 'application/vnd.api+json',
     });
 
-    const response = yield sendRequest(endpoint, parseBody, 'POST', headers);
+    const response = yield sendRequest(endpoint, parseBody, 'POST', headers, JSON.stringify(body));
     return response;
 }
 

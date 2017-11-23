@@ -14,6 +14,7 @@ export interface IPolicy {
     no_claims_bonus: number;
     excess_amount_cents: number;
     avatar: string;
+    level_of_cover: string;
     type: string;
 }
 
