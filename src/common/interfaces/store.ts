@@ -1,6 +1,7 @@
 import {IAuthReduxState} from './auth';
 import {Store} from 'redux';
 import {IDataSourceReduxState} from '../interfaces/dataSource';
+import {IMotorPolicy} from '../interfaces/policies';
 
 export interface IStore extends Store<IReduxState> {
     runSaga: any;
@@ -11,6 +12,9 @@ export interface IReduxState {
     form: any;
     router: IRouterState;
     dataSource: IDataSourceReduxState;
+    policies: {
+        motorPolicies: IMotorPolicy[];
+    }
 }
 
 export interface ICreateStoreOpts {
