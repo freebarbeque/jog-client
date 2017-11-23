@@ -1,10 +1,8 @@
 import {get, post} from '../api/request';
 import {MOTOR_POLICY} from '../constants/policies';
-import {IPolicy} from "~/common/interfaces/policies";
-import {getCreatePolicyQueryString} from "~/common/utils/policies";
-import {getQueryString} from "~/common/utils/request";
-import {select} from "redux-saga/effects";
-import {getSessionToken} from "~/common/selectors/auth";
+import {IPolicy} from '../interfaces/policies';
+import {select} from 'redux-saga/effects';
+import {getSessionToken} from '../selectors/auth';
 
 export function* getPolicies(type: string, userId: number) {
     switch (type) {
@@ -35,14 +33,8 @@ export function* createPolicy(userId: string | number, type: string, policy: Par
             throw new Error('Unknown policy type');
         }
     }
-    const sessionToken = yield select(getSessionToken);
-    const headers = new Headers({
-        'Content-type': 'application/vnd.api+json',
-        'Authorization': sessionToken,
-        'Accept': 'application/vnd.api+json',
-    });
 
-    const {level_of_cover, ...rest} = policy;
+    const {level_of_cover, ...rest} = policy; // todo: use full policy when API is ready
 
     const body = {
         data: {
@@ -50,13 +42,5 @@ export function* createPolicy(userId: string | number, type: string, policy: Par
             attributes: rest,
         }
     };
-    console.log(JSON.stringify(body));
-    yield fetch(
-        `${process.env.BASE_API}users/${userId}/${policyType}`,
-        {
-            method: 'POST',
-            headers,
-            body: JSON.stringify(body),
-        }
-    )
+    yield post(`users/${userId}/${policyType}`, body);
 }

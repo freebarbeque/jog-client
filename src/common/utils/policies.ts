@@ -9,9 +9,3 @@ export function mapCreatePolicyFormValues(values: ICreatePolicyFormValues) {
 
     return mappedValues;
 }
-
-export function getCreatePolicyQueryString (policy: Partial<IPolicy>) {
-    const keys = Object.keys(policy);
-
-    return keys.reduce((str, k) => `${str}&data[attributes][${k}]=${policy[k]}`, '');
-}

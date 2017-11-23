@@ -2,7 +2,7 @@ import {put, select, take} from 'redux-saga/effects';
 import {CREATE_POLICY, MOTOR_POLICY} from '../constants/policies';
 import {createPolicy, getInsuranceCompanies} from '../api/policies';
 import {setDataSource} from '../actions/dataSource';
-import {getCreatePolicyQueryString, mapCreatePolicyFormValues} from '../utils/policies';
+import {mapCreatePolicyFormValues} from '../utils/policies';
 import {getUser} from '../selectors/auth';
 
 export function* createPolicyFlow() {

@@ -5,8 +5,17 @@ interface IApiError extends Error {
     status?: number;
 }
 
+function* getHeaders() {
+    const sessionToken = yield select(getSessionToken);
+    return new Headers({
+        'Content-type': 'application/vnd.api+json',
+        'Authorization': sessionToken,
+        'Accept': 'application/vnd.api+json',
+    });
+}
+
 function* handleErrors (response: any, parseBody: boolean = true) {
-    if (response.status === 200) {
+    if (response.status === 200 || response.status === 201) {
         if (parseBody) {
             return yield response.json();
         } else {
@@ -31,6 +40,7 @@ function* sendRequest(endpoint: string, parseBody: boolean = true, method: strin
         {
             method,
             headers,
+            body,
         }
     )
 
@@ -47,25 +57,15 @@ function* sendRequest(endpoint: string, parseBody: boolean = true, method: strin
     }
 }
 
-export function* post(endpoint: string, parseBody: boolean = true, body?: any) {
-    const sessionToken = yield select(getSessionToken);
-    const headers = new Headers({
-        'Content-type': 'application/vnd.api+json',
-        'Authorization': sessionToken,
-        'Accept': 'application/vnd.api+json',
-    });
+export function* post(endpoint: string, body?: any, parseBody: boolean = true) {
+    const headers = yield getHeaders();
 
     const response = yield sendRequest(endpoint, parseBody, 'POST', headers, JSON.stringify(body));
     return response;
 }
 
 export function* get(endpoint: string, parseBody: boolean = true) {
-    const sessionToken = yield select(getSessionToken);
-    const headers = new Headers({
-        'Content-type': 'application/vnd.api+json',
-        'Authorization': sessionToken,
-        'Accept': 'application/vnd.api+json',
-    });
+    const headers = yield getHeaders();
 
     const response = yield sendRequest(endpoint, parseBody, 'GET', headers);
     return response;
