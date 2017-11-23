@@ -13,7 +13,8 @@ import {openModal} from 'src/web/actions/page';
 import {PDF_PREVIEW_MODAL} from '~/web/constants/documents';
 import {isModalOpen} from '~/web/selectors/page';
 import {injectSaga} from '~/common/utils/saga';
-import {documentsFlow} from '~/common/sagas/policies';
+import {documentsFlow} from '~/common/sagas/documents';
+import {uploadPendingDocuments} from 'src/common/actions/documents';
 
 interface IDocumentPolicyProps {
     className?: string;
@@ -23,6 +24,7 @@ interface IDocumentPolicyProps {
     removePendingDocument?: any;
     openModal: ActionCreator<Action>;
     isPreviewOpen: boolean;
+    uploadPendingDocuments: ActionCreator<Action>;
 }
 
 const ButtonStyles = {
@@ -127,6 +129,7 @@ const mapDispatchToProps = (dispatch: any) => bindActionCreators({
     addPendingDocuments,
     removePendingDocument,
     openModal,
+    uploadPendingDocuments,
 }, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(StyledDocumentsPolicy);
