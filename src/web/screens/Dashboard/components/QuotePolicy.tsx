@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import {FOOTER_BACKGROUND_COLOR, DASHBOARD_INACTIVE_LINK_COLOR} from 'src/common/constants/palette';
 import RoundedButton from 'src/web/components/RoundedButton';
 import QuoteField from './QuoteField';
+import {QuoteCar, QuoteAddress, QuoteCalendar, QuoteHolder} from 'src/web/images';
 
 interface IQuotePolicyProps {
   className?: string;
@@ -27,10 +28,10 @@ const QuotePolicy: React.StatelessComponent<IQuotePolicyProps> = (props) => (
       </HintText>
     </QuoteHint>
     <QuoteContentContainer>
-      <QuoteField title="Car" />
-      <QuoteField title="Policy holder" />
-      <QuoteField title="Address" />
-      <QuoteField title="Policy start date" />
+      <QuoteField icon={<QuoteCar />} title="Car" />
+      <QuoteField icon={<QuoteHolder />} title="Policy holder" />
+      <QuoteField icon={<QuoteAddress />} title="Address" />
+      <QuoteField icon={<QuoteCalendar />} title="Policy start date" />
       <RoundedButton
         label="Get my quote"
         style={ButtonStyles}

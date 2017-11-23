@@ -535,3 +535,47 @@ export const MoreCircles = (props: {width?: number, height?: number}) => (
     {...props}
   />
 );
+
+export const QuoteCar = (props: {width?: number, height?: number}) => (
+  <Image
+    src={require('./quote-car.svg')}
+    height={props.height || 33}
+    width={props.width || 25}
+    alt="quote-car"
+    className="quote-car-icon"
+    {...props}
+  />
+);
+
+export const QuoteAddress = (props: {width?: number, height?: number}) => (
+  <Image
+    src={require('./quote-address.svg')}
+    height={props.height || 29}
+    width={props.width || 28}
+    alt="quote-address"
+    className="quote-address-icon"
+    {...props}
+  />
+);
+
+export const QuoteCalendar = (props: {width?: number, height?: number}) => (
+  <Image
+    src={require('./quote-calendar.svg')}
+    height={props.height || 22}
+    width={props.width || 24}
+    alt="quote-calendar"
+    className="quote-calendar-icon"
+    {...props}
+  />
+);
+
+export const QuoteHolder = (props: {width?: number, height?: number}) => (
+  <Image
+    src={require('./quote-holder.svg')}
+    height={props.height || 30}
+    width={props.width || 23}
+    alt="quote-holder"
+    className="quote-holder-icon"
+    {...props}
+  />
+);
