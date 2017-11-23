@@ -22,7 +22,8 @@ const ButtonStyles = {
   width: '190px',
   height: '56px',
   borderRadius: '100px',
-  alignSelf: 'center'
+  alignSelf: 'center',
+  fontSize: '18px',
 };
 
 class DocumentsPolicy extends React.Component<IDocumentPolicyProps, {}> {

@@ -20,6 +20,7 @@ const Button = styled.button`
   border: none;
   font-size: 14px;
   cursor: pointer;
+  font-family: "Work Sans", sans-serif;
   &:hover {
     opacity: 0.7;
   }

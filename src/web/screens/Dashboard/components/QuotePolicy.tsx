@@ -1,10 +1,19 @@
 import * as React from 'react';
 import styled from 'styled-components';
 import {FOOTER_BACKGROUND_COLOR, DASHBOARD_INACTIVE_LINK_COLOR} from 'src/common/constants/palette';
+import RoundedButton from 'src/web/components/RoundedButton';
 
 interface IQuotePolicyProps {
   className?: string;
 }
+
+const ButtonStyles = {
+  width: '620px',
+  height: '60px',
+  borderRadius: '100px',
+  fontSize: '18px',
+  marginTop: '40px',
+};
 
 const QuotePolicy: React.StatelessComponent<IQuotePolicyProps> = (props) => (
   <div className={props.className}>
@@ -16,6 +25,14 @@ const QuotePolicy: React.StatelessComponent<IQuotePolicyProps> = (props) => (
         Complete the questions below to request a quote
       </HintText>
     </QuoteHint>
+    <QuoteContentContainer>
+      <RoundedButton
+        label="Get my quote"
+        style={ButtonStyles}
+        disabled
+        onClick={() => console.log('get quote')}
+      />
+    </QuoteContentContainer>
   </div>
 );
 
@@ -50,6 +67,15 @@ const HintText = styled.div`
   font-size: 14px;
   line-height: 16px;
   font-weight: 400;
+`;
+
+const QuoteContentContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1 0 auto;
+  align-self: stretch;
+  padding: 20px 150px 150px;
 `;
 
 export default StyledQuotePolicy;
