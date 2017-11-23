@@ -3,25 +3,25 @@ import {reduxForm, Field, formValueSelector} from 'redux-form';
 import {CREATE_POLICY_FORM} from 'src/common/constants/policies';
 import styled from 'styled-components';
 import FormSelect from 'src/web/components/Forms/FormSelect';
-import {insurers} from 'src/common/mocks/policy';
 import Input from 'src/web/components/Forms/Input';
 import {getMonthDays, getMonths, getYears} from '~/common/utils/dataSources';
 import {IReduxState} from '~/common/interfaces/store';
 import {connect} from 'react-redux';
 import RadioButton from 'src/web/components/Forms/RadioButton';
-import RadioButtons from 'src/web/components/Forms/RadioButton/Buttons';
 import RoundedButton from 'src/web/components/RoundedButton';
 import {onlyNumber} from '~/common/utils/form';
 import {ICreatePolicyFormValues} from '~/common/interfaces/policies';
 import {getDataSource} from '~/common/selectors/dataSource';
 import {IDataSource} from '~/common/interfaces/dataSource';
 const validate = require('validate.js');
+import ErrorText from 'src/web/components/Forms/ErrorText';
 
 interface ICreatePolicyFormProps {
     year?: string;
     month?: string;
     handleSubmit: any;
     insurersDataSource: IDataSource;
+    error: string;
 }
 
 const Header = styled.div`
@@ -143,6 +143,12 @@ const CreatePolicyForm = (props: ICreatePolicyFormProps) => {
                     }}
                     preCheck={onlyNumber}
                 />
+                {props.error ?
+                    <ErrorText>
+                        {props.error}
+                    </ErrorText>
+                    : null
+                }
                 <RoundedButton
                     type="submit"
                     label="Set up my account"
