@@ -1,26 +1,21 @@
 import {put, select} from 'redux-saga/effects';
 import {getSessionToken} from '../selectors/auth';
 import {logOut} from '../actions/auth';
+
 interface IApiError extends Error {
     status?: number;
 }
 
-function* getHeaders(authorized: boolean) {
-    if (authorized) {
-        const sessionToken = yield select(getSessionToken);
-        return new Headers({
-            'Content-type': 'application/vnd.api+json',
-            'Authorization': sessionToken,
-            'Accept': 'application/vnd.api+json',
-        });
-    } else {
-        return new Headers({
-            'Content-type': 'application/vnd.api+json',
-        });
-    }
+function* getDefaultHeaders() {
+    const sessionToken = yield select(getSessionToken);
+    return new Headers({
+        'Content-type': 'application/vnd.api+json',
+        'Authorization': sessionToken,
+        'Accept': 'application/vnd.api+json',
+    });
 }
 
-function* handleErrors (response: any, parseResponseBody: boolean = true) {
+function* handleErrors(response: any, parseResponseBody: boolean = true) {
     if (response.status === 200 || response.status === 201) {
         if (parseResponseBody) {
             return yield response.json();
@@ -40,7 +35,7 @@ function* handleErrors (response: any, parseResponseBody: boolean = true) {
     }
 }
 
-function* sendRequest(endpoint: string, parseResponseBody: boolean = true, method: string, headers: Headers, authorized: boolean, body?: string) {
+function* sendRequest(endpoint: string, parseResponseBody: boolean = true, method: string, headers: Headers, body?: string) {
     const response = yield fetch(
         `${process.env.BASE_API}${endpoint}`,
         {
@@ -49,6 +44,8 @@ function* sendRequest(endpoint: string, parseResponseBody: boolean = true, metho
             body,
         }
     )
+
+    const authorized = !!headers.get('Authorization');
 
     try {
         const body = yield handleErrors(response, parseResponseBody);
@@ -63,16 +60,16 @@ function* sendRequest(endpoint: string, parseResponseBody: boolean = true, metho
     }
 }
 
-export function* post(endpoint: string, body?: any, parseResponseBody: boolean = true, authorized: boolean = true) {
-    const headers = yield getHeaders(authorized);
+export function* post(endpoint: string, body?: any, passedHeaders?: Headers, parseResponseBody: boolean = true) {
+    const headers = passedHeaders ? passedHeaders : yield getDefaultHeaders();
 
-    const response = yield sendRequest(endpoint, parseResponseBody, 'POST', headers, authorized, JSON.stringify(body));
+    const response = yield sendRequest(endpoint, parseResponseBody, 'POST', headers, JSON.stringify(body));
     return response;
 }
 
-export function* get(endpoint: string, parseResponseBody: boolean = true, authorized: boolean = true) {
-    const headers = yield getHeaders(authorized);
+export function* get(endpoint: string, passedHeaders?: Headers, parseResponseBody: boolean = true) {
+    const headers = passedHeaders ? passedHeaders : yield getDefaultHeaders();
 
-    const response = yield sendRequest(endpoint, parseResponseBody, 'GET', headers, authorized);
+    const response = yield sendRequest(endpoint, parseResponseBody, 'GET', headers);
     return response;
 }

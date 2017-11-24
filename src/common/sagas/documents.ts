@@ -15,7 +15,7 @@ async function readFile(file: File) {
 
     reader.readAsBinaryString(file);
 
-    const read = await promise;
+    await promise;
     return reader.result;
 }
 
@@ -37,8 +37,6 @@ export function* documentsFlow() {
         'Authorization': sessionToken,
         'Accept': 'multipart/form-data',
     });
-
-    console.log(docs[0]);
 
     let body = '\r\n';
     body = body + '--boundary123\r\n';
