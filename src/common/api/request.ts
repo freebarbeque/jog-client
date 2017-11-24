@@ -81,6 +81,5 @@ export function* remove(endpoint: string, passedHeaders?: Headers, parseResponse
     const headers = passedHeaders ? passedHeaders : yield getDefaultHeaders();
 
     const response = yield sendRequest(endpoint, parseResponseBody, 'DELETE', headers);
-    console.log(response);
     return response;
 }

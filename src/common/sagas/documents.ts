@@ -31,7 +31,7 @@ export function* documentsFlow(policyId: string) {
 
             const docs = yield select(getPendingDocuments);
 
-            if (upload) {
+            if (upload && docs.length) {
                 yield uploadDocuments(user.id, policyId, docs);
                 yield fetchDocuments(user.id, policyId);
                 yield put(clearPendingDocuments());

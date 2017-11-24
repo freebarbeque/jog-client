@@ -19,6 +19,7 @@ import {injectSaga} from '~/common/utils/saga';
 import {documentsFlow} from '~/common/sagas/documents';
 import {uploadPendingDocuments, removeDocument} from 'src/common/actions/documents';
 import ErrorText from 'src/web/components/Forms/ErrorText';
+import {BLUE} from '~/common/constants/palette';
 
 interface IDocumentPolicyProps {
     className?: string;
@@ -43,6 +44,19 @@ const ButtonStyles = {
     fontSize: '18px',
 };
 
+const Notification = styled.div`
+    height: 48px;
+    background-color: ${BLUE};
+    display: flex;
+    align-items: center;
+    padding-left: 20px;
+    
+    span {
+        font-weight: bold;
+        margin-right: 10px;
+    }
+`
+
 class DocumentsPolicy extends React.Component<IDocumentPolicyProps, {}> {
 
     componentWillMount() {
@@ -63,6 +77,11 @@ class DocumentsPolicy extends React.Component<IDocumentPolicyProps, {}> {
         return (
             <div className={this.props.className}>
                 <PolicySection title="Uploaded Documents">
+                    {this.props.isLoading &&
+                        <Notification>
+                            <span>Document processing in progress</span>Your information will be onlineshortly
+                        </Notification>
+                    }
                     <ContentWrapper>
                         <FilesContainer>
                             {policyDocuments && policyDocuments.map((d, i) => {
