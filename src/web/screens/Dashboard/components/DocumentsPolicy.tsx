@@ -7,7 +7,10 @@ import DocumentsDropzone from './DocumentsDropzone';
 import FileCard from './FileCard';
 import RoundedButton from 'src/web/components/RoundedButton';
 import {IDocument, IPendingDocument} from 'src/common/interfaces/documents';
-import {getPolicyDocuments, getPendingDocuments} from 'src/common/selectors/documents';
+import {
+    getPolicyDocuments, getPendingDocuments, getSubmissionError,
+    getIsLoading
+} from 'src/common/selectors/documents';
 import {addPendingDocuments, removePendingDocument} from 'src/common/actions/documents';
 import {openModal} from 'src/web/actions/page';
 import {PDF_PREVIEW_MODAL} from '~/web/constants/documents';
@@ -15,6 +18,7 @@ import {isModalOpen} from '~/web/selectors/page';
 import {injectSaga} from '~/common/utils/saga';
 import {documentsFlow} from '~/common/sagas/documents';
 import {uploadPendingDocuments} from 'src/common/actions/documents';
+import ErrorText from 'src/web/components/Forms/ErrorText';
 
 interface IDocumentPolicyProps {
     className?: string;
@@ -25,6 +29,8 @@ interface IDocumentPolicyProps {
     openModal: ActionCreator<Action>;
     isPreviewOpen: boolean;
     uploadPendingDocuments: ActionCreator<Action>;
+    error: Error|null;
+    isLoading: boolean;
 }
 
 const ButtonStyles = {
@@ -75,10 +81,17 @@ class DocumentsPolicy extends React.Component<IDocumentPolicyProps, {}> {
                             ))}
                         </FilesContainer>
                         <DocumentsDropzone onDrop={this.props.addPendingDocuments}/>
+                        {this.props.error ?
+                            <ErrorText>
+                                {this.props.error.message}
+                            </ErrorText>
+                            : null
+                        }
                         <RoundedButton
                             label="Upload"
                             style={ButtonStyles}
-                            onClick={() => console.log('upload files')}
+                            onClick={() => this.props.uploadPendingDocuments()}
+                            disabled={this.props.isLoading}
                         />
                     </ContentWrapper>
                 </PolicySection>
@@ -123,6 +136,8 @@ const mapStateToProps = (state: any) => ({
     policyDocuments: getPolicyDocuments(state),
     pendingDocuments: getPendingDocuments(state),
     isPreviewOpen: isPreviewModalOpen(state),
+    error: getSubmissionError(state),
+    isLoading: getIsLoading(state),
 });
 
 const mapDispatchToProps = (dispatch: any) => bindActionCreators({

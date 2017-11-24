@@ -2,6 +2,7 @@ import {IAuthReduxState} from './auth';
 import {Store} from 'redux';
 import {IDataSourceReduxState} from '../interfaces/dataSource';
 import {IMotorPolicy} from '../interfaces/policies';
+import {IDocumentsReduxState} from '../interfaces/documents';
 
 export interface IStore extends Store<IReduxState> {
     runSaga: any;
@@ -14,7 +15,8 @@ export interface IReduxState {
     router: IRouterState;
     policies: {
         motorPolicies: IMotorPolicy[];
-    }
+    },
+    documents: IDocumentsReduxState;
 }
 
 export interface ICreateStoreOpts {
