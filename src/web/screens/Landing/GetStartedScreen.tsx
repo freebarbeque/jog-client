@@ -55,7 +55,7 @@ const button = (props: IButtonProps): ReactElement<IButtonProps> => (
     >
         <ButtonContent>
             <div/>
-            <ButtonTitle onClick={() => props.push('/app/dashboard/motor/add/manual')}>
+            <ButtonTitle onClick={() => props.push('/app/dashboard/motor')}>
                 Add a policy to get started
             </ButtonTitle>
             <RedSubmitArrow width={13} height={20}/>
