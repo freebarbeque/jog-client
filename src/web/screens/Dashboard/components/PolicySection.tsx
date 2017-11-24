@@ -7,7 +7,7 @@ import {EditIcon} from 'src/web/images';
 interface ISectionProps {
   className?: string;
   title?: string;
-  withEditIcon?: boolean;
+  withEditButton?: boolean;
   onEditButtonClick?: any;
 }
 
@@ -19,7 +19,7 @@ const Section: React.StatelessComponent<ISectionProps> = (props) => (
   <div className={props.className}>
     <SectionHeader>
       {props.title}
-      {props.withEditIcon && (
+      {props.withEditButton && (
         <EditButton onClick={props.onEditButtonClick}>
           <EditIcon />
         </EditButton>
@@ -43,7 +43,7 @@ const SectionHeader = styled.div`
   align-items: center;
   align-self: stretch;
   justify-content: space-between;
-  padding: 0 20px;
+  padding: 0 10px 0 20px;
   flex: 0 0 48px;
   background-color: ${SECTION_HEADER_BG_COLOR};
   color: ${SECTION_HEADER_COLOR};
