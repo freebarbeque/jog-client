@@ -64,14 +64,17 @@ class DocumentsPolicy extends React.Component<IDocumentPolicyProps, {}> {
                 <PolicySection title="Uploaded Documents">
                     <ContentWrapper>
                         <FilesContainer>
-                            {policyDocuments && policyDocuments.map((d, i) => (
-                                <FileCard
-                                    key={i}
-                                    fileName={d.name}
-                                    onDeleteClick={() => console.log(d.id)}
-                                    onPreviewClick={() => this.props.openModal(PDF_PREVIEW_MODAL)}
-                                />
-                            ))}
+                            {policyDocuments && policyDocuments.map((d, i) => {
+                                const url = d.attachment.url.split('/');
+                                return (
+                                    <FileCard
+                                        key={i}
+                                        fileName={url[url.length - 1]}
+                                        onDeleteClick={() => console.log(d.id)}
+                                        onPreviewClick={() => this.props.openModal(PDF_PREVIEW_MODAL)}
+                                    />
+                                )
+                            })}
                             {pendingDocuments && pendingDocuments.map((d, i) => (
                                 <FileCard
                                     key={i}

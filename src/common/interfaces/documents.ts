@@ -7,7 +7,9 @@ export interface IDocumentsReduxState {
 
 export interface IDocument {
   id?: string;
-  name?: string;
+  attachment: {
+    url: string;
+  }
 }
 
 export interface IPendingDocument {

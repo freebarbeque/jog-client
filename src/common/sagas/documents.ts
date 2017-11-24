@@ -63,7 +63,7 @@ export function* documentsFlow(policyId: string) {
 
     while (true) {
         try {
-            const {policyId} = yield take(UPLOAD_PENDING_DOCUMENTS);
+            yield take(UPLOAD_PENDING_DOCUMENTS);
             yield put(setIsLoading(true));
             yield put(setDocumentSubmissionError(null));
             const docs = yield select(getPendingDocuments);
