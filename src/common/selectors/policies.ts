@@ -2,10 +2,10 @@ import {createSelector} from 'reselect';
 const moment = require('moment');
 import {IReduxState} from '../interfaces/store';
 import {MOTOR_POLICY} from '../constants/policies';
-import {IInsurer, IMotorPolicy} from 'src/common/interfaces/policies';
-import {getInsuranceCompanies} from 'src/common/selectors/dataSource';
-import {GBP} from 'src/common/constants/currency';
-import {IDataSource} from 'src/common/interfaces/dataSource';
+import {IInsurer, IMotorPolicy} from '../interfaces/policies';
+import {getInsuranceCompanies} from '../selectors/dataSource';
+import {GBP} from '../constants/currency';
+import {IDataSource} from '../interfaces/dataSource';
 
 export const getPolicies = (policyType: string) => (state: IReduxState) => {
     switch (policyType) {
