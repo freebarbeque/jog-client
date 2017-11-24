@@ -55,13 +55,13 @@ export function* documentsFlow() {
 }
 */
 
-export function* documentsFlow() {
+export function* documentsFlow(policyId: string) {
     const user = yield select(getUser);
     const sessionToken = yield select(getSessionToken);
 
     while (true) {
         try {
-            yield take(UPLOAD_PENDING_DOCUMENTS);
+            const {policyId} = yield take(UPLOAD_PENDING_DOCUMENTS);
             yield put(setIsLoading(true));
             yield put(setDocumentSubmissionError(null));
             const docs = yield select(getPendingDocuments);
@@ -75,7 +75,7 @@ export function* documentsFlow() {
                 const body = new FormData();
                 body.append('data[type]', 'documents');
                 body.append('data[attributes][attachment]', d.file);
-                return post(`users/${user.id}/motor_policies/26/documents`, body, headers, false);
+                return post(`users/${user.id}/motor_policies/${policyId}/documents`, body, headers, false);
             })
 
             yield put(setIsLoading(false));

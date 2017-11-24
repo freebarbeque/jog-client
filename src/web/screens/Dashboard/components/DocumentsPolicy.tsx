@@ -31,6 +31,7 @@ interface IDocumentPolicyProps {
     uploadPendingDocuments: ActionCreator<Action>;
     error: Error|null;
     isLoading: boolean;
+    motorId: string;
 }
 
 const ButtonStyles = {
@@ -44,7 +45,7 @@ const ButtonStyles = {
 class DocumentsPolicy extends React.Component<IDocumentPolicyProps, {}> {
 
     componentWillMount() {
-        injectSaga(documentsFlow);
+        injectSaga(documentsFlow, this.props.motorId);
     }
 
     handleRemovePendingDocument(id: string) {
@@ -52,7 +53,7 @@ class DocumentsPolicy extends React.Component<IDocumentPolicyProps, {}> {
     }
 
     render() {
-        console.log(this.props.isPreviewOpen);
+
         const {
             policyDocuments,
             pendingDocuments
