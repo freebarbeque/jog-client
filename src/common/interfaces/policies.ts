@@ -19,7 +19,12 @@ export interface IPolicy {
 }
 
 export interface IMotorPolicy extends IPolicy {
+    annual_cost_currency: string;
+}
 
+export interface IMotorPolicyWithDaysLeft extends IMotorPolicy {
+    daysLeft: number;
+    costPerMonth: string;
 }
 
 export interface IInsurer {

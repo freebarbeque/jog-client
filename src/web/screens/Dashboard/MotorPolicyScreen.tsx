@@ -29,7 +29,7 @@ const MotorPolicyScreen: React.StatelessComponent<IMotorPolicyScreen> = (props) 
       />
       <PolicyTabs />
       <Switch>
-        <Route exact path={`${props.match.url}/overview`} render={() => (<div style={{alignSelf: 'stretch', flex: 1, color: 'black'}}>Overview</div>)}/>
+        <Route exact path={`${props.match.url}/overview`} render={(routerProps) => <PolicyOverview motorId={props.match.params.motorId} {...routerProps} />} />
         <Route exact path={`${props.match.url}/documents`} render={(routerProps: any) => <DocumentsPolicy motorId={props.match.params.motorId} {...routerProps} />} />
         <Route exact path={`${props.match.url}/quote`} component={QuotePolicy} />
         <Redirect to={`${props.match.url}/overview`} />
