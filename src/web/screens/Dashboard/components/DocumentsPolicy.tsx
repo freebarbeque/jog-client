@@ -20,6 +20,7 @@ import {documentsFlow} from '~/common/sagas/documents';
 import {uploadPendingDocuments, removeDocument} from 'src/common/actions/documents';
 import ErrorText from 'src/web/components/Forms/ErrorText';
 import {BLUE} from '~/common/constants/palette';
+import PDFPreview from './PDFPreview';
 
 interface IDocumentPolicyProps {
     className?: string;
@@ -119,6 +120,7 @@ class DocumentsPolicy extends React.Component<IDocumentPolicyProps, {}> {
                         />
                     </ContentWrapper>
                 </PolicySection>
+                <PDFPreview open={this.props.isPreviewOpen}/>
             </div>
         );
     }
