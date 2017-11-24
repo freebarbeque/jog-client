@@ -7,6 +7,7 @@ export function mapCreatePolicyFormValues(values: ICreatePolicyFormValues) {
 
     mappedValues.expiry = format(`${year}-${month}-${day}`);
     mappedValues.no_claims_bonus = values.no_claims_bonus || 0;
+    mappedValues.annual_cost_cents = values.annual_cost_cents * 100;
 
     return mappedValues;
 }
