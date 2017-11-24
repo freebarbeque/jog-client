@@ -17,7 +17,7 @@ import {PDF_PREVIEW_MODAL} from '~/web/constants/documents';
 import {isModalOpen} from '~/web/selectors/page';
 import {injectSaga} from '~/common/utils/saga';
 import {documentsFlow} from '~/common/sagas/documents';
-import {uploadPendingDocuments} from 'src/common/actions/documents';
+import {uploadPendingDocuments, removeDocument} from 'src/common/actions/documents';
 import ErrorText from 'src/web/components/Forms/ErrorText';
 
 interface IDocumentPolicyProps {
@@ -29,6 +29,7 @@ interface IDocumentPolicyProps {
     openModal: ActionCreator<Action>;
     isPreviewOpen: boolean;
     uploadPendingDocuments: ActionCreator<Action>;
+    removeDocument: ActionCreator<Action>;
     error: Error|null;
     isLoading: boolean;
     motorId: string;
@@ -70,7 +71,7 @@ class DocumentsPolicy extends React.Component<IDocumentPolicyProps, {}> {
                                     <FileCard
                                         key={i}
                                         fileName={url[url.length - 1]}
-                                        onDeleteClick={() => console.log(d.id)}
+                                        onDeleteClick={() => this.props.removeDocument(d.id)}
                                         onPreviewClick={() => this.props.openModal(PDF_PREVIEW_MODAL)}
                                     />
                                 )
@@ -149,6 +150,7 @@ const mapDispatchToProps = (dispatch: any) => bindActionCreators({
     removePendingDocument,
     openModal,
     uploadPendingDocuments,
+    removeDocument,
 }, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(StyledDocumentsPolicy);

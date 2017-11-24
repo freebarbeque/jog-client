@@ -1,6 +1,8 @@
 import {IDocument, IPendingDocument} from '../interfaces/documents';
 import {
     SET_DOCUMENTS,
+    REMOVE_DOCUMENT,
+    REMOVE_DOCUMENT_LOCALLY,
     ADD_PENDING_DOCUMENTS,
     REMOVE_PENDING_DOCUMENT,
     UPLOAD_PENDING_DOCUMENTS,
@@ -13,6 +15,20 @@ export const setDocuments = (documents: IDocument[]) => {
     return {
         type: SET_DOCUMENTS,
         documents,
+    }
+}
+
+export const removeDocument = (documentId: number) => {
+    return {
+        type: REMOVE_DOCUMENT,
+        documentId,
+    }
+}
+
+export const removeDocumentLocally = (documentId: number) => {
+    return {
+        type: REMOVE_DOCUMENT_LOCALLY,
+        documentId,
     }
 }
 

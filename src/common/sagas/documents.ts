@@ -1,10 +1,14 @@
 import {fork, put, race, select, take} from 'redux-saga/effects';
-import {UPLOAD_PENDING_DOCUMENTS} from '../constants/documents';
+import {REMOVE_DOCUMENT, UPLOAD_PENDING_DOCUMENTS} from '../constants/documents';
 import {getPendingDocuments} from '../selectors/documents';
 import {getUser} from '../selectors/auth';
-import {clearPendingDocuments, setDocumentSubmissionError, setIsLoading} from '../actions/documents';
-import {fetchDocuments, uploadDocuments} from '../api/documents';
+import {fetchDocuments, removeDocument, uploadDocuments} from '../api/documents';
 import {LOCATION_CHANGE} from 'react-router-redux';
+import {
+    clearPendingDocuments,
+    setDocumentSubmissionError,
+    setIsLoading
+} from '../actions/documents';
 
 export function* documentsFlow(policyId: string) {
     const user = yield select(getUser);
@@ -12,8 +16,9 @@ export function* documentsFlow(policyId: string) {
 
     while (true) {
         try {
-            const {upload, location} = yield race({
+            const {upload, remove, location} = yield race({
                 upload: take(UPLOAD_PENDING_DOCUMENTS),
+                remove: take(REMOVE_DOCUMENT),
                 location: take(LOCATION_CHANGE),
             });
 
@@ -25,10 +30,15 @@ export function* documentsFlow(policyId: string) {
             yield put(setDocumentSubmissionError(null));
 
             const docs = yield select(getPendingDocuments);
-            yield uploadDocuments(user.id, policyId, docs);
 
-            yield fetchDocuments(user.id, policyId);
-            yield put(clearPendingDocuments());
+            if (upload) {
+                yield uploadDocuments(user.id, policyId, docs);
+                yield fetchDocuments(user.id, policyId);
+                yield put(clearPendingDocuments());
+            } else if (remove) {
+                const {documentId} = remove;
+                yield removeDocument(user.id, policyId, documentId);
+            }
 
             yield put(setIsLoading(false));
         } catch (err) {

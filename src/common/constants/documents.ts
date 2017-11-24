@@ -1,4 +1,6 @@
 export const SET_DOCUMENTS = 'app/documents/ADD_DOCUMENTS';
+export const REMOVE_DOCUMENT = 'app/documents/REMOVE_DOCUMENT';
+export const REMOVE_DOCUMENT_LOCALLY = 'app/documents/REMOVE_DOCUMENT_LOCALLY';
 export const ADD_PENDING_DOCUMENTS = 'app/documents/ADD_PENDING_DOCUMENTS';
 export const CLEAR_PENDING_DOCUMENTS = 'app/documents/CLEAR_PENDING_DOCUMENTS';
 export const REMOVE_PENDING_DOCUMENT = 'app/document/REMOVE_PENDING_DOCUMENT';

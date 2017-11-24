@@ -5,7 +5,7 @@ import {
     REMOVE_PENDING_DOCUMENT,
     SET_DOCUMENT_SUBMISSION_ERROR,
     SET_IS_LOADING,
-    SET_DOCUMENTS, CLEAR_PENDING_DOCUMENTS,
+    SET_DOCUMENTS, CLEAR_PENDING_DOCUMENTS, REMOVE_DOCUMENT_LOCALLY,
 } from '../constants/documents';
 
 const defaultState = {
@@ -47,6 +47,13 @@ export default function (state: IDocumentsReduxState = defaultState, action: IAc
             return {
                 ...state,
                 policyDocuments: action.documents,
+            }
+        }
+
+        case REMOVE_DOCUMENT_LOCALLY: {
+            return {
+                ...state,
+                policyDocuments: state.policyDocuments.filter(d => d.id !== action.documentId),
             }
         }
 

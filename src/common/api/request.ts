@@ -76,3 +76,11 @@ export function* get(endpoint: string, passedHeaders?: Headers, parseResponseBod
     const response = yield sendRequest(endpoint, parseResponseBody, 'GET', headers);
     return response;
 }
+
+export function* remove(endpoint: string, passedHeaders?: Headers, parseResponseBody: boolean = true) {
+    const headers = passedHeaders ? passedHeaders : yield getDefaultHeaders();
+
+    const response = yield sendRequest(endpoint, parseResponseBody, 'DELETE', headers);
+    console.log(response);
+    return response;
+}
