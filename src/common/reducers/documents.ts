@@ -5,6 +5,7 @@ import {
     REMOVE_PENDING_DOCUMENT,
     SET_DOCUMENT_SUBMISSION_ERROR,
     SET_IS_LOADING,
+    SET_DOCUMENTS,
 } from '../constants/documents';
 
 const defaultState = {
@@ -34,6 +35,13 @@ export default function (state: IDocumentsReduxState = defaultState, action: IAc
                 ...state,
                 isLoading: action.isLoading,
             }
+
+        case SET_DOCUMENTS: {
+            return {
+                ...state,
+                policyDocuments: action.documents,
+            }
+        }
 
         default: {
             return state;

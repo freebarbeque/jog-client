@@ -1,4 +1,6 @@
+import {IDocument} from '../interfaces/documents';
 import {
+    SET_DOCUMENTS,
     ADD_PENDING_DOCUMENTS,
     REMOVE_PENDING_DOCUMENT,
     UPLOAD_PENDING_DOCUMENTS,
@@ -6,7 +8,14 @@ import {
     SET_IS_LOADING,
 } from '../constants/documents';
 
-export const addPendingDocuments = (documents: any[]) => ({
+export const setDocuments = (documents: IDocument[]) => {
+    return {
+        type: SET_DOCUMENTS,
+        documents,
+    }
+}
+
+export const addPendingDocuments = (documents: IDocument[]) => ({
     type: ADD_PENDING_DOCUMENTS,
     documents,
 });

@@ -1,3 +1,4 @@
+export const SET_DOCUMENTS = 'app/documents/ADD_DOCUMENTS';
 export const ADD_PENDING_DOCUMENTS = 'app/documents/ADD_PENDING_DOCUMENTS';
 export const REMOVE_PENDING_DOCUMENT = 'app/document/REMOVE_PENDING_DOCUMENT';
 export const UPLOAD_PENDING_DOCUMENTS = 'app/document/UPLOAD_PENDING_DOCUMENTS';

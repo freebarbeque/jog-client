@@ -1,9 +1,10 @@
-import {put, select, take} from 'redux-saga/effects';
+import {fork, put, select, take} from 'redux-saga/effects';
 import {UPLOAD_PENDING_DOCUMENTS} from '../constants/documents';
 import {getPendingDocuments} from '../selectors/documents';
 import {post} from '../api/request';
 import {getSessionToken, getUser} from '../selectors/auth';
 import {setDocumentSubmissionError, setIsLoading} from "~/common/actions/documents";
+import {fetchDocuments} from "~/common/api/documents";
 /*
 async function readFile(file: File) {
     const reader = new FileReader();
@@ -58,6 +59,7 @@ export function* documentsFlow() {
 export function* documentsFlow(policyId: string) {
     const user = yield select(getUser);
     const sessionToken = yield select(getSessionToken);
+    yield fork(fetchDocuments, user.id, policyId);
 
     while (true) {
         try {
