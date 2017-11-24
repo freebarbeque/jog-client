@@ -5,27 +5,35 @@ import {SECTION_HEADER_BG_COLOR, PINK, DARK_PINK} from 'src/common/constants/pal
 import {styledComponentWithProps} from 'src/common/utils/types';
 
 interface IFileCard {
-  className?: string;
-  fileName?: string;
-  onDeleteClick?: any;
+    className?: string;
+    fileName?: string;
+    onDeleteClick?: any;
 }
 
 interface IDeleteButtonProps {
-  onClick?: any;
+    onClick?: any;
 }
 
+const IconContainer = styled.div`
+    &:hover{
+        cursor: pointer;
+    }
+`
+
 const FileCard: React.StatelessComponent<IFileCard> = (props) => (
-  <div className={props.className}>
-    <Card>
-      <DeleteButton onClick={props.onDeleteClick}>
-        <PolicyCross />
-      </DeleteButton>
-      <PDFFile />
-    </Card>
-    <FileName>
-      {props.fileName}
-    </FileName>
-  </div>
+    <div className={props.className}>
+        <Card>
+            <DeleteButton onClick={props.onDeleteClick}>
+                <PolicyCross/>
+            </DeleteButton>
+            <IconContainer onClick={() => console.log('Will open preview')}>
+                <PDFFile/>
+            </IconContainer>
+        </Card>
+        <FileName>
+            {props.fileName}
+        </FileName>
+    </div>
 );
 
 const StyledFileCard = styled(FileCard)`
