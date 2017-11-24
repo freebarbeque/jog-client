@@ -5,7 +5,7 @@ import {
     REMOVE_PENDING_DOCUMENT,
     SET_DOCUMENT_SUBMISSION_ERROR,
     SET_IS_LOADING,
-    SET_DOCUMENTS,
+    SET_DOCUMENTS, CLEAR_PENDING_DOCUMENTS,
 } from '../constants/documents';
 
 const defaultState = {
@@ -20,6 +20,13 @@ export default function (state: IDocumentsReduxState = defaultState, action: IAc
 
         case ADD_PENDING_DOCUMENTS:
             return Object.assign({}, state, {pendingDocuments: state.pendingDocuments.concat(action.documents)});
+
+        case CLEAR_PENDING_DOCUMENTS: {
+            return {
+                ...state,
+                pendingDocuments: [],
+            }
+        }
 
         case REMOVE_PENDING_DOCUMENT:
             return Object.assign({}, state, {pendingDocuments: state.pendingDocuments.filter(d => d.pendingId !== action.documentId)});

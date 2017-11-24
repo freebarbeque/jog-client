@@ -1,4 +1,4 @@
-import {IDocument} from '../interfaces/documents';
+import {IDocument, IPendingDocument} from '../interfaces/documents';
 import {
     SET_DOCUMENTS,
     ADD_PENDING_DOCUMENTS,
@@ -6,6 +6,7 @@ import {
     UPLOAD_PENDING_DOCUMENTS,
     SET_DOCUMENT_SUBMISSION_ERROR,
     SET_IS_LOADING,
+    CLEAR_PENDING_DOCUMENTS,
 } from '../constants/documents';
 
 export const setDocuments = (documents: IDocument[]) => {
@@ -15,7 +16,7 @@ export const setDocuments = (documents: IDocument[]) => {
     }
 }
 
-export const addPendingDocuments = (documents: IDocument[]) => ({
+export const addPendingDocuments = (documents: IPendingDocument[]) => ({
     type: ADD_PENDING_DOCUMENTS,
     documents,
 });
@@ -42,5 +43,11 @@ export function setIsLoading(isLoading: boolean) {
     return {
         type: SET_IS_LOADING,
         isLoading,
+    }
+}
+
+export function clearPendingDocuments() {
+    return {
+        type: CLEAR_PENDING_DOCUMENTS,
     }
 }
