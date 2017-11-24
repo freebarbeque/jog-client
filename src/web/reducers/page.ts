@@ -11,7 +11,7 @@ export default (state: IPageReduxState = defaultState, action: IAction) => {
         case OPEN_MODAL: {
             return {
                 ...state,
-                modals: state.modals.concat(action.modal),
+                modals: state.modals.find(m => m === action.modal) ? state.modals : state.modals.concat(action.modal),
             }
         }
 

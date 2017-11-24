@@ -7,7 +7,8 @@ import {styledComponentWithProps} from 'src/common/utils/types';
 interface IFileCard {
     className?: string;
     fileName?: string;
-    onDeleteClick?: any;
+    onDeleteClick?: () => void;
+    onPreviewClick?: () => void;
 }
 
 interface IDeleteButtonProps {
@@ -26,7 +27,7 @@ const FileCard: React.StatelessComponent<IFileCard> = (props) => (
             <DeleteButton onClick={props.onDeleteClick}>
                 <PolicyCross/>
             </DeleteButton>
-            <IconContainer onClick={() => console.log('Will open preview')}>
+            <IconContainer onClick={props.onPreviewClick}>
                 <PDFFile/>
             </IconContainer>
         </Card>
