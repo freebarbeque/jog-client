@@ -5,6 +5,12 @@ interface IDialogProps {
     open: boolean;
     children: any;
     autoScrollBodyContent?: boolean;
+    autoDetectWindowHeight?: boolean;
+    repositionOnUpdate?: boolean;
+    overlayStyle?: any;
+    style?: any;
+    contentStyle?: any;
+    actionsContainerStyle?: any;
 }
 
 export default (props: IDialogProps) => {
