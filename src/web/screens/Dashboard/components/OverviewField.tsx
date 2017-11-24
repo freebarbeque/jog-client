@@ -4,6 +4,7 @@ import {
   BLUE,
   FOOTER_BACKGROUND_COLOR,
   SECTION_HEADER_BG_COLOR,
+  FIELD_GRAY_COLOR,
 } from 'src/common/constants/palette';
 
 interface IOverviewFieldProps {
@@ -13,6 +14,7 @@ interface IOverviewFieldProps {
   placeholder?: string | number;
   underline?: 'dashed' | 'solid';
   width?: string;
+  gray?: boolean;
 }
 
 const OverviewField: React.StatelessComponent<IOverviewFieldProps> = (props) => (
@@ -30,17 +32,17 @@ const Title = styled.div`
 
 const FieldValue = styled.div`
   font-size: 20px;
-  margin: 12px 0;
+  margin: 8px 0 12px;
 `;
 
 const StyledOverviewField = styled(OverviewField)`
   display: flex;
   flex-direction: column;
-  border-bottom: 1px ${props => props.underline || 'solid'} ${SECTION_HEADER_BG_COLOR};
+  border-bottom:  ${props => props.underline ? props.underline === 'solid' ? '1px solid' : '2px dashed' : '1px solid'} ${SECTION_HEADER_BG_COLOR};
   flex: 1 0 ${props => props.width || '50%'};
   
   & ${FieldValue} {
-    color: ${BLUE};
+    color: ${props => props.gray ? FIELD_GRAY_COLOR : BLUE};
   }
 `;
 

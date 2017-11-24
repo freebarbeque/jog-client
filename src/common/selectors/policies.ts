@@ -5,7 +5,7 @@ import {MOTOR_POLICY} from '../constants/policies';
 import {IInsurer, IMotorPolicy} from 'src/common/interfaces/policies';
 import {getInsuranceCompanies} from 'src/common/selectors/dataSource';
 import {GBP} from 'src/common/constants/currency';
-import {IDataSource} from "~/common/interfaces/dataSource";
+import {IDataSource} from 'src/common/interfaces/dataSource';
 
 export const getPolicies = (policyType: string) => (state: IReduxState) => {
     switch (policyType) {
@@ -31,6 +31,7 @@ export const getCurrentMotorPolicy = (motorPolicyId: string) => createSelector(
             const daysLeft = expiryDate.diff(today, 'days');
             const formattedExpiryDate = expiryDate.format('DD MMM YYYY');
             const costPerMonth = currentPolicy.annual_cost_currency === GBP ? `£${currentPolicy.annual_cost_cents / 100}` : `$${currentPolicy.annual_cost_cents / 100}`;
+            const excess = currentPolicy.excess_amount_currency === GBP ? `£${currentPolicy.excess_amount_cents / 100}` : `$${currentPolicy.excess_amount_cents / 100}`;
             const insuranceCompany = insuranceCompanies.find(c => c.id === currentPolicy.insurance_company_id);
 
             return Object.assign({}, currentPolicy, {
@@ -38,6 +39,7 @@ export const getCurrentMotorPolicy = (motorPolicyId: string) => createSelector(
                 expiry: formattedExpiryDate,
                 costPerMonth,
                 insuranceCompanyName: insuranceCompany ? insuranceCompany.name : '',
+                excess,
             });
         }
         return currentPolicy;

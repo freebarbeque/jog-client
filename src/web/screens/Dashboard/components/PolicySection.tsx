@@ -35,7 +35,8 @@ const StyledSection = styled(Section)`
   display: flex;
   flex-direction: column;
   align-self: stretch;
-  flex: 1 0;
+  flex: 1 0 auto;
+  box-shadow: 0 2px 4px rgba(51, 51, 51, 0.2);
 `;
 
 const SectionHeader = styled.div`
