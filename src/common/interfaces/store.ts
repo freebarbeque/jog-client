@@ -10,8 +10,8 @@ export interface IStore extends Store<IReduxState> {
 export interface IReduxState {
     auth: IAuthReduxState;
     form: any;
-    router: IRouterState;
     dataSource: IDataSourceReduxState;
+    router: IRouterState;
     policies: {
         motorPolicies: IMotorPolicy[];
     }

@@ -6,7 +6,7 @@ import {Provider} from 'react-redux'
 import {routerMiddleware} from 'react-router-redux';
 import history from './web/history'
 import createStore from './common/store/index';
-import reducer from './web/store/reducer';
+import reducer from './web/reducers';
 import App from './web/App';
 import './index.css';
 const injectTapEventPlugin = require('react-tap-event-plugin');
