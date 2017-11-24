@@ -25,7 +25,8 @@ function* handleErrors(response: any, parseResponseBody: boolean = true) {
     } else {
         let error = yield response.text();
         if (error[0] === '{') {
-            error = JSON.parse(error).errors[0].body;
+            const res = JSON.parse(error);
+            error = res.error || res.errors[0].body;
         }
 
         const err: IApiError = new Error(error || response.statusText);
