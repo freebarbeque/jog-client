@@ -24,7 +24,7 @@ const PolicyOverview: React.StatelessComponent<IPolicyOverviewProps> = (props) =
           <OverviewField title="Expires" value={props.motorPolicy.expiry} />
           <OverviewField title="Vehicle" />
           <OverviewField title="Policy No." value={props.motorPolicy.policy_number}/>
-          <OverviewField title="Insurance Co." value="Admiral" />
+          <OverviewField title="Insurance Co." value={props.motorPolicy.insuranceCompanyName} />
           <OverviewField title="Cost per month" value={props.motorPolicy.costPerMonth} />
         </Content>
       </PolicySection>

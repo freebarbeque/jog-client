@@ -1,4 +1,4 @@
-import {all, put, race, select, take} from 'redux-saga/effects';
+import {all, put, race, select, take, fork} from 'redux-saga/effects';
 import {getSessionToken, getUser} from '../selectors/auth';
 import {push} from 'react-router-redux';
 import {LOG_OUT} from '../constants/auth';
@@ -9,6 +9,8 @@ import {isSecureRoute} from '../utils/route';
 import {takeEvery} from 'redux-saga/effects';
 import {LOCATION_CHANGE} from 'react-router-redux';
 import {appAfterSignInFlow} from '../sagas/app';
+import {getInsuranceCompanies} from '../api/policies';
+import {setDataSource} from '../actions/dataSource';
 
 function* handleRoute({payload: {pathname}}: IAction) {
     const sessionToken = yield select(getSessionToken);
@@ -29,7 +31,13 @@ function* handleLogout() {
     yield put(push('/auth'));
 }
 
+function* fetchInsuranceCompanies() {
+    const {insurance_companies} = yield getInsuranceCompanies();
+    yield put(setDataSource('insuranceCompanies', insurance_companies.map(ic => ({id: ic.id, name: ic.name}))));
+}
+
 export default function* () {
+    yield fork(fetchInsuranceCompanies);
     yield all([
         takeEvery(LOCATION_CHANGE, handleRoute),
         takeEvery(LOG_OUT, handleLogout),

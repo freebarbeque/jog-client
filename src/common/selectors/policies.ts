@@ -1,9 +1,11 @@
 import {createSelector} from 'reselect';
+const moment = require('moment');
 import {IReduxState} from '../interfaces/store';
 import {MOTOR_POLICY} from '../constants/policies';
-import {IMotorPolicy} from 'src/common/interfaces/policies';
-const moment = require('moment');
+import {IInsurer, IMotorPolicy} from 'src/common/interfaces/policies';
+import {getInsuranceCompanies} from 'src/common/selectors/dataSource';
 import {GBP} from 'src/common/constants/currency';
+import {IDataSource} from "~/common/interfaces/dataSource";
 
 export const getPolicies = (policyType: string) => (state: IReduxState) => {
     switch (policyType) {
@@ -19,7 +21,8 @@ export const getPolicies = (policyType: string) => (state: IReduxState) => {
 
 export const getCurrentMotorPolicy = (motorPolicyId: string) => createSelector(
   getPolicies(MOTOR_POLICY),
-  (motorPolicies: IMotorPolicy[]) => {
+  getInsuranceCompanies,
+  (motorPolicies: IMotorPolicy[], insuranceCompanies: IDataSource[]) => {
     if (motorPolicies) {
         const currentPolicy = motorPolicies.find(m => m.id === Number(motorPolicyId));
         if (currentPolicy) {
@@ -28,7 +31,14 @@ export const getCurrentMotorPolicy = (motorPolicyId: string) => createSelector(
             const daysLeft = expiryDate.diff(today, 'days');
             const formattedExpiryDate = expiryDate.format('DD MMM YYYY');
             const costPerMonth = currentPolicy.annual_cost_currency === GBP ? `£${currentPolicy.annual_cost_cents / 100}` : `$${currentPolicy.annual_cost_cents / 100}`;
-            return Object.assign({}, currentPolicy, {daysLeft, expiry: formattedExpiryDate, costPerMonth});
+            const insuranceCompany = insuranceCompanies.find(c => c.id === currentPolicy.insurance_company_id);
+
+            return Object.assign({}, currentPolicy, {
+                daysLeft,
+                expiry: formattedExpiryDate,
+                costPerMonth,
+                insuranceCompanyName: insuranceCompany ? insuranceCompany.name : '',
+            });
         }
         return currentPolicy;
     }
