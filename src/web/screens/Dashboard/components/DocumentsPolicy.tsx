@@ -10,7 +10,8 @@ import {IDocument, IPendingDocument} from 'src/common/interfaces/documents';
 import {getPolicyDocuments, getPendingDocuments} from 'src/common/selectors/documents';
 import {addPendingDocuments, removePendingDocument} from 'src/common/actions/documents';
 import {openModal} from 'src/web/actions/page';
-import {PDF_PREVIEW_MODAL} from "~/web/constants/documents";
+import {PDF_PREVIEW_MODAL} from '~/web/constants/documents';
+import {isModalOpen} from '~/web/selectors/page';
 
 interface IDocumentPolicyProps {
     className?: string;
@@ -19,6 +20,7 @@ interface IDocumentPolicyProps {
     addPendingDocuments?: any;
     removePendingDocument?: any;
     openModal: ActionCreator<Action>;
+    isPreviewOpen: boolean;
 }
 
 const ButtonStyles = {
@@ -36,7 +38,7 @@ class DocumentsPolicy extends React.Component<IDocumentPolicyProps, {}> {
     }
 
     render() {
-
+        console.log(this.props.isPreviewOpen);
         const {
             policyDocuments,
             pendingDocuments
@@ -107,9 +109,12 @@ const ContentWrapper = styled.div`
   }
 `;
 
+const isPreviewModalOpen = isModalOpen(PDF_PREVIEW_MODAL);
+
 const mapStateToProps = (state: any) => ({
     policyDocuments: getPolicyDocuments(state),
     pendingDocuments: getPendingDocuments(state),
+    isPreviewOpen: isPreviewModalOpen(state),
 });
 
 const mapDispatchToProps = (dispatch: any) => bindActionCreators({

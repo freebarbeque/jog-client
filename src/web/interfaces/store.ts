@@ -1,7 +1,7 @@
 import {IReduxState} from '~/common/interfaces/store';
 
 export interface IWebReduxState extends IReduxState {
-    pages: IPageReduxState;
+    page: IPageReduxState;
 }
 
 export interface IPageReduxState {
