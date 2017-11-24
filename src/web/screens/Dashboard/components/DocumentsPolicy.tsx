@@ -120,7 +120,10 @@ class DocumentsPolicy extends React.Component<IDocumentPolicyProps, {}> {
                         />
                     </ContentWrapper>
                 </PolicySection>
-                <PDFPreview open={this.props.isPreviewOpen}/>
+                {this.props.pendingDocuments && this.props.pendingDocuments.length ?
+                    <PDFPreview open={this.props.isPreviewOpen} document={this.props.pendingDocuments[0].file}/>
+                    : null
+                }
             </div>
         );
     }

@@ -4,11 +4,14 @@ import Dialog from 'material-ui/Dialog';
 interface IDialogProps {
     open: boolean;
     children: any;
+    autoScrollBodyContent?: boolean;
 }
 
 export default (props: IDialogProps) => {
+    const {children, ...restProps} = props;
+
     return (
-        <Dialog open={props.open}>
+        <Dialog {...restProps}>
             {props.children}
         </Dialog>
     );
