@@ -3,7 +3,7 @@ import {UPLOAD_PENDING_DOCUMENTS} from '../constants/documents';
 import {getPendingDocuments} from '../selectors/documents';
 import {post} from '../api/request';
 import {getSessionToken, getUser} from '../selectors/auth';
-
+/*
 async function readFile(file: File) {
     const reader = new FileReader();
 
@@ -26,10 +26,6 @@ export function* documentsFlow() {
     const docs = yield select(getPendingDocuments);
     const file = yield readFile(docs[0].file);
 
-    /*const body = new FormData();
-    body.append('data[attributes][attachment]', docs[0]);
-    body.append('data[type]', 'documents');*/
-
     const sessionToken = yield select(getSessionToken);
 
     const headers = new Headers({
@@ -47,8 +43,6 @@ export function* documentsFlow() {
     body = body + file;
     body = body + '\r\n--boundary123--';
 
-
-
     yield fetch(
         'https://jog-api-staging.herokuapp.com/api/users/46/motor_policies/26/documents',
         {
@@ -57,4 +51,25 @@ export function* documentsFlow() {
             body,
         }
     )
+}
+*/
+
+export function* documentsFlow() {
+    const user = yield select(getUser);
+    const sessionToken = yield select(getSessionToken);
+
+    yield take(UPLOAD_PENDING_DOCUMENTS);
+    const docs = yield select(getPendingDocuments);
+
+    const headers = new Headers({
+        'Authorization': sessionToken,
+        'Accept': 'multipart/form-data',
+    });
+
+    yield docs.map(d => {
+        const body = new FormData();
+        body.append('data[type]', 'documents');
+        body.append('data[attributes][attachment]', d.file);
+        return post(`users/${user.id}/motor_policies/26/documents`, body, headers, false);
+    })
 }

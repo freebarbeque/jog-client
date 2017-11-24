@@ -63,7 +63,9 @@ function* sendRequest(endpoint: string, parseResponseBody: boolean = true, metho
 export function* post(endpoint: string, body?: any, passedHeaders?: Headers, parseResponseBody: boolean = true) {
     const headers = passedHeaders ? passedHeaders : yield getDefaultHeaders();
 
-    const response = yield sendRequest(endpoint, parseResponseBody, 'POST', headers, JSON.stringify(body));
+    const formdata = /multipart\/form-data/.test(headers.get('Accept'));
+
+    const response = yield sendRequest(endpoint, parseResponseBody, 'POST', headers, formdata ? body : JSON.stringify(body));
     return response;
 }
 
