@@ -579,3 +579,14 @@ export const QuoteHolder = (props: {width?: number, height?: number}) => (
     {...props}
   />
 );
+
+export const PercentShape = (props: {width?: number, height?: number}) => (
+  <Image
+    src={require('./percent-shape.svg')}
+    height={props.height || 81}
+    width={props.width || 81}
+    alt="percent-shape"
+    className="percent-shape-icon"
+    {...props}
+  />
+);
