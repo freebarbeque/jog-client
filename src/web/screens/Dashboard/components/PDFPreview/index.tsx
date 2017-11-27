@@ -2,13 +2,11 @@ import * as React from 'react';
 import Dialog from 'material-ui/Dialog';
 import {Document} from 'react-pdf/build/entry.webpack';
 import {Page} from 'react-pdf';
-import {connect} from 'react-redux';
-import {IReduxState} from '~/common/interfaces/store';
-import {getPreviewDocument} from 'src/common/selectors/documents';
 import {IDocument, IPendingDocument} from '~/common/interfaces/documents';
-import {BLUE, DARK_GRAY, WHITE} from '~/common/constants/palette';
-import styled from 'styled-components';
-import {Cross} from 'src/web/images';
+import PDFHeader from './PDFHeader';
+import {connect} from 'react-redux';
+import {getPreviewDocument} from '~/common/selectors/documents';
+import {IReduxState} from '~/common/interfaces/store';
 
 interface IPDFPreviewProps {
     open: boolean;
@@ -19,23 +17,6 @@ interface IPDFPreviewProps {
 interface IPDFPreviewState {
     numPages: number[];
 }
-
-const Header = styled.div`
-    height: 40px;
-    background-color: ${DARK_GRAY};
-    color: ${WHITE}!important;
-    padding: 0 20px!important;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font-size: 16px!important;
-`;
-
-const Button = styled.div`
-    &:hover {
-        cursor: pointer;
-    }
-`;
 
 class PDFPreview extends React.Component<IPDFPreviewProps, IPDFPreviewState> {
     constructor() {
@@ -52,16 +33,6 @@ class PDFPreview extends React.Component<IPDFPreviewProps, IPDFPreviewState> {
     }
 
     render() {
-        const header = (
-            <div style={{padding: 0}}>
-                <Header>
-                    <div>{this.props.document && this.props.document.name}</div>
-                    <Button onClick={this.props.onClose}><Cross/></Button>
-                </Header>
-                <div style={{height: 1}}/>
-            </div>
-        )
-
         return (
             <Dialog
                 open={this.props.open}
@@ -72,7 +43,7 @@ class PDFPreview extends React.Component<IPDFPreviewProps, IPDFPreviewState> {
                 style={{minHeight: 700}}
                 actionsContainerStyle={{padding: 0}}
                 overlayStyle={{padding: 0}}
-                title={header}
+                title={<PDFHeader name={this.props.document && this.props.document.name} onClose={this.props.onClose}/>}
             >
                 <Document
                     file={this.props.document && this.props.document.file}
