@@ -12,6 +12,7 @@ import {
     SET_PREVIEW,
     CLEAR_PREVIEW,
     SET_DOCUMENT_FILE,
+    SET_IS_PREVIEW_LOADING,
 } from '../constants/documents';
 
 export const setDocuments = (documents: IDocument[]) => {
@@ -92,5 +93,12 @@ export function setDocumentFile(id: number, data: ArrayBuffer) {
         file: {
             data,
         }
+    }
+}
+
+export function setIsPreviewLoading(isLoading: boolean) {
+    return {
+        type: SET_IS_PREVIEW_LOADING,
+        isLoading,
     }
 }

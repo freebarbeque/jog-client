@@ -7,6 +7,7 @@ export const getPendingDocuments = (state: IReduxState) => state.documents.pendi
 export const getSubmissionError = (state: IReduxState) => state.documents.submissionError;
 export const getIsLoading = (state: IReduxState) => state.documents.isLoading;
 export const getPreview = (state: IReduxState) => state.documents.preview;
+export const getIsPreviewLoading = (state: IReduxState) => state.documents.isPreviewLoading;
 
 export const getPreviewDocument = createSelector(
     getPreview,

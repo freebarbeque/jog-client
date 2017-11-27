@@ -4,6 +4,7 @@ export interface IDocumentsReduxState {
   submissionError: Error|null;
   isLoading: boolean;
   preview: IDocumentPreview|null;
+  isPreviewLoading: boolean;
 }
 
 export interface IDocument {

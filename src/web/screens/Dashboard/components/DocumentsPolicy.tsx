@@ -21,6 +21,7 @@ import {uploadPendingDocuments, removeDocument} from 'src/common/actions/documen
 import ErrorText from 'src/web/components/Forms/ErrorText';
 import {BLUE} from '~/common/constants/palette';
 import PDFPreview from './PDFPreview';
+import {getIsPreviewLoading} from 'src/common/selectors/documents';
 
 interface IDocumentPolicyProps {
     className?: string;
@@ -38,6 +39,7 @@ interface IDocumentPolicyProps {
     error: Error | null;
     isLoading: boolean;
     motorId: string;
+    isPreviewLoading: boolean;
 }
 
 const ButtonStyles = {
@@ -130,7 +132,7 @@ class DocumentsPolicy extends React.Component<IDocumentPolicyProps, {}> {
                     </ContentWrapper>
                 </PolicySection>
                 <PDFPreview
-                    open={this.props.isPreviewOpen}
+                    open={this.props.isPreviewOpen && !this.props.isPreviewLoading}
                     onClose={() => {
                         this.props.closeModal(PDF_PREVIEW_MODAL);
                         this.props.clearPreview();
@@ -179,6 +181,7 @@ const mapStateToProps = (state: any) => ({
     isPreviewOpen: isPreviewModalOpen(state),
     error: getSubmissionError(state),
     isLoading: getIsLoading(state),
+    isPreviewLoading: getIsPreviewLoading(state),
 });
 
 const mapDispatchToProps = (dispatch: any) => bindActionCreators({

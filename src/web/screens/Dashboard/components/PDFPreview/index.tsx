@@ -40,16 +40,18 @@ class PDFPreview extends React.Component<IPDFPreviewProps, IPDFPreviewState> {
                 autoScrollBodyContent
                 autoDetectWindowHeight={false}
                 repositionOnUpdate={false}
-                contentStyle={{transform: '', height: 700}}
-                style={{minHeight: 700}}
-                actionsContainerStyle={{padding: 0}}
-                overlayStyle={{padding: 0}}
+                contentStyle={
+                    this.props.document && this.props.document.file
+                        ? {transform: '', height: 700}
+                        : {transform: '', height: 700, width: 500, display: 'flex', justifyContent: 'center', alignItems: 'center'}
+                }
+                bodyStyle={{minWidth: 500, display: 'flex'}}
                 title={<PDFHeader name={this.props.document && this.props.document.name} onClose={this.props.onClose}/>}
                 actions={<PDFActions onClose={this.props.onClose}/>}
             >
                 <Document
                     file={this.props.document && this.props.document.file}
-                    noData="No preview available"
+                    noData="No preview is available"
                     onLoadSuccess={this.handleDocDownload}
                 >
                     {this.state.numPages.map(p => <Page key={p} pageNumber={p}/>)}

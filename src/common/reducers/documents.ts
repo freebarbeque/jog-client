@@ -9,7 +9,9 @@ import {
     CLEAR_PENDING_DOCUMENTS,
     REMOVE_DOCUMENT_LOCALLY,
     SET_PREVIEW,
-    CLEAR_PREVIEW, SET_DOCUMENT_FILE,
+    CLEAR_PREVIEW,
+    SET_DOCUMENT_FILE,
+    SET_IS_PREVIEW_LOADING,
 } from '../constants/documents';
 
 const defaultState = {
@@ -18,6 +20,7 @@ const defaultState = {
     submissionError: null,
     isLoading: false,
     preview: null,
+    isPreviewLoading: false,
 };
 
 export default function (state: IDocumentsReduxState = defaultState, action: IAction) {
@@ -92,6 +95,13 @@ export default function (state: IDocumentsReduxState = defaultState, action: IAc
             return {
                 ...state,
                 policyDocuments: state.policyDocuments.slice(0, index).concat([newDoc, ...state.policyDocuments.slice(index + 1)])
+            }
+        }
+
+        case SET_IS_PREVIEW_LOADING: {
+            return {
+                ...state,
+                isPreviewLoading: action.isLoading,
             }
         }
 

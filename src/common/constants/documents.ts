@@ -10,3 +10,4 @@ export const SET_IS_LOADING = 'app/document/SET_IS_LOADING';
 export const SET_PREVIEW = 'app/documents/SET_PREVIEW';
 export const SET_DOCUMENT_FILE = 'app/documents/SET_DOCUMENT_FILE';
 export const CLEAR_PREVIEW = 'app/documents/CLEAR_PREVIEW';
+export const SET_IS_PREVIEW_LOADING = 'app/documents/SET_IS_PREVIEW_LOADING';

@@ -7,7 +7,7 @@ import {LOCATION_CHANGE} from 'react-router-redux';
 import {
     clearPendingDocuments, setDocumentFile,
     setDocumentSubmissionError,
-    setIsLoading
+    setIsLoading, setIsPreviewLoading
 } from '../actions/documents';
 import {get} from '../api/request';
 import {OPEN_MODAL} from '../../web/constants/page';
@@ -56,6 +56,7 @@ export function* documentsFlow(policyId: string) {
 }
 
 export function* downloadDocument() {
+    yield put(setIsPreviewLoading(true));
     const previewDoc = yield select(getPreviewDocument);
 
     if (previewDoc && !previewDoc.file) {
@@ -67,4 +68,5 @@ export function* downloadDocument() {
             console.error(err);
         }
     }
+    yield put(setIsPreviewLoading(false));
 }
