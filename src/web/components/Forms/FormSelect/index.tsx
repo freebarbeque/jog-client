@@ -18,6 +18,9 @@ interface ISelectProps {
     style: any;
     menuStyle: any;
     defaultText?: string;
+    maxHeight?: number;
+    labelStyle?: any;
+    iconStyle?: any;
 }
 
 interface IContainerProps {
@@ -27,11 +30,13 @@ interface IContainerProps {
 
 const Container: StyledComponentClass<IContainerProps, any, any> = styled.div`
     display: flex;
+    border-radius: 3.5px;
+    overflow: hidden;
     button {
         top: 0!important;
         right: 0!important;
     }
-    border: ${(props: IContainerProps) => props.error && props.touched ? '1px solid red' : 'none'}
+    border: ${(props: IContainerProps) => props.error && props.touched ? '1px solid red' : '1px solid transparent'};
 `;
 
 class FormSelect extends React.Component<ISelectProps, {}> {
@@ -52,6 +57,9 @@ class FormSelect extends React.Component<ISelectProps, {}> {
             style,
             menuStyle,
             defaultText,
+            maxHeight,
+            labelStyle,
+            iconStyle,
             meta: {error, touched},
         } = this.props;
 
@@ -75,9 +83,12 @@ class FormSelect extends React.Component<ISelectProps, {}> {
                         }}
                         iconStyle={{
                             fill: 'black',
+                            ...iconStyle,
                         }}
-                        labelStyle={{opacity: 1, top: 0}}
+                        labelStyle={{opacity: 1, top: 0, height: 48, lineHeight: 48, display: 'flex', alignItems: 'center', fontSize: 16, paddingLeft: 12, ...labelStyle}}
                         autoWidth={false}
+                        underlineStyle={{display: 'none'}}
+                        maxHeight={maxHeight}
                     >
                         {dataSource.map((o, i) => <MenuItem key={i} value={o.id} primaryText={o.name} onClick={() => this.menu.close()}/>)}
                         <MenuItem value="default" primaryText={defaultText || 'Select an Option'} style={{display: 'none'}}/>

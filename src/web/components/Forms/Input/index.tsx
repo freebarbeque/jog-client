@@ -61,6 +61,7 @@ interface IInputProps {
     style?: any;
     preCheck?: (value: string) => boolean;
     sign: string;
+    placeholder?: string;
 }
 
 const defaultProps = {
@@ -78,6 +79,7 @@ export default (passedProps: IInputProps) => {
         type,
         preCheck,
         sign,
+        placeholder,
     } = props;
 
     return (
@@ -98,6 +100,7 @@ export default (passedProps: IInputProps) => {
                 style={error && touched ? {...props.style, borderColor: PINK} : props.style}
                 type={type || 'text'}
                 sign={sign}
+                placeholder={placeholder}
             />
             {
                 error && touched &&

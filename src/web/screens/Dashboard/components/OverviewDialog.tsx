@@ -15,6 +15,7 @@ const OverviewDialog: React.StatelessComponent<IOverviewDialogProps> = (props) =
     overlayClassName="overview-dialog-overlay"
     paperClassName="overview-dialog-paper"
     contentClassName="overview-dialog-content"
+    bodyClassName="overview-dialog-body"
     onRequestClose={props.onRequestClose}
   >
     {props.children}
@@ -33,6 +34,11 @@ const StyledOverviewDialog = styled(OverviewDialog)`
   & .overview-dialog-content {
     max-width: none !important;
     width: calc(75% - 42px * 2) !important;
+    min-width: 755px !important;
+  }
+  
+  & .overview-dialog-body {
+    padding: 0 !important
   }
 `;
 

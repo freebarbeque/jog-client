@@ -9,6 +9,7 @@ import DaysLeft from './DaysLeft';
 import Notification from 'src/web/components/Notification';
 import OffersPlaceholder from './OffersPlaceholder';
 import OverviewDialog from './OverviewDialog';
+import EditOverviewForm from './EditOverviewForm';
 import {IWebReduxState} from '~/web/interfaces/store';
 import {IMotorPolicyWithDaysLeft} from 'src/common/interfaces/policies';
 import {getCurrentMotorPolicy} from 'src/common/selectors/policies';
@@ -63,7 +64,9 @@ const PolicyOverview: React.StatelessComponent<IPolicyOverviewProps> = (props) =
           open={props.isEditModalOpen}
           onRequestClose={() => props.closeModal('EDIT_OVERVIEW')}
         >
-          <div>Edit Overview</div>
+          <PolicySection title="Overview">
+            <EditOverviewForm form="editOverview" />
+          </PolicySection>
         </OverviewDialog>
       </Wrapper>
     ) : (
