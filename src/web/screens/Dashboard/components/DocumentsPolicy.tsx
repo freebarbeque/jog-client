@@ -12,7 +12,7 @@ import {
     getIsLoading
 } from 'src/common/selectors/documents';
 import {addPendingDocuments, removePendingDocument, setPreview, clearPreview} from 'src/common/actions/documents';
-import {openModal} from 'src/web/actions/page';
+import {openModal, closeModal} from 'src/web/actions/page';
 import {PDF_PREVIEW_MODAL} from '~/web/constants/documents';
 import {isModalOpen} from '~/web/selectors/page';
 import {injectSaga} from '~/common/utils/saga';
@@ -29,6 +29,7 @@ interface IDocumentPolicyProps {
     addPendingDocuments?: any;
     removePendingDocument?: any;
     openModal: ActionCreator<Action>;
+    closeModal: ActionCreator<Action>;
     isPreviewOpen: boolean;
     uploadPendingDocuments: ActionCreator<Action>;
     removeDocument: ActionCreator<Action>;
@@ -128,7 +129,13 @@ class DocumentsPolicy extends React.Component<IDocumentPolicyProps, {}> {
                         />
                     </ContentWrapper>
                 </PolicySection>
-                <PDFPreview open={this.props.isPreviewOpen}/>
+                <PDFPreview
+                    open={this.props.isPreviewOpen}
+                    onClose={() => {
+                        this.props.closeModal(PDF_PREVIEW_MODAL);
+                        this.props.clearPreview();
+                    }}
+                />
             </div>
         );
     }
@@ -178,6 +185,7 @@ const mapDispatchToProps = (dispatch: any) => bindActionCreators({
     addPendingDocuments,
     removePendingDocument,
     openModal,
+    closeModal,
     uploadPendingDocuments,
     removeDocument,
     setPreview,
