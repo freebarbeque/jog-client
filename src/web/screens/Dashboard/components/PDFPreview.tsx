@@ -1,5 +1,5 @@
 import * as React from 'react';
-import Dialog from 'src/web/components/Dialog';
+import Dialog from 'material-ui/Dialog';
 import { Document } from 'react-pdf/build/entry.webpack';
 import { Page } from 'react-pdf';
 
@@ -8,7 +8,7 @@ interface IPDFPreviewProps {
     document: File;
 }
 
-export default (props: IPDFPreviewProps) => {
+const PDFPreview = (props: IPDFPreviewProps) => {
     return (
         <Dialog
             open={props.open}
@@ -25,3 +25,5 @@ export default (props: IPDFPreviewProps) => {
         </Dialog>
     )
 }
+
+export default PDFPreview;
