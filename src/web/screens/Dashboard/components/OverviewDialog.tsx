@@ -14,6 +14,7 @@ const OverviewDialog: React.StatelessComponent<IOverviewDialogProps> = (props) =
     open={props.open}
     overlayClassName="overview-dialog-overlay"
     paperClassName="overview-dialog-paper"
+    contentClassName="overview-dialog-content"
     onRequestClose={props.onRequestClose}
   >
     {props.children}
@@ -27,6 +28,11 @@ const StyledOverviewDialog = styled(OverviewDialog)`
   
   & .overview-dialog-paper {
     box-shadow: 0 2px 4px rgba(51, 51, 51, 0.2) !important;
+  }
+  
+  & .overview-dialog-content {
+    max-width: none !important;
+    width: calc(75% - 42px * 2) !important;
   }
 `;
 
