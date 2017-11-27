@@ -21,6 +21,7 @@ interface ISelectProps {
     maxHeight?: number;
     labelStyle?: any;
     iconStyle?: any;
+    autoWidth?: boolean;
 }
 
 interface IContainerProps {
@@ -60,6 +61,7 @@ class FormSelect extends React.Component<ISelectProps, {}> {
             maxHeight,
             labelStyle,
             iconStyle,
+            autoWidth,
             meta: {error, touched},
         } = this.props;
 
@@ -86,7 +88,7 @@ class FormSelect extends React.Component<ISelectProps, {}> {
                             ...iconStyle,
                         }}
                         labelStyle={{opacity: 1, top: 0, height: 48, lineHeight: 48, display: 'flex', alignItems: 'center', fontSize: 16, paddingLeft: 12, ...labelStyle}}
-                        autoWidth={false}
+                        autoWidth={autoWidth || false}
                         underlineStyle={{display: 'none'}}
                         maxHeight={maxHeight}
                     >

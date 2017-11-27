@@ -69,7 +69,7 @@ const PolicyOverview: React.StatelessComponent<IPolicyOverviewProps> = (props) =
             withCloseButton
             onCloseButtonClick={() => props.closeModal('EDIT_OVERVIEW')}
           >
-            <EditOverviewForm motorId={props.motorId} />
+            <EditOverviewForm motorId={props.motorId} onSubmit={(values: any) => console.log(values)}/>
           </PolicySection>
         </OverviewDialog>
       </Wrapper>

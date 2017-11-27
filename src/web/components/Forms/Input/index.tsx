@@ -34,7 +34,7 @@ const Input: StyledComponentClass<IHtmlInputProps, any, any> = styled.input`
   padding-right: ${MARGIN.large}px;
   font-size: 20px;
   border-radius: 0;
-  border: 2px solid transparent;
+  border: 2px solid #dbdcde;
 `
 
 const Sign = styled.div`
