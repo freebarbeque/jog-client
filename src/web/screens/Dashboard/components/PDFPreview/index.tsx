@@ -7,6 +7,7 @@ import PDFHeader from './PDFHeader';
 import {connect} from 'react-redux';
 import {getPreviewDocument} from '~/common/selectors/documents';
 import {IReduxState} from '~/common/interfaces/store';
+import PDFActions from './PDFActions';
 
 interface IPDFPreviewProps {
     open: boolean;
@@ -44,6 +45,7 @@ class PDFPreview extends React.Component<IPDFPreviewProps, IPDFPreviewState> {
                 actionsContainerStyle={{padding: 0}}
                 overlayStyle={{padding: 0}}
                 title={<PDFHeader name={this.props.document && this.props.document.name} onClose={this.props.onClose}/>}
+                actions={<PDFActions onClose={this.props.onClose}/>}
             >
                 <Document
                     file={this.props.document && this.props.document.file}
