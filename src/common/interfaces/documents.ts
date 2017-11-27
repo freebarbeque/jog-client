@@ -3,6 +3,7 @@ export interface IDocumentsReduxState {
   pendingDocuments: IPendingDocument[];
   submissionError: Error|null;
   isLoading: boolean;
+  preview: IDocumentPreview|null;
 }
 
 export interface IDocument {
