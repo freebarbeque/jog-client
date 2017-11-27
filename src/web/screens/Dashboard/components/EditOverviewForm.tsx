@@ -9,12 +9,19 @@ import FormSelect from 'src/web/components/Forms/FormSelect';
 import {EDIT_POLICY_OVERVIEW_FORM} from 'src/common/constants/policies';
 import {IReduxState} from 'src/common/interfaces/store';
 import {FOOTER_BACKGROUND_COLOR} from 'src/common/constants/palette';
+import {getEditOverviewFormInitialValues, getEditOverviewDaysLeft} from 'src/common/selectors/policies';
+import {onlyNumber} from 'src/common/utils/form';
+import {getDataSource} from 'src/common/selectors/dataSource';
+import {IDataSource} from 'src/common/interfaces/dataSource';
 
 interface IEditOverviewFormProps {
   className?: string;
   onSubmit?: any;
   year?: string;
   month?: string;
+  motorId: string;
+  insurersDataSource?: IDataSource;
+  daysLeft?: number;
 }
 
 const inputStyles = {
@@ -30,7 +37,7 @@ const inputStyles = {
 
 const EditOverviewForm: React.StatelessComponent<IEditOverviewFormProps> = (props) => (
   <form className={props.className}>
-    <DaysLeft days="0" />
+    <DaysLeft days={props.daysLeft} />
     <FieldWrapper>
       <FieldTitle>
         Expires
@@ -104,6 +111,7 @@ const EditOverviewForm: React.StatelessComponent<IEditOverviewFormProps> = (prop
         component={Input}
         style={inputStyles}
         placeholder="000000000"
+        preCheck={onlyNumber}
       />
     </FieldWrapper>
     <FieldWrapper>
@@ -113,7 +121,7 @@ const EditOverviewForm: React.StatelessComponent<IEditOverviewFormProps> = (prop
       <Field
         name="insurance_company_id"
         component={FormSelect}
-        dataSource={[]}
+        dataSource={props.insurersDataSource}
         defaultText="Insurance Company"
         maxHeight={300}
         labelStyle={{height: 40, lineHeight: 40}}
@@ -123,13 +131,14 @@ const EditOverviewForm: React.StatelessComponent<IEditOverviewFormProps> = (prop
     </FieldWrapper>
     <FieldWrapper>
       <FieldTitle>
-        Cost per month
+        Annual Cost
       </FieldTitle>
       <Field
         name="annual_cost_cents"
         component={Input}
         style={inputStyles}
         placeholder="000000000"
+        preCheck={onlyNumber}
       />
     </FieldWrapper>
   </form>
@@ -181,10 +190,14 @@ const FieldTitle = styled.div`
 
 const getValue = formValueSelector(EDIT_POLICY_OVERVIEW_FORM);
 
-const mapStateToProps = (state: IReduxState) => ({
+const form = reduxForm({form: EDIT_POLICY_OVERVIEW_FORM})(StyledEditOverviewForm);
+
+const mapStateToProps = (state: IReduxState, props: IEditOverviewFormProps): any => ({
   year: getValue(state, 'year'),
   month: getValue(state, 'month'),
-  // insurersDataSource: getDataSource(state, 'insuranceCompanies'),
+  initialValues: getEditOverviewFormInitialValues(props.motorId)(state),
+  insurersDataSource: getDataSource(state, 'insuranceCompanies'),
+  daysLeft: getEditOverviewDaysLeft(state),
 });
 
-export default reduxForm({form: EDIT_POLICY_OVERVIEW_FORM})(connect(mapStateToProps, null)(StyledEditOverviewForm));
+export default connect(mapStateToProps, null)(form);

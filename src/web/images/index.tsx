@@ -590,3 +590,14 @@ export const PercentShape = (props: {width?: number, height?: number}) => (
     {...props}
   />
 );
+
+export const DialogCross = (props: {width?: number, height?: number}) => (
+  <Image
+    src={require('./dialog-cross.svg')}
+    height={props.height || 17}
+    width={props.width || 17}
+    alt="dialog-cross"
+    className="dialog-cross-icon"
+    {...props}
+  />
+);

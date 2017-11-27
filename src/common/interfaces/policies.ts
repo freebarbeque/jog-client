@@ -25,7 +25,7 @@ export interface IMotorPolicy extends IPolicy {
 
 export interface IMotorPolicyWithDaysLeft extends IMotorPolicy {
     daysLeft: number;
-    costPerMonth: string;
+    annualCost: string;
     insuranceCompanyName: string;
     excess: string;
 }

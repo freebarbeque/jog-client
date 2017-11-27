@@ -42,7 +42,7 @@ const PolicyOverview: React.StatelessComponent<IPolicyOverviewProps> = (props) =
               <OverviewField title="Vehicle" />
               <OverviewField title="Policy No." value={props.motorPolicy.policy_number}/>
               <OverviewField title="Insurance Co." value={props.motorPolicy.insuranceCompanyName} />
-              <OverviewField title="Cost per month" value={props.motorPolicy.costPerMonth} />
+              <OverviewField title="Annual Cost" value={props.motorPolicy.annualCost} />
             </Content>
           </PolicySection>
           <PolicySection title="Policy">
@@ -64,8 +64,12 @@ const PolicyOverview: React.StatelessComponent<IPolicyOverviewProps> = (props) =
           open={props.isEditModalOpen}
           onRequestClose={() => props.closeModal('EDIT_OVERVIEW')}
         >
-          <PolicySection title="Overview">
-            <EditOverviewForm form="editOverview" />
+          <PolicySection
+            title="Overview"
+            withCloseButton
+            onCloseButtonClick={() => props.closeModal('EDIT_OVERVIEW')}
+          >
+            <EditOverviewForm motorId={props.motorId} />
           </PolicySection>
         </OverviewDialog>
       </Wrapper>

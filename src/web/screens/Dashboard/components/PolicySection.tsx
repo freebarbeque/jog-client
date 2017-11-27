@@ -2,13 +2,15 @@ import * as React from 'react';
 import styled from 'styled-components';
 import {SECTION_HEADER_BG_COLOR, SECTION_HEADER_COLOR} from 'src/common/constants/palette';
 import {styledComponentWithProps} from 'src/common/utils/types';
-import {EditIcon} from 'src/web/images';
+import {EditIcon, DialogCross} from 'src/web/images';
 
 interface ISectionProps {
   className?: string;
   title?: string;
   withEditButton?: boolean;
   onEditButtonClick?: any;
+  withCloseButton?: boolean;
+  onCloseButtonClick?: any;
 }
 
 interface IEditButtonProps {
@@ -20,9 +22,14 @@ const Section: React.StatelessComponent<ISectionProps> = (props) => (
     <SectionHeader>
       {props.title}
       {props.withEditButton && (
-        <EditButton onClick={props.onEditButtonClick}>
+        <Button onClick={props.onEditButtonClick}>
           <EditIcon />
-        </EditButton>
+        </Button>
+      )}
+      {props.withCloseButton && (
+        <Button onClick={props.onCloseButtonClick}>
+          <DialogCross />
+        </Button>
       )}
     </SectionHeader>
     <SectionContent>
@@ -59,7 +66,7 @@ const SectionContent = styled.div`
 
 const button = styledComponentWithProps<IEditButtonProps, HTMLButtonElement>(styled.button);
 
-const EditButton = button`
+const Button = button`
   cursor: pointer;
   border: none;
   outline: none;
