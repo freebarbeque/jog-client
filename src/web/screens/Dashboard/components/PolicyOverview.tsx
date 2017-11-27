@@ -2,20 +2,27 @@ import * as React from 'react';
 import styled from 'styled-components';
 import {Redirect} from 'react-router-dom';
 import {connect} from 'react-redux';
+import {bindActionCreators} from 'redux';
 import PolicySection from './PolicySection';
 import OverviewField from './OverviewField';
 import DaysLeft from './DaysLeft';
 import Notification from 'src/web/components/Notification';
 import OffersPlaceholder from './OffersPlaceholder';
-import {IReduxState} from 'src/common/interfaces/store';
+import OverviewDialog from './OverviewDialog';
+import {IWebReduxState} from '~/web/interfaces/store';
 import {IMotorPolicyWithDaysLeft} from 'src/common/interfaces/policies';
 import {getCurrentMotorPolicy} from 'src/common/selectors/policies';
 import {styledComponentWithProps} from 'src/common/utils/types';
+import {openModal, closeModal} from 'src/web/actions/page';
+import {isModalOpen} from 'src/web/selectors/page';
 
 interface IPolicyOverviewProps {
   className?: string;
   motorId: string;
   motorPolicy: IMotorPolicyWithDaysLeft;
+  openModal: any;
+  closeModal: any;
+  isEditModalOpen: boolean;
 }
 
 interface IContentProps {
@@ -27,7 +34,7 @@ const PolicyOverview: React.StatelessComponent<IPolicyOverviewProps> = (props) =
     {props.motorPolicy ? (
       <Wrapper>
         <LeftSectionsContainer>
-          <PolicySection title="Overview" withEditButton>
+          <PolicySection title="Overview" withEditButton onEditButtonClick={() => props.openModal('EDIT_OVERVIEW')}>
             <Content>
               <DaysLeft days={props.motorPolicy.daysLeft} />
               <OverviewField title="Expires" value={props.motorPolicy.expiry} />
@@ -52,6 +59,12 @@ const PolicyOverview: React.StatelessComponent<IPolicyOverviewProps> = (props) =
           </PolicySection>
         </RightSectionsContainer>
         <Notification notificationText="Upload your policy documentation for complete profile" />
+        <OverviewDialog
+          open={props.isEditModalOpen}
+          onRequestClose={() => props.closeModal('EDIT_OVERVIEW')}
+        >
+          <div>Edit Overview</div>
+        </OverviewDialog>
       </Wrapper>
     ) : (
       <Redirect to="/app/dashboard/motor" />
@@ -109,8 +122,16 @@ const RightSectionsContainer = styled.div`
   align-self: baseline;
 `;
 
-const mapStateToProps = (state: IReduxState, props: IPolicyOverviewProps) => ({
+const editOverviewModal = isModalOpen('EDIT_OVERVIEW');
+
+const mapStateToProps = (state: IWebReduxState, props: IPolicyOverviewProps) => ({
   motorPolicy: getCurrentMotorPolicy(props.motorId)(state),
+  isEditModalOpen: editOverviewModal(state),
 });
 
-export default connect(mapStateToProps, null)(StyledPolicyOverview);
+const mapDispatchToProps = (dispatch: any) => bindActionCreators({
+  openModal,
+  closeModal,
+}, dispatch);
+
+export default connect(mapStateToProps, mapDispatchToProps)(StyledPolicyOverview);
