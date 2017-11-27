@@ -9,7 +9,7 @@ import {
     CLEAR_PENDING_DOCUMENTS,
     REMOVE_DOCUMENT_LOCALLY,
     SET_PREVIEW,
-    CLEAR_PREVIEW,
+    CLEAR_PREVIEW, SET_DOCUMENT_FILE,
 } from '../constants/documents';
 
 const defaultState = {
@@ -77,6 +77,19 @@ export default function (state: IDocumentsReduxState = defaultState, action: IAc
             return {
                 ...state,
                 preview: null,
+            }
+        }
+
+        case SET_DOCUMENT_FILE: {
+            const index = state.policyDocuments.findIndex(d => d.id === action.id);
+            const newDoc = {
+                ...state.policyDocuments[index],
+                file: action.file,
+            }
+
+            return {
+                ...state,
+                policyDocuments: state.policyDocuments.slice(0, index).concat([newDoc, ...state.policyDocuments.slice(index + 1)])
             }
         }
 

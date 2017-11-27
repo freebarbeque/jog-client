@@ -5,7 +5,7 @@ import {getUser} from '../selectors/auth';
 import {fetchDocuments, removeDocument, uploadDocuments} from '../api/documents';
 import {LOCATION_CHANGE} from 'react-router-redux';
 import {
-    clearPendingDocuments,
+    clearPendingDocuments, setDocumentFile,
     setDocumentSubmissionError,
     setIsLoading
 } from '../actions/documents';
@@ -59,7 +59,8 @@ export function* downloadDocument() {
     const previewDoc = yield select(getPreviewDocument);
 
     if (previewDoc && !previewDoc.file) {
-        const file = yield get(previewDoc.attachment.url, new Headers({}));
-        console.log(file);
+        const {body} = yield get(previewDoc.attachment.url, new Headers({}), false);
+        const buffer = yield body.arrayBuffer();
+        yield put(setDocumentFile(previewDoc.id, buffer));
     }
 }

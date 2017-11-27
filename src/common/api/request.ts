@@ -20,7 +20,7 @@ function* handleErrors(response: any, parseResponseBody: boolean = true) {
         if (parseResponseBody) {
             return yield response.json();
         } else {
-            return null;
+            return response;
         }
     } else {
         let error = yield response.text();
