@@ -24,7 +24,7 @@ class PDFPreview extends React.Component<IPDFPreviewProps, {}> {
                 actionsContainerStyle={{padding: 0}}
                 overlayStyle={{padding: 0}}
             >
-                <Document file={this.props.document && this.props.document.file}>
+                <Document file={this.props.document && this.props.document.file} noData="No preview available">
                     <Page pageNumber={1}/>
                 </Document>
             </Dialog>

@@ -59,8 +59,12 @@ export function* downloadDocument() {
     const previewDoc = yield select(getPreviewDocument);
 
     if (previewDoc && !previewDoc.file) {
-        const {body} = yield get(previewDoc.attachment.url, new Headers({}), false);
-        const buffer = yield body.arrayBuffer();
-        yield put(setDocumentFile(previewDoc.id, buffer));
+        try {
+            const {body} = yield get(previewDoc.attachment.url, new Headers({}), false);
+            const buffer = yield body.arrayBuffer();
+            yield put(setDocumentFile(previewDoc.id, buffer));
+        } catch (err) {
+            console.error(err);
+        }
     }
 }
