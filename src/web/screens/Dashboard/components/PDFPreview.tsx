@@ -16,6 +16,10 @@ interface IPDFPreviewProps {
     onClose: () => void;
 }
 
+interface IPDFPreviewState {
+    numPages: number[];
+}
+
 const Header = styled.div`
     height: 40px;
     background-color: ${DARK_GRAY};
@@ -33,13 +37,29 @@ const Button = styled.div`
     }
 `;
 
-class PDFPreview extends React.Component<IPDFPreviewProps, {}> {
+class PDFPreview extends React.Component<IPDFPreviewProps, IPDFPreviewState> {
+    constructor() {
+        super();
+        this.state = {numPages: []}
+    }
+
+    handleDocDownload = ({numPages}) => {
+        const pages: number[] = [];
+        for (let i = 1; i <= numPages; i++) {
+            pages.push(i);
+        }
+        this.setState({numPages: pages})
+    }
+
     render() {
         const header = (
-            <Header>
-                <div>{this.props.document && this.props.document.name}</div>
-                <Button onClick={this.props.onClose}><Cross /></Button>
-            </Header>
+            <div style={{padding: 0}}>
+                <Header>
+                    <div>{this.props.document && this.props.document.name}</div>
+                    <Button onClick={this.props.onClose}><Cross/></Button>
+                </Header>
+                <div style={{height: 1}}/>
+            </div>
         )
 
         return (
@@ -54,9 +74,12 @@ class PDFPreview extends React.Component<IPDFPreviewProps, {}> {
                 overlayStyle={{padding: 0}}
                 title={header}
             >
-                <div style={{height: 10}}/>
-                <Document file={this.props.document && this.props.document.file} noData="No preview available">
-                    <Page pageNumber={1}/>
+                <Document
+                    file={this.props.document && this.props.document.file}
+                    noData="No preview available"
+                    onLoadSuccess={this.handleDocDownload}
+                >
+                    {this.state.numPages.map(p => <Page key={p} pageNumber={p}/>)}
                 </Document>
             </Dialog>
         )
