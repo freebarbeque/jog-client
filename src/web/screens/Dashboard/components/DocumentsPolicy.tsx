@@ -19,14 +19,14 @@ import {injectSaga} from '~/common/utils/saga';
 import {documentsFlow} from '~/common/sagas/documents';
 import {uploadPendingDocuments, removeDocument} from 'src/common/actions/documents';
 import ErrorText from 'src/web/components/Forms/ErrorText';
-import {BLUE} from '~/common/constants/palette';
+import {BLUE, SECTION_HEADER_COLOR} from '~/common/constants/palette';
 import PDFPreview from './PDFPreview';
 import {getIsPreviewLoading} from 'src/common/selectors/documents';
 
 interface IDocumentPolicyProps {
     className?: string;
-    policyDocuments?: IDocument[];
-    pendingDocuments?: IPendingDocument[];
+    policyDocuments: IDocument[];
+    pendingDocuments: IPendingDocument[];
     addPendingDocuments?: any;
     removePendingDocument?: any;
     openModal: ActionCreator<Action>;
@@ -63,6 +63,15 @@ const Notification = styled.div`
     }
 `
 
+const MessageContainer = styled.div`
+    color: ${SECTION_HEADER_COLOR};
+    font-size: 24px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+`
+
 class DocumentsPolicy extends React.Component<IDocumentPolicyProps, {}> {
 
     componentWillMount() {
@@ -90,7 +99,7 @@ class DocumentsPolicy extends React.Component<IDocumentPolicyProps, {}> {
                     }
                     <ContentWrapper>
                         <FilesContainer>
-                            {policyDocuments && policyDocuments.map((d, i) => {
+                            {policyDocuments.map((d, i) => {
                                 const url = d.attachment.url.split('/');
                                 return (
                                     <FileCard
@@ -104,7 +113,7 @@ class DocumentsPolicy extends React.Component<IDocumentPolicyProps, {}> {
                                     />
                                 )
                             })}
-                            {pendingDocuments && pendingDocuments.map((d, i) => (
+                            {pendingDocuments.map((d, i) => (
                                 <FileCard
                                     key={i}
                                     fileName={d.file.name}
@@ -115,6 +124,7 @@ class DocumentsPolicy extends React.Component<IDocumentPolicyProps, {}> {
                                     }}
                                 />
                             ))}
+                            {!policyDocuments.length && !pendingDocuments.length && <MessageContainer>Please upload your policy certificate and schedule</MessageContainer>}
                         </FilesContainer>
                         <DocumentsDropzone onDrop={this.props.addPendingDocuments}/>
                         {this.props.error ?
