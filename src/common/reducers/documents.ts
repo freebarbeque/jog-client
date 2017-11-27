@@ -82,8 +82,10 @@ export default function (state: IDocumentsReduxState = defaultState, action: IAc
 
         case SET_DOCUMENT_FILE: {
             const index = state.policyDocuments.findIndex(d => d.id === action.id);
+            const splitName = state.policyDocuments[index].attachment.url.split('/');
             const newDoc = {
                 ...state.policyDocuments[index],
+                name: splitName[splitName.length - 1],
                 file: action.file,
             }
 
