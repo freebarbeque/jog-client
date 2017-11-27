@@ -80,7 +80,7 @@ class DocumentsPolicy extends React.Component<IDocumentPolicyProps, {}> {
                 <PolicySection title="Uploaded Documents">
                     {this.props.isLoading &&
                         <Notification>
-                            <span>Document processing in progress</span>Your information will be onlineshortly
+                            <span>Document processing in progress</span>Your information will be online shortly
                         </Notification>
                     }
                     <ContentWrapper>
