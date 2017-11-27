@@ -1,6 +1,6 @@
 import {fork, put, race, select, take} from 'redux-saga/effects';
 import {REMOVE_DOCUMENT, UPLOAD_PENDING_DOCUMENTS} from '../constants/documents';
-import {getPendingDocuments} from '../selectors/documents';
+import {getPendingDocuments, getPreviewDocument} from '../selectors/documents';
 import {getUser} from '../selectors/auth';
 import {fetchDocuments, removeDocument, uploadDocuments} from '../api/documents';
 import {LOCATION_CHANGE} from 'react-router-redux';
@@ -9,10 +9,16 @@ import {
     setDocumentSubmissionError,
     setIsLoading
 } from '../actions/documents';
+import {get} from '../api/request';
+import {OPEN_MODAL} from '../../web/constants/page';
+const {takeEvery} = require('redux-saga/effects');
+import {PDF_PREVIEW_MODAL} from '../../web/constants/documents';
+import {IAction} from '../interfaces/action';
 
 export function* documentsFlow(policyId: string) {
     const user = yield select(getUser);
     yield fork(fetchDocuments, user.id, policyId);
+    yield fork(takeEvery, (action: IAction) => action.type === OPEN_MODAL && action.modal === PDF_PREVIEW_MODAL, downloadDocument);
 
     while (true) {
         try {
@@ -46,5 +52,14 @@ export function* documentsFlow(policyId: string) {
             yield put(setIsLoading(false));
             continue;
         }
+    }
+}
+
+export function* downloadDocument() {
+    const previewDoc = yield select(getPreviewDocument);
+
+    if (previewDoc && !previewDoc.file) {
+        const file = yield get(previewDoc.attachment.url, new Headers({}));
+        console.log(file);
     }
 }

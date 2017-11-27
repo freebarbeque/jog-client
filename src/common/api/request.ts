@@ -38,7 +38,7 @@ function* handleErrors(response: any, parseResponseBody: boolean = true) {
 
 function* sendRequest(endpoint: string, parseResponseBody: boolean = true, method: string, headers: Headers, body?: string) {
     const response = yield fetch(
-        `${process.env.BASE_API}${endpoint}`,
+        /^http/.test(endpoint) ? endpoint : `${process.env.BASE_API}${endpoint}`,
         {
             method,
             headers,

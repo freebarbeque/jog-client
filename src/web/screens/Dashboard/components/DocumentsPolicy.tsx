@@ -34,7 +34,7 @@ interface IDocumentPolicyProps {
     removeDocument: ActionCreator<Action>;
     setPreview: ActionCreator<Action>;
     clearPreview: ActionCreator<Action>;
-    error: Error|null;
+    error: Error | null;
     isLoading: boolean;
     motorId: string;
 }
@@ -81,9 +81,9 @@ class DocumentsPolicy extends React.Component<IDocumentPolicyProps, {}> {
             <div className={this.props.className}>
                 <PolicySection title="Uploaded Documents">
                     {this.props.isLoading &&
-                        <Notification>
-                            <span>Document processing in progress</span>Your information will be online shortly
-                        </Notification>
+                    <Notification>
+                        <span>Document processing in progress</span>Your information will be online shortly
+                    </Notification>
                     }
                     <ContentWrapper>
                         <FilesContainer>
@@ -95,8 +95,8 @@ class DocumentsPolicy extends React.Component<IDocumentPolicyProps, {}> {
                                         fileName={url[url.length - 1]}
                                         onDeleteClick={() => this.props.removeDocument(d.id)}
                                         onPreviewClick={() => {
-                                            this.props.openModal(PDF_PREVIEW_MODAL);
                                             this.props.setPreview(i, false);
+                                            this.props.openModal(PDF_PREVIEW_MODAL);
                                         }}
                                     />
                                 )
@@ -107,8 +107,8 @@ class DocumentsPolicy extends React.Component<IDocumentPolicyProps, {}> {
                                     fileName={d.file.name}
                                     onDeleteClick={() => this.handleRemovePendingDocument(d.pendingId)}
                                     onPreviewClick={() => {
-                                        this.props.openModal(PDF_PREVIEW_MODAL);
                                         this.props.setPreview(i, true);
+                                        this.props.openModal(PDF_PREVIEW_MODAL);
                                     }}
                                 />
                             ))}
@@ -128,10 +128,7 @@ class DocumentsPolicy extends React.Component<IDocumentPolicyProps, {}> {
                         />
                     </ContentWrapper>
                 </PolicySection>
-                {this.props.pendingDocuments && this.props.pendingDocuments.length ?
-                    <PDFPreview open={this.props.isPreviewOpen}/>
-                    : null
-                }
+                <PDFPreview open={this.props.isPreviewOpen}/>
             </div>
         );
     }

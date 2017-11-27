@@ -12,22 +12,24 @@ interface IPDFPreviewProps {
     document: Partial<IDocument & IPendingDocument>;
 }
 
-const PDFPreview = (props: IPDFPreviewProps) => {
-    return (
-        <Dialog
-            open={props.open}
-            autoScrollBodyContent
-            autoDetectWindowHeight={false}
-            repositionOnUpdate={false}
-            contentStyle={{transform: '', height: 700}}
-            actionsContainerStyle={{padding: 0}}
-            overlayStyle={{padding: 0}}
-        >
-            <Document file={props.document && props.document.file}>
-                <Page pageNumber={1}/>
-            </Document>
-        </Dialog>
-    )
+class PDFPreview extends React.Component<IPDFPreviewProps, {}> {
+    render() {
+        return (
+            <Dialog
+                open={this.props.open}
+                autoScrollBodyContent
+                autoDetectWindowHeight={false}
+                repositionOnUpdate={false}
+                contentStyle={{transform: '', height: 700}}
+                actionsContainerStyle={{padding: 0}}
+                overlayStyle={{padding: 0}}
+            >
+                <Document file={this.props.document && this.props.document.file}>
+                    <Page pageNumber={1}/>
+                </Document>
+            </Dialog>
+        )
+    }
 }
 
 const mapStateToProps = (state: IReduxState): Partial<IPDFPreviewProps> => ({
