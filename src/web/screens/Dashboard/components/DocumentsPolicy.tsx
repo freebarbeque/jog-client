@@ -11,7 +11,7 @@ import {
     getPolicyDocuments, getPendingDocuments, getSubmissionError,
     getIsLoading
 } from 'src/common/selectors/documents';
-import {addPendingDocuments, removePendingDocument} from 'src/common/actions/documents';
+import {addPendingDocuments, removePendingDocument, setPreview, clearPreview} from 'src/common/actions/documents';
 import {openModal} from 'src/web/actions/page';
 import {PDF_PREVIEW_MODAL} from '~/web/constants/documents';
 import {isModalOpen} from '~/web/selectors/page';
@@ -32,6 +32,8 @@ interface IDocumentPolicyProps {
     isPreviewOpen: boolean;
     uploadPendingDocuments: ActionCreator<Action>;
     removeDocument: ActionCreator<Action>;
+    setPreview: ActionCreator<Action>;
+    clearPreview: ActionCreator<Action>;
     error: Error|null;
     isLoading: boolean;
     motorId: string;
@@ -92,7 +94,10 @@ class DocumentsPolicy extends React.Component<IDocumentPolicyProps, {}> {
                                         key={i}
                                         fileName={url[url.length - 1]}
                                         onDeleteClick={() => this.props.removeDocument(d.id)}
-                                        onPreviewClick={() => this.props.openModal(PDF_PREVIEW_MODAL)}
+                                        onPreviewClick={() => {
+                                            this.props.openModal(PDF_PREVIEW_MODAL);
+                                            this.props.setPreview(i, false);
+                                        }}
                                     />
                                 )
                             })}
@@ -101,7 +106,10 @@ class DocumentsPolicy extends React.Component<IDocumentPolicyProps, {}> {
                                     key={i}
                                     fileName={d.file.name}
                                     onDeleteClick={() => this.handleRemovePendingDocument(d.pendingId)}
-                                    onPreviewClick={() => this.props.openModal(PDF_PREVIEW_MODAL)}
+                                    onPreviewClick={() => {
+                                        this.props.openModal(PDF_PREVIEW_MODAL);
+                                        this.props.setPreview(i, true);
+                                    }}
                                 />
                             ))}
                         </FilesContainer>
@@ -175,6 +183,8 @@ const mapDispatchToProps = (dispatch: any) => bindActionCreators({
     openModal,
     uploadPendingDocuments,
     removeDocument,
+    setPreview,
+    clearPreview,
 }, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(StyledDocumentsPolicy);

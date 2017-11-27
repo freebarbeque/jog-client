@@ -9,6 +9,7 @@ import {
     SET_DOCUMENT_SUBMISSION_ERROR,
     SET_IS_LOADING,
     CLEAR_PENDING_DOCUMENTS,
+    SET_PREVIEW, CLEAR_PREVIEW,
 } from '../constants/documents';
 
 export const setDocuments = (documents: IDocument[]) => {
@@ -65,5 +66,19 @@ export function setIsLoading(isLoading: boolean) {
 export function clearPendingDocuments() {
     return {
         type: CLEAR_PENDING_DOCUMENTS,
+    }
+}
+
+export function setPreview(index: number, pending: boolean) {
+    return {
+        type: SET_PREVIEW,
+        index,
+        pending,
+    }
+}
+
+export function clearPreview() {
+    return {
+        type: CLEAR_PREVIEW,
     }
 }

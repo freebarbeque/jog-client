@@ -17,3 +17,8 @@ export interface IPendingDocument {
   pendingId: string;
   name?: string;
 }
+
+export interface IDocumentPreview {
+  index: number;
+  pending: boolean;
+}

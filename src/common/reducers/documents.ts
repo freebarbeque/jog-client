@@ -5,7 +5,11 @@ import {
     REMOVE_PENDING_DOCUMENT,
     SET_DOCUMENT_SUBMISSION_ERROR,
     SET_IS_LOADING,
-    SET_DOCUMENTS, CLEAR_PENDING_DOCUMENTS, REMOVE_DOCUMENT_LOCALLY,
+    SET_DOCUMENTS,
+    CLEAR_PENDING_DOCUMENTS,
+    REMOVE_DOCUMENT_LOCALLY,
+    SET_PREVIEW,
+    CLEAR_PREVIEW,
 } from '../constants/documents';
 
 const defaultState = {
@@ -13,6 +17,7 @@ const defaultState = {
     pendingDocuments: [],
     submissionError: null,
     isLoading: false,
+    preview: null,
 };
 
 export default function (state: IDocumentsReduxState = defaultState, action: IAction) {
@@ -54,6 +59,24 @@ export default function (state: IDocumentsReduxState = defaultState, action: IAc
             return {
                 ...state,
                 policyDocuments: state.policyDocuments.filter(d => d.id !== action.documentId),
+            }
+        }
+
+        case SET_PREVIEW: {
+            const {index, pending} = action;
+            return {
+                ...state,
+                preview: {
+                    index,
+                    pending,
+                }
+            }
+        }
+
+        case CLEAR_PREVIEW: {
+            return {
+                ...state,
+                preview: null,
             }
         }
 

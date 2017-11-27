@@ -7,3 +7,5 @@ export const REMOVE_PENDING_DOCUMENT = 'app/document/REMOVE_PENDING_DOCUMENT';
 export const UPLOAD_PENDING_DOCUMENTS = 'app/document/UPLOAD_PENDING_DOCUMENTS';
 export const SET_DOCUMENT_SUBMISSION_ERROR = 'app/document/SET_DOCUMENT_SUBMISSION_ERROR';
 export const SET_IS_LOADING = 'app/document/SET_IS_LOADING';
+export const SET_PREVIEW = 'app/documents/SET_PREVIEW';
+export const CLEAR_PREVIEW = 'app/documents/CLEAR_PREVIEW';
