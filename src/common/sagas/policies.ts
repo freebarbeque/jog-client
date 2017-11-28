@@ -13,7 +13,7 @@ import {mapCreatePolicyFormValues, mapPatchPolicyFormValues} from '../utils/poli
 import {getUser} from '../selectors/auth';
 import {LOCATION_CHANGE, push} from 'react-router-redux';
 import {stopSubmit} from 'redux-form';
-import {setMotorPolicies} from '../actions/policies';
+import {setMotorPolicies, updatePolicy} from '../actions/policies';
 import {closeModal} from 'src/web/actions/page';
 
 export function* createPolicyFlow() {
@@ -71,7 +71,8 @@ export function* patchPolicyFlow() {
 
         try {
             const mappedValues = mapPatchPolicyFormValues(values);
-            yield patchPolicy(user.id, MOTOR_POLICY, mappedValues, policyId);
+            const patchedPolicy = yield patchPolicy(user.id, MOTOR_POLICY, mappedValues, policyId);
+            yield put(updatePolicy(patchedPolicy));
             yield put(closeModal(EDIT_OVERVIEW_MODAL));
         } catch (err) {
             console.error(err);

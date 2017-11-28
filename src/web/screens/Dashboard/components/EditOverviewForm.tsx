@@ -28,6 +28,7 @@ interface IEditOverviewFormProps {
   handleSubmit?: any;
   initialValues?: IPatchPolicyFormValues;
   dirty?: boolean;
+  submitDisabled?: boolean;
 }
 
 const ButtonStyles = {
@@ -164,6 +165,7 @@ const EditOverviewForm: React.StatelessComponent<IEditOverviewFormProps> = (prop
       </FieldWrapper>
     </Container>
     <RoundedButton
+      disabled={props.submitDisabled}
       label="Submit"
       style={ButtonStyles}
       type="submit"

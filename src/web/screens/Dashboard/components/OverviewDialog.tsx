@@ -6,7 +6,6 @@ interface IOverviewDialogProps {
   className?: string;
   open: boolean;
   onRequestClose: any;
-  disabled?: boolean;
 }
 
 const OverviewDialog: React.StatelessComponent<IOverviewDialogProps> = (props) => (
@@ -24,7 +23,6 @@ const OverviewDialog: React.StatelessComponent<IOverviewDialogProps> = (props) =
 );
 
 const StyledOverviewDialog = styled(OverviewDialog)`
-  pointer-events: ${props => props.disabled ? 'none' : 'auto'};
   & .overview-dialog-overlay {
     background-color: rgba(102, 107, 127, 0.7) !important;
   }

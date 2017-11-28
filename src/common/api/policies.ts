@@ -59,5 +59,7 @@ export function* patchPolicy(userId: string | number, type: string, policy: Part
             attributes: policy,
         }
     };
-    yield patch(`users/${userId}/${policyType}/${policyId}`, body);
+    const {body: {motor_policy}} = yield patch(`users/${userId}/${policyType}/${policyId}`, body);
+
+    return motor_policy;
 }
