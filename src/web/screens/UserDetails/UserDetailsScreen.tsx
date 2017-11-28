@@ -1,9 +1,12 @@
 import * as React from 'react';
+import Header from './components/Header';
 
 interface IQuoteScreenProps {}
 
 export default (props: IQuoteScreenProps) => {
     return (
-        <div>111</div>
+        <div>
+            <Header/>
+        </div>
     )
 }

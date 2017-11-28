@@ -34,9 +34,9 @@ const QuotePolicy: React.StatelessComponent<IQuotePolicyProps> = (props: IQuoteP
             </HintText>
           </QuoteHint>
           <QuoteContentContainer>
-            <QuoteField icon={<QuoteCar />} title="Car" />
+            <QuoteField icon={<QuoteCar />} title="Car" onClick={() => props.push(`/app/user/motor/${props.motorId}/car`)}/>
             <QuoteField icon={<QuoteHolder />} title="Policy holder" onClick={() => props.push(`/app/user/motor/${props.motorId}/holder`)}/>
-            <QuoteField icon={<QuoteAddress />} title="Address" />
+            <QuoteField icon={<QuoteAddress />} title="Address" onClick={() => props.push(`/app/user/motor/${props.motorId}/address`)}/>
             <QuoteField icon={<QuoteCalendar />} withDatePicker title="Policy start date" />
             <RoundedButton
                 label="Get my quote"
