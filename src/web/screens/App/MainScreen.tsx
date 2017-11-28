@@ -5,6 +5,7 @@ import GetStarted from '../Landing/GetStartedScreen';
 import Dashboard from '../Dashboard/Dashboard';
 import CreatePolicyScreen from '../Policy/CreatePolicyScreen';
 import MotorPolicyScreen from '../Dashboard/MotorPolicyScreen';
+import QuoteFormScreen from 'src/web/screens/Quotes/QuoteFormScreen';
 
 // language=SCSS prefix=dummy{ suffix=}å
 const Container = styled.div`
@@ -18,12 +19,13 @@ export default class MainScreen extends React.Component<{}, {}> {
     public render() {
         return (
             <Container>
-              <Switch>
-                <Route path="/app/get_started" component={GetStarted} />
-                <Route path="/app/dashboard/motor/add/manual" exact component={CreatePolicyScreen}/>
-                <Route path="/app/dashboard/motor/:motorId(\\d+)" component={MotorPolicyScreen} />
-                <Route path="/app/dashboard" component={Dashboard} />
-              </Switch>
+                <Switch>
+                    <Route path="/app/get_started" component={GetStarted}/>
+                    <Route path="/app/dashboard/motor/add/manual" exact component={CreatePolicyScreen}/>
+                    <Route path="/app/dashboard/motor/:motorId(\\d+)" component={MotorPolicyScreen}/>
+                    <Route path="/app/dashboard" component={Dashboard}/>
+                    <Route path="/app/motor/:motorId(\\d+)" component={QuoteFormScreen}/>
+                </Switch>
             </Container>
         )
     }

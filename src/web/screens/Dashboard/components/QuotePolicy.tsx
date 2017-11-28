@@ -4,9 +4,14 @@ import {FOOTER_BACKGROUND_COLOR, DASHBOARD_INACTIVE_LINK_COLOR} from 'src/common
 import RoundedButton from 'src/web/components/RoundedButton';
 import QuoteField from './QuoteField';
 import {QuoteCar, QuoteAddress, QuoteCalendar, QuoteHolder} from 'src/web/images';
+import {push} from 'react-router-redux';
+import {Action, ActionCreator, bindActionCreators} from 'redux';
+import {connect} from 'react-redux';
 
 interface IQuotePolicyProps {
   className?: string;
+  push: ActionCreator<Action>;
+  motorId: string;
 }
 
 const ButtonStyles = {
@@ -17,30 +22,32 @@ const ButtonStyles = {
   marginTop: '40px',
 };
 
-const QuotePolicy: React.StatelessComponent<IQuotePolicyProps> = (props) => (
-  <div className={props.className}>
-    <QuoteHint>
-      <HintTitle>
-        Get a Quote
-      </HintTitle>
-      <HintText>
-        Complete the questions below to request a quote
-      </HintText>
-    </QuoteHint>
-    <QuoteContentContainer>
-      <QuoteField icon={<QuoteCar />} title="Car" />
-      <QuoteField icon={<QuoteHolder />} title="Policy holder" />
-      <QuoteField icon={<QuoteAddress />} title="Address" />
-      <QuoteField icon={<QuoteCalendar />} withDatePicker title="Policy start date" />
-      <RoundedButton
-        label="Get my quote"
-        style={ButtonStyles}
-        disabled
-        onClick={() => console.log('get quote')}
-      />
-    </QuoteContentContainer>
-  </div>
-);
+const QuotePolicy: React.StatelessComponent<IQuotePolicyProps> = (props: IQuotePolicyProps) => {
+  return (
+        <div className={props.className}>
+          <QuoteHint>
+            <HintTitle>
+              Get a Quote
+            </HintTitle>
+            <HintText>
+              Complete the questions below to request a quote
+            </HintText>
+          </QuoteHint>
+          <QuoteContentContainer>
+            <QuoteField icon={<QuoteCar />} title="Car" />
+            <QuoteField icon={<QuoteHolder />} title="Policy holder" onClick={() => props.push(`/app/motor/${props.motorId}/holder`)}/>
+            <QuoteField icon={<QuoteAddress />} title="Address" />
+            <QuoteField icon={<QuoteCalendar />} withDatePicker title="Policy start date" />
+            <RoundedButton
+                label="Get my quote"
+                style={ButtonStyles}
+                disabled
+                onClick={() => console.log('get quote')}
+            />
+          </QuoteContentContainer>
+        </div>
+    );
+}
 
 const StyledQuotePolicy = styled(QuotePolicy)`
   display: flex;
@@ -87,4 +94,8 @@ const QuoteContentContainer = styled.div`
   }
 `;
 
-export default StyledQuotePolicy;
+const mapDispatchToProps = (dispatch: any) => bindActionCreators({
+    push,
+}, dispatch);
+
+export default connect(null, mapDispatchToProps)(StyledQuotePolicy);

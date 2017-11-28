@@ -1,6 +1,5 @@
 import * as React from 'react';
 import styled from 'styled-components';
-import {connect} from 'react-redux';
 import {Route, Switch, Redirect} from 'react-router-dom';
 import Header from 'src/web/components/Header';
 import Footer from 'src/web/components/Footer';
@@ -31,7 +30,7 @@ const MotorPolicyScreen: React.StatelessComponent<IMotorPolicyScreen> = (props) 
       <Switch>
         <Route exact path={`${props.match.url}/overview`} render={(routerProps) => <PolicyOverview motorId={props.match.params.motorId} {...routerProps} />} />
         <Route exact path={`${props.match.url}/documents`} render={(routerProps: any) => <DocumentsPolicy motorId={props.match.params.motorId} {...routerProps} />} />
-        <Route exact path={`${props.match.url}/quote`} component={QuotePolicy} />
+        <Route exact path={`${props.match.url}/quote`} render={(routerProps: any) => <QuotePolicy motorId={props.match.params.motorId} {...routerProps} />} />
         <Redirect to={`${props.match.url}/overview`} />
       </Switch>
     <Footer />
