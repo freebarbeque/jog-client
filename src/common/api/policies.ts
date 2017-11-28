@@ -1,4 +1,4 @@
-import {get, post} from '../api/request';
+import {get, patch, post} from '../api/request';
 import {MOTOR_POLICY} from '../constants/policies';
 import {IPolicy} from '../interfaces/policies';
 
@@ -39,4 +39,25 @@ export function* createPolicy(userId: string | number, type: string, policy: Par
         }
     };
     yield post(`users/${userId}/${policyType}`, body);
+}
+
+export function* patchPolicy(userId: string | number, type: string, policy: Partial<IPolicy>, policyId: string) {
+    let policyType;
+    switch (type) {
+        case MOTOR_POLICY: {
+            policyType = 'motor_policies';
+            break;
+        }
+        default: {
+            throw new Error('Unknown policy type');
+        }
+    }
+
+    const body = {
+        data: {
+            type: policyType,
+            attributes: policy,
+        }
+    };
+    yield patch(`users/${userId}/${policyType}/${policyId}`, body);
 }

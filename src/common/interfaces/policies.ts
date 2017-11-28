@@ -5,7 +5,7 @@ export interface IPoliciesReduxState {
 export interface IPolicy {
     id: number | string;
     name: string;
-    annual_cost_cents: number;
+    annual_cost_cents: number | string;
     expiry: string;
     insurance_company_id: number|string;
     ownership: string;
@@ -44,4 +44,13 @@ export interface ICreatePolicyFormValues {
     annual_cost_cents: number;
     level_of_cover: 'Third party' | 'Third party, fire and theft' | 'Comprehensive';
     no_claims_bonus: number;
+}
+
+export interface IPatchPolicyFormValues {
+    insurance_company_id: string|number;
+    policy_number: string|number;
+    day: number;
+    month: number;
+    year: number;
+    annual_cost_cents: string|number;
 }

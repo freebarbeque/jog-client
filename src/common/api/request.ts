@@ -70,6 +70,13 @@ export function* post(endpoint: string, body?: any, passedHeaders?: Headers, par
     return response;
 }
 
+export function* patch(endpoint: string, body?: any, passedHeaders?: Headers, parseResponseBody: boolean = true) {
+    const headers = passedHeaders ? passedHeaders : yield getDefaultHeaders();
+
+    const response = yield sendRequest(endpoint, parseResponseBody, 'PATCH', headers, JSON.stringify(body));
+    return response;
+}
+
 export function* get(endpoint: string, passedHeaders?: Headers, parseResponseBody: boolean = true) {
     const headers = passedHeaders ? passedHeaders : yield getDefaultHeaders();
 

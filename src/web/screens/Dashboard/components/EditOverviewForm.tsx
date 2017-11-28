@@ -15,6 +15,7 @@ import {getEditOverviewFormInitialValues, getEditOverviewDaysLeft} from 'src/com
 import {onlyNumber} from 'src/common/utils/form';
 import {getDataSource} from 'src/common/selectors/dataSource';
 import {IDataSource} from 'src/common/interfaces/dataSource';
+import {IPatchPolicyFormValues} from 'src/common/interfaces/policies';
 
 interface IEditOverviewFormProps {
   className?: string;
@@ -25,7 +26,8 @@ interface IEditOverviewFormProps {
   insurersDataSource?: IDataSource;
   daysLeft?: number;
   handleSubmit?: any;
-  initialValues?: any;
+  initialValues?: IPatchPolicyFormValues;
+  dirty?: boolean;
 }
 
 const ButtonStyles = {
@@ -247,7 +249,6 @@ const form = reduxForm({form: EDIT_POLICY_OVERVIEW_FORM, validate: validateForm}
 const mapStateToProps = (state: IReduxState, props: IEditOverviewFormProps): any => ({
   year: getValue(state, 'year'),
   month: getValue(state, 'month'),
-  initialValues: getEditOverviewFormInitialValues(props.motorId)(state),
   insurersDataSource: getDataSource(state, 'insuranceCompanies'),
   daysLeft: getEditOverviewDaysLeft(state),
 });

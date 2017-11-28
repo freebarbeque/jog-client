@@ -31,7 +31,7 @@ export const getCurrentMotorPolicy = (motorPolicyId: string) => createSelector(
             const expiryDate = moment(currentPolicy.expiry);
             const daysLeft = expiryDate.diff(today, 'days');
             const formattedExpiryDate = expiryDate.format('DD MMM YYYY');
-            const annualCost = currentPolicy.annual_cost_currency === GBP ? `£${currentPolicy.annual_cost_cents / 100}` : `$${currentPolicy.annual_cost_cents / 100}`;
+            const annualCost = currentPolicy.annual_cost_currency === GBP ? `£${Number(currentPolicy.annual_cost_cents) / 100}` : `$${Number(currentPolicy.annual_cost_cents) / 100}`;
             const excess = currentPolicy.excess_amount_currency === GBP ? `£${currentPolicy.excess_amount_cents / 100}` : `$${currentPolicy.excess_amount_cents / 100}`;
             const insuranceCompany = insuranceCompanies.find(c => c.id === currentPolicy.insurance_company_id);
 
@@ -61,7 +61,7 @@ export const getEditOverviewFormInitialValues = (motorPolicyId: string) => creat
           const month = expiryDate.month();
 
           return {
-              annual_cost_cents: currentPolicy.annual_cost_cents / 100,
+              annual_cost_cents: `${Number(currentPolicy.annual_cost_cents) / 100}`,
               insurance_company_id: currentPolicy.insurance_company_id,
               policy_number: currentPolicy.policy_number,
               year,
