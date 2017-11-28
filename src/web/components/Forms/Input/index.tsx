@@ -62,6 +62,7 @@ interface IInputProps {
     preCheck?: (value: string) => boolean;
     sign: string;
     placeholder?: string;
+    signStyle?: any;
 }
 
 const defaultProps = {
@@ -93,7 +94,7 @@ export default (passedProps: IInputProps) => {
                 }
                 <div style={{flex: 1}}/>
             </div>
-            {sign && <Sign>{sign}</Sign>}
+            {sign && <Sign style={props.signStyle}>{sign}</Sign>}
             <Input
                 onChange={(e: any) => preCheck(e.target.value) && input.onChange(e.target.value)}
                 value={input.value}
