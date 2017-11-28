@@ -35,7 +35,7 @@ const QuotePolicy: React.StatelessComponent<IQuotePolicyProps> = (props: IQuoteP
           </QuoteHint>
           <QuoteContentContainer>
             <QuoteField icon={<QuoteCar />} title="Car" />
-            <QuoteField icon={<QuoteHolder />} title="Policy holder" onClick={() => props.push(`/app/motor/${props.motorId}/holder`)}/>
+            <QuoteField icon={<QuoteHolder />} title="Policy holder" onClick={() => props.push(`/app/user/motor/${props.motorId}/holder`)}/>
             <QuoteField icon={<QuoteAddress />} title="Address" />
             <QuoteField icon={<QuoteCalendar />} withDatePicker title="Policy start date" />
             <RoundedButton
