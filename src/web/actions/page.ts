@@ -1,4 +1,4 @@
-import {CLOSE_MODAL, OPEN_MODAL} from 'src/web/constants/page';
+import {CLOSE_MODAL, OPEN_MODAL} from '../constants/page';
 
 export function openModal(modal: string) {
     return {

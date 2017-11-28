@@ -14,7 +14,7 @@ import {getUser} from '../selectors/auth';
 import {LOCATION_CHANGE, push} from 'react-router-redux';
 import {stopSubmit} from 'redux-form';
 import {setMotorPolicies, updatePolicy, setLoading} from '../actions/policies';
-import {closeModal} from 'src/web/actions/page';
+import {closeModal} from '../../web/actions/page';
 
 export function* createPolicyFlow() {
     const {insurance_companies} = yield getInsuranceCompanies();
