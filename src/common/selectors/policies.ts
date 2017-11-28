@@ -8,6 +8,8 @@ import {getInsuranceCompanies} from '../selectors/dataSource';
 import {GBP} from '../constants/currency';
 import {IDataSource} from '../interfaces/dataSource';
 
+export const isLoading = (state: IReduxState) => state.policies.isLoading;
+
 export const getPolicies = (policyType: string) => (state: IReduxState) => {
     switch (policyType) {
         case MOTOR_POLICY: {

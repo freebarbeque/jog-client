@@ -15,6 +15,7 @@ export interface IReduxState {
     router: IRouterState;
     policies: {
         motorPolicies: IMotorPolicy[];
+        isLoading: boolean,
     },
     documents: IDocumentsReduxState;
 }

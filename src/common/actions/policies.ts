@@ -4,6 +4,7 @@ import {
     SET_MOTOR_POLICIES,
     PATCH_POLICY,
     UPDATE_POLICY,
+    SET_LOADING,
 } from '../constants/policies';
 
 export function setMotorPolicies (policies: IMotorPolicy[]) { // todo: use policy type instead of any
@@ -29,4 +30,9 @@ export const patchPolicy = (values: IPatchPolicyFormValues, policyId: number) =>
 export const updatePolicy = (policy: IPolicy) => ({
     type: UPDATE_POLICY,
     policy,
+});
+
+export const setLoading = (isLoading: boolean) => ({
+    type: SET_LOADING,
+    isLoading,
 });

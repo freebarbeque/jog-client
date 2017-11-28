@@ -21,6 +21,7 @@ import {patchPolicy} from 'src/common/actions/policies';
 import {EDIT_OVERVIEW_MODAL} from 'src/common/constants/policies';
 import {injectSaga} from 'src/common/utils/saga';
 import {patchPolicyFlow} from 'src/common/sagas/policies';
+import {isLoading} from 'src/common/selectors/policies';
 
 interface IPolicyOverviewProps {
   className?: string;
@@ -31,6 +32,7 @@ interface IPolicyOverviewProps {
   isEditModalOpen: boolean;
   editOverviewInitialValues: IPatchPolicyFormValues;
   patchPolicy: any;
+  isLoading: boolean;
 }
 
 interface IContentProps {
@@ -47,7 +49,6 @@ class PolicyOverview extends React.Component<IPolicyOverviewProps, {}> {
     if (equals(values, this.props.editOverviewInitialValues)) {
       this.props.closeModal(EDIT_OVERVIEW_MODAL);
     } else {
-      console.log(this.props.motorId);
       this.props.patchPolicy(values, this.props.motorId);
     }
   };
@@ -61,6 +62,7 @@ class PolicyOverview extends React.Component<IPolicyOverviewProps, {}> {
       isEditModalOpen,
       editOverviewInitialValues,
       motorId,
+      isLoading,
     } = this.props;
 
     return (
@@ -106,6 +108,7 @@ class PolicyOverview extends React.Component<IPolicyOverviewProps, {}> {
                   initialValues={editOverviewInitialValues}
                   motorId={motorId}
                   onSubmit={this.handleSubmit}
+                  submitDisabled={isLoading}
                 />
               </PolicySection>
             </OverviewDialog>
@@ -174,6 +177,7 @@ const mapStateToProps = (state: IWebReduxState, props: IPolicyOverviewProps) => 
   motorPolicy: getCurrentMotorPolicy(props.motorId)(state),
   isEditModalOpen: editOverviewModal(state),
   editOverviewInitialValues: getEditOverviewFormInitialValues(props.motorId)(state),
+  isLoading: isLoading(state),
 });
 
 const mapDispatchToProps = (dispatch: any) => bindActionCreators({

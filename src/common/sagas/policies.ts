@@ -1,4 +1,4 @@
-import {put, race, select, take} from 'redux-saga/effects';
+import {put, race, select, take, fork, cancel} from 'redux-saga/effects';
 import {
     CREATE_POLICY,
     CREATE_POLICY_FORM,
@@ -13,7 +13,7 @@ import {mapCreatePolicyFormValues, mapPatchPolicyFormValues} from '../utils/poli
 import {getUser} from '../selectors/auth';
 import {LOCATION_CHANGE, push} from 'react-router-redux';
 import {stopSubmit} from 'redux-form';
-import {setMotorPolicies, updatePolicy} from '../actions/policies';
+import {setMotorPolicies, updatePolicy, setLoading} from '../actions/policies';
 import {closeModal} from 'src/web/actions/page';
 
 export function* createPolicyFlow() {
@@ -54,7 +54,7 @@ export function* motorPoliciesContentFlow() {
     }
 }
 
-export function* patchPolicyFlow() {
+export function* patchPolicyWorker() {
     const user = yield select(getUser);
 
     while (true) {
@@ -70,14 +70,23 @@ export function* patchPolicyFlow() {
         const {values, policyId} = patch;
 
         try {
+            yield put(setLoading(true));
             const mappedValues = mapPatchPolicyFormValues(values);
             const patchedPolicy = yield patchPolicy(user.id, MOTOR_POLICY, mappedValues, policyId);
             yield put(updatePolicy(patchedPolicy));
             yield put(closeModal(EDIT_OVERVIEW_MODAL));
+            yield put(setLoading(false));
         } catch (err) {
             console.error(err);
             yield put(stopSubmit(EDIT_POLICY_OVERVIEW_FORM, {_error: err.message}));
             continue;
         }
     }
+}
+
+export function* patchPolicyFlow() {
+    const worker = yield fork(patchPolicyWorker);
+    yield take(LOCATION_CHANGE);
+    yield put(setLoading(false));
+    yield cancel(worker);
 }

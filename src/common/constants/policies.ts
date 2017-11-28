@@ -13,3 +13,5 @@ export const PATCH_POLICY = 'policies/PATCH_POLICY';
 export const EDIT_OVERVIEW_MODAL = 'policies/EDIT_OVERVIEW_MODAL';
 
 export const UPDATE_POLICY = 'policies/UPDATE_POLICY';
+
+export const SET_LOADING = 'policies/SET_LOADING';

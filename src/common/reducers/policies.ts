@@ -1,9 +1,10 @@
 import {IPoliciesReduxState} from '../interfaces/policies';
 import {IAction} from '../interfaces/action';
-import {SET_MOTOR_POLICIES, UPDATE_POLICY} from '../constants/policies';
+import {SET_MOTOR_POLICIES, UPDATE_POLICY, SET_LOADING} from '../constants/policies';
 
 const defaultState = {
     motorPolicies: null,
+    isLoading: false,
 }
 
 export default function (state: IPoliciesReduxState = defaultState, action: IAction) {
@@ -19,6 +20,13 @@ export default function (state: IPoliciesReduxState = defaultState, action: IAct
             return {
                 ...state,
                 motorPolicies: state.motorPolicies && state.motorPolicies.map(p => p.id === action.policy.id ? Object.assign({}, p, action.policy) : p),
+            };
+        }
+
+        case (SET_LOADING): {
+            return {
+                ...state,
+                isLoading: action.isLoading,
             };
         }
 
