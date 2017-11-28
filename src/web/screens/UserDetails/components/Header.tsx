@@ -1,6 +1,6 @@
 import * as React from 'react';
 import styled from 'styled-components';
-import {DARK_GRAY, WHITE} from '~/common/constants/palette';
+import {FOOTER_BACKGROUND_COLOR, WHITE} from '~/common/constants/palette';
 import Step from './Step';
 import {LeftArrow} from 'src/web/images';
 
@@ -13,7 +13,7 @@ interface IHeaderProps {
 
 const Header = styled.div`
     height: 80px;
-    background-color: ${DARK_GRAY};
+    background-color: ${FOOTER_BACKGROUND_COLOR};
     display: flex;
     align-items: center;
     justify-content: space-between;
