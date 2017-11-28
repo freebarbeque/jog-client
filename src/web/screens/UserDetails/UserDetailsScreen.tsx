@@ -16,7 +16,11 @@ class UserDetailsScreen extends React.Component<IUserDetailsScreenProps, IUserDe
     render() {
         return (
             <div>
-                <Header steps={[1, 2, 3, 4]} activeStep={this.state.currentStep}/>
+                <Header
+                    steps={[1, 2, 3, 4]}
+                    activeStep={this.state.currentStep}
+                    onBack={() => console.log('Will navigate back')}
+                />
             </div>
         )
     }
