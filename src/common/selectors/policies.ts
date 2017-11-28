@@ -57,7 +57,7 @@ export const getEditOverviewFormInitialValues = (motorPolicyId: string) => creat
       const currentPolicy = motorPolicies.find(m => m.id === Number(motorPolicyId));
       if (currentPolicy) {
           const insuranceCompany = insuranceCompanies.find(c => c.id === currentPolicy.insurance_company_id);
-          const expiryDate = moment(currentPolicy.expiry);
+          const expiryDate = moment(currentPolicy.expiry, 'YYYY-MM-DD');
           const year = expiryDate.year();
           const day = expiryDate.date();
           const month = expiryDate.month();
@@ -85,7 +85,7 @@ export const getEditOverviewDaysLeft = createSelector(
           const today = moment();
 
           if (day && month && year) {
-              const expiryDate = moment(`${year}-${month}-${day}`);
+              const expiryDate = moment(`${year}-${month}-${day}`, 'YYYY-MM-DD');
               return expiryDate.diff(today, 'days');
           }
       }
