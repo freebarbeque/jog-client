@@ -1,13 +1,13 @@
 import * as React from 'react';
 import styled from 'styled-components';
 import {reduxForm, Field} from 'redux-form';
-import Input from 'src/web/components/Forms/Input';
 import {onlyNumber} from 'src/common/utils/form';
 import RadioButton from 'src/web/components/Forms/RadioButton/Buttons';
 import DatePicker from 'src/web/components/PolicyDatePicker';
 import {inputStyles, inputStylesWithSign, signStyle} from 'src/common/constants/userDetails';
 import FieldTitle from './FieldTitle';
 import styledForm from './styledForm';
+import StyledInput from './StyledInput';
 
 interface ICardDetailsForm {
   className?: string;
@@ -30,8 +30,7 @@ const CarDetailsForm: React.StatelessComponent<ICardDetailsForm> = (props) => (
       </FieldTitle>
       <Field
         name="registration"
-        component={Input}
-        style={inputStyles}
+        component={StyledInput}
       />
     </FieldContainer>
     <FieldContainer>
@@ -40,8 +39,7 @@ const CarDetailsForm: React.StatelessComponent<ICardDetailsForm> = (props) => (
       </FieldTitle>
       <Field
         name="abi_code"
-        component={Input}
-        style={inputStyles}
+        component={StyledInput}
       />
     </FieldContainer>
     <FieldContainer>
@@ -63,8 +61,7 @@ const CarDetailsForm: React.StatelessComponent<ICardDetailsForm> = (props) => (
       </FieldTitle>
       <Field
         name="alarm"
-        component={Input}
-        style={inputStyles}
+        component={StyledInput}
       />
     </FieldContainer>
     <FieldContainer>
@@ -93,8 +90,7 @@ const CarDetailsForm: React.StatelessComponent<ICardDetailsForm> = (props) => (
       </FieldTitle>
       <Field
         name="drive"
-        component={Input}
-        style={inputStyles}
+        component={StyledInput}
       />
     </FieldContainer>
     <FieldContainer>
@@ -116,8 +112,7 @@ const CarDetailsForm: React.StatelessComponent<ICardDetailsForm> = (props) => (
       </FieldTitle>
       <Field
         name="number_of_seats"
-        component={Input}
-        style={inputStyles}
+        component={StyledInput}
         preCheck={onlyNumber}
       />
     </FieldContainer>
@@ -127,8 +122,7 @@ const CarDetailsForm: React.StatelessComponent<ICardDetailsForm> = (props) => (
       </FieldTitle>
       <Field
         name="registered_keeper"
-        component={Input}
-        style={inputStyles}
+        component={StyledInput}
       />
     </FieldContainer>
     <FieldContainer>
@@ -160,8 +154,8 @@ const CarDetailsForm: React.StatelessComponent<ICardDetailsForm> = (props) => (
       </FieldTitle>
       <Field
         name="value_cents"
-        component={Input}
-        style={inputStylesWithSign}
+        component={StyledInput}
+        style={{padding: '0 10px 0 45px'}}
         preCheck={onlyNumber}
         sign="\u00A3"
         signStyle={signStyle}

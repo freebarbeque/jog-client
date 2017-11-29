@@ -47,7 +47,7 @@ const Sign = styled.div`
     color: #dbdcde;
 `;
 
-interface IInputProps {
+export interface IInputProps {
     label?: string;
     input: {
         onChange: (v: any) => void;
