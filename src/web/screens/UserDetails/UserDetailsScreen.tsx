@@ -8,6 +8,7 @@ import {CREAM} from 'src/common/constants/palette';
 
 interface IUserDetailsScreenProps {
     className?: string;
+    history: any;
     location: {
         pathname: string;
     };
@@ -34,6 +35,11 @@ class UserDetailsScreen extends React.Component<IUserDetailsScreenProps, IUserDe
                 title = 'Driver details';
                 break;
             }
+
+            case 'car': {
+                title = 'Vehicle details';
+                break;
+            }
             default: {
                 title = ''
             }
@@ -44,7 +50,7 @@ class UserDetailsScreen extends React.Component<IUserDetailsScreenProps, IUserDe
                 <Header
                     steps={[1, 2, 3, 4]}
                     activeStep={this.state.currentStep}
-                    onBack={() => console.log('Will navigate back')}
+                    onBack={() => this.props.history.goBack()}
                     title={title}
                 />
                 <Content>
