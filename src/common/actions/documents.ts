@@ -12,7 +12,7 @@ import {
     SET_PREVIEW,
     CLEAR_PREVIEW,
     SET_DOCUMENT_FILE,
-    SET_IS_PREVIEW_LOADING,
+    SET_IS_PREVIEW_LOADING, SET_IS_UPLOADING,
 } from '../constants/documents';
 
 export const setDocuments = (documents: IDocument[]) => {
@@ -63,6 +63,13 @@ export function setIsLoading(isLoading: boolean) {
     return {
         type: SET_IS_LOADING,
         isLoading,
+    }
+}
+
+export function setIsUploading(isUploading: boolean) {
+    return {
+        type: SET_IS_UPLOADING,
+        isUploading,
     }
 }
 

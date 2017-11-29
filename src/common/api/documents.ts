@@ -1,10 +1,17 @@
 import {get, post, remove} from '../api/request';
 import {put, select} from 'redux-saga/effects';
-import {removeDocumentLocally, setDocuments} from '../actions/documents';
+import {removeDocumentLocally, setDocuments, setIsLoading} from '../actions/documents';
 import {getSessionToken} from '../selectors/auth';
 import {IPendingDocument} from '../interfaces/documents';
 
 export function* fetchDocuments(userId: number, policyId: string) {
+    yield put(setIsLoading(true));
+    const {body} = yield get(`users/${userId}/motor_policies/${policyId}/documents`);
+    yield put(setDocuments(body.documents));
+    yield put(setIsLoading(false));
+}
+
+export function* refetchDocuments(userId: number, policyId: string) {
     const {body} = yield get(`users/${userId}/motor_policies/${policyId}/documents`);
     yield put(setDocuments(body.documents));
 }

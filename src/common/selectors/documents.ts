@@ -6,6 +6,7 @@ export const getPolicyDocuments = (state: IReduxState) => state.documents.policy
 export const getPendingDocuments = (state: IReduxState) => state.documents.pendingDocuments;
 export const getSubmissionError = (state: IReduxState) => state.documents.submissionError;
 export const getIsLoading = (state: IReduxState) => state.documents.isLoading;
+export const getIsUploading = (state: IReduxState) => state.documents.isUploading;
 export const getPreview = (state: IReduxState) => state.documents.preview;
 export const getIsPreviewLoading = (state: IReduxState) => state.documents.isPreviewLoading;
 

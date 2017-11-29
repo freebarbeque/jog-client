@@ -7,10 +7,6 @@ import DocumentsDropzone from './DocumentsDropzone';
 import FileCard from './FileCard';
 import RoundedButton from 'src/web/components/RoundedButton';
 import {IDocument, IPendingDocument} from 'src/common/interfaces/documents';
-import {
-    getPolicyDocuments, getPendingDocuments, getSubmissionError,
-    getIsLoading
-} from 'src/common/selectors/documents';
 import {addPendingDocuments, removePendingDocument, setPreview, clearPreview} from 'src/common/actions/documents';
 import {openModal, closeModal} from 'src/web/actions/page';
 import {PDF_PREVIEW_MODAL} from '~/web/constants/documents';
@@ -22,6 +18,14 @@ import ErrorText from 'src/web/components/Forms/ErrorText';
 import {BLUE, SECTION_HEADER_COLOR} from '~/common/constants/palette';
 import PDFPreview from './PDFPreview';
 import {getIsPreviewLoading} from 'src/common/selectors/documents';
+
+import {
+    getPolicyDocuments,
+    getPendingDocuments,
+    getSubmissionError,
+    getIsLoading,
+    getIsUploading,
+} from 'src/common/selectors/documents';
 
 interface IDocumentPolicyProps {
     className?: string;
@@ -38,6 +42,7 @@ interface IDocumentPolicyProps {
     clearPreview: ActionCreator<Action>;
     error: Error | null;
     isLoading: boolean;
+    isUploading: boolean;
     motorId: string;
     isPreviewLoading: boolean;
 }
@@ -83,7 +88,6 @@ class DocumentsPolicy extends React.Component<IDocumentPolicyProps, {}> {
     }
 
     render() {
-
         const {
             policyDocuments,
             pendingDocuments
@@ -92,14 +96,14 @@ class DocumentsPolicy extends React.Component<IDocumentPolicyProps, {}> {
         return (
             <div className={this.props.className}>
                 <PolicySection title="Uploaded Documents">
-                    {this.props.isLoading &&
+                    {this.props.isUploading &&
                     <Notification>
                         <span>Document processing in progress</span>Your information will be online shortly
                     </Notification>
                     }
                     <ContentWrapper>
                         <FilesContainer>
-                            {policyDocuments.map((d, i) => {
+                            {!this.props.isLoading && policyDocuments.map((d, i) => {
                                 const url = d.attachment.url.split('/');
                                 return (
                                     <FileCard
@@ -113,7 +117,7 @@ class DocumentsPolicy extends React.Component<IDocumentPolicyProps, {}> {
                                     />
                                 )
                             })}
-                            {pendingDocuments.map((d, i) => (
+                            {!this.props.isLoading && pendingDocuments.map((d, i) => (
                                 <FileCard
                                     key={i}
                                     fileName={d.file.name}
@@ -124,7 +128,7 @@ class DocumentsPolicy extends React.Component<IDocumentPolicyProps, {}> {
                                     }}
                                 />
                             ))}
-                            {!policyDocuments.length && !pendingDocuments.length && <MessageContainer>Please upload your policy certificate and schedule</MessageContainer>}
+                            {!policyDocuments.length && !pendingDocuments.length && !this.props.isLoading && <MessageContainer>Please upload your policy certificate and schedule</MessageContainer>}
                         </FilesContainer>
                         <DocumentsDropzone onDrop={this.props.addPendingDocuments}/>
                         {this.props.error ?
@@ -137,7 +141,7 @@ class DocumentsPolicy extends React.Component<IDocumentPolicyProps, {}> {
                             label="Upload"
                             style={ButtonStyles}
                             onClick={() => this.props.uploadPendingDocuments()}
-                            disabled={this.props.isLoading}
+                            disabled={this.props.isUploading}
                         />
                     </ContentWrapper>
                 </PolicySection>
@@ -191,6 +195,7 @@ const mapStateToProps = (state: any) => ({
     isPreviewOpen: isPreviewModalOpen(state),
     error: getSubmissionError(state),
     isLoading: getIsLoading(state),
+    isUploading: getIsUploading(state),
     isPreviewLoading: getIsPreviewLoading(state),
 });
 

@@ -5,6 +5,7 @@ import {
     REMOVE_PENDING_DOCUMENT,
     SET_DOCUMENT_SUBMISSION_ERROR,
     SET_IS_LOADING,
+    SET_IS_UPLOADING,
     SET_DOCUMENTS,
     CLEAR_PENDING_DOCUMENTS,
     REMOVE_DOCUMENT_LOCALLY,
@@ -19,6 +20,7 @@ const defaultState = {
     pendingDocuments: [],
     submissionError: null,
     isLoading: false,
+    isUploading: false,
     preview: null,
     isPreviewLoading: false,
 };
@@ -49,6 +51,12 @@ export default function (state: IDocumentsReduxState = defaultState, action: IAc
             return {
                 ...state,
                 isLoading: action.isLoading,
+            }
+
+        case SET_IS_UPLOADING:
+            return {
+                ...state,
+                isUploading: action.isUploading,
             }
 
         case SET_DOCUMENTS: {

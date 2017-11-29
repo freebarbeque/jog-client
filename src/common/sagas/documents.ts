@@ -2,12 +2,14 @@ import {cancel, fork, put, race, select, take} from 'redux-saga/effects';
 import {REMOVE_DOCUMENT, UPLOAD_PENDING_DOCUMENTS} from '../constants/documents';
 import {getPendingDocuments, getPreviewDocument} from '../selectors/documents';
 import {getUser} from '../selectors/auth';
-import {fetchDocuments, removeDocument, uploadDocuments} from '../api/documents';
+import {fetchDocuments, removeDocument, uploadDocuments, refetchDocuments} from '../api/documents';
 import {LOCATION_CHANGE} from 'react-router-redux';
 import {
     clearPendingDocuments, setDocumentFile,
     setDocumentSubmissionError,
-    setIsLoading, setIsPreviewLoading
+    setIsLoading,
+    setIsUploading,
+    setIsPreviewLoading,
 } from '../actions/documents';
 import {get} from '../api/request';
 import {OPEN_MODAL} from '../../web/constants/page';
@@ -32,24 +34,24 @@ export function* documentsWorker(policyId: string) {
                 break;
             }
 
-            yield put(setIsLoading(true));
+            yield put(setIsUploading(true));
             yield put(setDocumentSubmissionError(null));
 
             const docs = yield select(getPendingDocuments);
 
             if (upload && docs.length) {
                 yield uploadDocuments(user.id, policyId, docs);
-                yield fetchDocuments(user.id, policyId);
+                yield refetchDocuments(user.id, policyId);
                 yield put(clearPendingDocuments());
             } else if (remove) {
                 const {documentId} = remove;
                 yield removeDocument(user.id, policyId, documentId);
             }
 
-            yield put(setIsLoading(false));
+            yield put(setIsUploading(false));
         } catch (err) {
             yield put(setDocumentSubmissionError(err));
-            yield put(setIsLoading(false));
+            yield put(setIsUploading(false));
             continue;
         }
     }
@@ -59,6 +61,7 @@ export function* documentsFlow(policyId: string) {
     const worker = yield fork(documentsWorker, policyId);
     yield take(LOCATION_CHANGE);
     yield put(setIsLoading(false));
+    yield put(setIsUploading(false));
     yield cancel(worker);
 }
 
