@@ -2,6 +2,7 @@ import * as React from 'react';
 import styled from 'styled-components';
 import {Route, Switch} from 'react-router-dom';
 import CarDetailsForm from './components/CarDetailsForm';
+import AddressForm from './components/AddressForm';
 import DriverDetailsForm from './components/DriverDetailsForm';
 import Header from './components/Header';
 import Footer from 'src/web/components/Footer';
@@ -58,6 +59,7 @@ class UserDetailsScreen extends React.Component<IUserDetailsScreenProps, IUserDe
                     <Switch>
                         <Route path={`${this.props.match.url}/motor/:motorId(\\d+)/car`} component={CarDetailsForm} />
                         <Route path={`${this.props.match.url}/motor/:motorId(\\d+)/holder`} render={() => <DriverDetailsForm onSubmit={(values: any) => console.log(values)} />} />
+                        <Route path={`${this.props.match.url}/motor/:motorId(\\d+)/address`} component={AddressForm} />
                     </Switch>
                 </Content>
                 <Footer />
