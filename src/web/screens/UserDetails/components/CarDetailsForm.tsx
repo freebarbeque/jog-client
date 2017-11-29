@@ -2,11 +2,11 @@ import * as React from 'react';
 import styled from 'styled-components';
 import {reduxForm, Field} from 'redux-form';
 import Input from 'src/web/components/Forms/Input';
-import {BLUE} from 'src/common/constants/palette';
 import {onlyNumber} from 'src/common/utils/form';
 import RadioButton from 'src/web/components/Forms/RadioButton/Buttons';
 import DatePicker from 'src/web/components/PolicyDatePicker';
 import {inputStyles, inputStylesWithSign, signStyle} from 'src/common/constants/userDetails';
+import FieldTitle from './FieldTitle';
 
 interface ICardDetailsForm {
   className?: string;
@@ -200,14 +200,6 @@ const FieldContainer = styled.div`
   & > ${DatePicker} {
     align-self: center;
   }
-`;
-
-const FieldTitle = styled.div`
-  font-size: 20px;
-  line-height: 22px;
-  color: ${BLUE};
-  margin-bottom: 10px;
-  align-self: center;
 `;
 
 export default reduxForm({form: 'carDetailsForm', initialValues: {abs: true, imported: true, modified: true, tracking_device: true}})(StyledCarDetailsForm);
