@@ -19,6 +19,7 @@ import ErrorText from 'src/web/components/Forms/ErrorText';
 interface ICreatePolicyFormProps {
     year?: string;
     month?: string;
+    day?: string;
     handleSubmit: any;
     insurersDataSource: IDataSource;
     error: string;
@@ -86,7 +87,7 @@ const CreatePolicyForm = (props: ICreatePolicyFormProps) => {
                         name="month"
                         component={FormSelect}
                         style={{margin: '0 10px'}}
-                        dataSource={getMonths(props.year)}
+                        dataSource={getMonths(props.day, props.year)}
                         defaultText="Month"
                     />
                     <Field
@@ -213,6 +214,7 @@ const getValue = formValueSelector(CREATE_POLICY_FORM);
 const mapStateToProps = (state: IReduxState) => ({
     year: getValue(state, 'year'),
     month: getValue(state, 'month'),
+    day: getValue(state, 'day'),
     insurersDataSource: getDataSource(state, 'insuranceCompanies'),
 })
 

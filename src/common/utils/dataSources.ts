@@ -47,16 +47,22 @@ export function getMonthDays(month?: string, year?: string) {
     }
 }
 
-export function getMonths(year?: string) {
+export function getMonths(day?: string, year?: string) {
     const now = Date.now();
     const currentYear = getYear(now);
     const currentMonth = getMonth(now);
 
+    let toReturn = months;
+    
     if ((year && +year === currentYear)) {
-        return months.slice(currentMonth);
-    } else {
-        return months;
+        toReturn = months.slice(currentMonth);
     }
+
+    if (day && +day === 31) {
+        toReturn = toReturn.filter(m => !!bigMonths.find(bm => bm === m.id));
+    }
+
+    return toReturn;
 }
 
 export function getYears() {
