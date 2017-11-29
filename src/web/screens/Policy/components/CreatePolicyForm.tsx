@@ -15,6 +15,7 @@ import {getDataSource} from '~/common/selectors/dataSource';
 import {IDataSource} from '~/common/interfaces/dataSource';
 const validate = require('validate.js');
 import ErrorText from 'src/web/components/Forms/ErrorText';
+import {getIsLoading} from 'src/common/selectors/policies';
 
 interface ICreatePolicyFormProps {
     year?: string;
@@ -23,6 +24,7 @@ interface ICreatePolicyFormProps {
     handleSubmit: any;
     insurersDataSource: IDataSource;
     error: string;
+    isLoading: boolean;
 }
 
 const Header = styled.div`
@@ -150,7 +152,7 @@ const CreatePolicyForm = (props: ICreatePolicyFormProps) => {
                 <RoundedButton
                     type="submit"
                     label="Set up my account"
-                    disabled={false}
+                    disabled={props.isLoading}
                     style={{
                         width: 200,
                         alignSelf: 'center',
@@ -216,6 +218,7 @@ const mapStateToProps = (state: IReduxState) => ({
     month: getValue(state, 'month'),
     day: getValue(state, 'day'),
     insurersDataSource: getDataSource(state, 'insuranceCompanies'),
+    isLoading: getIsLoading(state),
 })
 
 const form = reduxForm({

@@ -25,7 +25,7 @@ import {patchPolicy} from 'src/common/actions/policies';
 import {EDIT_OVERVIEW_MODAL} from 'src/common/constants/policies';
 import {injectSaga} from 'src/common/utils/saga';
 import {patchPolicyFlow} from 'src/common/sagas/policies';
-import {isLoading} from 'src/common/selectors/policies';
+import {getIsLoading} from 'src/common/selectors/policies';
 
 interface IPolicyOverviewProps {
     className?: string;
@@ -202,7 +202,7 @@ const mapStateToProps = (state: IWebReduxState, props: IPolicyOverviewProps) => 
     motorPolicy: getCurrentMotorPolicyWithDaysLeft(state, props),
     isEditModalOpen: editOverviewModal(state),
     editOverviewInitialValues: getEditOverviewFormInitialValues(state, props),
-    isLoading: isLoading(state),
+    isLoading: getIsLoading(state),
     incompleteKeys: getMotorPolicyIncompleteKeys(state, props),
 });
 

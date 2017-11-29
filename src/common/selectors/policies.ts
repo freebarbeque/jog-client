@@ -8,14 +8,13 @@ import {IInsurer, IMotorPolicy, IPoliciesReduxState, IPolicy} from '../interface
 import {getInsuranceCompanies} from '../selectors/dataSource';
 import {GBP} from '../constants/currency';
 import {IDataSource} from '../interfaces/dataSource';
-import {isUndefined} from "util";
 
 interface IPropsWithMotorId {
     motorId: string;
     [key: string]: any;
 }
 
-export const isLoading = (state: IReduxState) => state.policies.isLoading;
+export const getIsLoading = (state: IReduxState) => state.policies.isLoading;
 
 export const getPolicies = (policyType: string) => (state: IReduxState) => {
     switch (policyType) {

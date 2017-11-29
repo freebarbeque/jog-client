@@ -16,7 +16,7 @@ import {stopSubmit} from 'redux-form';
 import {setMotorPolicies, updatePolicy, setLoading} from '../actions/policies';
 import {closeModal} from '../../web/actions/page';
 
-export function* createPolicyFlow() {
+export function* createPolicyWorker() {
     const {insurance_companies} = yield getInsuranceCompanies();
     yield put(setDataSource('insuranceCompanies', insurance_companies.map(ic => ({id: ic.id, name: ic.name}))));
 
@@ -32,17 +32,27 @@ export function* createPolicyFlow() {
             break;
         }
 
+        yield put(setLoading(true));
         const {values} = create;
         try {
             const mappedValues = mapCreatePolicyFormValues(values);
             yield createPolicy(user.id, MOTOR_POLICY, mappedValues);
-            yield put(push('/app/dashboard'))
+            yield put(push('/app/dashboard'));
+            yield put(setLoading(false));
         } catch (err) {
             console.error(err);
-            yield put(stopSubmit(CREATE_POLICY_FORM, {_error: err.message}))
+            yield put(stopSubmit(CREATE_POLICY_FORM, {_error: err.message}));
+            yield put(setLoading(false));
             continue;
         }
     }
+}
+
+export function* createPolicyFlow() {
+    const worker = yield fork(createPolicyWorker);
+    yield take(LOCATION_CHANGE);
+    yield put(setLoading(false));
+    yield cancel(worker);
 }
 
 export function* motorPoliciesContentFlow() {
@@ -79,6 +89,7 @@ export function* patchPolicyWorker() {
         } catch (err) {
             console.error(err);
             yield put(stopSubmit(EDIT_POLICY_OVERVIEW_FORM, {_error: err.message}));
+            yield put(setLoading(false));
             continue;
         }
     }
