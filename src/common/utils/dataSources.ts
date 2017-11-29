@@ -1,4 +1,4 @@
-import {isLeapYear, getYear, getMonth, getDate} from 'date-fns';
+import {isLeapYear, getYear, getMonth, getDate, isPast} from 'date-fns';
 import {IDataSource} from '../interfaces/dataSource';
 
 const bigMonths = [1, 5, 7, 8, 10, 12];
@@ -53,7 +53,7 @@ export function getMonths(day?: string, year?: string) {
     const currentMonth = getMonth(now);
 
     let toReturn = months;
-    
+
     if ((year && +year === currentYear)) {
         toReturn = months.slice(currentMonth);
     }
@@ -65,11 +65,13 @@ export function getMonths(day?: string, year?: string) {
     return toReturn;
 }
 
-export function getYears() {
+export function getYears(month?: string) {
     const currentYear = getYear(Date.now());
     const years: IDataSource[] = [];
 
-    for (let i = currentYear; i <= currentYear + 20; i++) {
+    const includeCurrentYear = month && isPast(`${month} ${currentYear}`);
+
+    for (let i = includeCurrentYear ? currentYear : currentYear + 1; i <= currentYear + 20; i++) {
         years.push({id: i, name: `${i}`});
     }
 

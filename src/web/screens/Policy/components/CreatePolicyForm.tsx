@@ -93,7 +93,7 @@ const CreatePolicyForm = (props: ICreatePolicyFormProps) => {
                     <Field
                         name="year"
                         component={FormSelect}
-                        dataSource={getYears()}
+                        dataSource={getYears(props.month)}
                         defaultText="Year"
                     />
                 </DateContainer>
