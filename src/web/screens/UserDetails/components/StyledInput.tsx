@@ -12,17 +12,11 @@ const inputStyles = {
     fontSize: '16px',
 };
 
-class StyledInput extends React.Component<IInputProps, {}> {
-    private defaultProps = {
-        style: {},
-    }
-
-    render() {
+export default (props: IInputProps) => {
         const {
-            children,
             style,
             ...restProps,
-        } = this.props;
+        } = props;
 
         return (
             <Input
@@ -35,7 +29,4 @@ class StyledInput extends React.Component<IInputProps, {}> {
                 }
             />
         )
-    }
 }
-
-export default StyledInput;

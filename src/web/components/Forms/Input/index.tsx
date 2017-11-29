@@ -26,7 +26,7 @@ interface IHtmlInputProps {
 }
 
 // language=SCSS prefix=dummy{ suffix=}
-const Input: StyledComponentClass<IHtmlInputProps, any, any> = styled.input`
+const StyledInput: StyledComponentClass<IHtmlInputProps, any, any> = styled.input`
   margin-top: ${MARGIN.base}px;
   height: 50px;
   background-color: white;
@@ -65,52 +65,54 @@ export interface IInputProps {
     signStyle?: any;
 }
 
-const defaultProps = {
-    style: {},
-    preCheck: (value: string) => true,
-}
+class Input extends React.Component<IInputProps, {}> {
+    static defaultProps = {
+        style: {},
+        preCheck: (value: string) => true,
+    }
 
-export default (passedProps: IInputProps) => {
-    const props = {...defaultProps, ...passedProps};
+    render() {
+        const {
+            label,
+            input,
+            meta: {error, touched},
+            type,
+            preCheck,
+            sign,
+            placeholder,
+        } = this.props;
 
-    const {
-        label,
-        input,
-        meta: {error, touched},
-        type,
-        preCheck,
-        sign,
-        placeholder,
-    } = props;
-
-    return (
-        <Container>
-            <div style={{display: 'flex', flexDirection: 'row'}}>
-                {label ?
-                    <Label>
-                        {label}
-                    </Label>
-                    : null
-                }
-                <div style={{flex: 1}}/>
-            </div>
-            {sign && <Sign style={props.signStyle}>{sign}</Sign>}
-            <Input
-                onChange={(e: any) => preCheck(e.target.value) && input.onChange(e.target.value)}
-                value={input.value}
-                style={error && touched ? {...props.style, borderColor: PINK} : props.style}
-                type={type || 'text'}
-                sign={sign}
-                placeholder={placeholder}
-            />
-            {
-                error && touched &&
-                <div>
-                    <ErrorText>
-                        {error}
-                    </ErrorText>
+        return (
+            <Container>
+                <div style={{display: 'flex', flexDirection: 'row'}}>
+                    {label ?
+                        <Label>
+                            {label}
+                        </Label>
+                        : null
+                    }
+                    <div style={{flex: 1}}/>
                 </div>
-            }
-        </Container>
-    )
+                {sign && <Sign style={this.props.signStyle}>{sign}</Sign>}
+                <StyledInput
+                    onChange={(e: any) => preCheck && preCheck(e.target.value) && input.onChange(e.target.value)}
+                    value={input.value}
+                    style={error && touched ? {...this.props.style, borderColor: PINK} : this.props.style}
+                    type={type || 'text'}
+                    sign={sign}
+                    placeholder={placeholder}
+                />
+                {
+                    error && touched &&
+                    <div>
+                        <ErrorText>
+                            {error}
+                        </ErrorText>
+                    </div>
+                }
+            </Container>
+        )
+    }
 }
+
+export default Input;
