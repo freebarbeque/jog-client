@@ -2,7 +2,7 @@ import * as React from 'react';
 import styled from 'styled-components';
 import {BLUE, DASHBOARD_INACTIVE_LINK_COLOR, LIGHT_GREEN} from 'src/common/constants/palette';
 import {BlackArrow, WhiteTick, MoreCircles} from 'src/web/images';
-import PolicyDatePicker from './PolicyDatePicker';
+import PolicyDatePicker from '../../../components/PolicyDatePicker';
 const moment = require('moment');
 
 interface IQuoteFieldProps {
@@ -26,7 +26,7 @@ const QuoteField: React.StatelessComponent<IQuoteFieldProps> = (props) => (
         {props.title}
       </Title>
       {props.withDatePicker ? (
-        <PolicyDatePicker />
+        <PolicyDatePicker placeholder="Select policy start date" />
       ) : (
         <StatusContainer>
           <StatusText>

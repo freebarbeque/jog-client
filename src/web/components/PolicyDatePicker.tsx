@@ -10,20 +10,23 @@ interface IPolicyDatePickerProps {
   className?: string;
   value?: string;
   onChange?: any;
+  placeholder: string;
 }
 
 interface IDateButton {
   className?: string;
   value?: string;
   onClick?: any;
+  placeholder?: string;
 }
 
 const DateButton: React.StatelessComponent<IDateButton> = (props) => (
   <button
     className={props.className}
     onClick={props.onClick}
+    type="button"
   >
-    {props.value || 'Select policy start date'}
+    {props.value || props.placeholder}
   </button>
 );
 
@@ -35,6 +38,7 @@ const PolicyDatePicker: React.StatelessComponent<IPolicyDatePickerProps> = (prop
       onChange={props.onChange}
       customInput={<StyledDateButton />}
       popperPlacement="bottom-start"
+      placeholderText={props.placeholder}
       fixedHeight
     />
   </div>
@@ -42,18 +46,18 @@ const PolicyDatePicker: React.StatelessComponent<IPolicyDatePickerProps> = (prop
 
 const StyledPolicyDatePicker = styled(PolicyDatePicker)`
   display: flex;
-  flex: 1 0 auto;
+  width: 300px;
   & > div {
     display: flex;
-    flex: 1 0 auto;
+    flex: 1 0;
     
     & > .react-datepicker-wrapper {
       display: flex;
-      flex: 1 0 auto;
+      flex: 1 0;
       
       & > .react-datepicker__input-container {
         display: flex;
-        flex: 1 0 auto;
+        flex: 1 0;
       }
     }
     
@@ -92,6 +96,7 @@ const StyledPolicyDatePicker = styled(PolicyDatePicker)`
         &--today {
           background-color: ${FOOTER_BACKGROUND_COLOR};
           color: #FFF;
+          border-radius: 0.3rem;
         }
      }
      

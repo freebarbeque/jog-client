@@ -2,6 +2,7 @@ import * as React from 'react';
 import {IDataSource} from '~/common/interfaces/dataSource';
 import {RadioButton, RadioButtonGroup} from 'material-ui/RadioButton';
 import styled from 'styled-components';
+import {BLUE} from 'src/common/constants/palette';
 
 interface IRadioButtonProps {
     input: {
@@ -20,6 +21,8 @@ const Button = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
+    font-size: 16px;
+    color: ${props => props.checked ? BLUE : '#666B80'};
 `;
 
 const Container = styled.div`
@@ -27,7 +30,7 @@ const Container = styled.div`
         width: 100%!important;
         height: 160%!important;
     }
-`
+`;
 
 export default (props: IRadioButtonProps) => {
     const {
@@ -48,6 +51,7 @@ export default (props: IRadioButtonProps) => {
             >
                 {props.dataSource.map((d, i) => (
                     <RadioButton
+                        disableTouchRipple
                         key={i}
                         value={d.id}
                         uncheckedIcon={<Button>{d.name}</Button>}
