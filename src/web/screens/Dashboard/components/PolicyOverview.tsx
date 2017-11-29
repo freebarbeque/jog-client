@@ -13,7 +13,7 @@ import OverviewDialog from './OverviewDialog';
 import EditOverviewForm from './EditOverviewForm';
 import {IWebReduxState} from '~/web/interfaces/store';
 import {IMotorPolicyWithDaysLeft, IPatchPolicyFormValues} from 'src/common/interfaces/policies';
-import {getCurrentMotorPolicy, getEditOverviewFormInitialValues} from 'src/common/selectors/policies';
+import {getCurrentMotorPolicyWithDaysLeft, getEditOverviewFormInitialValues} from 'src/common/selectors/policies';
 import {styledComponentWithProps} from 'src/common/utils/types';
 import {openModal, closeModal} from 'src/web/actions/page';
 import {isModalOpen} from 'src/web/selectors/page';
@@ -174,9 +174,9 @@ const RightSectionsContainer = styled.div`
 const editOverviewModal = isModalOpen(EDIT_OVERVIEW_MODAL);
 
 const mapStateToProps = (state: IWebReduxState, props: IPolicyOverviewProps) => ({
-  motorPolicy: getCurrentMotorPolicy(props.motorId)(state),
+  motorPolicy: getCurrentMotorPolicyWithDaysLeft(state, props),
   isEditModalOpen: editOverviewModal(state),
-  editOverviewInitialValues: getEditOverviewFormInitialValues(props.motorId)(state),
+  editOverviewInitialValues: getEditOverviewFormInitialValues(state, props),
   isLoading: isLoading(state),
 });
 

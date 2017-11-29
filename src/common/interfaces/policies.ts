@@ -54,3 +54,8 @@ export interface IPatchPolicyFormValues {
     year: number;
     annual_cost_cents: string|number;
 }
+
+export interface IPoliciesReduxState {
+    motorPolicies: IMotorPolicy[]|null;
+    isLoading: boolean,
+}
