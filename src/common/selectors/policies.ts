@@ -8,6 +8,7 @@ import {IInsurer, IMotorPolicy, IPoliciesReduxState, IPolicy} from '../interface
 import {getInsuranceCompanies} from '../selectors/dataSource';
 import {GBP} from '../constants/currency';
 import {IDataSource} from '../interfaces/dataSource';
+import {isUndefined} from "util";
 
 interface IPropsWithMotorId {
     motorId: string;
@@ -27,6 +28,12 @@ export const getPolicies = (policyType: string) => (state: IReduxState) => {
         }
     }
 };
+
+export const getCurrentMotorPolicy = createSelector(
+    getPolicies(MOTOR_POLICY),
+    (state: IReduxState, props: IPropsWithMotorId) => props.motorId,
+    (motorPolicies: IMotorPolicy[], motorPolicyId) => motorPolicies.find(m => m.id === Number(motorPolicyId)),
+)
 
 export const getCurrentMotorPolicyWithDaysLeft = createSelector(
     getPolicies(MOTOR_POLICY),
@@ -102,10 +109,9 @@ export const getEditOverviewDaysLeft = createSelector(
     }
 );
 
-/*export const getIsMotorPolicyComplete = createSelector(
-    getCurrentMotorPolicyWithDaysLeft,
-    (state: IReduxState, props: IPropsWithMotorId) => props.motorId,
-    (currentPolicy: IMotorPolicy, motorId: string) => {
-
+export const getMotorPolicyIncompleteKeys = createSelector(
+    getCurrentMotorPolicy,
+    (currentPolicy: IMotorPolicy) => {
+        return Object.keys(currentPolicy).filter(key => currentPolicy[key] === null);
     }
-)*/
+)
