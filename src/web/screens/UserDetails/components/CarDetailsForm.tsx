@@ -6,31 +6,12 @@ import {BLUE} from 'src/common/constants/palette';
 import {onlyNumber} from 'src/common/utils/form';
 import RadioButton from 'src/web/components/Forms/RadioButton/Buttons';
 import DatePicker from 'src/web/components/PolicyDatePicker';
+import {inputStyles, inputStylesWithSign, signStyle} from 'src/common/constants/userDetails';
 
 interface ICardDetailsForm {
   className?: string;
   handleSubmit?: any;
 }
-
-const inputStyles = {
-  border: '2px solid #dbdcde',
-  borderRadius: 5,
-  marginTop: 0,
-  width: '100%',
-  height: 40,
-  boxSizing: 'border-box',
-  padding: '0 10px',
-  fontSize: '16px',
-};
-
-const inputStylesWithSign = Object.assign({}, inputStyles, {padding: '0 10px 0 45px'});
-
-const signStyle = {
-  fontSize: 20,
-  top: '50%',
-  transform: 'translateY(-50%)',
-  width: 25,
-};
 
 const renderDatePicker = (props: any) => (
   <DatePicker

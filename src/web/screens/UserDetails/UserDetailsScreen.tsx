@@ -2,6 +2,7 @@ import * as React from 'react';
 import styled from 'styled-components';
 import {Route, Switch} from 'react-router-dom';
 import CarDetailsForm from './components/CarDetailsForm';
+import DriverDetailsForm from './components/DriverDetailsForm';
 import Header from './components/Header';
 import Footer from 'src/web/components/Footer';
 import {CREAM} from 'src/common/constants/palette';
@@ -56,6 +57,7 @@ class UserDetailsScreen extends React.Component<IUserDetailsScreenProps, IUserDe
                 <Content>
                     <Switch>
                         <Route path={`${this.props.match.url}/motor/:motorId(\\d+)/car`} component={CarDetailsForm} />
+                        <Route path={`${this.props.match.url}/motor/:motorId(\\d+)/holder`} component={DriverDetailsForm} />
                     </Switch>
                 </Content>
                 <Footer />
