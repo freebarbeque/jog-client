@@ -1,4 +1,4 @@
-import {fork, put, race, select, take} from 'redux-saga/effects';
+import {cancel, fork, put, race, select, take} from 'redux-saga/effects';
 import {REMOVE_DOCUMENT, UPLOAD_PENDING_DOCUMENTS} from '../constants/documents';
 import {getPendingDocuments, getPreviewDocument} from '../selectors/documents';
 import {getUser} from '../selectors/auth';
@@ -15,7 +15,7 @@ const {takeEvery} = require('redux-saga/effects');
 import {PDF_PREVIEW_MODAL} from '../../web/constants/documents';
 import {IAction} from '../interfaces/action';
 
-export function* documentsFlow(policyId: string) {
+export function* documentsWorker(policyId: string) {
     const user = yield select(getUser);
     yield fork(fetchDocuments, user.id, policyId);
     yield fork(takeEvery, (action: IAction) => action.type === OPEN_MODAL && action.modal === PDF_PREVIEW_MODAL, downloadDocument);
@@ -53,6 +53,13 @@ export function* documentsFlow(policyId: string) {
             continue;
         }
     }
+}
+
+export function* documentsFlow(policyId: string) {
+    const worker = yield fork(documentsWorker, policyId);
+    yield take(LOCATION_CHANGE);
+    yield put(setIsLoading(false));
+    yield cancel(worker);
 }
 
 export function* downloadDocument() {
