@@ -44,7 +44,16 @@ interface IContentProps {
     height?: number;
 };
 
-class PolicyOverview extends React.Component<IPolicyOverviewProps, {}> {
+interface IContentState {
+    showNotification: boolean;
+}
+
+class PolicyOverview extends React.Component<IPolicyOverviewProps, IContentState> {
+
+    constructor() {
+        super();
+        this.state = {showNotification: true};
+    }
 
     componentWillMount() {
         injectSaga(patchPolicyFlow)
@@ -69,7 +78,7 @@ class PolicyOverview extends React.Component<IPolicyOverviewProps, {}> {
             motorId,
             isLoading,
         } = this.props;
-        console.log(this.props.incompleteKeys);
+
         return (
             <div className={className}>
                 {motorPolicy ? (
@@ -103,7 +112,14 @@ class PolicyOverview extends React.Component<IPolicyOverviewProps, {}> {
                                 <OffersPlaceholder/>
                             </PolicySection>
                         </RightSectionsContainer>
-                        <Notification notificationText="Upload your policy documentation for complete profile"/>
+                        {
+                            this.state.showNotification &&
+                            this.props.incompleteKeys.length &&
+                            < Notification
+                                notificationText="Upload your policy documentation for complete profile"
+                                onCloseButtonClick={() => this.setState({showNotification: false})}
+                            />
+                        }
                         <OverviewDialog
                             open={isEditModalOpen}
                             onRequestClose={() => closeModal(EDIT_OVERVIEW_MODAL)}
