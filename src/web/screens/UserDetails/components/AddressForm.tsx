@@ -1,6 +1,7 @@
 import * as React from 'react';
 import {reduxForm} from 'redux-form';
 import FieldTitle from './FieldTitle';
+import styledForm from './styledForm';
 
 interface IAddressFormProps {
     className: string;
@@ -9,7 +10,7 @@ interface IAddressFormProps {
 const AddressForm = (props: IAddressFormProps) => {
     return (
         <form className={props.className}>
-            <FieldTitle>111</FieldTitle>
+            <FieldTitle>Post Code</FieldTitle>
         </form>
     )
 };
@@ -18,4 +19,4 @@ const formOptions = {
     form: 'addressDetailsForm'
 };
 
-export default reduxForm(formOptions)(AddressForm);
+export default reduxForm(formOptions)(styledForm(AddressForm));

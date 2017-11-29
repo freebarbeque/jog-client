@@ -7,6 +7,7 @@ import RadioButton from 'src/web/components/Forms/RadioButton/Buttons';
 import DatePicker from 'src/web/components/PolicyDatePicker';
 import {inputStyles, inputStylesWithSign, signStyle} from 'src/common/constants/userDetails';
 import FieldTitle from './FieldTitle';
+import styledForm from './styledForm';
 
 interface ICardDetailsForm {
   className?: string;
@@ -182,15 +183,7 @@ const CarDetailsForm: React.StatelessComponent<ICardDetailsForm> = (props) => (
   </form>
 );
 
-const StyledCarDetailsForm = styled(CarDetailsForm)`
-  display: flex;
-  flex-direction: column;
-  flex: 1;
-  align-self: stretch;
-  background-color: #FFF;
-  padding: 40px 50px 35px;
-  box-shadow: 0 2px 4px rgba(51, 51, 51, 0.2);
-`;
+const StyledCarDetailsForm = styledForm(CarDetailsForm);
 
 const FieldContainer = styled.div`
   display: flex;
