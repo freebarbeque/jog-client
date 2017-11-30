@@ -8,6 +8,7 @@ import {IAddressFormValues} from '~/common/interfaces/userDetails';
 const validate = require('validate.js');
 import RoundedButton from 'src/web/components/RoundedButton';
 import {MARGIN} from 'src/common/constants/style';
+import {POSTCODE_FORM} from 'src/common/constants/userDetails';
 
 interface IAddressFormProps {
     className: string;
@@ -50,7 +51,7 @@ const validateForm = (values: IAddressFormValues) => {
 }
 
 const formOptions = {
-    form: 'addressDetailsForm',
+    form: POSTCODE_FORM,
     validate: validateForm,
 };
 
