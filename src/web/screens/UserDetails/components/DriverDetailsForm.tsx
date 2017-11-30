@@ -9,11 +9,15 @@ import RadioButton from 'src/web/components/Forms/RadioButton/Buttons';
 import DatePicker from 'src/web/components/PolicyDatePicker';
 import FormSelect from 'src/web/components/Forms/FormSelect';
 import {inputStyles, formSelectStyle, formSelectLabelStyle, formSelectIconStyle} from 'src/common/constants/userDetails';
+import {mapObjectToDataSource} from 'src/common/utils/dataSources';
+import {MotoringOrganisationTypes} from 'src/common/interfaces/drivers';
 
 interface IDriverDetailsForm {
   className?: string;
   handleSubmit?: any;
 }
+
+const motoringOrganisations = mapObjectToDataSource(MotoringOrganisationTypes);
 
 const renderDatePicker = (props: any) => (
   <DatePicker
@@ -103,6 +107,29 @@ const DriverDetailsForm: React.StatelessComponent<IDriverDetailsForm> = (props) 
     </FieldContainer>
     <FieldContainer>
       <FieldTitle>
+        Were you born in UK ?
+      </FieldTitle>
+      <Field
+        name="born_in_uk"
+        component={RadioButton}
+        dataSource={[
+          {id: true, name: 'Yes'},
+          {id: false, name: 'No'},
+        ]}
+      />
+    </FieldContainer>
+    <FieldContainer>
+      <FieldTitle>
+        When you became a resident of the UK ?
+      </FieldTitle>
+      <Field
+        name="uk_resident_since"
+        component={renderDatePicker}
+        placeholder="Select date of becoming a resident"
+      />
+    </FieldContainer>
+    <FieldContainer>
+      <FieldTitle>
         Is insurance refused ?
       </FieldTitle>
       <Field
@@ -149,7 +176,81 @@ const DriverDetailsForm: React.StatelessComponent<IDriverDetailsForm> = (props) 
         name="license_number"
         component={Input}
         style={inputStyles}
+      />
+    </FieldContainer>
+    <FieldContainer>
+      <FieldTitle>
+        Are you smoker ?
+      </FieldTitle>
+      <Field
+        name="smoker"
+        component={RadioButton}
+        dataSource={[
+          {id: true, name: 'Yes'},
+          {id: false, name: 'No'},
+        ]}
+      />
+    </FieldContainer>
+    <FieldContainer>
+      <FieldTitle>
+        What is your relationship status ?
+      </FieldTitle>
+      <Field
+        name="relationship_status"
+        component={RadioButton}
+        dataSource={[
+          {id: 'single', name: 'Single'},
+          {id: 'married', name: 'Married'},
+          {id: 'civil-partnership', name: 'Civil-partnership'},
+          {id: 'divorced', name: 'Divorced'},
+          {id: 'windowed', name: 'Windowed'},
+        ]}
+      />
+    </FieldContainer>
+    <FieldContainer>
+      <FieldTitle>
+        What is your vocation ?
+      </FieldTitle>
+      <Field
+        name="vocation"
+        component={Input}
+        style={inputStyles}
+      />
+    </FieldContainer>
+    <FieldContainer>
+      <FieldTitle>
+        What is your industry ?
+      </FieldTitle>
+      <Field
+        name="industry"
+        component={Input}
+        style={inputStyles}
+      />
+    </FieldContainer>
+    <FieldContainer>
+      <FieldTitle>
+        Years of no claims bonus
+      </FieldTitle>
+      <Field
+        name="no_claims_discount"
+        component={Input}
+        style={inputStyles}
         preCheck={onlyNumber}
+      />
+    </FieldContainer>
+    <FieldContainer>
+      <FieldTitle>
+        What is your motoring organisation ?
+      </FieldTitle>
+      <Field
+        name="motoring_organisation"
+        component={FormSelect}
+        dataSource={motoringOrganisations}
+        defaultText="Motoring organisations"
+        maxHeight={300}
+        labelStyle={formSelectLabelStyle}
+        iconStyle={formSelectIconStyle}
+        style={formSelectStyle}
       />
     </FieldContainer>
   </form>
@@ -172,6 +273,10 @@ const FieldContainer = styled.div`
   margin-bottom: 30px;
   & > ${DatePicker} {
     align-self: center;
+  }
+  
+  & > div:last-child {
+    margin-bottom: 0;
   }
 `;
 
@@ -221,4 +326,15 @@ const validateForm = (values: any) => {
   return errors;
 };
 
-export default reduxForm({form: 'driverDetailsForm', initialValues: {driver_selected: null, title: 'mr', gender: 'male', insurance_refused: false, license_state: 'full'}, validate: validateForm})(StyledDriverDetailsForm);
+const initialValues = {
+  driver_selected: null,
+  title: 'mr',
+  gender: 'male',
+  insurance_refused: false,
+  license_state: 'full',
+  smoker: false,
+  relationship_status: 'single',
+  born_in_uk: true,
+};
+
+export default reduxForm({form: 'driverDetailsForm', initialValues, validate: validateForm})(StyledDriverDetailsForm);

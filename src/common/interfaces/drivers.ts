@@ -495,12 +495,12 @@ export interface IDriver {
   license_type?: LicenseType
   license_number?: number
   no_claims_discount?: number
-  address?: string
   relationship_status?: RelationshipStatus
   born_in_uk?: boolean
   uk_resident_since?: string
   industry?: string
-  motoring_organization?: MotoringOrganisation
+  motoring_organisation?: MotoringOrganisation
   smoker?: boolean
   tests_taken?: number | null
+  vocation?: string;
 }

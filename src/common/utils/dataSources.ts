@@ -77,3 +77,5 @@ export function getYears(month?: string) {
 
     return years;
 }
+
+export const mapObjectToDataSource = (object: any) => Object.keys(object).map(k => ({id: k, name: object[k]}));

@@ -37,7 +37,6 @@ const DateButton: React.StatelessComponent<IDateButton> = (props) => (
 
 const PolicyDatePicker: React.StatelessComponent<IPolicyDatePickerProps> = (props) => (
   <div className={props.className}>
-    {console.log(props)}
     <DatePicker
       dateFormat="DD - MM - YYYY"
       selected={props.value || null}
