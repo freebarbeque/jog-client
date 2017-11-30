@@ -1,8 +1,8 @@
 import * as React from 'react';
 import styled from 'styled-components';
 import {Route, Switch} from 'react-router-dom';
-import CarDetailsForm from './components/CarDetailsForm';
-import AddressForm from './components/AddressForm';
+import CarDetailsForm from './components/Car/CarDetailsForm';
+import AddressForm from './components/Address/AddressForm';
 import DriverDetailsForm from './components/DriverDetailsForm';
 import Header from './components/Header';
 import Footer from 'src/web/components/Footer';

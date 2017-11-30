@@ -5,9 +5,9 @@ import {onlyNumber} from 'src/common/utils/form';
 import RadioButton from 'src/web/components/Forms/RadioButton/Buttons';
 import DatePicker from 'src/web/components/PolicyDatePicker';
 import {inputStyles, inputStylesWithSign, signStyle} from 'src/common/constants/userDetails';
-import FieldTitle from './FieldTitle';
-import styledForm from './styledForm';
-import StyledInput from './StyledInput';
+import FieldTitle from '../FieldTitle';
+import styledForm from '../styledForm';
+import StyledInput from '../StyledInput';
 
 interface ICardDetailsForm {
   className?: string;

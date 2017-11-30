@@ -1,8 +1,8 @@
 import * as React from 'react';
 import {reduxForm, Field} from 'redux-form';
-import FieldTitle from './FieldTitle';
-import styledForm from './styledForm';
-import StyledInput from './StyledInput';
+import FieldTitle from '../FieldTitle';
+import styledForm from '../styledForm';
+import StyledInput from '../StyledInput';
 import {isPostCode} from '~/common/utils/userDetails';
 import {IAddressFormValues} from '~/common/interfaces/userDetails';
 const validate = require('validate.js');
