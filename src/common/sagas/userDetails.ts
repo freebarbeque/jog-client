@@ -4,7 +4,7 @@ import {LOCATION_CHANGE, push} from 'react-router-redux';
 import {LOOKUP_POSTCODE, POSTCODE_FORM} from '../constants/userDetails';
 import {lookupPostCode} from '../api/idealPostcodes';
 import {stopSubmit} from 'redux-form';
-import {setAddress} from '~/common/actions/userDetails';
+import {setAddress} from '../actions/userDetails';
 import {goToNextStep} from '../../web/actions/page';
 
 function* postcodeFlow() {

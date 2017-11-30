@@ -1,4 +1,4 @@
-import {IWebReduxState} from '~/web/interfaces/store';
+import {IWebReduxState} from '../interfaces/store';
 import {createSelector} from 'reselect';
 
 export const getModals = (state: IWebReduxState) => state.page.modals;
