@@ -57,7 +57,7 @@ class UserDetailsScreen extends React.Component<IUserDetailsScreenProps, IUserDe
                 <Content>
                     <Switch>
                         <Route path={`${this.props.match.url}/motor/:motorId(\\d+)/car`} component={CarDetailsForm} />
-                        <Route path={`${this.props.match.url}/motor/:motorId(\\d+)/holder`} component={DriverDetailsForm} />
+                        <Route path={`${this.props.match.url}/motor/:motorId(\\d+)/holder`} render={() => <DriverDetailsForm onSubmit={(values: any) => console.log(values)} />} />
                     </Switch>
                 </Content>
                 <Footer />
