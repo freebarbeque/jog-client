@@ -480,6 +480,7 @@ export interface IMotoringIncident {
 
 export interface IDriversReduxState {
   list: IDriver[];
+  isLoading: boolean;
 }
 
 export interface IDriver {

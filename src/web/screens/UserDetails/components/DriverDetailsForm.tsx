@@ -8,7 +8,6 @@ import RadioButton from 'src/web/components/Forms/RadioButton/Buttons';
 import DatePicker from 'src/web/components/PolicyDatePicker';
 import FormSelect from 'src/web/components/Forms/FormSelect';
 import {inputStyles, formSelectStyle, formSelectLabelStyle, formSelectIconStyle} from 'src/common/constants/userDetails';
-import {getMonthDays, getMonths, getYears} from 'src/common/utils/dataSources';
 
 interface IDriverDetailsForm {
   className?: string;
