@@ -33,3 +33,4 @@ export const formSelectIconStyle = {
 export const formSelectStyle = {
   height: 40,
 };
+export const LOOKUP_POSTCODE = 'userDetails/LOOKUP_POSTCODE';
