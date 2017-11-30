@@ -5,6 +5,7 @@ import {LOOKUP_POSTCODE, POSTCODE_FORM} from '../constants/userDetails';
 import {lookupPostCode} from '../api/idealPostcodes';
 import {stopSubmit} from 'redux-form';
 import {setAddress} from '~/common/actions/userDetails';
+import {goToNextStep} from '../../web/actions/page';
 
 function* postcodeFlow() {
     while (true) {
@@ -13,6 +14,7 @@ function* postcodeFlow() {
             const address = yield lookupPostCode(postCode);
             if (address.code === 2000) {
                 yield put(setAddress(address.result[0]));
+                yield put(goToNextStep());
             } else {
                 const err: any = new Error('Ideal postcodes responded with an error');
                 err.code = address.code;

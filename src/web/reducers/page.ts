@@ -1,6 +1,10 @@
 import {IPageReduxState} from '~/web/interfaces/store';
 import {IAction} from '~/common/interfaces/action';
-import {CLOSE_MODAL, OPEN_MODAL} from '~/web/constants/page';
+import {
+    CLOSE_MODAL,
+    OPEN_MODAL,
+    GO_TO_NEXT_STEP,
+} from '~/web/constants/page';
 
 const defaultState = {
     modals: [],
@@ -21,6 +25,13 @@ export default (state: IPageReduxState = defaultState, action: IAction) => {
             return {
                 ...state,
                 modals: state.modals.filter(m => m !== action.modal),
+            }
+        }
+
+        case GO_TO_NEXT_STEP: {
+            return {
+                ...state,
+                currentStep: state.currentStep + 1,
             }
         }
 
