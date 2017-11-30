@@ -1,5 +1,5 @@
 import * as React from 'react';
-import AddressForm from './AddressForm';
+import PostCodeForm from './PostCodeForm';
 import {IAddressFormValues} from '~/common/interfaces/userDetails';
 import {injectSaga} from '~/common/utils/saga';
 import {addressStepsFlow} from '~/common/sagas/userDetails';
@@ -25,7 +25,7 @@ class AddressSteps extends React.Component<IAddressStepsProps, {}> {
     render() {
         switch (this.props.currentStep) {
             case 1:
-                return <AddressForm onSubmit={this.handleAddressFormSubmit} />
+                return <PostCodeForm onSubmit={this.handleAddressFormSubmit} />
             default:
                 return null;
         }
