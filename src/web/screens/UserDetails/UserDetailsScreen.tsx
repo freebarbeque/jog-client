@@ -2,7 +2,7 @@ import * as React from 'react';
 import styled from 'styled-components';
 import {Route, Switch} from 'react-router-dom';
 import CarDetailsForm from './components/Car/CarDetailsForm';
-import DriverDetailsForm from './components/DriverDetailsForm';
+import DriverDetailsForm from './components/Driver/DriverDetailsForm';
 import AddressStepsComponent from './components/Address/AddressSteps';
 const AddressSteps = AddressStepsComponent as any; // todo: find out why it doesn't work as it should
 import Header from './components/Header';
