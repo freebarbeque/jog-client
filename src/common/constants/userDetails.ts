@@ -34,5 +34,6 @@ export const formSelectStyle = {
   height: 40,
 };
 export const LOOKUP_POSTCODE = 'userDetails/LOOKUP_POSTCODE';
+export const SET_ADDRESS = 'userDetailt/SET_ADDRESS';
 
 export const POSTCODE_FORM = 'postcodeForm';

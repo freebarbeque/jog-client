@@ -4,6 +4,7 @@ import {LOCATION_CHANGE, push} from 'react-router-redux';
 import {LOOKUP_POSTCODE, POSTCODE_FORM} from '../constants/userDetails';
 import {lookupPostCode} from '../api/idealPostcodes';
 import {stopSubmit} from 'redux-form';
+import {setAddress} from '~/common/actions/userDetails';
 
 function* postcodeFlow() {
     while (true) {
@@ -11,7 +12,7 @@ function* postcodeFlow() {
         try {
             const address = yield lookupPostCode(postCode);
             if (address.code === 2000) {
-
+                yield put(setAddress(address.result[0]));
             } else {
                 const err: any = new Error('Ideal postcodes responded with an error');
                 err.code = address.code;
