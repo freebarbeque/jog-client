@@ -6,4 +6,6 @@ export interface IWebReduxState extends IReduxState {
 
 export interface IPageReduxState {
     modals: string[];
+    steps: number[];
+    currentStep: number;
 }

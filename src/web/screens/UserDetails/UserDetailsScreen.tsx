@@ -7,6 +7,9 @@ import DriverDetailsForm from './components/DriverDetailsForm';
 import Header from './components/Header';
 import Footer from 'src/web/components/Footer';
 import {CREAM} from 'src/common/constants/palette';
+import {connect} from 'react-redux';
+import {IWebReduxState} from '~/web/interfaces/store';
+import {getSteps, getCurrentStep} from 'src/web/selectors/page';
 
 interface IUserDetailsScreenProps {
     className?: string;
@@ -16,19 +19,12 @@ interface IUserDetailsScreenProps {
     };
     match: {
         url: string;
-    }
-}
-
-interface IUserDetailsScreenState {
+    },
     currentStep: number;
+    steps: number[];
 }
 
-class UserDetailsScreen extends React.Component<IUserDetailsScreenProps, IUserDetailsScreenState> {
-    constructor() {
-        super();
-        this.state = {currentStep: 1};
-    }
-
+class UserDetailsScreen extends React.Component<IUserDetailsScreenProps, {}> {
     render() {
         const splitPath = this.props.location.pathname.split('/');
         let title = '';
@@ -50,8 +46,8 @@ class UserDetailsScreen extends React.Component<IUserDetailsScreenProps, IUserDe
         return (
             <div className={this.props.className}>
                 <Header
-                    steps={[1, 2, 3, 4]}
-                    activeStep={this.state.currentStep}
+                    steps={this.props.steps}
+                    activeStep={this.props.currentStep}
                     onBack={() => this.props.history.goBack()}
                     title={title}
                 />
@@ -85,4 +81,9 @@ const Content = styled.div`
     padding: 35px 150px 25px;
 `;
 
-export default StyledUserDetailsScreen;
+const mapStateToProps = (state: IWebReduxState) => ({
+    steps: getSteps(state),
+    currentStep: getCurrentStep(state),
+})
+
+export default connect(mapStateToProps, null)(StyledUserDetailsScreen);

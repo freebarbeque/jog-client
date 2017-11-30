@@ -4,6 +4,8 @@ import {CLOSE_MODAL, OPEN_MODAL} from '~/web/constants/page';
 
 const defaultState = {
     modals: [],
+    steps: [1, 2, 3],
+    currentStep: 1,
 }
 
 export default (state: IPageReduxState = defaultState, action: IAction) => {
