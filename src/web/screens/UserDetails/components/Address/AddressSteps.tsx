@@ -6,6 +6,7 @@ import {addressStepsFlow} from '~/common/sagas/userDetails';
 import {lookupPostCode} from 'src/common/actions/userDetails';
 import {Action, ActionCreator, bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
+import Address from './Address';
 
 export interface IAddressStepsProps {
     currentStep: number;
@@ -26,6 +27,8 @@ class AddressSteps extends React.Component<IAddressStepsProps, {}> {
         switch (this.props.currentStep) {
             case 1:
                 return <PostCodeForm onSubmit={this.handleAddressFormSubmit} />
+            case 2:
+                return <Address />
             default:
                 return null;
         }
