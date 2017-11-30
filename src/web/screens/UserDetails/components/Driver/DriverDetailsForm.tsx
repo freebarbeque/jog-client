@@ -2,13 +2,13 @@ import * as React from 'react';
 import styled from 'styled-components';
 const validate = require('validate.js');
 import {reduxForm, Field} from 'redux-form';
-import Input from 'src/web/components/Forms/Input';
+import StyledInput from '../StyledInput';
 import {BLUE} from 'src/common/constants/palette';
 import {onlyNumber} from 'src/common/utils/form';
 import RadioButton from 'src/web/components/Forms/RadioButton/Buttons';
 import DatePicker from 'src/web/components/PolicyDatePicker';
 import FormSelect from 'src/web/components/Forms/FormSelect';
-import {inputStyles, formSelectStyle, formSelectLabelStyle, formSelectIconStyle, inputStylesWithSign, signStyle} from 'src/common/constants/userDetails';
+import {formSelectStyle, formSelectLabelStyle, formSelectIconStyle, signStyle} from 'src/common/constants/userDetails';
 import {mapObjectToDataSource} from 'src/common/utils/dataSources';
 import {MotoringOrganisationTypes, MotoringIncidentTypes, MotoringConvictionType} from 'src/common/interfaces/drivers';
 import Divider from 'src/web/screens/Landing/components/Divider';
@@ -81,8 +81,7 @@ const DriverDetailsForm: React.StatelessComponent<IDriverDetailsForm> = (props) 
         </FieldTitle>
         <Field
           name="first_name"
-          component={Input}
-          style={inputStyles}
+          component={StyledInput}
         />
       </FieldContainer>
       <FieldContainer>
@@ -91,8 +90,7 @@ const DriverDetailsForm: React.StatelessComponent<IDriverDetailsForm> = (props) 
         </FieldTitle>
         <Field
           name="last_name"
-          component={Input}
-          style={inputStyles}
+          component={StyledInput}
         />
       </FieldContainer>
       <FieldContainer>
@@ -160,8 +158,7 @@ const DriverDetailsForm: React.StatelessComponent<IDriverDetailsForm> = (props) 
         </FieldTitle>
         <Field
           name="license_years_held"
-          component={Input}
-          style={inputStyles}
+          component={StyledInput}
           preCheck={onlyNumber}
         />
       </FieldContainer>
@@ -187,8 +184,7 @@ const DriverDetailsForm: React.StatelessComponent<IDriverDetailsForm> = (props) 
         </FieldTitle>
         <Field
           name="license_number"
-          component={Input}
-          style={inputStyles}
+          component={StyledInput}
         />
       </FieldContainer>
       <FieldContainer>
@@ -226,8 +222,7 @@ const DriverDetailsForm: React.StatelessComponent<IDriverDetailsForm> = (props) 
         </FieldTitle>
         <Field
           name="vocation"
-          component={Input}
-          style={inputStyles}
+          component={StyledInput}
         />
       </FieldContainer>
       <FieldContainer>
@@ -236,8 +231,7 @@ const DriverDetailsForm: React.StatelessComponent<IDriverDetailsForm> = (props) 
         </FieldTitle>
         <Field
           name="industry"
-          component={Input}
-          style={inputStyles}
+          component={StyledInput}
         />
       </FieldContainer>
       <FieldContainer>
@@ -246,8 +240,7 @@ const DriverDetailsForm: React.StatelessComponent<IDriverDetailsForm> = (props) 
         </FieldTitle>
         <Field
           name="no_claims_discount"
-          component={Input}
-          style={inputStyles}
+          component={StyledInput}
           preCheck={onlyNumber}
         />
       </FieldContainer>
@@ -272,8 +265,7 @@ const DriverDetailsForm: React.StatelessComponent<IDriverDetailsForm> = (props) 
         </FieldTitle>
         <Field
           name="tests_taken"
-          component={Input}
-          style={inputStyles}
+          component={StyledInput}
           preCheck={onlyNumber}
         />
       </FieldContainer>
@@ -301,9 +293,8 @@ const DriverDetailsForm: React.StatelessComponent<IDriverDetailsForm> = (props) 
         </FieldTitle>
         <Field
           name="cost_cents"
-          component={Input}
-          style={inputStylesWithSign}
-          preCheck={onlyNumber}
+          component={StyledInput}
+          style={{padding: '0 10px 0 45px'}}
           sign="\u00A3"
           signStyle={signStyle}
         />
@@ -350,8 +341,8 @@ const DriverDetailsForm: React.StatelessComponent<IDriverDetailsForm> = (props) 
         </FieldTitle>
         <Field
           name="third_party_cost_cents"
-          component={Input}
-          style={inputStylesWithSign}
+          component={StyledInput}
+          style={{padding: '0 10px 0 45px'}}
           preCheck={onlyNumber}
           sign="\u00A3"
           signStyle={signStyle}
@@ -379,8 +370,7 @@ const DriverDetailsForm: React.StatelessComponent<IDriverDetailsForm> = (props) 
         </FieldTitle>
         <Field
           name="months_banned"
-          component={Input}
-          style={inputStyles}
+          component={StyledInput}
           preCheck={onlyNumber}
         />
       </FieldContainer>
@@ -415,8 +405,8 @@ const DriverDetailsForm: React.StatelessComponent<IDriverDetailsForm> = (props) 
         </FieldTitle>
         <Field
           name="fine_cents"
-          component={Input}
-          style={inputStylesWithSign}
+          component={StyledInput}
+          style={{padding: '0 10px 0 45px'}}
           preCheck={onlyNumber}
           sign="\u00A3"
           signStyle={signStyle}
@@ -428,8 +418,8 @@ const DriverDetailsForm: React.StatelessComponent<IDriverDetailsForm> = (props) 
         </FieldTitle>
         <Field
           name="penalty_points"
-          component={Input}
-          style={inputStylesWithSign}
+          component={StyledInput}
+          style={{padding: '0 10px 0 45px'}}
           preCheck={onlyNumber}
           sign="\u00A3"
           signStyle={signStyle}

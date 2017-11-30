@@ -1,16 +1,3 @@
-export const inputStyles = {
-  border: '2px solid #dbdcde',
-  borderRadius: 5,
-  marginTop: 0,
-  width: '100%',
-  height: 40,
-  boxSizing: 'border-box',
-  padding: '0 10px',
-  fontSize: '16px',
-};
-
-export const inputStylesWithSign = Object.assign({}, inputStyles, {padding: '0 10px 0 45px'});
-
 export const signStyle = {
   fontSize: 20,
   top: '50%',
