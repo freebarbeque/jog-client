@@ -6,7 +6,7 @@ import {LOOKUP_POSTCODE} from '../constants/userDetails';
 function* postcodeFlow() {
     while (true) {
         const {postCode} = yield take(LOOKUP_POSTCODE);
-        console.log(postCode);
+        console.log(process.env.IDEAL_POST_CODES_API_KEY);
     }
 }
 
