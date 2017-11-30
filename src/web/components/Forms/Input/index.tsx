@@ -81,7 +81,7 @@ class Input extends React.Component<IInputProps, {}> {
             sign,
             placeholder,
         } = this.props;
-        console.log(error);
+        
         return (
             <Container>
                 <div style={{display: 'flex', flexDirection: 'row'}}>
