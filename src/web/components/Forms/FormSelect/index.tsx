@@ -76,12 +76,21 @@ class FormSelect extends React.Component<ISelectProps, {}> {
                         style={{
                             width: '100%',
                             backgroundColor: '#ECEDEF',
+                            fontFamily: 'Work Sans',
                             ...style,
                         }}
                         anchorOrigin={{vertical: 'bottom', horizontal: 'left'}}
                         menuStyle={{
-                            backgroundColor: '#ECEDEF',
+                            backgroundColor: '#FFF',
                             ...menuStyle,
+                        }}
+                        menuItemStyle={{
+                            fontFamily: 'Work Sans',
+                        }}
+                        listStyle={{
+                            border: '1px solid #D8DDE6',
+                            borderRadius: '4px',
+                            overflow: 'hidden',
                         }}
                         iconStyle={{
                             fill: 'black',
@@ -90,6 +99,7 @@ class FormSelect extends React.Component<ISelectProps, {}> {
                         labelStyle={{opacity: 1, top: 0, height: 48, lineHeight: 48, display: 'flex', alignItems: 'center', fontSize: 16, paddingLeft: 12, ...labelStyle}}
                         autoWidth={autoWidth || false}
                         underlineStyle={{display: 'none'}}
+                        selectedMenuItemStyle={{backgroundColor: '#50E3C2'}}
                         maxHeight={maxHeight}
                     >
                         {dataSource.map((o, i) => <MenuItem key={i} value={o.id} primaryText={o.name} onClick={() => this.menu.close()}/>)}

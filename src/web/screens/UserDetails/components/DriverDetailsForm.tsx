@@ -253,6 +253,17 @@ const DriverDetailsForm: React.StatelessComponent<IDriverDetailsForm> = (props) 
         style={formSelectStyle}
       />
     </FieldContainer>
+    <FieldContainer>
+      <FieldTitle>
+        Tests taken
+      </FieldTitle>
+      <Field
+        name="tests_taken"
+        component={Input}
+        style={inputStyles}
+        preCheck={onlyNumber}
+      />
+    </FieldContainer>
   </form>
 );
 
