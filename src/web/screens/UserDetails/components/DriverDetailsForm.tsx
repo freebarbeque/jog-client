@@ -26,6 +26,21 @@ const DriverDetailsForm: React.StatelessComponent<IDriverDetailsForm> = (props) 
   <form className={props.className}>
     <FieldContainer>
       <FieldTitle>
+        Who is the policy holder ?
+      </FieldTitle>
+      <Field
+        name="driver_selected"
+        component={FormSelect}
+        dataSource={[{id: 1, name: 'Driver 1'}, {id: 2, name: 'Driver 2'}]}
+        defaultText="New Driver"
+        maxHeight={300}
+        labelStyle={formSelectLabelStyle}
+        iconStyle={formSelectIconStyle}
+        style={formSelectStyle}
+      />
+    </FieldContainer>
+    <FieldContainer>
+      <FieldTitle>
         What is your title ?
       </FieldTitle>
       <Field
@@ -155,4 +170,4 @@ const FieldTitle = styled.div`
   align-self: center;
 `;
 
-export default reduxForm({form: 'driverDetailsForm', initialValues: {title: 'mr', gender: 'male', insurance_refused: false, license_state: 'full'}})(StyledDriverDetailsForm);
+export default reduxForm({form: 'driverDetailsForm', initialValues: {driver_selected: null, title: 'mr', gender: 'male', insurance_refused: false, license_state: 'full'}})(StyledDriverDetailsForm);
