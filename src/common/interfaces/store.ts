@@ -3,6 +3,7 @@ import {Store} from 'redux';
 import {IDataSourceReduxState} from '../interfaces/dataSource';
 import {IMotorPolicy, IPoliciesReduxState} from '../interfaces/policies';
 import {IDocumentsReduxState} from '../interfaces/documents';
+import {IDriversReduxState} from '../interfaces/drivers';
 
 export interface IStore extends Store<IReduxState> {
     runSaga: any;
@@ -15,6 +16,7 @@ export interface IReduxState {
     router: IRouterState;
     policies: IPoliciesReduxState,
     documents: IDocumentsReduxState;
+    drivers: IDriversReduxState;
 }
 
 export interface ICreateStoreOpts {
