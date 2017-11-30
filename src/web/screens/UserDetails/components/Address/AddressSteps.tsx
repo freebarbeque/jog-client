@@ -7,18 +7,18 @@ import {lookupPostCode} from 'src/common/actions/userDetails';
 import {Action, ActionCreator, bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 
-interface IAddressStepsProps {
+export interface IAddressStepsProps {
     currentStep: number;
     motorId: number;
-    //lookupPostCode: ActionCreator<Action>;
+    lookupPostCode: ActionCreator<Action>;
 }
 
 class AddressSteps extends React.Component<IAddressStepsProps, {}> {
     componentWillMount() {
-        //injectSaga(addressStepsFlow, this.props.motorId);
+        injectSaga(addressStepsFlow, this.props.motorId);
     }
 
-    handleAddressFormSubmit(values: IAddressFormValues) {
+    handleAddressFormSubmit = (values: IAddressFormValues) => {
         this.props.lookupPostCode(values.postcode);
     }
 
@@ -36,4 +36,4 @@ const mapDispatchToProps = (dispatch: any): any => bindActionCreators({
     lookupPostCode,
 }, dispatch);
 
-export default AddressSteps;
+export default connect(null, mapDispatchToProps)(AddressSteps);

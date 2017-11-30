@@ -1,10 +1,12 @@
 import {cancel, fork, select, take} from 'redux-saga/effects';
 import {getCurrentStep} from '../../web/selectors/page';
 import {LOCATION_CHANGE, push} from 'react-router-redux';
+import {LOOKUP_POSTCODE} from '../constants/userDetails';
 
 function* postcodeFlow() {
     while (true) {
-
+        const {postCode} = yield take(LOOKUP_POSTCODE);
+        console.log(postCode);
     }
 }
 

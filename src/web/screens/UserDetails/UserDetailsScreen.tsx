@@ -4,7 +4,8 @@ import {Route, Switch} from 'react-router-dom';
 import CarDetailsForm from './components/Car/CarDetailsForm';
 import AddressForm from './components/Address/AddressForm';
 import DriverDetailsForm from './components/DriverDetailsForm';
-import AddressSteps from './components/Address/AddressSteps';
+import AddressStepsComponent from './components/Address/AddressSteps';
+const AddressSteps = AddressStepsComponent as any; // todo: find out why it doesn't work as it should
 import Header from './components/Header';
 import Footer from 'src/web/components/Footer';
 import {CREAM} from 'src/common/constants/palette';
