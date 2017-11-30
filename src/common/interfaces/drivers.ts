@@ -455,7 +455,6 @@ export type MotoringIncidentCode = keyof typeof MotoringIncidentTypes;
 
 export type MotoringConvictionCode = keyof typeof MotoringConvictionType;
 
-
 export interface IMotoringConviction {
   id: number;
   driver_id: number;

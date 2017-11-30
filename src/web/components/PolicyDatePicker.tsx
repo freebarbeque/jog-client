@@ -11,6 +11,8 @@ interface IPolicyDatePickerProps {
   value?: string;
   onChange?: any;
   placeholder: string;
+  error?: string[] | undefined;
+  touched?: boolean;
 }
 
 interface IDateButton {
@@ -18,6 +20,8 @@ interface IDateButton {
   value?: string;
   onClick?: any;
   placeholder?: string;
+  error?: string[] | undefined;
+  touched?: boolean;
 }
 
 const DateButton: React.StatelessComponent<IDateButton> = (props) => (
@@ -27,16 +31,18 @@ const DateButton: React.StatelessComponent<IDateButton> = (props) => (
     type="button"
   >
     {props.value || props.placeholder}
+    {props.error && props.touched ? (<ErrorText>{props.error[0]}</ErrorText>) : null}
   </button>
 );
 
 const PolicyDatePicker: React.StatelessComponent<IPolicyDatePickerProps> = (props) => (
   <div className={props.className}>
+    {console.log(props)}
     <DatePicker
       dateFormat="DD - MM - YYYY"
       selected={props.value || null}
       onChange={props.onChange}
-      customInput={<StyledDateButton />}
+      customInput={<StyledDateButton error={props.error} touched={props.touched}/>}
       popperPlacement="bottom-start"
       placeholderText={props.placeholder}
       fixedHeight
@@ -137,7 +143,8 @@ const StyledPolicyDatePicker = styled(PolicyDatePicker)`
 `;
 
 const StyledDateButton = styled(DateButton)`
-  border: 2px solid #D9DEE3;
+  border: 2px solid ${props => props.error && props.touched ? PINK : '#D9DEE3'};
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -153,6 +160,15 @@ const StyledDateButton = styled(DateButton)`
     cursor: default;
     color: #D0CED2;
   }
+`;
+
+const ErrorText = styled.div`
+  color: ${PINK};
+  font-size: 11px;
+  line-height: 13px;
+  position: absolute;
+  right: 0;
+  bottom: -15px;
 `;
 
 export default StyledPolicyDatePicker;

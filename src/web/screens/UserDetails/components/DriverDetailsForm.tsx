@@ -1,5 +1,6 @@
 import * as React from 'react';
 import styled from 'styled-components';
+const validate = require('validate.js');
 import {reduxForm, Field} from 'redux-form';
 import Input from 'src/web/components/Forms/Input';
 import {BLUE} from 'src/common/constants/palette';
@@ -19,6 +20,8 @@ const renderDatePicker = (props: any) => (
     {...props}
     onChange={props.input.onChange}
     value={props.input.value}
+    error={props.meta.error}
+    touched={props.meta.touched}
   />
 );
 
@@ -73,6 +76,16 @@ const DriverDetailsForm: React.StatelessComponent<IDriverDetailsForm> = (props) 
         name="last_name"
         component={Input}
         style={inputStyles}
+      />
+    </FieldContainer>
+    <FieldContainer>
+      <FieldTitle>
+        What is your Date of birth ?
+      </FieldTitle>
+      <Field
+        name="date_of_birth"
+        component={renderDatePicker}
+        placeholder="Select your date of birth"
       />
     </FieldContainer>
     <FieldContainer>
@@ -170,4 +183,42 @@ const FieldTitle = styled.div`
   align-self: center;
 `;
 
-export default reduxForm({form: 'driverDetailsForm', initialValues: {driver_selected: null, title: 'mr', gender: 'male', insurance_refused: false, license_state: 'full'}})(StyledDriverDetailsForm);
+const validationSchema = {
+  title: {
+    presence: {
+      message: 'Please select your title',
+      allowEmpty: false,
+    },
+  },
+  first_name: {
+    presence: {
+      message: 'Please enter your first name',
+      allowEmpty: false,
+    },
+  },
+  last_name: {
+    presence: {
+      message: 'Please enter your last name',
+      allowEmpty: false,
+    },
+  },
+  gender: {
+    presence: {
+      message: 'Please select your gender',
+      allowEmpty: false,
+    },
+  },
+  date_of_birth: {
+    presence: {
+      message: 'Please select your date of birth',
+      allowEmpty: false,
+    },
+  },
+};
+
+const validateForm = (values: any) => {
+  const errors = validate(values, validationSchema, {fullMessages: false});
+  return errors;
+};
+
+export default reduxForm({form: 'driverDetailsForm', initialValues: {driver_selected: null, title: 'mr', gender: 'male', insurance_refused: false, license_state: 'full'}, validate: validateForm})(StyledDriverDetailsForm);
