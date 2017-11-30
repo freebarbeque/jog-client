@@ -40,6 +40,9 @@ const PolicyDatePicker: React.StatelessComponent<IPolicyDatePickerProps> = (prop
       popperPlacement="bottom-start"
       placeholderText={props.placeholder}
       fixedHeight
+      showYearDropdown
+      showMonthDropdown
+      dropdownMode="select"
     />
   </div>
 );
