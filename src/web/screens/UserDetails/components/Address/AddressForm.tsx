@@ -9,10 +9,12 @@ const validate = require('validate.js');
 import RoundedButton from 'src/web/components/RoundedButton';
 import {MARGIN} from 'src/common/constants/style';
 import {POSTCODE_FORM} from 'src/common/constants/userDetails';
+import ErrorText from 'src/web/components/Forms/ErrorText';
 
 interface IAddressFormProps {
     className: string;
     handleSubmit: any;
+    error: string;
 }
 
 const AddressForm = (props: IAddressFormProps) => {
@@ -23,6 +25,12 @@ const AddressForm = (props: IAddressFormProps) => {
                 name="postcode"
                 component={StyledInput}
             />
+            {props.error ?
+                <ErrorText>
+                    {props.error}
+                </ErrorText>
+                : null
+            }
             <RoundedButton
                 type="submit"
                 label="Next"

@@ -1,4 +1,4 @@
-import {cancel, fork, select, take} from 'redux-saga/effects';
+import {cancel, fork, put, select, take} from 'redux-saga/effects';
 import {getCurrentStep} from '../../web/selectors/page';
 import {LOCATION_CHANGE, push} from 'react-router-redux';
 import {LOOKUP_POSTCODE, POSTCODE_FORM} from '../constants/userDetails';
@@ -18,7 +18,7 @@ function* postcodeFlow() {
                 throw err;
             }
         } catch (err) {
-            yield stopSubmit(POSTCODE_FORM, {_error: err.message});
+            yield put(stopSubmit(POSTCODE_FORM, {_error: err.message}));
         }
     }
 }
