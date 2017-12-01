@@ -1,6 +1,6 @@
 import {IUserDetailsReduxState} from '../interfaces/userDetails';
 import {IAction} from '../interfaces/action';
-import {SET_ADDRESS, SET_IS_LOADING} from '../constants/userDetails';
+import {SET_ADDRESS, SET_IS_LOADING, SUBMIT_ADDRESS} from '../constants/userDetails';
 
 const defaultState = {
     address: null,
@@ -19,6 +19,16 @@ export default function (state: IUserDetailsReduxState = defaultState, action: I
             return {
                 ...state,
                 isLoading: action.isLoading,
+            }
+
+        // todo: remove when integrated with the API
+        case SUBMIT_ADDRESS:
+            return {
+                ...state,
+                address: {
+                    ...state.address,
+                    submitted: true,
+                }
             }
 
         default:
