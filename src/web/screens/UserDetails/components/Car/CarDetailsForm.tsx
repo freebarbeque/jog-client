@@ -8,6 +8,7 @@ import {signStyle} from 'src/common/constants/userDetails';
 import FieldTitle from '../FieldTitle';
 import styledForm from '../styledForm';
 import StyledInput from '../StyledInput';
+import RoundedButton from 'src/web/components/RoundedButton';
 
 interface ICardDetailsForm {
   className?: string;
@@ -21,6 +22,14 @@ const renderDatePicker = (props: any) => (
     value={props.input.value}
   />
 );
+
+const ButtonStyles = {
+    width: '250px',
+    height: '60px',
+    borderRadius: '100px',
+    fontSize: '18px',
+    marginTop: '5px',
+};
 
 const CarDetailsForm: React.StatelessComponent<ICardDetailsForm> = (props) => (
   <form className={props.className}>
@@ -194,6 +203,13 @@ const CarDetailsForm: React.StatelessComponent<ICardDetailsForm> = (props) => (
         ]}
       />
     </FieldContainer>
+    <ButtonWpapper>
+        <RoundedButton
+            label="Next Step"
+            style={ButtonStyles}
+            type="submit"
+        />
+    </ButtonWpapper>
   </form>
 );
 
@@ -224,6 +240,13 @@ const Container = styled.div`
   flex-direction: column;
   align-self: stretch;
   flex: 1;
+`;
+
+const ButtonWpapper = styled.div`
+    display: flex;
+    align-self: stretch;
+    align-items: center;
+    justify-content: center;
 `;
 
 export default reduxForm({form: 'carDetailsForm', initialValues: {abs: true, imported: true, modified: true, tracking_device: true}})(StyledCarDetailsForm);
