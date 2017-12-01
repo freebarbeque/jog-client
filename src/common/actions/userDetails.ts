@@ -9,6 +9,7 @@ import {
     SET_IS_LOADING,
     SUBMIT_DRIVER,
     STORE_DRIVER_LOCALLY,
+    CHANGE_SELECTED_DRIVER,
 } from '../constants/userDetails';
 
 export function lookupPostCode(postCode: string) {
@@ -57,5 +58,12 @@ export function storeDriverLocally(policyId: string, driver: IStoredDriver) {
         type: STORE_DRIVER_LOCALLY,
         policyId,
         driver,
+    }
+}
+
+export function changeSelectedDriver(driverId: string) {
+    return {
+        type: CHANGE_SELECTED_DRIVER,
+        driverId,
     }
 }

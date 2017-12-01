@@ -4,7 +4,7 @@ import MenuItem from 'material-ui/MenuItem';
 import styled, {StyledComponentClass} from 'styled-components';
 import {IDataSource} from '~/common/interfaces/dataSource';
 import ErrorText from 'src/web/components/Forms/ErrorText';
-import {isUndefined} from "util";
+import {isUndefined} from 'util';
 
 interface ISelectProps {
     input: {
@@ -23,6 +23,7 @@ interface ISelectProps {
     labelStyle?: any;
     iconStyle?: any;
     autoWidth?: boolean;
+    onChangeCallback?: (value: any) => void;
 }
 
 interface IContainerProps {
@@ -49,6 +50,7 @@ class FormSelect extends React.Component<ISelectProps, {}> {
         const valueToSet = value[value.length - 1];
         if (!isUndefined(valueToSet)) {
             this.props.input.onChange(valueToSet);
+            this.props.onChangeCallback && this.props.onChangeCallback(valueToSet);
         }
     }
 

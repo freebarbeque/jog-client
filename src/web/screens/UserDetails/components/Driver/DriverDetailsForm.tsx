@@ -19,12 +19,15 @@ import {connect} from 'react-redux';
 import {IReduxState} from '~/common/interfaces/store';
 import {getDriversDataSource} from '~/common/selectors/userDetils';
 import {IDataSource} from '~/common/interfaces/dataSource';
+import {changeSelectedDriver} from 'src/common/actions/userDetails';
+import {Action, ActionCreator, bindActionCreators} from 'redux';
 
 interface IDriverDetailsForm {
     className?: string;
     handleSubmit?: any;
     motorId: number;
     driversDataSource: IDataSource[];
+    changeSelectedDriver: ActionCreator<Action>;
 }
 
 const motoringOrganisations = mapObjectToDataSource(MotoringOrganisationTypes);
@@ -71,6 +74,7 @@ class DriverDetailsForm extends React.Component<IDriverDetailsForm, {}> {
                             labelStyle={formSelectLabelStyle}
                             iconStyle={formSelectIconStyle}
                             style={formSelectStyle}
+                            onChangeCallback={(value: string) => this.props.changeSelectedDriver(value)}
                         />
                     </FieldContainer>
                     <FieldContainer>
@@ -554,4 +558,8 @@ const mapStateToProps = (state: IReduxState) => ({
     driversDataSource: getDriversDataSource(state),
 })
 
-export default reduxForm({form: 'driverDetailsForm', initialValues, validate: validateForm})(connect(mapStateToProps, null)(StyledDriverDetailsForm));
+const mapDispatchToProps = (dispatch: any) => bindActionCreators({
+    changeSelectedDriver,
+}, dispatch);
+
+export default reduxForm({form: 'driverDetailsForm', initialValues, validate: validateForm})(connect(mapStateToProps, mapDispatchToProps)(StyledDriverDetailsForm));
