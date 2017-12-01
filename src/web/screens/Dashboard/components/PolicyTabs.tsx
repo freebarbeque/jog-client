@@ -26,7 +26,8 @@ const PolicyTabs: React.StatelessComponent<IPolicyTabsProps> = (props: IPolicyTa
     {props.tabs && props.tabs.map((t, i) => (
       <Tab
         active={props.lastPath === t.link}
-        onClick={t.disable ? () => null : () => {props.push(`${props.baseUrl}${t.link}`)}}
+        disabled={t.disabled}
+        onClick={t.disabled ? () => null : () => {props.push(`${props.baseUrl}${t.link}`)}}
         key={i}
       >
         {t.title}
@@ -57,7 +58,7 @@ const Tab = button`
   height: 57px;
   font-size: 16px;
   line-height: 17px;
-  cursor: pointer;
+  cursor: ${props => props.disabled ? 'arrow' : 'pointer'};
   color: ${DASHBOARD_INACTIVE_LINK_COLOR};
   transition: border-color 0.3s ease-in-out; 
 `;
