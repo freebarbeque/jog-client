@@ -2,7 +2,8 @@ import * as React from 'react';
 import styled from 'styled-components';
 import {FOOTER_BACKGROUND_COLOR, DASHBOARD_INACTIVE_LINK_COLOR} from 'src/common/constants/palette';
 import RoundedButton from 'src/web/components/RoundedButton';
-import QuoteField from './QuoteField';
+import QuoteFieldComponent from './QuoteField';
+const QuoteField = QuoteFieldComponent as any;
 import {QuoteCar, QuoteAddress, QuoteCalendar, QuoteHolder} from 'src/web/images';
 import {push} from 'react-router-redux';
 import {Action, ActionCreator, bindActionCreators} from 'redux';
@@ -42,19 +43,19 @@ const QuotePolicy: React.StatelessComponent<IQuotePolicyProps> = (props: IQuoteP
             <QuoteContentContainer>
                 <QuoteField
                     icon={<QuoteCar/>}
-                    title="Car"
+                    title="Vehicle details"
                     onClick={() => props.push(`/app/user/motor/${props.motorId}/car`)}
                     completed={!!props.selectedVehicleId}
                 />
                 <QuoteField
                     icon={<QuoteHolder/>}
-                    title="Policy holder"
+                    title="Drivers details"
                     onClick={() => props.push(`/app/user/motor/${props.motorId}/holder`)}
                     completed={!!props.selectedDriverId}
                 />
                 <QuoteField
                     icon={<QuoteAddress/>}
-                    title="Address"
+                    title="Insurance address"
                     onClick={() => props.push(`/app/user/motor/${props.motorId}/address`)}
                     completed={props.address && props.address.submitted}
                 />

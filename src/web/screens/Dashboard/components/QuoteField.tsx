@@ -2,8 +2,11 @@ import * as React from 'react';
 import styled from 'styled-components';
 import {BLUE, DASHBOARD_INACTIVE_LINK_COLOR, LIGHT_GREEN} from 'src/common/constants/palette';
 import {BlackArrow, WhiteTick, MoreCircles} from 'src/web/images';
-import PolicyDatePicker from '../../../components/PolicyDatePicker';
+import {Field, reduxForm, getFormValues} from 'redux-form';
 const moment = require('moment');
+import DatePicker from 'src/web/components/PolicyDatePicker';
+import {connect} from 'react-redux';
+import {IMotorPolicyWithDaysLeft} from 'src/common/interfaces/policies';
 
 interface IQuoteFieldProps {
   className?: string;
@@ -14,33 +17,51 @@ interface IQuoteFieldProps {
   completed?: boolean;
   onClick?: any;
   withDatePicker?: boolean;
+  motorPolicy?: IMotorPolicyWithDaysLeft;
 }
 
-const QuoteField: React.StatelessComponent<IQuoteFieldProps> = (props) => (
-  <div className={props.className} onClick={props.onClick}>
-    <IconBox>
-      {props.icon}
-    </IconBox>
-    <ContentBox>
-      <Title>
-        {props.title}
-      </Title>
-      {props.withDatePicker ? (
-        <PolicyDatePicker placeholder="Select policy start date" />
-      ) : (
-        <StatusContainer>
-          <StatusText>
-            {props.completed ? 'Review complete' : 'Click to review'}
-          </StatusText>
-          <StatusIcon>
-            {props.completed ? (<WhiteTick />) : (<MoreCircles />)}
-          </StatusIcon>
-          <BlackArrow />
-        </StatusContainer>
-      )}
-    </ContentBox>
-  </div>
+const renderDatePicker = (props: any) => (
+    <DatePicker
+        {...props}
+        onChange={props.input.onChange}
+        value={props.input.value}
+        error={props.meta.error}
+        touched={props.meta.touched}
+    />
 );
+
+const QuoteField: React.StatelessComponent<IQuoteFieldProps> = (props) => {
+    console.log(props.motorPolicy);
+    return (
+        <form className={props.className} onClick={props.onClick}>
+            <IconBox>
+                {props.icon}
+            </IconBox>
+            <ContentBox>
+                <Title>
+                    {props.title}
+                </Title>
+                {props.withDatePicker ? (
+                    <Field
+                        name="date"
+                        component={renderDatePicker}
+                        props={{placeholder: 'Select policy start date'}}
+                    />
+                ) : (
+                    <StatusContainer>
+                        <StatusText>
+                            {props.completed ? 'Review complete' : 'Click to review'}
+                        </StatusText>
+                        <StatusIcon>
+                            {props.completed ? (<WhiteTick />) : (<MoreCircles />)}
+                        </StatusIcon>
+                        <BlackArrow />
+                    </StatusContainer>
+                )}
+            </ContentBox>
+        </form>
+    );
+}
 
 const IconBox = styled.div`
   display: flex;
@@ -133,4 +154,8 @@ const StyledQuoteField = styled(QuoteField)`
   }
 `;
 
-export default StyledQuoteField;
+const mapStateToProps = (state: any) => ({
+    motorPolicy: state.policies,
+});
+
+export default connect(mapStateToProps, null)(reduxForm({form: 'datePicker'}) (StyledQuoteField));
