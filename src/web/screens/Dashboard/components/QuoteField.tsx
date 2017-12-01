@@ -18,6 +18,7 @@ interface IQuoteFieldProps {
   onClick?: any;
   withDatePicker?: boolean;
   motorPolicy?: IMotorPolicyWithDaysLeft;
+  motorId: number;
 }
 
 const renderDatePicker = (props: any) => (
@@ -31,7 +32,6 @@ const renderDatePicker = (props: any) => (
 );
 
 const QuoteField: React.StatelessComponent<IQuoteFieldProps> = (props) => {
-    console.log(props.motorPolicy);
     return (
         <form className={props.className} onClick={props.onClick}>
             <IconBox>
