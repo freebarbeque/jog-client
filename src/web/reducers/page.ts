@@ -5,12 +5,12 @@ import {
     OPEN_MODAL,
     GO_TO_NEXT_STEP,
     GO_TO_PREV_STEP,
-    CLEAR_STEP,
+    CLEAR_STEP, SET_STEPS,
 } from '~/web/constants/page';
 
 const defaultState = {
     modals: [],
-    steps: [1, 2, 3],
+    steps: [],
     currentStep: 1,
 }
 
@@ -48,6 +48,13 @@ export default (state: IPageReduxState = defaultState, action: IAction) => {
             return {
                 ...state,
                 currentStep: 1,
+            }
+        }
+
+        case SET_STEPS: {
+            return {
+                ...state,
+                steps: action.steps,
             }
         }
 

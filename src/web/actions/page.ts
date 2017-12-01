@@ -4,6 +4,7 @@ import {
     GO_TO_NEXT_STEP,
     GO_TO_PREV_STEP,
     CLEAR_STEP,
+    SET_STEPS,
 } from '../constants/page';
 
 export function openModal(modal: string) {
@@ -35,5 +36,12 @@ export function goToPrevStep() {
 export function clearStep() {
     return {
         type: CLEAR_STEP,
+    }
+}
+
+export function setSteps(steps: number[]) {
+    return {
+        type: SET_STEPS,
+        steps,
     }
 }

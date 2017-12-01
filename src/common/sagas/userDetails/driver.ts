@@ -1,3 +1,5 @@
+import {setSteps} from '../../../web/actions/page';
+
 const {cancel, fork, put, race, select, take, takeEvery} = require('redux-saga/effects');
 import {LOCATION_CHANGE, push} from 'react-router-redux';
 import {setIsLoading, storeDriverLocally} from '../../actions/userDetails';
@@ -23,6 +25,7 @@ function* driverWorker(policyId: string) {
 }
 
 export function* driverFlow(policyId: string) {
+    yield put(setSteps([]));
     const worker = yield fork(driverWorker, policyId);
     yield take(LOCATION_CHANGE);
     yield put(setIsLoading(false));

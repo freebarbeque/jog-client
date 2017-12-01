@@ -50,7 +50,9 @@ class FormSelect extends React.Component<ISelectProps, {}> {
         const valueToSet = value[value.length - 1];
         if (!isUndefined(valueToSet)) {
             this.props.input.onChange(valueToSet);
-            this.props.onChangeCallback && this.props.onChangeCallback(valueToSet);
+            if (this.props.onChangeCallback) {
+                this.props.onChangeCallback(valueToSet);
+            }
         }
     }
 
