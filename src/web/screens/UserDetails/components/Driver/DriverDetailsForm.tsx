@@ -16,7 +16,7 @@ import {injectSaga} from '~/common/utils/saga';
 import {driverFlow} from '~/common/sagas/userDetails/driver';
 import {connect} from 'react-redux';
 import {IReduxState} from '~/common/interfaces/store';
-import {getDriversDataSource} from '~/common/selectors/userDetils';
+import {getDriversDataSource, getSelectedDriverId} from '~/common/selectors/userDetils';
 import {IDataSource} from '~/common/interfaces/dataSource';
 import {changeSelectedDriver} from 'src/common/actions/userDetails';
 import {Action, ActionCreator, bindActionCreators} from 'redux';
@@ -35,6 +35,7 @@ interface IDriverDetailsForm {
     motorId: number;
     driversDataSource: IDataSource[];
     changeSelectedDriver: ActionCreator<Action>;
+    selectedDriverId: any;
 }
 
 const motoringOrganisations = mapObjectToDataSource(MotoringOrganisationTypes);
@@ -62,6 +63,9 @@ const renderDatePicker = (props: any) => (
 class DriverDetailsForm extends React.Component<IDriverDetailsForm, {}> {
     componentWillMount() {
         injectSaga(driverFlow, this.props.motorId);
+        if (this.props.selectedDriverId) {
+            this.props.changeSelectedDriver(this.props.selectedDriverId);
+        }
     }
 
     render() {
@@ -561,12 +565,17 @@ const initialValues = {
     conviction_code: null,
 };
 
-const mapStateToProps = (state: IReduxState) => ({
+const mapStateToProps = (state: IReduxState, props: IDriverDetailsForm) => ({
     driversDataSource: getDriversDataSource(state),
+    selectedDriverId: getSelectedDriverId(state, props),
 })
 
 const mapDispatchToProps = (dispatch: any) => bindActionCreators({
     changeSelectedDriver,
 }, dispatch);
 
-export default reduxForm({form: DRIVER_DETAILS_FORM, initialValues, validate: validateForm})(connect(mapStateToProps, mapDispatchToProps)(StyledDriverDetailsForm));
+export default reduxForm({
+    form: DRIVER_DETAILS_FORM,
+    initialValues,
+    validate: validateForm,
+})(connect(mapStateToProps, mapDispatchToProps)(StyledDriverDetailsForm));

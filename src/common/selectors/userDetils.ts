@@ -5,6 +5,7 @@ import {IStoredDriver} from '../interfaces/drivers';
 export const getAddress = (state: IReduxState) => state.userDetails.address;
 export const getIsLoading = (state: IReduxState) => state.userDetails.isLoading;
 export const getAvailableDrivers = (state: IReduxState) => state.userDetails.availableDrivers;
+export const getSelectedDriverId = (state: IReduxState, props: any) => state.userDetails.drivers[props.motorId];
 
 export const getDriversDataSource = createSelector(
     getAvailableDrivers,
