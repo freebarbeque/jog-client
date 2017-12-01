@@ -31,7 +31,9 @@ export const getPolicies = (policyType: string) => (state: IReduxState) => {
 export const getCurrentMotorPolicy = createSelector(
     getPolicies(MOTOR_POLICY),
     (state: IReduxState, props: IPropsWithMotorId) => props.motorId,
-    (motorPolicies: IMotorPolicy[], motorPolicyId) => motorPolicies.find(m => m.id === Number(motorPolicyId)),
+    (motorPolicies: IMotorPolicy[], motorPolicyId) => {
+        return motorPolicies.find(m => m.id === Number(motorPolicyId));
+    }
 )
 
 export const getCurrentMotorPolicyWithDaysLeft = createSelector(

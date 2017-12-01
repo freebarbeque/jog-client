@@ -7,6 +7,8 @@ const moment = require('moment');
 import DatePicker from 'src/web/components/PolicyDatePicker';
 import {connect} from 'react-redux';
 import {IMotorPolicyWithDaysLeft} from 'src/common/interfaces/policies';
+import {getDatePickerInitialValues} from "~/common/selectors/userDetils";
+import {IReduxState} from "~/common/interfaces/store";
 
 interface IQuoteFieldProps {
   className?: string;
@@ -18,7 +20,8 @@ interface IQuoteFieldProps {
   onClick?: any;
   withDatePicker?: boolean;
   motorPolicy?: IMotorPolicyWithDaysLeft;
-  motorId: number;
+  motorId: string;
+    initialValues: any;
 }
 
 const renderDatePicker = (props: any) => (
@@ -32,6 +35,7 @@ const renderDatePicker = (props: any) => (
 );
 
 const QuoteField: React.StatelessComponent<IQuoteFieldProps> = (props) => {
+    console.log(props.initialValues)
     return (
         <form className={props.className} onClick={props.onClick}>
             <IconBox>
@@ -154,8 +158,9 @@ const StyledQuoteField = styled(QuoteField)`
   }
 `;
 
-const mapStateToProps = (state: any) => ({
+const mapStateToProps = (state: IReduxState, props: IQuoteFieldProps) => ({
     motorPolicy: state.policies,
+    initialValues: getDatePickerInitialValues(state, props),
 });
 
 export default connect(mapStateToProps, null)(reduxForm({form: 'datePicker'}) (StyledQuoteField));

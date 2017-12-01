@@ -2,6 +2,9 @@ import {IReduxState} from '../interfaces/store';
 import {createSelector} from 'reselect';
 import {IStoredDriver} from '../interfaces/drivers';
 import {IVehicle} from '../reducers/vehicles';
+import {getCurrentMotorPolicy} from '../selectors/policies';
+import {IMotorPolicy} from '../interfaces/policies';
+const moment = require('moment');
 
 export const getAddress = (state: IReduxState) => state.userDetails.address;
 export const getIsLoading = (state: IReduxState) => state.userDetails.isLoading;
@@ -39,4 +42,11 @@ export const getVehicleInitialValues = createSelector(
 
         return values;
     }
+)
+
+export const getDatePickerInitialValues = createSelector(
+    getCurrentMotorPolicy,
+    (policy: IMotorPolicy) => policy ? {
+        date: moment(policy.expiry),
+    } : policy,
 )
