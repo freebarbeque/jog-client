@@ -62,7 +62,14 @@ export default function createStore(additionalOpts: ICreateStoreOpts): any {
         const config = {
             key: 'root',
             storage,
-            whitelist: ['auth', 'policies', 'dataSource', 'userDetails', 'page'],
+            whitelist: [
+                'auth',
+                'policies',
+                'dataSource',
+                'userDetails',
+                'page',
+                'drivers'
+            ],
         }
 
         const reducer = persistCombineReducers(config, opts.reducer)

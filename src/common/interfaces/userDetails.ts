@@ -1,8 +1,17 @@
+import {IDriver} from '../interfaces/drivers';
+import {IVehicle} from '../reducers/vehicles';
+
 export interface IAddressFormValues {
     postcode: string;
 }
 
 export interface IUserDetailsReduxState {
+    vehicles: {
+        [key: number]: number;
+    };
+    drivers: {
+        [key: number]: number;
+    };
     address: IAddress|null;
     isLoading: boolean;
 }

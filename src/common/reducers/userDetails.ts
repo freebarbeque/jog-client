@@ -3,6 +3,8 @@ import {IAction} from '../interfaces/action';
 import {SET_ADDRESS, SET_IS_LOADING, SUBMIT_ADDRESS} from '../constants/userDetails';
 
 const defaultState = {
+    vehicles: {},
+    drivers: {},
     address: null,
     isLoading: false,
 }
