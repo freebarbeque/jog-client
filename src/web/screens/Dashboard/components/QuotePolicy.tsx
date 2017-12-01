@@ -64,7 +64,7 @@ const QuotePolicy: React.StatelessComponent<IQuotePolicyProps> = (props: IQuoteP
                     label="Get my quote"
                     style={ButtonStyles}
                     disabled={!props.address || !props.selectedVehicleId || !props.selectedDriverId}
-                    onClick={() => console.log('get quote')}
+                    onClick={() => props.push(`/app/user/motor/${props.motorId}/quotes/annual`)}
                 />
             </QuoteContentContainer>
         </div>
