@@ -24,9 +24,29 @@ const renderDatePicker = (props: any) => (
 
 const CarDetailsForm: React.StatelessComponent<ICardDetailsForm> = (props) => (
   <form className={props.className}>
+      <FieldsContainer>
+          <Container>
+              <FieldTitle>
+                  Vehicle Brand
+              </FieldTitle>
+              <Field
+                  name="registration"
+                  component={StyledInput}
+              />
+          </Container>
+          <Container>
+              <FieldTitle>
+                  Vehicle Model
+              </FieldTitle>
+              <Field
+                  name="registration"
+                  component={StyledInput}
+              />
+          </Container>
+      </FieldsContainer>
     <FieldContainer>
       <FieldTitle>
-        Registration
+        What is the car's registration?
       </FieldTitle>
       <Field
         name="registration"
@@ -35,7 +55,7 @@ const CarDetailsForm: React.StatelessComponent<ICardDetailsForm> = (props) => (
     </FieldContainer>
     <FieldContainer>
       <FieldTitle>
-        ABI Code
+        What is the car's ABI code?
       </FieldTitle>
       <Field
         name="abi_code"
@@ -44,7 +64,7 @@ const CarDetailsForm: React.StatelessComponent<ICardDetailsForm> = (props) => (
     </FieldContainer>
     <FieldContainer>
       <FieldTitle>
-        Does the vehicle have an ABS ?
+        Does the car have ABS ?
       </FieldTitle>
       <Field
         name="abs"
@@ -57,7 +77,7 @@ const CarDetailsForm: React.StatelessComponent<ICardDetailsForm> = (props) => (
     </FieldContainer>
     <FieldContainer>
       <FieldTitle>
-        Alarm
+        What type of alarm does the car have?
       </FieldTitle>
       <Field
         name="alarm"
@@ -66,7 +86,7 @@ const CarDetailsForm: React.StatelessComponent<ICardDetailsForm> = (props) => (
     </FieldContainer>
     <FieldContainer>
       <FieldTitle>
-        Date of manufacture
+        When was the car manufactured?
       </FieldTitle>
       <Field
         name="date_of_manufacture"
@@ -76,7 +96,7 @@ const CarDetailsForm: React.StatelessComponent<ICardDetailsForm> = (props) => (
     </FieldContainer>
     <FieldContainer>
       <FieldTitle>
-        Date of registration
+          When was the car registered?
       </FieldTitle>
       <Field
         name="date_of_registration"
@@ -86,7 +106,7 @@ const CarDetailsForm: React.StatelessComponent<ICardDetailsForm> = (props) => (
     </FieldContainer>
     <FieldContainer>
       <FieldTitle>
-        Drive
+        Is the car left or right hand drive?
       </FieldTitle>
       <Field
         name="drive"
@@ -95,7 +115,7 @@ const CarDetailsForm: React.StatelessComponent<ICardDetailsForm> = (props) => (
     </FieldContainer>
     <FieldContainer>
       <FieldTitle>
-        Whether the machine was imported ?
+        Is the car an import?
       </FieldTitle>
       <Field
         name="imported"
@@ -108,7 +128,7 @@ const CarDetailsForm: React.StatelessComponent<ICardDetailsForm> = (props) => (
     </FieldContainer>
     <FieldContainer>
       <FieldTitle>
-        Number of seats
+        How many seats does the car have?
       </FieldTitle>
       <Field
         name="number_of_seats"
@@ -118,7 +138,7 @@ const CarDetailsForm: React.StatelessComponent<ICardDetailsForm> = (props) => (
     </FieldContainer>
     <FieldContainer>
       <FieldTitle>
-        Registered keeper
+        Who is the registered keeper of the car?
       </FieldTitle>
       <Field
         name="registered_keeper"
@@ -127,7 +147,7 @@ const CarDetailsForm: React.StatelessComponent<ICardDetailsForm> = (props) => (
     </FieldContainer>
     <FieldContainer>
       <FieldTitle>
-        Whether the vehicle has been modified ?
+       Has the car been modified ?
       </FieldTitle>
       <Field
         name="modified"
@@ -140,7 +160,7 @@ const CarDetailsForm: React.StatelessComponent<ICardDetailsForm> = (props) => (
     </FieldContainer>
     <FieldContainer>
       <FieldTitle>
-        Date of purchase
+        When did you purchase the vehicle?
       </FieldTitle>
       <Field
         name="date_of_purchase"
@@ -163,7 +183,7 @@ const CarDetailsForm: React.StatelessComponent<ICardDetailsForm> = (props) => (
     </FieldContainer>
     <FieldContainer>
       <FieldTitle>
-        Does the vehicle have a tracking device ?
+        Does it have a tracking device ?
       </FieldTitle>
       <Field
         name="tracking_device"
@@ -187,6 +207,23 @@ const FieldContainer = styled.div`
   & > ${DatePicker} {
     align-self: center;
   }
+`;
+
+const FieldsContainer = styled.div`
+  display: flex;
+  align-self: stretch;
+  margin-bottom: 30px;
+  justify-content: space-between;
+  & > div:first-child {
+    margin-right: 10px;
+  }
+`;
+
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-self: stretch;
+  flex: 1;
 `;
 
 export default reduxForm({form: 'carDetailsForm', initialValues: {abs: true, imported: true, modified: true, tracking_device: true}})(StyledCarDetailsForm);
