@@ -19,6 +19,7 @@ const tabs = [
     {
         title: 'Monthly',
         link: '/monthly',
+        disable: true,
     }
 ];
 

@@ -24,7 +24,7 @@ export default class MainScreen extends React.Component<{}, {}> {
                     <Route path="/app/get_started" component={GetStarted}/>
                     <Route path="/app/dashboard/motor/add/manual" exact component={CreatePolicyScreen}/>
                     <Route path="/app/dashboard/motor/:motorId(\\d+)" component={MotorPolicyScreen}/>
-                    <Route path="/app/user/motor/:motorId(\\d+)/quotes" component={QuotesScreen}/>
+                    <Route path="/app/user/motor/:motorId(\\d+)/quotes/annual" component={QuotesScreen}/>
                     <Route path="/app/dashboard" component={Dashboard}/>
                     <Route path="/app/user" component={UserDetailsScreen}/>
                 </Switch>

@@ -26,7 +26,7 @@ const PolicyTabs: React.StatelessComponent<IPolicyTabsProps> = (props: IPolicyTa
     {props.tabs && props.tabs.map((t, i) => (
       <Tab
         active={props.lastPath === t.link}
-        onClick={() => props.push(`${props.baseUrl}${t.link}`)}
+        onClick={t.disable ? () => null : () => {props.push(`${props.baseUrl}${t.link}`)}}
         key={i}
       >
         {t.title}
