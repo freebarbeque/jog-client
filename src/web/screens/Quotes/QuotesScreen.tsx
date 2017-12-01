@@ -24,13 +24,13 @@ const tabs = [
 ];
 
 const quotes = [
-    {logo: 'https://image.flaticon.com/icons/png/512/48/48982.png', price: 621.10, excess: 200, owner: 'admiral', extras: 14},
+    {logo: 'http://icons.iconarchive.com/icons/blackvariant/button-ui-requests-4/1024/Autodesk-360-icon.png', price: 100.01, excess: 50, owner: 'Avangard', extras: 7},
+    {logo: 'http://www.buildingmobilebritain.org.uk/wp-content/uploads/2017/07/y4.png', price: 231.00, excess: 115, owner: 'plus', extras: 4},
+    {logo: 'http://www.buildingmobilebritain.org.uk/wp-content/uploads/2017/07/y4.png', price: 456.00, excess: 228, owner: 'plus', extras: 20},
+    {logo: 'https://image.flaticon.com/icons/png/512/48/48982.png', price: 621.10, excess: 310, owner: 'admiral', extras: 14},
+    {logo: 'https://image.flaticon.com/icons/png/512/48/48982.png', price: 984.00, excess: 492, owner: 'admiral', extras: 4},
+    {logo: 'http://icons.iconarchive.com/icons/blackvariant/button-ui-requests-4/1024/Autodesk-360-icon.png', price: 1000.00, excess: 500, owner: 'Avangard', extras: 3},
     {logo: 'http://www.newdesignfile.com/postpic/2014/10/procedure-policy-standards-icon_74483.png', price: 1200.00, excess: 600, owner: 'green list', extras: 11},
-    {logo: 'http://icons.iconarchive.com/icons/blackvariant/button-ui-requests-4/1024/Autodesk-360-icon.png', price: 100.01, excess: 13, owner: 'Avangard', extras: 7},
-    {logo: 'https://image.flaticon.com/icons/png/512/48/48982.png', price: 984.00, excess: 598, owner: 'admiral', extras: 4},
-    {logo: 'http://icons.iconarchive.com/icons/blackvariant/button-ui-requests-4/1024/Autodesk-360-icon.png', price: 1000.00, excess: 333, owner: 'Avangard', extras: 3},
-    {logo: 'http://www.buildingmobilebritain.org.uk/wp-content/uploads/2017/07/y4.png', price: 456.00, excess: 233, owner: 'plus', extras: 20},
-    {logo: 'http://www.buildingmobilebritain.org.uk/wp-content/uploads/2017/07/y4.png', price: 231.00, excess: 113, owner: 'plus', extras: 4},
     {logo: 'http://www.newdesignfile.com/postpic/2014/10/procedure-policy-standards-icon_74483.png', price: 2000.00, excess: 1000, owner: 'green list', extras: 5},
 ];
 

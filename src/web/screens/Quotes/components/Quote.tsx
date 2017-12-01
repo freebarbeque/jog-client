@@ -9,7 +9,7 @@ const Quote = (props: any) => (
             <LeftSide>
                 <StyledAvatar src={props.logo}/>
                 <Price><IntegerPartOfPrice>£{Math.floor(props.price)}</IntegerPartOfPrice><FloatPartOfPrice>.{props.price.toString().split('.')[1] ? props.price.toString().split('.')[1] : '00'}</FloatPartOfPrice></Price>
-                <PriceColor><IntegerPartOfPrice>{props.excess}</IntegerPartOfPrice><Excess>EXCESS</Excess></PriceColor>
+                <PriceColor><IntegerPartOfPrice>£{props.excess}</IntegerPartOfPrice><Excess>EXCESS</Excess></PriceColor>
             </LeftSide>
             <RightSide><BlackArrow/></RightSide>
         </QuoteDescription>
