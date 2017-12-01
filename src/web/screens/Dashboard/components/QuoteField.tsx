@@ -3,12 +3,11 @@ import styled from 'styled-components';
 import {BLUE, DASHBOARD_INACTIVE_LINK_COLOR, LIGHT_GREEN} from 'src/common/constants/palette';
 import {BlackArrow, WhiteTick, MoreCircles} from 'src/web/images';
 import {Field, reduxForm, getFormValues} from 'redux-form';
-const moment = require('moment');
 import DatePicker from 'src/web/components/PolicyDatePicker';
 import {connect} from 'react-redux';
 import {IMotorPolicyWithDaysLeft} from 'src/common/interfaces/policies';
-import {getDatePickerInitialValues} from "~/common/selectors/userDetils";
-import {IReduxState} from "~/common/interfaces/store";
+import {getDatePickerInitialValues} from '~/common/selectors/userDetils';
+import {IReduxState} from '~/common/interfaces/store';
 
 interface IQuoteFieldProps {
   className?: string;
@@ -35,7 +34,6 @@ const renderDatePicker = (props: any) => (
 );
 
 const QuoteField: React.StatelessComponent<IQuoteFieldProps> = (props) => {
-    console.log(props.initialValues)
     return (
         <form className={props.className} onClick={props.onClick}>
             <IconBox>

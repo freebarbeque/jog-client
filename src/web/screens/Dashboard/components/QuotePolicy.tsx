@@ -63,7 +63,7 @@ const QuotePolicy: React.StatelessComponent<IQuotePolicyProps> = (props: IQuoteP
                 <RoundedButton
                     label="Get my quote"
                     style={ButtonStyles}
-                    disabled
+                    disabled={!props.address || !props.selectedVehicleId || !props.selectedDriverId}
                     onClick={() => console.log('get quote')}
                 />
             </QuoteContentContainer>
