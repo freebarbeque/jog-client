@@ -21,7 +21,7 @@ export function mapDriverDetailsFormValues(values: IDriverDetailsFormValues) {
     return driverValues;
 }
 
-export function mapDriverToFormValues(driver: IStoredDriver) {
+export function mapDriverToFormValues(driver: IDriverDetailsFormValues, driverId: string) {
     const {
         id,
         ...values,
@@ -31,6 +31,7 @@ export function mapDriverToFormValues(driver: IStoredDriver) {
     values.uk_resident_since = moment(driver.uk_resident_since);
     values.incident_date = moment(driver.incident_date);
     values.conviction_date = moment(driver.incident_date);
+    values.driver_selected = driverId;
 
     return values;
 }

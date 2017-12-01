@@ -4,13 +4,12 @@ import {setIsLoading, storeDriverLocally} from '../../actions/userDetails';
 import {CHANGE_SELECTED_DRIVER, DRIVER_DETAILS_FORM, SUBMIT_DRIVER} from '../../constants/userDetails';
 import {mapDriverDetailsFormValues, mapDriverToFormValues} from '../../utils/userDetails';
 import {initialize} from 'redux-form';
-import {IDriverDetailsFormValues} from '../../interfaces/drivers';
 import {IAction} from '../../interfaces/action';
 import {getAvailableDriver} from '../../selectors/userDetils';
 
 function* watchSelectedDriverChange({driverId}: IAction) {
     const driver = yield select(getAvailableDriver(driverId));
-    yield put(initialize(DRIVER_DETAILS_FORM, mapDriverToFormValues(driver)));
+    yield put(initialize(DRIVER_DETAILS_FORM, mapDriverToFormValues(driver, driverId)));
 }
 
 function* driverWorker(policyId: string) {
