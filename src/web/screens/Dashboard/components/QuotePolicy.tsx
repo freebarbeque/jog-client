@@ -8,60 +8,62 @@ import {push} from 'react-router-redux';
 import {Action, ActionCreator, bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import {IReduxState} from '~/common/interfaces/store';
-import {getAddress} from '~/common/selectors/userDetils';
+import {getAddress, getSelectedDriverId} from '~/common/selectors/userDetils';
 import {IAddress} from '~/common/interfaces/userDetails';
 
 interface IQuotePolicyProps {
-  className?: string;
-  push: ActionCreator<Action>;
-  motorId: string;
-  address: IAddress;
+    className?: string;
+    push: ActionCreator<Action>;
+    motorId: string;
+    address: IAddress;
+    selectedDriverId: string;
 }
 
 const ButtonStyles = {
-  width: '620px',
-  height: '60px',
-  borderRadius: '100px',
-  fontSize: '18px',
-  marginTop: '40px',
+    width: '620px',
+    height: '60px',
+    borderRadius: '100px',
+    fontSize: '18px',
+    marginTop: '40px',
 };
 
 const QuotePolicy: React.StatelessComponent<IQuotePolicyProps> = (props: IQuotePolicyProps) => {
-  return (
+    return (
         <div className={props.className}>
-          <QuoteHint>
-            <HintTitle>
-              Get a Quote
-            </HintTitle>
-            <HintText>
-              Complete the questions below to request a quote
-            </HintText>
-          </QuoteHint>
-          <QuoteContentContainer>
-            <QuoteField
-                icon={<QuoteCar />}
-                title="Car"
-                onClick={() => props.push(`/app/user/motor/${props.motorId}/car`)}
-            />
-            <QuoteField
-                icon={<QuoteHolder />}
-                title="Policy holder"
-                onClick={() => props.push(`/app/user/motor/${props.motorId}/holder`)}
-            />
-            <QuoteField
-                icon={<QuoteAddress />}
-                title="Address"
-                onClick={() => props.push(`/app/user/motor/${props.motorId}/address`)}
-                completed={props.address && props.address.submitted}
-            />
-            <QuoteField icon={<QuoteCalendar />} withDatePicker title="Policy start date" />
-            <RoundedButton
-                label="Get my quote"
-                style={ButtonStyles}
-                disabled
-                onClick={() => console.log('get quote')}
-            />
-          </QuoteContentContainer>
+            <QuoteHint>
+                <HintTitle>
+                    Get a Quote
+                </HintTitle>
+                <HintText>
+                    Complete the questions below to request a quote
+                </HintText>
+            </QuoteHint>
+            <QuoteContentContainer>
+                <QuoteField
+                    icon={<QuoteCar/>}
+                    title="Car"
+                    onClick={() => props.push(`/app/user/motor/${props.motorId}/car`)}
+                />
+                <QuoteField
+                    icon={<QuoteHolder/>}
+                    title="Policy holder"
+                    onClick={() => props.push(`/app/user/motor/${props.motorId}/holder`)}
+                    completed={!!props.selectedDriverId}
+                />
+                <QuoteField
+                    icon={<QuoteAddress/>}
+                    title="Address"
+                    onClick={() => props.push(`/app/user/motor/${props.motorId}/address`)}
+                    completed={props.address && props.address.submitted}
+                />
+                <QuoteField icon={<QuoteCalendar/>} withDatePicker title="Policy start date"/>
+                <RoundedButton
+                    label="Get my quote"
+                    style={ButtonStyles}
+                    disabled
+                    onClick={() => console.log('get quote')}
+                />
+            </QuoteContentContainer>
         </div>
     );
 }
@@ -111,8 +113,9 @@ const QuoteContentContainer = styled.div`
   }
 `;
 
-const mapStateToProps = (state: IReduxState) => ({
+const mapStateToProps = (state: IReduxState, props: IQuotePolicyProps) => ({
     address: getAddress(state),
+    selectedDriverId: getSelectedDriverId(state, props),
 });
 
 const mapDispatchToProps = (dispatch: any) => bindActionCreators({

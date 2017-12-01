@@ -18,6 +18,7 @@ function* driverWorker(policyId: string) {
     while (true) {
         const {driver} = yield take(SUBMIT_DRIVER);
         yield put(storeDriverLocally(policyId, mapDriverDetailsFormValues(driver)));
+        yield put(push(`/app/user/motor/${policyId}/address`))
     }
 }
 

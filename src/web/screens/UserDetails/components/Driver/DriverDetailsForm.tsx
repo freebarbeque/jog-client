@@ -456,7 +456,7 @@ class DriverDetailsForm extends React.Component<IDriverDetailsForm, {}> {
                     </FieldContainer>
                 </FormSection>
                 <RoundedButton
-                    label="Create driver"
+                    label="Next step"
                     style={ButtonStyles}
                     type="submit"
                 />
