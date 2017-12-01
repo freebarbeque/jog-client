@@ -1,4 +1,5 @@
-import {IDriverDetailsFormValues} from '../interfaces/drivers';
+import {IDriverDetailsFormValues, IStoredDriver} from '../interfaces/drivers';
+const moment = require('moment');
 const uuidv1 = require('uuid/v1');
 
 export function isPostCode (postCode: string) {
@@ -18,4 +19,18 @@ export function mapDriverDetailsFormValues(values: IDriverDetailsFormValues) {
     driverValues.id = uuidv1(); // todo: remove when integrated with the API
 
     return driverValues;
+}
+
+export function mapDriverToFormValues(driver: IStoredDriver) {
+    const {
+        id,
+        ...values,
+    } = driver;
+
+    values.date_of_birth = moment(driver.date_of_birth);
+    values.uk_resident_since = moment(driver.uk_resident_since);
+    values.incident_date = moment(driver.incident_date);
+    values.conviction_date = moment(driver.incident_date);
+
+    return values;
 }

@@ -2,7 +2,7 @@ const {cancel, fork, put, race, select, take, takeEvery} = require('redux-saga/e
 import {LOCATION_CHANGE, push} from 'react-router-redux';
 import {setIsLoading, storeDriverLocally} from '../../actions/userDetails';
 import {CHANGE_SELECTED_DRIVER, DRIVER_DETAILS_FORM, SUBMIT_DRIVER} from '../../constants/userDetails';
-import {mapDriverDetailsFormValues} from '../../utils/userDetails';
+import {mapDriverDetailsFormValues, mapDriverToFormValues} from '../../utils/userDetails';
 import {initialize} from 'redux-form';
 import {IDriverDetailsFormValues} from '../../interfaces/drivers';
 import {IAction} from '../../interfaces/action';
@@ -10,8 +10,7 @@ import {getAvailableDriver} from '../../selectors/userDetils';
 
 function* watchSelectedDriverChange({driverId}: IAction) {
     const driver = yield select(getAvailableDriver(driverId));
-    console.log(driver);
-    yield put(initialize(DRIVER_DETAILS_FORM, driver));
+    yield put(initialize(DRIVER_DETAILS_FORM, mapDriverToFormValues(driver)));
 }
 
 function* driverWorker(policyId: string) {

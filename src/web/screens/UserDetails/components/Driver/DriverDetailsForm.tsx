@@ -20,7 +20,6 @@ import {getDriversDataSource} from '~/common/selectors/userDetils';
 import {IDataSource} from '~/common/interfaces/dataSource';
 import {changeSelectedDriver} from 'src/common/actions/userDetails';
 import {Action, ActionCreator, bindActionCreators} from 'redux';
-const moment = require('moment');
 
 import {
     formSelectStyle,
@@ -54,7 +53,7 @@ const renderDatePicker = (props: any) => (
     <DatePicker
         {...props}
         onChange={props.input.onChange}
-        value={typeof props.input.value === 'string' ? moment(props.input.value) : props.input.value}
+        value={props.input.value}
         error={props.meta.error}
         touched={props.meta.touched}
     />

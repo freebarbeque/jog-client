@@ -485,23 +485,23 @@ export interface IDriversReduxState {
 export interface IDriver {
     id: number|string;
     users_id: number;
-    title: Title
-    first_name: string
-    last_name: string
-    gender: Gender
-    date_of_birth: string
-    insurance_refused?: boolean
-    license_year_held?: number
-    license_type?: LicenseType
-    license_number?: number
-    no_claims_discount?: number
-    relationship_status?: RelationshipStatus
-    born_in_uk?: boolean
-    uk_resident_since?: string
-    industry?: string
-    motoring_organisation?: MotoringOrganisation
-    smoker?: boolean
-    tests_taken?: number | null
+    title: Title;
+    first_name: string;
+    last_name: string;
+    gender: Gender;
+    date_of_birth: string|Date;
+    insurance_refused?: boolean;
+    license_year_held?: number;
+    license_type?: LicenseType;
+    license_number?: number;
+    no_claims_discount?: number;
+    relationship_status?: RelationshipStatus;
+    born_in_uk?: boolean;
+    uk_resident_since?: string|Date;
+    industry?: string;
+    motoring_organisation?: MotoringOrganisation;
+    smoker?: boolean;
+    tests_taken?: number | null;
     vocation?: string;
 }
 
@@ -513,6 +513,6 @@ export interface IDriverDetailsFormValues extends IDriver {
 
 // todo: remove when integrated with the API
 export interface IStoredDriver extends IDriver {
-    incident_date: string;
-    conviction_date: string;
+    incident_date: string|Date;
+    conviction_date: string|Date;
 }
