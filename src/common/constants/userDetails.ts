@@ -27,5 +27,6 @@ export const SUBMIT_ADDRESS = 'userDetails/SUBMIT_ADDRESS';
 export const CANCEL_SUBMIT_ADDRESS = 'userDetails/CANCEL_SUBMIT_ADDRESS';
 
 export const SUBMIT_DRIVER = 'userDetails/SUBMIT_DRIVER';
+export const STORE_DRIVER_LOCALLY = 'userDetails/STORE_DRIVER_LOCALLY'; // todo: remove when integrated with the API
 
 export const POSTCODE_FORM = 'postcodeForm';

@@ -1,5 +1,5 @@
 import {IAddress} from '../interfaces/userDetails';
-import {IDriverDetailsFormValues} from '../interfaces/drivers';
+import {IDriverDetailsFormValues, IStoredDriver} from '../interfaces/drivers';
 
 import {
     LOOKUP_POSTCODE,
@@ -8,6 +8,7 @@ import {
     CANCEL_SUBMIT_ADDRESS,
     SET_IS_LOADING,
     SUBMIT_DRIVER,
+    STORE_DRIVER_LOCALLY,
 } from '../constants/userDetails';
 
 export function lookupPostCode(postCode: string) {
@@ -47,6 +48,14 @@ export function setIsLoading(isLoading: boolean) {
 export function submitDriver(driver: IDriverDetailsFormValues) {
     return {
         type: SUBMIT_DRIVER,
+        driver,
+    }
+}
+
+export function storeDriverLocally(policyId: string, driver: IStoredDriver) {
+    return {
+        type: STORE_DRIVER_LOCALLY,
+        policyId,
         driver,
     }
 }

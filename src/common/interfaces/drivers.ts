@@ -510,3 +510,9 @@ export interface IDriverDetailsFormValues extends IDriver {
     incident_date: string;
     conviction_date: string;
 }
+
+// todo: remove when integrated with the API
+export interface IStoredDriver extends IDriver {
+    incident_date: string;
+    conviction_date: string;
+}

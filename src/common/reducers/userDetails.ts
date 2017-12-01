@@ -1,12 +1,18 @@
 import {IUserDetailsReduxState} from '../interfaces/userDetails';
 import {IAction} from '../interfaces/action';
-import {SET_ADDRESS, SET_IS_LOADING, SUBMIT_ADDRESS} from '../constants/userDetails';
+import {
+    SET_ADDRESS,
+    SET_IS_LOADING,
+    SUBMIT_ADDRESS,
+    STORE_DRIVER_LOCALLY,
+} from '../constants/userDetails';
 
 const defaultState = {
     vehicles: {},
     drivers: {},
     address: null,
     isLoading: false,
+    availableDrivers: [],
 }
 
 export default function (state: IUserDetailsReduxState = defaultState, action: IAction) {
@@ -31,6 +37,17 @@ export default function (state: IUserDetailsReduxState = defaultState, action: I
                     ...state.address,
                     submitted: true,
                 }
+            }
+
+        // todo: remove when integrated with the API
+        case STORE_DRIVER_LOCALLY:
+            return {
+                ...state,
+                drivers: {
+                    ...state.drivers,
+                    [action.policyId]: action.driver.id,
+                },
+                availableDrivers: state.availableDrivers.concat(action.driver)
             }
 
         default:

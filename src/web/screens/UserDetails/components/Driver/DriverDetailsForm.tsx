@@ -1,6 +1,5 @@
 import * as React from 'react';
 import styled from 'styled-components';
-
 const validate = require('validate.js');
 import {reduxForm, Field} from 'redux-form';
 import StyledInput from '../StyledInput';
@@ -14,13 +13,18 @@ import {mapObjectToDataSource} from 'src/common/utils/dataSources';
 import {MotoringOrganisationTypes, MotoringIncidentTypes, MotoringConvictionType} from 'src/common/interfaces/drivers';
 import Divider from 'src/web/screens/Landing/components/Divider';
 import RoundedButton from 'src/web/components/RoundedButton';
-import {injectSaga} from "~/common/utils/saga";
-import {driverFlow} from "~/common/sagas/userDetails/driver";
+import {injectSaga} from '~/common/utils/saga';
+import {driverFlow} from '~/common/sagas/userDetails/driver';
+import {connect} from 'react-redux';
+import {IReduxState} from '~/common/interfaces/store';
+import {getDriversDataSource} from '~/common/selectors/userDetils';
+import {IDataSource} from '~/common/interfaces/dataSource';
 
 interface IDriverDetailsForm {
     className?: string;
     handleSubmit?: any;
     motorId: number;
+    driversDataSource: IDataSource[];
 }
 
 const motoringOrganisations = mapObjectToDataSource(MotoringOrganisationTypes);
@@ -61,7 +65,7 @@ class DriverDetailsForm extends React.Component<IDriverDetailsForm, {}> {
                         <Field
                             name="driver_selected"
                             component={FormSelect}
-                            dataSource={[{id: null, name: 'New driver'}, {id: 1, name: 'Driver 1'}, {id: 2, name: 'Driver 2'}]}
+                            dataSource={[{id: null, name: 'New driver'}, ...this.props.driversDataSource]}
                             defaultText="New Driver"
                             maxHeight={300}
                             labelStyle={formSelectLabelStyle}
@@ -546,4 +550,8 @@ const initialValues = {
     conviction_code: null,
 };
 
-export default reduxForm({form: 'driverDetailsForm', initialValues, validate: validateForm})(StyledDriverDetailsForm);
+const mapStateToProps = (state: IReduxState) => ({
+    driversDataSource: getDriversDataSource(state),
+})
+
+export default reduxForm({form: 'driverDetailsForm', initialValues, validate: validateForm})(connect(mapStateToProps, null)(StyledDriverDetailsForm));

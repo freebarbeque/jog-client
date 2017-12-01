@@ -1,4 +1,4 @@
-import {IDriver} from '../interfaces/drivers';
+import {IDriver, IStoredDriver} from '../interfaces/drivers';
 import {IVehicle} from '../reducers/vehicles';
 
 export interface IAddressFormValues {
@@ -12,6 +12,7 @@ export interface IUserDetailsReduxState {
     drivers: {
         [key: number]: number;
     };
+    availableDrivers: IStoredDriver[];
     address: IAddress|null;
     isLoading: boolean;
 }
