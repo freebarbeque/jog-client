@@ -4,7 +4,6 @@ import {Route, Switch} from 'react-router-dom';
 import CarDetailsForm from './components/Car/CarDetailsForm';
 import DriverDetailsForm from './components/Driver/DriverDetailsForm';
 import AddressStepsComponent from './components/Address/AddressSteps';
-
 const AddressSteps = AddressStepsComponent as any; // todo: find out why it doesn't work as it should
 import Header from './components/Header';
 import Footer from 'src/web/components/Footer';
@@ -12,6 +11,8 @@ import {CREAM} from 'src/common/constants/palette';
 import {connect} from 'react-redux';
 import {IWebReduxState} from '~/web/interfaces/store';
 import {getSteps, getCurrentStep} from 'src/web/selectors/page';
+import {submitDriver} from 'src/common/actions/userDetails';
+import {Action, ActionCreator, bindActionCreators} from 'redux';
 
 interface IUserDetailsScreenProps {
     className?: string;
@@ -24,6 +25,7 @@ interface IUserDetailsScreenProps {
     },
     currentStep: number;
     steps: number[];
+    submitDriver: ActionCreator<Action>;
 }
 
 class UserDetailsScreen extends React.Component<IUserDetailsScreenProps, {}> {
@@ -59,7 +61,7 @@ class UserDetailsScreen extends React.Component<IUserDetailsScreenProps, {}> {
                         <Route
                             path={`${this.props.match.url}/motor/:motorId(\\d+)/holder`}
                             render={(routerProps: any) => <DriverDetailsForm
-                                onSubmit={(values: any) => console.log(values)}
+                                onSubmit={(values: any) => this.props.submitDriver(values)}
                                 motorId={routerProps.match.params.motorId}
                             />}
                         />
@@ -100,4 +102,8 @@ const mapStateToProps = (state: IWebReduxState) => ({
     currentStep: getCurrentStep(state),
 })
 
-export default connect(mapStateToProps, null)(StyledUserDetailsScreen);
+const mapDispatchToProps = (dispatch: any) => bindActionCreators({
+    submitDriver,
+}, dispatch);
+
+export default connect(mapStateToProps, mapDispatchToProps)(StyledUserDetailsScreen);

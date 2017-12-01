@@ -1,4 +1,5 @@
 import {IAddress} from '../interfaces/userDetails';
+import {IDriverDetailsFormValues} from '../interfaces/drivers';
 
 import {
     LOOKUP_POSTCODE,
@@ -6,6 +7,7 @@ import {
     SUBMIT_ADDRESS,
     CANCEL_SUBMIT_ADDRESS,
     SET_IS_LOADING,
+    SUBMIT_DRIVER,
 } from '../constants/userDetails';
 
 export function lookupPostCode(postCode: string) {
@@ -39,5 +41,12 @@ export function setIsLoading(isLoading: boolean) {
     return {
         type: SET_IS_LOADING,
         isLoading,
+    }
+}
+
+export function submitDriver(driver: IDriverDetailsFormValues) {
+    return {
+        type: SUBMIT_DRIVER,
+        driver,
     }
 }
