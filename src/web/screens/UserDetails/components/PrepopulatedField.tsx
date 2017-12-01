@@ -10,6 +10,7 @@ const PrepopulatedField = styled.div`
     border: 2px solid #dbdcde;
     border-radius: 5px;
     margin-top: 0;
+    margin-bottom: 20px;
     width: 100%;
     height: 40px;
     box-sizing: border-box;

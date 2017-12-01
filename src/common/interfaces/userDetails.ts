@@ -5,3 +5,9 @@ export interface IAddressFormValues {
 export interface IUserDetailsReduxState {
     address: any;
 }
+
+export interface IAddress {
+    post_town: string;
+    line_1: string;
+    line_2: string;
+}
