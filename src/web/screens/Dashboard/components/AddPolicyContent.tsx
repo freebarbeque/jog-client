@@ -14,11 +14,12 @@ interface IAddPolicyContentProps {
 const AddPolicyContent: React.StatelessComponent<IAddPolicyContentProps> = (props: IAddPolicyContentProps) => (
   <div className={props.className}>
     <PolicyButton
-      notification="Recommended"
       title="Email the policy"
       icon={<PolicyMail />}
+      disabled
     />
     <PolicyButton
+      notification="Recommended"
       title="Manual"
       icon={<PolicyManual />}
       onClick={() => props.push('/app/dashboard/motor/add/manual')}
@@ -26,6 +27,7 @@ const AddPolicyContent: React.StatelessComponent<IAddPolicyContentProps> = (prop
     <PolicyButton
       title="Upload or Drag and Drop a file"
       icon={<PolicyPhoto />}
+      disabled
     />
   </div>
 );
