@@ -52,7 +52,7 @@ const QuotePolicy: React.StatelessComponent<IQuotePolicyProps> = (props: IQuoteP
                 icon={<QuoteAddress />}
                 title="Address"
                 onClick={() => props.push(`/app/user/motor/${props.motorId}/address`)}
-                completed={props.address.submitted}
+                completed={props.address && props.address.submitted}
             />
             <QuoteField icon={<QuoteCalendar />} withDatePicker title="Policy start date" />
             <RoundedButton
