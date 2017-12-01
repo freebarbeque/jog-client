@@ -3,7 +3,7 @@ import {LOCATION_CHANGE, push} from 'react-router-redux';
 import {setIsLoading} from '../../actions/userDetails';
 
 function* driverWorker(policyId: string) {
-    console.log('driverWorker');
+    console.log('driverWorker', policyId);
 }
 
 export function* driverFlow(policyId: string) {

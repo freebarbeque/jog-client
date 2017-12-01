@@ -4,6 +4,7 @@ import {Route, Switch} from 'react-router-dom';
 import CarDetailsForm from './components/Car/CarDetailsForm';
 import DriverDetailsForm from './components/Driver/DriverDetailsForm';
 import AddressStepsComponent from './components/Address/AddressSteps';
+
 const AddressSteps = AddressStepsComponent as any; // todo: find out why it doesn't work as it should
 import Header from './components/Header';
 import Footer from 'src/web/components/Footer';
@@ -54,8 +55,14 @@ class UserDetailsScreen extends React.Component<IUserDetailsScreenProps, {}> {
                 />
                 <Content>
                     <Switch>
-                        <Route path={`${this.props.match.url}/motor/:motorId(\\d+)/car`} component={CarDetailsForm} />
-                        <Route path={`${this.props.match.url}/motor/:motorId(\\d+)/holder`} render={() => <DriverDetailsForm onSubmit={(values: any) => console.log(values)} />} />
+                        <Route path={`${this.props.match.url}/motor/:motorId(\\d+)/car`} component={CarDetailsForm}/>
+                        <Route
+                            path={`${this.props.match.url}/motor/:motorId(\\d+)/holder`}
+                            render={(routerProps: any) => <DriverDetailsForm
+                                onSubmit={(values: any) => console.log(values)}
+                                motorId={routerProps.match.params.motorId}
+                            />}
+                        />
                         <Route
                             path={`${this.props.match.url}/motor/:motorId(\\d+)/address`}
                             render={(routerProps: any) => <AddressSteps
@@ -65,7 +72,7 @@ class UserDetailsScreen extends React.Component<IUserDetailsScreenProps, {}> {
                         />
                     </Switch>
                 </Content>
-                <Footer />
+                <Footer/>
             </div>
         )
     }
