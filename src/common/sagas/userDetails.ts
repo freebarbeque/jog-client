@@ -6,6 +6,7 @@ import {lookupPostCode} from '../api/idealPostcodes';
 import {stopSubmit} from 'redux-form';
 import {setAddress} from '../actions/userDetails';
 import {goToNextStep} from '../../web/actions/page';
+import {isChangeStepAction} from '../../web/utils/page';
 
 function* postcodeFlow() {
     while (true) {
@@ -26,6 +27,10 @@ function* postcodeFlow() {
     }
 }
 
+function* addressFlow() {
+    yield console.log('addressFlow');
+}
+
 function* addressStepsWorker(policyId: number) {
     while (true) {
         const currentStep = yield select(getCurrentStep);
@@ -34,9 +39,14 @@ function* addressStepsWorker(policyId: number) {
             case 1:
                 yield postcodeFlow();
                 break;
+            case 2:
+                yield addressFlow();
+                break;
             default:
-                return;
+                break;
         }
+
+        yield take(isChangeStepAction)
     }
 }
 
