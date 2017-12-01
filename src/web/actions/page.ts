@@ -3,6 +3,7 @@ import {
     OPEN_MODAL,
     GO_TO_NEXT_STEP,
     GO_TO_PREV_STEP,
+    CLEAR_STEP,
 } from '../constants/page';
 
 export function openModal(modal: string) {
@@ -28,5 +29,11 @@ export function goToNextStep() {
 export function goToPrevStep() {
     return {
         type: GO_TO_PREV_STEP,
+    }
+}
+
+export function clearStep() {
+    return {
+        type: CLEAR_STEP,
     }
 }

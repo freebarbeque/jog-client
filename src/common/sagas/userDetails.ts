@@ -5,7 +5,7 @@ import {LOOKUP_POSTCODE, POSTCODE_FORM, SUBMIT_ADDRESS, CANCEL_SUBMIT_ADDRESS} f
 import {lookupPostCode} from '../api/idealPostcodes';
 import {stopSubmit} from 'redux-form';
 import {setAddress, setIsLoading} from '../actions/userDetails';
-import {goToNextStep, goToPrevStep} from '../../web/actions/page';
+import {clearStep, goToNextStep, goToPrevStep} from '../../web/actions/page';
 import {isChangeStepAction} from '../../web/utils/page';
 import {delay} from 'redux-saga';
 
@@ -42,6 +42,7 @@ function* addressFlow(policyId: string) {
             yield put(goToPrevStep());
             return;
         } else if (submit) {
+            // todo: integrate with the API
             yield put(setIsLoading(true));
             yield delay(1000);
             yield put(setIsLoading(false));
@@ -78,6 +79,7 @@ function* addressStepsWorker(policyId: number) {
 export function* addressStepsFlow(policyId: number) {
     const worker = yield fork(addressStepsWorker, policyId);
     yield take(LOCATION_CHANGE);
+    yield put(clearStep());
     yield put(setIsLoading(false));
     yield cancel(worker);
 }
