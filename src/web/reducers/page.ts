@@ -4,6 +4,7 @@ import {
     CLOSE_MODAL,
     OPEN_MODAL,
     GO_TO_NEXT_STEP,
+    GO_TO_PREV_STEP,
 } from '~/web/constants/page';
 
 const defaultState = {
@@ -32,6 +33,13 @@ export default (state: IPageReduxState = defaultState, action: IAction) => {
             return {
                 ...state,
                 currentStep: state.currentStep + 1,
+            }
+        }
+
+        case GO_TO_PREV_STEP: {
+            return {
+                ...state,
+                currentStep: state.currentStep - 1,
             }
         }
 
