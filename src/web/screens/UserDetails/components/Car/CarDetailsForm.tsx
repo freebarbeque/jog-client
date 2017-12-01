@@ -44,7 +44,7 @@ class CarDetailsForm extends React.Component<ICardDetailsForm, {}> {
     componentWillMount() {
         injectSaga(vehicleFlow, this.props.motorId);
     }
-    
+
     render() {
         return (
             <form className={this.props.className} onSubmit={this.props.handleSubmit}>

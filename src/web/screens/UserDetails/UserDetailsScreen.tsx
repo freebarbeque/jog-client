@@ -14,6 +14,7 @@ import {IWebReduxState} from '~/web/interfaces/store';
 import {getSteps, getCurrentStep} from 'src/web/selectors/page';
 import {submitDriver, submitVehicle} from 'src/common/actions/userDetails';
 import {Action, ActionCreator, bindActionCreators} from 'redux';
+import {push} from 'react-router-redux';
 
 interface IUserDetailsScreenProps {
     className?: string;
@@ -28,6 +29,7 @@ interface IUserDetailsScreenProps {
     steps: number[];
     submitDriver: ActionCreator<Action>;
     submitVehicle: ActionCreator<Action>;
+    push: ActionCreator<Action>;
 }
 
 class UserDetailsScreen extends React.Component<IUserDetailsScreenProps, {}> {
@@ -54,7 +56,10 @@ class UserDetailsScreen extends React.Component<IUserDetailsScreenProps, {}> {
                 <Header
                     steps={this.props.steps}
                     activeStep={this.props.currentStep}
-                    onBack={() => this.props.history.goBack()}
+                    onBack={() => {
+                        const splitLocation = this.props.location.pathname.split('/');
+                        this.props.push(`/app/dashboard/motor/${splitLocation[splitLocation.length - 2]}/quote`);
+                    }}
                     title={title}
                 />
                 <Content>
@@ -113,6 +118,7 @@ const mapStateToProps = (state: IWebReduxState) => ({
 const mapDispatchToProps = (dispatch: any) => bindActionCreators({
     submitDriver,
     submitVehicle,
+    push,
 }, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(StyledUserDetailsScreen);

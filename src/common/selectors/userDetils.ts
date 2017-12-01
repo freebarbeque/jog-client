@@ -1,7 +1,7 @@
 import {IReduxState} from '../interfaces/store';
 import {createSelector} from 'reselect';
 import {IStoredDriver} from '../interfaces/drivers';
-import {IVehicle} from "~/common/reducers/vehicles";
+import {IVehicle} from '../reducers/vehicles';
 
 export const getAddress = (state: IReduxState) => state.userDetails.address;
 export const getIsLoading = (state: IReduxState) => state.userDetails.isLoading;

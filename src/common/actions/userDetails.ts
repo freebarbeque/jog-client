@@ -1,5 +1,6 @@
 import {IAddress} from '../interfaces/userDetails';
 import {IDriverDetailsFormValues, IStoredDriver} from '../interfaces/drivers';
+import {IVehicle} from '../reducers/vehicles';
 
 import {
     LOOKUP_POSTCODE,
@@ -13,7 +14,6 @@ import {
     SUBMIT_VEHICLE,
     STORE_VEHICLE_LOCALLY,
 } from '../constants/userDetails';
-import {IVehicle} from "~/common/reducers/vehicles";
 
 export function lookupPostCode(postCode: string) {
     return {
