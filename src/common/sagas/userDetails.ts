@@ -1,4 +1,4 @@
-import {cancel, fork, put, race, select, take} from 'redux-saga/effects';
+const {cancel, fork, put, race, select, take} = require('redux-saga/effects');
 import {getCurrentStep} from '../../web/selectors/page';
 import {LOCATION_CHANGE, push} from 'react-router-redux';
 import {LOOKUP_POSTCODE, POSTCODE_FORM, SUBMIT_ADDRESS, CANCEL_SUBMIT_ADDRESS} from '../constants/userDetails';
@@ -7,7 +7,7 @@ import {stopSubmit} from 'redux-form';
 import {setAddress, setIsLoading} from '../actions/userDetails';
 import {goToNextStep, goToPrevStep} from '../../web/actions/page';
 import {isChangeStepAction} from '../../web/utils/page';
-import {delay} from "redux-saga";
+import {delay} from 'redux-saga';
 
 function* postcodeFlow() {
     while (true) {
@@ -31,7 +31,7 @@ function* postcodeFlow() {
     }
 }
 
-function* addressFlow() {
+function* addressFlow(policyId: string) {
     while (true) {
         const {cancelSubmit, submit} = yield race({
             cancelSubmit: take(CANCEL_SUBMIT_ADDRESS),
@@ -42,7 +42,10 @@ function* addressFlow() {
             yield put(goToPrevStep());
             return;
         } else if (submit) {
-            console.log('Will submit address');
+            yield put(setIsLoading(true));
+            yield delay(1000);
+            yield put(setIsLoading(false));
+            yield put(push(`/app/dashboard/motor/${policyId}/quote`))
         }
     }
 }
@@ -58,8 +61,8 @@ function* addressStepsWorker(policyId: number) {
                 workers.push(worker);
                 break;
             }
-            case 2:{
-                const worker = yield fork(addressFlow);
+            case 2: {
+                const worker = yield fork(addressFlow, policyId);
                 workers.push(worker);
                 break;
             }

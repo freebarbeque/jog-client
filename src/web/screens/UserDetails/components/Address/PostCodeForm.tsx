@@ -22,7 +22,6 @@ interface IPostCodeFormProps {
 }
 
 const PostCodeForm = (props: IPostCodeFormProps) => {
-    console.log(props.isLoading);
     return (
         <form className={props.className} onSubmit={props.handleSubmit}>
             <FieldTitle>Post Code</FieldTitle>
