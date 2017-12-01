@@ -4,6 +4,7 @@ import MenuItem from 'material-ui/MenuItem';
 import styled, {StyledComponentClass} from 'styled-components';
 import {IDataSource} from '~/common/interfaces/dataSource';
 import ErrorText from 'src/web/components/Forms/ErrorText';
+import {isUndefined} from "util";
 
 interface ISelectProps {
     input: {
@@ -46,7 +47,7 @@ class FormSelect extends React.Component<ISelectProps, {}> {
 
     handleChange = (event: any, index: number, value: any) => {
         const valueToSet = value[value.length - 1];
-        if (valueToSet) {
+        if (!isUndefined(valueToSet)) {
             this.props.input.onChange(valueToSet);
         }
     }

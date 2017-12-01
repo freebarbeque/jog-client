@@ -51,7 +51,7 @@ const DriverDetailsForm: React.StatelessComponent<IDriverDetailsForm> = (props) 
         <Field
           name="driver_selected"
           component={FormSelect}
-          dataSource={[{id: 1, name: 'Driver 1'}, {id: 2, name: 'Driver 2'}]}
+          dataSource={[{id: null, name: 'New driver'}, {id: 1, name: 'Driver 1'}, {id: 2, name: 'Driver 2'}]}
           defaultText="New Driver"
           maxHeight={300}
           labelStyle={formSelectLabelStyle}
