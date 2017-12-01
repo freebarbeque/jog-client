@@ -120,5 +120,5 @@ const mapDispatchToProps = (dispatch: any) => bindActionCreators({
     submitVehicle,
     push,
 }, dispatch);
-
+//
 export default connect(mapStateToProps, mapDispatchToProps)(StyledUserDetailsScreen);

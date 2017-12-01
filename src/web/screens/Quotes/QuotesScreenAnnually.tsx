@@ -41,6 +41,7 @@ const QuotesScreenAnnually = (props: any) => (
             insurerAvatar="https://image.flaticon.com/icons/png/512/48/48982.png"
             insurerName="Default insurer"
             policyName="Motor Policy 1"
+            onBackArrowClick={() => props.history.push(`/app/dashboard/motor/${props.match.params.motorId}/quote`)}
         />
         <PolicyTabs tabs={tabs}/>
         <Context>

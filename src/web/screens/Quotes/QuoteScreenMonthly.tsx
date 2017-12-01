@@ -30,29 +30,32 @@ const quotes = [
     {logo: <Avatar1/>, price: 621.10, excess: 310, owner: 'Aviva', extras: 14},
 ];
 
-const QuotesScreenMonthly = (props: any) => (
-    <div className={props.className}>
-        <Header/>
-        <CurrentPolicy
-            insurerAvatar="https://image.flaticon.com/icons/png/512/48/48982.png"
-            insurerName="Default insurer"
-            policyName="Motor Policy 1"
-        />
-        <PolicyTabs tabs={tabs}/>
-        <Context>
-            <Sort>Sort by <StyledBlackArrow height={10} width={10}/></Sort>
-            <QuotesWrapper>
-                {quotes.map((item, index) => (
-                    <div key={index}>
-                        <Quote logo={item.logo} price={item.price} excess={item.excess} owner={item.owner} extras={item.extras} onClick={() => props.push('/app/dashboard')}/>
-                    </div>
-                ))}
-            </QuotesWrapper>
-            <See><Text>See more</Text><BlackArrow height={10} width={10}/></See>
-        </Context>
-        <Footer/>
-    </div>
-);
+const QuotesScreenMonthly = (props: any) => {
+    return (
+        <div className={props.className}>
+            <Header/>
+            <CurrentPolicy
+                insurerAvatar="https://image.flaticon.com/icons/png/512/48/48982.png"
+                insurerName="Default insurer"
+                policyName="Motor Policy 1"
+                onBackArrowClick={() => props.history.push(`/app/dashboard/motor/${props.match.params.motorId}/quote`)}
+            />
+            <PolicyTabs tabs={tabs}/>
+            <Context>
+                <Sort>Sort by <StyledBlackArrow height={10} width={10}/></Sort>
+                <QuotesWrapper>
+                    {quotes.map((item, index) => (
+                        <div key={index}>
+                            <Quote logo={item.logo} price={item.price} excess={item.excess} owner={item.owner} extras={item.extras} onClick={() => props.push('/app/dashboard')}/>
+                        </div>
+                    ))}
+                </QuotesWrapper>
+                <See><Text>See more</Text><BlackArrow height={10} width={10}/></See>
+            </Context>
+            <Footer/>
+        </div>
+    );
+}
 
 const Text = styled.div`
     margin-right: 7px;
