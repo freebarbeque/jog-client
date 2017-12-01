@@ -7,6 +7,7 @@ import {stopSubmit} from 'redux-form';
 import {setAddress, setIsLoading} from '../actions/userDetails';
 import {goToNextStep, goToPrevStep} from '../../web/actions/page';
 import {isChangeStepAction} from '../../web/utils/page';
+import {delay} from "redux-saga";
 
 function* postcodeFlow() {
     while (true) {
@@ -23,8 +24,6 @@ function* postcodeFlow() {
                 err.code = address.code;
                 throw err;
             }
-
-            yield put(setIsLoading(false));
         } catch (err) {
             yield put(stopSubmit(POSTCODE_FORM, {_error: err.message}));
             yield put(setIsLoading(false));
@@ -68,8 +67,8 @@ function* addressStepsWorker(policyId: number) {
                 break;
         }
 
-        yield take(isChangeStepAction)
-        yield workers.map(w => cancel(w));
+        yield take(isChangeStepAction);
+        yield put(setIsLoading(false));
     }
 }
 

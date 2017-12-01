@@ -10,14 +10,19 @@ import RoundedButton from 'src/web/components/RoundedButton';
 import {MARGIN} from 'src/common/constants/style';
 import {POSTCODE_FORM} from 'src/common/constants/userDetails';
 import ErrorText from 'src/web/components/Forms/ErrorText';
+import {IReduxState} from '~/common/interfaces/store';
+import {getIsLoading} from '~/common/selectors/userDetils';
+import {connect} from 'react-redux';
 
-interface IAddressFormProps {
+interface IPostCodeFormProps {
     className: string;
     handleSubmit: any;
     error: string;
+    isLoading: boolean;
 }
 
-const AddressForm = (props: IAddressFormProps) => {
+const PostCodeForm = (props: IPostCodeFormProps) => {
+    console.log(props.isLoading);
     return (
         <form className={props.className} onSubmit={props.handleSubmit}>
             <FieldTitle>Post Code</FieldTitle>
@@ -39,7 +44,7 @@ const AddressForm = (props: IAddressFormProps) => {
                     marginRight: 'auto',
                     marginTop: MARGIN.extraLarge,
                 }}
-                disabled={false}
+                disabled={props.isLoading}
             />
         </form>
     )
@@ -63,4 +68,8 @@ const formOptions = {
     validate: validateForm,
 };
 
-export default reduxForm(formOptions)(styledForm(AddressForm));
+const mapStateToProps = (state: IReduxState) => ({
+    isLoading: getIsLoading(state),
+})
+
+export default reduxForm(formOptions)(connect(mapStateToProps, null)(styledForm(PostCodeForm)));
