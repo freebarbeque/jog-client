@@ -7,11 +7,15 @@ import {QuoteCar, QuoteAddress, QuoteCalendar, QuoteHolder} from 'src/web/images
 import {push} from 'react-router-redux';
 import {Action, ActionCreator, bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
+import {IReduxState} from '~/common/interfaces/store';
+import {getAddress} from '~/common/selectors/userDetils';
+import {IAddress} from '~/common/interfaces/userDetails';
 
 interface IQuotePolicyProps {
   className?: string;
   push: ActionCreator<Action>;
   motorId: string;
+  address: IAddress;
 }
 
 const ButtonStyles = {
@@ -34,9 +38,22 @@ const QuotePolicy: React.StatelessComponent<IQuotePolicyProps> = (props: IQuoteP
             </HintText>
           </QuoteHint>
           <QuoteContentContainer>
-            <QuoteField icon={<QuoteCar />} title="Car" onClick={() => props.push(`/app/user/motor/${props.motorId}/car`)}/>
-            <QuoteField icon={<QuoteHolder />} title="Policy holder" onClick={() => props.push(`/app/user/motor/${props.motorId}/holder`)}/>
-            <QuoteField icon={<QuoteAddress />} title="Address" onClick={() => props.push(`/app/user/motor/${props.motorId}/address`)}/>
+            <QuoteField
+                icon={<QuoteCar />}
+                title="Car"
+                onClick={() => props.push(`/app/user/motor/${props.motorId}/car`)}
+            />
+            <QuoteField
+                icon={<QuoteHolder />}
+                title="Policy holder"
+                onClick={() => props.push(`/app/user/motor/${props.motorId}/holder`)}
+            />
+            <QuoteField
+                icon={<QuoteAddress />}
+                title="Address"
+                onClick={() => props.push(`/app/user/motor/${props.motorId}/address`)}
+                completed={props.address.submitted}
+            />
             <QuoteField icon={<QuoteCalendar />} withDatePicker title="Policy start date" />
             <RoundedButton
                 label="Get my quote"
@@ -94,8 +111,12 @@ const QuoteContentContainer = styled.div`
   }
 `;
 
+const mapStateToProps = (state: IReduxState) => ({
+    address: getAddress(state),
+});
+
 const mapDispatchToProps = (dispatch: any) => bindActionCreators({
     push,
 }, dispatch);
 
-export default connect(null, mapDispatchToProps)(StyledQuotePolicy);
+export default connect(mapStateToProps, mapDispatchToProps)(StyledQuotePolicy);
