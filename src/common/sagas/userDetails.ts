@@ -4,13 +4,15 @@ import {LOCATION_CHANGE, push} from 'react-router-redux';
 import {LOOKUP_POSTCODE, POSTCODE_FORM, SUBMIT_ADDRESS, CANCEL_SUBMIT_ADDRESS} from '../constants/userDetails';
 import {lookupPostCode} from '../api/idealPostcodes';
 import {stopSubmit} from 'redux-form';
-import {setAddress} from '../actions/userDetails';
+import {setAddress, setIsLoading} from '../actions/userDetails';
 import {goToNextStep, goToPrevStep} from '../../web/actions/page';
 import {isChangeStepAction} from '../../web/utils/page';
 
 function* postcodeFlow() {
     while (true) {
         const {postCode} = yield take(LOOKUP_POSTCODE);
+
+        yield put(setIsLoading(true));
         try {
             const address = yield lookupPostCode(postCode);
             if (address.code === 2000) {
@@ -21,8 +23,11 @@ function* postcodeFlow() {
                 err.code = address.code;
                 throw err;
             }
+
+            yield put(setIsLoading(false));
         } catch (err) {
             yield put(stopSubmit(POSTCODE_FORM, {_error: err.message}));
+            yield put(setIsLoading(false));
         }
     }
 }
@@ -71,5 +76,6 @@ function* addressStepsWorker(policyId: number) {
 export function* addressStepsFlow(policyId: number) {
     const worker = yield fork(addressStepsWorker, policyId);
     yield take(LOCATION_CHANGE);
+    yield put(setIsLoading(false));
     yield cancel(worker);
 }

@@ -5,7 +5,7 @@ import PrepopulatedField from '../PrepopulatedField';
 import {connect} from 'react-redux';
 import {IReduxState} from '~/common/interfaces/store';
 import {IAddress} from '~/common/interfaces/userDetails';
-import {getAddress} from '~/common/selectors/userDetils';
+import {getAddress, getIsLoading} from '~/common/selectors/userDetils';
 import styled from 'styled-components';
 import RoundedButton from 'src/web/components/RoundedButton';
 import {submitAddress, cancelSubmitAddress} from 'src/common/actions/userDetails';
@@ -13,9 +13,10 @@ import {Action, ActionCreator, bindActionCreators} from 'redux';
 
 interface IAddressProps {
     className: string;
-    address: IAddress;
+    address: IAddress|null;
     cancelSubmitAddress: ActionCreator<Action>;
     submitAddress: ActionCreator<Action>;
+    isLoading: boolean;
 }
 
 const ButtonsContainer = styled.div`
@@ -25,25 +26,21 @@ const ButtonsContainer = styled.div`
 
 const Address = (props: IAddressProps) => {
     const {
-        address: {
-            post_town,
-            line_1,
-            line_2,
-        },
+        address,
     } = props;
 
     return (
         <div className={props.className}>
             <FieldTitle>City</FieldTitle>
-            <PrepopulatedField value={`${post_town.slice(0, 1)}${post_town.slice(1).toLocaleLowerCase()}`}/>
+            <PrepopulatedField value={`${address && address.post_town.slice(0, 1)}${address && address.post_town.slice(1).toLocaleLowerCase()}`}/>
             <FieldTitle>Line 1</FieldTitle>
-            <PrepopulatedField value={line_1}/>
+            <PrepopulatedField value={address && address.line_1}/>
             <FieldTitle>Line 2</FieldTitle>
-            <PrepopulatedField value={line_2}/>
+            <PrepopulatedField value={address && address.line_2}/>
             <ButtonsContainer>
                 <RoundedButton
                     label="Back"
-                    disabled={false}
+                    disabled={props.isLoading}
                     style={{
                         marginRight: 20,
                         width: 200,
@@ -52,7 +49,7 @@ const Address = (props: IAddressProps) => {
                 />
                 <RoundedButton
                     label="Submit Address"
-                    disabled={false}
+                    disabled={props.isLoading}
                     style={{
                         width: 200,
                     }}
@@ -65,6 +62,7 @@ const Address = (props: IAddressProps) => {
 
 const mapStateToProps = (state: IReduxState): Partial<IAddressProps> => ({
     address: getAddress(state),
+    isLoading: getIsLoading(state),
 })
 
 const mapDispatchToProps = (dispatch: any): Partial<IAddressProps> => bindActionCreators({

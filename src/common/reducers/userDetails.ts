@@ -1,9 +1,10 @@
 import {IUserDetailsReduxState} from '../interfaces/userDetails';
 import {IAction} from '../interfaces/action';
-import {SET_ADDRESS} from '../constants/userDetails';
+import {SET_ADDRESS, SET_IS_LOADING} from '../constants/userDetails';
 
 const defaultState = {
-    address: null
+    address: null,
+    isLoading: false,
 }
 
 export default function (state: IUserDetailsReduxState = defaultState, action: IAction) {
@@ -13,6 +14,13 @@ export default function (state: IUserDetailsReduxState = defaultState, action: I
                 ...state,
                 address: action.address,
             }
+
+        case SET_IS_LOADING:
+            return {
+                ...state,
+                isLoading: action.isLoading,
+            }
+
         default:
             return state;
     }

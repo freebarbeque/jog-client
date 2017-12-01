@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import {BLUE} from '~/common/constants/palette';
 
 interface IPrepopulatedFieldProps {
-    value: string|number;
+    value: string|number|null;
 }
 
 const PrepopulatedField = styled.div`

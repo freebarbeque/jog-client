@@ -3,7 +3,8 @@ export interface IAddressFormValues {
 }
 
 export interface IUserDetailsReduxState {
-    address: any;
+    address: IAddress|null;
+    isLoading: boolean;
 }
 
 export interface IAddress {

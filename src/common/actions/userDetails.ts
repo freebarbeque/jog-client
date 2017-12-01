@@ -5,6 +5,7 @@ import {
     SET_ADDRESS,
     SUBMIT_ADDRESS,
     CANCEL_SUBMIT_ADDRESS,
+    SET_IS_LOADING,
 } from '../constants/userDetails';
 
 export function lookupPostCode(postCode: string) {
@@ -31,5 +32,12 @@ export function submitAddress(address: IAddress) {
 export function cancelSubmitAddress() {
     return {
         type: CANCEL_SUBMIT_ADDRESS,
+    }
+}
+
+export function setIsLoading(isLoading: boolean) {
+    return {
+        type: SET_IS_LOADING,
+        isLoading,
     }
 }
