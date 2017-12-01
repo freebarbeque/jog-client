@@ -507,4 +507,6 @@ export interface IDriver {
 
 export interface IDriverDetailsFormValues extends IDriver {
     driver_selected: number;
+    incident_date: string;
+    conviction_date: string;
 }
