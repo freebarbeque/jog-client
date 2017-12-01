@@ -75,7 +75,7 @@ class DriverDetailsForm extends React.Component<IDriverDetailsForm, {}> {
                 <FormSection>
                     <FieldContainer>
                         <FieldTitle>
-                            Who is the policy holder ?
+                            Who is the policy holder?
                         </FieldTitle>
                         <Field
                             name="driver_selected"
@@ -91,7 +91,7 @@ class DriverDetailsForm extends React.Component<IDriverDetailsForm, {}> {
                     </FieldContainer>
                     <FieldContainer>
                         <FieldTitle>
-                            What is your title ?
+                            What is your title?
                         </FieldTitle>
                         <Field
                             name="title"
@@ -107,7 +107,7 @@ class DriverDetailsForm extends React.Component<IDriverDetailsForm, {}> {
                     </FieldContainer>
                     <FieldContainer>
                         <FieldTitle>
-                            First name
+                            What's your first name?
                         </FieldTitle>
                         <Field
                             name="first_name"
@@ -116,7 +116,7 @@ class DriverDetailsForm extends React.Component<IDriverDetailsForm, {}> {
                     </FieldContainer>
                     <FieldContainer>
                         <FieldTitle>
-                            Last name
+                            What's your last name?
                         </FieldTitle>
                         <Field
                             name="last_name"
@@ -125,7 +125,7 @@ class DriverDetailsForm extends React.Component<IDriverDetailsForm, {}> {
                     </FieldContainer>
                     <FieldContainer>
                         <FieldTitle>
-                            What is your Date of birth ?
+                            What's your Date of birth?
                         </FieldTitle>
                         <Field
                             name="date_of_birth"
@@ -135,7 +135,7 @@ class DriverDetailsForm extends React.Component<IDriverDetailsForm, {}> {
                     </FieldContainer>
                     <FieldContainer>
                         <FieldTitle>
-                            What is your gender ?
+                            What's your gender?
                         </FieldTitle>
                         <Field
                             name="gender"
@@ -148,7 +148,7 @@ class DriverDetailsForm extends React.Component<IDriverDetailsForm, {}> {
                     </FieldContainer>
                     <FieldContainer>
                         <FieldTitle>
-                            Were you born in UK ?
+                            Were you born in UK?
                         </FieldTitle>
                         <Field
                             name="born_in_uk"
@@ -161,7 +161,7 @@ class DriverDetailsForm extends React.Component<IDriverDetailsForm, {}> {
                     </FieldContainer>
                     <FieldContainer>
                         <FieldTitle>
-                            When you became a resident of the UK ?
+                            When did you start living in the UK?
                         </FieldTitle>
                         <Field
                             name="uk_resident_since"
@@ -171,7 +171,7 @@ class DriverDetailsForm extends React.Component<IDriverDetailsForm, {}> {
                     </FieldContainer>
                     <FieldContainer>
                         <FieldTitle>
-                            Is insurance refused ?
+                            Have you ever had insurance refused?
                         </FieldTitle>
                         <Field
                             name="insurance_refused"
@@ -184,7 +184,7 @@ class DriverDetailsForm extends React.Component<IDriverDetailsForm, {}> {
                     </FieldContainer>
                     <FieldContainer>
                         <FieldTitle>
-                            License years held
+                            For how many years have you held your licence?
                         </FieldTitle>
                         <Field
                             name="license_years_held"
@@ -194,7 +194,7 @@ class DriverDetailsForm extends React.Component<IDriverDetailsForm, {}> {
                     </FieldContainer>
                     <FieldContainer>
                         <FieldTitle>
-                            What is your license type ?
+                            What kind of license do you hold?
                         </FieldTitle>
                         <Field
                             name="license_state"
@@ -210,7 +210,7 @@ class DriverDetailsForm extends React.Component<IDriverDetailsForm, {}> {
                     </FieldContainer>
                     <FieldContainer>
                         <FieldTitle>
-                            What is your license number ?
+                            What is your driving license number?
                         </FieldTitle>
                         <Field
                             name="license_number"
@@ -219,7 +219,7 @@ class DriverDetailsForm extends React.Component<IDriverDetailsForm, {}> {
                     </FieldContainer>
                     <FieldContainer>
                         <FieldTitle>
-                            Are you smoker ?
+                            Are you smoker?
                         </FieldTitle>
                         <Field
                             name="smoker"
@@ -232,7 +232,7 @@ class DriverDetailsForm extends React.Component<IDriverDetailsForm, {}> {
                     </FieldContainer>
                     <FieldContainer>
                         <FieldTitle>
-                            What is your relationship status ?
+                            What is your relationship status?
                         </FieldTitle>
                         <Field
                             name="relationship_status"
@@ -248,7 +248,7 @@ class DriverDetailsForm extends React.Component<IDriverDetailsForm, {}> {
                     </FieldContainer>
                     <FieldContainer>
                         <FieldTitle>
-                            What is your vocation ?
+                            What job do you do?
                         </FieldTitle>
                         <Field
                             name="vocation"
@@ -257,7 +257,7 @@ class DriverDetailsForm extends React.Component<IDriverDetailsForm, {}> {
                     </FieldContainer>
                     <FieldContainer>
                         <FieldTitle>
-                            What is your industry ?
+                            What industry do you work in?
                         </FieldTitle>
                         <Field
                             name="industry"
@@ -266,7 +266,7 @@ class DriverDetailsForm extends React.Component<IDriverDetailsForm, {}> {
                     </FieldContainer>
                     <FieldContainer>
                         <FieldTitle>
-                            Years of no claims bonus
+                            How many years no claims discount do you have?
                         </FieldTitle>
                         <Field
                             name="no_claims_discount"
@@ -276,7 +276,7 @@ class DriverDetailsForm extends React.Component<IDriverDetailsForm, {}> {
                     </FieldContainer>
                     <FieldContainer>
                         <FieldTitle>
-                            What is your motoring organisation ?
+                            Do you belong to a motoring organisation?
                         </FieldTitle>
                         <Field
                             name="motoring_organisation"
@@ -291,7 +291,7 @@ class DriverDetailsForm extends React.Component<IDriverDetailsForm, {}> {
                     </FieldContainer>
                     <FieldContainer>
                         <FieldTitle>
-                            Tests taken
+                            How many tests have you taken?
                         </FieldTitle>
                         <Field
                             name="tests_taken"
@@ -304,7 +304,7 @@ class DriverDetailsForm extends React.Component<IDriverDetailsForm, {}> {
                 <FormSection>
                     <FieldContainer>
                         <FieldTitle>
-                            What is your motoring incident code ?
+                            What's happened?
                         </FieldTitle>
                         <Field
                             name="incident_code"
@@ -319,7 +319,7 @@ class DriverDetailsForm extends React.Component<IDriverDetailsForm, {}> {
                     </FieldContainer>
                     <FieldContainer>
                         <FieldTitle>
-                            Incident cost
+                            How much did the incident cost you and your insurer?
                         </FieldTitle>
                         <Field
                             name="cost_cents"
@@ -341,7 +341,7 @@ class DriverDetailsForm extends React.Component<IDriverDetailsForm, {}> {
                     </FieldContainer>
                     <FieldContainer>
                         <FieldTitle>
-                            Is it your fault ?
+                            Where you at fault?
                         </FieldTitle>
                         <Field
                             name="fault"
@@ -354,7 +354,7 @@ class DriverDetailsForm extends React.Component<IDriverDetailsForm, {}> {
                     </FieldContainer>
                     <FieldContainer>
                         <FieldTitle>
-                            Did you get personal injuries ?
+                            Was anybody injured during the incident?
                         </FieldTitle>
                         <Field
                             name="personal_injury"
@@ -367,7 +367,7 @@ class DriverDetailsForm extends React.Component<IDriverDetailsForm, {}> {
                     </FieldContainer>
                     <FieldContainer>
                         <FieldTitle>
-                            Third party cost
+                            How much did the incident cost the third party and their insurer?
                         </FieldTitle>
                         <Field
                             name="third_party_cost_cents"
@@ -380,7 +380,7 @@ class DriverDetailsForm extends React.Component<IDriverDetailsForm, {}> {
                     </FieldContainer>
                     <FieldContainer>
                         <FieldTitle>
-                            Do you have a current policy ?
+                            Did the incidence occur during this policy?
                         </FieldTitle>
                         <Field
                             name="current_policy"
@@ -396,7 +396,7 @@ class DriverDetailsForm extends React.Component<IDriverDetailsForm, {}> {
                 <FormSection>
                     <FieldContainer>
                         <FieldTitle>
-                            Months banned
+                            For how many month were you disqualified?
                         </FieldTitle>
                         <Field
                             name="months_banned"
@@ -406,7 +406,7 @@ class DriverDetailsForm extends React.Component<IDriverDetailsForm, {}> {
                     </FieldContainer>
                     <FieldContainer>
                         <FieldTitle>
-                            What is your motoring conviction code ?
+                            For what were you convicted?
                         </FieldTitle>
                         <Field
                             name="conviction_code"
@@ -421,7 +421,7 @@ class DriverDetailsForm extends React.Component<IDriverDetailsForm, {}> {
                     </FieldContainer>
                     <FieldContainer>
                         <FieldTitle>
-                            When did the conviction occur?
+                            When were you convicted?
                         </FieldTitle>
                         <Field
                             name="conviction_date"
@@ -431,7 +431,7 @@ class DriverDetailsForm extends React.Component<IDriverDetailsForm, {}> {
                     </FieldContainer>
                     <FieldContainer>
                         <FieldTitle>
-                            Fine cost
+                            How much were you fined?
                         </FieldTitle>
                         <Field
                             name="fine_cents"
@@ -444,7 +444,7 @@ class DriverDetailsForm extends React.Component<IDriverDetailsForm, {}> {
                     </FieldContainer>
                     <FieldContainer>
                         <FieldTitle>
-                            Penalty points
+                            How many points did you accrue?
                         </FieldTitle>
                         <Field
                             name="penalty_points"
@@ -457,7 +457,7 @@ class DriverDetailsForm extends React.Component<IDriverDetailsForm, {}> {
                     </FieldContainer>
                 </FormSection>
                 <RoundedButton
-                    label="Next step"
+                    label="Create Driver"
                     style={ButtonStyles}
                     type="submit"
                     disabled={this.props.isLoading}
