@@ -81,6 +81,7 @@ export function submitVehicle(vehicle: IVehicle) {
 export function storeVehicleLocally(policyId: string, vehicle: IVehicle) {
     return {
         type: STORE_VEHICLE_LOCALLY,
+        policyId,
         vehicle,
     }
 }

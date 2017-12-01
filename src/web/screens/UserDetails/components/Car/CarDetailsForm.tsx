@@ -11,11 +11,17 @@ import StyledInput from '../StyledInput';
 import RoundedButton from 'src/web/components/RoundedButton';
 import {injectSaga} from '~/common/utils/saga';
 import {vehicleFlow} from '~/common/sagas/userDetails/vehicle';
+import {connect} from 'react-redux';
+import {IReduxState} from '~/common/interfaces/store';
+import {getVehicleInitialValues} from '~/common/selectors/userDetils';
+import {IVehicleDetailsFormValues} from '~/common/reducers/vehicles';
 
 interface ICardDetailsForm {
     className?: string;
     handleSubmit?: any;
     motorId: string;
+    initialValues: IVehicleDetailsFormValues;
+    onSubmit: any;
 }
 
 const renderDatePicker = (props: any) => (
@@ -40,6 +46,7 @@ class CarDetailsForm extends React.Component<ICardDetailsForm, {}> {
     }
 
     render() {
+        console.log(this.props.initialValues);
         return (
             <form className={this.props.className} onSubmit={this.props.handleSubmit}>
                 <FieldsContainer>
@@ -263,7 +270,13 @@ const ButtonWpapper = styled.div`
     justify-content: center;
 `;
 
-export default reduxForm({
+const mapStateToProps = (state: IReduxState, props: ICardDetailsForm): any => ({
+    initialValues: getVehicleInitialValues(state, props)
+})
+
+const form = reduxForm({
     form: 'carDetailsForm',
-    initialValues: {abs: true, imported: true, modified: true, tracking_device: true}
+    enableReinitialize: true,
 })(StyledCarDetailsForm);
+
+export default connect(mapStateToProps, null)(form);
