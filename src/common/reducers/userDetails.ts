@@ -47,7 +47,7 @@ export default function (state: IUserDetailsReduxState = defaultState, action: I
                     ...state.drivers,
                     [action.policyId]: action.driver.id,
                 },
-                availableDrivers: state.availableDrivers.concat(action.driver)
+                availableDrivers: state.availableDrivers.find(d => d.id === action.driver.id) ? state.availableDrivers : state.availableDrivers.concat(action.driver)
             }
 
         default:

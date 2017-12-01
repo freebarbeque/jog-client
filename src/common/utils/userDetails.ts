@@ -16,7 +16,7 @@ export function mapDriverDetailsFormValues(values: IDriverDetailsFormValues) {
         ...driverValues,
     } = values;
 
-    driverValues.id = uuidv1(); // todo: remove when integrated with the API
+    driverValues.id = values.driver_selected || uuidv1(); // todo: remove when integrated with the API
 
     return driverValues;
 }
