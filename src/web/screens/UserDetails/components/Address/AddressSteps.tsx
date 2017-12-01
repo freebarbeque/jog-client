@@ -2,7 +2,7 @@ import * as React from 'react';
 import PostCodeForm from './PostCodeForm';
 import {IAddressFormValues} from '~/common/interfaces/userDetails';
 import {injectSaga} from '~/common/utils/saga';
-import {addressStepsFlow} from '~/common/sagas/userDetails';
+import {addressStepsFlow} from '~/common/sagas/userDetails/address';
 import {lookupPostCode} from 'src/common/actions/userDetails';
 import {Action, ActionCreator, bindActionCreators} from 'redux';
 import {connect} from 'react-redux';

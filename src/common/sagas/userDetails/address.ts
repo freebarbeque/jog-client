@@ -1,12 +1,12 @@
 const {cancel, fork, put, race, select, take} = require('redux-saga/effects');
-import {getCurrentStep} from '../../web/selectors/page';
+import {getCurrentStep} from '../../../web/selectors/page';
 import {LOCATION_CHANGE, push} from 'react-router-redux';
-import {LOOKUP_POSTCODE, POSTCODE_FORM, SUBMIT_ADDRESS, CANCEL_SUBMIT_ADDRESS} from '../constants/userDetails';
-import {lookupPostCode} from '../api/idealPostcodes';
+import {LOOKUP_POSTCODE, POSTCODE_FORM, SUBMIT_ADDRESS, CANCEL_SUBMIT_ADDRESS} from '../../constants/userDetails';
+import {lookupPostCode} from '../../api/idealPostcodes';
 import {stopSubmit} from 'redux-form';
-import {setAddress, setIsLoading} from '../actions/userDetails';
-import {clearStep, goToNextStep, goToPrevStep} from '../../web/actions/page';
-import {isChangeStepAction} from '../../web/utils/page';
+import {setAddress, setIsLoading} from '../../actions/userDetails';
+import {clearStep, goToNextStep, goToPrevStep} from '../../../web/actions/page';
+import {isChangeStepAction} from '../../../web/utils/page';
 import {delay} from 'redux-saga';
 
 function* postcodeFlow() {
