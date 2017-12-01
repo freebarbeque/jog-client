@@ -8,14 +8,13 @@ import {IAddress} from '~/common/interfaces/userDetails';
 import {getAddress} from '~/common/selectors/userDetils';
 import styled from 'styled-components';
 import RoundedButton from 'src/web/components/RoundedButton';
-import {goToPrevStep} from 'src/web/actions/page';
-import {submitAddress} from 'src/common/actions/userDetails';
+import {submitAddress, cancelSubmitAddress} from 'src/common/actions/userDetails';
 import {Action, ActionCreator, bindActionCreators} from 'redux';
 
 interface IAddressProps {
     className: string;
     address: IAddress;
-    goToPrevStep: ActionCreator<Action>;
+    cancelSubmitAddress: ActionCreator<Action>;
     submitAddress: ActionCreator<Action>;
 }
 
@@ -49,7 +48,7 @@ const Address = (props: IAddressProps) => {
                         marginRight: 20,
                         width: 200,
                     }}
-                    onClick={() => props.goToPrevStep()}
+                    onClick={() => props.cancelSubmitAddress()}
                 />
                 <RoundedButton
                     label="Submit Address"
@@ -69,7 +68,7 @@ const mapStateToProps = (state: IReduxState): Partial<IAddressProps> => ({
 })
 
 const mapDispatchToProps = (dispatch: any): Partial<IAddressProps> => bindActionCreators({
-    goToPrevStep,
+    cancelSubmitAddress,
     submitAddress,
 }, dispatch);
 
