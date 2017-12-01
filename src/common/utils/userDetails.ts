@@ -1,5 +1,4 @@
 import {IDriverDetailsFormValues} from '../interfaces/drivers';
-import {format} from 'date-fns';
 const uuidv1 = require('uuid/v1');
 
 export function isPostCode (postCode: string) {
@@ -15,11 +14,6 @@ export function mapDriverDetailsFormValues(values: IDriverDetailsFormValues) {
         driver_selected,
         ...driverValues,
     } = values;
-
-    driverValues.date_of_birth = format(values.date_of_birth);
-    driverValues.uk_resident_since = values.uk_resident_since ? format(values.uk_resident_since) : values.uk_resident_since;
-    driverValues.incident_date = values.incident_date ? format(values.incident_date) : values.incident_date;
-    driverValues.conviction_date = values.conviction_date ? format(values.conviction_date) : values.conviction_date;
 
     driverValues.id = uuidv1(); // todo: remove when integrated with the API
 
