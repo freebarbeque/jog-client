@@ -54,6 +54,7 @@ const PolicyDatePicker: React.StatelessComponent<IPolicyDatePickerProps> = (prop
 
 const StyledPolicyDatePicker = styled(PolicyDatePicker)`
   display: flex;
+  z-index: 99999999999;
   width: 300px;
   & > div {
     display: flex;
