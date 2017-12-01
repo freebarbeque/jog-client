@@ -11,6 +11,7 @@ import {
     STORE_DRIVER_LOCALLY,
     CHANGE_SELECTED_DRIVER,
     SUBMIT_VEHICLE,
+    STORE_VEHICLE_LOCALLY,
 } from '../constants/userDetails';
 import {IVehicle} from "~/common/reducers/vehicles";
 
@@ -73,6 +74,13 @@ export function changeSelectedDriver(driverId: string) {
 export function submitVehicle(vehicle: IVehicle) {
     return {
         type: SUBMIT_VEHICLE,
+        vehicle,
+    }
+}
+
+export function storeVehicleLocally(policyId: string, vehicle: IVehicle) {
+    return {
+        type: STORE_VEHICLE_LOCALLY,
         vehicle,
     }
 }

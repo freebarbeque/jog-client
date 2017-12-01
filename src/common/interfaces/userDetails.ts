@@ -13,6 +13,7 @@ export interface IUserDetailsReduxState {
         [key: number]: number;
     };
     availableDrivers: IStoredDriver[];
+    availableVehicles: IVehicle[];
     address: IAddress|null;
     isLoading: boolean;
 }

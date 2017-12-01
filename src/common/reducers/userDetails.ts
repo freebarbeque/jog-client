@@ -4,7 +4,7 @@ import {
     SET_ADDRESS,
     SET_IS_LOADING,
     SUBMIT_ADDRESS,
-    STORE_DRIVER_LOCALLY,
+    STORE_DRIVER_LOCALLY, STORE_VEHICLE_LOCALLY,
 } from '../constants/userDetails';
 
 const defaultState = {
@@ -13,6 +13,7 @@ const defaultState = {
     address: null,
     isLoading: false,
     availableDrivers: [],
+    availableVehicles: [],
 }
 
 export default function (state: IUserDetailsReduxState = defaultState, action: IAction) {
@@ -48,6 +49,16 @@ export default function (state: IUserDetailsReduxState = defaultState, action: I
                     [action.policyId]: action.driver.id,
                 },
                 availableDrivers: state.availableDrivers.find(d => d.id === action.driver.id) ? state.availableDrivers : state.availableDrivers.concat(action.driver)
+            }
+
+        // todo: remove when integrated with the API
+        case STORE_VEHICLE_LOCALLY:
+            return {
+                ...state,
+                vehicles: {
+                    [action.policyId]: action.vehicle.id,
+                },
+                availableVehicles: state.availableVehicles.find(d => d.id === action.vehicle.id) ? state.availableVehicles : state.availableVehicles.concat(action.vehicle)
             }
 
         default:

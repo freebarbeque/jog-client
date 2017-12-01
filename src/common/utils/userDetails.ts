@@ -1,4 +1,5 @@
 import {IDriverDetailsFormValues, IStoredDriver} from '../interfaces/drivers';
+import {IVehicle, IVehicleDetailsFormValues} from '../reducers/vehicles';
 const moment = require('moment');
 const uuidv1 = require('uuid/v1');
 
@@ -34,4 +35,13 @@ export function mapDriverToFormValues(driver: IDriverDetailsFormValues, driverId
     values.driver_selected = driverId;
 
     return values;
+}
+
+export function mapVehicleDetailsFormValues(values: IVehicleDetailsFormValues) {
+    const vehicle: IVehicle = {
+        id: uuidv1(),
+        ...values
+    }
+
+    return vehicle;
 }

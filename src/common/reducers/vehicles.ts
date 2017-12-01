@@ -1,1 +1,5 @@
-export interface IVehicle {};
+export interface IVehicle {
+    id: string;
+};
+
+export interface IVehicleDetailsFormValues {};
