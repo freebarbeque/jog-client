@@ -10,6 +10,7 @@ import Footer from 'src/web/components/Footer';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import {push} from 'react-router-redux';
+import {Avatar1, Avatar2} from 'src/web/images/index';
 
 const tabs = [
     {
@@ -19,22 +20,17 @@ const tabs = [
     {
         title: 'Monthly',
         link: '/monthly',
-        disabled: true,
     }
 ];
 
 const quotes = [
-    {logo: 'http://icons.iconarchive.com/icons/blackvariant/button-ui-requests-4/1024/Autodesk-360-icon.png', price: 100.01, excess: 50, owner: 'Avangard', extras: 7},
-    {logo: 'http://www.buildingmobilebritain.org.uk/wp-content/uploads/2017/07/y4.png', price: 231.00, excess: 115, owner: 'plus', extras: 4},
-    {logo: 'http://www.buildingmobilebritain.org.uk/wp-content/uploads/2017/07/y4.png', price: 456.00, excess: 228, owner: 'plus', extras: 20},
-    {logo: 'https://image.flaticon.com/icons/png/512/48/48982.png', price: 621.10, excess: 310, owner: 'admiral', extras: 14},
-    {logo: 'https://image.flaticon.com/icons/png/512/48/48982.png', price: 984.00, excess: 492, owner: 'admiral', extras: 4},
-    {logo: 'http://icons.iconarchive.com/icons/blackvariant/button-ui-requests-4/1024/Autodesk-360-icon.png', price: 1000.00, excess: 500, owner: 'Avangard', extras: 3},
-    {logo: 'http://www.newdesignfile.com/postpic/2014/10/procedure-policy-standards-icon_74483.png', price: 1200.00, excess: 600, owner: 'green list', extras: 11},
-    {logo: 'http://www.newdesignfile.com/postpic/2014/10/procedure-policy-standards-icon_74483.png', price: 2000.00, excess: 1000, owner: 'green list', extras: 5},
+    {logo: <Avatar1/>, price: 100.01, excess: 50, owner: 'Aviva', extras: 7},
+    {logo: <Avatar1/>, price: 231.00, excess: 115, owner: 'Aviva', extras: 4},
+    {logo: <Avatar2/>, price: 456.00, excess: 228, owner: 'admiral', extras: 20},
+    {logo: <Avatar1/>, price: 621.10, excess: 310, owner: 'Aviva', extras: 14},
 ];
 
-const QuotesScreen = (props: any) => (
+const QuotesScreenMonthly = (props: any) => (
     <div className={props.className}>
         <Header/>
         <CurrentPolicy
@@ -73,7 +69,7 @@ const StyledBlackArrow = styled(BlackArrow)`
     transform: rotate(90deg);
 `;
 
-const StyledQuotesScreen = styled(QuotesScreen)`
+const StyledQuotesScreenMonthly = styled(QuotesScreenMonthly)`
     display: flex;
     flex-direction: column;
     flex: 1;
@@ -110,4 +106,4 @@ const mapDispatchToProps = (dispatch: any): any => bindActionCreators({
     push,
 }, dispatch);
 
-export default connect(null, mapDispatchToProps)(StyledQuotesScreen);
+export default connect(null, mapDispatchToProps)(StyledQuotesScreenMonthly);

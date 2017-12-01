@@ -14,6 +14,32 @@ interface ImageProps {
   color?: 'white' | 'blue';
 }
 
+export const Avatar1 = (props: { scale?: number }) => {
+    return (
+        <Image
+            src={require('./mock/rz5JP2NC_400x400.png')}
+            height={50}
+            width={50}
+            alt="car"
+            className="car"
+            {...props}
+        />
+    )
+}
+
+export const Avatar2 = (props: { scale?: number }) => {
+    return (
+        <Image
+            src={require('./mock/admiral-facebook-share.png')}
+            height={50}
+            width={50}
+            alt="car"
+            className="car"
+            {...props}
+        />
+    )
+}
+
 const Image = (props: ImageProps) => {
   const { src, className, height, width, scale = 1, ...rest } = props
 

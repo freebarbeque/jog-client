@@ -6,7 +6,8 @@ import Dashboard from '../Dashboard/Dashboard';
 import CreatePolicyScreen from '../Policy/CreatePolicyScreen';
 import MotorPolicyScreen from '../Dashboard/MotorPolicyScreen';
 import UserDetailsScreen from 'src/web/screens/UserDetails/UserDetailsScreen';
-import QuotesScreen from 'src/web/screens/Quotes/QuotesScreen';
+import QuotesScreenAnnually from 'src/web/screens/Quotes/QuotesScreenAnnually';
+import QuotesScreenMonthly from 'src/web/screens/Quotes/QuoteScreenMonthly';
 
 // language=SCSS prefix=dummy{ suffix=}å
 const Container = styled.div`
@@ -24,7 +25,8 @@ export default class MainScreen extends React.Component<{}, {}> {
                     <Route path="/app/get_started" component={GetStarted}/>
                     <Route path="/app/dashboard/motor/add/manual" exact component={CreatePolicyScreen}/>
                     <Route path="/app/dashboard/motor/:motorId(\\d+)" component={MotorPolicyScreen}/>
-                    <Route path="/app/user/motor/:motorId(\\d+)/quotes" component={QuotesScreen}/>
+                    <Route path="/app/user/motor/:motorId(\\d+)/quotes/annual" component={QuotesScreenAnnually}/>
+                    <Route path="/app/user/motor/:motorId(\\d+)/quotes/monthly" component={QuotesScreenMonthly}/>
                     <Route path="/app/dashboard" component={Dashboard}/>
                     <Route path="/app/user" component={UserDetailsScreen}/>
                 </Switch>
