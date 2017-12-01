@@ -10,6 +10,6 @@ app.get('*', function (_, res) {
     res.sendFile(indexPath)
 })
 
-app.listen(process.env.PORT || 8080);
-
-console.log(`Started at ${process.env.PORT || 8080}`)
+app.listen(process.env.PORT || 8080, function () {
+    console.log(`Started at ${process.env.PORT || 8080}`)
+});
