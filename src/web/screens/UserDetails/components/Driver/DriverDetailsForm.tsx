@@ -8,7 +8,6 @@ import {onlyNumber} from 'src/common/utils/form';
 import RadioButton from 'src/web/components/Forms/RadioButton/Buttons';
 import DatePicker from 'src/web/components/PolicyDatePicker';
 import FormSelect from 'src/web/components/Forms/FormSelect';
-import {formSelectStyle, formSelectLabelStyle, formSelectIconStyle, signStyle} from 'src/common/constants/userDetails';
 import {mapObjectToDataSource} from 'src/common/utils/dataSources';
 import {MotoringOrganisationTypes, MotoringIncidentTypes, MotoringConvictionType} from 'src/common/interfaces/drivers';
 import Divider from 'src/web/screens/Landing/components/Divider';
@@ -21,6 +20,14 @@ import {getDriversDataSource} from '~/common/selectors/userDetils';
 import {IDataSource} from '~/common/interfaces/dataSource';
 import {changeSelectedDriver} from 'src/common/actions/userDetails';
 import {Action, ActionCreator, bindActionCreators} from 'redux';
+
+import {
+    formSelectStyle,
+    formSelectLabelStyle,
+    formSelectIconStyle,
+    signStyle,
+    DRIVER_DETAILS_FORM,
+} from 'src/common/constants/userDetails';
 
 interface IDriverDetailsForm {
     className?: string;
@@ -562,4 +569,4 @@ const mapDispatchToProps = (dispatch: any) => bindActionCreators({
     changeSelectedDriver,
 }, dispatch);
 
-export default reduxForm({form: 'driverDetailsForm', initialValues, validate: validateForm})(connect(mapStateToProps, mapDispatchToProps)(StyledDriverDetailsForm));
+export default reduxForm({form: DRIVER_DETAILS_FORM, initialValues, validate: validateForm})(connect(mapStateToProps, mapDispatchToProps)(StyledDriverDetailsForm));

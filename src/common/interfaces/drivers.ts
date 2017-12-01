@@ -483,7 +483,7 @@ export interface IDriversReduxState {
 }
 
 export interface IDriver {
-    id: number;
+    id: number|string;
     users_id: number;
     title: Title
     first_name: string

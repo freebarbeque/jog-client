@@ -31,3 +31,4 @@ export const STORE_DRIVER_LOCALLY = 'userDetails/STORE_DRIVER_LOCALLY'; // todo:
 export const CHANGE_SELECTED_DRIVER = 'userDetails/CHANGE_SELECTED_DRIVER';
 
 export const POSTCODE_FORM = 'postcodeForm';
+export const DRIVER_DETAILS_FORM = 'driverDetailsForm';

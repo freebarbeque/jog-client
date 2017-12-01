@@ -13,3 +13,8 @@ export const getDriversDataSource = createSelector(
         name: `${d.first_name} ${d.last_name}`,
     })),
 )
+
+export const getAvailableDriver = (driverId: string) => createSelector(
+    getAvailableDrivers,
+    (drivers: IStoredDriver[]) => drivers.find(d => d.id === driverId),
+)
