@@ -5,14 +5,15 @@ import {bindActionCreators, ActionCreator, Action} from 'redux';
 import {push} from 'react-router-redux';
 import {BLUE, DASHBOARD_INACTIVE_LINK_COLOR, PINK} from 'src/common/constants/palette';
 import {styledComponentWithProps} from 'src/common/utils/types';
-import {tabs} from 'src/common/constants/dashboard';
 import {getLastPathName, getBaseUrlForTabs} from 'src/common/selectors/dashboard';
+import {tabs} from '~/common/constants/dashboard';
 
 interface IPolicyTabsProps {
   className?: string;
   lastPath?: string;
   baseUrl?: string;
   push?: any;
+  tabs: Array<any>;
 }
 
 interface ITabProps {
@@ -20,9 +21,9 @@ interface ITabProps {
   onClick?: any;
 }
 
-const PolicyTabs: React.StatelessComponent<IPolicyTabsProps> = (props) => (
+const PolicyTabs: React.StatelessComponent<IPolicyTabsProps> = (props: IPolicyTabsProps) => (
   <div className={props.className}>
-    {tabs.map((t, i) => (
+    {props.tabs && props.tabs.map((t, i) => (
       <Tab
         active={props.lastPath === t.link}
         onClick={() => props.push(`${props.baseUrl}${t.link}`)}
@@ -60,6 +61,10 @@ const Tab = button`
   color: ${DASHBOARD_INACTIVE_LINK_COLOR};
   transition: border-color 0.3s ease-in-out; 
 `;
+
+PolicyTabs.defaultProps = {
+  tabs: tabs,
+};
 
 const mapStateToProps = (state: any): any => ({
   lastPath: getLastPathName(state),
