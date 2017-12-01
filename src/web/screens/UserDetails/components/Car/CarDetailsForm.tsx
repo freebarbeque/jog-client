@@ -9,10 +9,17 @@ import FieldTitle from '../FieldTitle';
 import styledForm from '../styledForm';
 import StyledInput from '../StyledInput';
 import RoundedButton from 'src/web/components/RoundedButton';
+import {push} from 'react-router-redux';
+import {connect} from 'react-redux';
+import {bindActionCreators} from 'redux';
 
 interface ICardDetailsForm {
   className?: string;
   handleSubmit?: any;
+  push?: any;
+  match: {
+    url: string;
+  },
 }
 
 const renderDatePicker = (props: any) => (
@@ -207,7 +214,7 @@ const CarDetailsForm: React.StatelessComponent<ICardDetailsForm> = (props) => (
         <RoundedButton
             label="Next Step"
             style={ButtonStyles}
-            type="submit"
+            onClick={(event) => {event.preventDefault(); props.push(`${props.match.url.slice(0, -3) + 'holder'}`)}}
         />
     </ButtonWpapper>
   </form>
@@ -249,4 +256,8 @@ const ButtonWpapper = styled.div`
     justify-content: center;
 `;
 
-export default reduxForm({form: 'carDetailsForm', initialValues: {abs: true, imported: true, modified: true, tracking_device: true}})(StyledCarDetailsForm);
+const mapDispatchToProps = (dispatch: any): any => bindActionCreators({
+    push,
+}, dispatch);
+
+export default connect(null, mapDispatchToProps) (reduxForm({form: 'carDetailsForm', initialValues: {abs: true, imported: true, modified: true, tracking_device: true}})(StyledCarDetailsForm));
