@@ -8,6 +8,7 @@ import {mapDriverDetailsFormValues, mapDriverToFormValues} from '../../utils/use
 import {initialize} from 'redux-form';
 import {IAction} from '../../interfaces/action';
 import {getAvailableDriver} from '../../selectors/userDetils';
+import {delay} from 'redux-saga';
 
 function* watchSelectedDriverChange({driverId}: IAction) {
     const driver = yield select(getAvailableDriver(driverId));
@@ -17,11 +18,12 @@ function* watchSelectedDriverChange({driverId}: IAction) {
 function* driverWorker(policyId: string) {
     yield fork(takeEvery, CHANGE_SELECTED_DRIVER, watchSelectedDriverChange);
 
-    while (true) {
-        const {driver} = yield take(SUBMIT_DRIVER);
-        yield put(storeDriverLocally(policyId, mapDriverDetailsFormValues(driver)));
-        yield put(push(`/app/user/motor/${policyId}/address`))
-    }
+    const {driver} = yield take(SUBMIT_DRIVER);
+    yield put(setIsLoading(true));
+    yield delay(1000);
+    yield put(storeDriverLocally(policyId, mapDriverDetailsFormValues(driver)));
+    yield put(push(`/app/user/motor/${policyId}/address`))
+    yield put(setIsLoading(false));
 }
 
 export function* driverFlow(policyId: string) {

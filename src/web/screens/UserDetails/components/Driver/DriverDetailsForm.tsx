@@ -16,7 +16,7 @@ import {injectSaga} from '~/common/utils/saga';
 import {driverFlow} from '~/common/sagas/userDetails/driver';
 import {connect} from 'react-redux';
 import {IReduxState} from '~/common/interfaces/store';
-import {getDriversDataSource, getSelectedDriverId} from '~/common/selectors/userDetils';
+import {getDriversDataSource, getIsLoading, getSelectedDriverId} from '~/common/selectors/userDetils';
 import {IDataSource} from '~/common/interfaces/dataSource';
 import {changeSelectedDriver} from 'src/common/actions/userDetails';
 import {Action, ActionCreator, bindActionCreators} from 'redux';
@@ -36,6 +36,7 @@ interface IDriverDetailsForm {
     driversDataSource: IDataSource[];
     changeSelectedDriver: ActionCreator<Action>;
     selectedDriverId: any;
+    isLoading: boolean;
 }
 
 const motoringOrganisations = mapObjectToDataSource(MotoringOrganisationTypes);
@@ -459,6 +460,7 @@ class DriverDetailsForm extends React.Component<IDriverDetailsForm, {}> {
                     label="Next step"
                     style={ButtonStyles}
                     type="submit"
+                    disabled={this.props.isLoading}
                 />
             </form>
         )
@@ -568,6 +570,7 @@ const initialValues = {
 const mapStateToProps = (state: IReduxState, props: IDriverDetailsForm) => ({
     driversDataSource: getDriversDataSource(state),
     selectedDriverId: getSelectedDriverId(state, props),
+    isLoading: getIsLoading(state),
 })
 
 const mapDispatchToProps = (dispatch: any) => bindActionCreators({
