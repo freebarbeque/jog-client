@@ -10,9 +10,29 @@ import {IAction} from '../../interfaces/action';
 import {getAvailableDriver} from '../../selectors/userDetils';
 import {delay} from 'redux-saga';
 
+const initialValues = {
+    driver_selected: null,
+    title: 'mr',
+    gender: 'male',
+    insurance_refused: false,
+    license_state: 'full',
+    smoker: false,
+    relationship_status: 'single',
+    born_in_uk: true,
+    incident_code: null,
+    fault: false,
+    personal_injury: false,
+    current_policy: true,
+    conviction_code: null,
+};
+
 function* watchSelectedDriverChange({driverId}: IAction) {
     const driver = yield select(getAvailableDriver(driverId));
-    yield put(initialize(DRIVER_DETAILS_FORM, mapDriverToFormValues(driver, driverId)));
+    if (driver) {
+        yield put(initialize(DRIVER_DETAILS_FORM, mapDriverToFormValues(driver, driverId)));
+    } else {
+        yield put(initialize(DRIVER_DETAILS_FORM, initialValues));
+    }
 }
 
 function* driverWorker(policyId: string) {
