@@ -7,10 +7,10 @@ export interface IAddressFormValues {
 
 export interface IUserDetailsReduxState {
     vehicles: {
-        [key: number]: number;
+        [key: number]: string;
     };
     drivers: {
-        [key: number]: number;
+        [key: number]: string;
     };
     availableDrivers: IStoredDriver[];
     availableVehicles: IVehicle[];
