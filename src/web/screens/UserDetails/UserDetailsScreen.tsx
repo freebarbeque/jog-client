@@ -11,7 +11,7 @@ import {CREAM} from 'src/common/constants/palette';
 import {connect} from 'react-redux';
 import {IWebReduxState} from '~/web/interfaces/store';
 import {getSteps, getCurrentStep} from 'src/web/selectors/page';
-import {submitDriver} from 'src/common/actions/userDetails';
+import {submitDriver, submitVehicle} from 'src/common/actions/userDetails';
 import {Action, ActionCreator, bindActionCreators} from 'redux';
 
 interface IUserDetailsScreenProps {
@@ -26,6 +26,7 @@ interface IUserDetailsScreenProps {
     currentStep: number;
     steps: number[];
     submitDriver: ActionCreator<Action>;
+    submitVehicle: ActionCreator<Action>;
 }
 
 class UserDetailsScreen extends React.Component<IUserDetailsScreenProps, {}> {
@@ -60,7 +61,7 @@ class UserDetailsScreen extends React.Component<IUserDetailsScreenProps, {}> {
                         <Route
                             path={`${this.props.match.url}/motor/:motorId(\\d+)/car`}
                             render={(routerProps: any) => <CarDetailsForm
-                                onSubmit={(values: any) => console.log(values)}
+                                onSubmit={(values: any) => this.props.submitVehicle(values)}
                                 motorId={routerProps.match.params.motorId}
                             />}
                         />
@@ -110,6 +111,7 @@ const mapStateToProps = (state: IWebReduxState) => ({
 
 const mapDispatchToProps = (dispatch: any) => bindActionCreators({
     submitDriver,
+    submitVehicle,
 }, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(StyledUserDetailsScreen);

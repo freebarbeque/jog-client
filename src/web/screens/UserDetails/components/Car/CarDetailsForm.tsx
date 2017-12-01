@@ -9,21 +9,21 @@ import FieldTitle from '../FieldTitle';
 import styledForm from '../styledForm';
 import StyledInput from '../StyledInput';
 import RoundedButton from 'src/web/components/RoundedButton';
-import {injectSaga} from "~/common/utils/saga";
-import {vehicleFlow} from "~/common/sagas/userDetails/vehicle";
+import {injectSaga} from '~/common/utils/saga';
+import {vehicleFlow} from '~/common/sagas/userDetails/vehicle';
 
 interface ICardDetailsForm {
-  className?: string;
-  handleSubmit?: any;
-  motorId: string;
+    className?: string;
+    handleSubmit?: any;
+    motorId: string;
 }
 
 const renderDatePicker = (props: any) => (
-  <DatePicker
-    {...props}
-    onChange={props.input.onChange}
-    value={props.input.value}
-  />
+    <DatePicker
+        {...props}
+        onChange={props.input.onChange}
+        value={props.input.value}
+    />
 );
 
 const ButtonStyles = {
@@ -48,7 +48,7 @@ class CarDetailsForm extends React.Component<ICardDetailsForm, {}> {
                             Vehicle Brand
                         </FieldTitle>
                         <Field
-                            name="registration"
+                            name="manufacturer"
                             component={StyledInput}
                         />
                     </Container>
@@ -57,7 +57,7 @@ class CarDetailsForm extends React.Component<ICardDetailsForm, {}> {
                             Vehicle Model
                         </FieldTitle>
                         <Field
-                            name="registration"
+                            name="model"
                             component={StyledInput}
                         />
                     </Container>
@@ -217,7 +217,9 @@ class CarDetailsForm extends React.Component<ICardDetailsForm, {}> {
                         label="Next Step"
                         style={ButtonStyles}
                         type="submit"
-                        onClick={() => {console.log('will submit')}}
+                        onClick={() => {
+                            console.log('will submit')
+                        }}
                     />
                 </ButtonWpapper>
             </form>
@@ -260,5 +262,8 @@ const ButtonWpapper = styled.div`
     align-items: center;
     justify-content: center;
 `;
-//
-export default reduxForm({form: 'carDetailsForm', initialValues: {abs: true, imported: true, modified: true, tracking_device: true}})(StyledCarDetailsForm);
+
+export default reduxForm({
+    form: 'carDetailsForm',
+    initialValues: {abs: true, imported: true, modified: true, tracking_device: true}
+})(StyledCarDetailsForm);

@@ -10,7 +10,9 @@ import {
     SUBMIT_DRIVER,
     STORE_DRIVER_LOCALLY,
     CHANGE_SELECTED_DRIVER,
+    SUBMIT_VEHICLE,
 } from '../constants/userDetails';
+import {IVehicle} from "~/common/reducers/vehicles";
 
 export function lookupPostCode(postCode: string) {
     return {
@@ -65,5 +67,12 @@ export function changeSelectedDriver(driverId: string) {
     return {
         type: CHANGE_SELECTED_DRIVER,
         driverId,
+    }
+}
+
+export function submitVehicle(vehicle: IVehicle) {
+    return {
+        type: SUBMIT_VEHICLE,
+        vehicle,
     }
 }
