@@ -22,7 +22,7 @@ const AddPolicyContent: React.StatelessComponent<IAddPolicyContentProps> = (prop
       notification="Recommended"
       title="Manual"
       icon={<PolicyManual />}
-      onClick={() => props.push('/app/dashboard/motor/add/manual')}
+      onClick={() => props.push('/app/motor/add/manual')}
     />
     <PolicyButton
       title="Upload or Drag and Drop a file"

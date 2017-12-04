@@ -11,10 +11,13 @@ import {createPolicyFlow} from '~/common/sagas/policies';
 import {createPolicy} from 'src/common/actions/policies';
 import {Action, ActionCreator, bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
+import {Route} from 'react-router-dom';
+import DocumentsPolicy from 'src/web/screens/Dashboard/components/DocumentsPolicy';
 
 interface ICreatePolicyScreenProps {
     className: string;
     createPolicy: ActionCreator<Action>;
+    match: any;
 }
 
 const Content = styled.div`
@@ -43,15 +46,28 @@ class CreatePolicyScreen extends React.Component<ICreatePolicyScreenProps, {}> {
         injectSaga(createPolicyFlow);
     }
 
-    render () {
+    render() {
         return (
             <div className={this.props.className}>
                 <Header/>
                 <Description/>
                 <Content>
-                    <Left>
-                        <CreatePolicyForm onSubmit={(values: ICreatePolicyFormValues) => this.props.createPolicy(values)}/>
-                    </Left>
+                    <Route
+                        exact
+                        path={`${this.props.match.url}/manual`}
+                        render={() => (
+                            <Left>
+                                <CreatePolicyForm
+                                    onSubmit={(values: ICreatePolicyFormValues) => this.props.createPolicy(values)}
+                                />
+                            </Left>
+                        )}
+                    />
+                    <Route
+                        exact
+                        path={`${this.props.match.url}/upload`}
+                        component={DocumentsPolicy}
+                    />
                 </Content>
                 <Footer/>
             </div>
