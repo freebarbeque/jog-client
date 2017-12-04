@@ -37,4 +37,4 @@ export const STORE_VEHICLE_LOCALLY = 'userDetails/STORE_VEHICLE_LOCALLY';
 
 export const POSTCODE_FORM = 'postcodeForm';
 export const DRIVER_DETAILS_FORM = 'driverDetailsForm';
-export const MOTOR_VEHICLE = 'userDetails/MOTOR-VEHICLE';
+export const MOTOR_VEHICLE = 'userDetails/MOTOR_VEHICLE';

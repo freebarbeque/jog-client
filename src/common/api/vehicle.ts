@@ -1,12 +1,12 @@
 import {post} from '../api/request';
-import {IVehicleDetailsFormValues} from 'src/common/interfaces/vehicles';
+import {IVehicleDetails} from 'src/common/interfaces/vehicles';
 import {MOTOR_VEHICLE} from 'src/common/constants/userDetails';
 
-export function* createVehicle(userId: string | number, type: string, vehicle: Partial<IVehicleDetailsFormValues>) {
+export function* createVehicle(type: string, vehicle: Partial<IVehicleDetails>) {
     let vehicleType;
     switch (type) {
         case MOTOR_VEHICLE: {
-            vehicleType = 'motor_vehicles';
+            vehicleType = 'dvla_vehicles';
             break;
         }
         default: {
@@ -20,5 +20,5 @@ export function* createVehicle(userId: string | number, type: string, vehicle: P
             attributes: vehicle,
         }
     };
-    yield post(`users/${userId}/${vehicleType}`, body);
+    yield post('dvla_vehicle', body);
 }
