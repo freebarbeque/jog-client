@@ -27,7 +27,7 @@ const AddPolicyContent: React.StatelessComponent<IAddPolicyContentProps> = (prop
     <PolicyButton
       title="Upload or Drag and Drop a file"
       icon={<PolicyPhoto />}
-      disabled
+      onClick={() => props.push('/app/motor/add/upload')}
     />
   </div>
 );

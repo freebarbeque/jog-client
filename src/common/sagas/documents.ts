@@ -16,10 +16,14 @@ import {OPEN_MODAL} from '../../web/constants/page';
 const {takeEvery} = require('redux-saga/effects');
 import {PDF_PREVIEW_MODAL} from '../../web/constants/documents';
 import {IAction} from '../interfaces/action';
+import {createPolicy} from '../api/policies';
+import {MOTOR_POLICY} from '../constants/policies';
 
 export function* documentsWorker(policyId: string) {
     const user = yield select(getUser);
-    yield fork(fetchDocuments, user.id, policyId);
+    if (policyId) {
+        yield fork(fetchDocuments, user.id, policyId);
+    }
     yield fork(takeEvery, (action: IAction) => action.type === OPEN_MODAL && action.modal === PDF_PREVIEW_MODAL, downloadDocument);
 
     while (true) {
@@ -40,6 +44,11 @@ export function* documentsWorker(policyId: string) {
             const docs = yield select(getPendingDocuments);
 
             if (upload && docs.length) {
+                if (!policyId) {
+                    const {motor_policy} = yield createPolicy(user.id, MOTOR_POLICY, {});
+                    policyId = motor_policy.id;
+                }
+
                 yield uploadDocuments(user.id, policyId, docs);
                 yield refetchDocuments(user.id, policyId);
                 yield put(clearPendingDocuments());

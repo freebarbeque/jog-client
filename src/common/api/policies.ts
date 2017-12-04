@@ -32,13 +32,14 @@ export function* createPolicy(userId: string | number, type: string, policy: Par
         }
     }
 
-    const body = {
+    const reqBody = {
         data: {
             type: policyType,
             attributes: policy,
         }
     };
-    yield post(`users/${userId}/${policyType}`, body);
+    const {body} = yield post(`users/${userId}/${policyType}`, reqBody);
+    return body;
 }
 
 export function* patchPolicy(userId: string | number, type: string, policy: Partial<IPolicy>, policyId: string) {
