@@ -161,4 +161,4 @@ const mapStateToProps = (state: IReduxState, props: IQuoteFieldProps) => ({
     initialValues: getDatePickerInitialValues(state, props),
 });
 
-export default connect(mapStateToProps, null)(reduxForm({form: 'datePicker'}) (StyledQuoteField));
+export default connect(mapStateToProps, null)(reduxForm({form: 'datePicker'}) (StyledQuoteField)) as any;
