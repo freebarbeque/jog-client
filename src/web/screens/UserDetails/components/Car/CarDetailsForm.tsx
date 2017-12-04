@@ -11,7 +11,7 @@ import StyledInput from '../StyledInput';
 import RoundedButton from 'src/web/components/RoundedButton';
 import {injectSaga} from '~/common/utils/saga';
 import {vehicleFlow} from '~/common/sagas/userDetails/vehicle';
-import {connect} from 'react-redux';
+import {ComponentClass, connect} from 'react-redux';
 import {IReduxState} from '~/common/interfaces/store';
 import {getVehicleInitialValues} from '~/common/selectors/userDetils';
 import {IVehicleDetailsFormValues} from '~/common/reducers/vehicles';
@@ -20,7 +20,7 @@ interface ICardDetailsForm {
     className?: string;
     handleSubmit?: any;
     motorId: string;
-    initialValues: IVehicleDetailsFormValues;
+    initialValues?: IVehicleDetailsFormValues;
     onSubmit: any;
 }
 
@@ -269,7 +269,7 @@ const ButtonWpapper = styled.div`
     justify-content: center;
 `;
 
-const mapStateToProps = (state: IReduxState, props: ICardDetailsForm): any => ({
+const mapStateToProps = (state: IReduxState, props: ICardDetailsForm): Partial<ICardDetailsForm> => ({
     initialValues: getVehicleInitialValues(state, props)
 })
 

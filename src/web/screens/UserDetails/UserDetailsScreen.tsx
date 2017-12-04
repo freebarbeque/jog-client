@@ -1,8 +1,7 @@
 import * as React from 'react';
 import styled from 'styled-components';
 import {Route, Switch} from 'react-router-dom';
-import CarDetailsFormComponent from './components/Car/CarDetailsForm';
-const CarDetailsForm = CarDetailsFormComponent as any;
+import CarDetailsForm from './components/Car/CarDetailsForm';
 import DriverDetailsForm from './components/Driver/DriverDetailsForm';
 import AddressStepsComponent from './components/Address/AddressSteps';
 const AddressSteps = AddressStepsComponent as any; // todo: find out why it doesn't work as it should
