@@ -1,7 +1,7 @@
 import * as React from 'react';
 import styled from 'styled-components';
 const validate = require('validate.js');
-import {reduxForm, Field} from 'redux-form';
+import {reduxForm, Field, FieldArray} from 'redux-form';
 import StyledInput from '../StyledInput';
 import {BLUE} from 'src/common/constants/palette';
 import {onlyNumber} from 'src/common/utils/form';
@@ -20,6 +20,7 @@ import {getDriversDataSource, getIsLoading, getSelectedDriverId} from '~/common/
 import {IDataSource} from '~/common/interfaces/dataSource';
 import {changeSelectedDriver} from 'src/common/actions/userDetails';
 import {Action, ActionCreator, bindActionCreators} from 'redux';
+import CancelIcon from 'src/web/components/CancelIcon';
 
 import {
     formSelectStyle,
@@ -60,6 +61,117 @@ const renderDatePicker = (props: any) => (
         touched={props.meta.touched}
     />
 );
+
+const renderIncident = ({fields}) => (
+    <ContentContainer>
+        {fields.map((incident, index) => (
+            <FieldsContainer key={index}>
+                <FieldTitle>
+                    What's happened?
+                </FieldTitle>
+                <Context>
+                    <Field
+                        name={`${incident}.incident_code`}
+                        component={FormSelect}
+                        dataSource={motoringIncidents}
+                        defaultText="Incident Code"
+                        maxHeight={300}
+                        labelStyle={formSelectLabelStyle}
+                        iconStyle={formSelectIconStyle}
+                        style={formSelectStyle}
+                    />
+                    {fields.length > 1 ? <StyledCancelIcon onClick={() => fields.remove(index)}/> : null}
+                </Context>
+            </FieldsContainer>
+        ))}
+        <ButtonWrapper>
+            <Button title="incident" onClick={() => fields.push({})}>Add one more incident</Button>
+        </ButtonWrapper>
+    </ContentContainer>
+);
+
+const renderConviction = ({fields}) => (
+    <ContentContainer>
+        {fields.map((conviction, index) => (
+            <FieldsContainer>
+                <FieldTitle>
+                    For what were you convicted?
+                </FieldTitle>
+                <Context>
+                    <Field
+                        name={`${conviction}.conviction_code`}
+                        component={FormSelect}
+                        dataSource={motoringConvictions}
+                        defaultText="Conviction Code"
+                        maxHeight={300}
+                        labelStyle={formSelectLabelStyle}
+                        iconStyle={formSelectIconStyle}
+                        style={formSelectStyle}
+                    />
+                    {fields.length > 1 ? <StyledCancelIcon onClick={() => fields.remove(index)}/> : null}
+                </Context>
+            </FieldsContainer>
+        ))}
+        <ButtonWrapper>
+            <Button title="conviction" onClick={() => fields.push({})}>Add one more conviction</Button>
+        </ButtonWrapper>
+    </ContentContainer>
+);
+
+const ButtonWrapper = styled.div`
+    display: flex;
+    align-self: stretch;
+    justify-content: flex-end;
+`;
+
+const Button = styled.div`
+    height: 40px;
+    background-color: #50e3c2;
+    box-shadow: 0 4px 4px #ddd;
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 16px;
+    color: #131733;
+    cursor: pointer;
+    flex: 0.5;
+`;
+
+const StyledCancelIcon = styled(CancelIcon)`
+    position: absolute;
+    left: 86.5%;
+    &: hover {
+        & > g > g {
+            fill: red;
+        }
+    }
+`;
+
+const ContentContainer = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-self: stretch;
+    & > div:not(:first-child):not(:last-child) {
+        & > div:first-child{
+            display: none;
+        }
+    }
+    margin-bottom: 30px;
+`;
+
+const FieldsContainer = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-self: stretch;
+    margin-bottom: 30px;
+`;
+
+const Context = styled.div`
+    display: flex;
+    align-self: stretch;
+    align-items: center;
+`;
 
 class DriverDetailsForm extends React.Component<IDriverDetailsForm, {}> {
     componentWillMount() {
@@ -302,21 +414,7 @@ class DriverDetailsForm extends React.Component<IDriverDetailsForm, {}> {
                 </FormSection>
                 <Divider/>
                 <FormSection>
-                    <FieldContainer>
-                        <FieldTitle>
-                            What's happened?
-                        </FieldTitle>
-                        <Field
-                            name="incident_code"
-                            component={FormSelect}
-                            dataSource={motoringIncidents}
-                            defaultText="Incident Code"
-                            maxHeight={300}
-                            labelStyle={formSelectLabelStyle}
-                            iconStyle={formSelectIconStyle}
-                            style={formSelectStyle}
-                        />
-                    </FieldContainer>
+                    <FieldArray name="incident" component={renderIncident}/>
                     <FieldContainer>
                         <FieldTitle>
                             How much did the incident cost you and your insurer?
@@ -404,21 +502,7 @@ class DriverDetailsForm extends React.Component<IDriverDetailsForm, {}> {
                             preCheck={onlyNumber}
                         />
                     </FieldContainer>
-                    <FieldContainer>
-                        <FieldTitle>
-                            For what were you convicted?
-                        </FieldTitle>
-                        <Field
-                            name="conviction_code"
-                            component={FormSelect}
-                            dataSource={motoringConvictions}
-                            defaultText="Conviction Code"
-                            maxHeight={300}
-                            labelStyle={formSelectLabelStyle}
-                            iconStyle={formSelectIconStyle}
-                            style={formSelectStyle}
-                        />
-                    </FieldContainer>
+                    <FieldArray name="conviction" component={renderConviction}/>
                     <FieldContainer>
                         <FieldTitle>
                             When were you convicted?
@@ -565,6 +649,8 @@ const initialValues = {
     personal_injury: false,
     current_policy: true,
     conviction_code: null,
+    incident: [{}],
+    conviction: [{}],
 };
 
 const mapStateToProps = (state: IReduxState, props: IDriverDetailsForm) => ({

@@ -71,7 +71,7 @@ class FormSelect extends React.Component<ISelectProps, {}> {
         } = this.props;
 
         return (
-            <div>
+            <Wrapper>
                 <Container error={error} touched={touched}>
                     <DropDownMenu
                         value={input.value ? [input.value] : 'default'}
@@ -119,9 +119,13 @@ class FormSelect extends React.Component<ISelectProps, {}> {
                         </ErrorText>
                     </div>
                 }
-            </div>
+            </Wrapper>
         )
     }
 }
+
+const Wrapper = styled.div`
+    flex:1;
+`;
 
 export default FormSelect;
