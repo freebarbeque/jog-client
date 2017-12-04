@@ -76,4 +76,4 @@ const mapDispatchToProps = (dispatch: any): any => bindActionCreators({
   push,
 }, dispatch);
 
-export default connect(mapStateToProps, mapDispatchToProps)(StyledPolicyTabs);
+export default connect(mapStateToProps, mapDispatchToProps)(StyledPolicyTabs) as any;

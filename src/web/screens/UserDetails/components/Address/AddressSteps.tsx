@@ -39,4 +39,4 @@ const mapDispatchToProps = (dispatch: any): any => bindActionCreators({
     lookupPostCode,
 }, dispatch);
 
-export default connect(null, mapDispatchToProps)(AddressSteps);
+export default connect(null, mapDispatchToProps)(AddressSteps) as any;
