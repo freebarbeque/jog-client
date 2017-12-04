@@ -1,5 +1,5 @@
 import {IDriverDetailsFormValues, IStoredDriver} from '../interfaces/drivers';
-import {IVehicle, IVehicleDetailsFormValues} from '../reducers/vehicles';
+import {IVehicle, IVehicleDetailsFormValues} from '../interfaces/vehicles';
 const moment = require('moment');
 const uuidv1 = require('uuid/v1');
 

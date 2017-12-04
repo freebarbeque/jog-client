@@ -14,7 +14,7 @@ import {vehicleFlow} from '~/common/sagas/userDetails/vehicle';
 import {ComponentClass, connect} from 'react-redux';
 import {IReduxState} from '~/common/interfaces/store';
 import {getVehicleInitialValues} from '~/common/selectors/userDetils';
-import {IVehicleDetailsFormValues} from '~/common/reducers/vehicles';
+import {IVehicleDetailsFormValues} from '~/common/interfaces/vehicles';
 
 interface ICardDetailsForm {
     className?: string;
@@ -54,7 +54,7 @@ class CarDetailsForm extends React.Component<ICardDetailsForm, {}> {
                             Vehicle Brand
                         </FieldTitle>
                         <Field
-                            name="manufacturer"
+                            name="manufacturer_id"
                             component={StyledInput}
                         />
                     </Container>
@@ -63,7 +63,7 @@ class CarDetailsForm extends React.Component<ICardDetailsForm, {}> {
                             Vehicle Model
                         </FieldTitle>
                         <Field
-                            name="model"
+                            name="motor_vehicle_model_id"
                             component={StyledInput}
                         />
                     </Container>

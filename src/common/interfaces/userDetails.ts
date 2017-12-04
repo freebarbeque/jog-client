@@ -1,5 +1,5 @@
 import {IDriver, IStoredDriver} from '../interfaces/drivers';
-import {IVehicle} from '../reducers/vehicles';
+import {IVehicle} from './vehicles';
 
 export interface IAddressFormValues {
     postcode: string;

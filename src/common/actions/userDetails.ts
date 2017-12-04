@@ -1,6 +1,6 @@
 import {IAddress} from '../interfaces/userDetails';
 import {IDriverDetailsFormValues, IStoredDriver} from '../interfaces/drivers';
-import {IVehicle} from '../reducers/vehicles';
+import {IVehicle} from '../interfaces/vehicles';
 
 import {
     LOOKUP_POSTCODE,
