@@ -21,12 +21,12 @@ import {IDataSource} from '~/common/interfaces/dataSource';
 import {changeSelectedDriver} from 'src/common/actions/userDetails';
 import {Action, ActionCreator, bindActionCreators} from 'redux';
 import renderIncident from './components/renderIncident';
+import renderConviction from './components/renderConviction';
 
 import {
     formSelectStyle,
     formSelectLabelStyle,
     formSelectIconStyle,
-    signStyle,
     DRIVER_DETAILS_FORM,
 } from 'src/common/constants/userDetails';
 
@@ -305,52 +305,7 @@ class DriverDetailsForm extends React.Component<IDriverDetailsForm, {}> {
                 </FormSection>
                 <Divider/>
                 <FormSection>
-                    <FieldContainer>
-                        <FieldTitle>
-                            For how many month were you disqualified?
-                        </FieldTitle>
-                        <Field
-                            name="months_banned"
-                            component={StyledInput}
-                            preCheck={onlyNumber}
-                        />
-                    </FieldContainer>
-                    <FieldContainer>
-                        <FieldTitle>
-                            When were you convicted?
-                        </FieldTitle>
-                        <Field
-                            name="conviction_date"
-                            component={renderDatePicker}
-                            placeholder="Select conviction date"
-                        />
-                    </FieldContainer>
-                    <FieldContainer>
-                        <FieldTitle>
-                            How much were you fined?
-                        </FieldTitle>
-                        <Field
-                            name="fine_cents"
-                            component={StyledInput}
-                            style={{padding: '0 10px 0 45px'}}
-                            preCheck={onlyNumber}
-                            sign="\u00A3"
-                            signStyle={signStyle}
-                        />
-                    </FieldContainer>
-                    <FieldContainer>
-                        <FieldTitle>
-                            How many points did you accrue?
-                        </FieldTitle>
-                        <Field
-                            name="penalty_points"
-                            component={StyledInput}
-                            style={{padding: '0 10px 0 45px'}}
-                            preCheck={onlyNumber}
-                            sign="\u00A3"
-                            signStyle={signStyle}
-                        />
-                    </FieldContainer>
+                    <FieldArray name="conviction" component={renderConviction}/>
                 </FormSection>
                 <RoundedButton
                     label="Create Driver"
@@ -406,7 +361,6 @@ const FormSection = styled.div`
   align-self: stretch;
   padding: 0 50px;
   flex: 1;
-  margin-bottom: 30px;
 `;
 
 const validationSchema = {
@@ -461,7 +415,6 @@ const initialValues = {
     personal_injury: false,
     current_policy: true,
     conviction_code: null,
-    conviction: [{}],
 };
 
 const mapStateToProps = (state: IReduxState, props: IDriverDetailsForm) => ({
