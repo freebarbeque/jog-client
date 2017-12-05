@@ -83,6 +83,7 @@ const ButtonWrapper = styled.div`
 
 const mapStateToProps = (state: IReduxState) => ({
     isLoading: getIsLoading(state),
+    initialValues: {vrm: state.userDetails.registrationNumber || null}
 });
 
 const form = reduxForm({

@@ -17,6 +17,8 @@ export interface IUserDetailsReduxState {
     address: IAddress|null;
     addressSubmitError: string|null;
     isLoading: boolean;
+    vehicleData: any;
+    registrationNumber: any;
     postCode: string|null;
 }
 
