@@ -9,7 +9,7 @@ import RadioButton from 'src/web/components/Forms/RadioButton/Buttons';
 import DatePicker from 'src/web/components/PolicyDatePicker';
 import FormSelect from 'src/web/components/Forms/FormSelect';
 import {mapObjectToDataSource} from 'src/common/utils/dataSources';
-import {MotoringOrganisationTypes, MotoringIncidentTypes, MotoringConvictionType} from 'src/common/interfaces/drivers';
+import {MotoringOrganisationTypes} from 'src/common/interfaces/drivers';
 import Divider from 'src/web/screens/Landing/components/Divider';
 import RoundedButton from 'src/web/components/RoundedButton';
 import {injectSaga} from '~/common/utils/saga';
@@ -20,7 +20,7 @@ import {getDriversDataSource, getIsLoading, getSelectedDriverId} from '~/common/
 import {IDataSource} from '~/common/interfaces/dataSource';
 import {changeSelectedDriver} from 'src/common/actions/userDetails';
 import {Action, ActionCreator, bindActionCreators} from 'redux';
-import CancelIcon from 'src/web/components/CancelIcon';
+import renderIncident from './components/renderIncident';
 
 import {
     formSelectStyle,
@@ -41,8 +41,6 @@ interface IDriverDetailsForm {
 }
 
 const motoringOrganisations = mapObjectToDataSource(MotoringOrganisationTypes);
-const motoringIncidents = mapObjectToDataSource(MotoringIncidentTypes);
-const motoringConvictions = mapObjectToDataSource(MotoringConvictionType);
 
 const ButtonStyles = {
     width: '250px',
@@ -61,117 +59,6 @@ const renderDatePicker = (props: any) => (
         touched={props.meta.touched}
     />
 );
-
-const renderIncident = ({fields}) => (
-    <ContentContainer>
-        {fields.map((incident, index) => (
-            <FieldsContainer key={index}>
-                <FieldTitle>
-                    What's happened?
-                </FieldTitle>
-                <Context>
-                    <Field
-                        name={`${incident}.incident_code`}
-                        component={FormSelect}
-                        dataSource={motoringIncidents}
-                        defaultText="Incident Code"
-                        maxHeight={300}
-                        labelStyle={formSelectLabelStyle}
-                        iconStyle={formSelectIconStyle}
-                        style={formSelectStyle}
-                    />
-                    {fields.length > 1 ? <StyledCancelIcon onClick={() => fields.remove(index)}/> : null}
-                </Context>
-            </FieldsContainer>
-        ))}
-        <ButtonWrapper>
-            <Button title="incident" onClick={() => fields.push({})}>Add one more incident</Button>
-        </ButtonWrapper>
-    </ContentContainer>
-);
-
-const renderConviction = ({fields}) => (
-    <ContentContainer>
-        {fields.map((conviction, index) => (
-            <FieldsContainer>
-                <FieldTitle>
-                    For what were you convicted?
-                </FieldTitle>
-                <Context>
-                    <Field
-                        name={`${conviction}.conviction_code`}
-                        component={FormSelect}
-                        dataSource={motoringConvictions}
-                        defaultText="Conviction Code"
-                        maxHeight={300}
-                        labelStyle={formSelectLabelStyle}
-                        iconStyle={formSelectIconStyle}
-                        style={formSelectStyle}
-                    />
-                    {fields.length > 1 ? <StyledCancelIcon onClick={() => fields.remove(index)}/> : null}
-                </Context>
-            </FieldsContainer>
-        ))}
-        <ButtonWrapper>
-            <Button title="conviction" onClick={() => fields.push({})}>Add one more conviction</Button>
-        </ButtonWrapper>
-    </ContentContainer>
-);
-
-const ButtonWrapper = styled.div`
-    display: flex;
-    align-self: stretch;
-    justify-content: flex-end;
-`;
-
-const Button = styled.div`
-    height: 40px;
-    background-color: #50e3c2;
-    box-shadow: 0 4px 4px #ddd;
-    border-radius: 5px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 16px;
-    color: #131733;
-    cursor: pointer;
-    flex: 0.5;
-`;
-
-const StyledCancelIcon = styled(CancelIcon)`
-    position: absolute;
-    left: 86.5%;
-    &: hover {
-        & > g > g {
-            fill: red;
-        }
-    }
-`;
-
-const ContentContainer = styled.div`
-    display: flex;
-    flex-direction: column;
-    align-self: stretch;
-    & > div:not(:first-child):not(:last-child) {
-        & > div:first-child{
-            display: none;
-        }
-    }
-    margin-bottom: 30px;
-`;
-
-const FieldsContainer = styled.div`
-    display: flex;
-    flex-direction: column;
-    align-self: stretch;
-    margin-bottom: 30px;
-`;
-
-const Context = styled.div`
-    display: flex;
-    align-self: stretch;
-    align-items: center;
-`;
 
 class DriverDetailsForm extends React.Component<IDriverDetailsForm, {}> {
     componentWillMount() {
@@ -415,80 +302,6 @@ class DriverDetailsForm extends React.Component<IDriverDetailsForm, {}> {
                 <Divider/>
                 <FormSection>
                     <FieldArray name="incident" component={renderIncident}/>
-                    <FieldContainer>
-                        <FieldTitle>
-                            How much did the incident cost you and your insurer?
-                        </FieldTitle>
-                        <Field
-                            name="cost_cents"
-                            component={StyledInput}
-                            style={{padding: '0 10px 0 45px'}}
-                            sign="\u00A3"
-                            signStyle={signStyle}
-                        />
-                    </FieldContainer>
-                    <FieldContainer>
-                        <FieldTitle>
-                            When did the incident occur?
-                        </FieldTitle>
-                        <Field
-                            name="incident_date"
-                            component={renderDatePicker}
-                            placeholder="Select incident date"
-                        />
-                    </FieldContainer>
-                    <FieldContainer>
-                        <FieldTitle>
-                            Where you at fault?
-                        </FieldTitle>
-                        <Field
-                            name="fault"
-                            component={RadioButton}
-                            dataSource={[
-                                {id: true, name: 'Yes'},
-                                {id: false, name: 'No'},
-                            ]}
-                        />
-                    </FieldContainer>
-                    <FieldContainer>
-                        <FieldTitle>
-                            Was anybody injured during the incident?
-                        </FieldTitle>
-                        <Field
-                            name="personal_injury"
-                            component={RadioButton}
-                            dataSource={[
-                                {id: true, name: 'Yes'},
-                                {id: false, name: 'No'},
-                            ]}
-                        />
-                    </FieldContainer>
-                    <FieldContainer>
-                        <FieldTitle>
-                            How much did the incident cost the third party and their insurer?
-                        </FieldTitle>
-                        <Field
-                            name="third_party_cost_cents"
-                            component={StyledInput}
-                            style={{padding: '0 10px 0 45px'}}
-                            preCheck={onlyNumber}
-                            sign="\u00A3"
-                            signStyle={signStyle}
-                        />
-                    </FieldContainer>
-                    <FieldContainer>
-                        <FieldTitle>
-                            Did the incidence occur during this policy?
-                        </FieldTitle>
-                        <Field
-                            name="current_policy"
-                            component={RadioButton}
-                            dataSource={[
-                                {id: true, name: 'Yes'},
-                                {id: false, name: 'No'},
-                            ]}
-                        />
-                    </FieldContainer>
                 </FormSection>
                 <Divider/>
                 <FormSection>
@@ -502,7 +315,6 @@ class DriverDetailsForm extends React.Component<IDriverDetailsForm, {}> {
                             preCheck={onlyNumber}
                         />
                     </FieldContainer>
-                    <FieldArray name="conviction" component={renderConviction}/>
                     <FieldContainer>
                         <FieldTitle>
                             When were you convicted?
@@ -649,7 +461,6 @@ const initialValues = {
     personal_injury: false,
     current_policy: true,
     conviction_code: null,
-    incident: [{}],
     conviction: [{}],
 };
 
