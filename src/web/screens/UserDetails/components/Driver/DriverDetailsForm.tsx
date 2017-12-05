@@ -20,8 +20,8 @@ import {getDriversDataSource, getIsLoading, getSelectedDriverId} from '~/common/
 import {IDataSource} from '~/common/interfaces/dataSource';
 import {changeSelectedDriver} from 'src/common/actions/userDetails';
 import {Action, ActionCreator, bindActionCreators} from 'redux';
-import renderIncident from './components/renderIncident';
-import renderConviction from './components/renderConviction';
+import Incident from './components/Incident';
+import Conviction from './components/Conviction';
 
 import {
     formSelectStyle,
@@ -301,11 +301,11 @@ class DriverDetailsForm extends React.Component<IDriverDetailsForm, {}> {
                 </FormSection>
                 <Divider/>
                 <FormSection>
-                    <FieldArray name="incident" component={renderIncident}/>
+                    <FieldArray name="incident" component={Incident}/>
                 </FormSection>
                 <Divider/>
                 <FormSection>
-                    <FieldArray name="conviction" component={renderConviction}/>
+                    <FieldArray name="conviction" component={Conviction}/>
                 </FormSection>
                 <RoundedButton
                     label="Create Driver"
