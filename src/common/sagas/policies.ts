@@ -37,7 +37,7 @@ export function* createPolicyWorker() {
         try {
             const mappedValues = mapCreatePolicyFormValues(values);
             yield createPolicy(user.id, MOTOR_POLICY, mappedValues);
-            yield put(push('/app/dashboard'));
+            yield put(push('/app/dashboard/motor'));
             yield put(setLoading(false));
         } catch (err) {
             console.error(err);
