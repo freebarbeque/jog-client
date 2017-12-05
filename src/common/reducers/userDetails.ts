@@ -6,6 +6,7 @@ import {
     SUBMIT_ADDRESS,
     STORE_DRIVER_LOCALLY,
     STORE_VEHICLE_LOCALLY,
+    SET_VEHICLE_DATA,
     LOOKUP_POSTCODE,
     DELETE_POSTCODE,
     SET_ADDRESS_SUBMIT_ERROR,
@@ -18,6 +19,7 @@ const defaultState = {
     isLoading: false,
     availableDrivers: [],
     availableVehicles: [],
+    vehicleData: null,
     postCode: null,
     addressSubmitError: null,
 }
@@ -28,6 +30,12 @@ export default function (state: IUserDetailsReduxState = defaultState, action: I
             return {
                 ...state,
                 address: action.address,
+            }
+
+        case SET_VEHICLE_DATA:
+            return {
+                ...state,
+                vehicleData: action.data,
             }
 
         case LOOKUP_POSTCODE:

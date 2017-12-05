@@ -13,6 +13,8 @@ import {
     CHANGE_SELECTED_DRIVER,
     SUBMIT_VEHICLE,
     STORE_VEHICLE_LOCALLY,
+    LOOKUP_REGISTRATION_NUMBER,
+    SET_VEHICLE_DATA,
     DELETE_POSTCODE,
     SET_ADDRESS_SUBMIT_ERROR,
 } from '../constants/userDetails';
@@ -21,6 +23,13 @@ export function lookupPostCode(postCode: string) {
     return {
         type: LOOKUP_POSTCODE,
         postCode,
+    }
+}
+
+export function lookupRegistrationNumber(registrationNumber: string) {
+    return {
+        type: LOOKUP_REGISTRATION_NUMBER,
+        registrationNumber,
     }
 }
 
@@ -34,6 +43,13 @@ export function setAddress(address: IAddress) {
     return {
         type: SET_ADDRESS,
         address,
+    }
+}
+
+export function setVehicleData(data: any) {
+    return {
+        type: SET_VEHICLE_DATA,
+        data,
     }
 }
 

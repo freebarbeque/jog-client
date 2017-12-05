@@ -32,8 +32,10 @@ export const SUBMIT_DRIVER = 'userDetails/SUBMIT_DRIVER';
 export const STORE_DRIVER_LOCALLY = 'userDetails/STORE_DRIVER_LOCALLY'; // todo: remove when integrated with the API
 export const CHANGE_SELECTED_DRIVER = 'userDetails/CHANGE_SELECTED_DRIVER';
 
+export const LOOKUP_REGISTRATION_NUMBER = 'userDetails/LOOKUP_REGISTRATION_NUMBER';
 export const SUBMIT_VEHICLE = 'userDetails/SUBMIT_VEHICLE';
 export const STORE_VEHICLE_LOCALLY = 'userDetails/STORE_VEHICLE_LOCALLY';
+export const SET_VEHICLE_DATA = 'userDetails/SET_VEHICLE_DATA';
 
 export const POSTCODE_FORM = 'postcodeForm';
 export const DRIVER_DETAILS_FORM = 'driverDetailsForm';

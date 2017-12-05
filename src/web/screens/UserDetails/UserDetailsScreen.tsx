@@ -1,7 +1,7 @@
 import * as React from 'react';
 import styled from 'styled-components';
 import {Route, Switch} from 'react-router-dom';
-import CarDetailsForm from './components/Car/CarDetailsForm';
+import CarDetailsSteps from './components/Car/CarDetailsSteps';
 import DriverDetailsForm from './components/Driver/DriverDetailsForm';
 import AddressSteps from './components/Address/AddressSteps';
 import Header from './components/Header';
@@ -64,8 +64,8 @@ class UserDetailsScreen extends React.Component<IUserDetailsScreenProps, {}> {
                     <Switch>
                         <Route
                             path={`${this.props.match.url}/motor/:motorId(\\d+)/car`}
-                            render={(routerProps: any) => <CarDetailsForm
-                                onSubmit={(values: any) => this.props.submitVehicle(values)}
+                            render={(routerProps: any) => <CarDetailsSteps
+                                currentStep={this.props.currentStep}
                                 motorId={routerProps.match.params.motorId}
                             />}
                         />

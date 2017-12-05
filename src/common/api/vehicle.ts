@@ -20,5 +20,6 @@ export function* createVehicle(type: string, vehicle: Partial<IVehicleDetails>) 
             attributes: vehicle,
         }
     };
-    yield post('dvla_vehicle', body);
+    const data = yield post('dvla_vehicle', body);
+    return data.body.dvla_vehicle;
 }
