@@ -13,12 +13,19 @@ import {
     CHANGE_SELECTED_DRIVER,
     SUBMIT_VEHICLE,
     STORE_VEHICLE_LOCALLY,
+    DELETE_POSTCODE,
 } from '../constants/userDetails';
 
 export function lookupPostCode(postCode: string) {
     return {
         type: LOOKUP_POSTCODE,
         postCode,
+    }
+}
+
+export function deletePostCode() {
+    return {
+        type: DELETE_POSTCODE,
     }
 }
 

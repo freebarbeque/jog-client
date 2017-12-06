@@ -4,7 +4,7 @@ import {LOCATION_CHANGE, push} from 'react-router-redux';
 import {LOOKUP_POSTCODE, POSTCODE_FORM, SUBMIT_ADDRESS, CANCEL_SUBMIT_ADDRESS} from '../../constants/userDetails';
 import {lookupPostCode} from '../../api/idealPostcodes';
 import {stopSubmit} from 'redux-form';
-import {setAddress, setIsLoading} from '../../actions/userDetails';
+import {deletePostCode, setAddress, setIsLoading} from '../../actions/userDetails';
 import {clearStep, goToNextStep, goToPrevStep, setSteps} from '../../../web/actions/page';
 import {isChangeStepAction} from '../../../web/utils/page';
 import {delay} from 'redux-saga';
@@ -81,6 +81,7 @@ export function* addressStepsFlow(policyId: number) {
     const worker = yield fork(addressStepsWorker, policyId);
     yield take(LOCATION_CHANGE);
     yield put(clearStep());
+    yield put(deletePostCode())
     yield put(setIsLoading(false));
     yield cancel(worker);
 }

@@ -19,6 +19,7 @@ interface IPostCodeFormProps {
     handleSubmit: any;
     error: string;
     isLoading: boolean;
+    initialValues: any;
 }
 
 const PostCodeForm = (props: IPostCodeFormProps) => {
@@ -57,6 +58,10 @@ const validationSchema = {
     },
 }
 
+const mapStateToProps = (state: IReduxState) => ({
+    isLoading: getIsLoading(state),
+});
+
 const validateForm = (values: IAddressFormValues) => {
     const errors = validate(values, validationSchema, {fullMessages: false})
     return errors;
@@ -65,10 +70,7 @@ const validateForm = (values: IAddressFormValues) => {
 const formOptions = {
     form: POSTCODE_FORM,
     validate: validateForm,
+    initialValues: {postcode: 'a'}
 };
 
-const mapStateToProps = (state: IReduxState) => ({
-    isLoading: getIsLoading(state),
-})
-
-export default reduxForm(formOptions)(connect(mapStateToProps, null)(styledForm(PostCodeForm)));
+export default reduxForm(formOptions)(connect(mapStateToProps, null)(styledForm(PostCodeForm))) as any;

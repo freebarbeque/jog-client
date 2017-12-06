@@ -5,6 +5,8 @@ import {
     SET_IS_LOADING,
     SUBMIT_ADDRESS,
     STORE_DRIVER_LOCALLY, STORE_VEHICLE_LOCALLY,
+    LOOKUP_POSTCODE,
+    DELETE_POSTCODE,
 } from '../constants/userDetails';
 
 const defaultState = {
@@ -14,6 +16,7 @@ const defaultState = {
     isLoading: false,
     availableDrivers: [],
     availableVehicles: [],
+    postCode: null,
 }
 
 export default function (state: IUserDetailsReduxState = defaultState, action: IAction) {
@@ -22,6 +25,18 @@ export default function (state: IUserDetailsReduxState = defaultState, action: I
             return {
                 ...state,
                 address: action.address,
+            }
+
+        case LOOKUP_POSTCODE:
+            return {
+                ...state,
+                postCode: action.postCode,
+            }
+
+        case DELETE_POSTCODE:
+            return {
+                ...state,
+                postCode: null,
             }
 
         case SET_IS_LOADING:
