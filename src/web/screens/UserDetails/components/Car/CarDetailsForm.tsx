@@ -14,13 +14,13 @@ import RadioButton from 'src/web/components/Forms/RadioButton/Buttons';
 import {formSelectIconStyle, formSelectLabelStyle, formSelectStyle, signStyle} from 'src/common/constants/userDetails';
 import {onlyNumber} from 'src/common/utils/form';
 import {cancelSubmitVehicle, submitVehicle} from 'src/common/actions/userDetails';
-import {IVehicleAPIData, VehicleDriveHelmSide, VehicleAlarm, VehicleRegisteredKeeper, VehicleKeptAtNight} from '~/common/interfaces/vehicles';
+import {IVehicleDetailsFormValues, VehicleDriveHelmSide, VehicleAlarm, VehicleRegisteredKeeper, VehicleKeptAtNight} from '~/common/interfaces/vehicles';
 import FormSelect from '~/web/components/Forms/FormSelect';
 import {mapObjectToDataSource} from 'src/common/utils/dataSources';
 
 interface ICarDetailsProps {
     className: string;
-    vehicleData: IVehicleAPIData|null;
+    vehicleData: IVehicleDetailsFormValues|null;
     cancelSubmitVehicle: ActionCreator<Action>;
     submitVehicle: ActionCreator<Action>;
     isLoading: boolean;

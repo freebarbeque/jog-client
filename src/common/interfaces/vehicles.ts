@@ -2,18 +2,28 @@ export interface IVehicle {
     id: string;
 };
 
-export interface IVehicleDetailsFormValues {};
-
-export interface IVehicleDetails {
-    vrm: string;
-};
-
-export interface  IVehicleAPIData {
+export interface IVehicleDetailsFormValues {
     date_of_registration: string;
     manufacturer_id: string;
     motor_vehicle_model_id: string;
     number_of_seats: string;
     registration: string;
+    abs: boolean;
+    imported: boolean,
+    modified: boolean,
+    tracking_device: boolean,
+    purchase: boolean,
+    abi_code: string|number;
+    alarm: string;
+    date_of_manufacture: string;
+    date_of_purchase: string;
+    drive: string;
+    kept_at_night: string;
+    value_cents: string|number;
+};
+
+export interface IVehicleDetails {
+    vrm: string;
 };
 
 export const VehicleDriveHelmSide = {

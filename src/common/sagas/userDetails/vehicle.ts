@@ -12,15 +12,22 @@ import {MOTOR_VEHICLE} from 'src/common/constants/userDetails';
 import {getCurrentStep} from '~/web/selectors/page';
 import {isChangeStepAction} from '~/web/utils/page';
 import {delay} from 'redux-saga';
+import {IReduxState} from '~/common/interfaces/store';
+import {getFormValues} from 'redux-form';
 
 function* registrationNumberFlow() {
     while (true) {
+        const state: IReduxState = yield select();
         const {registrationNumber} = yield take(LOOKUP_REGISTRATION_NUMBER);
         yield put(setIsLoading(true));
         try {
-            const data = yield getVehicle(MOTOR_VEHICLE, {vrm: registrationNumber});
-            yield put(setVehicleData(data));
-            yield put(goToNextStep());
+            if (state.userDetails.registrationNumber === null || state.userDetails.registrationNumber !== registrationNumber) {
+                const data = yield getVehicle(MOTOR_VEHICLE, {vrm: registrationNumber});
+                yield put(setVehicleData(data));
+                yield put(goToNextStep());
+            } else {
+                yield put(goToNextStep());
+            }
         } catch (err) {
             yield put(stopSubmit('carRegistrationForm', {_error: err.message}));
             yield put(setIsLoading(false));
@@ -30,12 +37,17 @@ function* registrationNumberFlow() {
 
 function* vehicleDetailsFlow(policyId: string) {
     while (true) {
+        const state: IReduxState = yield select();
+        const formValues = getFormValues('carDetailsForm')(state);
         const {cancelSubmit, submit} = yield race({
             cancelSubmit: take(CANCEL_SUBMIT_VEHICLE),
             submit: take(SUBMIT_VEHICLE),
         });
 
         if (cancelSubmit) {
+            const state: IReduxState = yield select();
+            const formValues = getFormValues('carDetailsForm')(state);
+            yield put(setVehicleData(formValues));
             yield put(goToPrevStep());
             return;
         } else if (submit) {

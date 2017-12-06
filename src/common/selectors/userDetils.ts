@@ -4,7 +4,7 @@ import {IStoredDriver} from '../interfaces/drivers';
 import {IVehicle} from '../interfaces/vehicles';
 import {getCurrentMotorPolicy} from '../selectors/policies';
 import {IMotorPolicy} from '../interfaces/policies';
-import {IVehicleAPIData} from '~/common/interfaces/vehicles';
+import {IVehicleDetailsFormValues} from '~/common/interfaces/vehicles';
 const moment = require('moment');
 
 export const getAddress = (state: IReduxState) => state.userDetails.address;
@@ -19,16 +19,23 @@ export const getPostCodeFromState = (state: IReduxState) => state.userDetails.po
 
 export const getVehicleDataForm = createSelector(
     getVehicleData,
-    (data: IVehicleAPIData) => data ? {
+    (data: IVehicleDetailsFormValues) => data ? {
             manufacturer_id: `${data.manufacturer_id.slice(0, 1)}${data.manufacturer_id.slice(1).toLocaleLowerCase()}`,
             motor_vehicle_model_id: `${data.motor_vehicle_model_id.slice(0, 1)}${data.motor_vehicle_model_id.slice(1).toLocaleLowerCase()}`,
             number_of_seats: data.number_of_seats,
             date_of_registration: moment(data.date_of_registration),
-            abs: false,
-            imported: false,
-            modified: false,
-            tracking_device: false,
-            purchase: false,
+            abs: data.abs || false,
+            imported: data.imported || false,
+            modified: data.modified || false,
+            tracking_device: data.tracking_device || false,
+            purchase: data.purchase || false,
+            abi_code: data.abi_code || '',
+            alarm: data.alarm || '',
+            date_of_manufacture: data.date_of_manufacture ? moment(data.date_of_manufacture) : null,
+            date_of_purchase: data.date_of_purchase ? moment(data.date_of_purchase) : null,
+            drive: data.drive || '',
+            kept_at_night: data.kept_at_night || '',
+            value_cents: data.value_cents || ''
     } : null
 );
 
