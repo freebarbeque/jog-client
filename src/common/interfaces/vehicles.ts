@@ -18,8 +18,10 @@ export interface IVehicleDetailsFormValues {
     date_of_manufacture: string;
     date_of_purchase: string;
     drive: string;
-    kept_at_night: string;
+    motor_vehicle_storage_location: string;
+    ownership: string;
     value_cents: string|number;
+    registered_keeper: string;
 };
 
 export interface IVehicleDetails {

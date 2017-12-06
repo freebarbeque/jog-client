@@ -155,16 +155,25 @@ const CarDetailsForm = (props: ICarDetailsProps) => {
             </FieldContainer>
             <FieldContainer>
                 <FieldTitle>
-                    Who is the registered keeper of the car?
+                    Who is the owner of the car?
                 </FieldTitle>
                 <Field
-                    name="registered_keeper"
+                    name="ownership"
                     component={FormSelect}
                     dataSource={mapObjectToDataSource(VehicleRegisteredKeeper)}
                     maxHeight={300}
                     labelStyle={formSelectLabelStyle}
                     iconStyle={formSelectIconStyle}
                     style={formSelectStyle}
+                />
+            </FieldContainer>
+            <FieldContainer>
+                <FieldTitle>
+                    Who is the registered keeper of the car?
+                </FieldTitle>
+                <Field
+                    name="registered_keeper"
+                    component={StyledInput}
                 />
             </FieldContainer>
             <FieldContainer>
@@ -236,7 +245,7 @@ const CarDetailsForm = (props: ICarDetailsProps) => {
                     Where is your vehicle kept at night?
                 </FieldTitle>
                 <Field
-                    name="kept_at_night"
+                    name="motor_vehicle_storage_location"
                     component={FormSelect}
                     dataSource={mapObjectToDataSource(VehicleKeptAtNight)}
                     maxHeight={300}

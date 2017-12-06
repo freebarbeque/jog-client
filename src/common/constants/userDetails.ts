@@ -42,3 +42,4 @@ export const DELETE_REGISTRATION_NUMBER = 'userDetails/DELETE_REGISTRATION_NUMBE
 export const POSTCODE_FORM = 'postcodeForm';
 export const DRIVER_DETAILS_FORM = 'driverDetailsForm';
 export const MOTOR_VEHICLE = 'userDetails/MOTOR_VEHICLE';
+export const CREATE_VEHICLE = 'userDetails/CREATE_VEHICLE';
