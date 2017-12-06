@@ -4,6 +4,7 @@ import {IStoredDriver} from '../interfaces/drivers';
 import {IVehicle} from '../interfaces/vehicles';
 import {getCurrentMotorPolicy} from '../selectors/policies';
 import {IMotorPolicy} from '../interfaces/policies';
+import {IVehicleAPIData} from '~/common/interfaces/vehicles';
 const moment = require('moment');
 
 export const getAddress = (state: IReduxState) => state.userDetails.address;
@@ -13,7 +14,23 @@ export const getAvailableDrivers = (state: IReduxState) => state.userDetails.ava
 export const getSelectedDriverId = (state: IReduxState, props: any) => state.userDetails.drivers[props.motorId];
 export const getAvailableVehicles = (state: IReduxState) => state.userDetails.availableVehicles;
 export const getSelectedVehicleId = (state: IReduxState, props: any) => state.userDetails.vehicles[props.motorId];
+export const getVehicleData = (state: IReduxState) => state.userDetails.vehicleData;
 export const getPostCodeFromState = (state: IReduxState) => state.userDetails.postCode;
+
+export const getVehicleDataForm = createSelector(
+    getVehicleData,
+    (data: IVehicleAPIData) => data ? {
+            manufacturer_id: `${data.manufacturer_id.slice(0, 1)}${data.manufacturer_id.slice(1).toLocaleLowerCase()}`,
+            motor_vehicle_model_id: `${data.motor_vehicle_model_id.slice(0, 1)}${data.motor_vehicle_model_id.slice(1).toLocaleLowerCase()}`,
+            number_of_seats: data.number_of_seats,
+            registration: data.registration,
+            date_of_registration: moment(data.date_of_registration),
+            abs: false,
+            imported: false,
+            modified: false,
+            tracking_device: false,
+    } : null
+);
 
 export const getPostCode = createSelector(
     getPostCodeFromState,

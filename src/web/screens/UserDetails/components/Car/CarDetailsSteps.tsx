@@ -1,5 +1,6 @@
 import * as React from 'react';
-import CarDetailForm from './CarDetailsForm';
+import CarRegistrationNumberForm from './CarRegistrationNumberForm';
+import CarDetailsForm from './CarDetailsForm';
 import {IVehicleDetails} from '~/common/interfaces/vehicles';
 import {Action, ActionCreator, bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
@@ -26,10 +27,10 @@ class CarDetailsSteps extends React.Component<ICarDetailsStepsProps, {}> {
     render() {
         switch (this.props.currentStep) {
             case 1:
-                return <CarDetailForm onSubmit={this.handleCarDetailsSubmit}/>;
+                return <CarRegistrationNumberForm onSubmit={this.handleCarDetailsSubmit}/>;
 
             case 2:
-                return <div>1234</div>;
+                return <CarDetailsForm/>;
 
             default:
                 return null;

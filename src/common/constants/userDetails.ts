@@ -36,6 +36,8 @@ export const LOOKUP_REGISTRATION_NUMBER = 'userDetails/LOOKUP_REGISTRATION_NUMBE
 export const SUBMIT_VEHICLE = 'userDetails/SUBMIT_VEHICLE';
 export const STORE_VEHICLE_LOCALLY = 'userDetails/STORE_VEHICLE_LOCALLY';
 export const SET_VEHICLE_DATA = 'userDetails/SET_VEHICLE_DATA';
+export const CANCEL_SUBMIT_VEHICLE = 'userDetails/CANCEL_SUBMIT_VEHICLE';
+export const DELETE_REGISTRATION_NUMBER = 'userDetails/DELETE_REGISTRATION_NUMBER';
 
 export const POSTCODE_FORM = 'postcodeForm';
 export const DRIVER_DETAILS_FORM = 'driverDetailsForm';

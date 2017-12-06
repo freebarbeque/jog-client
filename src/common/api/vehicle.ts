@@ -2,7 +2,7 @@ import {post} from '../api/request';
 import {IVehicleDetails} from 'src/common/interfaces/vehicles';
 import {MOTOR_VEHICLE} from 'src/common/constants/userDetails';
 
-export function* createVehicle(type: string, vehicle: Partial<IVehicleDetails>) {
+export function* getVehicle(type: string, vehicle: Partial<IVehicleDetails>) {
     let vehicleType;
     switch (type) {
         case MOTOR_VEHICLE: {

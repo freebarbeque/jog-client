@@ -15,6 +15,8 @@ import {
     STORE_VEHICLE_LOCALLY,
     LOOKUP_REGISTRATION_NUMBER,
     SET_VEHICLE_DATA,
+    CANCEL_SUBMIT_VEHICLE,
+    DELETE_REGISTRATION_NUMBER,
     DELETE_POSTCODE,
     SET_ADDRESS_SUBMIT_ERROR,
 } from '../constants/userDetails';
@@ -70,6 +72,18 @@ export function setAddressSubmitError(addressSubmitError: string|null) {
 export function cancelSubmitAddress() {
     return {
         type: CANCEL_SUBMIT_ADDRESS,
+    }
+}
+
+export function cancelSubmitVehicle() {
+    return {
+        type: CANCEL_SUBMIT_VEHICLE,
+    }
+}
+
+export function deleteRegistrationNumber() {
+    return {
+        type: DELETE_REGISTRATION_NUMBER,
     }
 }
 

@@ -8,6 +8,7 @@ import {
     STORE_VEHICLE_LOCALLY,
     SET_VEHICLE_DATA,
     LOOKUP_REGISTRATION_NUMBER,
+    DELETE_REGISTRATION_NUMBER,
     LOOKUP_POSTCODE,
     DELETE_POSTCODE,
     SET_ADDRESS_SUBMIT_ERROR,
@@ -32,6 +33,12 @@ export default function (state: IUserDetailsReduxState = defaultState, action: I
             return {
                 ...state,
                 address: action.address,
+            }
+
+        case DELETE_REGISTRATION_NUMBER:
+            return {
+                ...state,
+                registrationNumber: null,
             }
 
         case SET_VEHICLE_DATA:
