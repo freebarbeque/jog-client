@@ -11,7 +11,7 @@ import {MARGIN} from 'src/common/constants/style';
 import {POSTCODE_FORM} from 'src/common/constants/userDetails';
 import ErrorText from 'src/web/components/Forms/ErrorText';
 import {IReduxState} from '~/common/interfaces/store';
-import {getIsLoading} from '~/common/selectors/userDetils';
+import {getIsLoading, getPostCode} from '~/common/selectors/userDetils';
 import {connect} from 'react-redux';
 
 interface IPostCodeFormProps {
@@ -60,6 +60,7 @@ const validationSchema = {
 
 const mapStateToProps = (state: IReduxState) => ({
     isLoading: getIsLoading(state),
+    initialValues: {postcode: getPostCode(state)},
 });
 
 const validateForm = (values: IAddressFormValues) => {
@@ -70,7 +71,6 @@ const validateForm = (values: IAddressFormValues) => {
 const formOptions = {
     form: POSTCODE_FORM,
     validate: validateForm,
-    initialValues: {postcode: 'a'}
 };
 
-export default reduxForm(formOptions)(connect(mapStateToProps, null)(styledForm(PostCodeForm))) as any;
+export default (connect(mapStateToProps, null)(reduxForm(formOptions)(styledForm(PostCodeForm)))) as any;
