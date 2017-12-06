@@ -69,6 +69,7 @@ function* vehicleStepsWorker(policyId: number) {
 
         yield take(isChangeStepAction);
         yield put(setIsLoading(false));
+        yield workers.map(w => cancel(w));
     }
 }
 

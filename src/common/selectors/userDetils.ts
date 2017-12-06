@@ -23,12 +23,12 @@ export const getVehicleDataForm = createSelector(
             manufacturer_id: `${data.manufacturer_id.slice(0, 1)}${data.manufacturer_id.slice(1).toLocaleLowerCase()}`,
             motor_vehicle_model_id: `${data.motor_vehicle_model_id.slice(0, 1)}${data.motor_vehicle_model_id.slice(1).toLocaleLowerCase()}`,
             number_of_seats: data.number_of_seats,
-            registration: data.registration,
             date_of_registration: moment(data.date_of_registration),
             abs: false,
             imported: false,
             modified: false,
             tracking_device: false,
+            purchase: false,
     } : null
 );
 

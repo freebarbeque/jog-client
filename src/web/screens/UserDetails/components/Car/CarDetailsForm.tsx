@@ -7,7 +7,7 @@ import styled from 'styled-components';
 import RoundedButton from 'src/web/components/RoundedButton';
 import {Action, ActionCreator, bindActionCreators} from 'redux';
 import FieldTitle from '../FieldTitle';
-import {reduxForm, Field} from 'redux-form';
+import {reduxForm, Field, getFormValues} from 'redux-form';
 import DatePicker from 'src/web/components/PolicyDatePicker';
 import StyledInput from '../StyledInput';
 import RadioButton from 'src/web/components/Forms/RadioButton/Buttons';
@@ -23,6 +23,7 @@ interface ICarDetailsProps {
     submitVehicle: ActionCreator<Action>;
     isLoading: boolean;
     initialValues: any;
+    formValues: any;
 }
 
 const renderDatePicker = (props: any) => (
@@ -34,6 +35,7 @@ const renderDatePicker = (props: any) => (
 );
 
 const CarDetailsForm = (props: ICarDetailsProps) => {
+    console.log(props.formValues)
     return (
         <form className={props.className}>
             <FieldsContainer>
@@ -56,15 +58,6 @@ const CarDetailsForm = (props: ICarDetailsProps) => {
                     />
                 </Container>
             </FieldsContainer>
-            <FieldContainer>
-                <FieldTitle>
-                    What is the car's registration?
-                </FieldTitle>
-                <Field
-                    name="registration"
-                    component={StyledInput}
-                />
-            </FieldContainer>
             <FieldContainer>
                 <FieldTitle>
                     What is the car's ABI code?
@@ -172,14 +165,29 @@ const CarDetailsForm = (props: ICarDetailsProps) => {
             </FieldContainer>
             <FieldContainer>
                 <FieldTitle>
-                    When did you purchase the vehicle?
+                    Have you already purchased the vehicle?
                 </FieldTitle>
                 <Field
-                    name="date_of_purchase"
-                    component={renderDatePicker}
-                    placeholder="Select date of purchase"
+                    name="purchase"
+                    component={RadioButton}
+                    dataSource={[
+                        {id: true, name: 'Yes'},
+                        {id: false, name: 'No'},
+                    ]}
                 />
             </FieldContainer>
+            {props.formValues && props.formValues.purchase ?
+                <FieldContainer>
+                    <FieldTitle>
+                        When did you purchase the vehicle?
+                    </FieldTitle>
+                    <Field
+                        name="date_of_purchase"
+                        component={renderDatePicker}
+                        placeholder="Select date of purchase"
+                    />
+                </FieldContainer> : null
+            }
             <FieldContainer>
                 <FieldTitle>
                     Vehicle cost
@@ -268,6 +276,7 @@ const form = reduxForm({
 const mapStateToProps = (state: IReduxState): Partial<ICarDetailsProps> => ({
     initialValues: getVehicleDataForm(state),
     isLoading: getIsLoading(state),
+    formValues: getFormValues('carDetailsForm')(state),
 });
 
 const mapDispatchToProps = (dispatch: any): Partial<ICarDetailsProps> => bindActionCreators({
