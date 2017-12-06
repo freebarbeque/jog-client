@@ -11,10 +11,12 @@ import {reduxForm, Field, getFormValues} from 'redux-form';
 import DatePicker from 'src/web/components/PolicyDatePicker';
 import StyledInput from '../StyledInput';
 import RadioButton from 'src/web/components/Forms/RadioButton/Buttons';
-import {signStyle} from 'src/common/constants/userDetails';
+import {formSelectIconStyle, formSelectLabelStyle, formSelectStyle, signStyle} from 'src/common/constants/userDetails';
 import {onlyNumber} from 'src/common/utils/form';
 import {cancelSubmitVehicle, submitVehicle} from 'src/common/actions/userDetails';
-import {IVehicleAPIData} from '~/common/interfaces/vehicles';
+import {IVehicleAPIData, VehicleDriveHelmSide, VehicleAlarm, VehicleRegisteredKeeper, VehicleKeptAtNight} from '~/common/interfaces/vehicles';
+import FormSelect from '~/web/components/Forms/FormSelect';
+import {mapObjectToDataSource} from 'src/common/utils/dataSources';
 
 interface ICarDetailsProps {
     className: string;
@@ -86,7 +88,12 @@ const CarDetailsForm = (props: ICarDetailsProps) => {
                 </FieldTitle>
                 <Field
                     name="alarm"
-                    component={StyledInput}
+                    component={FormSelect}
+                    dataSource={mapObjectToDataSource(VehicleAlarm)}
+                    maxHeight={300}
+                    labelStyle={formSelectLabelStyle}
+                    iconStyle={formSelectIconStyle}
+                    style={formSelectStyle}
                 />
             </FieldContainer>
             <FieldContainer>
@@ -115,7 +122,12 @@ const CarDetailsForm = (props: ICarDetailsProps) => {
                 </FieldTitle>
                 <Field
                     name="drive"
-                    component={StyledInput}
+                    component={FormSelect}
+                    dataSource={mapObjectToDataSource(VehicleDriveHelmSide)}
+                    maxHeight={300}
+                    labelStyle={formSelectLabelStyle}
+                    iconStyle={formSelectIconStyle}
+                    style={formSelectStyle}
                 />
             </FieldContainer>
             <FieldContainer>
@@ -147,7 +159,12 @@ const CarDetailsForm = (props: ICarDetailsProps) => {
                 </FieldTitle>
                 <Field
                     name="registered_keeper"
-                    component={StyledInput}
+                    component={FormSelect}
+                    dataSource={mapObjectToDataSource(VehicleRegisteredKeeper)}
+                    maxHeight={300}
+                    labelStyle={formSelectLabelStyle}
+                    iconStyle={formSelectIconStyle}
+                    style={formSelectStyle}
                 />
             </FieldContainer>
             <FieldContainer>
@@ -212,6 +229,20 @@ const CarDetailsForm = (props: ICarDetailsProps) => {
                         {id: true, name: 'Yes'},
                         {id: false, name: 'No'},
                     ]}
+                />
+            </FieldContainer>
+            <FieldContainer>
+                <FieldTitle>
+                    Where is your vehicle kept at night?
+                </FieldTitle>
+                <Field
+                    name="kept_at_night"
+                    component={FormSelect}
+                    dataSource={mapObjectToDataSource(VehicleKeptAtNight)}
+                    maxHeight={300}
+                    labelStyle={formSelectLabelStyle}
+                    iconStyle={formSelectIconStyle}
+                    style={formSelectStyle}
                 />
             </FieldContainer>
             <ButtonsContainer>
