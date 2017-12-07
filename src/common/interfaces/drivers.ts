@@ -27,6 +27,15 @@ export const MotoringOrganisationTypes = {
     ROSP: 'ROSPA Advanced Driving Test',
 };
 
+export const MedicalConditionsTypes = {
+    'aware-no-restrictions': 'DVLA aware - no restrictions',
+    'aware-1-year-restriction': 'DVLA aware - 1 year restricted license',
+    'aware-2-year-restriction': 'DVLA aware - 2 year restricted license',
+    'aware-3-year-restriction': 'DVLA aware - 3 year restricted license',
+    'not-aware': 'DVLA not aware',
+    'advised-not-to-drive-by-doctor': 'Advised not to drive by doctor',
+};
+
 export const MotoringConvictionType = {
     AC10: 'AC10 - Failure To Stop And Report',
     AC12: 'AC12 - Aiding And Abetting - AC10',

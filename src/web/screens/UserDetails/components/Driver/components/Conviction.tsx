@@ -40,8 +40,12 @@ interface ICircleProps {
     src?: string;
 }
 
-const renderConviction = ({fields}) => (
-    <ContentContainer>
+interface IContentContainer {
+    active: boolean;
+}
+
+const Conviction = ({fields, active}) => (
+    <ContentContainer active={active}>
         {fields.map((conviction, index) => (
             <Context key={index}>
                 <Divider/>
@@ -91,11 +95,13 @@ const renderConviction = ({fields}) => (
                         signStyle={signStyle}
                     />
                 </FieldContainer>
-                <RoundedButton
-                    label="Remove Conviction"
-                    style={ButtonStyles}
-                    onClick={() => fields.remove(index)}
-                />
+                {fields.length > 1 ?
+                    <RoundedButton
+                        label="Remove Conviction"
+                        style={ButtonStyles}
+                        onClick={() => fields.remove(index)}
+                    /> : null
+                }
                 <Divider/>
             </Context>
         ))}
@@ -103,10 +109,12 @@ const renderConviction = ({fields}) => (
             <Circle title="conviction" onClick={() => fields.push({})}>
                 <Add/>
             </Circle>
-            <Text>Add conviction</Text>
+            <Text>Add one more conviction</Text>
         </ButtonWrapper>
     </ContentContainer>
-);
+)
+
+const conviction = styledComponentWithProps<IContentContainer, HTMLDivElement>(styled.div);
 
 const div = styledComponentWithProps<ICircleProps, HTMLDivElement>(styled.div);
 
@@ -145,8 +153,8 @@ const ButtonWrapper = styled.div`
     flex: 1;
 `;
 
-const ContentContainer = styled.div`
-    display: flex;
+const ContentContainer = conviction`
+    display: ${props => props.active ? 'flex' : 'none'};
     flex-direction: column;
     align-self: stretch;
     margin-bottom: 30px;
@@ -169,4 +177,4 @@ const Context = styled.div`
     flex-direction: column;
 `;
 
-export default reduxForm({form: DRIVER_DETAILS_FORM})(renderConviction);
+export default reduxForm({form: DRIVER_DETAILS_FORM})(Conviction) as any;

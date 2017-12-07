@@ -49,8 +49,12 @@ interface ICircleProps {
     src?: string;
 }
 
-const renderIncident = ({fields}) => (
-    <ContentContainer>
+interface IContentContainer {
+    active: boolean;
+}
+
+const Incident = ({fields, active}) => (
+    <ContentContainer active={active}>
         {fields.map((incident, index) => (
             <Context key={index}>
                 <Divider/>
@@ -143,11 +147,13 @@ const renderIncident = ({fields}) => (
                         ]}
                     />
                 </FieldContainer>
-                <RoundedButton
-                    label="Remove Incident"
-                    style={ButtonStyles}
-                    onClick={() => fields.remove(index)}
-                />
+                {fields.length > 1 ?
+                    <RoundedButton
+                        label="Remove Incident"
+                        style={ButtonStyles}
+                        onClick={() => fields.remove(index)}
+                    /> : null
+                }
                 <Divider/>
             </Context>
         ))}
@@ -155,10 +161,12 @@ const renderIncident = ({fields}) => (
             <Circle title="incident" onClick={() => fields.push({fault: false, personal_injury: false, current_policy: false})}>
                 <Add/>
             </Circle>
-            <Text>Add incident</Text>
+            <Text>Add one more incident</Text>
         </ButtonWrapper>
     </ContentContainer>
 );
+
+const conviction = styledComponentWithProps<IContentContainer, HTMLDivElement>(styled.div);
 
 const div = styledComponentWithProps<ICircleProps, HTMLDivElement>(styled.div);
 
@@ -197,8 +205,8 @@ const ButtonWrapper = styled.div`
     flex: 1;
 `;
 
-const ContentContainer = styled.div`
-    display: flex;
+const ContentContainer = conviction`
+    display: ${props => props.active ? 'flex' : 'none'};
     flex-direction: column;
     align-self: stretch;
     margin-bottom: 30px;
@@ -221,4 +229,4 @@ const Context = styled.div`
     flex-direction: column;
 `;
 
-export default reduxForm({form: DRIVER_DETAILS_FORM})(renderIncident);
+export default reduxForm({form: DRIVER_DETAILS_FORM})(Incident);
