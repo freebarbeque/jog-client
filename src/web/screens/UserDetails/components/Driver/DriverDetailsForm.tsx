@@ -16,10 +16,7 @@ import {injectSaga} from '~/common/utils/saga';
 import {driverFlow} from '~/common/sagas/userDetails/driver';
 import {connect} from 'react-redux';
 import {IReduxState} from '~/common/interfaces/store';
-import {getDriversDataSource, getIsLoading, getSelectedDriverId} from '~/common/selectors/userDetils';
-import {IDataSource} from '~/common/interfaces/dataSource';
-import {changeSelectedDriver} from 'src/common/actions/userDetails';
-import {Action, ActionCreator, bindActionCreators} from 'redux';
+import {getIsLoading} from '~/common/selectors/userDetils';
 import Incident from './components/Incident';
 import Conviction from './components/Conviction';
 const moment = require('moment');
@@ -35,11 +32,9 @@ interface IDriverDetailsForm {
     className?: string;
     handleSubmit?: any;
     motorId: number;
-    driversDataSource: IDataSource[];
-    changeSelectedDriver: ActionCreator<Action>;
-    selectedDriverId: any;
     isLoading: boolean;
     formValues: any;
+    active: boolean;
 }
 
 const motoringOrganisations = mapObjectToDataSource(MotoringOrganisationTypes);
@@ -68,31 +63,12 @@ const renderDatePicker = (props: any) => (
 class DriverDetailsForm extends React.Component<IDriverDetailsForm, {}> {
     componentWillMount() {
         injectSaga(driverFlow, this.props.motorId);
-        if (this.props.selectedDriverId) {
-            this.props.changeSelectedDriver(this.props.selectedDriverId);
-        }
     }
 
     render() {
         return (
             <form className={this.props.className} onSubmit={this.props.handleSubmit}>
                 <FormSection>
-                    <FieldContainer>
-                        <FieldTitle>
-                            Who is the policy holder?
-                        </FieldTitle>
-                        <Field
-                            name="driver_selected"
-                            component={FormSelect}
-                            dataSource={[{id: null, name: 'New driver'}, ...this.props.driversDataSource]}
-                            defaultText="New Driver"
-                            maxHeight={300}
-                            labelStyle={formSelectLabelStyle}
-                            iconStyle={formSelectIconStyle}
-                            style={formSelectStyle}
-                            onChangeCallback={(value: string) => this.props.changeSelectedDriver(value)}
-                        />
-                    </FieldContainer>
                     <FieldContainer>
                         <FieldTitle>
                             What is your title?
@@ -349,20 +325,29 @@ class DriverDetailsForm extends React.Component<IDriverDetailsForm, {}> {
                         />
                     </FieldContainer>
                     <FieldArray name="incident" component={Incident} active={this.props.formValues && this.props.formValues.incidents_claims}/>
+                    <BottonWrapper>
+                        <RoundedButton
+                            label="Create Driver"
+                            style={ButtonStyles}
+                            type="submit"
+                            disabled={this.props.isLoading}
+                        />
+                    </BottonWrapper>
                 </FormSection>
-                <RoundedButton
-                    label="Create Driver"
-                    style={ButtonStyles}
-                    type="submit"
-                    disabled={this.props.isLoading}
-                />
             </form>
         )
     }
 }
 
+const BottonWrapper = styled.div`
+    display: flex;
+    align-self: stretch;
+    align-items: center;
+    justify-content: center;
+`;
+
 const StyledDriverDetailsForm = styled(DriverDetailsForm)`
-  display: flex;
+  display: ${props => props.active ? 'flex' : 'none'};
   flex-direction: column;
   align-items: center;
   flex: 1;
@@ -372,6 +357,7 @@ const StyledDriverDetailsForm = styled(DriverDetailsForm)`
   box-shadow: 0 2px 4px rgba(51, 51, 51, 0.2);
   width: 70%;
   margin: 0px auto;
+  margin-bottom: 25px;
   
   & ${Divider} {
     margin-bottom: 30px;
@@ -467,18 +453,12 @@ const initialValues = {
 };
 
 const mapStateToProps = (state: IReduxState, props: IDriverDetailsForm) => ({
-    driversDataSource: getDriversDataSource(state),
-    selectedDriverId: getSelectedDriverId(state, props),
     isLoading: getIsLoading(state),
     formValues: getFormValues(DRIVER_DETAILS_FORM)(state),
 });
-
-const mapDispatchToProps = (dispatch: any) => bindActionCreators({
-    changeSelectedDriver,
-}, dispatch);
 
 export default reduxForm({
     form: DRIVER_DETAILS_FORM,
     initialValues,
     validate: validateForm,
-})(connect(mapStateToProps, mapDispatchToProps)(StyledDriverDetailsForm));
+})(connect(mapStateToProps, null)(StyledDriverDetailsForm));
