@@ -3,7 +3,7 @@ import {stopSubmit} from 'redux-form';
 const {cancel, fork, put, race, select, take, takeEvery} = require('redux-saga/effects');
 import {clearStep, goToNextStep, goToPrevStep, setSteps} from '../../../web/actions/page';
 import {LOCATION_CHANGE, push} from 'react-router-redux';
-import {setVehicleData, setIsLoading, deleteRegistrationNumber} from '../../actions/userDetails';
+import {setVehicleData, setIsLoading, deleteRegistrationNumber, deleteVehicleData} from '../../actions/userDetails';
 import {
     CANCEL_SUBMIT_VEHICLE, LOOKUP_REGISTRATION_NUMBER,
     SUBMIT_VEHICLE
@@ -37,8 +37,6 @@ function* registrationNumberFlow() {
 
 function* vehicleDetailsFlow(policyId: string) {
     while (true) {
-        const state: IReduxState = yield select();
-        const formValues = getFormValues('carDetailsForm')(state);
         const {cancelSubmit, submit} = yield race({
             cancelSubmit: take(CANCEL_SUBMIT_VEHICLE),
             submit: take(SUBMIT_VEHICLE),
@@ -54,6 +52,10 @@ function* vehicleDetailsFlow(policyId: string) {
         } else if (submit) {
             // todo: integrate with the API
             yield put(setIsLoading(true));
+            const state: IReduxState = yield select();
+            const formValues = getFormValues('carDetailsForm')(state);
+            console.log(formValues);
+            yield put(setVehicleData(formValues));
             yield createVehicle(user.id, CREATE_VEHICLE, Object.assign({}, formValues, {registration: state.userDetails.registrationNumber}));
             yield put(setIsLoading(false));
             yield put(push(`/app/dashboard/motor/${policyId}/quote`))
@@ -92,6 +94,7 @@ export function* vehicleStepsFlow(policyId: string) {
     yield take(LOCATION_CHANGE);
     yield put(clearStep());
     yield put(deleteRegistrationNumber());
+    yield put(deleteVehicleData());
     yield put(setIsLoading(false));
     yield cancel(worker);
 }

@@ -18,6 +18,7 @@ import {
     CANCEL_SUBMIT_VEHICLE,
     DELETE_REGISTRATION_NUMBER,
     DELETE_POSTCODE,
+    DELETE_VEHICLE_DATA,
     SET_ADDRESS_SUBMIT_ERROR,
 } from '../constants/userDetails';
 
@@ -52,6 +53,12 @@ export function setVehicleData(data: any) {
     return {
         type: SET_VEHICLE_DATA,
         data,
+    }
+}
+
+export function deleteVehicleData() {
+    return {
+        type: DELETE_VEHICLE_DATA,
     }
 }
 
