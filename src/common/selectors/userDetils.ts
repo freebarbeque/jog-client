@@ -12,7 +12,14 @@ export const getAvailableDrivers = (state: IReduxState) => state.userDetails.ava
 export const getSelectedDriverId = (state: IReduxState, props: any) => state.userDetails.drivers[props.motorId];
 export const getAvailableVehicles = (state: IReduxState) => state.userDetails.availableVehicles;
 export const getSelectedVehicleId = (state: IReduxState, props: any) => state.userDetails.vehicles[props.motorId];
-export const getPostCode = (state: IReduxState) => {return state.userDetails.postCode};
+export const getPostCode = (state: IReduxState) => state.userDetails.postCode;
+
+export const getPostCodeDataSource = createSelector(
+    getPostCode,
+    (postCode: string) => postCode ? {
+        postcode: postCode,
+    } : postCode,
+)
 
 export const getDriversDataSource = createSelector(
     getAvailableDrivers,

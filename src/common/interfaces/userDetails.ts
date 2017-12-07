@@ -16,7 +16,7 @@ export interface IUserDetailsReduxState {
     availableVehicles: IVehicle[];
     address: IAddress|null;
     isLoading: boolean;
-    postCode: any;
+    postCode: string|null;
 }
 
 export interface IAddress {
