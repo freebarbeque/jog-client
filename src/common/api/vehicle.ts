@@ -1,6 +1,6 @@
 import {post} from '../api/request';
-import {IVehicleDetails, IVehicleDetailsFormValues} from 'src/common/interfaces/vehicles';
-import {MOTOR_VEHICLE, CREATE_VEHICLE} from 'src/common/constants/userDetails';
+import {IVehicleDetails, IVehicleDetailsFormValues} from '../interfaces/vehicles';
+import {MOTOR_VEHICLE, CREATE_VEHICLE} from '../constants/userDetails';
 
 export function* getVehicle(type: string, vehicle: Partial<IVehicleDetails>) {
     let vehicleType;

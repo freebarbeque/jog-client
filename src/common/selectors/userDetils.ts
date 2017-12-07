@@ -4,7 +4,7 @@ import {IStoredDriver} from '../interfaces/drivers';
 import {IVehicle} from '../interfaces/vehicles';
 import {getCurrentMotorPolicy} from '../selectors/policies';
 import {IMotorPolicy} from '../interfaces/policies';
-import {IVehicleDetailsFormValues} from '~/common/interfaces/vehicles';
+import {IVehicleDetailsFormValues} from '../interfaces/vehicles';
 const moment = require('moment');
 
 export const getAddress = (state: IReduxState) => state.userDetails.address;
