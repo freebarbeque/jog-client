@@ -32,13 +32,9 @@ const ContentContainer = styled.div`
     background-color: ${WHITE};
 `
 
-const Left = ContentContainer.extend`
+const Center = ContentContainer.extend`
     width: 70%;
-    margin-right: 10px;
-`;
-
-const Right = ContentContainer.extend`
-    width: calc(30% - 10px);
+    margin: 10px auto;
 `;
 
 class CreatePolicyScreen extends React.Component<ICreatePolicyScreenProps, {}> {
@@ -56,11 +52,11 @@ class CreatePolicyScreen extends React.Component<ICreatePolicyScreenProps, {}> {
                         exact
                         path={`${this.props.match.url}/manual`}
                         render={() => (
-                            <Left>
+                            <Center>
                                 <CreatePolicyForm
                                     onSubmit={(values: ICreatePolicyFormValues) => this.props.createPolicy(values)}
                                 />
-                            </Left>
+                            </Center>
                         )}
                     />
                     <Route
