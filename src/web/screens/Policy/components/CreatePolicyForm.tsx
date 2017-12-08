@@ -111,7 +111,7 @@ const CreatePolicyForm = (props: ICreatePolicyFormProps) => {
                     }}
                     preCheck={onlyNumber}
                 />
-                <Title>What is your car number?</Title>
+                <Title>Enter the registration of your car</Title>
                 <Field
                     name="vehicle_registration"
                     component={Input}
