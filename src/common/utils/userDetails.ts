@@ -37,6 +37,19 @@ export function mapDriverToFormValues(driver: IDriverDetailsFormValues, driverId
     return values;
 }
 
+export function mapDriverToFormValues1(driver: IDriverDetailsFormValues) {
+    const {
+        ...values,
+    } = driver;
+
+    values.date_of_birth = moment(driver.date_of_birth);
+    values.uk_resident_since = moment(driver.uk_resident_since);
+    values.incident_date = moment(driver.incident_date);
+    values.conviction_date = moment(driver.incident_date);
+
+    return values;
+}
+
 export function mapVehicleDetailsFormValues(values: IVehicleDetailsFormValues) {
     const vehicle: IVehicle = {
         id: uuidv1(),

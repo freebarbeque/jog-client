@@ -7,15 +7,15 @@ import {getDriversDataSource} from '~/common/selectors/userDetils';
 import {IDataSource} from '~/common/interfaces/dataSource';
 import {Add} from 'src/web/images';
 import DriverDetailsForm from './DriverDetailsForm';
-import {Action, ActionCreator, bindActionCreators} from 'redux';
-import {changeSelectedDriver} from 'src/common/actions/userDetails';
+import {getAvailableDrivers} from '~/common/selectors/userDetils';
+import {mapDriverToFormValues1} from "~/common/utils/userDetails";
 
 interface IDriversPage {
     className?: string;
     driversDataSource: IDataSource[];
-    changeSelectedDriver: ActionCreator<Action>;
     onSubmit: any;
     motorId: number;
+    drivers: any;
 }
 
 class DriversPage extends React.Component<IDriversPage, {drivers: any, addDriverClicked: boolean}> {
@@ -33,11 +33,6 @@ class DriversPage extends React.Component<IDriversPage, {drivers: any, addDriver
                 this.setState(Object.assign({}, this.state, this.state.drivers[index] = !this.state.drivers[index]));
             }
         });
-        this.props.driversDataSource.map((driver, index) => {
-            if  (indexButton === index) {
-                this.props.changeSelectedDriver(driver.id)
-            }
-        })
     };
 
     handleAddDriverClick = () => {
@@ -45,7 +40,6 @@ class DriversPage extends React.Component<IDriversPage, {drivers: any, addDriver
     };
 
     render() {
-        console.log(this.props.driversDataSource);
         return (
             <div className={this.props.className}>
                 {this.props.driversDataSource.length > 0 ?
@@ -60,13 +54,24 @@ class DriversPage extends React.Component<IDriversPage, {drivers: any, addDriver
                                         <Driver onClick={() => this.handleDriverClick(index)} value={driver.name}>
                                             {driver.name}
                                         </Driver>
-                                        <DriverDetailsForm active={this.state.drivers[index]} form={'driver' + index} onSubmit={this.props.onSubmit} motorId={this.props.motorId}/>
+                                        <DriverDetailsForm
+                                            active={this.state.drivers[index]}
+                                            form={'driver' + index}
+                                            onSubmit={this.props.onSubmit}
+                                            motorId={this.props.motorId}
+                                            initialValues={this.props.drivers && mapDriverToFormValues1(this.props.drivers[index])}
+                                        />
                                     </Drivers>
                                 ))}
                             </DriversContainer>
                         </Container>
                         <Container>
-                            <DriverDetailsForm active={this.state.addDriverClicked} form={'driverAdd'} onSubmit={this.props.onSubmit} motorId={this.props.motorId}/>
+                            <DriverDetailsForm
+                                active={this.state.addDriverClicked}
+                                form={'driverAdd'}
+                                onSubmit={this.props.onSubmit}
+                                motorId={this.props.motorId}
+                            />
                         </Container>
                             <ButtonWrapper>
                                 <Circle onClick={this.handleAddDriverClick}>
@@ -77,7 +82,12 @@ class DriversPage extends React.Component<IDriversPage, {drivers: any, addDriver
                     </FormSection> :
                     <FormSection>
                         <Container>
-                            <DriverDetailsForm active={true} form={'driverAdd'} onSubmit={this.props.onSubmit} motorId={this.props.motorId}/>
+                            <DriverDetailsForm
+                                active={true}
+                                form={'driverAdd'}
+                                onSubmit={this.props.onSubmit}
+                                motorId={this.props.motorId}
+                            />
                         </Container>
                     </FormSection>
                 }
@@ -176,10 +186,7 @@ const FormSection = styled.div`
 
 const mapStateToProps = (state: IReduxState) => ({
     driversDataSource: getDriversDataSource(state),
+    drivers: getAvailableDrivers(state),
 });
 
-const mapDispatchToProps = (dispatch: any) => bindActionCreators({
-    changeSelectedDriver,
-}, dispatch);
-
-export default connect(mapStateToProps, mapDispatchToProps)(StyledDriversPage) as any;
+export default connect(mapStateToProps, null)(StyledDriversPage) as any;

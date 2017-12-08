@@ -35,6 +35,7 @@ interface IDriverDetailsForm {
     formValues: any;
     active: boolean;
     form: string;
+    initialValues: any;
 }
 
 const motoringOrganisations = mapObjectToDataSource(MotoringOrganisationTypes);
@@ -455,6 +456,7 @@ const initialValues = {
 const mapStateToProps = (state: IReduxState, props: IDriverDetailsForm) => ({
     isLoading: getIsLoading(state),
     formValues: getFormValues(props.form)(state),
+    initialValues: props.initialValues,
 });
 
 export default reduxForm({
