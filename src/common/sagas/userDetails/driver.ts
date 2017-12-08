@@ -1,5 +1,3 @@
-import {setSteps} from '../../../web/actions/page';
-
 const {cancel, fork, put, race, select, take, takeEvery} = require('redux-saga/effects');
 import {LOCATION_CHANGE, push} from 'react-router-redux';
 import {setIsLoading, storeDriverLocally} from '../../actions/userDetails';
@@ -24,6 +22,10 @@ const initialValues = {
     personal_injury: false,
     current_policy: true,
     conviction_code: null,
+    conviction: [{}],
+    incident: [{fault: false, personal_injury: false, current_policy: false}],
+    incidents_claims: false,
+    motoring_convictions: false,
 };
 
 function* watchSelectedDriverChange({driverId}: IAction) {
@@ -31,7 +33,7 @@ function* watchSelectedDriverChange({driverId}: IAction) {
     if (driver) {
         yield put(initialize(DRIVER_DETAILS_FORM, mapDriverToFormValues(driver, driverId)));
     } else {
-        yield put(initialize(DRIVER_DETAILS_FORM, initialValues));
+        yield put(initialize('driversAdd', initialValues));
     }
 }
 
@@ -47,7 +49,6 @@ function* driverWorker(policyId: string) {
 }
 
 export function* driverFlow(policyId: string) {
-    yield put(setSteps([]));
     const worker = yield fork(driverWorker, policyId);
     yield take(LOCATION_CHANGE);
     yield put(setIsLoading(false));

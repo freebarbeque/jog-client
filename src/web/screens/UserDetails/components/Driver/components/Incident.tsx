@@ -7,7 +7,6 @@ import {
     formSelectStyle,
     formSelectLabelStyle,
     formSelectIconStyle,
-    DRIVER_DETAILS_FORM,
     signStyle,
 } from 'src/common/constants/userDetails';
 import {mapObjectToDataSource} from 'src/common/utils/dataSources';
@@ -229,4 +228,4 @@ const Context = styled.div`
     flex-direction: column;
 `;
 
-export default reduxForm({form: DRIVER_DETAILS_FORM})(Incident);
+export default reduxForm()(Incident);

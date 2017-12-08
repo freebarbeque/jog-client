@@ -14,6 +14,8 @@ interface IDriversPage {
     className?: string;
     driversDataSource: IDataSource[];
     changeSelectedDriver: ActionCreator<Action>;
+    onSubmit: any;
+    motorId: number;
 }
 
 class DriversPage extends React.Component<IDriversPage, {drivers: any, addDriverClicked: boolean}> {
@@ -39,7 +41,7 @@ class DriversPage extends React.Component<IDriversPage, {drivers: any, addDriver
     };
 
     handleAddDriverClick = () => {
-        this.setState({addDriverClicked: !this.state.addDriverClicked})
+        this.setState({addDriverClicked: true})
     };
 
     render() {
@@ -58,13 +60,13 @@ class DriversPage extends React.Component<IDriversPage, {drivers: any, addDriver
                                         <Driver onClick={() => this.handleDriverClick(index)} value={driver.name}>
                                             {driver.name}
                                         </Driver>
-                                        <DriverDetailsForm active={this.state.drivers[index]}/>
+                                        <DriverDetailsForm active={this.state.drivers[index]} form={'driver' + index} onSubmit={this.props.onSubmit} motorId={this.props.motorId}/>
                                     </Drivers>
                                 ))}
                             </DriversContainer>
                         </Container>
                         <Container>
-                            <DriverDetailsForm active={this.state.addDriverClicked}/>
+                            <DriverDetailsForm active={this.state.addDriverClicked} form={'driverAdd'} onSubmit={this.props.onSubmit} motorId={this.props.motorId}/>
                         </Container>
                             <ButtonWrapper>
                                 <Circle onClick={this.handleAddDriverClick}>
@@ -73,7 +75,11 @@ class DriversPage extends React.Component<IDriversPage, {drivers: any, addDriver
                                 <Text>Add one more driver</Text>
                             </ButtonWrapper>
                     </FormSection> :
-                    <DriverDetailsForm/>
+                    <FormSection>
+                        <Container>
+                            <DriverDetailsForm active={true} form={'driverAdd'} onSubmit={this.props.onSubmit} motorId={this.props.motorId}/>
+                        </Container>
+                    </FormSection>
                 }
             </div>
         )

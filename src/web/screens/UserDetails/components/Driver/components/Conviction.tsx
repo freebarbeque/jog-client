@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import {BLUE} from 'src/common/constants/palette';
 import {reduxForm, Field} from 'redux-form';
 import {
-    DRIVER_DETAILS_FORM,
     signStyle,
 } from 'src/common/constants/userDetails';
 import DatePicker from 'src/web/components/PolicyDatePicker';
@@ -177,4 +176,4 @@ const Context = styled.div`
     flex-direction: column;
 `;
 
-export default reduxForm({form: DRIVER_DETAILS_FORM})(Conviction) as any;
+export default reduxForm()(Conviction) as any;

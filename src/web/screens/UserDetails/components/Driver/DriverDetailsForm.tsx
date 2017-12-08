@@ -25,7 +25,6 @@ import {
     formSelectStyle,
     formSelectLabelStyle,
     formSelectIconStyle,
-    DRIVER_DETAILS_FORM,
 } from 'src/common/constants/userDetails';
 
 interface IDriverDetailsForm {
@@ -35,6 +34,7 @@ interface IDriverDetailsForm {
     isLoading: boolean;
     formValues: any;
     active: boolean;
+    form: string;
 }
 
 const motoringOrganisations = mapObjectToDataSource(MotoringOrganisationTypes);
@@ -310,7 +310,7 @@ class DriverDetailsForm extends React.Component<IDriverDetailsForm, {}> {
                             ]}
                         />
                     </FieldContainer>
-                    <FieldArray name="conviction" component={Conviction} active={this.props.formValues && this.props.formValues.motoring_convictions}/>
+                    <FieldArray name="conviction" component={Conviction} active={this.props.formValues && this.props.formValues.motoring_convictions} form={this.props.form}/>
                     <FieldContainer>
                         <FieldTitle>
                             Have you had any motoring incidents/claims in the last 5 years?
@@ -324,7 +324,7 @@ class DriverDetailsForm extends React.Component<IDriverDetailsForm, {}> {
                             ]}
                         />
                     </FieldContainer>
-                    <FieldArray name="incident" component={Incident} active={this.props.formValues && this.props.formValues.incidents_claims}/>
+                    <FieldArray name="incident" component={Incident} active={this.props.formValues && this.props.formValues.incidents_claims} form={this.props.form}/>
                     <BottonWrapper>
                         <RoundedButton
                             label="Create Driver"
@@ -454,11 +454,10 @@ const initialValues = {
 
 const mapStateToProps = (state: IReduxState, props: IDriverDetailsForm) => ({
     isLoading: getIsLoading(state),
-    formValues: getFormValues(DRIVER_DETAILS_FORM)(state),
+    formValues: getFormValues(props.form)(state),
 });
 
 export default reduxForm({
-    form: DRIVER_DETAILS_FORM,
     initialValues,
     validate: validateForm,
 })(connect(mapStateToProps, null)(StyledDriverDetailsForm));
