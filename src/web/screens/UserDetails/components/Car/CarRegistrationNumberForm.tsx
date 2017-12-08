@@ -13,7 +13,7 @@ const validate = require('validate.js');
 interface ICardDetailsForm {
     className?: string;
     isLoading: boolean;
-    error: string;
+    error?: string;
     handleSubmit: any;
 }
 

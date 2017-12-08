@@ -8,24 +8,27 @@ import RoundedButton from 'src/web/components/RoundedButton';
 import {Action, ActionCreator, bindActionCreators} from 'redux';
 import FieldTitle from '../FieldTitle';
 import {reduxForm, Field, getFormValues} from 'redux-form';
+const validate = require('validate.js');
 import DatePicker from 'src/web/components/PolicyDatePicker';
 import StyledInput from '../StyledInput';
 import RadioButton from 'src/web/components/Forms/RadioButton/Buttons';
 import {formSelectIconStyle, formSelectLabelStyle, formSelectStyle, signStyle} from 'src/common/constants/userDetails';
 import {onlyNumber} from 'src/common/utils/form';
-import {cancelSubmitVehicle, submitVehicle} from 'src/common/actions/userDetails';
+import {cancelSubmitVehicle} from 'src/common/actions/userDetails';
 import {IVehicleDetailsFormValues, VehicleDriveHelmSide, VehicleAlarm, VehicleRegisteredKeeper, VehicleKeptAtNight} from '~/common/interfaces/vehicles';
 import FormSelect from '~/web/components/Forms/FormSelect';
 import {mapObjectToDataSource} from 'src/common/utils/dataSources';
+import {PINK} from '~/common/constants/palette';
 
 interface ICarDetailsProps {
     className: string;
     vehicleData: IVehicleDetailsFormValues|null;
     cancelSubmitVehicle: ActionCreator<Action>;
-    submitVehicle: ActionCreator<Action>;
     isLoading: boolean;
     initialValues: any;
     formValues: any;
+    error?: string;
+    handleSubmit: any;
 }
 
 const renderDatePicker = (props: any) => (
@@ -33,13 +36,14 @@ const renderDatePicker = (props: any) => (
         {...props}
         onChange={props.input.onChange}
         value={props.input.value}
+        error={props.meta.error}
+        touched={props.meta.touched}
     />
 );
 
 const CarDetailsForm = (props: ICarDetailsProps) => {
-    console.log(props.formValues)
     return (
-        <form className={props.className}>
+        <form className={props.className} onSubmit={props.handleSubmit}>
             <FieldsContainer>
                 <Container>
                     <FieldTitle>
@@ -254,6 +258,7 @@ const CarDetailsForm = (props: ICarDetailsProps) => {
                     style={formSelectStyle}
                 />
             </FieldContainer>
+            {props.error && <Error>{props.error}</Error>}
             <ButtonsContainer>
                 <RoundedButton
                     label="Back"
@@ -270,7 +275,7 @@ const CarDetailsForm = (props: ICarDetailsProps) => {
                     style={{
                         width: 200,
                     }}
-                    onClick={() => props.submitVehicle()}
+                    type="submit"
                 />
             </ButtonsContainer>
         </form>
@@ -309,9 +314,41 @@ const Container = styled.div`
   flex: 1;
 `;
 
+const Error = styled.div`
+  width: 100%;
+  text-align: right;
+  margin-top: -10px;
+  font-size: 12px;
+  line-height: 14px;
+  font-weight: 500;
+  color: ${PINK};
+`;
+
+const validationSchema = {
+    abi_code: {
+        presence: {
+            message: 'Please enter your ABI code',
+            allowEmpty: false,
+        },
+    },
+    date_of_manufacture: {
+        presence: {
+            message: `Please enter your car's date of manufacture`,
+            allowEmpty: false,
+        },
+    },
+};
+
+const validateForm = (values: any) => {
+    const errors = validate(values, validationSchema, {fullMessages: false});
+
+    return errors;
+};
+
 const form = reduxForm({
     form: 'carDetailsForm',
-})(CarDetailsForm);
+    validate: validateForm,
+})(styledForm(CarDetailsForm));
 
 const mapStateToProps = (state: IReduxState): Partial<ICarDetailsProps> => ({
     initialValues: getVehicleDataForm(state),
@@ -321,7 +358,6 @@ const mapStateToProps = (state: IReduxState): Partial<ICarDetailsProps> => ({
 
 const mapDispatchToProps = (dispatch: any): Partial<ICarDetailsProps> => bindActionCreators({
     cancelSubmitVehicle,
-    submitVehicle,
 }, dispatch);
 
-export default connect(mapStateToProps, mapDispatchToProps)(styledForm(form));
+export default connect(mapStateToProps, mapDispatchToProps)(form) as any;

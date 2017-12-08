@@ -7,11 +7,13 @@ import {connect} from 'react-redux';
 import {lookupRegistrationNumber} from 'src/common/actions/userDetails';
 import {injectSaga} from '~/common/utils/saga';
 import {vehicleStepsFlow} from '~/common/sagas/userDetails/vehicle';
+import {submitVehicle} from 'src/common/actions/userDetails';
 
 export interface ICarDetailsStepsProps {
     currentStep: number;
     motorId: number;
     lookupRegistrationNumber: ActionCreator<Action>;
+    submitVehicle: ActionCreator<Action>;
 }
 
 class CarDetailsSteps extends React.Component<ICarDetailsStepsProps, {}> {
@@ -20,17 +22,21 @@ class CarDetailsSteps extends React.Component<ICarDetailsStepsProps, {}> {
         injectSaga(vehicleStepsFlow, this.props.motorId);
     }
 
-    handleCarDetailsSubmit = (values: IVehicleDetails) => {
+    handleCarRegistrationNumberSubmit = (values: IVehicleDetails) => {
         this.props.lookupRegistrationNumber(values.vrm);
+    };
+
+    handleCarDetailsSubmit = () => {
+        this.props.submitVehicle();
     };
 
     render() {
         switch (this.props.currentStep) {
             case 1:
-                return <CarRegistrationNumberForm onSubmit={this.handleCarDetailsSubmit}/>;
+                return <CarRegistrationNumberForm onSubmit={this.handleCarRegistrationNumberSubmit}/>;
 
             case 2:
-                return <CarDetailsForm/>;
+                return <CarDetailsForm onSubmit={this.handleCarDetailsSubmit}/>;
 
             default:
                 return null;
@@ -40,6 +46,7 @@ class CarDetailsSteps extends React.Component<ICarDetailsStepsProps, {}> {
 
 const mapDispatchToProps = (dispatch: any): any => bindActionCreators({
     lookupRegistrationNumber,
+    submitVehicle,
 }, dispatch);
 
 export default connect(null, mapDispatchToProps)(CarDetailsSteps) as any;

@@ -52,15 +52,18 @@ function* vehicleDetailsFlow(policyId: string) {
             yield put(goToPrevStep());
             return;
         } else if (submit) {
-            // todo: integrate with the API
-            yield put(setIsLoading(true));
-            const state: IReduxState = yield select();
-            const formValues = getFormValues('carDetailsForm')(state);
-            console.log(formValues);
-            yield put(setVehicleData(formValues));
-            yield createVehicle(user.id, CREATE_VEHICLE, Object.assign({}, formValues, {registration: state.userDetails.registrationNumber}));
-            yield put(setIsLoading(false));
-            yield put(push(`/app/dashboard/motor/${policyId}/quote`))
+            try {
+                yield put(setIsLoading(true));
+                const state: IReduxState = yield select();
+                const formValues = getFormValues('carDetailsForm')(state);
+                yield put(setVehicleData(formValues));
+                yield createVehicle(user.id, CREATE_VEHICLE, Object.assign({}, formValues, {registration: state.userDetails.registrationNumber}));
+                yield put(setIsLoading(false));
+                yield put(push(`/app/dashboard/motor/${policyId}/quote`))
+            } catch (err) {
+                yield put(stopSubmit('carDetailsForm', {_error: err.message}));
+                yield put(setIsLoading(false));
+            }
         }
     }
 }
