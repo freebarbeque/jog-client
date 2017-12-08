@@ -16,14 +16,16 @@ import {isChangeStepAction} from '../../../web/utils/page';
 import {IReduxState} from '../../interfaces/store';
 import {getFormValues} from 'redux-form';
 import {getUser} from '../../selectors/auth';
+import {getRegistrationNumber} from '~/common/selectors/userDetils';
 
 function* registrationNumberFlow() {
     while (true) {
         const state: IReduxState = yield select();
+        const regNum = getRegistrationNumber(state);
         const {registrationNumber} = yield take(LOOKUP_REGISTRATION_NUMBER);
         yield put(setIsLoading(true));
         try {
-            if (state.userDetails.registrationNumber === null || state.userDetails.registrationNumber !== registrationNumber) {
+            if (regNum === null || regNum !== registrationNumber) {
                 const data = yield getVehicle(MOTOR_VEHICLE, {vrm: registrationNumber});
                 yield put(setVehicleData(data));
                 yield put(goToNextStep());

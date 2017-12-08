@@ -10,7 +10,7 @@ export function* getVehicle(type: string, vehicle: Partial<IVehicleDetails>) {
             break;
         }
         default: {
-            throw new Error('Unknown policy type');
+            throw new Error('Unknown vehicle type');
         }
     }
 

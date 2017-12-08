@@ -16,6 +16,7 @@ export const getAvailableVehicles = (state: IReduxState) => state.userDetails.av
 export const getSelectedVehicleId = (state: IReduxState, props: any) => state.userDetails.vehicles[props.motorId];
 export const getVehicleData = (state: IReduxState) => state.userDetails.vehicleData;
 export const getPostCodeFromState = (state: IReduxState) => state.userDetails.postCode;
+export const getRegistrationNumber = (state: IReduxState) => state.userDetails.registrationNumber;
 
 export const getVehicleDataForm = createSelector(
     getVehicleData,
