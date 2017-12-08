@@ -5,10 +5,10 @@ import {connect} from 'react-redux';
 import {IReduxState} from '~/common/interfaces/store';
 import {getDriversDataSource} from '~/common/selectors/userDetils';
 import {IDataSource} from '~/common/interfaces/dataSource';
-import {Add} from 'src/web/images';
+import {Add, DownArrow} from 'src/web/images';
 import DriverDetailsForm from './DriverDetailsForm';
 import {getAvailableDrivers} from '~/common/selectors/userDetils';
-import {mapDriverToFormValues1} from "~/common/utils/userDetails";
+import {mapDriverToFormValues1} from '~/common/utils/userDetails';
 
 interface IDriversPage {
     className?: string;
@@ -16,6 +16,7 @@ interface IDriversPage {
     onSubmit: any;
     motorId: number;
     drivers: any;
+    submitDriver: any;
 }
 
 class DriversPage extends React.Component<IDriversPage, {drivers: any, addDriverClicked: boolean}> {
@@ -36,7 +37,15 @@ class DriversPage extends React.Component<IDriversPage, {drivers: any, addDriver
     };
 
     handleAddDriverClick = () => {
-        this.setState({addDriverClicked: true})
+        this.setState({addDriverClicked: !this.state.addDriverClicked})
+    };
+
+    updateDriver = () => {
+        console.log('will bu update');
+    };
+
+    closeDriver = () => {
+        this.setState({addDriverClicked: false});
     };
 
     render() {
@@ -52,32 +61,42 @@ class DriversPage extends React.Component<IDriversPage, {drivers: any, addDriver
                                 {this.props.driversDataSource.map((driver, index) => (
                                     <Drivers key={index}>
                                         <Driver onClick={() => this.handleDriverClick(index)} value={driver.name}>
-                                            {driver.name}
+                                            <Name>{driver.name}</Name>
+                                            {this.state.drivers[index] ? <StyledDownArrow/> : <DownArrow/>}
                                         </Driver>
                                         <DriverDetailsForm
                                             active={this.state.drivers[index]}
                                             form={'driver' + index}
-                                            onSubmit={this.props.onSubmit}
                                             motorId={this.props.motorId}
                                             initialValues={this.props.drivers && mapDriverToFormValues1(this.props.drivers[index])}
+                                            buttonText={'Update Driver'}
+                                            handleSubmit={this.updateDriver}
                                         />
                                     </Drivers>
                                 ))}
                             </DriversContainer>
                         </Container>
-                        <Container>
+                        <ContainerBox>
                             <DriverDetailsForm
                                 active={this.state.addDriverClicked}
                                 form={'driverAdd'}
                                 onSubmit={this.props.onSubmit}
                                 motorId={this.props.motorId}
+                                buttonText={'Create Driver'}
+                                click={this.closeDriver}
                             />
-                        </Container>
+                        </ContainerBox>
                             <ButtonWrapper>
-                                <Circle onClick={this.handleAddDriverClick}>
-                                    <Add/>
-                                </Circle>
-                                <Text>Add one more driver</Text>
+                                <Button onClick={this.handleAddDriverClick}>
+                                    {this.state.addDriverClicked === false ?
+                                        <Wrapper>
+                                            <Circle>
+                                                <Add/>
+                                            </Circle>
+                                            <Text>Add one more driver</Text>
+                                        </Wrapper> : <Text>Hide new driver form</Text>
+                                    }
+                                </Button>
                             </ButtonWrapper>
                     </FormSection> :
                     <FormSection>
@@ -87,6 +106,7 @@ class DriversPage extends React.Component<IDriversPage, {drivers: any, addDriver
                                 form={'driverAdd'}
                                 onSubmit={this.props.onSubmit}
                                 motorId={this.props.motorId}
+                                buttonText={'Create Driver'}
                             />
                         </Container>
                     </FormSection>
@@ -96,15 +116,43 @@ class DriversPage extends React.Component<IDriversPage, {drivers: any, addDriver
     }
 }
 
+const Wrapper = styled.div`
+    display: flex;
+    align-items: center;
+`;
+const Name = styled.div`
+    display: flex;
+    align-self: stretch;
+    color: ${BLUE};
+    align-items: center;
+    justify-content: center;
+    flex: 0.98;
+`;
+
+const StyledDownArrow = styled(DownArrow)`
+    transform: rotate(180deg);
+    margin-top: 10px;
+`;
+
+const Button = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 15px;
+    border: 3px solid #50e3c2;
+    padding: 10px;
+    cursor: pointer;
+`;
+
 const Text = styled.div`
-    margin-left: 25px;
+    margin-left: 15px;
     color: #131733;
     font-size: 24px;
 `;
 
 const Circle = styled.div`
-  width: 60px;
-  height: 60px;
+  width: 45px;
+  height: 45px;
   background-color: #50e3c2;
   border-radius: 50%;
   display: flex;
@@ -174,6 +222,11 @@ const Container = styled.div`
   flex-direction: column;
   align-self: stretch;
   margin-bottom: 30px;
+`;
+const ContainerBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-self: stretch;
 `;
 
 const FormSection = styled.div`

@@ -36,6 +36,8 @@ interface IDriverDetailsForm {
     active: boolean;
     form: string;
     initialValues: any;
+    buttonText: string;
+    click: any;
 }
 
 const motoringOrganisations = mapObjectToDataSource(MotoringOrganisationTypes);
@@ -328,10 +330,11 @@ class DriverDetailsForm extends React.Component<IDriverDetailsForm, {}> {
                     <FieldArray name="incident" component={Incident} active={this.props.formValues && this.props.formValues.incidents_claims} form={this.props.form}/>
                     <BottonWrapper>
                         <RoundedButton
-                            label="Create Driver"
+                            label={this.props.buttonText}
                             style={ButtonStyles}
                             type="submit"
                             disabled={this.props.isLoading}
+                            onClick={this.props.click}
                         />
                     </BottonWrapper>
                 </FormSection>
