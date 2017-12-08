@@ -16,7 +16,7 @@ import {isChangeStepAction} from '../../../web/utils/page';
 import {IReduxState} from '../../interfaces/store';
 import {getFormValues} from 'redux-form';
 import {getUser} from '../../selectors/auth';
-import {getRegistrationNumber} from '~/common/selectors/userDetils';
+import {getRegistrationNumber} from '../../selectors/userDetils';
 
 function* registrationNumberFlow() {
     while (true) {
