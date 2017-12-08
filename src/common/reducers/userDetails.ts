@@ -4,9 +4,11 @@ import {
     SET_ADDRESS,
     SET_IS_LOADING,
     SUBMIT_ADDRESS,
-    STORE_DRIVER_LOCALLY, STORE_VEHICLE_LOCALLY,
+    STORE_DRIVER_LOCALLY,
+    STORE_VEHICLE_LOCALLY,
     LOOKUP_POSTCODE,
     DELETE_POSTCODE,
+    SET_ADDRESS_SUBMIT_ERROR,
 } from '../constants/userDetails';
 
 const defaultState = {
@@ -17,6 +19,7 @@ const defaultState = {
     availableDrivers: [],
     availableVehicles: [],
     postCode: null,
+    addressSubmitError: null,
 }
 
 export default function (state: IUserDetailsReduxState = defaultState, action: IAction) {
@@ -44,15 +47,10 @@ export default function (state: IUserDetailsReduxState = defaultState, action: I
                 ...state,
                 isLoading: action.isLoading,
             }
-
-        // todo: remove when integrated with the API
-        case SUBMIT_ADDRESS:
+        case SET_ADDRESS_SUBMIT_ERROR:
             return {
                 ...state,
-                address: {
-                    ...state.address,
-                    submitted: true,
-                }
+                addressSubmitError: action.addressSubmitError
             }
 
         // todo: remove when integrated with the API

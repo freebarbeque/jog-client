@@ -16,7 +16,7 @@ function* getDefaultHeaders() {
 }
 
 function* handleErrors(response: any, parseResponseBody: boolean = true) {
-    if (response.status === 200 || response.status === 201) {
+    if (response.status < 400) {
         if (parseResponseBody) {
             return yield response.json();
         } else {

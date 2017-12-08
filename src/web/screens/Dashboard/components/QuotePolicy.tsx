@@ -8,7 +8,7 @@ import {push} from 'react-router-redux';
 import {Action, ActionCreator, bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import {IReduxState} from '~/common/interfaces/store';
-import {getAddress, getSelectedDriverId, getSelectedVehicleId} from '~/common/selectors/userDetils';
+import {getAddress, getSelectedDriverId, getSelectedVehicleId, getUserAddress} from '~/common/selectors/userDetils';
 import {IAddress} from '~/common/interfaces/userDetails';
 
 interface IQuotePolicyProps {
@@ -56,7 +56,7 @@ const QuotePolicy: React.StatelessComponent<IQuotePolicyProps> = (props: IQuoteP
                     icon={<QuoteAddress/>}
                     title="Insurance address"
                     onClick={() => props.push(`/app/user/motor/${props.motorId}/address`)}
-                    completed={props.address && props.address.submitted}
+                    completed={props.address && props.address.postcode}
                 />
                 <QuoteField icon={<QuoteCalendar/>} withDatePicker title="Policy start date" motorId={props.motorId}/>
                 <RoundedButton
@@ -116,7 +116,7 @@ const QuoteContentContainer = styled.div`
 `;
 
 const mapStateToProps = (state: IReduxState, props: IQuotePolicyProps) => ({
-    address: getAddress(state),
+    address: getUserAddress(state),
     selectedDriverId: getSelectedDriverId(state, props),
     selectedVehicleId: getSelectedVehicleId(state, props),
 });

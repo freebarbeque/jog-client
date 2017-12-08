@@ -22,6 +22,7 @@ export const formSelectStyle = {
 };
 export const LOOKUP_POSTCODE = 'userDetails/LOOKUP_POSTCODE';
 export const SET_ADDRESS = 'userDetails/SET_ADDRESS';
+export const SET_ADDRESS_SUBMIT_ERROR = 'userDetails/SET_ADDRESS_SUBMIT_ERROR';
 export const SET_IS_LOADING = 'userDetails/SET_IS_LOADING';
 export const SUBMIT_ADDRESS = 'userDetails/SUBMIT_ADDRESS';
 export const CANCEL_SUBMIT_ADDRESS = 'userDetails/CANCEL_SUBMIT_ADDRESS';

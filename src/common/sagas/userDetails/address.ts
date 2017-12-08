@@ -1,13 +1,15 @@
 const {cancel, fork, put, race, select, take} = require('redux-saga/effects');
 import {getCurrentStep} from '../../../web/selectors/page';
 import {LOCATION_CHANGE, push} from 'react-router-redux';
-import {LOOKUP_POSTCODE, POSTCODE_FORM, SUBMIT_ADDRESS, CANCEL_SUBMIT_ADDRESS} from '../../constants/userDetails';
+import {LOOKUP_POSTCODE, POSTCODE_FORM, SUBMIT_ADDRESS, CANCEL_SUBMIT_ADDRESS, SET_ADDRESS_SUBMIT_ERROR} from '../../constants/userDetails';
 import {lookupPostCode} from '../../api/idealPostcodes';
 import {stopSubmit} from 'redux-form';
-import {deletePostCode, setAddress, setIsLoading} from '../../actions/userDetails';
+import {setAddress, setIsLoading, setAddressSubmitError, deletePostCode} from '../../actions/userDetails';
 import {clearStep, goToNextStep, goToPrevStep, setSteps} from '../../../web/actions/page';
 import {isChangeStepAction} from '../../../web/utils/page';
-import {delay} from 'redux-saga';
+import {createAddress} from '../../api/address';
+import {getUser} from '../../selectors/auth';
+import {getAddress, getPostCode, getAddressSubmitError} from '../../selectors/userDetils';
 
 function* postcodeFlow() {
     while (true) {
@@ -32,6 +34,8 @@ function* postcodeFlow() {
 }
 
 function* addressFlow(policyId: string) {
+    let user = yield select(getUser);
+
     while (true) {
         const {cancelSubmit, submit} = yield race({
             cancelSubmit: take(CANCEL_SUBMIT_ADDRESS),
@@ -42,10 +46,18 @@ function* addressFlow(policyId: string) {
             yield put(goToPrevStep());
             return;
         } else if (submit) {
-            // todo: integrate with the API
             yield put(setIsLoading(true));
-            yield delay(1000);
+            try {
+                const address = yield select(getAddress);
+                const postcode = yield select(getPostCode);
+                yield createAddress(user.id, postcode, address);
+            } catch (err) {
+                yield put(setAddressSubmitError(err.message));  
+                yield put(setIsLoading(false));
+                continue;
+            }
             yield put(setIsLoading(false));
+            yield put(setAddressSubmitError(null));       
             yield put(push(`/app/dashboard/motor/${policyId}/quote`))
         }
     }

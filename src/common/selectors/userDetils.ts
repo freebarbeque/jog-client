@@ -7,6 +7,7 @@ import {IMotorPolicy} from '../interfaces/policies';
 const moment = require('moment');
 
 export const getAddress = (state: IReduxState) => state.userDetails.address;
+export const getAddressSubmitError = (state: IReduxState) => state.userDetails.addressSubmitError;
 export const getIsLoading = (state: IReduxState) => state.userDetails.isLoading;
 export const getAvailableDrivers = (state: IReduxState) => state.userDetails.availableDrivers;
 export const getSelectedDriverId = (state: IReduxState, props: any) => state.userDetails.drivers[props.motorId];
@@ -21,6 +22,13 @@ export const getPostCode = createSelector(
     } : {},
 )
 
+export const getUserAddress = (state: IReduxState) => {
+    if (state.auth.user !== null) {
+        return state.auth.user.address;
+    } else {
+        return null; 
+    } 
+}
 export const getDriversDataSource = createSelector(
     getAvailableDrivers,
     (drivers: IStoredDriver[]) => drivers.map(d => ({

@@ -14,6 +14,7 @@ import {
     SUBMIT_VEHICLE,
     STORE_VEHICLE_LOCALLY,
     DELETE_POSTCODE,
+    SET_ADDRESS_SUBMIT_ERROR,
 } from '../constants/userDetails';
 
 export function lookupPostCode(postCode: string) {
@@ -40,6 +41,13 @@ export function submitAddress(address: IAddress) {
     return {
         type: SUBMIT_ADDRESS,
         address,
+    }
+}
+
+export function setAddressSubmitError(addressSubmitError: string|null) {
+    return {
+        type: SET_ADDRESS_SUBMIT_ERROR,
+        addressSubmitError
     }
 }
 

@@ -5,11 +5,13 @@ import PrepopulatedField from '../PrepopulatedField';
 import {connect} from 'react-redux';
 import {IReduxState} from '~/common/interfaces/store';
 import {IAddress} from '~/common/interfaces/userDetails';
-import {getAddress, getIsLoading} from '~/common/selectors/userDetils';
+import {getAddress, getIsLoading, getAddressSubmitError} from '~/common/selectors/userDetils';
 import styled from 'styled-components';
 import RoundedButton from 'src/web/components/RoundedButton';
 import {submitAddress, cancelSubmitAddress} from 'src/common/actions/userDetails';
 import {Action, ActionCreator, bindActionCreators} from 'redux';
+import ErrorText from '~/web/components/Forms/ErrorText'
+import { getFormError } from '~/common/selectors/form';
 
 interface IAddressProps {
     className: string;
@@ -17,6 +19,7 @@ interface IAddressProps {
     cancelSubmitAddress: ActionCreator<Action>;
     submitAddress: ActionCreator<Action>;
     isLoading: boolean;
+    addressSubmitError: string|null;
 }
 
 const ButtonsContainer = styled.div`
@@ -26,7 +29,7 @@ const ButtonsContainer = styled.div`
 
 const Address = (props: IAddressProps) => {
     const {
-        address,
+        address
     } = props;
 
     return (
@@ -37,6 +40,7 @@ const Address = (props: IAddressProps) => {
             <PrepopulatedField value={address && address.line_1}/>
             <FieldTitle>Line 2</FieldTitle>
             <PrepopulatedField value={address && address.line_2}/>
+            <ErrorText>{props.addressSubmitError}</ErrorText>
             <ButtonsContainer>
                 <RoundedButton
                     label="Back"
@@ -62,6 +66,7 @@ const Address = (props: IAddressProps) => {
 
 const mapStateToProps = (state: IReduxState): Partial<IAddressProps> => ({
     address: getAddress(state),
+    addressSubmitError: getAddressSubmitError(state),
     isLoading: getIsLoading(state),
 })
 

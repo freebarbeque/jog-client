@@ -7,6 +7,7 @@ import {setUser, setIsLoading, setSessionToken, setAuthError} from '../actions/a
 import {appAfterSignInFlow} from '../sagas/app';
 import {getUser} from '../selectors/auth';
 import {getQueryString} from '../selectors/request';
+import {get} from '../api/request';
 
 import {
     RESEND_EMAIL,
@@ -17,6 +18,11 @@ import {
     REQUEST_PASSWORD_CHANGE,
     PASSWORD_RESET_FORM, LOG_OUT, SIGNED_IN,
 } from '../constants/auth';
+
+export function* getUserWithAddress(userId: number | string) {
+    const {body} = yield get(`users/${userId}?includes=address`);
+    return body;
+}
 
 export function* emailVerifiedFlow() {
     const user = yield select(getUser);
@@ -43,8 +49,9 @@ function* signInFlow(creds: IUserCreds) {
 
     if (creds) {
         const {body, headers} = yield signIn(creds);
-        yield put(setUser(body.user));
         yield put(setSessionToken(headers.get('Authorization')));
+        const resp = yield getUserWithAddress(body.user.id); 
+        yield put(setUser(resp.user));
         yield appAfterSignInFlow();
         yield put(setIsLoading(false));
     } else {
