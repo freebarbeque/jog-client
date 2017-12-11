@@ -32,7 +32,7 @@ export function* createVehicle(userId: string | number, type: string, vehicle: P
             break;
         }
         default: {
-            throw new Error('Unknown policy type');
+            throw new Error('Unknown vehicle type');
         }
     }
 

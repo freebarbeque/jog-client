@@ -20,8 +20,7 @@ import {getRegistrationNumber} from '../../selectors/userDetils';
 
 function* registrationNumberFlow() {
     while (true) {
-        const state: IReduxState = yield select();
-        const regNum = getRegistrationNumber(state);
+        const regNum = select(getRegistrationNumber)
         const {registrationNumber} = yield take(LOOKUP_REGISTRATION_NUMBER);
         yield put(setIsLoading(true));
         try {
@@ -48,18 +47,17 @@ function* vehicleDetailsFlow(policyId: string) {
         const user = yield select(getUser);
 
         if (cancelSubmit) {
-            const state: IReduxState = yield select();
-            const formValues = getFormValues('carDetailsForm')(state);
+            const formValues = yield select(getFormValues('carDetailsForm'));
             yield put(setVehicleData(formValues));
             yield put(goToPrevStep());
             return;
         } else if (submit) {
             try {
                 yield put(setIsLoading(true));
-                const state: IReduxState = yield select();
-                const formValues = getFormValues('carDetailsForm')(state);
+                const formValues = yield select(getFormValues('carDetailsForm'));
+                const regNum = yield select(getRegistrationNumber);
                 yield put(setVehicleData(formValues));
-                yield createVehicle(user.id, CREATE_VEHICLE, Object.assign({}, formValues, {registration: state.userDetails.registrationNumber}));
+                yield createVehicle(user.id, CREATE_VEHICLE, Object.assign({}, formValues, {registration: regNum}));
                 yield put(setIsLoading(false));
                 yield put(push(`/app/dashboard/motor/${policyId}/quote`))
             } catch (err) {
