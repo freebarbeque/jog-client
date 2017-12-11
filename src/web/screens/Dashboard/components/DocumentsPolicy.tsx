@@ -160,8 +160,7 @@ class DocumentsPolicy extends React.Component<IDocumentPolicyProps, {}> {
 const StyledDocumentsPolicy = styled(DocumentsPolicy)`
   display: flex;
   flex: 1 0 auto;
-  align-self: stretch;
-  padding: 50px 43px 135px 43px;
+  padding: 50px 300px 135px 300px;
 `;
 
 const FilesContainer = styled.div`

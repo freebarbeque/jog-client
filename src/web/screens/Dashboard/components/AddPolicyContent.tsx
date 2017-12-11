@@ -37,6 +37,8 @@ const StyledAddPolicy = styled(AddPolicyContent)`
   flex-grow: 1;
   flex-shrink: 0;
   align-self: stretch;
+  width: 70%;
+  margin: 0 auto;
   padding: 56px 22px 146px 42px;
   flex-wrap: wrap;
   align-content: flex-start;

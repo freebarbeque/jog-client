@@ -13,6 +13,7 @@ import ErrorText from 'src/web/components/Forms/ErrorText';
 import {IReduxState} from '~/common/interfaces/store';
 import {getIsLoading, getPostCode} from '~/common/selectors/userDetils';
 import {connect} from 'react-redux';
+import styled from 'styled-components';
 
 interface IPostCodeFormProps {
     className: string;

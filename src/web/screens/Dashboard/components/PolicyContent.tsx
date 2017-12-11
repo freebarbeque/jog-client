@@ -27,6 +27,8 @@ const StyledPolicyContent = styled(PolicyContent)`
   align-self: stretch;
   align-content: flex-start;
   flex: 1;
+  width: 70%;
+  margin: 0 auto;
   padding: 56px 22px 146px 42px;
   & ${PolicyButton} {
     margin-right: 20px;

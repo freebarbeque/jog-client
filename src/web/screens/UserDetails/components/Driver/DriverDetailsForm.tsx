@@ -327,6 +327,8 @@ const StyledDriverDetailsForm = styled(DriverDetailsForm)`
   background-color: #FFF;
   padding: 40px 0 35px;
   box-shadow: 0 2px 4px rgba(51, 51, 51, 0.2);
+  width: 70%;
+  margin: 0px auto;
   
   & ${Divider} {
     margin-bottom: 30px;
