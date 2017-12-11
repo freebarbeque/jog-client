@@ -12,8 +12,6 @@ import {mapObjectToDataSource} from 'src/common/utils/dataSources';
 import {MotoringOrganisationTypes, MedicalConditionsTypes} from 'src/common/interfaces/drivers';
 import Divider from 'src/web/screens/Landing/components/Divider';
 import RoundedButton from 'src/web/components/RoundedButton';
-import {injectSaga} from '~/common/utils/saga';
-import {driverFlow} from '~/common/sagas/userDetails/driver';
 import {connect} from 'react-redux';
 import {IReduxState} from '~/common/interfaces/store';
 import {getIsLoading} from '~/common/selectors/userDetils';
@@ -37,10 +35,9 @@ interface IDriverDetailsForm {
     form: string;
     initialValues: any;
     buttonText: string;
-    click: any;
 }
 
-const motoringOrganisations = mapObjectToDataSource(MotoringOrganisationTypes);
+const monitoringOrganisations = mapObjectToDataSource(MotoringOrganisationTypes);
 const medicalConditions = mapObjectToDataSource(MedicalConditionsTypes);
 
 const ButtonStyles = {
@@ -64,10 +61,6 @@ const renderDatePicker = (props: any) => (
 );
 
 class DriverDetailsForm extends React.Component<IDriverDetailsForm, {}> {
-    componentWillMount() {
-        injectSaga(driverFlow, this.props.motorId);
-    }
-
     render() {
         return (
             <form className={this.props.className} onSubmit={this.props.handleSubmit}>
@@ -172,7 +165,7 @@ class DriverDetailsForm extends React.Component<IDriverDetailsForm, {}> {
                             For how many years have you held your licence?
                         </FieldTitle>
                         <Field
-                            name="license_years_held"
+                            name="licence_years_held"
                             component={StyledInput}
                             preCheck={onlyNumber}
                         />
@@ -182,7 +175,7 @@ class DriverDetailsForm extends React.Component<IDriverDetailsForm, {}> {
                             What kind of license do you hold?
                         </FieldTitle>
                         <Field
-                            name="license_state"
+                            name="licence_state"
                             component={RadioButton}
                             dataSource={[
                                 {id: 'full', name: 'Full'},
@@ -210,7 +203,7 @@ class DriverDetailsForm extends React.Component<IDriverDetailsForm, {}> {
                             What is your driving license number?
                         </FieldTitle>
                         <Field
-                            name="license_number"
+                            name="licence_number"
                             component={StyledInput}
                         />
                     </FieldContainer>
@@ -276,30 +269,30 @@ class DriverDetailsForm extends React.Component<IDriverDetailsForm, {}> {
                             Do you belong to a motoring organisation?
                         </FieldTitle>
                         <Field
-                            name="motoring_organisation"
+                            name="monitoring_organisation"
                             component={FormSelect}
-                            dataSource={motoringOrganisations}
-                            defaultText="Motoring organisations"
+                            dataSource={monitoringOrganisations}
+                            defaultText="Monitoring organisations"
                             maxHeight={300}
                             labelStyle={formSelectLabelStyle}
                             iconStyle={formSelectIconStyle}
                             style={formSelectStyle}
                         />
                     </FieldContainer>
-                    <FieldContainer>
-                        <FieldTitle>
-                            Do you have any medical conditions that could affect your driving?
-                        </FieldTitle>
-                        <Field
-                            name="medical_conditions"
-                            component={FormSelect}
-                            dataSource={medicalConditions}
-                            maxHeight={300}
-                            labelStyle={formSelectLabelStyle}
-                            iconStyle={formSelectIconStyle}
-                            style={formSelectStyle}
-                        />
-                    </FieldContainer>
+                    {/*<FieldContainer>*/}
+                        {/*<FieldTitle>*/}
+                            {/*Do you have any medical conditions that could affect your driving?*/}
+                        {/*</FieldTitle>*/}
+                        {/*<Field*/}
+                            {/*name="medical_conditions"*/}
+                            {/*component={FormSelect}*/}
+                            {/*dataSource={medicalConditions}*/}
+                            {/*maxHeight={300}*/}
+                            {/*labelStyle={formSelectLabelStyle}*/}
+                            {/*iconStyle={formSelectIconStyle}*/}
+                            {/*style={formSelectStyle}*/}
+                        {/*/>*/}
+                    {/*</FieldContainer>*/}
                     <FieldContainer>
                         <FieldTitle>
                             Do you have any motoring convictions?
@@ -334,7 +327,6 @@ class DriverDetailsForm extends React.Component<IDriverDetailsForm, {}> {
                             style={ButtonStyles}
                             type="submit"
                             disabled={this.props.isLoading}
-                            onClick={this.props.click}
                         />
                     </BottonWrapper>
                 </FormSection>
@@ -437,21 +429,15 @@ const validateForm = (values: any) => {
 };
 
 const initialValues = {
-    driver_selected: null,
     title: 'mr',
     gender: 'male',
     insurance_refused: false,
-    license_state: 'full',
+    licence_state: 'full',
     smoker: false,
     relationship_status: 'single',
     born_in_uk: true,
-    incident_code: null,
-    fault: false,
-    personal_injury: false,
-    current_policy: true,
-    conviction_code: null,
-    conviction: [{}],
-    incident: [{fault: false, personal_injury: false, current_policy: false}],
+    // conviction: [{}],
+    // incident: [{fault: false, personal_injury: false, current_policy: false}],
     incidents_claims: false,
     motoring_convictions: false,
 };

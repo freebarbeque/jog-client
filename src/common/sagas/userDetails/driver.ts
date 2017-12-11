@@ -1,22 +1,40 @@
-import {mapDriverDetailsFormValues} from "~/common/utils/userDetails";
-
 const {cancel, fork, put, race, select, take, takeEvery} = require('redux-saga/effects');
 import {LOCATION_CHANGE, push} from 'react-router-redux';
-import {setIsLoading, storeDriverLocally} from '../../actions/userDetails';
-import {delay} from 'redux-saga';
-import {SUBMIT_DRIVER} from '~/common/constants/userDetails';
+import {setIsLoading, setDriversList} from '../../actions/userDetails';
+import {createDriver, getDrivers} from '../../api/drivers';
+import {getUser} from '../../selectors/auth';
+import {CREATE_DRIVER, SUBMIT_DRIVER} from '../../constants/userDetails';
+import {getFormValues} from 'redux-form';
+import {stopSubmit} from 'redux-form';
 
-function* driverWorker(policyId: string) {
-    const {driver} = yield take(SUBMIT_DRIVER);
-    yield put(setIsLoading(true));
-    yield delay(1000);
-    yield put(storeDriverLocally(policyId, mapDriverDetailsFormValues(driver)));
-    yield put(push(`/app/user/motor/${policyId}/holder`));
-    yield put(setIsLoading(false));
+function* driverWorker() {
+    while (true) {
+        const {submit} = yield race({
+            submit: take(SUBMIT_DRIVER),
+        });
+        const user = yield select(getUser);
+
+        if (submit) {
+            yield put(setIsLoading(true));
+            try {
+                const values = yield select(getFormValues('driverAdd'));
+                yield createDriver(user.id, CREATE_DRIVER, values);
+                const {drivers} = yield getDrivers(user.id);
+                yield put(setDriversList(drivers));
+            } catch (err) {
+                yield put(stopSubmit('driverAdd', {_error: err.message}));
+                continue;
+            }
+            yield put(setIsLoading(false));
+        }
+    }
 }
 
-export function* driverFlow(policyId: string) {
-    const worker = yield fork(driverWorker, policyId);
+export function* driverFlow() {
+    const user = yield select(getUser);
+    const {drivers} = yield getDrivers(user.id);
+    yield put(setDriversList(drivers));
+    const worker = yield fork(driverWorker);
     yield take(LOCATION_CHANGE);
     yield put(setIsLoading(false));
     yield cancel(worker);

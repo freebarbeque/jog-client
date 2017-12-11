@@ -29,8 +29,9 @@ export const CANCEL_SUBMIT_ADDRESS = 'userDetails/CANCEL_SUBMIT_ADDRESS';
 export const DELETE_POSTCODE = 'userDetails/DELETE_POSTCODE';
 
 export const SUBMIT_DRIVER = 'userDetails/SUBMIT_DRIVER';
-export const STORE_DRIVER_LOCALLY = 'userDetails/STORE_DRIVER_LOCALLY'; // todo: remove when integrated with the API
 export const CHANGE_SELECTED_DRIVER = 'userDetails/CHANGE_SELECTED_DRIVER';
+export const CREATE_DRIVER = 'userDetails/CREATE_DRIVER';
+export const SET_DRIVER_LIST = 'userDetails/SET_DRIVER_LIST';
 
 export const LOOKUP_REGISTRATION_NUMBER = 'userDetails/LOOKUP_REGISTRATION_NUMBER';
 export const SUBMIT_VEHICLE = 'userDetails/SUBMIT_VEHICLE';

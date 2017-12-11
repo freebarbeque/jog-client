@@ -1,5 +1,5 @@
 import {IAddress} from '../interfaces/userDetails';
-import {IDriverDetailsFormValues, IStoredDriver} from '../interfaces/drivers';
+import {IDriverDetailsFormValues} from '../interfaces/drivers';
 import {IVehicle} from '../interfaces/vehicles';
 
 import {
@@ -9,7 +9,6 @@ import {
     CANCEL_SUBMIT_ADDRESS,
     SET_IS_LOADING,
     SUBMIT_DRIVER,
-    STORE_DRIVER_LOCALLY,
     CHANGE_SELECTED_DRIVER,
     SUBMIT_VEHICLE,
     STORE_VEHICLE_LOCALLY,
@@ -20,6 +19,7 @@ import {
     DELETE_POSTCODE,
     DELETE_VEHICLE_DATA,
     SET_ADDRESS_SUBMIT_ERROR,
+    SET_DRIVER_LIST,
 } from '../constants/userDetails';
 
 export function lookupPostCode(postCode: string) {
@@ -108,14 +108,6 @@ export function submitDriver(driver: IDriverDetailsFormValues) {
     }
 }
 
-export function storeDriverLocally(policyId: string, driver: IStoredDriver) {
-    return {
-        type: STORE_DRIVER_LOCALLY,
-        policyId,
-        driver,
-    }
-}
-
 export function changeSelectedDriver(driverId: string) {
     return {
         type: CHANGE_SELECTED_DRIVER,
@@ -135,5 +127,12 @@ export function storeVehicleLocally(policyId: string, vehicle: IVehicle) {
         type: STORE_VEHICLE_LOCALLY,
         policyId,
         vehicle,
+    }
+}
+
+export function setDriversList(drivers: any) {
+    return {
+        type: SET_DRIVER_LIST,
+        drivers,
     }
 }

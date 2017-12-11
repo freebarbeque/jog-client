@@ -500,28 +500,23 @@ export interface IDriver {
     gender: Gender;
     date_of_birth: string|Date;
     insurance_refused?: boolean;
-    license_year_held?: number;
-    license_type?: LicenseType;
-    license_number?: number;
+    licence_years_held?: number|null;
+    licence_state?: LicenseType;
+    licence_number?: number;
     no_claims_discount?: number;
     relationship_status?: RelationshipStatus;
     born_in_uk?: boolean;
     uk_resident_since?: string|Date;
     industry?: string;
-    motoring_organisation?: MotoringOrganisation;
+    monitoring_organisation?: MotoringOrganisation;
     smoker?: boolean;
     tests_taken?: number | null;
     vocation?: string;
+    incidents_claims?: boolean;
+    motoring_convictions?: boolean;
 }
 
 export interface IDriverDetailsFormValues extends IDriver {
-    driver_selected: number|string;
-    incident_date: string;
-    conviction_date: string;
-}
-
-// todo: remove when integrated with the API
-export interface IStoredDriver extends IDriver {
-    incident_date: string|Date;
-    conviction_date: string|Date;
+    motoring_incidents_attributes?: Array<any>,
+    motoring_convictions_attributes?: Array<any>;
 }

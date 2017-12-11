@@ -4,8 +4,8 @@ import {
     SET_ADDRESS,
     SET_IS_LOADING,
     SUBMIT_ADDRESS,
-    STORE_DRIVER_LOCALLY,
     STORE_VEHICLE_LOCALLY,
+    SET_DRIVER_LIST,
     SET_VEHICLE_DATA,
     LOOKUP_REGISTRATION_NUMBER,
     DELETE_REGISTRATION_NUMBER,
@@ -20,12 +20,12 @@ const defaultState = {
     drivers: {},
     address: null,
     isLoading: false,
-    availableDrivers: [],
     availableVehicles: [],
     vehicleData: null,
     registrationNumber: null,
     postCode: null,
     addressSubmitError: null,
+    driversList: null,
 }
 
 export default function (state: IUserDetailsReduxState = defaultState, action: IAction) {
@@ -84,17 +84,6 @@ export default function (state: IUserDetailsReduxState = defaultState, action: I
             }
 
         // todo: remove when integrated with the API
-        case STORE_DRIVER_LOCALLY:
-            return {
-                ...state,
-                drivers: {
-                    ...state.drivers,
-                    [action.policyId]: action.driver.id,
-                },
-                availableDrivers: state.availableDrivers.find(d => d.id === action.driver.id) ? state.availableDrivers : state.availableDrivers.concat(action.driver)
-            }
-
-        // todo: remove when integrated with the API
         case STORE_VEHICLE_LOCALLY:
             return {
                 ...state,
@@ -102,6 +91,12 @@ export default function (state: IUserDetailsReduxState = defaultState, action: I
                     [action.policyId]: action.vehicle.id,
                 },
                 availableVehicles: state.availableVehicles.find(d => d.id === action.vehicle.id) ? state.availableVehicles : state.availableVehicles.concat(action.vehicle)
+            }
+
+        case SET_DRIVER_LIST:
+            return {
+                ...state,
+                driversList: action.drivers,
             }
 
         default:

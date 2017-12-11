@@ -1,4 +1,4 @@
-import {IDriverDetailsFormValues, IStoredDriver} from '../interfaces/drivers';
+import {IDriverDetailsFormValues} from '../interfaces/drivers';
 import {IVehicle, IVehicleDetailsFormValues} from '../interfaces/vehicles';
 const moment = require('moment');
 const uuidv1 = require('uuid/v1');
@@ -11,41 +11,15 @@ export function isPostCode (postCode: string) {
         ) ? null : 'Please enter a valid post code';
 }
 
-export function mapDriverDetailsFormValues(values: IDriverDetailsFormValues) {
-    const {
-        driver_selected,
-        ...driverValues,
-    } = values;
-
-    driverValues.id = values.driver_selected || uuidv1(); // todo: remove when integrated with the API
-
-    return driverValues;
-}
-
-export function mapDriverToFormValues(driver: IDriverDetailsFormValues, driverId: string) {
-    const {
-        id,
-        ...values,
-    } = driver;
-
-    values.date_of_birth = moment(driver.date_of_birth);
-    values.uk_resident_since = moment(driver.uk_resident_since);
-    values.incident_date = moment(driver.incident_date);
-    values.conviction_date = moment(driver.incident_date);
-    values.driver_selected = driverId;
-
-    return values;
-}
-
-export function mapDriverToFormValues1(driver: IDriverDetailsFormValues) {
+export function mapDriverToFormValues(driver: IDriverDetailsFormValues) {
     const {
         ...values,
     } = driver;
 
     values.date_of_birth = moment(driver.date_of_birth);
-    values.uk_resident_since = moment(driver.uk_resident_since);
-    values.incident_date = moment(driver.incident_date);
-    values.conviction_date = moment(driver.incident_date);
+    values.uk_resident_since = driver.uk_resident_since ? moment(driver.uk_resident_since) : null;
+    values.incidents_claims = !!driver.motoring_incidents_attributes;
+    values.motoring_convictions = !!driver.motoring_convictions_attributes;
 
     return values;
 }
