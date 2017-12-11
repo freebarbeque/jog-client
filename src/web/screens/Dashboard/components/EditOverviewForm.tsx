@@ -68,7 +68,6 @@ const EditOverviewForm: React.StatelessComponent<IEditOverviewFormProps> = (prop
             labelStyle={{height: 40, lineHeight: 40, paddingRight: 40}}
             iconStyle={{width: 40, height: 40, padding: 8}}
             style={{height: 40}}
-            autoWidth
           />
           <Field
             name="month"
@@ -79,7 +78,6 @@ const EditOverviewForm: React.StatelessComponent<IEditOverviewFormProps> = (prop
             labelStyle={{height: 40, lineHeight: 40, paddingRight: 40}}
             iconStyle={{width: 40, height: 40, padding: 8}}
             style={{height: 40}}
-            autoWidth
           />
           <Field
             name="year"
@@ -90,7 +88,6 @@ const EditOverviewForm: React.StatelessComponent<IEditOverviewFormProps> = (prop
             labelStyle={{height: 40, lineHeight: 40, paddingRight: 40}}
             iconStyle={{width: 40, height: 40, padding: 8}}
             style={{height: 40}}
-            autoWidth
           />
         </FieldContainer>
       </FieldWrapper>
@@ -108,7 +105,6 @@ const EditOverviewForm: React.StatelessComponent<IEditOverviewFormProps> = (prop
             labelStyle={{height: 40, lineHeight: 40, paddingRight: 40}}
             iconStyle={{width: 40, height: 40, padding: 8}}
             style={{height: 40}}
-            autoWidth
           />
           <Field
             name="vehicle_model"
@@ -119,7 +115,6 @@ const EditOverviewForm: React.StatelessComponent<IEditOverviewFormProps> = (prop
             labelStyle={{height: 40, lineHeight: 40, paddingRight: 40}}
             iconStyle={{width: 40, height: 40, padding: 8}}
             style={{height: 40}}
-            autoWidth
           />
         </FieldContainer>
       </FieldWrapper>
@@ -148,7 +143,6 @@ const EditOverviewForm: React.StatelessComponent<IEditOverviewFormProps> = (prop
           labelStyle={{height: 40, lineHeight: 40, paddingRight: 40}}
           iconStyle={{width: 40, height: 40, padding: 8}}
           style={{height: 40}}
-          autoWidth
         />
       </FieldWrapper>
       <FieldWrapper>
