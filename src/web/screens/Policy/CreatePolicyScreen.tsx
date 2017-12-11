@@ -18,6 +18,7 @@ interface ICreatePolicyScreenProps {
     className: string;
     createPolicy: ActionCreator<Action>;
     match: any;
+    history?: any;
 }
 
 const Content = styled.div`
@@ -46,7 +47,7 @@ class CreatePolicyScreen extends React.Component<ICreatePolicyScreenProps, {}> {
         return (
             <div className={this.props.className}>
                 <Header/>
-                <Description/>
+                <Description onBackArrowClick={() => this.props.history.push(`/app/dashboard/motor/add`)}/>
                 <Content>
                     <Route
                         exact
