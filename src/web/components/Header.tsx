@@ -39,7 +39,6 @@ const Header = (props: IHeaderProps) => (
         <Link to="/"><Logo /></Link>
         <LinksContainer>
             <Link to="/">Policies</Link>
-            <Link to="/">Markets</Link>
             <Link to="/">Settings</Link>
             {props.user
                 ? <A onClick={() => props.logOut()}>Logout</A>
