@@ -23,6 +23,14 @@ class DriversPage extends React.Component<IDriversPage, {drivers: any, addDriver
         injectSaga(driverFlow, this.props.motorId);
     }
 
+    componentWillReceiveProps(nextProps: any) {
+        if (this.props.drivers !== nextProps.drivers) {
+            this.setState({addDriverClicked: false, drivers: nextProps.drivers.map(() => {
+                return false;
+            })})
+        }
+    }
+
     constructor(props: IDriversPage) {
         super();
         this.state = {drivers: props.drivers.map(() => {
