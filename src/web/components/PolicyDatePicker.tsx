@@ -54,8 +54,8 @@ const PolicyDatePicker: React.StatelessComponent<IPolicyDatePickerProps> = (prop
 
 const StyledPolicyDatePicker = styled(PolicyDatePicker)`
   display: flex;
-  z-index: 99999999999;
   width: 300px;
+  
   & > div {
     display: flex;
     flex: 1 0;
@@ -63,11 +63,16 @@ const StyledPolicyDatePicker = styled(PolicyDatePicker)`
     & > .react-datepicker-wrapper {
       display: flex;
       flex: 1 0;
+      z-index: 99;
       
       & > .react-datepicker__input-container {
         display: flex;
         flex: 1 0;
       }
+    }
+
+    & .react-datepicker-popper {
+      z-index: 100;
     }
     
     & .react-datepicker-popper[data-placement^="bottom"] {
@@ -76,7 +81,7 @@ const StyledPolicyDatePicker = styled(PolicyDatePicker)`
          top: 1px;
       }
     }
-    
+        
     & .react-datepicker {
      font-family: "Work-Sans", sans-serif;
      display: flex;

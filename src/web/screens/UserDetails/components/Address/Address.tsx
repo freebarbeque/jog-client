@@ -75,4 +75,4 @@ const mapDispatchToProps = (dispatch: any): Partial<IAddressProps> => bindAction
     submitAddress,
 }, dispatch);
 
-export default connect(mapStateToProps, mapDispatchToProps)(styledForm(Address)); //styledForm(Address));
+export default connect(mapStateToProps, mapDispatchToProps)(styledForm(Address));

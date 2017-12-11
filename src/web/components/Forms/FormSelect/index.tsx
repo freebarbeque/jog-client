@@ -73,7 +73,7 @@ class FormSelect extends React.Component<ISelectProps, {}> {
         return (
             <Wrapper>
                 <Container error={error} touched={touched}>
-                    <DropDownMenu
+                    <DropDownMenu   
                         value={input.value ? [input.value] : 'default'}
                         onChange={this.handleChange}
                         multiple
