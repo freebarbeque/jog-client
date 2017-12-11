@@ -35,7 +35,8 @@ interface IHeaderProps {
 
 const Header = (props: IHeaderProps) => (
     <div className={props.className}>
-        <Logo />
+        
+        <Link to="/"><Logo /></Link>
         <LinksContainer>
             <Link to="/">Policies</Link>
             <Link to="/">Markets</Link>
