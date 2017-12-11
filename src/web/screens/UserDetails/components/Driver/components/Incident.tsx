@@ -141,7 +141,7 @@ const renderIncident = ({fields}) => (
                     />
                 </FieldContainer>
                 <RoundedButton
-                    label="Remove incident"
+                    label="Remove Incident"
                     style={ButtonStyles}
                     onClick={() => fields.remove(index)}
                 />

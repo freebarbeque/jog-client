@@ -89,7 +89,7 @@ const renderConviction = ({fields}) => (
                     />
                 </FieldContainer>
                 <RoundedButton
-                    label="Remove conviction"
+                    label="Remove Conviction"
                     style={ButtonStyles}
                     onClick={() => fields.remove(index)}
                 />
