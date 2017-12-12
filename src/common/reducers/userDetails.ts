@@ -6,6 +6,7 @@ import {
     SUBMIT_ADDRESS,
     STORE_VEHICLE_LOCALLY,
     SET_DRIVER_LIST,
+    REMOVE_DRIVER_LIST,
     SET_VEHICLE_DATA,
     LOOKUP_REGISTRATION_NUMBER,
     DELETE_REGISTRATION_NUMBER,
@@ -97,6 +98,12 @@ export default function (state: IUserDetailsReduxState = defaultState, action: I
             return {
                 ...state,
                 driversList: action.drivers,
+            }
+
+        case REMOVE_DRIVER_LIST:
+            return {
+                ...state,
+                driversList: null,
             }
 
         default:

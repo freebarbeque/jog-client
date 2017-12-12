@@ -20,6 +20,7 @@ import {
     DELETE_VEHICLE_DATA,
     SET_ADDRESS_SUBMIT_ERROR,
     SET_DRIVER_LIST,
+    REMOVE_DRIVER_LIST,
 } from '../constants/userDetails';
 
 export function lookupPostCode(postCode: string) {
@@ -134,5 +135,11 @@ export function setDriversList(drivers: any) {
     return {
         type: SET_DRIVER_LIST,
         drivers,
+    }
+}
+
+export function removeDriverList() {
+    return {
+        type: REMOVE_DRIVER_LIST,
     }
 }

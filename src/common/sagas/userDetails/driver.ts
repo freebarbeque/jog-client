@@ -1,6 +1,6 @@
 const {cancel, fork, put, race, select, take, takeEvery} = require('redux-saga/effects');
 import {LOCATION_CHANGE, push} from 'react-router-redux';
-import {setIsLoading, setDriversList} from '../../actions/userDetails';
+import {setIsLoading, setDriversList, removeDriverList} from '../../actions/userDetails';
 import {createDriver, getDrivers} from '../../api/drivers';
 import {getUser} from '../../selectors/auth';
 import {CREATE_DRIVER, SUBMIT_DRIVER} from '../../constants/userDetails';
@@ -18,11 +18,7 @@ function* driverWorker() {
             yield put(setIsLoading(true));
             try {
                 const values = yield select(getFormValues('driverAdd'));
-                yield createDriver(user.id, CREATE_DRIVER, Object.assign(
-                    {},
-                    values,
-                    {motoring_incidents_attributes: values.incident, motoring_convictions_attributes: values.conviction}
-                ));
+                yield createDriver(user.id, CREATE_DRIVER, values);
                 const {drivers} = yield getDrivers(user.id);
                 yield put(setDriversList(drivers));
                 yield put(reset('driverAdd'));
@@ -38,9 +34,12 @@ function* driverWorker() {
 export function* driverFlow() {
     const user = yield select(getUser);
     const {drivers} = yield getDrivers(user.id);
-    yield put(setDriversList(drivers));
+    if (drivers) {
+        yield put(setDriversList(drivers));
+    }
     const worker = yield fork(driverWorker);
     yield take(LOCATION_CHANGE);
     yield put(setIsLoading(false));
+    yield put(removeDriverList());
     yield cancel(worker);
 }

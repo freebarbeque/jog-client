@@ -59,16 +59,16 @@ const Conviction = ({fields, active}) => (
                     />
                 </FieldContainer>
                 {/*// remove after fix back*/}
-                {/*<FieldContainer>*/}
-                    {/*<FieldTitle>*/}
-                        {/*Code*/}
-                    {/*</FieldTitle>*/}
-                    {/*<Field*/}
-                        {/*name={`${conviction}.code`}*/}
-                        {/*component={StyledInput}*/}
-                        {/*preCheck={onlyNumber}*/}
-                    {/*/>*/}
-                {/*</FieldContainer>*/}
+                <FieldContainer>
+                    <FieldTitle>
+                        Code
+                    </FieldTitle>
+                    <Field
+                        name={`${conviction}.code`}
+                        component={StyledInput}
+                        preCheck={onlyNumber}
+                    />
+                </FieldContainer>
                 <FieldContainer>
                     <FieldTitle>
                         When were you convicted?

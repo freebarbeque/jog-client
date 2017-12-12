@@ -57,7 +57,7 @@ class DriversPage extends React.Component<IDriversPage, {drivers: any, addDriver
     render() {
         return (
             <div className={this.props.className}>
-                {this.props.drivers.length > 0 ?
+                {this.props.drivers && this.props.drivers.length > 0 ?
                     <FormSection>
                         <Container>
                             <Title>
