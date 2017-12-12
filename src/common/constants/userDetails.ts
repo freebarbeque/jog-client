@@ -33,6 +33,7 @@ export const CHANGE_SELECTED_DRIVER = 'userDetails/CHANGE_SELECTED_DRIVER';
 export const CREATE_DRIVER = 'userDetails/CREATE_DRIVER';
 export const SET_DRIVER_LIST = 'userDetails/SET_DRIVER_LIST';
 export const REMOVE_DRIVER_LIST = 'userDetails/REMOVE_DRIVER_LIST';
+export const UPDATE_DRIVER = 'userDetails/UPDATE_DRIVER';
 
 export const LOOKUP_REGISTRATION_NUMBER = 'userDetails/LOOKUP_REGISTRATION_NUMBER';
 export const SUBMIT_VEHICLE = 'userDetails/SUBMIT_VEHICLE';

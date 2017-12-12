@@ -9,7 +9,9 @@ import {driverFlow} from '~/common/sagas/userDetails/driver';
 import {IReduxState} from '~/common/interfaces/store';
 import {mapDriverToFormValues} from '~/common/utils/userDetails';
 import * as spinners from 'react-spinners';
-import {getDriversList, getIsLoading} from "~/common/selectors/userDetils";
+import {getDriversList, getIsLoading} from '~/common/selectors/userDetils';
+import {bindActionCreators} from 'redux';
+import {updateDriver} from '~/common/actions/userDetails';
 
 const {ScaleLoader}: { ScaleLoader: any } = spinners;
 
@@ -20,6 +22,7 @@ interface IDriversPage {
     submitDriver: any;
     drivers: any;
     isLoading: boolean;
+    updateDriver: any;
 }
 
 interface IDriversPageState {
@@ -60,8 +63,9 @@ class DriversPage extends React.Component<IDriversPage, IDriversPageState> {
         this.setState({addDriverClicked: !this.state.addDriverClicked})
     };
 
-    updateDriver = () => {
-        console.log('will bu update');
+    updateDriver = (event, index) => {
+        event.preventDefault();
+        this.props.updateDriver(index);
     };
 
     renderDrivers = () => (
@@ -85,7 +89,7 @@ class DriversPage extends React.Component<IDriversPage, IDriversPageState> {
                                         motorId={this.props.motorId}
                                         initialValues={this.props.drivers && mapDriverToFormValues(this.props.drivers[index])}
                                         buttonText={'Update Driver'}
-                                        handleSubmit={this.updateDriver}
+                                        handleSubmit={(event) => this.updateDriver(event, index)}
                                     />
                                 </Drivers>
                             ))}
@@ -275,4 +279,8 @@ const mapStateToProps = (state: IReduxState) => ({
     isLoading: getIsLoading(state),
 });
 
-export default connect(mapStateToProps, null)(StyledDriversPage) as any;
+const mapDispatchToProps = (dispatch: any) => bindActionCreators({
+    updateDriver,
+}, dispatch);
+
+export default connect(mapStateToProps, mapDispatchToProps)(StyledDriversPage) as any;

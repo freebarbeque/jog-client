@@ -21,6 +21,7 @@ import {
     SET_ADDRESS_SUBMIT_ERROR,
     SET_DRIVER_LIST,
     REMOVE_DRIVER_LIST,
+    UPDATE_DRIVER,
 } from '../constants/userDetails';
 
 export function lookupPostCode(postCode: string) {
@@ -141,5 +142,12 @@ export function setDriversList(drivers: any) {
 export function removeDriverList() {
     return {
         type: REMOVE_DRIVER_LIST,
+    }
+}
+
+export function updateDriver(index: string | number) {
+    return {
+        type: UPDATE_DRIVER,
+        index
     }
 }
