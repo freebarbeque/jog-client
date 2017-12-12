@@ -13,6 +13,8 @@ interface IPolicyDatePickerProps {
   placeholder: string;
   error?: string[] | undefined;
   touched?: boolean;
+  maxDate?: any;
+  minDate?: any;
 }
 
 interface IDateButton {
@@ -47,6 +49,9 @@ const PolicyDatePicker: React.StatelessComponent<IPolicyDatePickerProps> = (prop
       fixedHeight
       showYearDropdown
       showMonthDropdown
+      yearDropdownItemNumber={15}
+      maxDate={props.maxDate}
+      minDate={props.minDate}
       dropdownMode="select"
     />
   </div>
@@ -83,14 +88,13 @@ const StyledPolicyDatePicker = styled(PolicyDatePicker)`
     }
         
     & .react-datepicker {
-     font-family: "Work-Sans", sans-serif;
      display: flex;
      flex-direction: column;
      width: 300px;
      border: 1px solid ${DATEPICKER_BORDER};
      
      & .react-datepicker__triangle::before {
-       border-top-color: ${DATEPICKER_BORDER};
+       border-top-color: #50E3C2;
      }
      
      &__day {
@@ -98,8 +102,9 @@ const StyledPolicyDatePicker = styled(PolicyDatePicker)`
         width: 2.2rem;
         line-height: 2rem;
         font-size: 0.9375rem;
+        font-family: "Work-Sans", sans-serif !important;
         &--selected {
-          background-color: ${PINK} !important;
+          background-color: #50E3C2 !important;
           color: #FFF;
         }
         
@@ -108,7 +113,7 @@ const StyledPolicyDatePicker = styled(PolicyDatePicker)`
         }
         
         &--today {
-          background-color: ${FOOTER_BACKGROUND_COLOR};
+          background-color: #D8DDE6;
           color: #FFF;
           border-radius: 0.3rem;
         }
@@ -128,7 +133,7 @@ const StyledPolicyDatePicker = styled(PolicyDatePicker)`
     }
     
     & .react-datepicker__header {
-      background-color: ${BLUE};
+      background-color: #50E3C2; 
       border-bottom: 1px solid ${DATEPICKER_BORDER};
       & .react-datepicker__current-month {
         color: #FFF;

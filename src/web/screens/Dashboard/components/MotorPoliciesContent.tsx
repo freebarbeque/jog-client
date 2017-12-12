@@ -56,11 +56,10 @@ const StyledMotorPoliciesContent = styled(MotorPoliciesContent)`
   display: flex;
   flex-grow: 1;
   flex-shrink: 0;
-  align-self: stretch;
+  align-self: center;
   padding: 56px 22px 146px 42px;
   flex-wrap: wrap;
   width: 70%;
-  margin: 0 auto;
   align-content: flex-start;
   & ${PolicyButtonWithDescription} {
     margin-right: 20px;

@@ -105,7 +105,7 @@ const Content = styled.div`
     align-self: stretch;
     background-color: ${CREAM};
     align-items: center;
-    padding: 35px 150px 25px;
+    padding: 80px 40px;
 `;
 
 const mapStateToProps = (state: IWebReduxState) => ({

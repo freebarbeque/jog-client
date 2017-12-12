@@ -1,9 +1,7 @@
 import * as React from 'react';
 import styled from 'styled-components';
 import {BLUE, PINK, WHITE} from 'src/common/constants/palette';
-import {LeftArrow} from 'src/web/images';
 import ArrowButton from 'src/web/components/ArrowButton';
-import {Action,ActionCreator} from 'redux';
 
 const TextContainer = styled.div`
   display: flex;
@@ -47,15 +45,6 @@ const PlusButton = styled.div`
     }
 `;
 
-// const ArrowButton = styled.div`
-//     width: 11px;
-//     height: 16px;
-    
-//     &:hover {
-//         cursor: pointer;
-//     }
-// `
-
 interface IDescriptionProps {
     button?: React.ReactElement<any>;
     className?: string;
@@ -64,13 +53,7 @@ interface IDescriptionProps {
 
 const Description = (props: IDescriptionProps) => (
     <div className={props.className}>
-        <ArrowButton 
-            onClick={props.onBackArrowClick}
-            position="left"
-            width={11}
-            height={16}>
-            {/* <LeftArrow/> */}
-        </ArrowButton>
+        <ArrowButton onClick={props.onBackArrowClick} position="left" width={11} height={16}/>
         <ButtonContainer>
             <PlusButton>
                 +
