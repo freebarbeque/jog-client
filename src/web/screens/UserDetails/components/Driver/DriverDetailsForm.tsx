@@ -38,7 +38,6 @@ interface IDriverDetailsForm {
 }
 
 const monitoringOrganisations = mapObjectToDataSource(MotoringOrganisationTypes);
-const medicalConditions = mapObjectToDataSource(MedicalConditionsTypes);
 
 const ButtonStyles = {
     width: '250px',
@@ -279,20 +278,6 @@ class DriverDetailsForm extends React.Component<IDriverDetailsForm, {}> {
                             style={formSelectStyle}
                         />
                     </FieldContainer>
-                    {/*<FieldContainer>*/}
-                        {/*<FieldTitle>*/}
-                            {/*Do you have any medical conditions that could affect your driving?*/}
-                        {/*</FieldTitle>*/}
-                        {/*<Field*/}
-                            {/*name="medical_conditions"*/}
-                            {/*component={FormSelect}*/}
-                            {/*dataSource={medicalConditions}*/}
-                            {/*maxHeight={300}*/}
-                            {/*labelStyle={formSelectLabelStyle}*/}
-                            {/*iconStyle={formSelectIconStyle}*/}
-                            {/*style={formSelectStyle}*/}
-                        {/*/>*/}
-                    {/*</FieldContainer>*/}
                     <FieldContainer>
                         <FieldTitle>
                             Do you have any motoring convictions?
@@ -436,8 +421,8 @@ const initialValues = {
     smoker: false,
     relationship_status: 'single',
     born_in_uk: true,
-    // conviction: [{}],
-    // incident: [{fault: false, personal_injury: false, current_policy: false}],
+    conviction: [{}],
+    incident: [{fault: false, personal_injury: false, current_policy: false}],
     incidents_claims: false,
     motoring_convictions: false,
 };

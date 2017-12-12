@@ -62,7 +62,7 @@ const Incident = ({fields, active}) => (
                         What's happened?
                     </FieldTitle>
                     <Field
-                        name={`${incident}.incident_code`}
+                        name={`${incident}.code`}
                         component={FormSelect}
                         dataSource={motoringIncidents}
                         defaultText="Incident Code"
@@ -89,7 +89,7 @@ const Incident = ({fields, active}) => (
                         When did the incident occur?
                     </FieldTitle>
                     <Field
-                        name={`${incident}.incident_date`}
+                        name={`${incident}.date`}
                         component={renderDatePicker}
                         placeholder="Select incident date"
                     />

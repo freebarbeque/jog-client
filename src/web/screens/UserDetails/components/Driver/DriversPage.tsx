@@ -33,7 +33,7 @@ class DriversPage extends React.Component<IDriversPage, {drivers: any, addDriver
 
     constructor(props: IDriversPage) {
         super();
-        this.state = {drivers: props.drivers.map(() => {
+        this.state = {drivers: props.drivers && props.drivers.map(() => {
             return false;
         }), addDriverClicked: false}
     }

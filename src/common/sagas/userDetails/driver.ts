@@ -5,7 +5,7 @@ import {createDriver, getDrivers} from '../../api/drivers';
 import {getUser} from '../../selectors/auth';
 import {CREATE_DRIVER, SUBMIT_DRIVER} from '../../constants/userDetails';
 import {getFormValues} from 'redux-form';
-import {stopSubmit} from 'redux-form';
+import {stopSubmit, reset} from 'redux-form';
 
 function* driverWorker() {
     while (true) {
@@ -18,9 +18,14 @@ function* driverWorker() {
             yield put(setIsLoading(true));
             try {
                 const values = yield select(getFormValues('driverAdd'));
-                yield createDriver(user.id, CREATE_DRIVER, values);
+                yield createDriver(user.id, CREATE_DRIVER, Object.assign(
+                    {},
+                    values,
+                    {motoring_incidents_attributes: values.incident, motoring_convictions_attributes: values.conviction}
+                ));
                 const {drivers} = yield getDrivers(user.id);
                 yield put(setDriversList(drivers));
+                yield put(reset('driverAdd'));
             } catch (err) {
                 yield put(stopSubmit('driverAdd', {_error: err.message}));
                 continue;

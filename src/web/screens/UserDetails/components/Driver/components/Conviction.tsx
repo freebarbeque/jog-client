@@ -58,12 +58,23 @@ const Conviction = ({fields, active}) => (
                         preCheck={onlyNumber}
                     />
                 </FieldContainer>
+                {/*// remove after fix back*/}
+                {/*<FieldContainer>*/}
+                    {/*<FieldTitle>*/}
+                        {/*Code*/}
+                    {/*</FieldTitle>*/}
+                    {/*<Field*/}
+                        {/*name={`${conviction}.code`}*/}
+                        {/*component={StyledInput}*/}
+                        {/*preCheck={onlyNumber}*/}
+                    {/*/>*/}
+                {/*</FieldContainer>*/}
                 <FieldContainer>
                     <FieldTitle>
                         When were you convicted?
                     </FieldTitle>
                     <Field
-                        name={`${conviction}.conviction_date`}
+                        name={`${conviction}.date`}
                         component={renderDatePicker}
                         placeholder="Select conviction date"
                     />
