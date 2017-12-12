@@ -9,6 +9,7 @@ const moment = require('moment');
 export const getAddress = (state: IReduxState) => state.userDetails.address;
 export const getAddressSubmitError = (state: IReduxState) => state.userDetails.addressSubmitError;
 export const getIsLoading = (state: IReduxState) => state.userDetails.isLoading;
+export const getDriversList = (state: IReduxState) => state.userDetails.driversList;
 export const getSelectedDriverId = (state: IReduxState, props: any) => state.userDetails.drivers[props.motorId];
 export const getAvailableVehicles = (state: IReduxState) => state.userDetails.availableVehicles;
 export const getSelectedVehicleId = (state: IReduxState, props: any) => state.userDetails.vehicles[props.motorId];

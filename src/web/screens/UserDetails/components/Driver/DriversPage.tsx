@@ -7,7 +7,11 @@ import DriverDetailsForm from './DriverDetailsForm';
 import {injectSaga} from '~/common/utils/saga';
 import {driverFlow} from '~/common/sagas/userDetails/driver';
 import {IReduxState} from '~/common/interfaces/store';
-import {mapDriverToFormValues} from "~/common/utils/userDetails";
+import {mapDriverToFormValues} from '~/common/utils/userDetails';
+import * as spinners from 'react-spinners';
+import {getDriversList, getIsLoading} from "~/common/selectors/userDetils";
+
+const {ScaleLoader}: { ScaleLoader: any } = spinners;
 
 interface IDriversPage {
     className?: string;
@@ -15,9 +19,15 @@ interface IDriversPage {
     motorId: number;
     submitDriver: any;
     drivers: any;
+    isLoading: boolean;
 }
 
-class DriversPage extends React.Component<IDriversPage, {drivers: any, addDriverClicked: boolean}> {
+interface IDriversPageState {
+    drivers: any;
+    addDriverClicked: boolean;
+}
+
+class DriversPage extends React.Component<IDriversPage, IDriversPageState> {
 
     componentWillMount() {
         injectSaga(driverFlow, this.props.motorId);
@@ -54,72 +64,90 @@ class DriversPage extends React.Component<IDriversPage, {drivers: any, addDriver
         console.log('will bu update');
     };
 
+    renderDrivers = () => (
+        <ContentWrapper>
+            {this.props.drivers && this.props.drivers.length > 0 ?
+                <FormSection>
+                    <Container>
+                        <Title>
+                            List of drivers
+                        </Title>
+                        <DriversContainer>
+                            {this.props.drivers.map((driver, index) => (
+                                <Drivers key={index}>
+                                    <Driver onClick={() => this.handleDriverClick(index)}>
+                                        <Name>{driver.first_name + ' ' + driver.last_name}</Name>
+                                        {this.state.drivers[index] ? <StyledDownArrow/> : <DownArrow/>}
+                                    </Driver>
+                                    <DriverDetailsForm
+                                        active={this.state.drivers[index]}
+                                        form={'driver' + index}
+                                        motorId={this.props.motorId}
+                                        initialValues={this.props.drivers && mapDriverToFormValues(this.props.drivers[index])}
+                                        buttonText={'Update Driver'}
+                                        handleSubmit={this.updateDriver}
+                                    />
+                                </Drivers>
+                            ))}
+                        </DriversContainer>
+                    </Container>
+                    <ContainerBox>
+                        <DriverDetailsForm
+                            active={this.state.addDriverClicked}
+                            form={'driverAdd'}
+                            onSubmit={this.props.onSubmit}
+                            motorId={this.props.motorId}
+                            buttonText={'Create Driver'}
+                        />
+                    </ContainerBox>
+                    <ButtonWrapper>
+                        <Button onClick={this.handleAddDriverClick}>
+                            {this.state.addDriverClicked === false ?
+                                <Wrapper>
+                                    <Circle>
+                                        <Add/>
+                                    </Circle>
+                                    <Text>Add one more driver</Text>
+                                </Wrapper> : <Text>Hide new driver form</Text>
+                            }
+                        </Button>
+                    </ButtonWrapper>
+                </FormSection> :
+                <FormSection>
+                    <Container>
+                        <DriverDetailsForm
+                            active={true}
+                            form={'driverAdd'}
+                            onSubmit={this.props.onSubmit}
+                            motorId={this.props.motorId}
+                            buttonText={'Create Driver'}
+                        />
+                    </Container>
+                </FormSection>
+            }
+        </ContentWrapper>
+    );
+
+    renderSpinner = () => (
+        <ScaleLoader
+            color={'#50e3c2'}
+            loading={true}
+        />
+    );
+
     render() {
         return (
             <div className={this.props.className}>
-                {this.props.drivers && this.props.drivers.length > 0 ?
-                    <FormSection>
-                        <Container>
-                            <Title>
-                                List of drivers
-                            </Title>
-                            <DriversContainer>
-                                {this.props.drivers.map((driver, index) => (
-                                    <Drivers key={index}>
-                                        <Driver onClick={() => this.handleDriverClick(index)}>
-                                            <Name>{driver.first_name + ' ' + driver.last_name}</Name>
-                                            {this.state.drivers[index] ? <StyledDownArrow/> : <DownArrow/>}
-                                        </Driver>
-                                        <DriverDetailsForm
-                                            active={this.state.drivers[index]}
-                                            form={'driver' + index}
-                                            motorId={this.props.motorId}
-                                            initialValues={this.props.drivers && mapDriverToFormValues(this.props.drivers[index])}
-                                            buttonText={'Update Driver'}
-                                            handleSubmit={this.updateDriver}
-                                        />
-                                    </Drivers>
-                                ))}
-                            </DriversContainer>
-                        </Container>
-                        <ContainerBox>
-                            <DriverDetailsForm
-                                active={this.state.addDriverClicked}
-                                form={'driverAdd'}
-                                onSubmit={this.props.onSubmit}
-                                motorId={this.props.motorId}
-                                buttonText={'Create Driver'}
-                            />
-                        </ContainerBox>
-                            <ButtonWrapper>
-                                <Button onClick={this.handleAddDriverClick}>
-                                    {this.state.addDriverClicked === false ?
-                                        <Wrapper>
-                                            <Circle>
-                                                <Add/>
-                                            </Circle>
-                                            <Text>Add one more driver</Text>
-                                        </Wrapper> : <Text>Hide new driver form</Text>
-                                    }
-                                </Button>
-                            </ButtonWrapper>
-                    </FormSection> :
-                    <FormSection>
-                        <Container>
-                            <DriverDetailsForm
-                                active={true}
-                                form={'driverAdd'}
-                                onSubmit={this.props.onSubmit}
-                                motorId={this.props.motorId}
-                                buttonText={'Create Driver'}
-                            />
-                        </Container>
-                    </FormSection>
-                }
+                {this.props.isLoading ? this.renderSpinner() : this.renderDrivers()}
             </div>
         )
     }
 }
+
+const ContentWrapper = styled.div`
+    display: flex;
+    align-self: stretch;
+`;
 
 const Wrapper = styled.div`
     display: flex;
@@ -243,7 +271,8 @@ const FormSection = styled.div`
 `;
 
 const mapStateToProps = (state: IReduxState) => ({
-    drivers: state.userDetails.driversList,
+    drivers: getDriversList(state),
+    isLoading: getIsLoading(state),
 });
 
 export default connect(mapStateToProps, null)(StyledDriversPage) as any;

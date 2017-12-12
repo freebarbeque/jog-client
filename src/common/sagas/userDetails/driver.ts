@@ -32,11 +32,13 @@ function* driverWorker() {
 }
 
 export function* driverFlow() {
+    yield put(setIsLoading(true));
     const user = yield select(getUser);
     const {drivers} = yield getDrivers(user.id);
     if (drivers) {
         yield put(setDriversList(drivers));
     }
+    yield put(setIsLoading(false));
     const worker = yield fork(driverWorker);
     yield take(LOCATION_CHANGE);
     yield put(setIsLoading(false));
