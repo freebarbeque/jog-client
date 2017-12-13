@@ -11,9 +11,41 @@ import {mapDriverToFormValues} from '~/common/utils/userDetails';
 import * as spinners from 'react-spinners';
 import {getDriversList, getIsLoading} from '~/common/selectors/userDetils';
 import {bindActionCreators} from 'redux';
-import {updateDriver} from '~/common/actions/userDetails';
+import {updateDriver, removeDriver} from '~/common/actions/userDetails';
+import CloseIcon from './components/CloseIcon';
+import * as ReactModal from 'react-modal';
+
+ReactModal.setAppElement('#root');
 
 const {ScaleLoader}: { ScaleLoader: any } = spinners;
+
+const StyledModal = {
+    overlay : {
+        position          : 'fixed',
+        top               : 0,
+        left              : 0,
+        right             : 0,
+        bottom            : 0,
+        background   : 'rgba(0, 0, 0, 0.1)',
+    },
+    content : {
+        position                   : 'absolute',
+        top                        : '35%',
+        left                       : '35%',
+        right                      : '35%',
+        bottom                     : '35%',
+        border                     : '1px solid #ccc',
+        background                 : '#fff',
+        borderRadius               : '4px',
+        outline                    : 'none',
+        padding                    : '20px',
+        display: 'flex',
+        flex: 1,
+        alignSelf: 'stretch',
+        flexDirection: 'column',
+
+    }
+};
 
 interface IDriversPage {
     className?: string;
@@ -23,11 +55,13 @@ interface IDriversPage {
     drivers: any;
     isLoading: boolean;
     updateDriver: any;
+    removeDriver: any;
 }
 
 interface IDriversPageState {
     drivers: any;
     addDriverClicked: boolean;
+    showModal: boolean;
 }
 
 class DriversPage extends React.Component<IDriversPage, IDriversPageState> {
@@ -48,7 +82,7 @@ class DriversPage extends React.Component<IDriversPage, IDriversPageState> {
         super();
         this.state = {drivers: props.drivers && props.drivers.map(() => {
             return false;
-        }), addDriverClicked: false}
+        }), addDriverClicked: false, showModal: false}
     }
 
     handleDriverClick = (indexButton) => {
@@ -59,6 +93,14 @@ class DriversPage extends React.Component<IDriversPage, IDriversPageState> {
         });
     };
 
+    handleOpenModal = () => {
+        this.setState({ showModal: true });
+    };
+
+    handleCloseModal = () => {
+        this.setState({ showModal: false });
+    };
+
     handleAddDriverClick = () => {
         this.setState({addDriverClicked: !this.state.addDriverClicked})
     };
@@ -66,6 +108,10 @@ class DriversPage extends React.Component<IDriversPage, IDriversPageState> {
     updateDriver = (event, index) => {
         event.preventDefault();
         this.props.updateDriver(index);
+    };
+
+    removeDriver = (index) => {
+        this.props.removeDriver(index);
     };
 
     renderDrivers = () => (
@@ -79,10 +125,24 @@ class DriversPage extends React.Component<IDriversPage, IDriversPageState> {
                         <DriversContainer>
                             {this.props.drivers.map((driver, index) => (
                                 <Drivers key={index}>
-                                    <Driver onClick={() => this.handleDriverClick(index)}>
-                                        <Name>{driver.first_name + ' ' + driver.last_name}</Name>
-                                        {this.state.drivers[index] ? <StyledDownArrow/> : <DownArrow/>}
-                                    </Driver>
+                                    <DriverWrapper>
+                                        <Driver onClick={() => this.handleDriverClick(index)}>
+                                            <Name>{driver.first_name + ' ' + driver.last_name}</Name>
+                                            {this.state.drivers[index] ? <StyledDownArrow/> : <DownArrow/>}
+                                        </Driver>
+                                        <CloseIcon onClick={this.handleOpenModal}/>
+                                    </DriverWrapper>
+                                    <ReactModal
+                                        isOpen={this.state.showModal}
+                                        contentLabel="Minimal Modal Example"
+                                        style={StyledModal}
+                                    >
+                                        <TextModal>Are you sure that you want to remove the driver?</TextModal>
+                                        <ButtonModalWrapper>
+                                            <ButtonModal onClick={this.handleCloseModal}>No</ButtonModal>
+                                            <ButtonModal>Yes</ButtonModal>
+                                        </ButtonModalWrapper>
+                                    </ReactModal>
                                     <DriverDetailsForm
                                         active={this.state.drivers[index]}
                                         form={'driver' + index}
@@ -147,6 +207,46 @@ class DriversPage extends React.Component<IDriversPage, IDriversPageState> {
         )
     }
 }
+
+const DriverWrapper = styled.div`
+    display: flex;
+    align-self: stretch;
+    flex: 1;
+    position: relative;
+`;
+
+const ButtonModalWrapper = styled.div`
+    display: flex;
+    justify-content: space-between;
+    & > div:first-child {
+        margin-right: 15px;
+    }
+`;
+
+const ButtonModal = styled.div`
+    height: 40px;
+    background-color: #50e3c2;
+    box-shadow: 0 4px 4px #ddd;
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 16px;
+    color: #131733;
+    display: flex;
+    flex: 1;
+    cursor: pointer;
+`;
+
+const TextModal = styled.div`
+    color: #131733;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-self: stretch;
+    height: 60%;
+    font-size: 18px;
+`;
 
 const ContentWrapper = styled.div`
     display: flex;
@@ -241,6 +341,7 @@ const Driver = styled.div`
     border-radius: 5px;
     font-size: 16px;
     cursor: pointer;
+    flex: 1;
 `;
 
 const StyledDriversPage = styled(DriversPage)`
@@ -281,6 +382,7 @@ const mapStateToProps = (state: IReduxState) => ({
 
 const mapDispatchToProps = (dispatch: any) => bindActionCreators({
     updateDriver,
+    removeDriver,
 }, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(StyledDriversPage) as any;

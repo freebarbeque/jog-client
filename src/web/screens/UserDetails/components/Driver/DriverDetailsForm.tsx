@@ -9,7 +9,7 @@ import RadioButton from 'src/web/components/Forms/RadioButton/Buttons';
 import DatePicker from 'src/web/components/PolicyDatePicker';
 import FormSelect from 'src/web/components/Forms/FormSelect';
 import {mapObjectToDataSource} from 'src/common/utils/dataSources';
-import {MotoringOrganisationTypes, MedicalConditionsTypes} from 'src/common/interfaces/drivers';
+import {MotoringOrganisationTypes} from 'src/common/interfaces/drivers';
 import Divider from 'src/web/screens/Landing/components/Divider';
 import RoundedButton from 'src/web/components/RoundedButton';
 import {connect} from 'react-redux';

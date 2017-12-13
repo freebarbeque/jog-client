@@ -3072,6 +3072,10 @@ execall@^1.0.0:
   dependencies:
     clone-regexp "^1.0.0"
 
+exenv@^1.2.0:
+  version "1.2.2"
+  resolved "https://registry.yarnpkg.com/exenv/-/exenv-1.2.2.tgz#2ae78e85d9894158670b03d47bec1f03bd91bb9d"
+
 exit-hook@^1.0.0:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/exit-hook/-/exit-hook-1.1.1.tgz#f05ca233b48c05d54fff07765df8507e95c02ff8"
@@ -7268,6 +7272,14 @@ react-fontawesome@1.6.1:
   resolved "https://registry.yarnpkg.com/react-fontawesome/-/react-fontawesome-1.6.1.tgz#eddce17e7dc731aa09fd4a186688a61793a16c5c"
   dependencies:
     prop-types "^15.5.6"
+
+react-modal@^3.1.8:
+  version "3.1.8"
+  resolved "https://registry.yarnpkg.com/react-modal/-/react-modal-3.1.8.tgz#7d6b1958f44828babd2a1ce826c28fa40d026b0f"
+  dependencies:
+    exenv "^1.2.0"
+    prop-types "^15.5.10"
+    warning "^3.0.0"
 
 react-native-cli@2.0.1:
   version "2.0.1"

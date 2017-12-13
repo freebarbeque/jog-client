@@ -22,6 +22,7 @@ import {
     SET_DRIVER_LIST,
     REMOVE_DRIVER_LIST,
     UPDATE_DRIVER,
+    REMOVE_DRIVER
 } from '../constants/userDetails';
 
 export function lookupPostCode(postCode: string) {
@@ -148,6 +149,13 @@ export function removeDriverList() {
 export function updateDriver(index: string | number) {
     return {
         type: UPDATE_DRIVER,
+        index
+    }
+}
+
+export function removeDriver(index: string | number) {
+    return {
+        type: REMOVE_DRIVER,
         index
     }
 }

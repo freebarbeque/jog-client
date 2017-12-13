@@ -1,18 +1,19 @@
 const {cancel, fork, put, race, select, take, takeEvery} = require('redux-saga/effects');
 import {LOCATION_CHANGE, push} from 'react-router-redux';
 import {setIsLoading, setDriversList, removeDriverList} from '../../actions/userDetails';
-import {createDriver, getDrivers, updateDriver} from '../../api/drivers';
+import {createDriver, getDrivers, removeDriver, updateDriver} from '../../api/drivers';
 import {getUser} from '../../selectors/auth';
-import {CREATE_DRIVER, SUBMIT_DRIVER, UPDATE_DRIVER} from '../../constants/userDetails';
+import {CREATE_DRIVER, SUBMIT_DRIVER, UPDATE_DRIVER, REMOVE_DRIVER} from '../../constants/userDetails';
 import {getFormValues} from 'redux-form';
 import {stopSubmit, reset} from 'redux-form';
 import {setSteps} from '../../../web/actions/page';
 
 function* driverWorker() {
     while (true) {
-        const {submit, update} = yield race({
+        const {submit, update, remove} = yield race({
             submit: take(SUBMIT_DRIVER),
-            update: take(UPDATE_DRIVER)
+            update: take(UPDATE_DRIVER),
+            remove: take(REMOVE_DRIVER),
         });
         const user = yield select(getUser);
 
@@ -32,7 +33,6 @@ function* driverWorker() {
         } else if (update) {
             yield put(setIsLoading(true));
             try {
-                console.log(update);
                 const values = yield select(getFormValues('driver' + update.index));
                 yield updateDriver(user.id, UPDATE_DRIVER, values.id, values);
                 const {drivers} = yield getDrivers(user.id);
@@ -43,6 +43,9 @@ function* driverWorker() {
             }
             yield put(setIsLoading(false));
         }
+            // else if (remove) {
+        //    console.log(1);
+        // }
     }
 }
 
