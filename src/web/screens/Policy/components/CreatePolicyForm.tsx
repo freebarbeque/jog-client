@@ -55,7 +55,7 @@ const DateContainer = styled.div`
     > div {
         width: 100%;
     }
-`
+`;
 
 const CreatePolicyForm = (props: ICreatePolicyFormProps) => {
     return (
@@ -67,7 +67,6 @@ const CreatePolicyForm = (props: ICreatePolicyFormProps) => {
                     name="insurance_company_id"
                     component={FormSelect}
                     dataSource={props.insurersDataSource}
-                    labName={"insurance_company_id"}
                 />
                 <Title>What is your policy number?</Title>
                 <Field

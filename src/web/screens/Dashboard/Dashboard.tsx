@@ -1,6 +1,6 @@
 import * as React from 'react';
 import styled from 'styled-components';
-import {Route, withRouter,Switch} from 'react-router-dom';
+import {Route, withRouter} from 'react-router-dom';
 import {CREAM} from 'src/common/constants/palette';
 import Header from 'src/web/components/Header';
 import Footer from 'src/web/components/Footer';
@@ -16,6 +16,7 @@ interface IDashboardProps {
   location?: any;
   match?: any;
 }
+
 const Container = styled.div`
   display: flex;
   flex-direction: column;
