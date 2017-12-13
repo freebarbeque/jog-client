@@ -82,9 +82,7 @@ const StyledPolicyDatePicker = styled(PolicyDatePicker)`
     }
     
     & .react-datepicker-popper[data-placement^="bottom"] {
-      & .react-datepicker__triangle, 
-        .react-datepicker-popper[data-placement^="bottom"] 
-        .react-datepicker__triangle::before {
+      & .react-datepicker__triangle, .react-datepicker-popper[data-placement^="bottom"] .react-datepicker__triangle::before {
          border-bottom-color: #000;
          top: 1px;
       }
@@ -122,7 +120,7 @@ const StyledPolicyDatePicker = styled(PolicyDatePicker)`
         }
       }
      
-      & .react-datepicker__navigation  {
+      & .react-datepicker__navigation {
         &--next {
           border-left-color: #666B80;
           border-width: 0.5rem;
