@@ -360,4 +360,8 @@ const mapStateToProps = (state: IReduxState): Partial<ICarDetailsProps> => ({
     formValues: getFormValues('carDetailsForm')(state),
 });
 
-export default connect(mapStateToProps, null)(form) as any;
+const mapDispatchToProps = (dispatch: any) => bindActionCreators({
+    cancelSubmitVehicle,
+}, dispatch);
+
+export default connect(mapStateToProps, mapDispatchToProps)(form) as any;
