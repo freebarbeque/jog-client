@@ -22,7 +22,7 @@ import {
     SET_DRIVER_LIST,
     REMOVE_DRIVER_LIST,
     UPDATE_DRIVER,
-    REMOVE_DRIVER
+    REMOVE_DRIVER,
 } from '../constants/userDetails';
 
 export function lookupPostCode(postCode: string) {

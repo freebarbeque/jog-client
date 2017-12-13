@@ -35,6 +35,8 @@ interface IDriverDetailsForm {
     form: string;
     initialValues: any;
     buttonText: string;
+    cancelVisible: boolean;
+    closeClick: any;
 }
 
 const monitoringOrganisations = mapObjectToDataSource(MotoringOrganisationTypes);
@@ -306,21 +308,30 @@ class DriverDetailsForm extends React.Component<IDriverDetailsForm, {}> {
                         />
                     </FieldContainer>
                     <FieldArray name="incident" component={Incident} active={this.props.formValues && this.props.formValues.incidents_claims} form={this.props.form}/>
-                    <BottonWrapper>
+                    <ButtonWrapper>
+                        {this.props.cancelVisible ?
+                            <RoundedButton
+                                label="Cancel"
+                                style={ButtonStyles}
+                                type="button"
+                                disabled={this.props.isLoading}
+                                onClick={this.props.closeClick}
+                            /> : null
+                        }
                         <RoundedButton
                             label={this.props.buttonText}
                             style={ButtonStyles}
                             type="submit"
                             disabled={this.props.isLoading}
                         />
-                    </BottonWrapper>
+                    </ButtonWrapper>
                 </FormSection>
             </form>
         )
     }
 }
 
-const BottonWrapper = styled.div`
+const ButtonWrapper = styled.div`
     display: flex;
     align-self: stretch;
     align-items: center;

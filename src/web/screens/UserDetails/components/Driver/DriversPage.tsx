@@ -14,6 +14,7 @@ import {bindActionCreators} from 'redux';
 import {updateDriver, removeDriver} from '~/common/actions/userDetails';
 import CloseIcon from './components/CloseIcon';
 import * as ReactModal from 'react-modal';
+import {styledComponentWithProps} from 'src/common/utils/types';
 
 ReactModal.setAppElement('#root');
 
@@ -31,8 +32,8 @@ const StyledModal = {
     content : {
         position                   : 'absolute',
         top                        : '35%',
-        left                       : '35%',
-        right                      : '35%',
+        left                       : '30%',
+        right                      : '30%',
         bottom                     : '35%',
         border                     : '1px solid #ccc',
         background                 : '#fff',
@@ -59,9 +60,11 @@ interface IDriversPage {
 }
 
 interface IDriversPageState {
-    drivers: any;
     addDriverClicked: boolean;
     showModal: boolean;
+    index: any;
+    currentDriver: any;
+    disableDriversListClick: boolean;
 }
 
 class DriversPage extends React.Component<IDriversPage, IDriversPageState> {
@@ -70,39 +73,34 @@ class DriversPage extends React.Component<IDriversPage, IDriversPageState> {
         injectSaga(driverFlow, this.props.motorId);
     }
 
-    componentWillReceiveProps(nextProps: any) {
-        if (this.props.drivers !== nextProps.drivers) {
-            this.setState({addDriverClicked: false, drivers: nextProps.drivers.map(() => {
-                return false;
-            })})
-        }
-    }
-
-    constructor(props: IDriversPage) {
+    constructor() {
         super();
-        this.state = {drivers: props.drivers && props.drivers.map(() => {
-            return false;
-        }), addDriverClicked: false, showModal: false}
+        this.state = {addDriverClicked: false, showModal: false, index: null, currentDriver: null, disableDriversListClick: false}
     }
 
     handleDriverClick = (indexButton) => {
-        this.state.drivers.map((driver, index) => {
-            if  (indexButton === index) {
-                this.setState(Object.assign({}, this.state, this.state.drivers[index] = !this.state.drivers[index]));
-            }
-        });
+        if (this.state.currentDriver !== null && this.state.currentDriver === indexButton) {
+            this.setState({currentDriver: null});
+        } else {
+            this.setState({currentDriver: indexButton});
+        }
+        if (this.state.addDriverClicked) {
+            this.setState({addDriverClicked: false});
+        }
     };
 
-    handleOpenModal = () => {
-        this.setState({ showModal: true });
+    handleOpenModal = (index) => {
+        this.setState({ showModal: true, index: index});
     };
 
     handleCloseModal = () => {
-        this.setState({ showModal: false });
+        this.setState({ showModal: false, index: null});
     };
 
     handleAddDriverClick = () => {
-        this.setState({addDriverClicked: !this.state.addDriverClicked})
+        this.setState({disableDriversListClick: true});
+        this.setState({currentDriver: null});
+        this.setState({addDriverClicked: true});
     };
 
     updateDriver = (event, index) => {
@@ -112,6 +110,12 @@ class DriversPage extends React.Component<IDriversPage, IDriversPageState> {
 
     removeDriver = (index) => {
         this.props.removeDriver(index);
+        this.setState({ showModal: false, index: null});
+    };
+
+    handleCloseClick = () => {
+        this.setState({disableDriversListClick: false});
+        this.setState({addDriverClicked: false});
     };
 
     renderDrivers = () => (
@@ -126,25 +130,14 @@ class DriversPage extends React.Component<IDriversPage, IDriversPageState> {
                             {this.props.drivers.map((driver, index) => (
                                 <Drivers key={index}>
                                     <DriverWrapper>
-                                        <Driver onClick={() => this.handleDriverClick(index)}>
+                                        <Driver onClick={this.state.disableDriversListClick ? () => {return} : () => this.handleDriverClick(index)}>
                                             <Name>{driver.first_name + ' ' + driver.last_name}</Name>
-                                            {this.state.drivers[index] ? <StyledDownArrow/> : <DownArrow/>}
+                                            {this.state.currentDriver === index ? <StyledDownArrow/> : <DownArrow/>}
                                         </Driver>
-                                        <CloseIcon onClick={this.handleOpenModal}/>
+                                        <CloseIcon onClick={() => this.handleOpenModal(index)}/>
                                     </DriverWrapper>
-                                    <ReactModal
-                                        isOpen={this.state.showModal}
-                                        contentLabel="Minimal Modal Example"
-                                        style={StyledModal}
-                                    >
-                                        <TextModal>Are you sure that you want to remove the driver?</TextModal>
-                                        <ButtonModalWrapper>
-                                            <ButtonModal onClick={this.handleCloseModal}>No</ButtonModal>
-                                            <ButtonModal>Yes</ButtonModal>
-                                        </ButtonModalWrapper>
-                                    </ReactModal>
                                     <DriverDetailsForm
-                                        active={this.state.drivers[index]}
+                                        active={this.state.currentDriver === index}
                                         form={'driver' + index}
                                         motorId={this.props.motorId}
                                         initialValues={this.props.drivers && mapDriverToFormValues(this.props.drivers[index])}
@@ -162,19 +155,21 @@ class DriversPage extends React.Component<IDriversPage, IDriversPageState> {
                             onSubmit={this.props.onSubmit}
                             motorId={this.props.motorId}
                             buttonText={'Create Driver'}
+                            cancelVisible={true}
+                            closeClick={this.handleCloseClick}
                         />
                     </ContainerBox>
                     <ButtonWrapper>
-                        <Button onClick={this.handleAddDriverClick}>
-                            {this.state.addDriverClicked === false ?
+                        {this.state.addDriverClicked === false ?
+                            <Button onClick={this.handleAddDriverClick}>
                                 <Wrapper>
                                     <Circle>
                                         <Add/>
                                     </Circle>
                                     <Text>Add one more driver</Text>
-                                </Wrapper> : <Text>Hide new driver form</Text>
-                            }
-                        </Button>
+                                </Wrapper>
+                            </Button> : null
+                        }
                     </ButtonWrapper>
                 </FormSection> :
                 <FormSection>
@@ -189,6 +184,17 @@ class DriversPage extends React.Component<IDriversPage, IDriversPageState> {
                     </Container>
                 </FormSection>
             }
+            <ReactModal
+                isOpen={this.state.showModal}
+                contentLabel="Minimal Modal Example"
+                style={StyledModal}
+            >
+                <TextModal>Are you sure that you want to remove the driver?</TextModal>
+                <ButtonModalWrapper >
+                    <ButtonModal onClick={this.handleCloseModal}>No</ButtonModal>
+                    <ButtonModal onClick={() => this.removeDriver(this.state.index)}>Yes</ButtonModal>
+                </ButtonModalWrapper>
+            </ReactModal>
         </ContentWrapper>
     );
 
@@ -208,6 +214,8 @@ class DriversPage extends React.Component<IDriversPage, IDriversPageState> {
     }
 }
 
+const div = styledComponentWithProps<{onClick?: any}, HTMLDivElement>(styled.div);
+
 const DriverWrapper = styled.div`
     display: flex;
     align-self: stretch;
@@ -220,10 +228,13 @@ const ButtonModalWrapper = styled.div`
     justify-content: space-between;
     & > div:first-child {
         margin-right: 15px;
+        background-color: transparent;
+        border: 3px solid #50e3c2;
+        height: 34px;
     }
 `;
 
-const ButtonModal = styled.div`
+const ButtonModal = div`
     height: 40px;
     background-color: #50e3c2;
     box-shadow: 0 4px 4px #ddd;

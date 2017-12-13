@@ -5,7 +5,7 @@ import {createDriver, getDrivers, removeDriver, updateDriver} from '../../api/dr
 import {getUser} from '../../selectors/auth';
 import {CREATE_DRIVER, SUBMIT_DRIVER, UPDATE_DRIVER, REMOVE_DRIVER} from '../../constants/userDetails';
 import {getFormValues} from 'redux-form';
-import {stopSubmit, reset} from 'redux-form';
+import {stopSubmit, reset, destroy} from 'redux-form';
 import {setSteps} from '../../../web/actions/page';
 
 function* driverWorker() {
@@ -30,7 +30,8 @@ function* driverWorker() {
                 continue;
             }
             yield put(setIsLoading(false));
-        } else if (update) {
+        }
+        if (update) {
             yield put(setIsLoading(true));
             try {
                 const values = yield select(getFormValues('driver' + update.index));
@@ -43,9 +44,19 @@ function* driverWorker() {
             }
             yield put(setIsLoading(false));
         }
-            // else if (remove) {
-        //    console.log(1);
-        // }
+        if (remove) {
+            yield put(setIsLoading(true));
+            try {
+                const values = yield select(getFormValues('driver' + remove.index));
+                yield removeDriver(user.id, REMOVE_DRIVER, values.id);
+                const {drivers} = yield getDrivers(user.id);
+                yield put(setDriversList(drivers));
+            } catch (err) {
+                console.log(err);
+                continue;
+            }
+            yield put(setIsLoading(false));
+        }
     }
 }
 

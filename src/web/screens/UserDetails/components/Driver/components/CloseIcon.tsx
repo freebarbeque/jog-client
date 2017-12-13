@@ -24,7 +24,7 @@ const StyledCancelIcon = styled(CancelIcon)`
   margin-right: 10px;
   margin-top: 5px;
   & > g > g {
-    fill: #131733;
+    fill: #e8e8e8;
   }
   &:hover {
       & > g > g {

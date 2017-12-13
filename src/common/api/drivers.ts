@@ -51,7 +51,7 @@ export function* updateDriver(userId: string | number, type: string, driverId: s
     return body;
 }
 
-export function* removeDriver(userId: string | number, type: string, driverId: string | number,  policy: Partial<IDriver>) {
+export function* removeDriver(userId: string | number, type: string, driverId: string | number) {
     let driversType;
     switch (type) {
         case REMOVE_DRIVER: {
@@ -63,12 +63,6 @@ export function* removeDriver(userId: string | number, type: string, driverId: s
         }
     }
 
-    const reqBody = {
-        data: {
-            type: driversType,
-            attributes: policy,
-        }
-    };
-    const {body} = yield patch(`users/${userId}/${driversType}/${driverId}`, reqBody);
+    const {body} = yield remove(`users/${userId}/${driversType}/${driverId}`);
     return body;
 }
