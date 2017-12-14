@@ -1,6 +1,6 @@
 import * as React from 'react';
 import styledForm from '~/web/screens/UserDetails/components/styledForm';
-import {connect} from 'react-redux';
+import {connect, ComponentClass} from 'react-redux';
 import {IReduxState} from '~/common/interfaces/store';
 import {getIsLoading, getVehicleDataForm} from '~/common/selectors/userDetils';
 import styled from 'styled-components';
@@ -19,6 +19,8 @@ import {IVehicleDetailsFormValues, VehicleDriveHelmSide, VehicleAlarm, VehicleRe
 import FormSelect from '~/web/components/Forms/FormSelect';
 import {mapObjectToDataSource} from 'src/common/utils/dataSources';
 import {PINK} from '~/common/constants/palette';
+import {injectSaga} from '~/common/utils/saga';
+const moment = require('moment');
 
 interface ICarDetailsProps {
     className: string;
@@ -38,6 +40,8 @@ const renderDatePicker = (props: any) => (
         value={props.input.value}
         error={props.meta.error}
         touched={props.meta.touched}
+        maxDate={moment()}
+        minDate={moment().subtract(100, 'years')}
     />
 );
 
@@ -356,7 +360,7 @@ const mapStateToProps = (state: IReduxState): Partial<ICarDetailsProps> => ({
     formValues: getFormValues('carDetailsForm')(state),
 });
 
-const mapDispatchToProps = (dispatch: any): Partial<ICarDetailsProps> => bindActionCreators({
+const mapDispatchToProps = (dispatch: any) => bindActionCreators({
     cancelSubmitVehicle,
 }, dispatch);
 

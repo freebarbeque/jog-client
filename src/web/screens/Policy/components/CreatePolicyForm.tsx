@@ -38,6 +38,7 @@ const Header = styled.div`
 const Content = styled.div`
     width: 70%;
     padding: 10px;
+    padding-bottom: 50px;
     align-self: center;
     text-align: center;
     display: flex;
@@ -54,7 +55,7 @@ const DateContainer = styled.div`
     > div {
         width: 100%;
     }
-`
+`;
 
 const CreatePolicyForm = (props: ICreatePolicyFormProps) => {
     return (
@@ -111,7 +112,7 @@ const CreatePolicyForm = (props: ICreatePolicyFormProps) => {
                     }}
                     preCheck={onlyNumber}
                 />
-                <Title>What is your car number?</Title>
+                <Title>Enter the registration of your car</Title>
                 <Field
                     name="vehicle_registration"
                     component={Input}
@@ -151,10 +152,10 @@ const CreatePolicyForm = (props: ICreatePolicyFormProps) => {
                 }
                 <RoundedButton
                     type="submit"
-                    label="Set up my account"
+                    label="Set Up My Account"
                     disabled={props.isLoading}
                     style={{
-                        width: 200,
+                        width: 230,
                         alignSelf: 'center',
                         height: 56,
                         borderRadius: 28,

@@ -13,6 +13,7 @@ import Divider from 'src/web/screens/Landing/components/Divider';
 import {styledComponentWithProps} from 'src/common/utils/types';
 import {Add} from 'src/web/images';
 import RoundedButton from 'src/web/components/RoundedButton';
+const moment = require('moment');
 
 const renderDatePicker = (props: any) => (
     <DatePicker
@@ -21,6 +22,8 @@ const renderDatePicker = (props: any) => (
         value={props.input.value}
         error={props.meta.error}
         touched={props.meta.touched}
+        maxDate={moment()}
+        minDate={moment().subtract(100, 'years')}
     />
 );
 
@@ -89,7 +92,7 @@ const renderConviction = ({fields}) => (
                     />
                 </FieldContainer>
                 <RoundedButton
-                    label="Remove conviction"
+                    label="Remove Conviction"
                     style={ButtonStyles}
                     onClick={() => fields.remove(index)}
                 />

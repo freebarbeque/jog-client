@@ -17,6 +17,15 @@ interface IDashboardProps {
   match?: any;
 }
 
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  align-self: stretch;
+  background-color: ${CREAM};
+  min-height: 350px;
+`;
+
 class Dashboard extends React.Component<IDashboardProps, {}> {
   render() {
     return (
@@ -24,9 +33,11 @@ class Dashboard extends React.Component<IDashboardProps, {}> {
         <Header />
         <BackgroundTitle />
         <NavigationBar location={this.props.location.pathname} />
-        <Route exact path={this.props.match.url} component={PolicyContent}/>
-        <Route exact path={`${this.props.match.url}/motor`} render={(routerProps: any) => <MotorPoliciesContent {...Object.assign({}, routerProps, {policies})}/>}/>
-        <Route exact path={`${this.props.match.url}/motor/add`} component={AddPolicyContent}/>
+        <Container>
+          <Route exact path={this.props.match.url} component={PolicyContent}/>
+          <Route exact path={`${this.props.match.url}/motor`} render={(routerProps: any) => <MotorPoliciesContent {...Object.assign({}, routerProps, {policies})}/>}/>
+          <Route exact path={`${this.props.match.url}/motor/add`} component={AddPolicyContent}/>
+        </Container>
         <Footer />
       </div>
     )

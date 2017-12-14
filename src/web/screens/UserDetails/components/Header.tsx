@@ -12,9 +12,14 @@ interface IHeaderProps {
 }
 
 const Header = styled.div`
-    height: 80px;
+    height: 60px;
     background-color: ${FOOTER_BACKGROUND_COLOR};
     display: flex;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 9999;
     align-items: center;
     justify-content: space-between;
     padding: 0 20px;

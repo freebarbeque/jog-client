@@ -8,6 +8,7 @@ import {connect} from 'react-redux';
 import {IMotorPolicyWithDaysLeft} from 'src/common/interfaces/policies';
 import {getDatePickerInitialValues} from '~/common/selectors/userDetils';
 import {IReduxState} from '~/common/interfaces/store';
+const moment = require('moment');
 
 interface IQuoteFieldProps {
   className?: string;
@@ -30,6 +31,8 @@ const renderDatePicker = (props: any) => (
         value={props.input.value}
         error={props.meta.error}
         touched={props.meta.touched}
+        maxDate={moment().add(25, 'years')}
+        minDate={moment().subtract(100, 'years')}
     />
 );
 

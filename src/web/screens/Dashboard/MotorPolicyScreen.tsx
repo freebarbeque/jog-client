@@ -20,19 +20,19 @@ interface IMotorPolicyScreen {
 const MotorPolicyScreen: React.StatelessComponent<IMotorPolicyScreen> = (props) => (
   <div className={props.className}>
     <Header />
-      <CurrentPolicy
-        onBackArrowClick={() => props.history.push('/app/dashboard/motor')}
-        insurerAvatar="https://image.flaticon.com/icons/png/512/48/48982.png"
-        insurerName="Default insurer"
-        policyName="Motor Policy 1"
-      />
-      <PolicyTabs />
-      <Switch>
-        <Route exact path={`${props.match.url}/overview`} render={(routerProps) => <PolicyOverview motorId={props.match.params.motorId} {...routerProps} />} />
-        <Route exact path={`${props.match.url}/documents`} render={(routerProps: any) => <DocumentsPolicy motorId={props.match.params.motorId} {...routerProps} />} />
-        <Route exact path={`${props.match.url}/quote`} render={(routerProps: any) => <QuotePolicy motorId={props.match.params.motorId} {...routerProps} />} />
-        <Redirect to={`${props.match.url}/overview`} />
-      </Switch>
+    <CurrentPolicy
+      onBackArrowClick={() => props.history.push('/app/dashboard/motor')}
+      insurerAvatar="https://image.flaticon.com/icons/png/512/48/48982.png"
+      insurerName="Default insurer"
+      policyName="Motor Policy 1"
+    />
+    <PolicyTabs />
+    <Switch>
+      <Route exact path={`${props.match.url}/overview`} render={(routerProps) => <PolicyOverview motorId={props.match.params.motorId} {...routerProps} />} />
+      <Route exact path={`${props.match.url}/documents`} render={(routerProps: any) => <DocumentsPolicy motorId={props.match.params.motorId} {...routerProps} />} />
+      <Route exact path={`${props.match.url}/quote`} render={(routerProps: any) => <QuotePolicy motorId={props.match.params.motorId} {...routerProps} />} />
+      <Redirect to={`${props.match.url}/overview`} />
+    </Switch>
     <Footer />
   </div>
 );

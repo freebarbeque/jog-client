@@ -73,7 +73,7 @@ class FormSelect extends React.Component<ISelectProps, {}> {
         return (
             <Wrapper>
                 <Container error={error} touched={touched}>
-                    <DropDownMenu
+                    <DropDownMenu   
                         value={input.value ? [input.value] : 'default'}
                         onChange={this.handleChange}
                         multiple
@@ -87,6 +87,7 @@ class FormSelect extends React.Component<ISelectProps, {}> {
                         anchorOrigin={{vertical: 'bottom', horizontal: 'left'}}
                         menuStyle={{
                             backgroundColor: '#FFF',
+                            maxHeight: '300px',
                             ...menuStyle,
                         }}
                         menuItemStyle={{
@@ -105,7 +106,6 @@ class FormSelect extends React.Component<ISelectProps, {}> {
                         autoWidth={autoWidth || false}
                         underlineStyle={{display: 'none'}}
                         selectedMenuItemStyle={{backgroundColor: '#50E3C2'}}
-                        maxHeight={maxHeight}
                     >
                         {dataSource.map((o, i) => <MenuItem key={i} value={o.id} primaryText={o.name} onClick={() => this.menu.close()}/>)}
                         <MenuItem value="default" primaryText={defaultText || 'Select an Option'} style={{display: 'none'}}/>

@@ -22,6 +22,7 @@ import {changeSelectedDriver} from 'src/common/actions/userDetails';
 import {Action, ActionCreator, bindActionCreators} from 'redux';
 import Incident from './components/Incident';
 import Conviction from './components/Conviction';
+const moment = require('moment');
 
 import {
     formSelectStyle,
@@ -57,6 +58,8 @@ const renderDatePicker = (props: any) => (
         value={props.input.value}
         error={props.meta.error}
         touched={props.meta.touched}
+        maxDate={moment()}
+        minDate={moment().subtract(100, 'years')}
     />
 );
 
@@ -327,6 +330,8 @@ const StyledDriverDetailsForm = styled(DriverDetailsForm)`
   background-color: #FFF;
   padding: 40px 0 35px;
   box-shadow: 0 2px 4px rgba(51, 51, 51, 0.2);
+  width: 70%;
+  margin: 0px auto;
   
   & ${Divider} {
     margin-bottom: 30px;

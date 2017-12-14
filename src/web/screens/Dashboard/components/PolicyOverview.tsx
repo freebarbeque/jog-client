@@ -149,6 +149,8 @@ class PolicyOverview extends React.Component<IPolicyOverviewProps, IContentState
 const StyledPolicyOverview = styled(PolicyOverview)`
   display: flex;
   align-self: stretch;
+  width: 70%;
+  margin: 0px auto;
   flex: 1 0 auto;
   box-sizing: border-box;
 `;
@@ -173,6 +175,7 @@ const Content = div`
 const Wrapper = styled.div`
   display: flex;
   align-self: stretch;
+  justify-content: center;
   flex: 1 0;
   padding: 52px 42px;
 `;
