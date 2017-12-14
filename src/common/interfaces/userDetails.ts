@@ -19,6 +19,7 @@ export interface IUserDetailsReduxState {
     registrationNumber: any;
     postCode: string|null;
     driversList: any;
+    submitDriver: boolean;
 }
 
 export interface IAddress {

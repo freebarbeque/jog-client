@@ -310,13 +310,15 @@ class DriverDetailsForm extends React.Component<IDriverDetailsForm, {}> {
                     <FieldArray name="incident" component={Incident} active={this.props.formValues && this.props.formValues.incidents_claims} form={this.props.form}/>
                     <ButtonWrapper>
                         {this.props.cancelVisible ?
-                            <RoundedButton
-                                label="Cancel"
-                                style={ButtonStyles}
-                                type="button"
-                                disabled={this.props.isLoading}
-                                onClick={this.props.closeClick}
-                            /> : null
+                            <div style={{marginRight: '15px'}}>
+                                <RoundedButton
+                                    label="Cancel"
+                                    style={ButtonStyles}
+                                    type="button"
+                                    disabled={this.props.isLoading}
+                                    onClick={this.props.closeClick}
+                                />
+                            </div>: null
                         }
                         <RoundedButton
                             label={this.props.buttonText}

@@ -14,6 +14,7 @@ import {
     LOOKUP_POSTCODE,
     DELETE_POSTCODE,
     SET_ADDRESS_SUBMIT_ERROR,
+    SUBMIT_DRIVER_SUCCESS,
 } from '../constants/userDetails';
 
 const defaultState = {
@@ -27,6 +28,7 @@ const defaultState = {
     postCode: null,
     addressSubmitError: null,
     driversList: null,
+    submitDriver: false,
 }
 
 export default function (state: IUserDetailsReduxState = defaultState, action: IAction) {
@@ -104,6 +106,12 @@ export default function (state: IUserDetailsReduxState = defaultState, action: I
             return {
                 ...state,
                 driversList: null,
+            }
+
+        case SUBMIT_DRIVER_SUCCESS:
+            return {
+                ...state,
+                submitDriver: action.success,
             }
 
         default:

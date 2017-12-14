@@ -11,7 +11,7 @@ import {mapDriverToFormValues} from '~/common/utils/userDetails';
 import * as spinners from 'react-spinners';
 import {getDriversList, getIsLoading} from '~/common/selectors/userDetils';
 import {bindActionCreators} from 'redux';
-import {updateDriver, removeDriver} from '~/common/actions/userDetails';
+import {updateDriver, removeDriver, submitDriverSuccess} from '~/common/actions/userDetails';
 import CloseIcon from './components/CloseIcon';
 import * as ReactModal from 'react-modal';
 import {styledComponentWithProps} from 'src/common/utils/types';
@@ -57,6 +57,7 @@ interface IDriversPage {
     isLoading: boolean;
     updateDriver: any;
     removeDriver: any;
+    submitDriverSuccess: any;
 }
 
 interface IDriversPageState {
@@ -101,6 +102,7 @@ class DriversPage extends React.Component<IDriversPage, IDriversPageState> {
         this.setState({disableDriversListClick: true});
         this.setState({currentDriver: null});
         this.setState({addDriverClicked: true});
+        this.props.submitDriverSuccess(false);
     };
 
     updateDriver = (event, index) => {
@@ -150,7 +152,7 @@ class DriversPage extends React.Component<IDriversPage, IDriversPageState> {
                     </Container>
                     <ContainerBox>
                         <DriverDetailsForm
-                            active={this.state.addDriverClicked}
+                            active={this.state.addDriverClicked && !this.props.submitDriver}
                             form={'driverAdd'}
                             onSubmit={this.props.onSubmit}
                             motorId={this.props.motorId}
@@ -160,7 +162,7 @@ class DriversPage extends React.Component<IDriversPage, IDriversPageState> {
                         />
                     </ContainerBox>
                     <ButtonWrapper>
-                        {this.state.addDriverClicked === false ?
+                        {this.props.submitDriver ?
                             <Button onClick={this.handleAddDriverClick}>
                                 <Wrapper>
                                     <Circle>
@@ -389,11 +391,13 @@ const FormSection = styled.div`
 const mapStateToProps = (state: IReduxState) => ({
     drivers: getDriversList(state),
     isLoading: getIsLoading(state),
+    submitDriver: state.userDetails.submitDriver,
 });
 
 const mapDispatchToProps = (dispatch: any) => bindActionCreators({
     updateDriver,
     removeDriver,
+    submitDriverSuccess,
 }, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(StyledDriversPage) as any;

@@ -23,6 +23,7 @@ import {
     REMOVE_DRIVER_LIST,
     UPDATE_DRIVER,
     REMOVE_DRIVER,
+    SUBMIT_DRIVER_SUCCESS,
 } from '../constants/userDetails';
 
 export function lookupPostCode(postCode: string) {
@@ -157,5 +158,12 @@ export function removeDriver(index: string | number) {
     return {
         type: REMOVE_DRIVER,
         index
+    }
+}
+
+export function submitDriverSuccess(success: boolean) {
+    return {
+        type: SUBMIT_DRIVER_SUCCESS,
+        success
     }
 }
