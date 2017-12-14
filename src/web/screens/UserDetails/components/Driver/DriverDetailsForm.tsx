@@ -318,7 +318,7 @@ class DriverDetailsForm extends React.Component<IDriverDetailsForm, {}> {
                                     disabled={this.props.isLoading}
                                     onClick={this.props.closeClick}
                                 />
-                            </div>: null
+                            </div> : null
                         }
                         <RoundedButton
                             label={this.props.buttonText}

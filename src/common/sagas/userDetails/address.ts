@@ -1,4 +1,4 @@
-import {mapAddressBeforeCreateRequest} from "~/common/utils/userDetails";
+import {mapAddressBeforeCreateRequest} from '../../utils/userDetails';
 
 const {cancel, fork, put, race, select, take} = require('redux-saga/effects');
 import {getCurrentStep} from '../../../web/selectors/page';
