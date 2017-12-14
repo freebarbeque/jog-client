@@ -27,6 +27,7 @@ export const SET_IS_LOADING = 'userDetails/SET_IS_LOADING';
 export const SUBMIT_ADDRESS = 'userDetails/SUBMIT_ADDRESS';
 export const CANCEL_SUBMIT_ADDRESS = 'userDetails/CANCEL_SUBMIT_ADDRESS';
 export const DELETE_POSTCODE = 'userDetails/DELETE_POSTCODE';
+export const CREATE_ADDRESS = 'userDetails/CREATE_ADDRESS';
 
 export const SUBMIT_DRIVER = 'userDetails/SUBMIT_DRIVER';
 export const CHANGE_SELECTED_DRIVER = 'userDetails/CHANGE_SELECTED_DRIVER';

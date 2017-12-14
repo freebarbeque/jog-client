@@ -1,14 +1,19 @@
+import {mapAddressBeforeCreateRequest} from "~/common/utils/userDetails";
+
 const {cancel, fork, put, race, select, take} = require('redux-saga/effects');
 import {getCurrentStep} from '../../../web/selectors/page';
 import {LOCATION_CHANGE, push} from 'react-router-redux';
-import {LOOKUP_POSTCODE, POSTCODE_FORM, SUBMIT_ADDRESS, CANCEL_SUBMIT_ADDRESS, SET_ADDRESS_SUBMIT_ERROR} from '../../constants/userDetails';
+import {
+    LOOKUP_POSTCODE, POSTCODE_FORM, SUBMIT_ADDRESS, CANCEL_SUBMIT_ADDRESS, SET_ADDRESS_SUBMIT_ERROR,
+    CREATE_ADDRESS
+} from '../../constants/userDetails';
 import {lookupPostCode} from '../../api/idealPostcodes';
 import {stopSubmit} from 'redux-form';
 import {setAddress, setIsLoading, setAddressSubmitError, deletePostCode} from '../../actions/userDetails';
 import {clearStep, goToNextStep, goToPrevStep, setSteps} from '../../../web/actions/page';
 import {isChangeStepAction} from '../../../web/utils/page';
 import {createAddress} from '../../api/address';
-import {getUser} from '../../selectors/auth';
+import {getUser, getUserAddressId} from '../../selectors/auth';
 import {getAddress, getPostCode, getAddressSubmitError} from '../../selectors/userDetils';
 
 function* postcodeFlow() {
@@ -49,8 +54,10 @@ function* addressFlow(policyId: string) {
             yield put(setIsLoading(true));
             try {
                 const address = yield select(getAddress);
-                const postcode = yield select(getPostCode);
-                yield createAddress(user.id, postcode, address);
+                const addressId = yield select(getUserAddressId);
+                console.log(addressId);
+                const body = mapAddressBeforeCreateRequest(address);
+                yield createAddress(user.id, CREATE_ADDRESS, Object.assign({}, body, {id: addressId}));
             } catch (err) {
                 yield put(setAddressSubmitError(err.message));  
                 yield put(setIsLoading(false));

@@ -31,9 +31,6 @@ const ContentContainer = styled.div`
     color: #000;
     box-shadow: 0 2px 4px #333;
     background-color: ${WHITE};
-`
-
-const Center = ContentContainer.extend`
     width: 70%;
     margin: 10px auto;
 `;
@@ -53,11 +50,11 @@ class CreatePolicyScreen extends React.Component<ICreatePolicyScreenProps, {}> {
                         exact
                         path={`${this.props.match.url}/manual`}
                         render={() => (
-                            <Center>
+                            <ContentContainer>
                                 <CreatePolicyForm
                                     onSubmit={(values: ICreatePolicyFormValues) => this.props.createPolicy(values)}
                                 />
-                            </Center>
+                            </ContentContainer>
                         )}
                     />
                     <Route
@@ -74,6 +71,6 @@ class CreatePolicyScreen extends React.Component<ICreatePolicyScreenProps, {}> {
 
 const mapDispatchToProps = (dispatch: any) => bindActionCreators({
     createPolicy,
-}, dispatch)
+}, dispatch);
 
 export default connect(null, mapDispatchToProps)(CreatePolicyScreen);
