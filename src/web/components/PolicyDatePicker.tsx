@@ -2,9 +2,7 @@ import * as React from 'react';
 import styled from 'styled-components';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker-cssmodules.css';
-import {BLUE, PINK, DATEPICKER_BORDER, FOOTER_BACKGROUND_COLOR} from 'src/common/constants/palette';
-import ArrowButton from 'src/web/components/ArrowButton';
-const moment = require('moment');
+import {PINK, DATEPICKER_BORDER} from 'src/common/constants/palette';
 
 interface IPolicyDatePickerProps {
   className?: string;
@@ -155,14 +153,14 @@ const StyledPolicyDatePicker = styled(PolicyDatePicker)`
     
     & .react-datepicker__month-select, 
       .react-datepicker__year-select {
-      outline: none;
-      height: 20px;
-      font-size: 14px;
-      margin: 0 10px;
-      background: #FFF;
-      border-radius: 0;
-      border: none;
-      cursor: pointer;
+        outline: none;
+        height: 20px;
+        font-size: 14px;
+        margin: 0 10px;
+        background: #FFF;
+        border-radius: 0;
+        border: none;
+        cursor: pointer;
     }
   
     & .react-datepicker__header__dropdown {
@@ -203,15 +201,15 @@ const StyledPolicyDatePicker = styled(PolicyDatePicker)`
     
     & .react-datepicker__month-read-view, 
       .react-datepicker__year-read-view {
-      display: flex;
-      position: relative;
-      justify-content: center;
-      align-items: center;
-      height: 20px;
-      font-size: 16px;
-      border-width: 0.5px;
-      border-color: #666B80;
-      border-radius: 5px;
+        display: flex;
+        position: relative;
+        justify-content: center;
+        align-items: center;
+        height: 20px;
+        font-size: 16px;
+        border-width: 0.5px;
+        border-color: #666B80;
+        border-radius: 5px;
       &: hover {
         & .react-datepicker__month-read-view--down-arrow, 
           .react-datepicker__year-read-view--down-arrow {
@@ -235,19 +233,19 @@ const StyledPolicyDatePicker = styled(PolicyDatePicker)`
     
     & .react-datepicker__month-read-view--down-arrow,
       .react-datepicker__year-read-view--down-arrow {
-      position: absolute;
-      border-top-color: #666B80;
-      top: 8px;
-      left: -13px;
-      border-width: 0.3rem;
+        position: absolute;
+        border-top-color: #666B80;
+        top: 8px;
+        left: -13px;
+        border-width: 0.3rem;
     }
     
     & .react-datepicker__month-dropdown-container,
       .react-datepicker__year-dropdown-container {
-      display: flex;
-      position: relative;
-      align-items: center;
-      justify-content: center;
+        display: flex;
+        position: relative;
+        align-items: center;
+        justify-content: center;
     }
   }
 `;
