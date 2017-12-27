@@ -1,6 +1,7 @@
 import * as React from 'react';
 import styled from 'styled-components';
 import {BLUE} from 'src/common/constants/palette';
+import {CREATE_DRIVER_FORM, CREATE_ANOTHER_DRIVER_FORM, UPDATE_DRIVER_FORM} from 'src/common/constants/userDetails';
 import {connect} from 'react-redux';
 import {Add, DownArrow} from 'src/web/images';
 import DriverDetailsForm from './DriverDetailsForm';
@@ -82,8 +83,10 @@ class DriversPage extends React.Component<IDriversPage, IDriversPageState> {
     handleDriverClick = (indexButton) => {
         if (this.state.currentDriver !== null && this.state.currentDriver === indexButton) {
             this.setState({currentDriver: null});
+            this.props.submitDriverSuccess(true);
         } else {
             this.setState({currentDriver: indexButton});
+            this.props.submitDriverSuccess(false);
         }
         if (this.state.addDriverClicked) {
             this.setState({addDriverClicked: false});
@@ -105,8 +108,7 @@ class DriversPage extends React.Component<IDriversPage, IDriversPageState> {
         this.props.submitDriverSuccess(false);
     };
 
-    updateDriver = (event, index) => {
-        event.preventDefault();
+    updateDriver = (index) => {
         this.props.updateDriver(index);
     };
 
@@ -118,86 +120,99 @@ class DriversPage extends React.Component<IDriversPage, IDriversPageState> {
     handleCloseClick = () => {
         this.setState({disableDriversListClick: false});
         this.setState({addDriverClicked: false});
+        this.props.submitDriverSuccess(true);
     };
 
-    renderDrivers = () => (
-        <ContentWrapper>
-            {this.props.drivers && this.props.drivers.length > 0 ?
-                <FormSection>
-                    <Container>
-                        <Title>
-                            List of drivers
-                        </Title>
-                        <DriversContainer>
-                            {this.props.drivers.map((driver, index) => (
-                                <Drivers key={index}>
-                                    <DriverWrapper>
-                                        <Driver onClick={this.state.disableDriversListClick ? () => {return} : () => this.handleDriverClick(index)}>
-                                            <Name>{driver.first_name + ' ' + driver.last_name}</Name>
-                                            {this.state.currentDriver === index ? <StyledDownArrow/> : <DownArrow/>}
-                                        </Driver>
-                                        <CloseIcon onClick={() => this.handleOpenModal(index)}/>
-                                    </DriverWrapper>
-                                    <DriverDetailsForm
-                                        active={this.state.currentDriver === index}
-                                        form={'driver' + index}
-                                        motorId={this.props.motorId}
-                                        initialValues={this.props.drivers && mapDriverToFormValues(this.props.drivers[index])}
-                                        buttonText={'Update Driver'}
-                                        handleSubmit={(event) => this.updateDriver(event, index)}
-                                    />
-                                </Drivers>
-                            ))}
-                        </DriversContainer>
-                    </Container>
-                    <ContainerBox>
-                        <DriverDetailsForm
-                            active={this.state.addDriverClicked && !this.props.submitDriver}
-                            form={'driverAdd'}
-                            onSubmit={this.props.onSubmit}
-                            motorId={this.props.motorId}
-                            buttonText={'Create Driver'}
-                            cancelVisible={true}
-                            closeClick={this.handleCloseClick}
-                        />
-                    </ContainerBox>
-                    <ButtonWrapper>
-                        {this.props.submitDriver ?
-                            <Button onClick={this.handleAddDriverClick}>
-                                <Wrapper>
-                                    <Circle>
-                                        <Add/>
-                                    </Circle>
-                                    <Text>Add one more driver</Text>
-                                </Wrapper>
-                            </Button> : null
-                        }
-                    </ButtonWrapper>
-                </FormSection> :
-                <FormSection>
-                    <Container>
-                        <DriverDetailsForm
-                            active={true}
-                            form={'driverAdd'}
-                            onSubmit={this.props.onSubmit}
-                            motorId={this.props.motorId}
-                            buttonText={'Create Driver'}
-                        />
-                    </Container>
-                </FormSection>
-            }
-            <ReactModal
-                isOpen={this.state.showModal}
-                contentLabel="Minimal Modal Example"
-                style={StyledModal}
-            >
-                <TextModal>Are you sure that you want to remove the driver?</TextModal>
-                <ButtonModalWrapper >
-                    <ButtonModal onClick={this.handleCloseModal}>No</ButtonModal>
-                    <ButtonModal onClick={() => this.removeDriver(this.state.index)}>Yes</ButtonModal>
-                </ButtonModalWrapper>
-            </ReactModal>
-        </ContentWrapper>
+    renderDriversListContent = () => {
+        return (
+            <FormSection>
+                <Container>
+                    <Title>List of drivers</Title>
+                    <DriversContainer>
+                        {this.props.drivers.map(this.renderDriversListItem)}
+                    </DriversContainer>
+                </Container>
+                {this.renderCreateAnotherDriverForm()}
+                {this.props.submitDriver && this.renderAddDriverButton()}
+            </FormSection>
+        )
+    };
+
+    renderDriversListItem = (driver, index) => (
+        <Drivers key={index}>
+            <DriverWrapper>
+                <Driver 
+                    onClick={this.state.disableDriversListClick ? () => { return } : () => this.handleDriverClick(index)}
+                >
+                    <Name>{driver.first_name + ' ' + driver.last_name}</Name>
+                    {this.state.currentDriver === index ? <StyledDownArrow/> : <DownArrow/>}
+                </Driver>
+                <CloseIcon onClick={() => this.handleOpenModal(index)}/>
+            </DriverWrapper>
+            <DriverDetailsForm
+                active={this.state.currentDriver === index}
+                form={UPDATE_DRIVER_FORM(index)}
+                motorId={this.props.motorId}
+                initialValues={this.props.drivers && mapDriverToFormValues(this.props.drivers[index])}
+                buttonText={'Update Driver'}
+                onSubmit={() => this.updateDriver(index)}
+            />
+        </Drivers>
+    )
+
+    renderAddDriverButton = () => (
+        <ButtonWrapper>
+            <Button onClick={this.handleAddDriverClick}>
+                <Wrapper>
+                    <Circle>
+                        <Add/>
+                    </Circle>
+                    <Text>Add one more driver</Text>
+                </Wrapper>
+            </Button>
+        </ButtonWrapper>
+    );
+
+    renderCreateAnotherDriverForm = () => (
+        <ContainerBox>
+            <DriverDetailsForm
+                active={this.state.addDriverClicked && !this.props.submitDriver}
+                form={CREATE_ANOTHER_DRIVER_FORM}
+                onSubmit={values => this.props.onSubmit(values, CREATE_ANOTHER_DRIVER_FORM)}
+                motorId={this.props.motorId}
+                buttonText={'Create Driver'}
+                cancelVisible={true}
+                closeClick={this.handleCloseClick}
+            />
+        </ContainerBox>
+    );
+
+    renderCreateInitialDriverForm = () => (
+        <FormSection>
+            <Container>
+                <DriverDetailsForm
+                    active={this.props.drivers && this.props.drivers.length === 0}
+                    form={CREATE_DRIVER_FORM}
+                    onSubmit={values => this.props.onSubmit(values, CREATE_DRIVER_FORM)}
+                    motorId={this.props.motorId}
+                    buttonText={'Create Driver'}
+                />
+            </Container>
+        </FormSection>
+    );
+
+    renderModal = () => (
+        <ReactModal
+            isOpen={this.state.showModal}
+            contentLabel="Minimal Modal Example"
+            style={StyledModal}
+        >
+            <TextModal>Are you sure that you want to remove the driver?</TextModal>
+            <ButtonModalWrapper >
+                <ButtonModal onClick={this.handleCloseModal}>No</ButtonModal>
+                <ButtonModal onClick={() => this.removeDriver(this.state.index)}>Yes</ButtonModal>
+            </ButtonModalWrapper>
+        </ReactModal>
     );
 
     renderSpinner = () => (
@@ -208,9 +223,15 @@ class DriversPage extends React.Component<IDriversPage, IDriversPageState> {
     );
 
     render() {
+        const { isLoading, drivers } = this.props;
+
         return (
             <div className={this.props.className}>
-                {this.props.isLoading ? this.renderSpinner() : this.renderDrivers()}
+                {isLoading && this.renderSpinner()}
+                <ContentWrapper style={{ display: isLoading ? 'none' : 'flex' }}>
+                    {drivers && drivers.length > 0 ? this.renderDriversListContent() : this.renderCreateInitialDriverForm()}
+                    {this.renderModal()}
+                </ContentWrapper>
             </div>
         )
     }
@@ -262,7 +283,6 @@ const TextModal = styled.div`
 `;
 
 const ContentWrapper = styled.div`
-    display: flex;
     align-self: stretch;
 `;
 

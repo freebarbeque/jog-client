@@ -72,7 +72,7 @@ class UserDetailsScreen extends React.Component<IUserDetailsScreenProps, {}> {
                         <Route
                             path={`${this.props.match.url}/motor/:motorId(\\d+)/holder`}
                             render={(routerProps: any) => <DriversPage
-                                onSubmit={(values: any) => this.props.submitDriver(values)}
+                                onSubmit={(values: any, formName: string) => this.props.submitDriver(values, formName)}
                                 motorId={routerProps.match.params.motorId}
                             />}
                         />

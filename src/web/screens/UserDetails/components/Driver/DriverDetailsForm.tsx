@@ -443,10 +443,11 @@ const initialValues = {
 const mapStateToProps = (state: IReduxState, props: IDriverDetailsForm) => ({
     isLoading: getIsLoading(state),
     formValues: getFormValues(props.form)(state),
-    initialValues: props.initialValues,
+    initialValues: props.initialValues || initialValues,
 });
 
-export default reduxForm({
-    initialValues,
+const form = reduxForm({
     validate: validateForm,
-})(connect(mapStateToProps, null)(StyledDriverDetailsForm));
+})(StyledDriverDetailsForm);
+
+export default connect(mapStateToProps, null)(form) as any;

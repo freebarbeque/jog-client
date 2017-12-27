@@ -50,3 +50,7 @@ export const POSTCODE_FORM = 'postcodeForm';
 export const DRIVER_DETAILS_FORM = 'driverDetailsForm';
 export const MOTOR_VEHICLE = 'userDetails/MOTOR_VEHICLE';
 export const CREATE_VEHICLE = 'userDetails/CREATE_VEHICLE';
+
+export const CREATE_DRIVER_FORM = 'userDetails/CREATE_DRIVER_FORM';
+export const CREATE_ANOTHER_DRIVER_FORM = 'userDetails/CREATE_ANOTHER_DRIVER_FORM';
+export const UPDATE_DRIVER_FORM = index => `userDetails/UPDATE_DRIVER_FORM_${index}`;

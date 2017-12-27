@@ -28,7 +28,7 @@ const defaultState = {
     postCode: null,
     addressSubmitError: null,
     driversList: null,
-    submitDriver: false,
+    submitDriver: true,
 }
 
 export default function (state: IUserDetailsReduxState = defaultState, action: IAction) {

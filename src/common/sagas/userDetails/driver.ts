@@ -3,9 +3,9 @@ import {LOCATION_CHANGE, push} from 'react-router-redux';
 import {setIsLoading, setDriversList, removeDriverList, submitDriverSuccess} from '../../actions/userDetails';
 import {createDriver, getDrivers, removeDriver, updateDriver} from '../../api/drivers';
 import {getUser} from '../../selectors/auth';
-import {CREATE_DRIVER, SUBMIT_DRIVER, UPDATE_DRIVER, REMOVE_DRIVER} from '../../constants/userDetails';
+import {CREATE_DRIVER, SUBMIT_DRIVER, UPDATE_DRIVER, REMOVE_DRIVER, UPDATE_DRIVER_FORM} from '../../constants/userDetails';
 import {getFormValues} from 'redux-form';
-import {stopSubmit, reset, destroy} from 'redux-form';
+import {stopSubmit, reset, destroy, initialize} from 'redux-form';
 import {setSteps} from '../../../web/actions/page';
 
 function* driverWorker() {
@@ -18,29 +18,44 @@ function* driverWorker() {
         const user = yield select(getUser);
 
         if (submit) {
+            const { formName } = submit;
+
             yield put(setIsLoading(true));
+
             try {
-                const values = yield select(getFormValues('driverAdd'));
-                yield createDriver(user.id, CREATE_DRIVER, values);
-                yield put(submitDriverSuccess(true));
-                const {drivers} = yield getDrivers(user.id);
-                yield put(setDriversList(drivers));
-                yield put(reset('driverAdd'));
+                const formValues = yield select(getFormValues(formName));
+                const { errors } = yield createDriver(user.id, CREATE_DRIVER, formValues);
+
+                if (errors) {
+                    yield put(stopSubmit(formName, { ...errors }));
+                } else {
+                    yield put(submitDriverSuccess(true));
+                    const {drivers} = yield getDrivers(user.id);
+                    yield put(setDriversList(drivers));
+                    yield put(reset(formName));
+                }
             } catch (err) {
-                yield put(stopSubmit('driverAdd', {_error: err.message}));
+                yield put(stopSubmit(formName, {_error: err.message}));
                 continue;
             }
+
             yield put(setIsLoading(false));
         }
         if (update) {
             yield put(setIsLoading(true));
             try {
-                const values = yield select(getFormValues('driver' + update.index));
-                yield updateDriver(user.id, UPDATE_DRIVER, values.id, values);
-                const {drivers} = yield getDrivers(user.id);
-                yield put(setDriversList(drivers));
+                const values = yield select(getFormValues(UPDATE_DRIVER_FORM(update.index)));
+                const { errors } = yield updateDriver(user.id, UPDATE_DRIVER, values.id, values);
+
+                if (errors) {
+                    yield put(stopSubmit(UPDATE_DRIVER_FORM(update.index), { ...errors }));
+                } else {
+                    yield put(submitDriverSuccess(true));
+                    const {drivers} = yield getDrivers(user.id);
+                    yield put(setDriversList(drivers));
+                }
             } catch (err) {
-                yield put(stopSubmit('driver' + update.index, {_error: err.message}));
+                yield put(stopSubmit(UPDATE_DRIVER_FORM(update.index), {_error: err.message}));
                 continue;
             }
             yield put(setIsLoading(false));
@@ -48,7 +63,7 @@ function* driverWorker() {
         if (remove) {
             yield put(setIsLoading(true));
             try {
-                const values = yield select(getFormValues('driver' + remove.index));
+                const values = yield select(getFormValues(UPDATE_DRIVER_FORM(remove.index)));
                 yield removeDriver(user.id, REMOVE_DRIVER, values.id);
                 const {drivers} = yield getDrivers(user.id);
                 yield put(setDriversList(drivers));

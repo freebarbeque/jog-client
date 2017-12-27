@@ -105,10 +105,11 @@ export function setIsLoading(isLoading: boolean) {
     }
 }
 
-export function submitDriver(driver: IDriverDetailsFormValues) {
+export function submitDriver(driver: IDriverDetailsFormValues, formName: string) {
     return {
         type: SUBMIT_DRIVER,
         driver,
+        formName,
     }
 }
 
