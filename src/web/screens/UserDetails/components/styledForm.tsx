@@ -1,7 +1,7 @@
 import * as React from 'react';
 import styled from 'styled-components';
 
-export default (form: React.StatelessComponent<any>) => styled(form)`
+export default (form: any) => styled(form)`
   display: flex;
   flex-direction: column;
   flex: 1;

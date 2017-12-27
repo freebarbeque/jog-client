@@ -10,6 +10,7 @@ import {
     SUBMIT_VEHICLE,
     MOTOR_VEHICLE,
     CREATE_VEHICLE,
+    VEHICLE_DETAILS_FORM,
 } from '../../constants/userDetails';
 import {getCurrentStep} from '../../../web/selectors/page';
 import {isChangeStepAction} from '../../../web/utils/page';
@@ -20,9 +21,11 @@ import {getRegistrationNumber} from '../../selectors/userDetils';
 
 function* registrationNumberFlow() {
     while (true) {
-        const regNum = select(getRegistrationNumber)
-        const {registrationNumber} = yield take(LOOKUP_REGISTRATION_NUMBER);
+        const regNum = yield select(getRegistrationNumber);
+        const { registrationNumber } = yield take(LOOKUP_REGISTRATION_NUMBER);
+
         yield put(setIsLoading(true));
+
         try {
             if (regNum === null || regNum !== registrationNumber) {
                 const data = yield getVehicle(MOTOR_VEHICLE, {vrm: registrationNumber});
@@ -33,6 +36,7 @@ function* registrationNumberFlow() {
             }
         } catch (err) {
             yield put(stopSubmit('carRegistrationForm', {_error: err.message}));
+        } finally {
             yield put(setIsLoading(false));
         }
     }
@@ -44,24 +48,30 @@ function* vehicleDetailsFlow(policyId: string) {
             cancelSubmit: take(CANCEL_SUBMIT_VEHICLE),
             submit: take(SUBMIT_VEHICLE),
         });
+
         const user = yield select(getUser);
 
         if (cancelSubmit) {
-            const formValues = yield select(getFormValues('carDetailsForm'));
+            const formValues = yield select(getFormValues(VEHICLE_DETAILS_FORM));
             yield put(setVehicleData(formValues));
             yield put(goToPrevStep());
             return;
         } else if (submit) {
             try {
                 yield put(setIsLoading(true));
-                const formValues = yield select(getFormValues('carDetailsForm'));
+                const formValues = yield select(getFormValues(VEHICLE_DETAILS_FORM));
                 const regNum = yield select(getRegistrationNumber);
-                yield put(setVehicleData(formValues));
-                yield createVehicle(user.id, CREATE_VEHICLE, Object.assign({}, formValues, {registration: regNum}));
-                yield put(setIsLoading(false));
-                yield put(push(`/app/dashboard/motor/${policyId}/quote`))
+
+                const { errors } = yield createVehicle(user.id, CREATE_VEHICLE, Object.assign({}, formValues, {registration: regNum}));
+
+                if (errors) {
+                    yield put(stopSubmit(VEHICLE_DETAILS_FORM, { _error: 'TEST ERROR', ...errors }));
+                } else {
+                    yield put(push(`/app/dashboard/motor/${policyId}/quote`))
+                }
             } catch (err) {
-                yield put(stopSubmit('carDetailsForm', {_error: err.message}));
+                yield put(stopSubmit(VEHICLE_DETAILS_FORM, {_error: err.message}));
+            } finally {
                 yield put(setIsLoading(false));
             }
         }
@@ -76,6 +86,8 @@ function* vehicleStepsWorker(policyId: number) {
             case 1: {
                 const worker = yield fork(registrationNumberFlow);
                 workers.push(worker);
+                workers.push(worker);
+
                 break;
             }
             case 2: {

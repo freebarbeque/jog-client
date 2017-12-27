@@ -36,11 +36,14 @@ export function* createVehicle(userId: string | number, type: string, vehicle: P
         }
     }
 
-    const body = {
+    const reqBody = {
         data: {
             type: vehicleType,
             attributes: vehicle,
         }
     };
-    const data = yield post(`users/${userId}/${vehicleType}`, body);
+
+    const { body } = yield post(`users/${userId}/${vehicleType}`, reqBody);
+
+    return body;
 }

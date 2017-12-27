@@ -37,6 +37,9 @@ export const REMOVE_DRIVER_LIST = 'userDetails/REMOVE_DRIVER_LIST';
 export const UPDATE_DRIVER = 'userDetails/UPDATE_DRIVER';
 export const REMOVE_DRIVER = 'userDetails/REMOVE_DRIVER';
 export const SUBMIT_DRIVER_SUCCESS = 'userDetails/SUBMIT_DRIVER_SUCCESS';
+export const CREATE_DRIVER_FORM = 'userDetails/CREATE_DRIVER_FORM';
+export const CREATE_ANOTHER_DRIVER_FORM = 'userDetails/CREATE_ANOTHER_DRIVER_FORM';
+export const UPDATE_DRIVER_FORM = index => `userDetails/UPDATE_DRIVER_FORM_${index}`;
 
 export const LOOKUP_REGISTRATION_NUMBER = 'userDetails/LOOKUP_REGISTRATION_NUMBER';
 export const SUBMIT_VEHICLE = 'userDetails/SUBMIT_VEHICLE';
@@ -45,12 +48,9 @@ export const SET_VEHICLE_DATA = 'userDetails/SET_VEHICLE_DATA';
 export const CANCEL_SUBMIT_VEHICLE = 'userDetails/CANCEL_SUBMIT_VEHICLE';
 export const DELETE_REGISTRATION_NUMBER = 'userDetails/DELETE_REGISTRATION_NUMBER';
 export const DELETE_VEHICLE_DATA = 'userDetails/DELETE_VEHICLE_DATA';
+export const VEHICLE_DETAILS_FORM = 'userDetails/VEHICLE_DETAILS_FORM';
 
 export const POSTCODE_FORM = 'postcodeForm';
 export const DRIVER_DETAILS_FORM = 'driverDetailsForm';
 export const MOTOR_VEHICLE = 'userDetails/MOTOR_VEHICLE';
 export const CREATE_VEHICLE = 'userDetails/CREATE_VEHICLE';
-
-export const CREATE_DRIVER_FORM = 'userDetails/CREATE_DRIVER_FORM';
-export const CREATE_ANOTHER_DRIVER_FORM = 'userDetails/CREATE_ANOTHER_DRIVER_FORM';
-export const UPDATE_DRIVER_FORM = index => `userDetails/UPDATE_DRIVER_FORM_${index}`;

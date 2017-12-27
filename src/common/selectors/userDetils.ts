@@ -20,25 +20,13 @@ export const getRegistrationNumber = (state: IReduxState) => state.userDetails.r
 export const getVehicleDataForm = createSelector(
     getVehicleData,
     (data: IVehicleDetailsFormValues) => data ? {
-        manufacturer_id: `${data.manufacturer_id.slice(0, 1)}${data.manufacturer_id.slice(1).toLocaleLowerCase()}`,
-        motor_vehicle_model_id: `${data.motor_vehicle_model_id.slice(0, 1)}${data.motor_vehicle_model_id.slice(1).toLocaleLowerCase()}`,
-        number_of_seats: data.number_of_seats,
-        date_of_registration: moment(data.date_of_registration),
-        abs: data.abs || false,
-        imported: data.imported || false,
-        modified: data.modified || false,
-        tracking_device: data.tracking_device || false,
-        purchase: data.purchase || false,
-        abi_code: data.abi_code || '',
-        alarm: data.alarm || '',
+        ...data,
+        manufacturer_id: data.manufacturer_id ? `${data.manufacturer_id.slice(0, 1)}${data.manufacturer_id.slice(1).toLocaleLowerCase()}` : null,
+        motor_vehicle_model_id: data.motor_vehicle_model_id ? `${data.motor_vehicle_model_id.slice(0, 1)}${data.motor_vehicle_model_id.slice(1).toLocaleLowerCase()}` : null,
+        date_of_registration: data.date_of_registration ? moment(data.date_of_registration) : null,
         date_of_manufacture: data.date_of_manufacture ? moment(data.date_of_manufacture) : null,
         date_of_purchase: data.date_of_purchase ? moment(data.date_of_purchase) : null,
-        drive: data.drive || '',
-        motor_vehicle_storage_location: data.motor_vehicle_storage_location || '',
-        value_cents: data.value_cents || '',
-        ownership: data.ownership || '',
-        registered_keeper: data.registered_keeper || '',
-    } : null
+    } : null,
 );
 
 export const getPostCode = createSelector(
