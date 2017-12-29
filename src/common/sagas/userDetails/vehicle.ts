@@ -3,7 +3,9 @@ import {stopSubmit} from 'redux-form';
 const {cancel, fork, put, race, select, take, takeEvery} = require('redux-saga/effects');
 import {clearStep, goToNextStep, goToPrevStep, setSteps} from '../../../web/actions/page';
 import {LOCATION_CHANGE, push} from 'react-router-redux';
-import {setVehicleData, setIsLoading, deleteRegistrationNumber, deleteVehicleData} from '../../actions/userDetails';
+import {setVehicleData, setIsLoading, deleteRegistrationNumber, deleteVehicleData, lookupRegistrationNumber} from '../../actions/userDetails';
+import { addVehicle } from '../../actions/vehicles';
+import { setVehicleToPolicyQuote } from '../../actions/quotePolicy';
 import {
     CANCEL_SUBMIT_VEHICLE,
     LOOKUP_REGISTRATION_NUMBER,
@@ -18,6 +20,7 @@ import {IReduxState} from '../../interfaces/store';
 import {getFormValues} from 'redux-form';
 import {getUser} from '../../selectors/auth';
 import {getRegistrationNumber} from '../../selectors/userDetils';
+import {getPolicyQuote} from '../../selectors/policyQoute';
 
 function* registrationNumberFlow() {
     while (true) {
@@ -62,11 +65,13 @@ function* vehicleDetailsFlow(policyId: string) {
                 const formValues = yield select(getFormValues(VEHICLE_DETAILS_FORM));
                 const regNum = yield select(getRegistrationNumber);
 
-                const { errors } = yield createVehicle(user.id, CREATE_VEHICLE, Object.assign({}, formValues, {registration: regNum}));
+                const { errors, motor_vehicle: vehicle } = yield createVehicle(user.id, CREATE_VEHICLE, Object.assign({}, formValues, {registration: regNum}));
 
                 if (errors) {
-                    yield put(stopSubmit(VEHICLE_DETAILS_FORM, { _error: 'TEST ERROR', ...errors }));
+                    yield put(stopSubmit(VEHICLE_DETAILS_FORM, { ...errors }));
                 } else {
+                    // yield put(addVehicle(policyId, vehicle));
+                    yield put(setVehicleToPolicyQuote(policyId, vehicle));
                     yield put(push(`/app/dashboard/motor/${policyId}/quote`))
                 }
             } catch (err) {
@@ -107,7 +112,21 @@ function* vehicleStepsWorker(policyId: number) {
 
 export function* vehicleStepsFlow(policyId: string) {
     yield put(setSteps([1, 2]));
+
+    const policyQuote = yield select(getPolicyQuote, policyId );
+    const currentStep = yield select(getCurrentStep);
+
+    if (policyQuote && policyQuote.vehicle) {
+        yield put(lookupRegistrationNumber(policyQuote.vehicle.registration));
+        yield put(setVehicleData(policyQuote.vehicle));
+
+        if (currentStep === 1) {
+            yield put(goToNextStep());
+        }
+    }
+
     const worker = yield fork(vehicleStepsWorker, policyId);
+
     yield take(LOCATION_CHANGE);
     yield put(clearStep());
     yield put(deleteRegistrationNumber());

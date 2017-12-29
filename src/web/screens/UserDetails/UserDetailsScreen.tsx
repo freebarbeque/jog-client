@@ -44,6 +44,12 @@ class UserDetailsScreen extends React.Component<IUserDetailsScreenProps, {}> {
                 title = 'Vehicle details';
                 break;
             }
+
+            case 'address': {
+                title = 'Address';
+                break;
+            }
+
             default: {
                 title = ''
             }

@@ -1,3 +1,4 @@
+export const BLACK = '#000000';
 export const BLUE = '#131733';
 export const PINK = '#ff4d62';
 export const YELLOW = '#ffd461';
@@ -20,3 +21,4 @@ export const DARK_PINK = '#d93d57';
 export const LIGHT_GREEN = '#41EDC1';
 export const DATEPICKER_BORDER = '#D9DEE3';
 export const FIELD_GRAY_COLOR = '#DBDDE0';
+export const DARK_TRANSPARENT_GRAY = 'rgba(35, 50, 85, 0.95)';

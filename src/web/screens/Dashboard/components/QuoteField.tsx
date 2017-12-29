@@ -1,6 +1,6 @@
 import * as React from 'react';
 import styled from 'styled-components';
-import {BLUE, DASHBOARD_INACTIVE_LINK_COLOR, LIGHT_GREEN} from 'src/common/constants/palette';
+import {BLUE, DASHBOARD_INACTIVE_LINK_COLOR, LIGHT_GREEN, BLACK} from 'src/common/constants/palette';
 import {BlackArrow, WhiteTick, MoreCircles} from 'src/web/images';
 import {Field, reduxForm, getFormValues} from 'redux-form';
 import DatePicker from 'src/web/components/PolicyDatePicker';
@@ -16,6 +16,7 @@ interface IQuoteFieldProps {
   icon?: any;
   disabled?: boolean;
   title?: string;
+  primaryTitle?: string;
   completed?: boolean;
   onClick?: any;
   withDatePicker?: boolean;
@@ -43,9 +44,12 @@ const QuoteField: React.StatelessComponent<IQuoteFieldProps> = (props) => {
                 {props.icon}
             </IconBox>
             <ContentBox>
-                <Title>
-                    {props.title}
-                </Title>
+                <TitleContent>
+                    {!props.primaryTitle && <PrimaryTitle>{props.title}</PrimaryTitle>}
+                    {props.primaryTitle && <SecondaryTitle>{props.title}</SecondaryTitle>}
+                    {props.primaryTitle && <PrimaryTitle>{props.primaryTitle}</PrimaryTitle>}
+                </TitleContent>
+
                 {props.withDatePicker ? (
                     <Field
                         name="date"
@@ -54,9 +58,7 @@ const QuoteField: React.StatelessComponent<IQuoteFieldProps> = (props) => {
                     />
                 ) : (
                     <StatusContainer>
-                        <StatusText>
-                            {props.completed ? 'Review complete' : 'Click to review'}
-                        </StatusText>
+                        {!props.completed && <StatusText>Click to review</StatusText>}
                         <StatusIcon>
                             {props.completed ? (<WhiteTick />) : (<MoreCircles />)}
                         </StatusIcon>
@@ -84,7 +86,14 @@ const ContentBox = styled.div`
   padding: 0 28px 0 37px;
 `;
 
-const Title = styled.div`
+const TitleContent = styled.div`
+    margin-right: 10px;
+    flex-grow: 1;
+    display: 'flex';
+    flex-direction: 'column';
+`;
+
+const PrimaryTitle = styled.div`
   color: ${BLUE};
   font-size: 20px;
   font-weight: 400;
@@ -92,22 +101,29 @@ const Title = styled.div`
   flex: 0 0 45%;
 `;
 
+const SecondaryTitle = styled.div`
+    color: ${BLACK};
+    color: #000000;
+    font-size: 14px;
+    line-height: 24px;
+`;
+
 const StatusContainer = styled.div`
   display: flex;
-  flex: 0 0 55%;
   align-items: center;
   justify-content: space-between;
 `;
 
 const StatusText = styled.div`
+  margin-right: 20px;
   color: ${DASHBOARD_INACTIVE_LINK_COLOR};
   font-size: 16px;
   line-height: 24px;
   font-weight: 400;
-  flex: 0 0 45%;
 `;
 
 const StatusIcon = styled.div`
+  margin-right: 15px;
   display: flex;
   align-items: center;
   justify-content: center;
