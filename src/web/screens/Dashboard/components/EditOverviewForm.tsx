@@ -12,7 +12,7 @@ import {EDIT_POLICY_OVERVIEW_FORM} from 'src/common/constants/policies';
 import {IReduxState} from 'src/common/interfaces/store';
 import {FOOTER_BACKGROUND_COLOR} from 'src/common/constants/palette';
 import {getEditOverviewFormInitialValues, getEditOverviewDaysLeft} from 'src/common/selectors/policies';
-import {onlyNumber} from 'src/common/utils/form';
+import {onlyNumber, onlyDecimal} from 'src/common/utils/form';
 import {getDataSource} from 'src/common/selectors/dataSource';
 import {IDataSource} from 'src/common/interfaces/dataSource';
 import {IPatchPolicyFormValues} from 'src/common/interfaces/policies';
@@ -154,7 +154,7 @@ const EditOverviewForm: React.StatelessComponent<IEditOverviewFormProps> = (prop
           component={Input}
           style={inputStyles}
           placeholder="000000000"
-          preCheck={onlyNumber}
+          preCheck={onlyDecimal}
         />
       </FieldWrapper>
     </Container>
