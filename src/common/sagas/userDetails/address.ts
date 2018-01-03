@@ -10,13 +10,13 @@ import {
 import {lookupPostCode} from '../../api/idealPostcodes';
 import {stopSubmit} from 'redux-form';
 import {setAddress, setIsLoading, setAddressSubmitError, deletePostCode} from '../../actions/userDetails';
-import {setAddressToPolicyQuote} from '../../actions/quotePolicy';
+import {updateAddressOnPolicyQuoteRequest} from '../../actions/policyQuoteRequest';
 import {clearStep, goToNextStep, goToPrevStep, setSteps} from '../../../web/actions/page';
 import {isChangeStepAction} from '../../../web/utils/page';
 import {createAddress} from '../../api/address';
 import {getUser, getUserAddressId} from '../../selectors/auth';
 import {getAddress, getPostCode, getAddressSubmitError} from '../../selectors/userDetils';
-import {getPolicyQuote} from '../../selectors/policyQoute';
+import {getPolicyQuoteRequest} from '../../selectors/policyQuoteRequest';
 
 function* postcodeFlow() {
     while (true) {
@@ -62,7 +62,7 @@ function* addressFlow(policyId: string) {
                 const { user } = yield createAddress(currentUser.id, CREATE_ADDRESS, Object.assign({}, body, {id: addressId}));
 
                 if (user && user.addresses.length) {
-                    yield put(setAddressToPolicyQuote(policyId, user.addresses[0]));
+                    yield put(updateAddressOnPolicyQuoteRequest(policyId, user.addresses[0]));
                 }
             } catch (err) {
                 yield put(setAddressSubmitError(err.message));  
@@ -106,12 +106,12 @@ export function* addressStepsFlow(policyId: number) {
     yield put(setSteps([1, 2]));
 
     const currentStep = yield select(getCurrentStep);
-    const policyQuote = yield select(getPolicyQuote, policyId );
+    const policyQuoteRequest = yield select(getPolicyQuoteRequest, policyId );
 
-    if (policyQuote && policyQuote.address && currentStep === 1) {
+    if (policyQuoteRequest && policyQuoteRequest.address && currentStep === 1) {
         yield put(setIsLoading(true));
 
-        const address = yield lookupPostCode(policyQuote.address.postcode);
+        const address = yield lookupPostCode(policyQuoteRequest.address.postcode);
 
         if (address.code === 2000) {
             yield put(setAddress(address.result[0]));

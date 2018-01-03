@@ -6,7 +6,7 @@ import documents from '../reducers/documents';
 import dataSource from '../reducers/dataSource';
 import userDetails from '../reducers/userDetails';
 import vehicles from '../reducers/vehicles';
-import policyQuote from '../reducers/quotePolicy';
+import policyQuoteRequest from '../reducers/policyQuoteRequest';
 
 export const coreReducers = {
     auth,
@@ -16,7 +16,7 @@ export const coreReducers = {
     dataSource,
     userDetails,
     vehicles,
-    policyQuote,
+    policyQuoteRequest,
 };
 
 export function initReducer(reducers: any = {}) {

@@ -6,7 +6,7 @@ import {getUser} from '../../selectors/auth';
 import {CREATE_DRIVER, SUBMIT_DRIVER, UPDATE_DRIVER, REMOVE_DRIVER, UPDATE_DRIVER_FORM} from '../../constants/userDetails';
 import {getFormValues} from 'redux-form';
 import {stopSubmit, reset, destroy, initialize} from 'redux-form';
-import { setDriverToPolicyQuote, removeDriverFromPolicyQuote } from '../../actions/quotePolicy';
+import { updateDriverOnPolicyQuoteRequest } from '../../actions/policyQuoteRequest';
 import {setSteps} from '../../../web/actions/page';
 
 function* driverWorker(policyId: string) {
@@ -33,7 +33,7 @@ function* driverWorker(policyId: string) {
                     yield put(submitDriverSuccess(true));
                     const {drivers} = yield getDrivers(user.id);
                     yield put(setDriversList(drivers));
-                    yield put(setDriverToPolicyQuote(policyId, driver));
+                    yield put(updateDriverOnPolicyQuoteRequest(policyId, driver));
                     yield put(reset(formName));
                 }
             } catch (err) {
@@ -55,7 +55,7 @@ function* driverWorker(policyId: string) {
                     yield put(submitDriverSuccess(true));
                     const {drivers} = yield getDrivers(user.id);
                     yield put(setDriversList(drivers));
-                    yield put(setDriverToPolicyQuote(policyId, driver));
+                    yield put(updateDriverOnPolicyQuoteRequest(policyId, driver));
                 }
             } catch (err) {
                 yield put(stopSubmit(UPDATE_DRIVER_FORM(update.index), {_error: err.message}));
@@ -68,7 +68,7 @@ function* driverWorker(policyId: string) {
             try {
                 const values = yield select(getFormValues(UPDATE_DRIVER_FORM(remove.index)));
                 yield removeDriver(user.id, REMOVE_DRIVER, values.id);
-                yield put(removeDriverFromPolicyQuote(policyId));
+                yield put(updateDriverOnPolicyQuoteRequest(policyId, null));
                 const {drivers} = yield getDrivers(user.id);
                 yield put(setDriversList(drivers));
             } catch (err) {

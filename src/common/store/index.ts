@@ -70,7 +70,7 @@ export default function createStore(additionalOpts: ICreateStoreOpts): any {
                 'page',
                 'drivers',
                 'vehicles',
-                'policyQuote',
+                'policyQuoteRequest',
             ],
         }
 

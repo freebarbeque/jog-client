@@ -22,52 +22,59 @@ interface IQuoteFieldProps {
   withDatePicker?: boolean;
   motorPolicy?: IMotorPolicyWithDaysLeft;
   motorId: string;
-    initialValues: any;
+  initialValues: any;
+  onDatePickerChange: any;
 }
 
 const renderDatePicker = (props: any) => (
     <DatePicker
         {...props}
-        onChange={props.input.onChange}
+        onChange={(value) => {
+            props.onDatePickerChange(value);
+            props.input.onChange(value);
+        }}
         value={props.input.value}
         error={props.meta.error}
         touched={props.meta.touched}
-        maxDate={moment().add(25, 'years')}
+        maxDate={moment()}
         minDate={moment().subtract(100, 'years')}
     />
 );
 
-const QuoteField: React.StatelessComponent<IQuoteFieldProps> = (props) => {
-    return (
-        <form className={props.className} onClick={props.onClick}>
-            <IconBox>
-                {props.icon}
-            </IconBox>
-            <ContentBox>
-                <TitleContent>
-                    {!props.primaryTitle && <PrimaryTitle>{props.title}</PrimaryTitle>}
-                    {props.primaryTitle && <SecondaryTitle>{props.title}</SecondaryTitle>}
-                    {props.primaryTitle && <PrimaryTitle>{props.primaryTitle}</PrimaryTitle>}
-                </TitleContent>
+class QuoteField extends React.Component<IQuoteFieldProps, {}> {
+    render() {
+        return (
+            <form className={this.props.className} onClick={this.props.onClick}>
+                <IconBox>
+                    {this.props.icon}
+                </IconBox>
+                <ContentBox>
+                    <TitleContent>
+                        {!this.props.primaryTitle && <PrimaryTitle>{this.props.title}</PrimaryTitle>}
+                        {this.props.primaryTitle && <SecondaryTitle>{this.props.title}</SecondaryTitle>}
+                        {this.props.primaryTitle && <PrimaryTitle>{this.props.primaryTitle}</PrimaryTitle>}
+                    </TitleContent>
 
-                {props.withDatePicker ? (
-                    <Field
-                        name="date"
-                        component={renderDatePicker}
-                        props={{placeholder: 'Select policy start date'}}
-                    />
-                ) : (
-                    <StatusContainer>
-                        {!props.completed && <StatusText>Click to review</StatusText>}
-                        <StatusIcon>
-                            {props.completed ? (<WhiteTick />) : (<MoreCircles />)}
-                        </StatusIcon>
-                        <BlackArrow />
-                    </StatusContainer>
-                )}
-            </ContentBox>
-        </form>
-    );
+                    {this.props.withDatePicker ? (
+                        <Field
+                            name="date"
+                            component={renderDatePicker}
+                            onDatePickerChange={this.props.onDatePickerChange}
+                            props={{placeholder: 'Select policy start date'}}
+                        />
+                    ) : (
+                        <StatusContainer>
+                            {!this.props.completed && <StatusText>Click to review</StatusText>}
+                            <StatusIcon>
+                                {this.props.completed ? (<WhiteTick />) : (<MoreCircles />)}
+                            </StatusIcon>
+                            <BlackArrow />
+                        </StatusContainer>
+                    )}
+                </ContentBox>
+            </form>
+        );
+    }
 }
 
 const IconBox = styled.div`
@@ -180,4 +187,4 @@ const mapStateToProps = (state: IReduxState, props: IQuoteFieldProps) => ({
     initialValues: getDatePickerInitialValues(state, props),
 });
 
-export default connect(mapStateToProps, null)(reduxForm({form: 'datePicker'}) (StyledQuoteField)) as any;
+export default reduxForm({form: 'datePicker'}) (StyledQuoteField) as any;

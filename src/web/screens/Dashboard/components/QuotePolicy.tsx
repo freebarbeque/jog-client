@@ -11,18 +11,20 @@ import {Action, ActionCreator, bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import {IReduxState} from '~/common/interfaces/store';
 import {getAddress, getSelectedDriverId, getUserAddress} from '~/common/selectors/userDetils';
-import {getPolicyQuote, getLoadingState} from '~/common/selectors/policyQoute';
+import {getPolicyQuoteRequest, getLoadingState, getStartPolicyDate} from '~/common/selectors/policyQuoteRequest';
 import {IAddress} from '~/common/interfaces/userDetails';
-import {quotePolicyWorker} from '~/common/sagas/quotePolicy';
-import {createQuotePolicyRequest} from '~/common/actions/quotePolicy';
+import {policyQuoteRequestWorker} from '~/common/sagas/policyQuoteRequest';
+import {makePolicyQuoteRequest, updateStartDateOnPolicyQuoteRequest} from '~/common/actions/policyQuoteRequest';
 
 interface IQuotePolicyProps {
     className?: string;
     push: ActionCreator<Action>;
     motorId: string;
-    policyQuote: any;
-    createQuotePolicyRequest: any;
+    policyQuoteRequest: any;
+    makePolicyQuoteRequest: any;
     isLoading: boolean;
+    updateStartDateOnPolicyQuoteRequest: any;
+    startDate: any;
 }
 
 const ButtonStyles = {
@@ -37,11 +39,11 @@ const {BounceLoader}: { BounceLoader: any } = spinners;
 
 class QuotePolicy extends React.PureComponent<IQuotePolicyProps, {}> {
     componentWillMount() {
-        injectSaga(quotePolicyWorker, this.props.motorId);
+        injectSaga(policyQuoteRequestWorker, this.props.motorId);
     }
 
     renderLoadingOverlay() {
-        const { policyQuote: { vehicle } } = this.props;
+        const { policyQuoteRequest: { vehicle } } = this.props;
 
         return (
             <QuoteLoadingOverlay>
@@ -57,8 +59,12 @@ class QuotePolicy extends React.PureComponent<IQuotePolicyProps, {}> {
         );
     }
 
+    handleDatePickerChange = (value: any) => {
+        this.props.updateStartDateOnPolicyQuoteRequest(this.props.motorId, value);
+    };
+
     render() {
-        const { policyQuote: { vehicle, driver, address }, isLoading } = this.props;
+        const { policyQuoteRequest: { vehicle, driver, address }, startDate, isLoading } = this.props;
 
         return (
             <div className={this.props.className}>
@@ -89,12 +95,19 @@ class QuotePolicy extends React.PureComponent<IQuotePolicyProps, {}> {
                         onClick={() => this.props.push(`/app/user/motor/${this.props.motorId}/address`)}
                         completed={address && address.postcode}
                     />
-                    <QuoteField icon={<QuoteCalendar/>} withDatePicker title="Policy start date" motorId={this.props.motorId}/>
+                    <QuoteField
+                        icon={<QuoteCalendar/>}
+                        initialValues={{ date: startDate }}
+                        onDatePickerChange={this.handleDatePickerChange}
+                        withDatePicker
+                        title="Policy start date"
+                        motorId={this.props.motorId}
+                    />
                     <RoundedButton
                         label="Get My Quote"
                         style={ButtonStyles}
-                        disabled={!address || !vehicle || !driver}
-                        onClick={this.props.createQuotePolicyRequest}
+                        disabled={!address || !vehicle || !driver || !startDate}
+                        onClick={this.props.makePolicyQuoteRequest}
                     />
                 </QuoteContentContainer>
             </div>
@@ -198,13 +211,15 @@ const QuoteContentContainer = styled.div`
 `;
 
 const mapStateToProps = (state: IReduxState, props: IQuotePolicyProps) => ({
-    policyQuote: getPolicyQuote(state, props.motorId),
-    isLoading: getLoadingState(state),
+    startDate: getStartPolicyDate(state, props),
+    policyQuoteRequest: getPolicyQuoteRequest(state, props.motorId),
+    isLoading: getLoadingState(state, props.motorId),
 });
 
 const mapDispatchToProps = (dispatch: any) => bindActionCreators({
     push,
-    createQuotePolicyRequest,
+    makePolicyQuoteRequest,
+    updateStartDateOnPolicyQuoteRequest,
 }, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(StyledQuotePolicy);

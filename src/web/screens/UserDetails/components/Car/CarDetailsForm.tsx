@@ -47,6 +47,8 @@ const renderDatePicker = (props: any) => (
 
 class CarDetailsForm extends React.PureComponent<ICarDetailsProps, {}> {
     render() {
+        console.log('Log => CarDetailsForm::props: ', this.props);
+
         return (
             <form className={this.props.className} onSubmit={this.props.handleSubmit}>
                 <FieldsContainer>
@@ -55,7 +57,7 @@ class CarDetailsForm extends React.PureComponent<ICarDetailsProps, {}> {
                             Vehicle Brand
                         </FieldTitle>
                         <Field
-                            name="manufacturer_id"
+                            name="manufacturer_name"
                             component={StyledInput}
                         />
                     </Container>
@@ -64,7 +66,7 @@ class CarDetailsForm extends React.PureComponent<ICarDetailsProps, {}> {
                             Vehicle Model
                         </FieldTitle>
                         <Field
-                            name="motor_vehicle_model_id"
+                            name="motor_vehicle_model_name"
                             component={StyledInput}
                         />
                     </Container>
@@ -331,13 +333,13 @@ const Error = styled.div`
 `;
 
 const validationSchema = {
-    manufacturer_id: {
+    manufacturer_name: {
         presence: {
             message: 'Please enter vehicle brand',
             allowEmpty: false,
         },
     },
-    motor_vehicle_model_id: {
+    motor_vehicle_model_name: {
         presence: {
             message: 'Please enter vehicle model',
             allowEmpty: false,

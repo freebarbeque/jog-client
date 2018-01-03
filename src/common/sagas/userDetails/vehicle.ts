@@ -4,8 +4,7 @@ const {cancel, fork, put, race, select, take, takeEvery} = require('redux-saga/e
 import {clearStep, goToNextStep, goToPrevStep, setSteps} from '../../../web/actions/page';
 import {LOCATION_CHANGE, push} from 'react-router-redux';
 import {setVehicleData, setIsLoading, deleteRegistrationNumber, deleteVehicleData, lookupRegistrationNumber} from '../../actions/userDetails';
-import { addVehicle } from '../../actions/vehicles';
-import { setVehicleToPolicyQuote } from '../../actions/quotePolicy';
+import { updateVehicleOnPolicyQuoteRequest } from '../../actions/policyQuoteRequest';
 import {
     CANCEL_SUBMIT_VEHICLE,
     LOOKUP_REGISTRATION_NUMBER,
@@ -20,7 +19,7 @@ import {IReduxState} from '../../interfaces/store';
 import {getFormValues} from 'redux-form';
 import {getUser} from '../../selectors/auth';
 import {getRegistrationNumber} from '../../selectors/userDetils';
-import {getPolicyQuote} from '../../selectors/policyQoute';
+import {getPolicyQuoteRequest} from '../../selectors/policyQuoteRequest';
 
 function* registrationNumberFlow() {
     while (true) {
@@ -70,8 +69,7 @@ function* vehicleDetailsFlow(policyId: string) {
                 if (errors) {
                     yield put(stopSubmit(VEHICLE_DETAILS_FORM, { ...errors }));
                 } else {
-                    // yield put(addVehicle(policyId, vehicle));
-                    yield put(setVehicleToPolicyQuote(policyId, vehicle));
+                    yield put(updateVehicleOnPolicyQuoteRequest(policyId, vehicle));
                     yield put(push(`/app/dashboard/motor/${policyId}/quote`))
                 }
             } catch (err) {
@@ -113,12 +111,12 @@ function* vehicleStepsWorker(policyId: number) {
 export function* vehicleStepsFlow(policyId: string) {
     yield put(setSteps([1, 2]));
 
-    const policyQuote = yield select(getPolicyQuote, policyId );
+    const policyQuoteRequest = yield select(getPolicyQuoteRequest, policyId );
     const currentStep = yield select(getCurrentStep);
 
-    if (policyQuote && policyQuote.vehicle) {
-        yield put(lookupRegistrationNumber(policyQuote.vehicle.registration));
-        yield put(setVehicleData(policyQuote.vehicle));
+    if (policyQuoteRequest && policyQuoteRequest.vehicle) {
+        yield put(lookupRegistrationNumber(policyQuoteRequest.vehicle.registration));
+        yield put(setVehicleData(policyQuoteRequest.vehicle));
 
         if (currentStep === 1) {
             yield put(goToNextStep());

@@ -24,13 +24,10 @@ export const getVehicleDataForm = createSelector(
             return null;
         }
 
-        const manufacturerId = data.manufacturer_id && data.manufacturer_id.toString();
-        const motorVehicleModelId = data.motor_vehicle_model_id && data.motor_vehicle_model_id.toString();
-
         return {
             ...data,
-            manufacturer_id: manufacturerId ? `${manufacturerId.slice(0, 1)}${manufacturerId.slice(1).toLocaleLowerCase()}` : null,
-            motor_vehicle_model_id: motorVehicleModelId ? `${motorVehicleModelId.slice(0, 1)}${motorVehicleModelId.slice(1).toLocaleLowerCase()}` : null,
+            manufacturer_name: data.manufacturer_name ? `${data.manufacturer_name.slice(0, 1)}${data.manufacturer_name.slice(1).toLocaleLowerCase()}` : null,
+            motor_vehicle_model_name: data.motor_vehicle_model_name ? `${data.motor_vehicle_model_name.slice(0, 1)}${data.motor_vehicle_model_name.slice(1).toLocaleLowerCase()}` : null,
             date_of_registration: data.date_of_registration ? moment(data.date_of_registration) : null,
             date_of_manufacture: data.date_of_manufacture ? moment(data.date_of_manufacture) : null,
             date_of_purchase: data.date_of_purchase ? moment(data.date_of_purchase) : null,
