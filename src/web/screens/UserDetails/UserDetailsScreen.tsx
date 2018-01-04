@@ -54,7 +54,7 @@ class UserDetailsScreen extends React.Component<IUserDetailsScreenProps, {}> {
                 title = ''
             }
         }
-        console.log(this.props);
+
         return (
             <div className={this.props.className}>
                 <Header
