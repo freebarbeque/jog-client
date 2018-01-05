@@ -11,9 +11,6 @@ import MotorPoliciesContent from './components/MotorPoliciesContent';
 import AddPolicyContent from './components/AddPolicyContent';
 import {policies} from 'src/common/mocks/policy';
 
-// Test
-import TestForm from 'src/web/common/TestForm';
-
 interface IDashboardProps {
   className?: string;
   location?: any;
@@ -33,7 +30,6 @@ class Dashboard extends React.Component<IDashboardProps, {}> {
   render() {
     return (
       <div className={this.props.className}>
-        <TestForm />
         <Header />
         <BackgroundTitle />
         <NavigationBar location={this.props.location.pathname} />

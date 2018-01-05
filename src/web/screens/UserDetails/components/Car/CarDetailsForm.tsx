@@ -20,6 +20,9 @@ import FormSelect from '~/web/components/Forms/FormSelect';
 import {mapObjectToDataSource} from 'src/common/utils/dataSources';
 import {PINK} from '~/common/constants/palette';
 import {injectSaga} from '~/common/utils/saga';
+
+import FormDatePicker from 'src/web/common/controls/FormDatePicker';
+
 const moment = require('moment');
 
 interface ICarDetailsProps {
@@ -113,8 +116,7 @@ class CarDetailsForm extends React.PureComponent<ICarDetailsProps, {}> {
                     </FieldTitle>
                     <Field
                         name="date_of_manufacture"
-                        component={renderDatePicker}
-                        placeholder="Select date of manufacture"
+                        component={FormDatePicker}
                     />
                 </FieldContainer>
                 <FieldContainer>
@@ -123,8 +125,7 @@ class CarDetailsForm extends React.PureComponent<ICarDetailsProps, {}> {
                     </FieldTitle>
                     <Field
                         name="date_of_registration"
-                        component={renderDatePicker}
-                        placeholder="Select date of registration"
+                        component={FormDatePicker}
                     />
                 </FieldContainer>
                 <FieldContainer>

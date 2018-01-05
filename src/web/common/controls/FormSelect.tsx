@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import Select from './base/Select';
+import Select from './base/Select/Select';
 
 export default function FormSelect(props: any) {
     const { input, meta, ...rest } = props;
