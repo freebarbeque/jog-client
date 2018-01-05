@@ -50,8 +50,6 @@ const renderDatePicker = (props: any) => (
 
 class CarDetailsForm extends React.PureComponent<ICarDetailsProps, {}> {
     render() {
-        console.log('Log => CarDetailsForm::props: ', this.props);
-
         return (
             <form className={this.props.className} onSubmit={this.props.handleSubmit}>
                 <FieldsContainer>
@@ -117,6 +115,8 @@ class CarDetailsForm extends React.PureComponent<ICarDetailsProps, {}> {
                     <Field
                         name="date_of_manufacture"
                         component={FormDatePicker}
+                        maxDate={moment()}
+                        minDate={moment().subtract(50, 'years')}
                     />
                 </FieldContainer>
                 <FieldContainer>
@@ -126,6 +126,8 @@ class CarDetailsForm extends React.PureComponent<ICarDetailsProps, {}> {
                     <Field
                         name="date_of_registration"
                         component={FormDatePicker}
+                        maxDate={moment()}
+                        minDate={moment().subtract(50, 'years')}
                     />
                 </FieldContainer>
                 <FieldContainer>
@@ -221,8 +223,9 @@ class CarDetailsForm extends React.PureComponent<ICarDetailsProps, {}> {
                         </FieldTitle>
                         <Field
                             name="date_of_purchase"
-                            component={renderDatePicker}
-                            placeholder="Select date of purchase"
+                            component={FormDatePicker}
+                            maxDate={moment()}
+                            minDate={moment().subtract(50, 'years')}
                         />
                     </FieldContainer> : null
                 }

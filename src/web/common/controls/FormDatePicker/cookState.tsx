@@ -15,7 +15,7 @@ export const cookInitialState = (props: any) => {
             year,
             date,
             options: {
-                years: getYearsInRange(props.midDate, props.maxDate),
+                years: getYearsInRange(props.minDate, props.maxDate),
                 months: getMonths(day, year),
                 days: getMonthDays(month, year),
             }
@@ -28,7 +28,7 @@ export const cookInitialState = (props: any) => {
         year: undefined,
         date: undefined,
         options: {
-            years: getYearsInRange(props.midDate, props.maxDate),
+            years: getYearsInRange(props.minDate, props.maxDate),
             months: getMonths(),
             days: getMonthDays(),
         }

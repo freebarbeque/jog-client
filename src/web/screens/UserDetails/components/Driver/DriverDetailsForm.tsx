@@ -24,6 +24,7 @@ import {
     formSelectLabelStyle,
     formSelectIconStyle,
 } from 'src/common/constants/userDetails';
+import FormDatePicker from 'src/web/common/controls/FormDatePicker';
 
 interface IDriverDetailsForm {
     className?: string;
@@ -106,8 +107,9 @@ class DriverDetailsForm extends React.Component<IDriverDetailsForm, {}> {
                         </FieldTitle>
                         <Field
                             name="date_of_birth"
-                            component={renderDatePicker}
-                            placeholder="Select your date of birth"
+                            component={FormDatePicker}
+                            maxDate={moment()}
+                            minDate={moment().subtract(100, 'years')}
                         />
                     </FieldContainer>
                     <FieldContainer>
@@ -143,8 +145,9 @@ class DriverDetailsForm extends React.Component<IDriverDetailsForm, {}> {
                             </FieldTitle>
                             <Field
                                 name="uk_resident_since"
-                                component={renderDatePicker}
-                                placeholder="Select date of becoming a resident"
+                                component={FormDatePicker}
+                                maxDate={moment()}
+                                minDate={moment().subtract(100, 'years')}
                             />
                         </FieldContainer> : null
                     }

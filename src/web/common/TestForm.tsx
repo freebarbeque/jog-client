@@ -20,6 +20,8 @@ class TestForm extends React.Component<any, any> {
                 <Field
                     name="date"
                     component={FormDatePicker}
+                    maxDate={moment()}
+                    minDate={moment().subtract(100, 'years')}
                 />
                 <button type="submit">SUBMIT</button>
             </form>
@@ -50,6 +52,6 @@ export default reduxForm({
     form: 'TestForm',
     validate: validateForm,
     initialValues: {
-        date: '2019-01-07T21:00:00.000Z',
+        date: '2018-01-07T21:00:00.000Z',
     }
 })(TestForm);
