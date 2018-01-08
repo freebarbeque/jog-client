@@ -13,7 +13,7 @@ const MotorQuotesHeadLine = (props: any) => {
     return (
         <HeadLine
             imageUrl="https://image.flaticon.com/icons/png/512/48/48982.png"
-            secondaryText={policyQuoteRequest.vehicle.registration}
+            secondaryText={policyQuoteRequest.vehicle && policyQuoteRequest.vehicle.registration}
             primaryText="Car"
             inverseStyling
             handleClick={() => props.history.push(`/app/dashboard/motor/${props.match.params.policyId}/quote`)}

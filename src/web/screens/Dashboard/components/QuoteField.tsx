@@ -3,11 +3,11 @@ import styled from 'styled-components';
 import {BLUE, DASHBOARD_INACTIVE_LINK_COLOR, LIGHT_GREEN, BLACK} from 'src/common/constants/palette';
 import {BlackArrow, WhiteTick, MoreCircles} from 'src/web/images';
 import {Field, reduxForm, getFormValues} from 'redux-form';
-import DatePicker from 'src/web/components/PolicyDatePicker';
 import {connect} from 'react-redux';
 import {IMotorPolicyWithDaysLeft} from 'src/common/interfaces/policies';
 import {getDatePickerInitialValues} from '~/common/selectors/userDetils';
 import {IReduxState} from '~/common/interfaces/store';
+import DatePicker from 'src/web/common/controls/base/DatePicker';
 const moment = require('moment');
 
 interface IQuoteFieldProps {
@@ -26,21 +26,6 @@ interface IQuoteFieldProps {
   onDatePickerChange: any;
 }
 
-const renderDatePicker = (props: any) => (
-    <DatePicker
-        {...props}
-        onChange={(value) => {
-            props.onDatePickerChange(value);
-            props.input.onChange(value);
-        }}
-        value={props.input.value}
-        error={props.meta.error}
-        touched={props.meta.touched}
-        maxDate={moment()}
-        minDate={moment().subtract(100, 'years')}
-    />
-);
-
 class QuoteField extends React.Component<IQuoteFieldProps, {}> {
     render() {
         return (
@@ -56,11 +41,9 @@ class QuoteField extends React.Component<IQuoteFieldProps, {}> {
                     </TitleContent>
 
                     {this.props.withDatePicker ? (
-                        <Field
-                            name="date"
-                            component={renderDatePicker}
-                            onDatePickerChange={this.props.onDatePickerChange}
-                            props={{placeholder: 'Select policy start date'}}
+                        <DatePicker
+                            initialDate={this.props.initialValues && this.props.initialValues.date}
+                            onChange={this.props.onDatePickerChange}
                         />
                     ) : (
                         <StatusContainer>
