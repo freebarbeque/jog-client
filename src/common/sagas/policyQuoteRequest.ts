@@ -1,5 +1,6 @@
 import {put, select, take, all, call} from 'redux-saga/effects';
 import {delay} from 'redux-saga'
+import {push} from 'react-router-redux';
 
 import {makePolicyQuoteRequest} from '../api/policyQuoteRequest';
 import {getUser} from '../selectors/auth';
@@ -13,7 +14,7 @@ function* createQuotePolicy(policyId: string) {
     const user = yield select(getUser);
     const policyQuoteRequest = yield select(getPolicyQuoteRequest, policyId);
 
-    yield makePolicyQuoteRequest({
+    return yield makePolicyQuoteRequest({
         user,
         policyQuoteRequest,
         quoteType: QUOTE_REQUESTS_TYPE_MOTOR_POLICY,
@@ -29,10 +30,14 @@ export function* policyQuoteRequestWorker(policyId: string) {
             yield take(MAKE_POLICY_QUOTE_REQUEST);
             yield put(setLoadingState(policyId, true));
 
-            yield all([
+            const result = yield all([
                 call(createQuotePolicy, policyId),
                 call(delay, 2500)
             ]);
+
+            const { motor_policy_quote_request: { motor_policy_id: motorPolicyId, id: motorPolicyRequestId } } = result[0];
+
+            yield put(push(`/app/quotes/motor/${motorPolicyId}/request/${motorPolicyRequestId}`));
         } catch (error) {
             console.log('Log => quotePolicyWorker error: ', error);
         } finally {

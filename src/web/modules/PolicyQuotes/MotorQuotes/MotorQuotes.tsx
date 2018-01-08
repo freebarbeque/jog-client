@@ -8,6 +8,8 @@ export default class MotorQuotes extends React.PureComponent<any, any> {
     render() {
         return (
             <Switch>
+                <Route exact path={`${this.props.match.url}/:policyId/request/:requestId`} render={(props) => (<Redirect to={`${props.match.url}/annual`} />)} />
+                <Route exact path={`${this.props.match.url}/:policyId/request/:requestId/quote/:quoteId`} render={(props) => (<Redirect to={`${props.match.url}/annual`} />)} />
                 <Route path={`${this.props.match.url}/:policyId/request/:requestId/quote/:quoteId`} component={MotorQuotesDetails} />
                 <Route path={`${this.props.match.url}/:policyId/request/:requestId`} component={MotorQuotesList} />
             </Switch>

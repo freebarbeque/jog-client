@@ -43,6 +43,7 @@ class QuoteField extends React.Component<IQuoteFieldProps, {}> {
                     {this.props.withDatePicker ? (
                         <DatePicker
                             initialDate={this.props.initialValues && this.props.initialValues.date}
+                            maxDate={moment()}
                             onChange={this.props.onDatePickerChange}
                         />
                     ) : (

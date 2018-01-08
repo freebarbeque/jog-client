@@ -51,21 +51,6 @@ const Container = styled.div`
     }
 `;
 
-const StyledHeadLine = styled(HeadLine)`
-  display: flex;
-  align-items: center;
-  align-self: stretch;
-  background-color: ${BLUE};
-  height: 110px;
-  flex-grow: 0;
-  flex-shrink: 0;
-  padding: 0 45px;
-
-  & ${Avatar} {
-    margin: 0 17px 0 3px;
-  }
-`;
-
 const text = styledComponentWithProps<any, HTMLDivElement>(styled.div);
 
 const TextContainer = styled.div`

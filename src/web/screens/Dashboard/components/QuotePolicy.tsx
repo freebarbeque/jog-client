@@ -47,14 +47,21 @@ class QuotePolicy extends React.PureComponent<IQuotePolicyProps, {}> {
 
         return (
             <QuoteLoadingOverlay>
-                <QuoteLoadingContainer>
-                    <QuoteInfo>
-                        <QuoteInfoType>Car:</QuoteInfoType>
-                        <QuoteInfoIdentifier>{vehicle && vehicle.registration}</QuoteInfoIdentifier>
-                    </QuoteInfo>
-                    <QuoteLoadingSpinner><BounceLoader size={80} color={PINK} /></QuoteLoadingSpinner>
-                    <QuoteLoadingText>Please wait while we find you the best quotes on the market...</QuoteLoadingText>
-                </QuoteLoadingContainer>
+                <QuoteLoadingWrapper>
+                    <Container>
+                        <Aside>
+                            <QuoteCar height={66} width={50}/>
+                        </Aside>
+                        <Main>
+                            <QuoteLoadingHeader>
+                                <Type>Car</Type>
+                                <Registration>{vehicle && vehicle.registration}</Registration>
+                            </QuoteLoadingHeader>
+                            <QuoteLoadingBody><BounceLoader size={80} color={PINK} /></QuoteLoadingBody>
+                            <QuoteLoadingFooter>Please wait while we find you the best quotes on the market...</QuoteLoadingFooter>
+                        </Main>
+                    </Container>
+                </QuoteLoadingWrapper>
             </QuoteLoadingOverlay>
         );
     }
@@ -115,6 +122,48 @@ class QuotePolicy extends React.PureComponent<IQuotePolicyProps, {}> {
     }
 }
 
+const Container = styled.div`
+    max-width: 600px;
+    display: flex;
+`;
+
+const Main = styled.div``;
+
+const Aside = styled.div`
+    margin-right: 20px;
+    
+    img {
+        margin-top: 15px;
+    }
+`;
+
+const QuoteLoadingHeader = styled.div`
+    margin-bottom: 20px;
+`;
+
+const Type = styled.div`
+    margin-bottom: 10x;
+    font-size: 14px;
+    text-transform: uppercase;
+    color: #a5aaaf;
+    font-weight: 500;
+`;
+
+const Registration = styled.div`
+    font-size: 30px;
+    color: #FFF;
+`;
+
+const QuoteLoadingBody = styled.div`
+    margin-bottom: 25px;
+    display: flex;
+    justify-content: center;
+`;
+
+const QuoteLoadingFooter = styled.div`
+    font-size: 26px;
+`;
+
 const StyledQuotePolicy = styled(QuotePolicy)`
   display: flex;
   flex-direction: column;
@@ -136,41 +185,11 @@ const QuoteLoadingOverlay = styled.div`
   background-color: ${DARK_TRANSPARENT_GRAY};
 `;
 
-const QuoteInfo = styled.div`
-    margin-bottom: 25px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-`;
-
-const QuoteInfoType = styled.div`
-    margin-right: 10px;
-    display: flex;
-    color: ${VERY_LIGHT_GRAY};
-    font-size: 18px;
-`;
-
-const QuoteInfoIdentifier = styled.div`
-    display: flex;
-    color: ${VERY_LIGHT_GRAY};
-    font-size: 22px;
-`;
-
-const QuoteLoadingContainer = styled.div`
+const QuoteLoadingWrapper = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-`;
-
-const QuoteLoadingSpinner = styled.div`
-    margin-bottom: 30px;
-`;
-
-const QuoteLoadingText = styled.div`
-    color: ${VERY_LIGHT_GRAY};
-    font-size: 22px;
-    font-weight: 400;
 `;
 
 const QuoteHint = styled.div`
