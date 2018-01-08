@@ -128,7 +128,6 @@ const PriceListItemColumn = styled.div`
 
 const PriceListItem = styled.div`
     display: flex;
-    display: flex;
     align-items: ${props => props.type === 'monthly' ? 'center' : 'stretch'};
     flex-direction: ${props => props.type === 'monthly' ? 'row' : 'column'};
 
@@ -184,4 +183,4 @@ const mapDispatchToProps = (dispatch: any): any => bindActionCreators({
     push,
 }, dispatch);
 
-export default connect(null, mapDispatchToProps)(QuoteDetails) as any;
+export default (connect(null, mapDispatchToProps)(QuoteDetails)) as any;

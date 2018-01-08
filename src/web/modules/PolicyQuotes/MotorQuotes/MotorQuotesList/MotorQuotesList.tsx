@@ -1,9 +1,10 @@
 import * as React from 'react';
 
-import MotorQuotesListContent from './MotorQuotesListContent';
+import BaseLayout from 'src/web/common/layouts/BaseLayout';
+import TabbedContent from 'src/web/common/utils/TabbedContent';
 
-import TabbedContent from '../../../../common/utils/TabbedContent';
-import MotorQuoteLayout from '../PolicyLayout';
+import MotorQuotesListContent from './MotorQuotesListContent';
+import MotorQuotesHeadLine from '../MotorQuotesHeadLine';
 
 const tabsDescription = [{
     id: 'annual',
@@ -20,9 +21,12 @@ const tabsDescription = [{
 export default class MotorQuotesList extends React.PureComponent<any, any> {
     render() {
         return (
-            <MotorQuoteLayout>
+            <BaseLayout
+                isHeadLined
+                headLineComponent={MotorQuotesHeadLine}
+            >
                 <TabbedContent tabsDescription={tabsDescription} />
-            </MotorQuoteLayout>
+            </BaseLayout>
         );
     }
 }
