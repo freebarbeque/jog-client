@@ -618,12 +618,36 @@ export const PercentShape = (props: {width?: number, height?: number}) => (
 );
 
 export const DialogCross = (props: {width?: number, height?: number}) => (
-  <Image
-    src={require('./dialog-cross.svg')}
-    height={props.height || 17}
-    width={props.width || 17}
-    alt="dialog-cross"
-    className="dialog-cross-icon"
-    {...props}
-  />
+    <Image
+        src={require('./dialog-cross.svg')}
+        height={props.height || 17}
+        width={props.width || 17}
+        alt="dialog-cross"
+        className="dialog-cross-icon"
+        {...props}
+    />
 );
+
+export const Check = (props: {width?: number, height?: number}) => (
+    <Image
+        src={require('./check.svg')}
+        height={props.height || 20}
+        width={props.width || 20}
+        alt="check"
+        className="check-icon"
+        {...props}
+    />
+);
+
+export const LeftDarkArrow = (props: { scale?: number; style?: any, width?: number, height?: number }) => {
+  return (
+      <Image
+          src={require('./left-dark-arrow.svg')}
+          height={props.height || 16.971}
+          width={props.width || 20.152}
+          alt="left-dark-arrow"
+          className="dark-arrow-img"
+          {...props}
+      />
+  )
+}

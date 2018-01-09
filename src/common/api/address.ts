@@ -1,26 +1,27 @@
-import {get, patch, post} from '../api/request';
-import {IAddress, IAddressFormValues} from '../interfaces/userDetails';
-import {getUserWithAddress} from '../sagas/auth';
-import {select} from 'redux-saga/effects';
-import {getUser} from '../selectors/auth';
+import {patch} from '../api/request';
+import {IAddress} from '../interfaces/userDetails';
+import {CREATE_ADDRESS} from '../../common/constants/userDetails';
 
-export function* createAddress(userId: string | number, postcode: IAddressFormValues, address: IAddress) {
-    const user = yield select(getUser);
+export function* createAddress(userId: string | number, type: string, address: Partial<IAddress>) {
+    let addressType;
+    switch (type) {
+        case CREATE_ADDRESS: {
+            addressType = 'users';
+            break;
+        }
+        default: {
+            throw new Error('Unknown address type');
+        }
+    }
+
     const reqBody = {
         data: {
-            type: 'users',
+            type: addressType,
             attributes: {
-                address_attributes: {
-                    id: user.address.id,
-                    line1: address.line_1,
-                    line2: address.line_2,
-                    city: address.post_town,
-                    postcode: postcode
-                }
-            }
+                addresses_attributes: address
+            },
         }
     };
-
-    const {body} = yield patch(`users/${userId}?include=address`, reqBody);
+    const {body} = yield patch(`users/${userId}?includes=addresses`, reqBody);
     return body;
 }

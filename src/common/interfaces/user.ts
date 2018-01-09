@@ -9,6 +9,7 @@ export interface IUser extends IUserCreds {
     first_name: string;
     last_name: string;
     address: IAddress|null;
+    addresses: any;
 }
 
 export interface ISignUpFormValues extends IUserCreds {

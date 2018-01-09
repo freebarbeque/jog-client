@@ -1,4 +1,5 @@
 import {isLeapYear, getYear, getMonth, getDate, isPast} from 'date-fns';
+import * as moment from 'moment';
 import {IDataSource} from '../interfaces/dataSource';
 
 const bigMonths = [1, 5, 7, 8, 10, 12];
@@ -17,7 +18,7 @@ const months = [
     {id: 12, name: 'December'},
 ];
 
-export function getMonthDays(month?: string, year?: string) {
+export function getMonthDays(month?: string|number, year?: string|number) {
     const now = Date.now();
     const currentYear = getYear(now);
     const currentMonth = getMonth(now);
@@ -47,7 +48,7 @@ export function getMonthDays(month?: string, year?: string) {
     }
 }
 
-export function getMonths(day?: string, year?: string) {
+export function getMonths(day?: string|number, year?: string|number) {
     const now = Date.now();
     const currentYear = getYear(now);
     const currentMonth = getMonth(now);
@@ -65,7 +66,19 @@ export function getMonths(day?: string, year?: string) {
     return toReturn;
 }
 
-export function getYears(month?: string) {
+export function  getYearsInRange(minDate?: any, maxDate?: any) {
+    const minYear = minDate ? minDate.year() : moment().subtract(20, 'year').year();
+    const maxYear = maxDate ? maxDate.year() : moment().add(20, 'year').year();
+    const years: any[] = [];
+
+    for (let i = minYear; i <= maxYear; i++) {
+        years.push({id: i, name: `${i}`});
+    }
+
+    return years;
+}
+
+export function getYears(month?: string|number) {
     const currentYear = getYear(Date.now());
     const years: IDataSource[] = [];
 

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import styled from 'styled-components';
 const validate = require('validate.js');
-import {reduxForm, Field, FieldArray} from 'redux-form';
+import {reduxForm, Field, FieldArray, getFormValues} from 'redux-form';
 import StyledInput from '../StyledInput';
 import {BLUE} from 'src/common/constants/palette';
 import {onlyNumber} from 'src/common/utils/form';
@@ -12,14 +12,9 @@ import {mapObjectToDataSource} from 'src/common/utils/dataSources';
 import {MotoringOrganisationTypes} from 'src/common/interfaces/drivers';
 import Divider from 'src/web/screens/Landing/components/Divider';
 import RoundedButton from 'src/web/components/RoundedButton';
-import {injectSaga} from '~/common/utils/saga';
-import {driverFlow} from '~/common/sagas/userDetails/driver';
 import {connect} from 'react-redux';
 import {IReduxState} from '~/common/interfaces/store';
-import {getDriversDataSource, getIsLoading, getSelectedDriverId} from '~/common/selectors/userDetils';
-import {IDataSource} from '~/common/interfaces/dataSource';
-import {changeSelectedDriver} from 'src/common/actions/userDetails';
-import {Action, ActionCreator, bindActionCreators} from 'redux';
+import {getIsLoading} from '~/common/selectors/userDetils';
 import Incident from './components/Incident';
 import Conviction from './components/Conviction';
 const moment = require('moment');
@@ -28,20 +23,24 @@ import {
     formSelectStyle,
     formSelectLabelStyle,
     formSelectIconStyle,
-    DRIVER_DETAILS_FORM,
 } from 'src/common/constants/userDetails';
+import FormDatePicker from 'src/web/common/controls/FormDatePicker';
 
 interface IDriverDetailsForm {
     className?: string;
     handleSubmit?: any;
     motorId: number;
-    driversDataSource: IDataSource[];
-    changeSelectedDriver: ActionCreator<Action>;
-    selectedDriverId: any;
     isLoading: boolean;
+    formValues: any;
+    active: boolean;
+    form: string;
+    initialValues: any;
+    buttonText: string;
+    cancelVisible: boolean;
+    closeClick: any;
 }
 
-const motoringOrganisations = mapObjectToDataSource(MotoringOrganisationTypes);
+const monitoringOrganisations = mapObjectToDataSource(MotoringOrganisationTypes);
 
 const ButtonStyles = {
     width: '250px',
@@ -64,33 +63,10 @@ const renderDatePicker = (props: any) => (
 );
 
 class DriverDetailsForm extends React.Component<IDriverDetailsForm, {}> {
-    componentWillMount() {
-        injectSaga(driverFlow, this.props.motorId);
-        if (this.props.selectedDriverId) {
-            this.props.changeSelectedDriver(this.props.selectedDriverId);
-        }
-    }
-
     render() {
         return (
             <form className={this.props.className} onSubmit={this.props.handleSubmit}>
                 <FormSection>
-                    <FieldContainer>
-                        <FieldTitle>
-                            Who is the policy holder?
-                        </FieldTitle>
-                        <Field
-                            name="driver_selected"
-                            component={FormSelect}
-                            dataSource={[{id: null, name: 'New driver'}, ...this.props.driversDataSource]}
-                            defaultText="New Driver"
-                            maxHeight={300}
-                            labelStyle={formSelectLabelStyle}
-                            iconStyle={formSelectIconStyle}
-                            style={formSelectStyle}
-                            onChangeCallback={(value: string) => this.props.changeSelectedDriver(value)}
-                        />
-                    </FieldContainer>
                     <FieldContainer>
                         <FieldTitle>
                             What is your title?
@@ -131,8 +107,9 @@ class DriverDetailsForm extends React.Component<IDriverDetailsForm, {}> {
                         </FieldTitle>
                         <Field
                             name="date_of_birth"
-                            component={renderDatePicker}
-                            placeholder="Select your date of birth"
+                            component={FormDatePicker}
+                            maxDate={moment()}
+                            minDate={moment().subtract(100, 'years')}
                         />
                     </FieldContainer>
                     <FieldContainer>
@@ -161,16 +138,19 @@ class DriverDetailsForm extends React.Component<IDriverDetailsForm, {}> {
                             ]}
                         />
                     </FieldContainer>
-                    <FieldContainer>
-                        <FieldTitle>
-                            When did you start living in the UK?
-                        </FieldTitle>
-                        <Field
-                            name="uk_resident_since"
-                            component={renderDatePicker}
-                            placeholder="Select date of becoming a resident"
-                        />
-                    </FieldContainer>
+                    {this.props.formValues && !this.props.formValues.born_in_uk ?
+                        <FieldContainer>
+                            <FieldTitle>
+                                When did you start living in the UK?
+                            </FieldTitle>
+                            <Field
+                                name="uk_resident_since"
+                                component={FormDatePicker}
+                                maxDate={moment()}
+                                minDate={moment().subtract(100, 'years')}
+                            />
+                        </FieldContainer> : null
+                    }
                     <FieldContainer>
                         <FieldTitle>
                             Have you ever had insurance refused?
@@ -189,7 +169,7 @@ class DriverDetailsForm extends React.Component<IDriverDetailsForm, {}> {
                             For how many years have you held your licence?
                         </FieldTitle>
                         <Field
-                            name="license_years_held"
+                            name="licence_years_held"
                             component={StyledInput}
                             preCheck={onlyNumber}
                         />
@@ -199,7 +179,7 @@ class DriverDetailsForm extends React.Component<IDriverDetailsForm, {}> {
                             What kind of license do you hold?
                         </FieldTitle>
                         <Field
-                            name="license_state"
+                            name="licence_state"
                             component={RadioButton}
                             dataSource={[
                                 {id: 'full', name: 'Full'},
@@ -210,12 +190,24 @@ class DriverDetailsForm extends React.Component<IDriverDetailsForm, {}> {
                             ]}
                         />
                     </FieldContainer>
+                    {this.props.formValues && this.props.formValues.license_state === 'provisional' ?
+                        <FieldContainer>
+                            <FieldTitle>
+                                How many tests have you taken?
+                            </FieldTitle>
+                            <Field
+                                name="tests_taken"
+                                component={StyledInput}
+                                preCheck={onlyNumber}
+                            />
+                        </FieldContainer> : null
+                    }
                     <FieldContainer>
                         <FieldTitle>
                             What is your driving license number?
                         </FieldTitle>
                         <Field
-                            name="license_number"
+                            name="licence_number"
                             component={StyledInput}
                         />
                     </FieldContainer>
@@ -281,10 +273,10 @@ class DriverDetailsForm extends React.Component<IDriverDetailsForm, {}> {
                             Do you belong to a motoring organisation?
                         </FieldTitle>
                         <Field
-                            name="motoring_organisation"
+                            name="monitoring_organisation"
                             component={FormSelect}
-                            dataSource={motoringOrganisations}
-                            defaultText="Motoring organisations"
+                            dataSource={monitoringOrganisations}
+                            defaultText="Monitoring organisations"
                             maxHeight={300}
                             labelStyle={formSelectLabelStyle}
                             iconStyle={formSelectIconStyle}
@@ -293,36 +285,66 @@ class DriverDetailsForm extends React.Component<IDriverDetailsForm, {}> {
                     </FieldContainer>
                     <FieldContainer>
                         <FieldTitle>
-                            How many tests have you taken?
+                            Do you have any motoring convictions?
                         </FieldTitle>
                         <Field
-                            name="tests_taken"
-                            component={StyledInput}
-                            preCheck={onlyNumber}
+                            name="motoring_convictions"
+                            component={RadioButton}
+                            dataSource={[
+                                {id: true, name: 'Yes'},
+                                {id: false, name: 'No'},
+                            ]}
                         />
                     </FieldContainer>
+                    <FieldArray name="conviction" component={Conviction} active={this.props.formValues && this.props.formValues.motoring_convictions} form={this.props.form}/>
+                    <FieldContainer>
+                        <FieldTitle>
+                            Have you had any motoring incidents/claims in the last 5 years?
+                        </FieldTitle>
+                        <Field
+                            name="incidents_claims"
+                            component={RadioButton}
+                            dataSource={[
+                                {id: true, name: 'Yes'},
+                                {id: false, name: 'No'},
+                            ]}
+                        />
+                    </FieldContainer>
+                    <FieldArray name="incident" component={Incident} active={this.props.formValues && this.props.formValues.incidents_claims} form={this.props.form}/>
+                    <ButtonWrapper>
+                        {this.props.cancelVisible ?
+                            <div style={{marginRight: '15px'}}>
+                                <RoundedButton
+                                    label="Cancel"
+                                    style={ButtonStyles}
+                                    type="button"
+                                    disabled={this.props.isLoading}
+                                    onClick={this.props.closeClick}
+                                />
+                            </div> : null
+                        }
+                        <RoundedButton
+                            label={this.props.buttonText}
+                            style={ButtonStyles}
+                            type="submit"
+                            disabled={this.props.isLoading}
+                        />
+                    </ButtonWrapper>
                 </FormSection>
-                <Divider/>
-                <FormSection>
-                    <FieldArray name="incident" component={Incident}/>
-                </FormSection>
-                <Divider/>
-                <FormSection>
-                    <FieldArray name="conviction" component={Conviction}/>
-                </FormSection>
-                <RoundedButton
-                    label="Create Driver"
-                    style={ButtonStyles}
-                    type="submit"
-                    disabled={this.props.isLoading}
-                />
             </form>
         )
     }
 }
 
+const ButtonWrapper = styled.div`
+    display: flex;
+    align-self: stretch;
+    align-items: center;
+    justify-content: center;
+`;
+
 const StyledDriverDetailsForm = styled(DriverDetailsForm)`
-  display: flex;
+  display: ${props => props.active ? 'flex' : 'none'};
   flex-direction: column;
   align-items: center;
   flex: 1;
@@ -332,6 +354,7 @@ const StyledDriverDetailsForm = styled(DriverDetailsForm)`
   box-shadow: 0 2px 4px rgba(51, 51, 51, 0.2);
   width: 70%;
   margin: 0px auto;
+  margin-bottom: 25px;
   
   & ${Divider} {
     margin-bottom: 30px;
@@ -407,33 +430,27 @@ const validateForm = (values: any) => {
 };
 
 const initialValues = {
-    driver_selected: null,
     title: 'mr',
     gender: 'male',
     insurance_refused: false,
-    license_state: 'full',
+    licence_state: 'full',
     smoker: false,
     relationship_status: 'single',
     born_in_uk: true,
-    incident_code: null,
-    fault: false,
-    personal_injury: false,
-    current_policy: true,
-    conviction_code: null,
+    conviction: [{}],
+    incident: [{fault: false, personal_injury: false, current_policy: false}],
+    incidents_claims: false,
+    motoring_convictions: false,
 };
 
 const mapStateToProps = (state: IReduxState, props: IDriverDetailsForm) => ({
-    driversDataSource: getDriversDataSource(state),
-    selectedDriverId: getSelectedDriverId(state, props),
     isLoading: getIsLoading(state),
-})
+    formValues: getFormValues(props.form)(state),
+    initialValues: props.initialValues || initialValues,
+});
 
-const mapDispatchToProps = (dispatch: any) => bindActionCreators({
-    changeSelectedDriver,
-}, dispatch);
-
-export default reduxForm({
-    form: DRIVER_DETAILS_FORM,
-    initialValues,
+const form = reduxForm({
     validate: validateForm,
-})(connect(mapStateToProps, mapDispatchToProps)(StyledDriverDetailsForm));
+})(StyledDriverDetailsForm);
+
+export default connect(mapStateToProps, null)(form) as any;

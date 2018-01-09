@@ -27,10 +27,19 @@ export const SET_IS_LOADING = 'userDetails/SET_IS_LOADING';
 export const SUBMIT_ADDRESS = 'userDetails/SUBMIT_ADDRESS';
 export const CANCEL_SUBMIT_ADDRESS = 'userDetails/CANCEL_SUBMIT_ADDRESS';
 export const DELETE_POSTCODE = 'userDetails/DELETE_POSTCODE';
+export const CREATE_ADDRESS = 'userDetails/CREATE_ADDRESS';
 
 export const SUBMIT_DRIVER = 'userDetails/SUBMIT_DRIVER';
-export const STORE_DRIVER_LOCALLY = 'userDetails/STORE_DRIVER_LOCALLY'; // todo: remove when integrated with the API
 export const CHANGE_SELECTED_DRIVER = 'userDetails/CHANGE_SELECTED_DRIVER';
+export const CREATE_DRIVER = 'userDetails/CREATE_DRIVER';
+export const SET_DRIVER_LIST = 'userDetails/SET_DRIVER_LIST';
+export const REMOVE_DRIVER_LIST = 'userDetails/REMOVE_DRIVER_LIST';
+export const UPDATE_DRIVER = 'userDetails/UPDATE_DRIVER';
+export const REMOVE_DRIVER = 'userDetails/REMOVE_DRIVER';
+export const SUBMIT_DRIVER_SUCCESS = 'userDetails/SUBMIT_DRIVER_SUCCESS';
+export const CREATE_DRIVER_FORM = 'userDetails/CREATE_DRIVER_FORM';
+export const CREATE_ANOTHER_DRIVER_FORM = 'userDetails/CREATE_ANOTHER_DRIVER_FORM';
+export const UPDATE_DRIVER_FORM = index => `userDetails/UPDATE_DRIVER_FORM_${index}`;
 
 export const LOOKUP_REGISTRATION_NUMBER = 'userDetails/LOOKUP_REGISTRATION_NUMBER';
 export const SUBMIT_VEHICLE = 'userDetails/SUBMIT_VEHICLE';
@@ -39,6 +48,7 @@ export const SET_VEHICLE_DATA = 'userDetails/SET_VEHICLE_DATA';
 export const CANCEL_SUBMIT_VEHICLE = 'userDetails/CANCEL_SUBMIT_VEHICLE';
 export const DELETE_REGISTRATION_NUMBER = 'userDetails/DELETE_REGISTRATION_NUMBER';
 export const DELETE_VEHICLE_DATA = 'userDetails/DELETE_VEHICLE_DATA';
+export const VEHICLE_DETAILS_FORM = 'userDetails/VEHICLE_DETAILS_FORM';
 
 export const POSTCODE_FORM = 'postcodeForm';
 export const DRIVER_DETAILS_FORM = 'driverDetailsForm';

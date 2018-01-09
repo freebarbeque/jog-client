@@ -94,4 +94,4 @@ const StyledDescription = styled(Description)`
   }
 `;
 
-export default StyledDescription;
+export default StyledDescription as any;

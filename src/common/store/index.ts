@@ -68,7 +68,9 @@ export default function createStore(additionalOpts: ICreateStoreOpts): any {
                 'dataSource',
                 'userDetails',
                 'page',
-                'drivers'
+                'drivers',
+                'vehicles',
+                'policyQuoteRequest',
             ],
         }
 

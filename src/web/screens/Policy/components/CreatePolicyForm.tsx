@@ -9,7 +9,7 @@ import {IReduxState} from '~/common/interfaces/store';
 import {connect} from 'react-redux';
 import RadioButton from 'src/web/components/Forms/RadioButton';
 import RoundedButton from 'src/web/components/RoundedButton';
-import {onlyNumber} from '~/common/utils/form';
+import {onlyNumber, onlyDecimal} from '~/common/utils/form';
 import {ICreatePolicyFormValues} from '~/common/interfaces/policies';
 import {getDataSource} from '~/common/selectors/dataSource';
 import {IDataSource} from '~/common/interfaces/dataSource';
@@ -110,7 +110,7 @@ const CreatePolicyForm = (props: ICreatePolicyFormProps) => {
                         border: '2px solid #dbdcde',
                         borderRadius: 5,
                     }}
-                    preCheck={onlyNumber}
+                    preCheck={onlyDecimal}
                 />
                 <Title>Enter the registration of your car</Title>
                 <Field

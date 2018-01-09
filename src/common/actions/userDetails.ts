@@ -1,5 +1,5 @@
 import {IAddress} from '../interfaces/userDetails';
-import {IDriverDetailsFormValues, IStoredDriver} from '../interfaces/drivers';
+import {IDriverDetailsFormValues} from '../interfaces/drivers';
 import {IVehicle} from '../interfaces/vehicles';
 
 import {
@@ -9,7 +9,6 @@ import {
     CANCEL_SUBMIT_ADDRESS,
     SET_IS_LOADING,
     SUBMIT_DRIVER,
-    STORE_DRIVER_LOCALLY,
     CHANGE_SELECTED_DRIVER,
     SUBMIT_VEHICLE,
     STORE_VEHICLE_LOCALLY,
@@ -20,6 +19,11 @@ import {
     DELETE_POSTCODE,
     DELETE_VEHICLE_DATA,
     SET_ADDRESS_SUBMIT_ERROR,
+    SET_DRIVER_LIST,
+    REMOVE_DRIVER_LIST,
+    UPDATE_DRIVER,
+    REMOVE_DRIVER,
+    SUBMIT_DRIVER_SUCCESS,
 } from '../constants/userDetails';
 
 export function lookupPostCode(postCode: string) {
@@ -101,18 +105,11 @@ export function setIsLoading(isLoading: boolean) {
     }
 }
 
-export function submitDriver(driver: IDriverDetailsFormValues) {
+export function submitDriver(driver: IDriverDetailsFormValues, formName: string) {
     return {
         type: SUBMIT_DRIVER,
         driver,
-    }
-}
-
-export function storeDriverLocally(policyId: string, driver: IStoredDriver) {
-    return {
-        type: STORE_DRIVER_LOCALLY,
-        policyId,
-        driver,
+        formName,
     }
 }
 
@@ -135,5 +132,39 @@ export function storeVehicleLocally(policyId: string, vehicle: IVehicle) {
         type: STORE_VEHICLE_LOCALLY,
         policyId,
         vehicle,
+    }
+}
+
+export function setDriversList(drivers: any) {
+    return {
+        type: SET_DRIVER_LIST,
+        drivers,
+    }
+}
+
+export function removeDriverList() {
+    return {
+        type: REMOVE_DRIVER_LIST,
+    }
+}
+
+export function updateDriver(index: string | number) {
+    return {
+        type: UPDATE_DRIVER,
+        index
+    }
+}
+
+export function removeDriver(index: string | number) {
+    return {
+        type: REMOVE_DRIVER,
+        index
+    }
+}
+
+export function submitDriverSuccess(success: boolean) {
+    return {
+        type: SUBMIT_DRIVER_SUCCESS,
+        success
     }
 }

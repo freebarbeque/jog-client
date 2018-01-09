@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import {BLUE} from 'src/common/constants/palette';
 import {reduxForm, Field} from 'redux-form';
 import {
-    DRIVER_DETAILS_FORM,
     signStyle,
 } from 'src/common/constants/userDetails';
 import DatePicker from 'src/web/components/PolicyDatePicker';
@@ -40,8 +39,12 @@ interface ICircleProps {
     src?: string;
 }
 
-const renderConviction = ({fields}) => (
-    <ContentContainer>
+interface IContentContainer {
+    active: boolean;
+}
+
+const Conviction = ({fields, active}) => (
+    <ContentContainer active={active}>
         {fields.map((conviction, index) => (
             <Context key={index}>
                 <Divider/>
@@ -55,12 +58,23 @@ const renderConviction = ({fields}) => (
                         preCheck={onlyNumber}
                     />
                 </FieldContainer>
+                {/*// remove after fix back*/}
+                <FieldContainer>
+                    <FieldTitle>
+                        Code
+                    </FieldTitle>
+                    <Field
+                        name={`${conviction}.code`}
+                        component={StyledInput}
+                        preCheck={onlyNumber}
+                    />
+                </FieldContainer>
                 <FieldContainer>
                     <FieldTitle>
                         When were you convicted?
                     </FieldTitle>
                     <Field
-                        name={`${conviction}.conviction_date`}
+                        name={`${conviction}.date`}
                         component={renderDatePicker}
                         placeholder="Select conviction date"
                     />
@@ -91,11 +105,13 @@ const renderConviction = ({fields}) => (
                         signStyle={signStyle}
                     />
                 </FieldContainer>
-                <RoundedButton
-                    label="Remove Conviction"
-                    style={ButtonStyles}
-                    onClick={() => fields.remove(index)}
-                />
+                {fields.length > 1 ?
+                    <RoundedButton
+                        label="Remove Conviction"
+                        style={ButtonStyles}
+                        onClick={() => fields.remove(index)}
+                    /> : null
+                }
                 <Divider/>
             </Context>
         ))}
@@ -103,10 +119,12 @@ const renderConviction = ({fields}) => (
             <Circle title="conviction" onClick={() => fields.push({})}>
                 <Add/>
             </Circle>
-            <Text>Add conviction</Text>
+            <Text>Add one more conviction</Text>
         </ButtonWrapper>
     </ContentContainer>
-);
+)
+
+const conviction = styledComponentWithProps<IContentContainer, HTMLDivElement>(styled.div);
 
 const div = styledComponentWithProps<ICircleProps, HTMLDivElement>(styled.div);
 
@@ -145,8 +163,8 @@ const ButtonWrapper = styled.div`
     flex: 1;
 `;
 
-const ContentContainer = styled.div`
-    display: flex;
+const ContentContainer = conviction`
+    display: ${props => props.active ? 'flex' : 'none'};
     flex-direction: column;
     align-self: stretch;
     margin-bottom: 30px;
@@ -169,4 +187,4 @@ const Context = styled.div`
     flex-direction: column;
 `;
 
-export default reduxForm({form: DRIVER_DETAILS_FORM})(renderConviction);
+export default reduxForm()(Conviction) as any;

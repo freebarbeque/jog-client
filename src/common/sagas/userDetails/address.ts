@@ -1,15 +1,22 @@
+import {mapAddressBeforeCreateRequest} from '../../utils/userDetails';
+
 const {cancel, fork, put, race, select, take} = require('redux-saga/effects');
 import {getCurrentStep} from '../../../web/selectors/page';
 import {LOCATION_CHANGE, push} from 'react-router-redux';
-import {LOOKUP_POSTCODE, POSTCODE_FORM, SUBMIT_ADDRESS, CANCEL_SUBMIT_ADDRESS, SET_ADDRESS_SUBMIT_ERROR} from '../../constants/userDetails';
+import {
+    LOOKUP_POSTCODE, POSTCODE_FORM, SUBMIT_ADDRESS, CANCEL_SUBMIT_ADDRESS, SET_ADDRESS_SUBMIT_ERROR,
+    CREATE_ADDRESS
+} from '../../constants/userDetails';
 import {lookupPostCode} from '../../api/idealPostcodes';
 import {stopSubmit} from 'redux-form';
 import {setAddress, setIsLoading, setAddressSubmitError, deletePostCode} from '../../actions/userDetails';
+import {updateAddressOnPolicyQuoteRequest} from '../../actions/policyQuoteRequest';
 import {clearStep, goToNextStep, goToPrevStep, setSteps} from '../../../web/actions/page';
 import {isChangeStepAction} from '../../../web/utils/page';
 import {createAddress} from '../../api/address';
-import {getUser} from '../../selectors/auth';
+import {getUser, getUserAddressId} from '../../selectors/auth';
 import {getAddress, getPostCode, getAddressSubmitError} from '../../selectors/userDetils';
+import {getPolicyQuoteRequest} from '../../selectors/policyQuoteRequest';
 
 function* postcodeFlow() {
     while (true) {
@@ -34,7 +41,7 @@ function* postcodeFlow() {
 }
 
 function* addressFlow(policyId: string) {
-    let user = yield select(getUser);
+    let currentUser = yield select(getUser);
 
     while (true) {
         const {cancelSubmit, submit} = yield race({
@@ -49,8 +56,14 @@ function* addressFlow(policyId: string) {
             yield put(setIsLoading(true));
             try {
                 const address = yield select(getAddress);
-                const postcode = yield select(getPostCode);
-                yield createAddress(user.id, postcode, address);
+                const addressId = yield select(getUserAddressId);
+                console.log(addressId);
+                const body = mapAddressBeforeCreateRequest(address);
+                const { user } = yield createAddress(currentUser.id, CREATE_ADDRESS, Object.assign({}, body, {id: addressId}));
+
+                if (user && user.addresses.length) {
+                    yield put(updateAddressOnPolicyQuoteRequest(policyId, user.addresses[0]));
+                }
             } catch (err) {
                 yield put(setAddressSubmitError(err.message));  
                 yield put(setIsLoading(false));
@@ -91,10 +104,27 @@ function* addressStepsWorker(policyId: number) {
 
 export function* addressStepsFlow(policyId: number) {
     yield put(setSteps([1, 2]));
+
+    const currentStep = yield select(getCurrentStep);
+    const policyQuoteRequest = yield select(getPolicyQuoteRequest, policyId );
+
+    if (policyQuoteRequest && policyQuoteRequest.address && currentStep === 1) {
+        yield put(setIsLoading(true));
+
+        const address = yield lookupPostCode(policyQuoteRequest.address.postcode);
+
+        if (address.code === 2000) {
+            yield put(setAddress(address.result[0]));
+            yield put(goToNextStep());
+        }
+
+        yield put(setIsLoading(false));
+    }
+
     const worker = yield fork(addressStepsWorker, policyId);
     yield take(LOCATION_CHANGE);
     yield put(clearStep());
-    yield put(deletePostCode())
+    yield put(deletePostCode());
     yield put(setIsLoading(false));
     yield cancel(worker);
 }

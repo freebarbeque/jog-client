@@ -1,4 +1,3 @@
-import {IDriver, IStoredDriver} from '../interfaces/drivers';
 import {IVehicle} from './vehicles';
 
 export interface IAddressFormValues {
@@ -12,7 +11,6 @@ export interface IUserDetailsReduxState {
     drivers: {
         [key: number]: string;
     };
-    availableDrivers: IStoredDriver[];
     availableVehicles: IVehicle[];
     address: IAddress|null;
     addressSubmitError: string|null;
@@ -20,6 +18,8 @@ export interface IUserDetailsReduxState {
     vehicleData: any;
     registrationNumber: any;
     postCode: string|null;
+    driversList: any;
+    submitDriver: boolean;
 }
 
 export interface IAddress {

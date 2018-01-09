@@ -2,7 +2,6 @@ import * as React from 'react';
 import styled from 'styled-components';
 import {Route, Switch} from 'react-router-dom';
 import CarDetailsSteps from './components/Car/CarDetailsSteps';
-import DriverDetailsForm from './components/Driver/DriverDetailsForm';
 import AddressSteps from './components/Address/AddressSteps';
 import Header from './components/Header';
 import Footer from 'src/web/components/Footer';
@@ -13,6 +12,7 @@ import {getSteps, getCurrentStep} from 'src/web/selectors/page';
 import {submitDriver, submitVehicle} from 'src/common/actions/userDetails';
 import {Action, ActionCreator, bindActionCreators} from 'redux';
 import {push} from 'react-router-redux';
+import DriversPage from '~/web/screens/UserDetails/components/Driver/DriversPage';
 
 interface IUserDetailsScreenProps {
     className?: string;
@@ -44,11 +44,17 @@ class UserDetailsScreen extends React.Component<IUserDetailsScreenProps, {}> {
                 title = 'Vehicle details';
                 break;
             }
+
+            case 'address': {
+                title = 'Address';
+                break;
+            }
+
             default: {
                 title = ''
             }
         }
-        console.log(this.props);
+
         return (
             <div className={this.props.className}>
                 <Header
@@ -71,8 +77,8 @@ class UserDetailsScreen extends React.Component<IUserDetailsScreenProps, {}> {
                         />
                         <Route
                             path={`${this.props.match.url}/motor/:motorId(\\d+)/holder`}
-                            render={(routerProps: any) => <DriverDetailsForm
-                                onSubmit={(values: any) => this.props.submitDriver(values)}
+                            render={(routerProps: any) => <DriversPage
+                                onSubmit={(values: any, formName: string) => this.props.submitDriver(values, formName)}
                                 motorId={routerProps.match.params.motorId}
                             />}
                         />

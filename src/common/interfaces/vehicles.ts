@@ -4,8 +4,8 @@ export interface IVehicle {
 
 export interface IVehicleDetailsFormValues {
     date_of_registration: string;
-    manufacturer_id: string;
-    motor_vehicle_model_id: string;
+    manufacturer_name: string;
+    motor_vehicle_model_name: string;
     number_of_seats: string;
     registration: string;
     abs: boolean;

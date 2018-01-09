@@ -20,7 +20,7 @@ import {
 } from '../constants/auth';
 
 export function* getUserWithAddress(userId: number | string) {
-    const {body} = yield get(`users/${userId}?includes=address`);
+    const {body} = yield get(`users/${userId}?includes=addresses`);
     return body;
 }
 

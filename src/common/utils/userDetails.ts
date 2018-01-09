@@ -1,7 +1,38 @@
-import {IDriverDetailsFormValues, IStoredDriver} from '../interfaces/drivers';
+import {IDriverDetailsFormValues} from '../interfaces/drivers';
 import {IVehicle, IVehicleDetailsFormValues} from '../interfaces/vehicles';
 const moment = require('moment');
 const uuidv1 = require('uuid/v1');
+const attributesNames = ['postcode', 'line_1', 'line_2', 'district'];
+const city = 'city';
+const line1 = 'line1';
+const line2 = 'line2';
+
+export function mapAddressBeforeCreateRequest (addressObj: object) {
+    let attributes = {};
+    attributesNames.map((item) => {
+        for (let key in addressObj) {
+            if (item === key) {
+                switch (key) {
+                    case 'district':
+                        attributes[city] = addressObj[key];
+                        break;
+
+                    case 'line_1':
+                        attributes[line1] = addressObj[key];
+                        break;
+
+                    case 'line_2':
+                        attributes[line2] = addressObj[key];
+                        break;
+
+                    default:
+                        attributes[key] = addressObj[key];
+                }
+            }
+        }
+    })
+    return attributes;
+}
 
 export function isPostCode (postCode: string) {
     return postCode && postCode
@@ -11,28 +42,15 @@ export function isPostCode (postCode: string) {
         ) ? null : 'Please enter a valid post code';
 }
 
-export function mapDriverDetailsFormValues(values: IDriverDetailsFormValues) {
+export function mapDriverToFormValues(driver: IDriverDetailsFormValues) {
     const {
-        driver_selected,
-        ...driverValues,
-    } = values;
-
-    driverValues.id = values.driver_selected || uuidv1(); // todo: remove when integrated with the API
-
-    return driverValues;
-}
-
-export function mapDriverToFormValues(driver: IDriverDetailsFormValues, driverId: string) {
-    const {
-        id,
         ...values,
     } = driver;
 
     values.date_of_birth = moment(driver.date_of_birth);
-    values.uk_resident_since = moment(driver.uk_resident_since);
-    values.incident_date = moment(driver.incident_date);
-    values.conviction_date = moment(driver.incident_date);
-    values.driver_selected = driverId;
+    values.uk_resident_since = driver.uk_resident_since ? moment(driver.uk_resident_since) : null;
+    values.incidents_claims = !!driver.motoring_incidents_attributes;
+    values.motoring_convictions = !!driver.motoring_convictions_attributes;
 
     return values;
 }
