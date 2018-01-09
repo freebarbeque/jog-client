@@ -9,6 +9,7 @@ import UserDetailsScreen from 'src/web/screens/UserDetails/UserDetailsScreen';
 import QuotesScreenAnnually from 'src/web/screens/Quotes/QuotesScreenAnnually';
 import QuotesScreenMonthly from 'src/web/screens/Quotes/QuoteScreenMonthly';
 import QuotesScreen from 'src/web/modules/PolicyQuotes';
+import MotorPolicy from 'src/web/modules/MotorPolicy';
 
 // language=SCSS prefix=dummy{ suffix=}å
 const Container = styled.div`
@@ -31,6 +32,7 @@ export default class MainScreen extends React.Component<{}, {}> {
                     <Route path="/app/dashboard" component={Dashboard}/>
                     <Route path="/app/user" component={UserDetailsScreen}/>
                     <Route path="/app/quotes" component={QuotesScreen}/>
+                    <Route path="/app/motor" component={MotorPolicy}/>
                 </Switch>
             </Container>
         )

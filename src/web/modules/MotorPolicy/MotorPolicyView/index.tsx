@@ -5,8 +5,6 @@
 // app/dashboard/motor/47/documents
 // app/dashboard/motor/47/quote => app/user/motor/47/car || app/user/motor/47/holder || app/user/motor/47/address
 
-
-
 // Dashboard =>
 // /dashboard || dashboard/motor || dashboard/motor/add
 
