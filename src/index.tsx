@@ -23,7 +23,7 @@ const {persistor, store} = createStore({
     reducer,
     freeze: true,
     middleware: [routerMiddleware(history)],
-})
+});
 
 const theme = getMuiTheme({
     palette: {
