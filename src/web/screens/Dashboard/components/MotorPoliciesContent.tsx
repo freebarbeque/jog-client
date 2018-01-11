@@ -31,17 +31,17 @@ class MotorPoliciesContent extends React.Component<IMotorPoliciesContent, {}> {
                 {this.props.policies && this.props.policies.map(p => (
                     <PolicyButtonWithDescription
                         key={p.id}
+                        policyName={`Policy ${p.policy_number}`}
                         circleImgUrl={p.avatar}
                         policyType="Motor Vehicle"
-                        policyName={p.name}
                         policyStatus={'Add more details to complete this policy'}
                         onClick={() => this.props.push(`${this.props.match.url}/${p.id}/overview`)}
                     />
                 ))}
                 <PolicyButtonWithDescription
                     icon={<Add/>}
-                    circleBgColor={PINK}
                     policyName="Add Policy"
+                    circleBgColor={PINK}
                     policyType="MOTOR VEHICLE"
                     policyStatus="Answer 7 questions to add new policy"
                     onClick={() => this.props.push(`${this.props.match.url}/add`)}
