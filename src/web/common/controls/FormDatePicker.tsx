@@ -1,11 +1,12 @@
 import * as React from 'react';
 
-import DatePicker from '../base/DatePicker';
+import DatePicker from './base/DatePicker';
 
 interface IDatePickerProps {
   input: {
     onChange: (value: any) => void,
     value: any,
+    name: string;
   },
   meta: {
     error?: string,
@@ -23,6 +24,7 @@ class FormDatePicker extends React.PureComponent<IDatePickerProps, any> {
 
     return (
         <DatePicker
+            name={input.name}
             initialDate={input.value}
             minDate={this.props.minDate}
             maxDate={this.props.maxDate}

@@ -4,63 +4,70 @@ import {
     REMOVE_ADDRESS,
     UPDATE_ADDRESS,
     SET_LOADING_STATE,
-} from '../constants/quoteAddresses';
+    SET_POSSIBLE_ADDRESSES,
+} from '../constants/quoteAddress';
 
 const initialState = {
     isLoading: false,
     addresses: [],
+    possibleAddresses: [],
 };
 
-export default function createQuoteAddressesReducer() {
-    return (state: any = [], action) => {
-        switch (action.type) {
-            case SET_ADDRESSES:
-                return {
-                    ...state,
-                    addresses: action.addresses,
-                };
+export default function (state: any = initialState, action: any) {
+    switch (action.type) {
+        case SET_POSSIBLE_ADDRESSES:
+            return {
+                ...state,
+                possibleAddresses: action.possibleAddresses,
+            };
 
-            case ADD_ADDRESS:
-                return {
-                    ...state,
-                    addresses: [
-                        ...state.addresses,
-                        { id: action.id, ...action.address }
-                    ]
-                };
+        case SET_ADDRESSES:
+            return {
+                ...state,
+                addresses: action.addresses,
+            };
 
-            case REMOVE_ADDRESS:
-                const removeIndex = state.findIndex(a => a.id === action.id)
-                if (removeIndex >= 0) {
-                    return {
-                        ...state,
-                        addresses: [
-                            ...state.addresses.slice(0, removeIndex),
-                            ...state.addresses.slice(removeIndex + 1),
-                        ]
-                    };
-                }
-                return state;
+        case ADD_ADDRESS:
+            return {
+                ...state,
+                addresses: [
+                    ...state.addresses,
+                    ...action.address,
+                ]
+            };
 
-            case UPDATE_ADDRESS:
-                const updateIndex = state.findIndex(a => a.id === action.id)
+        case REMOVE_ADDRESS:
+            const removeIndex = state.addresses.findIndex(a => a.id === +action.id);
+            if (removeIndex >= 0) {
                 return {
                     ...state,
                     addresses: [
-                        ...state.addresses.slice(0, updateIndex),
-                        { id: action.id, ...action.address },
-                        ...state.addresses.slice(updateIndex + 1),
+                        ...state.addresses.slice(0, removeIndex),
+                        ...state.addresses.slice(removeIndex + 1),
                     ]
                 };
+            }
+            return state;
 
-            case SET_LOADING_STATE:
-                return {
-                    ...state,
-                    isLoading: action.isLoading,
-                };
+        case UPDATE_ADDRESS:
+            const updateIndex = state.addresses.findIndex(a => a.id === +action.id);
 
-            default:
-                return state
-        }
+            return {
+                ...state,
+                addresses: [
+                    ...state.addresses.slice(0, updateIndex),
+                    { id: action.id, ...action.address },
+                    ...state.addresses.slice(updateIndex + 1),
+                ]
+            };
+
+        case SET_LOADING_STATE:
+            return {
+                ...state,
+                isLoading: action.isLoading,
+            };
+
+        default:
+            return state
     }
 }

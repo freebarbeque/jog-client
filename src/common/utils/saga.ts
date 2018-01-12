@@ -7,5 +7,5 @@ interface IWindow extends Window {
 declare const window: IWindow;
 
 export async function injectSaga(saga: any, ...args: any[]) {
-    window.store.runSaga(saga, ...args);
+    return window.store.runSaga(saga, ...args);
 }

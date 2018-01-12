@@ -9,6 +9,7 @@ import ErrorText from 'src/web/components/Forms/ErrorText';
 import { Container, Wrapper } from './styled';
 
 interface IDatePickerProps {
+    name?: string;
     initialDate?: any;
     minDate?: any;
     maxDate?: any;
@@ -62,7 +63,7 @@ class DatePicker extends React.PureComponent<IDatePickerProps, any> {
     };
 
     render() {
-        const { valid, invalid, errorMessage, ...rest } = this.props;
+        const { name, valid, invalid, errorMessage, ...rest } = this.props;
 
         const {
             day,
@@ -73,12 +74,11 @@ class DatePicker extends React.PureComponent<IDatePickerProps, any> {
 
         return (
             <Wrapper>
-                <Container>
+                <Container name={name}>
                     <Select
                         value={day}
                         options={options.days}
                         placeholder="Day"
-                        autoWidth
                         invalid={invalid}
                         valid={valid}
                         onChange={value => this.setState({ day: value }, this.updateRelations)}
@@ -87,7 +87,6 @@ class DatePicker extends React.PureComponent<IDatePickerProps, any> {
                         value={month}
                         options={options.months}
                         placeholder="Month"
-                        autoWidth
                         invalid={invalid}
                         valid={valid}
                         onChange={value => this.setState({ month: value }, this.updateRelations)}
@@ -97,7 +96,6 @@ class DatePicker extends React.PureComponent<IDatePickerProps, any> {
                         value={year}
                         options={options.years}
                         placeholder="Year"
-                        autoWidth
                         invalid={invalid}
                         valid={valid}
                         onChange={value => this.setState({ year: value }, this.updateRelations)}

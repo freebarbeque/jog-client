@@ -97,9 +97,9 @@ class QuotePolicy extends React.PureComponent<IQuotePolicyProps, {}> {
                     />
                     <QuoteField
                         icon={<QuoteAddress/>}
-                        title="Insurance address"
+                        title="At what Address will the vehicle be stored?"
                         primaryTitle={address ? `${address.line1}, ${address.line2}, ${address.city}` : ''}
-                        onClick={() => this.props.push(`/app/user/motor/${this.props.motorId}/address`)}
+                        onClick={() => this.props.push(`/app/motor/${this.props.motorId}/quote/address`)}
                         completed={address && address.postcode}
                     />
                     <QuoteField

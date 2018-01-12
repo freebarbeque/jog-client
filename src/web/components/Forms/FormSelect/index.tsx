@@ -47,7 +47,6 @@ class FormSelect extends React.Component<ISelectProps, {}> {
     private menu;
 
     handleChange = (event: any, index: number, value: any) => {
-        console.log('CHANGE: ', value)
         const valueToSet = value[value.length - 1];
         if (!isUndefined(valueToSet)) {
             this.props.input.onChange(valueToSet);
@@ -55,7 +54,7 @@ class FormSelect extends React.Component<ISelectProps, {}> {
                 this.props.onChangeCallback(valueToSet);
             }
         }
-    }
+    };
 
     render() {
         const {

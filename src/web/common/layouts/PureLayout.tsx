@@ -7,7 +7,7 @@ import {bindActionCreators} from 'redux';
 import {FOOTER_BACKGROUND_COLOR, WHITE, CREAM} from '~/common/constants/palette';
 import {LeftArrow} from 'src/web/images';
 
-interface ILayoutProps {
+interface IPureLayoutProps {
     children: any;
     description: {
         title: string;
@@ -18,7 +18,7 @@ interface ILayoutProps {
     push: (value: any) => void;
 }
 
-class Layout extends React.PureComponent<ILayoutProps, any> {
+class PureLayout extends React.PureComponent<IPureLayoutProps, any> {
     render() {
         const { description: {title, backTitle, backUrl, icon: IconComponent} } = this.props;
 
@@ -35,9 +35,7 @@ class Layout extends React.PureComponent<ILayoutProps, any> {
                     </Title>
                 </Header>
                 <Body>
-                <Container>
-                    {this.props.children}
-                </Container>
+                {this.props.children}
                 </Body>
             </Wrapper>
         )
@@ -71,12 +69,7 @@ const Body = styled.div`
     align-self: stretch;
     background-color: ${CREAM};
     align-items: center;
-    padding: 80px 40px;
-`;
-
-const Container = styled.div`
-    max-width: 700px;
-    margin: 0 auto;
+    padding: 120px 40px;
 `;
 
 const BackWidget = styled.div`
@@ -111,4 +104,4 @@ const mapDispatchToProps = (dispatch: any): any => bindActionCreators({
     push,
 }, dispatch);
 
-export default connect(null, mapDispatchToProps)(Layout) as any;
+export default connect(null, mapDispatchToProps)(PureLayout) as any;

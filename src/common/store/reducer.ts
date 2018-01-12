@@ -7,6 +7,7 @@ import dataSource from '../reducers/dataSource';
 import userDetails from '../reducers/userDetails';
 import vehicles from '../reducers/vehicles';
 import policyQuoteRequest from '../reducers/policyQuoteRequest';
+import quoteAddresses from '../reducers/quoteAddresses';
 
 export const coreReducers = {
     auth,
@@ -16,6 +17,7 @@ export const coreReducers = {
     dataSource,
     userDetails,
     vehicles,
+    quoteAddresses,
     policyQuoteRequest,
 };
 

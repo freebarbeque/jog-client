@@ -71,7 +71,7 @@ const IconBox = styled.div`
 
 const ContentBox = styled.div`
   display: flex;
-  flex: 1 0 auto;
+  flex-grow: 1;
   justify-content: space-between;
   align-items: center;
   padding: 0 28px 0 37px;

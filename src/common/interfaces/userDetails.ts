@@ -23,8 +23,10 @@ export interface IUserDetailsReduxState {
 }
 
 export interface IAddress {
+    id: any,
     post_town: string;
     line_1: string;
     line_2: string;
+    county: string,
     postcode: string;
 }
