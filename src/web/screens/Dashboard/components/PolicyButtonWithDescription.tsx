@@ -109,7 +109,8 @@ const Circle = div`
 const StyledPolicyButtonWithDescription = styled(PolicyButtonWithDescription)`
   display: flex;
   align-items: center;
-  box-shadow: 0 2px 4px rgba(51,51,51, 0.5);
+  box-shadow: 0 2px 4px rgba(150,150,150, 0.5);
+  background-color: #FFF;
   height: 88px;
   flex-basis: calc(50% - 20px);
   padding: 0;
