@@ -14,6 +14,7 @@ export const Label = styled.div`
 `;
 
 export const ErrorText = styled.div`
+    text-align: left;
     font-size: 14px;
     color: ${FIELD_ERROR_COLOR};
 `;
@@ -21,6 +22,7 @@ export const ErrorText = styled.div`
 export const LabelContainer: StyledComponentClass<any, any, any> = styled.div`
     margin-bottom: ${(props: any) => props.compactLabel ? '5px' : '8px'};
     display: flex;
+    align-items: center;
     font-family: 'Work Sans';
     font-size: ${(props: any) => props.compactLabel ? '14px' : '20px'};
     

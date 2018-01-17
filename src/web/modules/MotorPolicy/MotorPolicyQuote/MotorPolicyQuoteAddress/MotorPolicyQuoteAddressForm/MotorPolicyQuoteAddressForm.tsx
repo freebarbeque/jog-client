@@ -62,6 +62,7 @@ class MotorPolicyQuoteAddressDetails extends React.PureComponent<any, any> {
                 <form onSubmit={this.props.handleSubmit}>
                     <DropDownWrapper>
                         <Field
+                            errorInsideLabel
                             label="Postcode"
                             placeholder="00000"
                             name="postcode"
@@ -76,6 +77,7 @@ class MotorPolicyQuoteAddressDetails extends React.PureComponent<any, any> {
                         {this.state.isPostcodeInFocus && this.renderPostcodeDropDown()}
                     </DropDownWrapper>
                     <Field
+                        errorInsideLabel
                         label="Nick Name"
                         placeholder="Nick Name"
                         name="nickname"
@@ -83,6 +85,7 @@ class MotorPolicyQuoteAddressDetails extends React.PureComponent<any, any> {
                         style={{ marginBottom: '15px' }}
                     />
                     <Field
+                        errorInsideLabel
                         label="First Line"
                         placeholder="First Line"
                         name="line1"
@@ -90,6 +93,7 @@ class MotorPolicyQuoteAddressDetails extends React.PureComponent<any, any> {
                         style={{ marginBottom: '15px' }}
                     />
                     <Field
+                        errorInsideLabel
                         label="Second Line"
                         placeholder="Second Line"
                         name="line2"
@@ -97,6 +101,7 @@ class MotorPolicyQuoteAddressDetails extends React.PureComponent<any, any> {
                         style={{ marginBottom: '15px' }}
                     />
                     <Field
+                        errorInsideLabel
                         label="City"
                         placeholder="City Name"
                         name="city"
@@ -104,6 +109,7 @@ class MotorPolicyQuoteAddressDetails extends React.PureComponent<any, any> {
                         style={{ marginBottom: '15px' }}
                     />
                     <Field
+                        errorInsideLabel
                         label="Province / County"
                         placeholder="Province / County"
                         name="county"

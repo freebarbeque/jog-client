@@ -107,6 +107,7 @@ const CreatePolicyForm = (props: ICreatePolicyFormProps) => {
                         <form style={{display: 'flex', flexDirection: 'column'}} onSubmit={props.handleSubmit}>
                             <Content>
                                 <Field
+                                    errorAboveField
                                     label="Who is your insurer?"
                                     name="insurance_company_id"
                                     component={FormSelect}
@@ -115,6 +116,7 @@ const CreatePolicyForm = (props: ICreatePolicyFormProps) => {
                                     style={{ marginBottom: 40 }}
                                 />
                                 <Field
+                                    errorAboveField
                                     label="What is your policy number?"
                                     placeholder="12345"
                                     name="policy_number"
@@ -122,6 +124,7 @@ const CreatePolicyForm = (props: ICreatePolicyFormProps) => {
                                     style={{ marginBottom: 40 }}
                                 />
                                 <Field
+                                    errorAboveField
                                     name="expiry"
                                     label="When does your policy expire?"
                                     component={FormDatePicker}
@@ -129,6 +132,7 @@ const CreatePolicyForm = (props: ICreatePolicyFormProps) => {
                                     minDate={moment()}
                                 />
                                 <Field
+                                    errorAboveField
                                     label="How much does your policy cost per year?"
                                     name="annual_cost_cents"
                                     component={FormTextField}
@@ -137,12 +141,14 @@ const CreatePolicyForm = (props: ICreatePolicyFormProps) => {
                                     style={{ marginBottom: 40 }}
                                 />
                                 <Field
+                                    errorAboveField
                                     label="Enter the registration of your car"
                                     name="vehicle_registration"
                                     component={FormTextField}
                                     style={{ marginBottom: 40 }}
                                 />
                                 <Field
+                                    errorAboveField
                                     label="Level of cover"
                                     name="level_of_cover"
                                     component={FormRadioGroup}
@@ -154,6 +160,7 @@ const CreatePolicyForm = (props: ICreatePolicyFormProps) => {
                                     style={{ marginBottom: 40 }}
                                 />
                                 <Field
+                                    errorAboveField
                                     label="Years of no claims bonus"
                                     name="no_claims_bonus"
                                     component={FormTextField}

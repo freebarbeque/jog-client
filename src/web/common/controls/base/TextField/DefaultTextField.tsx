@@ -1,6 +1,6 @@
 import * as React from 'react'
 
-import { DefaultInput } from './styled';
+import { DefaultInput, Icon, DefaultContainer } from './styled';
 
 export default class DefaultTextField extends React.PureComponent<any, any> {
     static defaultProps = {
@@ -23,20 +23,29 @@ export default class DefaultTextField extends React.PureComponent<any, any> {
             onChange,
             inputProps,
             disabled,
+            valid,
+            invalid,
             autoComplete,
+            leftIcon,
         } = this.props;
 
         return (
-            <DefaultInput
-                type={type}
-                placeholder={placeholder}
-                name={name}
-                value={value}
-                onChange={onChange}
-                disabled={disabled}
-                autoComplete={autoComplete}
-                {...inputProps}
-            />
+            <DefaultContainer
+                valid={valid}
+                invalid={invalid}
+            >
+                {leftIcon && <Icon>{leftIcon}</Icon>}
+                <DefaultInput
+                    type={type}
+                    placeholder={placeholder}
+                    name={name}
+                    value={value}
+                    onChange={onChange}
+                    disabled={disabled}
+                    autoComplete={autoComplete}
+                    {...inputProps}
+                />
+            </DefaultContainer>
         );
     }
 }

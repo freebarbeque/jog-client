@@ -19,7 +19,7 @@ class FormTextField extends React.PureComponent<any, any> {
             errorInsideLabel: this.props.errorInsideLabel,
             errorBelowField: this.props.errorBelowField,
             errorAboveField: this.props.errorAboveField,
-            errorMessage: (meta.touched && meta.error) || null,
+            errorMessage: (meta.submitFailed && meta.error) || null,
             label: this.props.label,
             style: this.props.style,
         };
@@ -32,8 +32,8 @@ class FormTextField extends React.PureComponent<any, any> {
                     onChange={onChange}
                     inputProps={restInput}
                     disabled={disabled || meta.submitting}
-                    valid={meta.touched && meta.valid}
-                    invalid={meta.touched && meta.invalid}
+                    valid={meta.submitFailed && meta.valid}
+                    invalid={meta.submitFailed && meta.touched && meta.invalid}
                     {...rest}
                 />
             </FormField>

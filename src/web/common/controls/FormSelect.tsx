@@ -35,7 +35,7 @@ class FormSelect extends React.PureComponent<any, any> {
             errorAboveField,
             label,
             style,
-            errorMessage: (meta.touched && meta.error) || null,
+            errorMessage: (meta.submitFailed && meta.error) || null,
         };
 
         return (
@@ -46,8 +46,8 @@ class FormSelect extends React.PureComponent<any, any> {
                     onChange={onChange}
                     inputProps={restInput}
                     disabled={disabled || meta.submitting}
-                    valid={meta.touched && meta.valid}
-                    invalid={meta.touched && meta.invalid}
+                    valid={meta.submitFailed && meta.valid}
+                    invalid={meta.submitFailed && meta.invalid}
                     {...rest}
                 />
             </FormField>

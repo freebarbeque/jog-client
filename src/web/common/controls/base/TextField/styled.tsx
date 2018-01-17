@@ -13,9 +13,8 @@ export const DefaultInput: StyledComponentClass<any, any, any> = styled.input`
     width: 100%;
     height: 40px;
     padding: 0 10px;
-    border: 1px solid ${FIELD_DEFAULT_COLOR};
-    border-radius: 4px;
     box-sizing: border-box;
+    border: none;
     font-size: 18px;
     color: ${FIELD_TEXT_COLOR};
     font-family: 'Work Sans';
@@ -40,9 +39,24 @@ export const ErrorText = styled.div`
 `;
 
 export const Icon = styled.div`
-    margin-right: 15px;
+    padding: 0 10px;
     color: ${FIELD_PLACEHOLDER_COLOR};
-    font-size: 20px;
+    font-size: 24px;
+`;
+
+export const DefaultContainer: StyledComponentClass<any, any, any> = styled.div`
+    display: flex;
+    align-items: center;
+    border-style: solid;
+    border-width: 1px;
+    border-radius: 4px;
+    border-color: ${(props: any) => getValidationColor(props.valid, props.invalid)};
+    overflow: hidden;
+    
+    ${Icon} {
+        border-right: ${(props: any) => `1px solid ${getValidationColor(props.valid, props.invalid)}`};
+        color: ${(props: any) => getValidationColor(props.valid, props.invalid)};
+    }
 `;
 
 export const Container: StyledComponentClass<any, any, any> = styled.div`
