@@ -7,15 +7,19 @@ import DaysLeft from './DaysLeft';
 import RoundedButton from 'src/web/components/RoundedButton';
 import Input from 'src/web/components/Forms/Input';
 import {getMonthDays, getMonths, getYears} from 'src/common/utils/dataSources';
-import FormSelect from 'src/web/components/Forms/FormSelect';
 import {EDIT_POLICY_OVERVIEW_FORM} from 'src/common/constants/policies';
 import {IReduxState} from 'src/common/interfaces/store';
 import {FOOTER_BACKGROUND_COLOR} from 'src/common/constants/palette';
 import {getEditOverviewFormInitialValues, getEditOverviewDaysLeft} from 'src/common/selectors/policies';
-import {onlyNumber, onlyDecimal} from 'src/common/utils/form';
+// import {onlyNumber, onlyDecimal} from 'src/common/utils/form';
 import {getDataSource} from 'src/common/selectors/dataSource';
 import {IDataSource} from 'src/common/interfaces/dataSource';
 import {IPatchPolicyFormValues} from 'src/common/interfaces/policies';
+
+import FormSelect from 'src/web/common/controls/FormSelect';
+import FormDatePicker from 'src/web/common/controls/FormDatePicker';
+import FormTextField from 'src/web/common/controls/FormTextField';
+import { onlyNumber, onlyDecimal } from 'src/web/common/utils/formNormalize';
 
 interface IEditOverviewFormProps {
   className?: string;
@@ -60,34 +64,8 @@ const EditOverviewForm: React.StatelessComponent<IEditOverviewFormProps> = (prop
         </FieldTitle>
         <FieldContainer>
           <Field
-            name="day"
-            component={FormSelect}
-            dataSource={getMonthDays(props.month, props.year)}
-            defaultText="Day"
-            maxHeight={300}
-            labelStyle={{height: 40, lineHeight: 40, paddingRight: 40}}
-            iconStyle={{width: 40, height: 40, padding: 8}}
-            style={{height: 40}}
-          />
-          <Field
-            name="month"
-            component={FormSelect}
-            dataSource={getMonths(props.year)}
-            defaultText="Month"
-            maxHeight={300}
-            labelStyle={{height: 40, lineHeight: 40, paddingRight: 40}}
-            iconStyle={{width: 40, height: 40, padding: 8}}
-            style={{height: 40}}
-          />
-          <Field
-            name="year"
-            component={FormSelect}
-            dataSource={getYears()}
-            defaultText="Year"
-            maxHeight={300}
-            labelStyle={{height: 40, lineHeight: 40, paddingRight: 40}}
-            iconStyle={{width: 40, height: 40, padding: 8}}
-            style={{height: 40}}
+            name="expiry"
+            component={FormDatePicker}
           />
         </FieldContainer>
       </FieldWrapper>
@@ -97,24 +75,18 @@ const EditOverviewForm: React.StatelessComponent<IEditOverviewFormProps> = (prop
         </FieldTitle>
         <FieldContainer>
           <Field
-            name="vehicle_brand"
-            component={FormSelect}
-            dataSource={[]}
-            defaultText="Brand"
-            maxHeight={300}
-            labelStyle={{height: 40, lineHeight: 40, paddingRight: 40}}
-            iconStyle={{width: 40, height: 40, padding: 8}}
-            style={{height: 40}}
+              name="vehicle_brand"
+              component={FormSelect}
+              design={FormSelect.Modern}
+              options={[]}
+              placeholder="Brand"
           />
           <Field
-            name="vehicle_model"
-            component={FormSelect}
-            dataSource={[]}
-            defaultText="Model"
-            maxHeight={300}
-            labelStyle={{height: 40, lineHeight: 40, paddingRight: 40}}
-            iconStyle={{width: 40, height: 40, padding: 8}}
-            style={{height: 40}}
+              name="vehicle_model"
+              component={FormSelect}
+              design={FormSelect.Modern}
+              options={[]}
+              placeholder="Model"
           />
         </FieldContainer>
       </FieldWrapper>
@@ -124,10 +96,9 @@ const EditOverviewForm: React.StatelessComponent<IEditOverviewFormProps> = (prop
         </FieldTitle>
         <Field
           name="policy_number"
-          component={Input}
-          style={inputStyles}
+          component={FormTextField}
           placeholder="000000000"
-          preCheck={onlyNumber}
+          normalize={onlyNumber}
         />
       </FieldWrapper>
       <FieldWrapper>
@@ -135,14 +106,11 @@ const EditOverviewForm: React.StatelessComponent<IEditOverviewFormProps> = (prop
           Insurance Co.
         </FieldTitle>
         <Field
-          name="insurance_company_id"
-          component={FormSelect}
-          dataSource={props.insurersDataSource}
-          defaultText="Insurance Company"
-          maxHeight={300}
-          labelStyle={{height: 40, lineHeight: 40, paddingRight: 40}}
-          iconStyle={{width: 40, height: 40, padding: 8}}
-          style={{height: 40}}
+            name="insurance_company_id"
+            component={FormSelect}
+            design={FormSelect.Modern}
+            options={props.insurersDataSource}
+            placeholder="Insurance Company"
         />
       </FieldWrapper>
       <FieldWrapper>
@@ -151,10 +119,9 @@ const EditOverviewForm: React.StatelessComponent<IEditOverviewFormProps> = (prop
         </FieldTitle>
         <Field
           name="annual_cost_cents"
-          component={Input}
-          style={inputStyles}
+          component={FormTextField}
           placeholder="000000000"
-          preCheck={onlyDecimal}
+          normalize={onlyDecimal}
         />
       </FieldWrapper>
     </Container>
@@ -243,8 +210,6 @@ const validateForm = (values: any) => {
 const form = reduxForm({form: EDIT_POLICY_OVERVIEW_FORM, validate: validateForm})(StyledEditOverviewForm);
 
 const mapStateToProps = (state: IReduxState, props: IEditOverviewFormProps): any => ({
-  year: getValue(state, 'year'),
-  month: getValue(state, 'month'),
   insurersDataSource: getDataSource(state, 'insuranceCompanies'),
   daysLeft: getEditOverviewDaysLeft(state),
 });

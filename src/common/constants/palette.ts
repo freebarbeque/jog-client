@@ -22,3 +22,14 @@ export const LIGHT_GREEN = '#41EDC1';
 export const DATEPICKER_BORDER = '#D9DEE3';
 export const FIELD_GRAY_COLOR = '#DBDDE0';
 export const DARK_TRANSPARENT_GRAY = 'rgba(35, 50, 85, 0.95)';
+
+// FORM FIELD
+export const FIELD_PLACEHOLDER_COLOR = 'rgba(210, 215, 220, 1)';
+export const FIELD_TEXT_COLOR = 'rgba(20, 50, 90, 1)';
+export const FIELD_INVALID_COLOR = PINK;
+export const FIELD_VALID_COLOR = LIGHT_GREEN;
+export const FIELD_DEFAULT_COLOR = FIELD_GRAY_COLOR;
+export const FIELD_ERROR_COLOR = PINK;
+export const FIELD_LABEL_COLOR = 'rgba(55, 65, 100, 1)';
+export const FIELD_BACKGROUND_LIGHT_GRAY = VERY_LIGHT_GRAY;
+export const FIELD_RADIO_SELECTED_COLOR = LIGHT_GREEN;

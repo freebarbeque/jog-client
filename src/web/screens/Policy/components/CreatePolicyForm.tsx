@@ -1,28 +1,36 @@
 import * as React from 'react';
+import * as moment from 'moment';
 import {reduxForm, Field, formValueSelector} from 'redux-form';
 import {CREATE_POLICY_FORM} from 'src/common/constants/policies';
 import styled from 'styled-components';
-import FormSelect from 'src/web/components/Forms/FormSelect';
 import Input from 'src/web/components/Forms/Input';
 import {getMonthDays, getMonths, getYears} from '~/common/utils/dataSources';
 import {IReduxState} from '~/common/interfaces/store';
 import {connect} from 'react-redux';
 import RadioButton from 'src/web/components/Forms/RadioButton';
 import RoundedButton from 'src/web/components/RoundedButton';
-import {onlyNumber, onlyDecimal} from '~/common/utils/form';
+// import {onlyNumber, onlyDecimal} from '~/common/utils/form';
 import {ICreatePolicyFormValues} from '~/common/interfaces/policies';
 import {getDataSource} from '~/common/selectors/dataSource';
 import {IDataSource} from '~/common/interfaces/dataSource';
 const validate = require('validate.js');
 import ErrorText from 'src/web/components/Forms/ErrorText';
+import PolicySection from '../../Dashboard/components/PolicySection';
+import OffersPlaceholder from '../../Dashboard/components/OffersPlaceholder';
 import {getIsLoading} from 'src/common/selectors/policies';
+
+import FormSelect from 'src/web/common/controls/FormSelect';
+import FormDatePicker from 'src/web/common/controls/FormDatePicker';
+import FormTextField from 'src/web/common/controls/FormTextField';
+import FormRadioGroup from 'src/web/common/controls/FormRadioGroup';
+import { onlyNumber, onlyDecimal } from 'src/web/common/utils/formNormalize';
 
 interface ICreatePolicyFormProps {
     year?: string;
     month?: string;
     day?: string;
     handleSubmit: any;
-    insurersDataSource: IDataSource;
+    insurersDataSource: any;
     error: string;
     isLoading: boolean;
 }
@@ -36,9 +44,7 @@ const Header = styled.div`
 `;
 
 const Content = styled.div`
-    width: 70%;
-    padding: 10px;
-    padding-bottom: 50px;
+    padding: 50px 80px;
     align-self: center;
     text-align: center;
     display: flex;
@@ -57,116 +63,134 @@ const DateContainer = styled.div`
     }
 `;
 
+const Container = styled.div`
+    display: flex;
+    align-self: stretch;
+    max-width: 60%;
+    margin: 0px auto;
+    flex: 1 0 auto;
+    box-sizing: border-box;
+`;
+
+const Wrapper = styled.div`
+  display: flex;
+  align-self: stretch;
+  justify-content: center;
+  flex: 1 0;
+`;
+
+const LeftSectionsContainer = styled.div`
+  display: flex;
+  flex: 0 1 calc(70% - 20px);
+  flex-direction: column;
+  align-self: stretch;
+  margin-right: 20px;
+  & > ${PolicySection}:first-child {
+    margin-bottom: 35px;
+  }
+`;
+
+const RightSectionsContainer = styled.div`
+  display: flex;
+  flex-basis: 30%;
+  min-width: 300px;
+  flex-direction: column;
+  align-self: baseline;
+`;
+
 const CreatePolicyForm = (props: ICreatePolicyFormProps) => {
     return (
-        <form style={{display: 'flex', flexDirection: 'column'}} onSubmit={props.handleSubmit}>
-            <Header>Six quick questions to add your policy</Header>
-            <Content>
-                <Title>Who is your insurer?</Title>
-                <Field
-                    name="insurance_company_id"
-                    component={FormSelect}
-                    dataSource={props.insurersDataSource}
-                />
-                <Title>What is your policy number?</Title>
-                <Field
-                    name="policy_number"
-                    component={Input}
-                    style={{
-                        width: 'calc(100% - 40px)',
-                        border: '2px solid #dbdcde',
-                        borderRadius: 5,
-                    }}
-                />
-                <Title>When does your policy expire?</Title>
-                <DateContainer>
-                    <Field
-                        name="day"
-                        component={FormSelect}
-                        dataSource={getMonthDays(props.month, props.year)}
-                        defaultText="Day"
-                    />
-                    <Field
-                        name="month"
-                        component={FormSelect}
-                        style={{margin: '0 10px'}}
-                        dataSource={getMonths(props.day, props.year)}
-                        defaultText="Month"
-                    />
-                    <Field
-                        name="year"
-                        component={FormSelect}
-                        dataSource={getYears(props.month)}
-                        defaultText="Year"
-                    />
-                </DateContainer>
-                <Title>How much does your policy cost per year?</Title>
-                <Field
-                    name="annual_cost_cents"
-                    component={Input}
-                    sign="\u00A3"
-                    style={{
-                        width: 'calc(100% - 80px)',
-                        border: '2px solid #dbdcde',
-                        borderRadius: 5,
-                    }}
-                    preCheck={onlyDecimal}
-                />
-                <Title>Enter the registration of your car</Title>
-                <Field
-                    name="vehicle_registration"
-                    component={Input}
-                    style={{
-                        width: 'calc(100% - 40px)',
-                        border: '2px solid #dbdcde',
-                        borderRadius: 5,
-                    }}
-                />
-                <Title>Level of cover</Title>
-                <Field
-                    name="level_of_cover"
-                    component={RadioButton}
-                    dataSource={[
-                        {id: 'Comprehensive', name: 'Comprehensive'},
-                        {id: 'Third party', name: '3rd Party'},
-                        {id: 'Third party, fire and theft', name: '3rd Party, Fire & Theft'},
-                    ]}
-                    defaultSelected={0}
-                />
-                <Title>Years of no claims bonus</Title>
-                <Field
-                    name="no_claims_bonus"
-                    component={Input}
-                    style={{
-                        width: 'calc(100% - 40px)',
-                        border: '2px solid #dbdcde',
-                        borderRadius: 5,
-                    }}
-                    preCheck={onlyNumber}
-                />
-                {props.error ?
-                    <ErrorText>
-                        {props.error}
-                    </ErrorText>
-                    : null
-                }
-                <RoundedButton
-                    type="submit"
-                    label="Set Up My Account"
-                    disabled={props.isLoading}
-                    style={{
-                        width: 230,
-                        alignSelf: 'center',
-                        height: 56,
-                        borderRadius: 28,
-                        fontSize: 20,
-                        marginTop: 25,
-                    }}
-                />
-            </Content>
-        </form>
+        <Container>
+            <Wrapper>
+                <LeftSectionsContainer>
+                    <PolicySection title="Simply answer these questions to set up your basic policy">
+                        <form style={{display: 'flex', flexDirection: 'column'}} onSubmit={props.handleSubmit}>
+                            <Content>
+                                <Field
+                                    label="Who is your insurer?"
+                                    name="insurance_company_id"
+                                    component={FormSelect}
+                                    design={FormSelect.Modern}
+                                    options={props.insurersDataSource}
+                                    style={{ marginBottom: 40 }}
+                                />
+                                <Field
+                                    label="What is your policy number?"
+                                    placeholder="12345"
+                                    name="policy_number"
+                                    component={FormTextField}
+                                    style={{ marginBottom: 40 }}
+                                />
+                                <Field
+                                    name="expiry"
+                                    label="When does your policy expire?"
+                                    component={FormDatePicker}
+                                    style={{ marginBottom: 40 }}
+                                    minDate={moment()}
+                                />
+                                <Field
+                                    label="How much does your policy cost per year?"
+                                    name="annual_cost_cents"
+                                    component={FormTextField}
+                                    leftIcon="\u00A3"
+                                    normalize={onlyDecimal}
+                                    style={{ marginBottom: 40 }}
+                                />
+                                <Field
+                                    label="Enter the registration of your car"
+                                    name="vehicle_registration"
+                                    component={FormTextField}
+                                    style={{ marginBottom: 40 }}
+                                />
+                                <Field
+                                    label="Level of cover"
+                                    name="level_of_cover"
+                                    component={FormRadioGroup}
+                                    options={[
+                                        {id: 'Comprehensive', name: 'Comprehensive'},
+                                        {id: 'Third party', name: '3rd Party'},
+                                        {id: 'Third party, fire and theft', name: '3rd Party, Fire & Theft'},
+                                    ]}
+                                    style={{ marginBottom: 40 }}
+                                />
+                                <Field
+                                    label="Years of no claims bonus"
+                                    name="no_claims_bonus"
+                                    component={FormTextField}
+                                    normalize={onlyNumber}
+                                />
+                                {props.error ?
+                                    <ErrorText>
+                                        {props.error}
+                                    </ErrorText>
+                                    : null
+                                }
+                                <RoundedButton
+                                    type="submit"
+                                    label="Set Up My Account"
+                                    disabled={props.isLoading}
+                                    style={{
+                                        width: 250,
+                                        alignSelf: 'center',
+                                        height: 56,
+                                        borderRadius: 28,
+                                        fontSize: 20,
+                                        marginTop: 25,
+                                    }}
+                                />
+                            </Content>
+                        </form>
+                    </PolicySection>
+                </LeftSectionsContainer>
+                <RightSectionsContainer>
+                    <PolicySection title="Offers">
+                        <OffersPlaceholder />
+                    </PolicySection>
+                </RightSectionsContainer>
+            </Wrapper>
+        </Container>
     );
-}
+};
 
 const validationSchema = {
     insurance_company_id: {
@@ -179,19 +203,9 @@ const validationSchema = {
             message: 'Please enter your policy number',
         },
     },
-    day: {
+    expiry: {
         presence: {
             message: 'Please choose the expiry date',
-        },
-    },
-    month: {
-        presence: {
-            message: 'Please choose the expiry month',
-        },
-    },
-    year: {
-        presence: {
-            message: 'Please choose the expiry year',
         },
     },
     annual_cost_cents: {
@@ -215,9 +229,6 @@ const validateForm = (values: ICreatePolicyFormValues) => {
 const getValue = formValueSelector(CREATE_POLICY_FORM);
 
 const mapStateToProps = (state: IReduxState) => ({
-    year: getValue(state, 'year'),
-    month: getValue(state, 'month'),
-    day: getValue(state, 'day'),
     insurersDataSource: getDataSource(state, 'insuranceCompanies'),
     isLoading: getIsLoading(state),
 })

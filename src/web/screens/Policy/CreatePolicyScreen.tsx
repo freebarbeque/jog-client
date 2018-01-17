@@ -50,11 +50,9 @@ class CreatePolicyScreen extends React.Component<ICreatePolicyScreenProps, {}> {
                         exact
                         path={`${this.props.match.url}/manual`}
                         render={() => (
-                            <ContentContainer>
-                                <CreatePolicyForm
-                                    onSubmit={(values: ICreatePolicyFormValues) => this.props.createPolicy(values)}
-                                />
-                            </ContentContainer>
+                            <CreatePolicyForm
+                                onSubmit={(values: ICreatePolicyFormValues) => this.props.createPolicy(values)}
+                            />
                         )}
                     />
                     <Route

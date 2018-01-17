@@ -1,108 +1,83 @@
 import * as React from 'react';
 import * as moment from 'moment';
 
-import Select from '../Select';
-import { getDaysForMonth, getMonthsForDate } from 'src/web/common/dateUtils';
-import { cookInitialState } from './cookState';
+import { cookInitialState, updateStateOptions } from './helpers';
 
-import ErrorText from 'src/web/components/Forms/ErrorText';
-import { Container, Wrapper } from './styled';
+import DatePickerContent from './DatePickerContent';
 
-interface IDatePickerProps {
-    name?: string;
-    initialDate?: any;
-    minDate?: any;
-    maxDate?: any;
-    onChange?: (value: any) => void;
-    errorMessage?: any;
-    valid?: any;
-    invalid?: any;
-}
+class DatePicker extends React.PureComponent<any, any> {
+    static defaultProps = {
+        gapWidth: 15,
+    };
 
-class DatePicker extends React.PureComponent<IDatePickerProps, any> {
     constructor(props: any) {
         super(props);
 
         this.state = cookInitialState({
-            initialDate: this.props.initialDate,
-            minDate: this.props.minDate,
-            maxDate: this.props.maxDate,
+            initialDate: props.initialDate,
+            minDate: props.minDate,
+            maxDate: props.maxDate,
         });
     }
 
-    updateRelations = () => {
-        this.updateOptions();
-        this.updateDate();
+    handleChange = key => value => {
+      this.setState({
+          ...this.state,
+          values: {
+              ...this.state.values,
+              ...{ [key]: value },
+          },
+      }, () => {
+          this.updateOptionLists();
+
+          if (this.props.onChange) {
+              const { year, month, day } = this.state.values;
+
+              if (year && month && day) {
+                  const date = moment(`${year}-${month}-${day}`, 'YYYY-MM-DD');
+                  this.props.onChange(date);
+              }
+          }
+      })
     };
 
-    updateDate = () => {
-        const { day, year, month } = this.state;
-
-        if (year && month && day && this.props.onChange) {
-            const date = moment(`${year}-${month}-${day}`, 'YYYY-MM-DD');
-            this.props.onChange(date);
-        }
-    };
-
-    updateOptions = () => {
-        const { day, year, month } = this.state;
-
-        this.setState({
-            ...this.state,
-            options: {
-                ...this.state.options,
-                months: getMonthsForDate(day, year),
-                days: getDaysForMonth(month, year),
-            }
-        })
-    };
-
-    renderErrorMessage = () => {
-        const { errorMessage } = this.props;
-        return <div><ErrorText>{errorMessage}</ErrorText></div>;
+    updateOptionLists = () => {
+        this.setState(updateStateOptions({
+            state: this.state,
+            day: this.state.values.day,
+            month: this.state.values.month,
+            year: this.state.values.year,
+        }))
     };
 
     render() {
-        const { name, valid, invalid, errorMessage, ...rest } = this.props;
+        const { name, valid, invalid, gapWidth, ...rest } = this.props;
 
-        const {
-            day,
-            month,
-            year,
-            options,
-        } = this.state;
+        const dataSource = [{
+            placeholder: 'Day',
+            value: this.state.values.day,
+            options: this.state.options.days,
+            onChange: this.handleChange('day'),
+        }, {
+            placeholder: 'Month',
+            value: this.state.values.month,
+            options: this.state.options.months,
+            onChange: this.handleChange('month'),
+            rootStyles: { margin: `0 ${gapWidth}px` }
+        }, {
+            placeholder: 'Year',
+            value: this.state.values.year,
+            options: this.state.options.years,
+            onChange: this.handleChange('year'),
+        }];
 
         return (
-            <Wrapper>
-                <Container name={name}>
-                    <Select
-                        value={day}
-                        options={options.days}
-                        placeholder="Day"
-                        invalid={invalid}
-                        valid={valid}
-                        onChange={value => this.setState({ day: value }, this.updateRelations)}
-                    />
-                    <Select
-                        value={month}
-                        options={options.months}
-                        placeholder="Month"
-                        invalid={invalid}
-                        valid={valid}
-                        onChange={value => this.setState({ month: value }, this.updateRelations)}
-                        style={{ margin: '0 20px' }}
-                    />
-                    <Select
-                        value={year}
-                        options={options.years}
-                        placeholder="Year"
-                        invalid={invalid}
-                        valid={valid}
-                        onChange={value => this.setState({ year: value }, this.updateRelations)}
-                    />
-                </Container>
-                {errorMessage && this.renderErrorMessage()}
-            </Wrapper>
+            <DatePickerContent
+                name={name}
+                valid={valid}
+                invalid={invalid}
+                dataSource={dataSource}
+            />
         );
     }
 }

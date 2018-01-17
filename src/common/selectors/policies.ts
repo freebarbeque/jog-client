@@ -84,6 +84,7 @@ export const getEditOverviewFormInitialValues = createSelector(
                 policy_number: currentPolicy.policy_number,
                 year,
                 day,
+                expiry: currentPolicy.expiry,
                 month: month + 1,
             };
         }

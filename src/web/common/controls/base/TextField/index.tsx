@@ -1,3 +1,9 @@
-import TextField from './TextField';
+import DefaultTextField from './DefaultTextField';
+import ModernTextField from './ModernTextField';
 
-export default TextField;
+export {
+    DefaultTextField,
+    ModernTextField,
+};
+
+export default DefaultTextField;

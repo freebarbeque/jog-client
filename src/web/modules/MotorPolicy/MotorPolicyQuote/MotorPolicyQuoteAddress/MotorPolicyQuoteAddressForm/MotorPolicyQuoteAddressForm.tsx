@@ -80,35 +80,35 @@ class MotorPolicyQuoteAddressDetails extends React.PureComponent<any, any> {
                         placeholder="Nick Name"
                         name="nickname"
                         component={FormTextField}
-                        inputStyle={{marginBottom: '15px' }}
+                        style={{ marginBottom: '15px' }}
                     />
                     <Field
                         label="First Line"
                         placeholder="First Line"
                         name="line1"
                         component={FormTextField}
-                        inputStyle={{marginBottom: '15px' }}
+                        style={{ marginBottom: '15px' }}
                     />
                     <Field
                         label="Second Line"
                         placeholder="Second Line"
                         name="line2"
                         component={FormTextField}
-                        inputStyle={{marginBottom: '15px' }}
+                        style={{ marginBottom: '15px' }}
                     />
                     <Field
                         label="City"
                         placeholder="City Name"
                         name="city"
                         component={FormTextField}
-                        inputStyle={{marginBottom: '15px' }}
+                        style={{ marginBottom: '15px' }}
                     />
                     <Field
                         label="Province / County"
                         placeholder="Province / County"
                         name="county"
                         component={FormTextField}
-                        inputStyle={{marginBottom: '35px' }}
+                        style={{ marginBottom: '35px' }}
                     />
                     <ButtonsGroup>
                         <RoundedButton

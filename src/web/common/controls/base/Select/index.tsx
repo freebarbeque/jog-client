@@ -1,3 +1,9 @@
-import Select from './Select';
+import ModernSelect from './ModernSelect';
+import DefaultSelect from './DefaultSelect';
 
-export default Select;
+export {
+    DefaultSelect,
+    ModernSelect,
+};
+
+export default DefaultSelect;

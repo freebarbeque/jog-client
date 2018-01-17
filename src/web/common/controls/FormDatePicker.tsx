@@ -1,38 +1,43 @@
 import * as React from 'react';
 
 import DatePicker from './base/DatePicker';
+import FormField from './FormField';
 
-interface IDatePickerProps {
-  input: {
-    onChange: (value: any) => void,
-    value: any,
-    name: string;
-  },
-  meta: {
-    error?: string,
-    touched: boolean,
-    valid: boolean,
-    invalid: boolean,
-  },
-  minDate?: any,
-  maxDate?: any,
-}
-
-class FormDatePicker extends React.PureComponent<IDatePickerProps, any> {
+class FormDatePicker extends React.PureComponent<any, any> {
   render() {
-    const { input, meta, ...rest } = this.props;
+    const {
+      compactLabel,
+      errorInsideLabel,
+      errorBelowField,
+      errorAboveField,
+      style,
+      label,
+      input,
+      meta,
+      ...rest,
+    } = this.props;
+
+    const formFieldProps = {
+      compactLabel,
+      errorInsideLabel,
+      errorBelowField,
+      errorAboveField,
+      label,
+      style,
+      errorMessage: (meta.touched && meta.error) || null,
+    };
 
     return (
-        <DatePicker
-            name={input.name}
-            initialDate={input.value}
-            minDate={this.props.minDate}
-            maxDate={this.props.maxDate}
-            onChange={input.onChange}
-            errorMessage={meta.touched && meta.error}
-            valid={meta.touched && meta.valid}
-            invalid={meta.touched && meta.invalid}
-        />
+        <FormField {...formFieldProps}>
+          <DatePicker
+              name={input.name}
+              initialDate={input.value}
+              onChange={input.onChange}
+              valid={meta.touched && meta.valid}
+              invalid={meta.touched && meta.invalid}
+              {...rest}
+          />
+        </FormField>
     );
   }
 }

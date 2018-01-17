@@ -1,19 +1,11 @@
 import * as React from 'react';
 
-import { ModernSelect, DefaultSelect } from './base/Select';
 import FormField from './FormField';
+import RadioGroup from './base/RadioGroup';
 
-class FormSelect extends React.PureComponent<any, any> {
-    static Modern = ModernSelect;
-    static Default = DefaultSelect;
-
-    static defaultProps = {
-        design: FormSelect.Default,
-    };
-
+class FormRadioGroup extends React.PureComponent<any, any> {
     render() {
         const {
-            design: DesignedComponent,
             compactLabel,
             errorInsideLabel,
             errorBelowField,
@@ -22,7 +14,6 @@ class FormSelect extends React.PureComponent<any, any> {
             label,
             input,
             meta,
-            disabled,
             ...rest,
         } = this.props;
 
@@ -40,14 +31,11 @@ class FormSelect extends React.PureComponent<any, any> {
 
         return (
             <FormField {...formFieldProps}>
-                <DesignedComponent
+                <RadioGroup
                     name={name}
                     value={value}
                     onChange={onChange}
                     inputProps={restInput}
-                    disabled={disabled || meta.submitting}
-                    valid={meta.touched && meta.valid}
-                    invalid={meta.touched && meta.invalid}
                     {...rest}
                 />
             </FormField>
@@ -55,4 +43,4 @@ class FormSelect extends React.PureComponent<any, any> {
     }
 }
 
-export default FormSelect;
+export default FormRadioGroup;
