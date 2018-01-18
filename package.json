@@ -2,6 +2,9 @@
   "name": "ReactNativeTS",
   "version": "1.0.0",
   "private": true,
+  "engines": {
+    "node": "8.6.0"
+  },
   "scripts": {
     "start:native": "node node_modules/react-native/local-cli/cli.js start --skipflow & yarn run build:native -- --watch",
     "start:web": "NODE_ENV=local webpack-dev-server",
