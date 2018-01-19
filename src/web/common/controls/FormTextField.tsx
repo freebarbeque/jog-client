@@ -15,6 +15,7 @@ class FormTextField extends React.PureComponent<any, any> {
         const { name, value, onChange, ...restInput } = input;
 
         const formFieldProps = {
+            name,
             compactLabel: this.props.compactLabel,
             errorInsideLabel: this.props.errorInsideLabel,
             errorBelowField: this.props.errorBelowField,

@@ -17,7 +17,10 @@ class FormDatePicker extends React.PureComponent<any, any> {
       ...rest,
     } = this.props;
 
+    const { name, value, onChange } = input;
+
     const formFieldProps = {
+      name,
       compactLabel,
       errorInsideLabel,
       errorBelowField,
@@ -30,9 +33,9 @@ class FormDatePicker extends React.PureComponent<any, any> {
     return (
         <FormField {...formFieldProps}>
           <DatePicker
-              name={input.name}
-              initialDate={input.value}
-              onChange={input.onChange}
+              name={name}
+              initialDate={value}
+              onChange={onChange}
               valid={meta.submitFailed && meta.valid}
               invalid={meta.submitFailed && meta.invalid}
               {...rest}

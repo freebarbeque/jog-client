@@ -1,6 +1,6 @@
 import { scroller } from 'react-scroll';
 
-export const handleScrollingSubmitFail = (overrideOptions: any = {}) => {
+export const handleScrollToErrorField = (overrideOptions: any = {}) => {
     return errors => {
         const defaultScrollOptions = {
             smooth: true,
@@ -18,6 +18,8 @@ export const handleScrollingSubmitFail = (overrideOptions: any = {}) => {
         });
 
         const firstErrorField = orderedErrorList[0];
+
+        console.log('HEY: ', firstErrorField && document.querySelectorAll(`[name=${firstErrorField}]`).length);
 
         if (firstErrorField && document.querySelectorAll(`[name=${firstErrorField}]`).length) {
             scroller.scrollTo(firstErrorField, scrollOptions);

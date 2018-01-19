@@ -19,7 +19,7 @@ import {IPatchPolicyFormValues} from 'src/common/interfaces/policies';
 import FormSelect from 'src/web/common/controls/FormSelect';
 import FormDatePicker from 'src/web/common/controls/FormDatePicker';
 import FormTextField from 'src/web/common/controls/FormTextField';
-import { onlyNumber, onlyDecimal } from 'src/web/common/utils/formNormalize';
+import { onlyNumber, onlyDecimal } from 'src/web/common/utils/form/valueNormalize';
 
 interface IEditOverviewFormProps {
   className?: string;

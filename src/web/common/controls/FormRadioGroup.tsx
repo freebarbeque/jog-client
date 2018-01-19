@@ -20,6 +20,7 @@ class FormRadioGroup extends React.PureComponent<any, any> {
         const { name, value, onChange, ...restInput } = input;
 
         const formFieldProps = {
+            name,
             compactLabel,
             errorInsideLabel,
             errorBelowField,

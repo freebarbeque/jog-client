@@ -20,6 +20,9 @@ import FormSelect from '~/web/components/Forms/FormSelect';
 import {mapObjectToDataSource} from 'src/common/utils/dataSources';
 import {PINK} from '~/common/constants/palette';
 import {injectSaga} from '~/common/utils/saga';
+import { handleScrollToErrorField } from 'src/web/common/utils/form/scrollingToErrorField';
+
+import FormSelect2 from 'src/web/common/controls/FormSelect'
 
 import FormDatePicker from 'src/web/common/controls/FormDatePicker';
 
@@ -54,7 +57,7 @@ class CarDetailsForm extends React.PureComponent<ICarDetailsProps, {}> {
             <form className={this.props.className} onSubmit={this.props.handleSubmit}>
                 <FieldsContainer>
                     <Container>
-                        <FieldTitle>
+                        <FieldTitle name="manufacturer_name">
                             Vehicle Brand
                         </FieldTitle>
                         <Field
@@ -63,7 +66,7 @@ class CarDetailsForm extends React.PureComponent<ICarDetailsProps, {}> {
                         />
                     </Container>
                     <Container>
-                        <FieldTitle>
+                        <FieldTitle name="motor_vehicle_model_name">
                             Vehicle Model
                         </FieldTitle>
                         <Field
@@ -72,7 +75,7 @@ class CarDetailsForm extends React.PureComponent<ICarDetailsProps, {}> {
                         />
                     </Container>
                 </FieldsContainer>
-                <FieldContainer>
+                <FieldContainer name="abi_code">
                     <FieldTitle>
                         What is the car's ABI code?
                     </FieldTitle>
@@ -81,7 +84,7 @@ class CarDetailsForm extends React.PureComponent<ICarDetailsProps, {}> {
                         component={StyledInput}
                     />
                 </FieldContainer>
-                <FieldContainer>
+                <FieldContainer name="abs">
                     <FieldTitle>
                         Does the car have ABS ?
                     </FieldTitle>
@@ -94,21 +97,19 @@ class CarDetailsForm extends React.PureComponent<ICarDetailsProps, {}> {
                         ]}
                     />
                 </FieldContainer>
-                <FieldContainer>
+                <FieldContainer name="alarm">
                     <FieldTitle>
                         What type of alarm does the car have?
                     </FieldTitle>
                     <Field
                         name="alarm"
-                        component={FormSelect}
-                        dataSource={mapObjectToDataSource(VehicleAlarm)}
-                        maxHeight={300}
-                        labelStyle={formSelectLabelStyle}
-                        iconStyle={formSelectIconStyle}
-                        style={formSelectStyle}
+                        errorBelowField
+                        component={FormSelect2}
+                        design={FormSelect2.Modern}
+                        options={mapObjectToDataSource(VehicleAlarm)}
                     />
                 </FieldContainer>
-                <FieldContainer>
+                <FieldContainer name="date_of_manufacture">
                     <FieldTitle>
                         When was the car manufactured?
                     </FieldTitle>
@@ -119,7 +120,7 @@ class CarDetailsForm extends React.PureComponent<ICarDetailsProps, {}> {
                         minDate={moment().subtract(50, 'years')}
                     />
                 </FieldContainer>
-                <FieldContainer>
+                <FieldContainer name="date_of_registration">
                     <FieldTitle>
                         When was the car registered?
                     </FieldTitle>
@@ -130,21 +131,19 @@ class CarDetailsForm extends React.PureComponent<ICarDetailsProps, {}> {
                         minDate={moment().subtract(50, 'years')}
                     />
                 </FieldContainer>
-                <FieldContainer>
+                <FieldContainer name="drive">
                     <FieldTitle>
                         Is the car left or right hand drive?
                     </FieldTitle>
                     <Field
                         name="drive"
-                        component={FormSelect}
-                        dataSource={mapObjectToDataSource(VehicleDriveHelmSide)}
-                        maxHeight={300}
-                        labelStyle={formSelectLabelStyle}
-                        iconStyle={formSelectIconStyle}
-                        style={formSelectStyle}
+                        errorBelowField
+                        component={FormSelect2}
+                        design={FormSelect2.Modern}
+                        options={mapObjectToDataSource(VehicleDriveHelmSide)}
                     />
                 </FieldContainer>
-                <FieldContainer>
+                <FieldContainer name="imported">
                     <FieldTitle>
                         Is the car an import?
                     </FieldTitle>
@@ -157,7 +156,7 @@ class CarDetailsForm extends React.PureComponent<ICarDetailsProps, {}> {
                         ]}
                     />
                 </FieldContainer>
-                <FieldContainer>
+                <FieldContainer name="number_of_seats">
                     <FieldTitle>
                         How many seats does the car have?
                     </FieldTitle>
@@ -167,21 +166,19 @@ class CarDetailsForm extends React.PureComponent<ICarDetailsProps, {}> {
                         preCheck={onlyNumber}
                     />
                 </FieldContainer>
-                <FieldContainer>
+                <FieldContainer name="ownership">
                     <FieldTitle>
                         Who is the owner of the car?
                     </FieldTitle>
                     <Field
                         name="ownership"
-                        component={FormSelect}
-                        dataSource={mapObjectToDataSource(VehicleRegisteredKeeper)}
-                        maxHeight={300}
-                        labelStyle={formSelectLabelStyle}
-                        iconStyle={formSelectIconStyle}
-                        style={formSelectStyle}
+                        errorBelowField
+                        component={FormSelect2}
+                        design={FormSelect2.Modern}
+                        options={mapObjectToDataSource(VehicleRegisteredKeeper)}
                     />
                 </FieldContainer>
-                <FieldContainer>
+                <FieldContainer name="registered_keeper">
                     <FieldTitle>
                         Who is the registered keeper of the car?
                     </FieldTitle>
@@ -190,7 +187,7 @@ class CarDetailsForm extends React.PureComponent<ICarDetailsProps, {}> {
                         component={StyledInput}
                     />
                 </FieldContainer>
-                <FieldContainer>
+                <FieldContainer name="modified">
                     <FieldTitle>
                         Has the car been modified ?
                     </FieldTitle>
@@ -203,7 +200,7 @@ class CarDetailsForm extends React.PureComponent<ICarDetailsProps, {}> {
                         ]}
                     />
                 </FieldContainer>
-                <FieldContainer>
+                <FieldContainer name="purchase">
                     <FieldTitle>
                         Have you already purchased the vehicle?
                     </FieldTitle>
@@ -217,7 +214,7 @@ class CarDetailsForm extends React.PureComponent<ICarDetailsProps, {}> {
                     />
                 </FieldContainer>
                 {this.props.formValues && this.props.formValues.purchase ?
-                    <FieldContainer>
+                    <FieldContainer name="date_of_purchase">
                         <FieldTitle>
                             When did you purchase the vehicle?
                         </FieldTitle>
@@ -229,7 +226,7 @@ class CarDetailsForm extends React.PureComponent<ICarDetailsProps, {}> {
                         />
                     </FieldContainer> : null
                 }
-                <FieldContainer>
+                <FieldContainer name="value_cents">
                     <FieldTitle>
                         Vehicle cost
                     </FieldTitle>
@@ -242,7 +239,7 @@ class CarDetailsForm extends React.PureComponent<ICarDetailsProps, {}> {
                         signStyle={signStyle}
                     />
                 </FieldContainer>
-                <FieldContainer>
+                <FieldContainer name="tracking_device">
                     <FieldTitle>
                         Does it have a tracking device ?
                     </FieldTitle>
@@ -255,18 +252,16 @@ class CarDetailsForm extends React.PureComponent<ICarDetailsProps, {}> {
                         ]}
                     />
                 </FieldContainer>
-                <FieldContainer>
+                <FieldContainer name="motor_vehicle_storage_location">
                     <FieldTitle>
                         Where is your vehicle kept at night?
                     </FieldTitle>
                     <Field
                         name="motor_vehicle_storage_location"
-                        component={FormSelect}
-                        dataSource={mapObjectToDataSource(VehicleKeptAtNight)}
-                        maxHeight={300}
-                        labelStyle={formSelectLabelStyle}
-                        iconStyle={formSelectIconStyle}
-                        style={formSelectStyle}
+                        errorBelowField
+                        component={FormSelect2}
+                        design={FormSelect2.Modern}
+                        options={mapObjectToDataSource(VehicleKeptAtNight)}
                     />
                 </FieldContainer>
                 {this.props.error && <Error>{this.props.error}</Error>}
@@ -394,6 +389,7 @@ const validateForm = (values: any) => {
 const form = reduxForm({
     form: VEHICLE_DETAILS_FORM,
     validate: validateForm,
+    onSubmitFail: handleScrollToErrorField(),
 })(styledForm(CarDetailsForm));
 
 const mapStateToProps = (state: IReduxState): Partial<ICarDetailsProps> => ({

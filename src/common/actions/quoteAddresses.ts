@@ -33,10 +33,11 @@ export function addAddressRequest(address: any) {
     }
 }
 
-export function updateAddressRequest(addressId: number|string, address: any) {
+export function updateAddressRequest(addressId: number|string, address: any, submitDeferred: any) {
     return {
         type: UPDATE_ADDRESS_REQUEST,
         id: addressId,
+        submitDeferred,
         address,
     }
 }

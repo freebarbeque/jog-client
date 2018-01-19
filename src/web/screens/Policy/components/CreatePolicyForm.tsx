@@ -23,7 +23,8 @@ import FormSelect from 'src/web/common/controls/FormSelect';
 import FormDatePicker from 'src/web/common/controls/FormDatePicker';
 import FormTextField from 'src/web/common/controls/FormTextField';
 import FormRadioGroup from 'src/web/common/controls/FormRadioGroup';
-import { onlyNumber, onlyDecimal } from 'src/web/common/utils/formNormalize';
+import { onlyNumber, onlyDecimal } from 'src/web/common/utils/form/valueNormalize';
+import { handleScrollToErrorField } from 'src/web/common/utils/form/scrollingToErrorField';
 
 interface ICreatePolicyFormProps {
     year?: string;
@@ -99,6 +100,8 @@ const RightSectionsContainer = styled.div`
 `;
 
 const CreatePolicyForm = (props: ICreatePolicyFormProps) => {
+    console.log('Log => CreatePolicyForm re-render: ', props);
+
     return (
         <Container>
             <Wrapper>
@@ -245,6 +248,10 @@ const form = reduxForm({
     initialValues: {
         level_of_cover: 'Comprehensive',
         no_claims_bonus : 0,
+    },
+    onSubmitFail: errors => {
+        console.log('Log => onSubmitFail errors: ', errors);
+        handleScrollToErrorField()(errors);
     },
     validate: validateForm,
 })(connect(mapStateToProps, null)(CreatePolicyForm));

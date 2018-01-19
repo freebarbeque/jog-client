@@ -8,6 +8,7 @@ import {lookupRegistrationNumber} from 'src/common/actions/userDetails';
 import {injectSaga} from '~/common/utils/saga';
 import {vehicleStepsFlow} from '~/common/sagas/userDetails/vehicle';
 import {submitVehicle} from 'src/common/actions/userDetails';
+import { withDeferredSubmit } from 'src/web/common/utils/form/withDeferredSubmit';
 
 export interface ICarDetailsStepsProps {
     currentStep: number;
@@ -26,8 +27,8 @@ class CarDetailsSteps extends React.Component<ICarDetailsStepsProps, {}> {
         this.props.lookupRegistrationNumber(values.vrm);
     };
 
-    handleCarDetailsSubmit = () => {
-        this.props.submitVehicle();
+    handleCarDetailsSubmit = (values) => {
+        return withDeferredSubmit(this.props.submitVehicle, values);
     };
 
     render() {

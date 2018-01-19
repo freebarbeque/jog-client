@@ -120,10 +120,11 @@ export function changeSelectedDriver(driverId: string) {
     }
 }
 
-export function submitVehicle(vehicle: IVehicle) {
+export function submitVehicle(vehicle: IVehicle, submitDeferred: any) {
     return {
         type: SUBMIT_VEHICLE,
         vehicle,
+        submitDeferred,
     }
 }
 

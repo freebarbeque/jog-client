@@ -119,7 +119,7 @@ function* quoteCreateAddressWorker(policyId: string|number, currentUser: any) {
 function* quoteUpdateAddressWorker(policyId: string|number, currentUser: any) {
     while (true) {
         try {
-            const {address, id: addressId} = yield take(UPDATE_ADDRESS_REQUEST);
+            const {address, id: addressId, submitDeferred} = yield take(UPDATE_ADDRESS_REQUEST);
 
             const data = {
                 nickname: address.nickname,
@@ -133,8 +133,11 @@ function* quoteUpdateAddressWorker(policyId: string|number, currentUser: any) {
             const { address: updatedAddress, errors } = yield API.updateAddress(currentUser.id, addressId, data);
 
             if (errors) {
-                yield put(stopSubmit(MOTOR_POLICY_QUOTE_ADDRESS_DETAILS_FORM, { ...errors }));
+                submitDeferred.reject({ validationErrors: errors });
+                // yield put(stopSubmit(MOTOR_POLICY_QUOTE_ADDRESS_DETAILS_FORM, { ...errors }));
             } else {
+                submitDeferred.resolve();
+
                 yield put(updateAddress(addressId, updatedAddress));
                 yield put(updateAddressOnPolicyQuoteRequest(policyId, address));
                 yield put(push(`/app/dashboard/motor/${policyId}/quote`));

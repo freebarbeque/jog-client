@@ -2,12 +2,12 @@ import * as React from 'react';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import {push} from 'react-router-redux';
-import {SubmissionError} from 'redux-form';
 
 import {getAddressById, getPossibleAddresses} from 'src/common/selectors/quoteAddresses';
 import {lookupPostCode, updateAddressRequest, selectAddressRequest} from 'src/common/actions/quoteAddresses';
 import {QuoteAddress} from 'src/web/images';
 import PureLayout from 'src/web/common/layouts/PureLayout';
+import { withDeferredSubmit } from 'src/web/common/utils/form/withDeferredSubmit';
 
 import MotorPolicyQuoteAddressDetails from './MotorPolicyQuoteAddressForm';
 
@@ -19,8 +19,9 @@ class MotorPolicyQuoteAddressEdit extends React.PureComponent<any, any> {
         backUrl: `/app/motor/${this.props.match.params.policyId}/quote/address`,
     };
 
-    handleSubmit = (values) => {
-        this.props.updateAddressRequest(this.props.match.params.addressId, values);
+    handleSubmit = values => {
+        const { updateAddressRequest, match: { params: { addressId } } } = this.props;
+        return withDeferredSubmit(updateAddressRequest, addressId, values);
     };
 
     handleCancel = () => {

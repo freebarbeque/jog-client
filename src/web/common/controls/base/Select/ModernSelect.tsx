@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { getValidationColor } from 'src/web/common/utils/validationColor';
+import { getValidationColor } from 'src/web/common/utils/form/validationColor';
 import { FIELD_PLACEHOLDER_COLOR, FIELD_TEXT_COLOR } from 'src/common/constants/palette';
 
 import SelectMenuBase from './SelectMenuBase';

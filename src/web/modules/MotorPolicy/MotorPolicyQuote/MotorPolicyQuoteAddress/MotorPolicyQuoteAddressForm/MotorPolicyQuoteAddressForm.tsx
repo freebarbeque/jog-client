@@ -7,8 +7,7 @@ import {validateForm, isPostCode} from './validate';
 import RoundedButton from 'src/web/common/controls/RoundedButton';
 import FormTextField from 'src/web/common/controls/FormTextField';
 import BoxContainer from 'src/web/common/components/BoxContainer';
-
-import { handleScrollingSubmitFail } from 'src/web/common/utils/scrollingSubmitFail'
+import { handleScrollToErrorField } from 'src/web/common/utils/form/scrollingToErrorField';
 
 class MotorPolicyQuoteAddressDetails extends React.PureComponent<any, any> {
     state = {
@@ -138,5 +137,5 @@ class MotorPolicyQuoteAddressDetails extends React.PureComponent<any, any> {
 export default reduxForm({
     form: MOTOR_POLICY_QUOTE_ADDRESS_DETAILS_FORM,
     validate: validateForm,
-    onSubmitFail: handleScrollingSubmitFail(),
+    onSubmitFail: handleScrollToErrorField(),
 })(MotorPolicyQuoteAddressDetails);

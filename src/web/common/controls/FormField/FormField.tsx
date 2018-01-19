@@ -3,6 +3,7 @@ import * as React from 'react';
 import { Label, LabelContainer, ErrorText } from './styled';
 
 interface IFormField {
+    name?: string,
     compactLabel?: boolean,
     errorInsideLabel?: boolean,
     errorBelowField?: boolean,
@@ -14,6 +15,7 @@ interface IFormField {
 
 class FormField extends React.PureComponent<IFormField, any> {
     static defaultProps = {
+        name: '',
         errorAboveField: false,
         errorBelowField: false,
         errorInsideLabel: false,
@@ -35,6 +37,7 @@ class FormField extends React.PureComponent<IFormField, any> {
 
     render() {
         const {
+            name,
             style,
             label,
             errorAboveField,
@@ -43,7 +46,7 @@ class FormField extends React.PureComponent<IFormField, any> {
         } = this.props;
 
         return (
-            <div style={style}>
+            <div style={style} name={name}>
                 {errorAboveField && <ErrorText>{errorMessage}</ErrorText>}
                 {label && this.renderLabel()}
                 {this.props.children}

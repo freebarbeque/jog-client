@@ -1,6 +1,6 @@
 import styled, {StyledComponentClass} from 'styled-components';
 
-import { getValidationColor } from 'src/web/common/utils/validationColor';
+import { getValidationColor } from 'src/web/common/utils/form/validationColor';
 import {
     FIELD_DEFAULT_COLOR,
     FIELD_ERROR_COLOR,

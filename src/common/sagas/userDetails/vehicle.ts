@@ -61,14 +61,17 @@ function* vehicleDetailsFlow(policyId: string) {
         } else if (submit) {
             try {
                 yield put(setIsLoading(true));
-                const formValues = yield select(getFormValues(VEHICLE_DETAILS_FORM));
+
+                const { vehicle: formValues, submitDeferred } = submit;
+
                 const regNum = yield select(getRegistrationNumber);
 
                 const { errors, motor_vehicle: vehicle } = yield createVehicle(user.id, CREATE_VEHICLE, Object.assign({}, formValues, {registration: regNum}));
 
                 if (errors) {
-                    yield put(stopSubmit(VEHICLE_DETAILS_FORM, { ...errors }));
+                    submitDeferred.reject({ validationErrors: errors });
                 } else {
+                    submitDeferred.resolve();
                     yield put(updateVehicleOnPolicyQuoteRequest(policyId, vehicle));
                     yield put(push(`/app/dashboard/motor/${policyId}/quote`))
                 }
