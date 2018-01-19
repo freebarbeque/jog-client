@@ -19,17 +19,19 @@ class RadioGroup extends React.PureComponent<any, any> {
               style={{
                   paddingRight: 35,
                   width: 'auto',
-                  whiteSpace: 'nowrap'
+                  whiteSpace: 'nowrap',
               }}
               labelStyle={{
                   fontFamily: 'Work Sans',
-                  color: `${value === option.id ? FIELD_TEXT_COLOR : FIELD_PLACEHOLDER_COLOR}`
+                  color: `${value === option.id ? FIELD_TEXT_COLOR : FIELD_PLACEHOLDER_COLOR}`,
               }}
               iconStyle={{
                   marginRight: 10,
                   display: 'flex',
-                  fill: `${value === option.id ? FIELD_RADIO_SELECTED_COLOR : FIELD_PLACEHOLDER_COLOR}`
+                  fill: `${value === option.id ? FIELD_RADIO_SELECTED_COLOR : FIELD_PLACEHOLDER_COLOR}`,
+                  transition: 'none',
               }}
+              disableTouchRipple
           />
       );
     };

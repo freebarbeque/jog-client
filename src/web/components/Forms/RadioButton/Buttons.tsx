@@ -57,7 +57,7 @@ export default (props: IRadioButtonProps) => {
                         uncheckedIcon={<Button>{d.name}</Button>}
                         checkedIcon={<Button checked>{d.name}</Button>}
                         style={{width: `calc(${100 / props.dataSource.length}% - 5px)`, height: 40}}
-                        iconStyle={{width: '100%', height: 40}}
+                        iconStyle={{width: '100%', height: 40, transition: 'none' }}
                     />
                 ))}
             </RadioButtonGroup>

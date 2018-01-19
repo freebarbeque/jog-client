@@ -100,8 +100,6 @@ const RightSectionsContainer = styled.div`
 `;
 
 const CreatePolicyForm = (props: ICreatePolicyFormProps) => {
-    console.log('Log => CreatePolicyForm re-render: ', props);
-
     return (
         <Container>
             <Wrapper>
@@ -249,10 +247,7 @@ const form = reduxForm({
         level_of_cover: 'Comprehensive',
         no_claims_bonus : 0,
     },
-    onSubmitFail: errors => {
-        console.log('Log => onSubmitFail errors: ', errors);
-        handleScrollToErrorField()(errors);
-    },
+    onSubmitFail: handleScrollToErrorField(),
     validate: validateForm,
 })(connect(mapStateToProps, null)(CreatePolicyForm));
 
