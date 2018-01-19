@@ -128,7 +128,7 @@ class DocumentsPolicy extends React.Component<IDocumentPolicyProps, {}> {
                                     }}
                                 />
                             ))}
-                            {!policyDocuments.length && !pendingDocuments.length && !this.props.isLoading && <MessageContainer>Please upload your policy certificate and schedule</MessageContainer>}
+                            {!policyDocuments.length && !pendingDocuments.length && <MessageContainer>Please upload your policy certificate and schedule</MessageContainer>}
                         </FilesContainer>
                         <DocumentsDropzone onDrop={this.props.addPendingDocuments}/>
                         {this.props.error ?
