@@ -15,9 +15,9 @@ interface IPolicyContent {
 const PolicyContent = (props: IPolicyContent) => (
   <div className={props.className}>
     <PolicyButton icon={<PolicyCar />} title="Motor" onClick={() => props.push(`${props.match.url}/motor`)}/>
-    <PolicyButton icon={<PolicyHome />} disabled title="Home & Contents" />
-    <PolicyButton icon={<PolicyTravel />} disabled title="Travel" />
-    <PolicyButton icon={<PolicyWarranties />} disabled title="Warranties" />
+    <PolicyButton icon={<PolicyHome />} disabled title="Home & Contents" subTitle="Coming soon..." />
+    <PolicyButton icon={<PolicyTravel />} disabled title="Travel" subTitle="Coming soon..." />
+    <PolicyButton icon={<PolicyWarranties />} disabled title="Warranties" subTitle="Coming soon..." />
   </div>
 );
 

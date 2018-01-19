@@ -7,6 +7,7 @@ interface IPolicyButton {
   className?: string;
   icon?: JSX.Element;
   title?: string;
+  subTitle?: string;
   onClick?: any;
   disabled?: boolean;
   notification?: string;
@@ -22,7 +23,8 @@ const PolicyButton = (props: IPolicyButton) => (
     </IconContainer>
     <TitleContainer>
       <Title>
-        {props.title}
+        {props.title && <PrimaryTitle>{props.title}</PrimaryTitle>}
+        {props.subTitle && <SecondaryTitle>{props.subTitle}</SecondaryTitle>}
       </Title>
       {props.notification && (<NotificationBox>{props.notification.toUpperCase()}</NotificationBox>)}
       <BlackArrow />
@@ -42,19 +44,29 @@ const TitleContainer = styled.div`
   display: flex;
   flex: 1;
   align-items: center;
-  justify-content: space-between;
   color: ${FOOTER_BACKGROUND_COLOR};
   padding: 0 20px;
   align-self: stretch;
 `;
 
 const Title = styled.div`
+  flex-grow: 1;
+`;
+
+const PrimaryTitle = styled.div`
   font-size: 18px;
   font-weight: 400;
   line-height: 24px;
 `;
 
+const SecondaryTitle = styled.div`
+  font-size: 14px;
+  font-weight: 300;
+  color: rgba(115, 115, 125, 1);
+`;
+
 const NotificationBox = styled.div`
+  margin: 0 20px;
   background-color: ${PINK};
   height: 24px;
   padding: 0 12px;
@@ -79,7 +91,7 @@ const StyledPolicyButton = styled(PolicyButton)`
     ${IconContainer} {
       background-color: ${props => props.disabled ? '#F0F0F0' : '#ECEDEF'};
     }
-    
+
     ${TitleContainer} {
       background-color: ${props => props.disabled ? '#F0F0F0' : 'unset'};
     }
