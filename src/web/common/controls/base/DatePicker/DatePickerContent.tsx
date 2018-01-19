@@ -5,12 +5,21 @@ import { ModernSelect } from '../Select';
 import { Container, Item } from './styled';
 
 class DatePickerContent extends React.PureComponent<any, any> {
+    static defaultProps = {
+        name: '',
+        dataSource: [],
+        selectProps: {
+            autoWidth: false,
+            valid: false,
+            invalid: false,
+        },
+    };
+
     render() {
         const {
             name,
-            valid,
-            invalid,
             dataSource,
+            selectProps,
         } = this.props;
 
         return (
@@ -18,12 +27,11 @@ class DatePickerContent extends React.PureComponent<any, any> {
                 {dataSource.map((fragment, index) => (
                     <Item key={index} style={fragment.rootStyles}>
                        <ModernSelect
-                           valid={valid}
-                           invalid={invalid}
                            placeholder={fragment.placeholder}
                            value={fragment.value}
                            options={fragment.options}
                            onChange={fragment.onChange}
+                           {...selectProps}
                        />
                     </Item>
                 ))}

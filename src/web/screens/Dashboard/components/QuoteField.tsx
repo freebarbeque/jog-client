@@ -45,6 +45,9 @@ class QuoteField extends React.Component<IQuoteFieldProps, {}> {
                             initialDate={this.props.initialValues && this.props.initialValues.date}
                             maxDate={moment()}
                             onChange={this.props.onDatePickerChange}
+                            selectProps={{
+                                autoWidth: true,
+                            }}
                         />
                     ) : (
                         <StatusContainer>

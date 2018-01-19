@@ -51,7 +51,7 @@ class DatePicker extends React.PureComponent<any, any> {
     };
 
     render() {
-        const { name, valid, invalid, gapWidth, ...rest } = this.props;
+        const { gapWidth, selectProps: initialSelectProps, valid, invalid } = this.props;
 
         const dataSource = [{
             placeholder: 'Day',
@@ -71,12 +71,16 @@ class DatePicker extends React.PureComponent<any, any> {
             onChange: this.handleChange('year'),
         }];
 
+        const selectProps = {
+            ...initialSelectProps,
+            valid,
+            invalid,
+        };
+
         return (
             <DatePickerContent
-                name={name}
-                valid={valid}
-                invalid={invalid}
                 dataSource={dataSource}
+                selectProps={selectProps}
             />
         );
     }
