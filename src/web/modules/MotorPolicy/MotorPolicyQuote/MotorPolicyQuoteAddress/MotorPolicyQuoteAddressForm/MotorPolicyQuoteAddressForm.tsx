@@ -2,7 +2,7 @@ import * as React from 'react';
 import {reduxForm, Field} from 'redux-form';
 
 import {MOTOR_POLICY_QUOTE_ADDRESS_DETAILS_FORM} from 'src/common/constants/quoteAddress';
-import {ButtonsGroup, DropDownWrapper, DropDown, PossibleAddress} from './styled';
+import {ButtonsGroup, DropDownWrapper, DropDown, PossibleAddress, Overlay} from './styled';
 import {validateForm, isPostCode} from './validate';
 import RoundedButton from 'src/web/common/controls/RoundedButton';
 import FormTextField from 'src/web/common/controls/FormTextField';
@@ -36,7 +36,10 @@ class MotorPolicyQuoteAddressDetails extends React.PureComponent<any, any> {
         return (
             <PossibleAddress
                 key={index}
-                onClick={() => this.props.onSelectPossibleAddress(address)}
+                onClick={() => {
+                    this.props.onSelectPossibleAddress(address);
+                    this.setState({ isPostcodeInFocus: false });
+                }}
             >
                 {addressTitle}
             </PossibleAddress>
@@ -50,7 +53,11 @@ class MotorPolicyQuoteAddressDetails extends React.PureComponent<any, any> {
             return null;
         }
 
-        return <DropDown>{possibleAddresses.map(this.renderPossibleAddress)}</DropDown>;
+        return (
+            <DropDown>
+                {possibleAddresses.map(this.renderPossibleAddress)}
+            </DropDown>
+        );
     };
 
     render() {
@@ -58,6 +65,8 @@ class MotorPolicyQuoteAddressDetails extends React.PureComponent<any, any> {
 
         return (
             <BoxContainer title={title} containerStyles={{ paddingTop: '40px' }}>
+                <Overlay onClick={() => this.setState({ isPostcodeInFocus: false })} />
+
                 <form onSubmit={this.props.handleSubmit}>
                     <DropDownWrapper>
                         <Field
@@ -67,9 +76,6 @@ class MotorPolicyQuoteAddressDetails extends React.PureComponent<any, any> {
                             name="postcode"
                             component={FormTextField}
                             onFocus={this.handlePostcodeInFocus}
-                            onBlur={() => {
-                                setTimeout(() => this.setState({ isPostcodeInFocus: false }), 0)
-                            }}
                             onChange={this.handleLookupPostcode}
                             autoComplete="off"
                         />
