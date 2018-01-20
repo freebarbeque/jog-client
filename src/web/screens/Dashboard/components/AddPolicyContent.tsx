@@ -16,7 +16,7 @@ const AddPolicyContent: React.StatelessComponent<IAddPolicyContentProps> = (prop
     <PolicyButton
       title="Email the policy"
       icon={<PolicyMail />}
-      disabled
+      onClick={() => location.href = 'mailto:documents@jog.insure?subject=Jog%20-%20Insurance%20Policy%20Documents'}
     />
     <PolicyButton
       notification="Recommended"
