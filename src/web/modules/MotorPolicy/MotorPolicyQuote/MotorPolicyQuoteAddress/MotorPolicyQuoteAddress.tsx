@@ -3,7 +3,7 @@ import { Switch, Route } from 'react-router-dom';
 import {injectSaga} from '~/common/utils/saga';
 
 import { quoteAddressWorker } from 'src/common/sagas/quoteAddresses';
-import MotorPolicyQuoteAddressOverview from './MotorPolicyQuoteAddressOverview';
+import MotorPolicyQuoteAddressesList from './MotorPolicyQuoteAddressesList';
 import MotorPolicyQuoteAddressAdd from './MotorPolicyQuoteAddressAdd';
 import MotorPolicyQuoteAddressEdit from './MotorPolicyQuoteAddressEdit';
 
@@ -24,9 +24,9 @@ export default class MotorPolicyQuoteAddress extends React.PureComponent<any, an
     render() {
         return (
             <Switch>
-                <Route path={`${this.props.match.path}/add`} component={MotorPolicyQuoteAddressAdd} />
-                <Route path={`${this.props.match.path}/:addressId/edit`} component={MotorPolicyQuoteAddressEdit} />
-                <Route path={`${this.props.match.path}`} component={MotorPolicyQuoteAddressOverview} />
+                <Route path={`${this.props.match.url}/add`} component={MotorPolicyQuoteAddressAdd} />
+                <Route path={`${this.props.match.url}/:addressId/edit`} component={MotorPolicyQuoteAddressEdit} />
+                <Route path={`${this.props.match.url}`} component={MotorPolicyQuoteAddressesList} />
             </Switch>
         )
     }

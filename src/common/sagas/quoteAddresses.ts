@@ -17,7 +17,7 @@ import {
     SELECT_ADDRESS_REQUEST,
 } from 'src/common/constants/quoteAddress';
 import {updateAddressOnPolicyQuoteRequest} from 'src/common/actions/policyQuoteRequest';
-import {setAddresses, addAddress, updateAddress, setLoadingState, removeAddress, setPossibleAddresses} from 'src/common/actions/quoteAddresses';
+import {setAddresses, addAddress, updateAddress, setLoadingState, removeAddress, addAddressesByPostcode} from 'src/common/actions/quoteAddresses';
 
 function* quoteSelectAddressWorker() {
     while (true) {
@@ -67,7 +67,7 @@ function* quoteLookupPostcodeWorker() {
                     line2: address.line_2,
                 }));
 
-                yield put(setPossibleAddresses(parsedResponse));
+                yield put(addAddressesByPostcode(postCode, parsedResponse));
             }
         } catch (err) {
             console.log('Log => quoteLookupPostcodeWorker error: ', err);
@@ -90,7 +90,7 @@ function* quoteDeleteAddressWorker(currentUser: any) {
 function* quoteCreateAddressWorker(policyId: string|number, currentUser: any) {
     while (true) {
         try {
-            const {address} = yield take(ADD_ADDRESS_REQUEST);
+            const {address, submitDeferred} = yield take(ADD_ADDRESS_REQUEST);
 
             const data = {
                 nickname: address.nickname,
@@ -104,8 +104,10 @@ function* quoteCreateAddressWorker(policyId: string|number, currentUser: any) {
             const { address: createdAddress, errors } = yield API.createAddress(currentUser.id, data);
 
             if (errors) {
-                yield put(stopSubmit(MOTOR_POLICY_QUOTE_ADDRESS_DETAILS_FORM, { ...errors }));
+                submitDeferred.reject({ validationErrors: errors });
             } else {
+                submitDeferred.resolve();
+
                 yield put(addAddress(createdAddress));
                 yield put(updateAddressOnPolicyQuoteRequest(policyId, createdAddress));
                 yield put(push(`/app/dashboard/motor/${policyId}/quote`));
@@ -134,7 +136,6 @@ function* quoteUpdateAddressWorker(policyId: string|number, currentUser: any) {
 
             if (errors) {
                 submitDeferred.reject({ validationErrors: errors });
-                // yield put(stopSubmit(MOTOR_POLICY_QUOTE_ADDRESS_DETAILS_FORM, { ...errors }));
             } else {
                 submitDeferred.resolve();
 

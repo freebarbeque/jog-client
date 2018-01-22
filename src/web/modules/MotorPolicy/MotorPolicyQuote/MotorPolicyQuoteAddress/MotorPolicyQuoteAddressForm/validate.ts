@@ -12,19 +12,7 @@ const validationSchema = {
     postcode: {
         postCodeValidator,
     },
-    nickname: {
-        presence: {
-            message: '* Required Field',
-            allowEmpty: false,
-        },
-    },
     line1: {
-        presence: {
-            message: '* Required Field',
-            allowEmpty: false,
-        },
-    },
-    line2: {
         presence: {
             message: '* Required Field',
             allowEmpty: false,

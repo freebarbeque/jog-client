@@ -3,10 +3,11 @@ import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import {push} from 'react-router-redux';
 
-import {getPossibleAddresses} from 'src/common/selectors/quoteAddresses';
+import {getAddressesByPostcode} from 'src/common/selectors/quoteAddresses';
 import {lookupPostCode, addAddressRequest, selectAddressRequest} from 'src/common/actions/quoteAddresses';
 import {QuoteAddress} from 'src/web/images';
 import PureLayout from 'src/web/common/layouts/PureLayout';
+import { withDeferredSubmit } from 'src/web/common/utils/form/withDeferredSubmit';
 
 import MotorPolicyQuoteAddressDetails from './MotorPolicyQuoteAddressForm';
 
@@ -19,7 +20,8 @@ class MotorPolicyQuoteAddressOverview extends React.PureComponent<any, any> {
     };
 
     handleSubmit = (values) => {
-        this.props.addAddressRequest(values);
+        const { addAddressRequest } = this.props;
+        return withDeferredSubmit(addAddressRequest, values);
     };
 
     handleCancel = () => {
@@ -30,19 +32,19 @@ class MotorPolicyQuoteAddressOverview extends React.PureComponent<any, any> {
         this.props.lookupPostCode(postcode);
     };
 
-    handleSelectPossibleAddress = address => {
+    handleAddressSelect = address => {
         this.props.selectAddressRequest(address);
     };
 
     render() {
-        const { possibleAddresses } = this.props;
+        const { addressesByPostcode } = this.props;
 
         return (
             <PureLayout description={this.layoutDescription}>
                 <MotorPolicyQuoteAddressDetails
                     title={'Add a new address'}
-                    possibleAddresses={possibleAddresses}
-                    onSelectPossibleAddress={this.handleSelectPossibleAddress}
+                    addressesByPostcode={addressesByPostcode}
+                    onAddressSelect={this.handleAddressSelect}
                     onSubmit={this.handleSubmit}
                     onCancel={this.handleCancel}
                     lookupPostcode={this.lookupPostcode}
@@ -53,7 +55,7 @@ class MotorPolicyQuoteAddressOverview extends React.PureComponent<any, any> {
 }
 
 const mapStateToProps = (state: any, props: any): any => ({
-    possibleAddresses: getPossibleAddresses(state),
+    addressesByPostcode: getAddressesByPostcode(state),
 });
 
 const mapDispatchToProps = (dispatch: any): any => bindActionCreators({

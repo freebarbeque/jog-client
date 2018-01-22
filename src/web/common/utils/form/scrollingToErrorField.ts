@@ -19,8 +19,6 @@ export const handleScrollToErrorField = (overrideOptions: any = {}) => {
 
         const firstErrorField = orderedErrorList[0];
 
-        console.log('HEY: ', firstErrorField && document.querySelectorAll(`[name=${firstErrorField}]`).length);
-
         if (firstErrorField && document.querySelectorAll(`[name=${firstErrorField}]`).length) {
             scroller.scrollTo(firstErrorField, scrollOptions);
         }

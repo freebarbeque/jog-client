@@ -3,7 +3,7 @@ import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import {push} from 'react-router-redux';
 
-import {getAddressById, getPossibleAddresses} from 'src/common/selectors/quoteAddresses';
+import {getAddressById, getAddressesByPostcode} from 'src/common/selectors/quoteAddresses';
 import {lookupPostCode, updateAddressRequest, selectAddressRequest} from 'src/common/actions/quoteAddresses';
 import {QuoteAddress} from 'src/web/images';
 import PureLayout from 'src/web/common/layouts/PureLayout';
@@ -32,19 +32,19 @@ class MotorPolicyQuoteAddressEdit extends React.PureComponent<any, any> {
         this.props.lookupPostCode(postcode);
     };
 
-    handleSelectPossibleAddress = address => {
+    handleAddressSelect = address => {
         this.props.selectAddressRequest(address);
     };
 
     render() {
-        const { address, possibleAddresses } = this.props;
+        const { address, addressesByPostcode } = this.props;
 
         return (
             <PureLayout description={this.layoutDescription}>
                 <MotorPolicyQuoteAddressDetails
                     title={'Edit Address'}
-                    possibleAddresses={possibleAddresses}
-                    onSelectPossibleAddress={this.handleSelectPossibleAddress}
+                    addressesByPostcode={addressesByPostcode}
+                    onAddressSelect={this.handleAddressSelect}
                     onSubmit={this.handleSubmit}
                     onCancel={this.handleCancel}
                     lookupPostcode={this.lookupPostcode}
@@ -57,7 +57,7 @@ class MotorPolicyQuoteAddressEdit extends React.PureComponent<any, any> {
 
 const mapStateToProps = (state: any, props: any): any => ({
     address: getAddressById(state, Number(props.match.params.addressId)),
-    possibleAddresses: getPossibleAddresses(state),
+    addressesByPostcode: getAddressesByPostcode(state),
 });
 
 const mapDispatchToProps = (dispatch: any): any => bindActionCreators({

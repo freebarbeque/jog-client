@@ -11,21 +11,27 @@ import { handleScrollToErrorField } from 'src/web/common/utils/form/scrollingToE
 
 class MotorPolicyQuoteAddressDetails extends React.PureComponent<any, any> {
     state = {
-        isPostcodeInFocus: false,
+        isPostcodeFocused: false,
+        currentPostcode: '',
+    };
+
+    togglePostcodeDropDown = (isShown: boolean) => {
+      this.setState({ isPostcodeFocused: isShown });
     };
 
     handlePostcodeInFocus = (event) => {
         this.handleLookupPostcode(event);
-        this.setState({ isPostcodeInFocus: true });
+        this.togglePostcodeDropDown(true);
     };
 
     handleLookupPostcode = event => {
         if (this.props.lookupPostcode && isPostCode(event.target.value)) {
+            this.setState({ currentPostcode: event.target.value });
             this.props.lookupPostcode(event.target.value);
         }
     };
 
-    renderPossibleAddress = (address, index) => {
+    renderAddress = (address, index) => {
         const addressTitle = [
             address.line1,
             address.line2,
@@ -37,8 +43,8 @@ class MotorPolicyQuoteAddressDetails extends React.PureComponent<any, any> {
             <PossibleAddress
                 key={index}
                 onClick={() => {
-                    this.props.onSelectPossibleAddress(address);
-                    this.setState({ isPostcodeInFocus: false });
+                    this.props.onAddressSelect(address);
+                    this.togglePostcodeDropDown(false)
                 }}
             >
                 {addressTitle}
@@ -46,27 +52,25 @@ class MotorPolicyQuoteAddressDetails extends React.PureComponent<any, any> {
         );
     };
 
-    renderPostcodeDropDown = () => {
-        const { possibleAddresses } = this.props;
+    renderAddressesListForPostcode = () => {
+        const { addressesByPostcode } = this.props;
+        const { currentPostcode } = this.state;
 
-        if (!possibleAddresses || !possibleAddresses.length) {
+        if (!addressesByPostcode || !currentPostcode || !addressesByPostcode[currentPostcode]) {
             return null;
         }
 
-        return (
-            <DropDown>
-                {possibleAddresses.map(this.renderPossibleAddress)}
-            </DropDown>
-        );
+        const content = addressesByPostcode[currentPostcode].map(this.renderAddress);
+
+        return <DropDown>{content}</DropDown>;
     };
 
     render() {
         const { title, invalid, submitting } = this.props;
+        const { isPostcodeFocused } = this.state;
 
         return (
             <BoxContainer title={title} containerStyles={{ paddingTop: '40px' }}>
-                <Overlay onClick={() => this.setState({ isPostcodeInFocus: false })} />
-
                 <form onSubmit={this.props.handleSubmit}>
                     <DropDownWrapper>
                         <Field
@@ -77,14 +81,14 @@ class MotorPolicyQuoteAddressDetails extends React.PureComponent<any, any> {
                             component={FormTextField}
                             onFocus={this.handlePostcodeInFocus}
                             onChange={this.handleLookupPostcode}
-                            autoComplete="off"
                         />
-                        {this.state.isPostcodeInFocus && this.renderPostcodeDropDown()}
+                        {isPostcodeFocused && <Overlay onClick={() => this.togglePostcodeDropDown(false)} />}
+                        {isPostcodeFocused && this.renderAddressesListForPostcode()}
                     </DropDownWrapper>
                     <Field
                         errorInsideLabel
-                        label="Nick Name"
-                        placeholder="Nick Name"
+                        label="Nick Name or House Number"
+                        placeholder="Nick Name or House Number"
                         name="nickname"
                         component={FormTextField}
                         style={{ marginBottom: '15px' }}

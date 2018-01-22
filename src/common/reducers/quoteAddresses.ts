@@ -4,21 +4,24 @@ import {
     REMOVE_ADDRESS,
     UPDATE_ADDRESS,
     SET_LOADING_STATE,
-    SET_POSSIBLE_ADDRESSES,
+    ADD_ADDRESSES_BY_POSTCODE,
 } from '../constants/quoteAddress';
 
 const initialState = {
     isLoading: false,
     addresses: [],
-    possibleAddresses: [],
+    addressesByPostcode: {},
 };
 
 export default function (state: any = initialState, action: any) {
     switch (action.type) {
-        case SET_POSSIBLE_ADDRESSES:
+        case ADD_ADDRESSES_BY_POSTCODE:
             return {
                 ...state,
-                possibleAddresses: action.possibleAddresses,
+                addressesByPostcode: {
+                    ...state.addressesByPostcode,
+                    [action.postcode]: action.addresses,
+                },
             };
 
         case SET_ADDRESSES:

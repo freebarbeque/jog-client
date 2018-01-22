@@ -5,17 +5,18 @@ import {
     UPDATE_ADDRESS,
     REMOVE_ADDRESS,
     SET_ADDRESSES,
-    SET_POSSIBLE_ADDRESSES,
+    ADD_ADDRESSES_BY_POSTCODE,
     ADD_ADDRESS_REQUEST,
     UPDATE_ADDRESS_REQUEST,
     REMOVE_ADDRESS_REQUEST,
     SELECT_ADDRESS_REQUEST,
 } from '../constants/quoteAddress';
 
-export function setPossibleAddresses(possibleAddresses: any[]) {
+export function addAddressesByPostcode(postcode: string, addresses: any[]) {
     return {
-        type: SET_POSSIBLE_ADDRESSES,
-        possibleAddresses,
+        type: ADD_ADDRESSES_BY_POSTCODE,
+        postcode,
+        addresses,
     }
 }
 
@@ -26,10 +27,11 @@ export function selectAddressRequest(address: any) {
     }
 }
 
-export function addAddressRequest(address: any) {
+export function addAddressRequest(address: any, submitDeferred: any) {
     return {
         type: ADD_ADDRESS_REQUEST,
         address,
+        submitDeferred,
     }
 }
 

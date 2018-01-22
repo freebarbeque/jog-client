@@ -10,7 +10,7 @@ import {QuoteAddress} from 'src/web/images';
 import PureLayout from 'src/web/common/layouts/PureLayout';
 import BoxContainer from 'src/web/common/components/BoxContainer';
 
-class MotorPolicyQuoteAddressOverview extends React.PureComponent<any, any> {
+class MotorPolicyQuoteAddressesList extends React.PureComponent<any, any> {
     layoutDescription = {
         title: 'Address',
         icon: QuoteAddress,
@@ -70,8 +70,6 @@ const ItemAside = styled.div`
     margin-left: 20px;
 `;
 
-const ItemTitle = styled.div``;
-
 const mapStateToProps = (state: any): any => ({
     addresses: getQuoteAddresses(state),
     isLoading: getLoadingState(state),
@@ -82,4 +80,4 @@ const mapDispatchToProps = (dispatch: any): any => bindActionCreators({
     removeAddressRequest,
 }, dispatch);
 
-export default connect(mapStateToProps, mapDispatchToProps)(MotorPolicyQuoteAddressOverview) as any;
+export default connect(mapStateToProps, mapDispatchToProps)(MotorPolicyQuoteAddressesList) as any;
