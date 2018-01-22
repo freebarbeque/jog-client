@@ -29,7 +29,6 @@ export const getVehicleDataForm = createSelector(
             manufacturer_name: data.manufacturer_name ? `${data.manufacturer_name.slice(0, 1)}${data.manufacturer_name.slice(1).toLocaleLowerCase()}` : null,
             motor_vehicle_model_name: data.motor_vehicle_model_name ? `${data.motor_vehicle_model_name.slice(0, 1)}${data.motor_vehicle_model_name.slice(1).toLocaleLowerCase()}` : null,
             date_of_registration: data.date_of_registration ? moment(data.date_of_registration) : null,
-            date_of_manufacture: data.date_of_manufacture ? moment(data.date_of_manufacture) : null,
             date_of_purchase: data.date_of_purchase ? moment(data.date_of_purchase) : null,
         }
     }

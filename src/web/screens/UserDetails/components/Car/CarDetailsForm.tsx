@@ -75,15 +75,6 @@ class CarDetailsForm extends React.PureComponent<ICarDetailsProps, {}> {
                         />
                     </Container>
                 </FieldsContainer>
-                <FieldContainer name="abi_code">
-                    <FieldTitle>
-                        What is the car's ABI code?
-                    </FieldTitle>
-                    <Field
-                        name="abi_code"
-                        component={StyledInput}
-                    />
-                </FieldContainer>
                 <FieldContainer name="abs">
                     <FieldTitle>
                         Does the car have ABS ?
@@ -107,17 +98,6 @@ class CarDetailsForm extends React.PureComponent<ICarDetailsProps, {}> {
                         component={FormSelect2}
                         design={FormSelect2.Modern}
                         options={mapObjectToDataSource(VehicleAlarm)}
-                    />
-                </FieldContainer>
-                <FieldContainer name="date_of_manufacture">
-                    <FieldTitle>
-                        When was the car manufactured?
-                    </FieldTitle>
-                    <Field
-                        name="date_of_manufacture"
-                        component={FormDatePicker}
-                        maxDate={moment()}
-                        minDate={moment().subtract(50, 'years')}
                     />
                 </FieldContainer>
                 <FieldContainer name="date_of_registration">
@@ -344,18 +324,6 @@ const validationSchema = {
             allowEmpty: false,
         },
     },
-    abi_code: {
-        presence: {
-            message: 'Please enter your ABI code',
-            allowEmpty: false,
-        },
-    },
-    date_of_manufacture: {
-        presence: {
-            message: `Please enter your car's date of manufacture`,
-            allowEmpty: false,
-        },
-    },
     date_of_registration: {
         presence: {
             message: `Please enter your car's date of register`,
@@ -371,7 +339,6 @@ const initialValues = {
     modified: false,
     tracking_device: false,
     purchase: false,
-    abi_code: '',
     alarm: '',
     drive: '',
     motor_vehicle_storage_location: '',

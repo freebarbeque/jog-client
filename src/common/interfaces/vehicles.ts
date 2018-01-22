@@ -13,9 +13,7 @@ export interface IVehicleDetailsFormValues {
     modified: boolean,
     tracking_device: boolean,
     purchase: boolean,
-    abi_code: string|number;
     alarm: string;
-    date_of_manufacture: string;
     date_of_purchase: string;
     drive: string;
     motor_vehicle_storage_location: string;
