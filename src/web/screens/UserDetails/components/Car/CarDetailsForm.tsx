@@ -249,18 +249,13 @@ class CarDetailsForm extends React.PureComponent<ICarDetailsProps, {}> {
                     <RoundedButton
                         label="Back"
                         disabled={this.props.isLoading}
-                        style={{
-                            marginRight: 20,
-                            width: 200,
-                        }}
+                        style={ButtonStyles}
                         onClick={() => this.props.cancelSubmitVehicle()}
                     />
                     <RoundedButton
                         label="Submit Vehicle Details"
                         disabled={this.props.isLoading}
-                        style={{
-                            width: 200,
-                        }}
+                        style={ButtonStyles}
                         type="submit"
                     />
                 </ButtonsContainer>
@@ -273,6 +268,14 @@ const ButtonsContainer = styled.div`
     display: flex;
     justify-content: center;
 `;
+
+const ButtonStyles = {
+    width: 300,
+    height: 56,
+    borderRadius: 28,
+    fontSize: 21,
+    margin: '0 10px'
+};
 
 const FieldContainer = styled.div`
   display: flex;

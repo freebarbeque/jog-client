@@ -1,4 +1,6 @@
 import * as React from 'react';
+import styled from 'styled-components';
+import {WHITE, TITLE_COLOR, SHADOW_COLOR} from '~/common/constants/palette';
 import CarRegistrationNumberForm from './CarRegistrationNumberForm';
 import CarDetailsForm from './CarDetailsForm';
 import {IVehicleDetails} from '~/common/interfaces/vehicles';
@@ -17,6 +19,25 @@ export interface ICarDetailsStepsProps {
     submitVehicle: ActionCreator<Action>;
 }
 
+const ContentContainer = styled.div`
+    color: ${TITLE_COLOR};
+    box-shadow: 0 2px 4px ${SHADOW_COLOR};
+    background-color: ${WHITE};
+    width: 980px;
+    margin: 10px auto;
+    text-align: center;
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    align-self: stretch;
+`;
+
+const Content = styled.div`
+    padding: 40px 10px 50px;
+    margin: 0 auto;
+    width: 70%;
+`;
+
 class CarDetailsSteps extends React.Component<ICarDetailsStepsProps, {}> {
 
     componentWillMount() {
@@ -34,11 +55,21 @@ class CarDetailsSteps extends React.Component<ICarDetailsStepsProps, {}> {
     render() {
         switch (this.props.currentStep) {
             case 1:
-                return <CarRegistrationNumberForm onSubmit={this.handleCarRegistrationNumberSubmit}/>;
-
+                return (
+                    <ContentContainer>
+                        <Content>
+                            <CarRegistrationNumberForm onSubmit={this.handleCarRegistrationNumberSubmit}/>
+                        </Content>
+                    </ContentContainer>
+                );
             case 2:
-                return <CarDetailsForm onSubmit={this.handleCarDetailsSubmit}/>;
-
+                return (
+                    <ContentContainer>
+                        <Content>
+                            <CarDetailsForm onSubmit={this.handleCarDetailsSubmit}/>
+                        </Content>
+                    </ContentContainer>
+                );
             default:
                 return null;
         }

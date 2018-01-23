@@ -6,8 +6,4 @@ export default (form: any) => styled(form)`
   flex-direction: column;
   flex: 1;
   align-self: center;
-  width: 70%;
-  background-color: #FFF;
-  padding: 40px 50px 35px;
-  box-shadow: 0 2px 4px rgba(51, 51, 51, 0.2);
 `;

@@ -2,6 +2,7 @@ import * as React from 'react';
 import * as moment from 'moment';
 import {reduxForm, Field, formValueSelector} from 'redux-form';
 import {CREATE_POLICY_FORM} from 'src/common/constants/policies';
+import {LANDING_INPUT_BG_COLOR, SECTION_HEADER_BORDER_COLOR, BLUE} from '~/common/constants/palette';
 import styled from 'styled-components';
 import Input from 'src/web/components/Forms/Input';
 import {getMonthDays, getMonths, getYears} from '~/common/utils/dataSources';
@@ -36,14 +37,6 @@ interface ICreatePolicyFormProps {
     isLoading: boolean;
 }
 
-const Header = styled.div`
-    height: 42px;
-    background-color: #ECEDEF;
-    display: flex;
-    align-items: center;
-    padding: 0 10px;
-`;
-
 const Content = styled.div`
     padding: 50px 80px;
     align-self: center;
@@ -52,24 +45,10 @@ const Content = styled.div`
     flex-direction: column;
 `;
 
-const Title = styled.div`
-    font-size: 24px;
-    margin: 25px 0 10px;
-`;
-
-const DateContainer = styled.div`
-    display: flex;
-    > div {
-        width: 100%;
-    }
-`;
-
 const Container = styled.div`
-    display: flex;
-    align-self: stretch;
-    max-width: 60%;
-    margin: 0px auto;
-    flex: 1 0 auto;
+    width: 100%;
+    max-width: 980px;
+    margin: 0 auto;
     box-sizing: border-box;
 `;
 
@@ -78,6 +57,7 @@ const Wrapper = styled.div`
   align-self: stretch;
   justify-content: center;
   flex: 1 0;
+  width: 100%;
 `;
 
 const LeftSectionsContainer = styled.div`
@@ -86,6 +66,7 @@ const LeftSectionsContainer = styled.div`
   flex-direction: column;
   align-self: stretch;
   margin-right: 20px;
+  
   & > ${PolicySection}:first-child {
     margin-bottom: 35px;
   }
@@ -98,6 +79,15 @@ const RightSectionsContainer = styled.div`
   flex-direction: column;
   align-self: baseline;
 `;
+
+const ButtonStyles = {
+    width: 300,
+    alignSelf: 'center',
+    height: 56,
+    borderRadius: 28,
+    fontSize: 21,
+    marginTop: 25,
+};
 
 const CreatePolicyForm = (props: ICreatePolicyFormProps) => {
     return (
@@ -177,14 +167,7 @@ const CreatePolicyForm = (props: ICreatePolicyFormProps) => {
                                     type="submit"
                                     label="Set Up My Account"
                                     disabled={props.isLoading}
-                                    style={{
-                                        width: 250,
-                                        alignSelf: 'center',
-                                        height: 56,
-                                        borderRadius: 28,
-                                        fontSize: 20,
-                                        marginTop: 25,
-                                    }}
+                                    style={ButtonStyles}
                                 />
                             </Content>
                         </form>

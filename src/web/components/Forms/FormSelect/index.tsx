@@ -31,9 +31,14 @@ interface IContainerProps {
     touched: boolean;
 }
 
+const Wrapper = styled.div`
+    flex: 1;
+    margin-bottom: 20px;
+`;
+
 const Container: StyledComponentClass<IContainerProps, any, any> = styled.div`
     display: flex;
-    border-radius: 3.5px;
+    border-radius: 5px;
     overflow: hidden;
     button {
         top: 0!important;
@@ -123,9 +128,5 @@ class FormSelect extends React.Component<ISelectProps, {}> {
         )
     }
 }
-
-const Wrapper = styled.div`
-    flex:1;
-`;
 
 export default FormSelect;

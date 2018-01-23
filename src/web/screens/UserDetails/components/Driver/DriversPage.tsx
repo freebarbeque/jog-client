@@ -158,7 +158,7 @@ class DriversPage extends React.Component<IDriversPage, IDriversPageState> {
                 onSubmit={() => this.updateDriver(index)}
             />
         </Drivers>
-    )
+    );
 
     renderAddDriverButton = () => (
         <ButtonWrapper>
@@ -188,17 +188,15 @@ class DriversPage extends React.Component<IDriversPage, IDriversPageState> {
     );
 
     renderCreateInitialDriverForm = () => (
-        <FormSection>
-            <Container>
-                <DriverDetailsForm
-                    active={this.props.drivers && this.props.drivers.length === 0}
-                    form={CREATE_DRIVER_FORM}
-                    onSubmit={values => this.props.onSubmit(values, CREATE_DRIVER_FORM)}
-                    motorId={this.props.motorId}
-                    buttonText={'Create Driver'}
-                />
-            </Container>
-        </FormSection>
+        <Container>
+            <DriverDetailsForm
+                active={this.props.drivers && this.props.drivers.length === 0}
+                form={CREATE_DRIVER_FORM}
+                onSubmit={values => this.props.onSubmit(values, CREATE_DRIVER_FORM)}
+                motorId={this.props.motorId}
+                buttonText={'Create Driver'}
+            />
+        </Container>
     );
 
     renderModal = () => (
@@ -385,6 +383,9 @@ const StyledDriversPage = styled(DriversPage)`
   align-self: stretch;
   background-color: #FFF;
   padding: 40px 0 35px;
+  margin: 0 auto;
+  width: 100%;
+  max-width: 980px;
   box-shadow: 0 2px 4px rgba(51, 51, 51, 0.2);
 `;
 
@@ -392,6 +393,7 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-self: stretch;
+  width: 100%;
   margin-bottom: 30px;
 `;
 const ContainerBox = styled.div`

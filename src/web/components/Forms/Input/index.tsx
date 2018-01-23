@@ -28,21 +28,22 @@ interface IHtmlInputProps {
 // language=SCSS prefix=dummy{ suffix=}
 const StyledInput: StyledComponentClass<IHtmlInputProps, any, any> = styled.input`
   margin-top: ${MARGIN.base}px;
-  height: 50px;
+  height: 44px;
   background-color: white;
   padding-left: ${(props: IHtmlInputProps) => props.sign ? '60px' : `${MARGIN.large}px`};
   padding-right: ${MARGIN.large}px;
   font-size: 20px;
   border-radius: 0;
   border: 2px solid #dbdcde;
-`
+`;
 
 const Sign = styled.div`
     position: absolute;
-    top: 25px;
+    top: 50%;
+    transform: translateY(-50%);
     left: 10px;
     font-size: 26px;
-    width: 40px;
+    width: 26px;
     border-right: 2px solid #dbdcde;
     color: #dbdcde;
 `;

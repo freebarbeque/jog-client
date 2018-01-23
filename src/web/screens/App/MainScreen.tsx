@@ -16,7 +16,7 @@ const Container = styled.div`
     display: flex;
     flex-direction: column;
     flex: 1;
-`
+`;
 
 // tslint:disable-next-line:max-classes-per-file
 export default class MainScreen extends React.Component<{}, {}> {

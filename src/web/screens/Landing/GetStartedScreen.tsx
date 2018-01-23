@@ -24,11 +24,7 @@ const Button = styled.button`
   font-size: 14px;
   font-weight: 400;
   padding: 0;
-  border-radius: 0;
-  border-top-right-radius: 31px;
-  border-top-left-radius: 31px;
-  border-bottom-right-radius: 31px;
-  border-bottom-left-radius: 31px;
+  border-radius: 31px;
   cursor: pointer;
   &:hover {
     background-color: #D3D3D5;

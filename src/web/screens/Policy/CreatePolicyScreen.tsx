@@ -2,7 +2,7 @@ import * as React from 'react';
 import Header from 'src/web/components/Header';
 import Description from './components/Description';
 import styled from 'styled-components';
-import {CREAM, WHITE} from '~/common/constants/palette';
+import {CREAM, WHITE, TITLE_COLOR, SHADOW_COLOR} from '~/common/constants/palette';
 import Footer from 'src/web/components/Footer';
 import CreatePolicyForm from './components/CreatePolicyForm';
 import {ICreatePolicyFormValues} from '~/common/interfaces/policies';
@@ -28,10 +28,10 @@ const Content = styled.div`
 `;
 
 const ContentContainer = styled.div`
-    color: #000;
-    box-shadow: 0 2px 4px #333;
+    color: ${TITLE_COLOR};
+    box-shadow: 0 2px 4px ${SHADOW_COLOR};
     background-color: ${WHITE};
-    width: 70%;
+    width: 980px;
     margin: 10px auto;
 `;
 
@@ -65,7 +65,7 @@ class CreatePolicyScreen extends React.Component<ICreatePolicyScreenProps, {}> {
             </div>
         )
     }
-};
+}
 
 const mapDispatchToProps = (dispatch: any) => bindActionCreators({
     createPolicy,

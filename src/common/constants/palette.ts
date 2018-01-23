@@ -16,12 +16,15 @@ export const SOCIAL_BUTTON_BG_COLOR = '#4065B4';
 export const DASHBOARD_INACTIVE_LINK_COLOR = '#A1A4B0';
 export const SECTION_HEADER_COLOR = '#192142';
 export const SECTION_HEADER_BG_COLOR = '#ECEDEF';
+export const SECTION_HEADER_BORDER_COLOR = '#dedcd8';
 export const DROPZONE_COLOR = '#D7D9DC';
 export const DARK_PINK = '#d93d57';
 export const LIGHT_GREEN = '#41EDC1';
 export const DATEPICKER_BORDER = '#D9DEE3';
 export const FIELD_GRAY_COLOR = '#DBDDE0';
 export const DARK_TRANSPARENT_GRAY = 'rgba(35, 50, 85, 0.95)';
+export const TITLE_COLOR = '#000';
+export const SHADOW_COLOR = 'rgba(51, 51, 51, 0.2)';
 
 // FORM FIELD
 export const FIELD_PLACEHOLDER_COLOR = 'rgba(210, 215, 220, 1)';

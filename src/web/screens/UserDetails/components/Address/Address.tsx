@@ -25,7 +25,7 @@ interface IAddressProps {
 const ButtonsContainer = styled.div`
     display: flex;
     justify-content: center;
-`
+`;
 
 const Address = (props: IAddressProps) => {
     const {
