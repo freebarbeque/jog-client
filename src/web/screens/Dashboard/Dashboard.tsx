@@ -47,7 +47,7 @@ class Dashboard extends React.Component<IDashboardProps, {}> {
 const StyledDashboard = styled(Dashboard)`
   display: flex;
   flex-direction: column;
-  flex: 1;
+  flex: 1 0 auto;
   align-self: stretch;
   background-color: ${CREAM};
   overflow-y: scroll;

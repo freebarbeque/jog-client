@@ -57,7 +57,7 @@ const StyledMotorPoliciesContent = styled(MotorPoliciesContent)`
   flex-grow: 1;
   flex-shrink: 0;
   align-self: center;
-  padding: 56px 22px 146px 42px;
+  padding: 55px 20px 120px 40px;
   flex-wrap: wrap;
   width: 70%;
   align-content: flex-start;
