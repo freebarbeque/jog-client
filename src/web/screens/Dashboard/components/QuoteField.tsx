@@ -7,7 +7,7 @@ import {connect} from 'react-redux';
 import {IMotorPolicyWithDaysLeft} from 'src/common/interfaces/policies';
 import {getDatePickerInitialValues} from '~/common/selectors/userDetils';
 import {IReduxState} from '~/common/interfaces/store';
-import DatePicker from 'src/web/common/controls/base/DatePicker';
+import DatePicker from 'src/web/common/components/controls/base/DatePicker';
 const moment = require('moment');
 
 interface IQuoteFieldProps {

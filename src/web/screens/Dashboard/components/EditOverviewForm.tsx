@@ -16,9 +16,9 @@ import {getDataSource} from 'src/common/selectors/dataSource';
 import {IDataSource} from 'src/common/interfaces/dataSource';
 import {IPatchPolicyFormValues} from 'src/common/interfaces/policies';
 
-import FormSelect from 'src/web/common/controls/FormSelect';
-import FormDatePicker from 'src/web/common/controls/FormDatePicker';
-import FormTextField from 'src/web/common/controls/FormTextField';
+import FormSelect from 'src/web/common/components/controls/FormSelect';
+import FormDatePicker from 'src/web/common/components/controls/FormDatePicker';
+import FormTextField from 'src/web/common/components/controls/FormTextField';
 import { onlyNumber, onlyDecimal } from 'src/web/common/utils/form/valueNormalize';
 
 interface IEditOverviewFormProps {

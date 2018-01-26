@@ -3,7 +3,7 @@ import {REMOVE_DOCUMENT, UPLOAD_PENDING_DOCUMENTS} from '../constants/documents'
 import {getPendingDocuments, getPreviewDocument} from '../selectors/documents';
 import {getUser} from '../selectors/auth';
 import {fetchDocuments, removeDocument, uploadDocuments, refetchDocuments} from '../api/documents';
-import {LOCATION_CHANGE} from 'react-router-redux';
+import {LOCATION_CHANGE, push} from 'react-router-redux';
 import {
     clearPendingDocuments, setDocumentFile,
     setDocumentSubmissionError,
@@ -52,6 +52,7 @@ export function* documentsWorker(policyId: string) {
                 yield uploadDocuments(user.id, policyId, docs);
                 yield refetchDocuments(user.id, policyId);
                 yield put(clearPendingDocuments());
+                yield put(push('/app/dashboard/motor'));
             } else if (remove) {
                 const {documentId} = remove;
                 yield removeDocument(user.id, policyId, documentId);

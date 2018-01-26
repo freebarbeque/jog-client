@@ -33,7 +33,7 @@ function* handleLogout() {
 
 function* fetchInsuranceCompanies() {
     const {insurance_companies} = yield getInsuranceCompanies();
-    yield put(setDataSource('insuranceCompanies', insurance_companies.map(ic => ({id: ic.id, name: ic.name}))));
+    yield put(setDataSource('insuranceCompanies', insurance_companies));
 }
 
 export default function* () {

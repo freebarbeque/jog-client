@@ -5,6 +5,7 @@ export interface IPoliciesReduxState {
 export interface IPolicy {
     id: number | string;
     name: string;
+    status?: string;
     annual_cost_cents: number | string;
     expiry: string;
     insurance_company_id: number|string;

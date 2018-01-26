@@ -24,7 +24,7 @@ import {
     formSelectLabelStyle,
     formSelectIconStyle,
 } from 'src/common/constants/userDetails';
-import FormDatePicker from 'src/web/common/controls/FormDatePicker';
+import FormDatePicker from 'src/web/common/components/controls/FormDatePicker';
 
 interface IDriverDetailsForm {
     className?: string;

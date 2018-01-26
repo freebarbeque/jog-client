@@ -4,8 +4,8 @@ import {reduxForm, Field} from 'redux-form';
 import {MOTOR_POLICY_QUOTE_ADDRESS_DETAILS_FORM} from 'src/common/constants/quoteAddress';
 import {ButtonsGroup, DropDownWrapper, DropDown, PossibleAddress, Overlay} from './styled';
 import {validateForm, isPostCode} from './validate';
-import RoundedButton from 'src/web/common/controls/RoundedButton';
-import FormTextField from 'src/web/common/controls/FormTextField';
+import RoundedButton from 'src/web/common/components/controls/RoundedButton';
+import FormTextField from 'src/web/common/components/controls/FormTextField';
 import BoxContainer from 'src/web/common/components/BoxContainer';
 import { handleScrollToErrorField } from 'src/web/common/utils/form/scrollingToErrorField';
 

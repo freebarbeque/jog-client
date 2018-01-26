@@ -651,3 +651,29 @@ export const LeftDarkArrow = (props: { scale?: number; style?: any, width?: numb
       />
   )
 }
+
+export const Clock = (props: { scale?: number; style?: any, width?: number, height?: number }) => {
+  return (
+      <Image
+          src={require('./clock.svg')}
+          height={props.height || 30}
+          width={props.width || 30}
+          alt="clock"
+          className="clock"
+          {...props}
+      />
+  )
+}
+
+export const CompanyLogoDefault = (props: { scale?: number; style?: any, width?: number, height?: number }) => {
+  return (
+      <Image
+          src={require('./company-logo-default.svg')}
+          height={props.height || 30}
+          width={props.width || 30}
+          alt="company-logo-default"
+          className="company-logo-default"
+          {...props}
+      />
+  )
+}

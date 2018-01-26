@@ -24,9 +24,9 @@ export default class MotorPolicyQuoteAddress extends React.PureComponent<any, an
     render() {
         return (
             <Switch>
-                <Route path={`${this.props.match.url}/add`} component={MotorPolicyQuoteAddressAdd} />
-                <Route path={`${this.props.match.url}/:addressId/edit`} component={MotorPolicyQuoteAddressEdit} />
-                <Route path={`${this.props.match.url}`} component={MotorPolicyQuoteAddressesList} />
+                <Route path={`${this.props.match.path}/add`} component={MotorPolicyQuoteAddressAdd} />
+                <Route path={`${this.props.match.path}/:addressId/edit`} component={MotorPolicyQuoteAddressEdit} />
+                <Route path={`${this.props.match.path}`} component={MotorPolicyQuoteAddressesList} />
             </Switch>
         )
     }

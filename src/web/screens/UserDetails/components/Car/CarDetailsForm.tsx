@@ -22,9 +22,9 @@ import {PINK} from '~/common/constants/palette';
 import {injectSaga} from '~/common/utils/saga';
 import { handleScrollToErrorField } from 'src/web/common/utils/form/scrollingToErrorField';
 
-import FormSelect2 from 'src/web/common/controls/FormSelect'
+import FormSelect2 from 'src/web/common/components/controls/FormSelect'
 
-import FormDatePicker from 'src/web/common/controls/FormDatePicker';
+import FormDatePicker from 'src/web/common/components/controls/FormDatePicker';
 
 const moment = require('moment');
 

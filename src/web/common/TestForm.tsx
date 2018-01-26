@@ -3,10 +3,10 @@ import { reduxForm, Field, formValueSelector } from 'redux-form';
 const validate = require('validate.js');
 import * as moment from 'moment';
 
-import FormDatePicker from './controls/FormDatePicker';
-import FormTextField from './controls/FormTextField';
-import FormSelect from './controls/FormSelect';
-import FormRadioGroup from './controls/FormRadioGroup';
+import FormDatePicker from './components/controls/FormDatePicker';
+import FormTextField from './components/controls/FormTextField';
+import FormSelect from './components/controls/FormSelect';
+import FormRadioGroup from './components/controls/FormRadioGroup';
 
 class TestForm extends React.Component<any, any> {
     submit = (values) => console.log('Log => TestForm submitted with: ', values);

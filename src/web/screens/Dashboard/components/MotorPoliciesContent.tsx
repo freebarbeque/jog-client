@@ -13,6 +13,8 @@ import {IReduxState} from '~/common/interfaces/store';
 import {injectSaga} from '~/common/utils/saga';
 import {motorPoliciesContentFlow} from '~/common/sagas/policies';
 
+import { PolicyButton, PolicyButtonBase } from '~/web/common/components/utils/PolicyButton';
+
 interface IMotorPoliciesContent {
     className?: string;
     policies: IMotorPolicy[];
@@ -29,28 +31,38 @@ class MotorPoliciesContent extends React.Component<IMotorPoliciesContent, {}> {
         return (
             <div className={this.props.className}>
                 {this.props.policies && this.props.policies.map(p => (
-                    <PolicyButtonWithDescription
-                        key={p.id}
-                        policyName={`Policy ${p.policy_number}`}
-                        circleImgUrl={p.avatar}
-                        policyType="Motor Vehicle"
-                        policyStatus={'Add more details to complete this policy'}
-                        onClick={() => this.props.push(`${this.props.match.url}/${p.id}/overview`)}
-                    />
+                    <ItemWrapper key={p.id}>
+                        <PolicyButton
+                            policy={p}
+                            secondaryTitle="MOTOR VEHICLE"
+                            url={`${this.props.match.url}/${p.id}/overview`}
+                            roundedIcon
+                        />
+                    </ItemWrapper>
                 ))}
-                <PolicyButtonWithDescription
-                    icon={<Add/>}
-                    policyName="Add Policy"
-                    circleBgColor={PINK}
-                    policyType="MOTOR VEHICLE"
-                    policyStatus="Answer 7 questions to add new policy"
-                    onClick={() => this.props.push(`${this.props.match.url}/add`)}
-                />
+
+                <ItemWrapper>
+                    <PolicyButtonBase
+                        primaryTitle="Add Policy"
+                        secondaryTitle="MOTOR VEHICLE"
+                        statusText="Answer 7 questions to add new policy"
+                        url={`${this.props.match.url}/add`}
+                        icon={<Add/>}
+                        roundedIcon
+                        iconBackgroundColor={PINK}
+                    />
+                </ItemWrapper>
             </div>
         );
     }
 
 }
+
+const ItemWrapper = styled.div`
+    width: calc(50% - 20px);
+    margin-right: 20px;
+    margin-bottom: 8px;
+`;
 
 const StyledMotorPoliciesContent = styled(MotorPoliciesContent)`
   display: flex;

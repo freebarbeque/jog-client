@@ -20,10 +20,10 @@ import PolicySection from '../../Dashboard/components/PolicySection';
 import OffersPlaceholder from '../../Dashboard/components/OffersPlaceholder';
 import {getIsLoading} from 'src/common/selectors/policies';
 
-import FormSelect from 'src/web/common/controls/FormSelect';
-import FormDatePicker from 'src/web/common/controls/FormDatePicker';
-import FormTextField from 'src/web/common/controls/FormTextField';
-import FormRadioGroup from 'src/web/common/controls/FormRadioGroup';
+import FormSelect from 'src/web/common/components/controls/FormSelect';
+import FormDatePicker from 'src/web/common/components/controls/FormDatePicker';
+import FormTextField from 'src/web/common/components/controls/FormTextField';
+import FormRadioGroup from 'src/web/common/components/controls/FormRadioGroup';
 import { onlyNumber, onlyDecimal } from 'src/web/common/utils/form/valueNormalize';
 import { handleScrollToErrorField } from 'src/web/common/utils/form/scrollingToErrorField';
 
