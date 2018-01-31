@@ -43,6 +43,7 @@ class QuoteField extends React.Component<IQuoteFieldProps, {}> {
                     {this.props.withDatePicker ? (
                         <DatePicker
                             initialDate={this.props.initialValues && this.props.initialValues.date}
+                            minDate={moment().subtract(5, 'years')}
                             maxDate={moment()}
                             onChange={this.props.onDatePickerChange}
                             selectProps={{
@@ -135,35 +136,35 @@ const StyledQuoteField = styled(QuoteField)`
   box-shadow: 0 2px 4px rgba(51,51,51, 0.2);
   cursor: ${props => props.withDatePicker ? 'default' : 'pointer'};
   pointer-events: ${props => props.disabled ? 'none' : 'auto'};
-  
+
   & {
     ${IconBox} {
       background-color: ${props => props.disabled ? '#F0F0F0' : '#ECEDEF'};
     }
-    
+
     ${ContentBox} {
       background-color: ${props => props.disabled ? '#F0F0F0' : '#FFF'};
     }
-    
+
     ${StatusIcon} {
       background-color: ${props => props.completed ? LIGHT_GREEN : DASHBOARD_INACTIVE_LINK_COLOR};
     }
   }
-  
+
   &:hover {
     ${IconBox} {
       background-color: ${props => props.withDatePicker ? '#ECEDEF' : '#D4D5D7'};
     }
     ${ContentBox} {
-      background-color: ${props => props.withDatePicker ? '#FFF' : '#E6E6E6'}; 
+      background-color: ${props => props.withDatePicker ? '#FFF' : '#E6E6E6'};
     }
   }
-  
+
   &:active {
     ${IconBox} {
       background-color: ${props => props.withDatePicker ? '#ECEDEF' : '#C8C9CB'};
     }
-    
+
     ${ContentBox} {
        background-color: ${props => props.withDatePicker ? '#FFF' : '#C8C9CB'};
     }
