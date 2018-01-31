@@ -20,6 +20,18 @@ class DatePicker extends React.PureComponent<any, any> {
         });
     }
 
+    componentWillReceiveProps(nextProps: any) {
+        if (this.props.initialDate !== nextProps.initialDate) {
+            const nextState = cookInitialState({
+                initialDate: nextProps.initialDate,
+                minDate: nextProps.minDate,
+                maxDate: nextProps.maxDate,
+            });
+
+            this.setState(nextState);
+        }
+    }
+
     handleChange = key => value => {
       this.setState({
           ...this.state,

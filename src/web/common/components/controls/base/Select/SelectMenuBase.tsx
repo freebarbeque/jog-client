@@ -29,9 +29,11 @@ class SelectMenuBase extends React.PureComponent<any, any> {
             labelStyle,
         } = this.props;
 
+        const activeOption = options.find(o => o.id === value);
+
         return (
             <DropDownMenu
-                value={value || 'default'}
+                value={activeOption ? activeOption.id : 'default'}
                 onChange={this.handleChange}
                 style={{
                     width: '100%',

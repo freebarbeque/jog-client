@@ -7,7 +7,9 @@ import SelectMenuBase from './SelectMenuBase';
 
 class ModernSelect extends React.PureComponent<any, any> {
     render() {
-        const { value, valid, invalid } = this.props;
+        const { value, options, valid, invalid } = this.props;
+
+        const activeOption = options.find(o => o.id === value);
 
         return (
             <SelectMenuBase
@@ -20,7 +22,7 @@ class ModernSelect extends React.PureComponent<any, any> {
                 iconStyle={null}
                 labelStyle={{
                     paddingLeft: 0,
-                    color: value ? FIELD_TEXT_COLOR : FIELD_PLACEHOLDER_COLOR,
+                    color: activeOption ? FIELD_TEXT_COLOR : FIELD_PLACEHOLDER_COLOR,
                 }}
                 {...this.props}
             />

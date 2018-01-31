@@ -677,3 +677,16 @@ export const CompanyLogoDefault = (props: { scale?: number; style?: any, width?:
       />
   )
 }
+
+export const Refresh = (props: { scale?: number; style?: any, width?: number, height?: number }) => {
+  return (
+      <Image
+          src={require('./refresh.svg')}
+          height={props.height || 20}
+          width={props.width || 20}
+          alt="refresh"
+          className="refresh-icon"
+          {...props}
+      />
+  )
+};

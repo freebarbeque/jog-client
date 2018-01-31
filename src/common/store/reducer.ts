@@ -8,6 +8,7 @@ import userDetails from '../reducers/userDetails';
 import vehicles from '../reducers/vehicles';
 import policyQuoteRequest from '../reducers/policyQuoteRequest';
 import quoteAddresses from '../reducers/quoteAddresses';
+import quoteVehicle from '../reducers/quote/vehicle';
 
 export const coreReducers = {
     auth,
@@ -19,6 +20,7 @@ export const coreReducers = {
     vehicles,
     quoteAddresses,
     policyQuoteRequest,
+    quoteVehicle,
 };
 
 export function initReducer(reducers: any = {}) {

@@ -66,7 +66,7 @@ function* vehicleDetailsFlow(policyId: string) {
 
                 const regNum = yield select(getRegistrationNumber);
 
-                const { errors, motor_vehicle: vehicle } = yield createVehicle(user.id, CREATE_VEHICLE, Object.assign({}, formValues, {registration: regNum}));
+                const { errors, motor_vehicle: vehicle } = yield createVehicle(user.id, Object.assign({}, formValues, {registration: regNum}));
 
                 if (errors) {
                     submitDeferred.reject({ validationErrors: errors });

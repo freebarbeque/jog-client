@@ -3,10 +3,10 @@ import styled from 'styled-components';
 
 class Section extends React.PureComponent<any, any> {
     render() {
-        const { title, children, containerStyles } = this.props;
+        const { title, children, style } = this.props;
 
         return (
-            <Container>
+            <Container style={style}>
                 {title && <Header>{title}</Header>}
                 <Body>
                     {children}
@@ -17,6 +17,8 @@ class Section extends React.PureComponent<any, any> {
 }
 
 const Container = styled.div`
+    width: 100%;
+    padding: 30px 50px 35px;
     box-shadow: 0 2px 4px rgba(51, 51, 51, 0.2);
     background-color: #FFF;
 `;

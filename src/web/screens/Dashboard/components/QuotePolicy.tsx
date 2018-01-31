@@ -108,9 +108,9 @@ class QuotePolicy extends React.PureComponent<IQuotePolicyProps, {}> {
                 <QuoteContentContainer>
                     <QuoteField
                         icon={<QuoteCar/>}
-                        title="Vehicle details"
+                        title="Which car would you like to insure?"
                         primaryTitle={vehicle ? vehicle.registration : ''}
-                        onClick={() => this.props.push(`/app/user/motor/${this.props.motorId}/car`)}
+                        onClick={() => this.props.push(`/app/motor/${this.props.motorId}/quote/vehicle`)}
                         completed={!!vehicle}
                     />
                     <QuoteField
