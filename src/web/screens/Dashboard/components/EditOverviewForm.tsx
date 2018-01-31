@@ -120,6 +120,7 @@ const EditOverviewForm: React.StatelessComponent<IEditOverviewFormProps> = (prop
           name="annual_cost_cents"
           component={FormTextField}
           placeholder="000000000"
+          leftIcon="\u00A3"
           normalize={onlyDecimal}
         />
       </FieldWrapper>

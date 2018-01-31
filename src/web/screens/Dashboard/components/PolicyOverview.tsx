@@ -196,7 +196,7 @@ class PolicyOverview extends React.Component<IPolicyOverviewProps, IContentState
                             >
                                 <Content height={200}>
                                     <OverviewField title="Level of Cover" value={motorPolicy.level_of_cover}/>
-                                    <OverviewField title="Excess" gray value={motorPolicy.excess} underline="dashed"/>
+                                    <OverviewField title="Excess" value={motorPolicy.excess} underline="dashed"/>
                                     <OverviewField title="Driver(s) name(s)" value={motorPolicy.driver_name} underline="dashed"/>
                                     <OverviewField title="No Claims Bonus" value={motorPolicy.no_claims_bonus}/>
                                 </Content>

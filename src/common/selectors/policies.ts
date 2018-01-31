@@ -48,8 +48,12 @@ export const getCurrentMotorPolicyWithDaysLeft = createSelector(
                 const expiryDate = moment(currentPolicy.expiry);
                 const daysLeft = expiryDate.diff(today, 'days');
                 const formattedExpiryDate = expiryDate.format('DD MMM YYYY');
-                const annualCost = currentPolicy.annual_cost_currency === GBP ? `£${Number(currentPolicy.annual_cost_cents) / 100}` : `$${Number(currentPolicy.annual_cost_cents) / 100}`;
-                const excess = currentPolicy.excess_amount_currency === GBP ? `£${currentPolicy.excess_amount_cents / 100}` : `$${currentPolicy.excess_amount_cents / 100}`;
+                const annualCost = currentPolicy.annual_cost_currency === GBP
+                  ? `£${Number(currentPolicy.annual_cost_cents) / 100}`
+                  : `$${Number(currentPolicy.annual_cost_cents) / 100}`;
+                const excess = currentPolicy.excess_amount_currency === GBP
+                  ? `£${Number(currentPolicy.excess_amount_cents) / 100}`
+                  : `$${Number(currentPolicy.excess_amount_cents) / 100}`;
                 const insuranceCompany = insuranceCompanies.find(c => c.id === currentPolicy.insurance_company_id);
 
                 return Object.assign({}, currentPolicy, {
@@ -84,10 +88,10 @@ export const getEditOverviewFormInitialValues = createSelector(
                 annual_cost_cents: `${Number(currentPolicy.annual_cost_cents) / 100}`,
                 insurance_company_id: currentPolicy.insurance_company_id,
                 policy_number: currentPolicy.policy_number,
-                year,
                 day,
-                expiry: currentPolicy.expiry,
                 month: month + 1,
+                year,
+                expiry: currentPolicy.expiry,
                 vehicle_manufacturer_name: currentPolicy.vehicle_manufacturer_name,
                 vehicle_model_name: currentPolicy.vehicle_model_name,
             };
@@ -102,11 +106,11 @@ export const getEditPolicyFormInitialValues = createSelector(
     (motorPolicies: IMotorPolicy[], motorPolicyId) => {
         const currentPolicy = motorPolicies.find(m => m.id === Number(motorPolicyId));
         if (currentPolicy) {
-            const excess = currentPolicy.excess_amount_currency === GBP ? `£${currentPolicy.excess_amount_cents / 100}` : `$${currentPolicy.excess_amount_cents / 100}`;
+          const excess_amount_cents = `${Number(currentPolicy.excess_amount_cents) / 100}`;
 
             return {
                 level_of_cover: currentPolicy.level_of_cover,
-                excess,
+                excess_amount_cents,
                 driver_name: currentPolicy.driver_name,
                 no_claims_bonus: currentPolicy.no_claims_bonus,
             }

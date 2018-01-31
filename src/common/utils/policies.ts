@@ -17,8 +17,12 @@ export const mapPatchPolicyFormValues = (values: IPatchPolicyFormValues) => {
     const mappedValues: Partial<IPolicy> = rest;
 
     // mappedValues.expiry = format(`${year}-${month}-${day}`);
-    mappedValues.annual_cost_cents = Number(values.annual_cost_cents) * 100;
-    mappedValues.excess_amount_cents = Number(values.excess_amount_cents) * 100;
+    if (rest.annual_cost_cents) {
+      mappedValues.annual_cost_cents = Number(values.annual_cost_cents) * 100;
+    }
+    if (rest.excess_amount_cents) {
+      mappedValues.excess_amount_cents = Number(values.excess_amount_cents) * 100;
+    }
 
     return mappedValues;
 }
