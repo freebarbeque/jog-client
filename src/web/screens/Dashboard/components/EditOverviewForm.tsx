@@ -1,4 +1,5 @@
 import * as React from 'react';
+import * as moment from 'moment';
 import styled from 'styled-components';
 import {reduxForm, Field, formValueSelector} from 'redux-form';
 const validate = require('validate.js');
@@ -66,6 +67,8 @@ const EditOverviewForm: React.StatelessComponent<IEditOverviewFormProps> = (prop
           <Field
             name="expiry"
             component={FormDatePicker}
+            minDate={moment()}
+            maxDate={moment().add(2, 'years')}
           />
         </FieldContainer>
       </FieldWrapper>
