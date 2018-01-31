@@ -10,22 +10,24 @@ import DaysLeft from './DaysLeft';
 import Notification from 'src/web/components/Notification';
 import OffersPlaceholder from './OffersPlaceholder';
 import OverviewDialog from './OverviewDialog';
-import EditOverviewForm from './EditOverviewForm';
 import {IWebReduxState} from '~/web/interfaces/store';
 import {IMotorPolicy, IMotorPolicyWithDaysLeft, IPatchPolicyFormValues} from 'src/common/interfaces/policies';
 import {
     getCurrentMotorPolicyWithDaysLeft,
     getEditOverviewFormInitialValues,
+    getEditPolicyFormInitialValues,
     getMotorPolicyIncompleteKeys
 } from 'src/common/selectors/policies';
 import {styledComponentWithProps} from 'src/common/utils/types';
 import {openModal, closeModal} from 'src/web/actions/page';
 import {isModalOpen} from 'src/web/selectors/page';
 import {patchPolicy} from 'src/common/actions/policies';
-import {EDIT_OVERVIEW_MODAL} from 'src/common/constants/policies';
+import {EDIT_POLICY_OVERVIEW_FORM, EDIT_POLICY_POLICY_FORM, EDIT_OVERVIEW_MODAL, EDIT_POLICY_MODAL} from 'src/common/constants/policies';
 import {injectSaga} from 'src/common/utils/saga';
 import {patchPolicyFlow} from 'src/common/sagas/policies';
 import {getIsLoading} from 'src/common/selectors/policies';
+import EditOverviewForm from './EditOverviewForm';
+import EditPolicyForm from './EditPolicyForm';
 
 interface IPolicyOverviewProps {
     className?: string;
@@ -35,6 +37,7 @@ interface IPolicyOverviewProps {
     closeModal: any;
     isEditModalOpen: boolean;
     editOverviewInitialValues: IPatchPolicyFormValues;
+    editPolicyInitialValues: IPatchPolicyFormValues;
     patchPolicy: any;
     isLoading: boolean;
     incompleteKeys: [keyof IMotorPolicy];
@@ -46,38 +49,122 @@ interface IContentProps {
 
 interface IContentState {
     showNotification: boolean;
+    currentOpenedModal: string | null
 }
 
 class PolicyOverview extends React.Component<IPolicyOverviewProps, IContentState> {
 
     constructor() {
         super();
-        this.state = {showNotification: true};
+        this.state = {
+            showNotification: true,
+            currentOpenedModal: null,
+        };
     }
 
     componentWillMount() {
         injectSaga(patchPolicyFlow)
     }
 
-    handleSubmit = (values: IPatchPolicyFormValues) => {
+    handleEditOverviewSubmit = (values: IPatchPolicyFormValues) => {
         if (equals(values, this.props.editOverviewInitialValues)) {
             this.props.closeModal(EDIT_OVERVIEW_MODAL);
         } else {
-            this.props.patchPolicy(values, this.props.motorId);
+            this.props.patchPolicy(values, this.props.motorId, EDIT_OVERVIEW_MODAL, EDIT_POLICY_OVERVIEW_FORM);
         }
     };
 
-    render() {
+    handleEditPolicySubmit = (values: IPatchPolicyFormValues) => {
+        if (equals(values, this.props.editPolicyInitialValues)) {
+            this.props.closeModal(EDIT_POLICY_MODAL);
+        } else {
+            this.props.patchPolicy(values, this.props.motorId, EDIT_POLICY_MODAL, EDIT_POLICY_POLICY_FORM);
+        }
+    };
+
+    renderEditOverviewDialog = () => {
         const {
-            className,
-            motorPolicy,
-            openModal,
             closeModal,
             isEditModalOpen,
             editOverviewInitialValues,
             motorId,
             isLoading,
         } = this.props;
+
+        return (
+            <OverviewDialog
+                open={isEditModalOpen}
+                onRequestClose={() => this.handleCloseEditModal(EDIT_OVERVIEW_MODAL)}
+            >
+                <PolicySection
+                    title="Overview"
+                    withCloseButton
+                    onCloseButtonClick={() => this.handleCloseEditModal(EDIT_OVERVIEW_MODAL)}
+                >
+                    <EditOverviewForm
+                        initialValues={editOverviewInitialValues}
+                        motorId={motorId}
+                        onSubmit={this.handleEditOverviewSubmit}
+                        submitDisabled={isLoading}
+                    />
+                </PolicySection>
+            </OverviewDialog>
+        );
+    };
+
+    renderEditPolicyDialog = () => {
+        const {
+            closeModal,
+            isEditModalOpen,
+            editPolicyInitialValues,
+            motorId,
+            isLoading,
+        } = this.props;
+
+        return (
+            <OverviewDialog
+                open={isEditModalOpen}
+                onRequestClose={() => this.handleCloseEditModal(EDIT_POLICY_MODAL)}
+            >
+                <PolicySection
+                    title="Policy"
+                    withCloseButton
+                    onCloseButtonClick={() => this.handleCloseEditModal(EDIT_POLICY_MODAL)}
+                >
+                    <EditPolicyForm
+                      initialValues={editPolicyInitialValues}
+                      motorId={motorId}
+                      onSubmit={this.handleEditPolicySubmit}
+                      submitDisabled={isLoading}
+                    />
+                </PolicySection>
+            </OverviewDialog>
+        );
+
+    };
+
+    handleOpenEditModal = modalId => {
+        this.setState({currentOpenedModal: modalId});
+        this.props.openModal(modalId);
+    };
+
+    handleCloseEditModal = modalId => {
+        this.setState({currentOpenedModal: null});
+        this.props.closeModal(modalId);
+    }
+
+    render() {
+        const {
+            className,
+            motorPolicy,
+            closeModal,
+            isEditModalOpen,
+        } = this.props;
+        const { currentOpenedModal } = this.state;
+
+        const vehicleData = (motorPolicy.vehicle_manufacturer_name && motorPolicy.vehicle_model_name)
+          ? `${motorPolicy.vehicle_manufacturer_name} ${motorPolicy.vehicle_model_name}`
+          : undefined;
 
         return (
             <div className={className}>
@@ -87,26 +174,32 @@ class PolicyOverview extends React.Component<IPolicyOverviewProps, IContentState
                             <PolicySection
                                 title="Overview"
                                 withEditButton
-                                onEditButtonClick={() => openModal(EDIT_OVERVIEW_MODAL)}
+                                onEditButtonClick={() => this.handleOpenEditModal(EDIT_OVERVIEW_MODAL)}
                             >
                                 <Content>
                                     <DaysLeft days={motorPolicy.daysLeft}/>
                                     <OverviewField title="Expires" value={motorPolicy.expiry}/>
-                                    <OverviewField title="Vehicle"/>
+                                    <OverviewField title="Vehicle" value={vehicleData}/>
                                     <OverviewField title="Policy No." value={motorPolicy.policy_number}/>
                                     <OverviewField title="Insurance Co." value={motorPolicy.insuranceCompanyName}/>
                                     <OverviewField title="Annual Cost" value={motorPolicy.annualCost}/>
                                 </Content>
                             </PolicySection>
-                            <PolicySection title="Policy">
+
+                            <PolicySection
+                                title="Policy"
+                                withEditButton
+                                onEditButtonClick={() => this.handleOpenEditModal(EDIT_POLICY_MODAL)}
+                            >
                                 <Content height={200}>
                                     <OverviewField title="Level of Cover" value={motorPolicy.level_of_cover}/>
                                     <OverviewField title="Excess" gray value={motorPolicy.excess} underline="dashed"/>
-                                    <OverviewField title="Drivers" underline="dashed"/>
+                                    <OverviewField title="Driver(s) name(s)" value={motorPolicy.driver_name} underline="dashed"/>
                                     <OverviewField title="No Claims Bonus" value={motorPolicy.no_claims_bonus}/>
                                 </Content>
                             </PolicySection>
                         </LeftSectionsContainer>
+
                         <RightSectionsContainer>
                             <PolicySection title="Offers">
                                 <OffersPlaceholder/>
@@ -120,23 +213,9 @@ class PolicyOverview extends React.Component<IPolicyOverviewProps, IContentState
                                 onCloseButtonClick={() => this.setState({showNotification: false})}
                             />
                         }
-                        <OverviewDialog
-                            open={isEditModalOpen}
-                            onRequestClose={() => closeModal(EDIT_OVERVIEW_MODAL)}
-                        >
-                            <PolicySection
-                                title="Overview"
-                                withCloseButton
-                                onCloseButtonClick={() => closeModal(EDIT_OVERVIEW_MODAL)}
-                            >
-                                <EditOverviewForm
-                                    initialValues={editOverviewInitialValues}
-                                    motorId={motorId}
-                                    onSubmit={this.handleSubmit}
-                                    submitDisabled={isLoading}
-                                />
-                            </PolicySection>
-                        </OverviewDialog>
+
+                        {isEditModalOpen && currentOpenedModal === EDIT_OVERVIEW_MODAL && this.renderEditOverviewDialog()}
+                        {isEditModalOpen && currentOpenedModal === EDIT_POLICY_MODAL && this.renderEditPolicyDialog()}
                     </Wrapper>
                 ) : (
                     <Redirect to="/app/dashboard/motor"/>
@@ -165,7 +244,7 @@ const Content = div`
   padding: 25px 0 20px 20px;
   align-content: space-between;
   box-sizing: border-box;
-  
+
   & > ${OverviewField}, ${DaysLeft} {
     flex: 0 0 calc(50% - 20px);
     margin: 0 20px 0 0;
@@ -200,11 +279,13 @@ const RightSectionsContainer = styled.div`
 `;
 
 const editOverviewModal = isModalOpen(EDIT_OVERVIEW_MODAL);
+const editPolicyModal = isModalOpen(EDIT_POLICY_MODAL);
 
 const mapStateToProps = (state: IWebReduxState, props: IPolicyOverviewProps) => ({
     motorPolicy: getCurrentMotorPolicyWithDaysLeft(state, props),
-    isEditModalOpen: editOverviewModal(state),
+    isEditModalOpen: editOverviewModal(state) || editPolicyModal(state),
     editOverviewInitialValues: getEditOverviewFormInitialValues(state, props),
+    editPolicyInitialValues: getEditPolicyFormInitialValues(state, props),
     isLoading: getIsLoading(state),
     incompleteKeys: getMotorPolicyIncompleteKeys(state, props),
 });

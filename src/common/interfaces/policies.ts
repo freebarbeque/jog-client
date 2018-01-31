@@ -22,6 +22,9 @@ export interface IPolicy {
 export interface IMotorPolicy extends IPolicy {
     annual_cost_currency: string;
     excess_amount_currency: string;
+    vehicle_manufacturer_name: string;
+    vehicle_model_name: string;
+    driver_name: string;
 }
 
 export interface IMotorPolicyWithDaysLeft extends IMotorPolicy {
@@ -53,7 +56,13 @@ export interface IPatchPolicyFormValues {
     day: number;
     month: number;
     year: number;
+    vehicle_manufacturer_name: string;
+    vehicle_model_name: string;
     annual_cost_cents: string|number;
+    excess_amount_cents: number;
+    level_of_cover: 'Third party' | 'Third party, fire and theft' | 'Comprehensive';
+    no_claims_bonus: number;
+    driver_name: string;
 }
 
 export interface IPoliciesReduxState {

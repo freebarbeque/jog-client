@@ -21,10 +21,12 @@ export function createPolicy (values: ICreatePolicyFormValues) {
     }
 }
 
-export const patchPolicy = (values: IPatchPolicyFormValues, policyId: number) => ({
+export const patchPolicy = (values: IPatchPolicyFormValues, policyId: number, modalId: string, formId: string) => ({
     type: PATCH_POLICY,
     values,
     policyId,
+    modalId,
+    formId,
 });
 
 export const updatePolicy = (policy: IPolicy) => ({

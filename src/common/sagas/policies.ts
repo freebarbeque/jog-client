@@ -77,18 +77,18 @@ export function* patchPolicyWorker() {
             break;
         }
 
-        const {values, policyId} = patch;
+        const { values, policyId, modalId, formId } = patch;
 
         try {
             yield put(setLoading(true));
             const mappedValues = mapPatchPolicyFormValues(values);
             const patchedPolicy = yield patchPolicy(user.id, MOTOR_POLICY, mappedValues, policyId);
             yield put(updatePolicy(patchedPolicy));
-            yield put(closeModal(EDIT_OVERVIEW_MODAL));
+            yield put(closeModal(modalId));
             yield put(setLoading(false));
         } catch (err) {
             console.error(err);
-            yield put(stopSubmit(EDIT_POLICY_OVERVIEW_FORM, {_error: err.message}));
+            yield put(stopSubmit(formId, {_error: err.message}));
             yield put(setLoading(false));
             continue;
         }

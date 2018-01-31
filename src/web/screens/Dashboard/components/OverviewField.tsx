@@ -20,7 +20,7 @@ interface IOverviewFieldProps {
 const OverviewField: React.StatelessComponent<IOverviewFieldProps> = (props) => (
   <div className={props.className}>
     <Title>{props.title}</Title>
-    <FieldValue>{props.value || '-'}</FieldValue>
+    <FieldValue>{props.value !== undefined ? props.value : '-'}</FieldValue>
   </div>
 );
 
@@ -40,7 +40,7 @@ const StyledOverviewField = styled(OverviewField)`
   flex-direction: column;
   border-bottom:  ${props => props.underline ? props.underline === 'solid' ? '1px solid' : '2px dashed' : '1px solid'} ${SECTION_HEADER_BG_COLOR};
   flex: 1 0 ${props => props.width || '50%'};
-  
+
   & ${FieldValue} {
     color: ${props => props.gray ? FIELD_GRAY_COLOR : BLUE};
   }

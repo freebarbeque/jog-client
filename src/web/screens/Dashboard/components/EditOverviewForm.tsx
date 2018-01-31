@@ -75,17 +75,13 @@ const EditOverviewForm: React.StatelessComponent<IEditOverviewFormProps> = (prop
         </FieldTitle>
         <FieldContainer>
           <Field
-              name="vehicle_brand"
-              component={FormSelect}
-              design={FormSelect.Modern}
-              options={[]}
+              name="vehicle_manufacturer_name"
+              component={FormTextField}
               placeholder="Brand"
           />
           <Field
-              name="vehicle_model"
-              component={FormSelect}
-              design={FormSelect.Modern}
-              options={[]}
+              name="vehicle_model_name"
+              component={FormTextField}
               placeholder="Model"
           />
         </FieldContainer>
@@ -150,7 +146,7 @@ const Container = styled.div`
     flex: 0 0 calc(50% - 20px);
     margin: 0 20px 20px 0;
   }
-  
+
   & input::-webkit-input-placeholder {
     color: rgba(102, 107, 128, 0.3);
   }
@@ -172,7 +168,7 @@ const FieldContainer = styled.div`
     margin-right: 10px;
     flex: 1;
   }
-  
+
   & > div:last-child {
     margin-right: 0;
   }

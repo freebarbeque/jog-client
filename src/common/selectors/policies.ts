@@ -58,6 +58,8 @@ export const getCurrentMotorPolicyWithDaysLeft = createSelector(
                     annualCost,
                     insuranceCompanyName: insuranceCompany ? insuranceCompany.name : '',
                     excess,
+                    vehicle_manufacturer_name: currentPolicy.vehicle_manufacturer_name,
+                    vehicle_model_name: currentPolicy.vehicle_model_name,
                 });
             }
             return currentPolicy;
@@ -86,7 +88,28 @@ export const getEditOverviewFormInitialValues = createSelector(
                 day,
                 expiry: currentPolicy.expiry,
                 month: month + 1,
+                vehicle_manufacturer_name: currentPolicy.vehicle_manufacturer_name,
+                vehicle_model_name: currentPolicy.vehicle_model_name,
             };
+        }
+        return currentPolicy;
+    }
+);
+
+export const getEditPolicyFormInitialValues = createSelector(
+    getPolicies(MOTOR_POLICY),
+    (state: IReduxState, props: IPropsWithMotorId) => props.motorId,
+    (motorPolicies: IMotorPolicy[], motorPolicyId) => {
+        const currentPolicy = motorPolicies.find(m => m.id === Number(motorPolicyId));
+        if (currentPolicy) {
+            const excess = currentPolicy.excess_amount_currency === GBP ? `£${currentPolicy.excess_amount_cents / 100}` : `$${currentPolicy.excess_amount_cents / 100}`;
+
+            return {
+                level_of_cover: currentPolicy.level_of_cover,
+                excess,
+                driver_name: currentPolicy.driver_name,
+                no_claims_bonus: currentPolicy.no_claims_bonus,
+            }
         }
         return currentPolicy;
     }
