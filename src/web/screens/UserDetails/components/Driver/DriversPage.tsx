@@ -1,6 +1,7 @@
 import * as React from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
+import {push} from 'react-router-redux';
 import styled from 'styled-components';
 // const {Styled} = require('styled-components').default;
 import * as spinners from 'react-spinners';
@@ -72,6 +73,10 @@ interface IDriversPage {
     submitDriverSuccess: any;
     updateDriverOnPolicyQuoteRequest: any;
     policyQuoteRequest: any;
+    location: {
+        pathname: string;
+    };
+    push: any;
 }
 
 interface IDriversPageState {
@@ -165,6 +170,10 @@ class DriversPage extends React.Component<IDriversPage, IDriversPageState> {
           .catch(error => console.error(error));
     };
 
+    gotoQuoteRequest = () => {
+        this.props.push(`/app/dashboard/motor/${this.props.motorId}/quote`);
+    }
+
     // ACTION CALLS
 
     updateDriver = (index) => {
@@ -210,7 +219,7 @@ class DriversPage extends React.Component<IDriversPage, IDriversPageState> {
     // RENDER PARTIALS
 
     renderDriversListContent = () => {
-        const { addDriverClicked } = this.state;
+        const { addDriverClicked, showEditForm } = this.state;
         return (
             <FormSection>
                 <Container>
@@ -219,10 +228,13 @@ class DriversPage extends React.Component<IDriversPage, IDriversPageState> {
                         {this.props.drivers.map(this.renderDriversListItem)}
                     </DriversContainer>
                 </Container>
-                {addDriverClicked
-                    ? this.renderDriverForm(null)
-                    : this.renderAddDriverButton()
-                }
+                { !showEditForm && <ButtonWrapper>
+                    {addDriverClicked
+                        ? this.renderDriverForm(null)
+                        : this.renderAddDriverButton()
+                    }
+                    {!addDriverClicked && this.renderConfirmDriversButton()}
+                </ButtonWrapper>}
             </FormSection>
         )
     };
@@ -291,13 +303,19 @@ class DriversPage extends React.Component<IDriversPage, IDriversPageState> {
     };
 
     renderAddDriverButton = () => (
-        <ButtonWrapper>
             <RoundedButton
                 label="Add one more driver"
                 type="button"
                 onClick={this.handleAddNewDriver}
             />
-        </ButtonWrapper>
+    );
+
+    renderConfirmDriversButton = () => (
+            <RoundedButton
+                label="Confirm"
+                type="button"
+                onClick={this.gotoQuoteRequest}
+            />
     );
 
     renderModal = () => (
@@ -436,8 +454,16 @@ const Circle = styled.div`
 const ButtonWrapper = styled.div`
     display: flex;
     align-self: stretch;
-    justify-content: flex-end;
+    justify-content: space-between;
     align-items: center;
+
+    button {
+        flex: 1 1 auto;
+    }
+
+    button + button {
+        margin: 0 0 0 10px;
+    }
 `;
 
 const Title = styled.div`
@@ -535,6 +561,7 @@ const mapDispatchToProps = (dispatch: any) => bindActionCreators({
     removeDriver,
     submitDriverSuccess,
     updateDriverOnPolicyQuoteRequest,
+    push,
 }, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(StyledDriversPage) as any;
