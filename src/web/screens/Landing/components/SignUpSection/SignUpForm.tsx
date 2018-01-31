@@ -109,6 +109,10 @@ const validationSchema = {
         presence: {
             message: 'Please enter your name',
         },
+        format: {
+            pattern: `^[a-zA-Z]+[" "][a-zA-Z]+$`,
+            message: 'Please enter first name and last name'
+        },
     },
     email: {
         presence: {
