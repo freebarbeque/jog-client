@@ -11,19 +11,14 @@ export function* makePolicyQuoteRequest({ user, motorPolicyId, quoteType, policy
                 ...(vehicle ? {
                     motor_vehicle_attributes: {
                         id: vehicle.id,
-                        user_id: user.id,
                     },
                 } : null),
                 ...(driver ? {
-                    driver_attributes: {
-                        id: driver.id,
-                        user_id: user.id,
-                    },
+                    drivers_attributes: driver,
                 } : null),
                 ...(address ? {
                     address_attributes: {
                         id: address.id,
-                        user_id: user.id,
                     },
                 } : null),
             },

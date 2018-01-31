@@ -19,6 +19,7 @@ export interface IReduxState {
     documents: IDocumentsReduxState;
     drivers: IDriversReduxState;
     userDetails: IUserDetailsReduxState;
+    policyQuoteRequest: any;
 }
 
 export interface ICreateStoreOpts {

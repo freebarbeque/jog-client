@@ -105,11 +105,12 @@ export function setIsLoading(isLoading: boolean) {
     }
 }
 
-export function submitDriver(driver: IDriverDetailsFormValues, formName: string) {
+export function submitDriver(driver: IDriverDetailsFormValues, formName: string, submitDeferred: any) {
     return {
         type: SUBMIT_DRIVER,
         driver,
         formName,
+        submitDeferred
     }
 }
 
@@ -145,21 +146,22 @@ export function setDriversList(drivers: any) {
 
 export function removeDriverList() {
     return {
-        type: REMOVE_DRIVER_LIST,
+        type: REMOVE_DRIVER_LIST
     }
 }
 
-export function updateDriver(index: string | number) {
+export function updateDriver(index: string | number, submitDeferred: any) {
     return {
         type: UPDATE_DRIVER,
-        index
+        index,
+        submitDeferred
     }
 }
 
-export function removeDriver(index: string | number) {
+export function removeDriver(driverId: number) {
     return {
         type: REMOVE_DRIVER,
-        index
+        driverId
     }
 }
 

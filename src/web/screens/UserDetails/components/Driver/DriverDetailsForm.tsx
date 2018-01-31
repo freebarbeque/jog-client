@@ -1,30 +1,33 @@
 import * as React from 'react';
-import styled from 'styled-components';
-const validate = require('validate.js');
-import {reduxForm, Field, FieldArray, getFormValues} from 'redux-form';
-import StyledInput from '../StyledInput';
-import {BLUE} from 'src/common/constants/palette';
-import {onlyNumber} from 'src/common/utils/form';
-import RadioButton from 'src/web/components/Forms/RadioButton/Buttons';
-import DatePicker from 'src/web/components/PolicyDatePicker';
-import FormSelect from 'src/web/components/Forms/FormSelect';
-import {mapObjectToDataSource} from 'src/common/utils/dataSources';
-import {MotoringOrganisationTypes} from 'src/common/interfaces/drivers';
-import Divider from 'src/web/screens/Landing/components/Divider';
-import RoundedButton from 'src/web/components/RoundedButton';
 import {connect} from 'react-redux';
-import {IReduxState} from '~/common/interfaces/store';
-import {getIsLoading} from '~/common/selectors/userDetils';
-import Incident from './components/Incident';
-import Conviction from './components/Conviction';
+import {reduxForm, Field, FieldArray, getFormValues} from 'redux-form';
+import styled from 'styled-components';
 const moment = require('moment');
+const validate = require('validate.js');
 
+import {IReduxState} from '~/common/interfaces/store';
+import {BLUE} from 'src/common/constants/palette';
 import {
     formSelectStyle,
     formSelectLabelStyle,
     formSelectIconStyle,
 } from 'src/common/constants/userDetails';
+import {mapObjectToDataSource} from 'src/common/utils/dataSources';
+import {MotoringOrganisationTypes} from 'src/common/interfaces/drivers';
+import {getIsLoading} from '~/common/selectors/userDetils';
+import { handleScrollToErrorField } from 'src/web/common/utils/form/scrollingToErrorField';
+
+import {onlyNumber} from 'src/common/utils/form';
+import RadioButton from 'src/web/components/Forms/RadioButton/Buttons';
+import DatePicker from 'src/web/components/PolicyDatePicker';
+import Divider from 'src/web/screens/Landing/components/Divider';
+import StyledInput from '../StyledInput';
+import Incident from './components/Incident';
+import Conviction from './components/Conviction';
+
 import FormDatePicker from 'src/web/common/components/controls/FormDatePicker';
+import RoundedButton from 'src/web/common/components/controls/RoundedButton';
+import FormSelect from 'src/web/common/components/controls/FormSelect';
 
 interface IDriverDetailsForm {
     className?: string;
@@ -41,6 +44,27 @@ interface IDriverDetailsForm {
 }
 
 const monitoringOrganisations = mapObjectToDataSource(MotoringOrganisationTypes);
+const DRIVER_TITLES = [
+    {id: 'mr', name: 'Mr'},
+    {id: 'mrs', name: 'Mrs'},
+    {id: 'miss', name: 'Miss'},
+    {id: 'ms', name: 'Ms'},
+    {id: 'dr', name: 'Dr'},
+];
+const LICENSE_STATES = [
+    {id: 'full', name: 'Full'},
+    {id: 'provisional', name: 'Provisional'},
+    {id: 'international', name: 'International'},
+    {id: 'automatic', name: 'Automatic'},
+    {id: 'other', name: 'Other'},
+];
+const RELATIONSHIP_STATUS = [
+    {id: 'single', name: 'Single'},
+    {id: 'married', name: 'Married'},
+    {id: 'civil-partnership', name: 'Civil-partnership'},
+    {id: 'divorced', name: 'Divorced'},
+    {id: 'windowed', name: 'Windowed'},
+];
 
 const ButtonStyles = {
     width: '250px',
@@ -65,270 +89,296 @@ const renderDatePicker = (props: any) => (
 class DriverDetailsForm extends React.Component<IDriverDetailsForm, {}> {
     render() {
         return (
-            <form className={this.props.className} onSubmit={this.props.handleSubmit}>
-                <FieldContainer>
-                    <FieldTitle>
-                        What is your title?
-                    </FieldTitle>
-                    <Field
-                        name="title"
-                        component={RadioButton}
-                        dataSource={[
-                            {id: 'mr', name: 'Mr'},
-                            {id: 'mrs', name: 'Mrs'},
-                            {id: 'miss', name: 'Miss'},
-                            {id: 'ms', name: 'Ms'},
-                            {id: 'dr', name: 'Dr'},
-                        ]}
-                    />
-                </FieldContainer>
-                <FieldContainer>
-                    <FieldTitle>
-                        What's your first name?
-                    </FieldTitle>
-                    <Field
-                        name="first_name"
-                        component={StyledInput}
-                    />
-                </FieldContainer>
-                <FieldContainer>
-                    <FieldTitle>
-                        What's your last name?
-                    </FieldTitle>
-                    <Field
-                        name="last_name"
-                        component={StyledInput}
-                    />
-                </FieldContainer>
-                <FieldContainer>
-                    <FieldTitle>
-                        What's your Date of birth?
-                    </FieldTitle>
-                    <Field
-                        name="date_of_birth"
-                        component={FormDatePicker}
-                        maxDate={moment()}
-                        minDate={moment().subtract(100, 'years')}
-                    />
-                </FieldContainer>
-                <FieldContainer>
-                    <FieldTitle>
-                        What's your gender?
-                    </FieldTitle>
-                    <Field
-                        name="gender"
-                        component={RadioButton}
-                        dataSource={[
-                            {id: 'male', name: 'Male'},
-                            {id: 'female', name: 'Female'},
-                        ]}
-                    />
-                </FieldContainer>
-                <FieldContainer>
-                    <FieldTitle>
-                        Were you born in UK?
-                    </FieldTitle>
-                    <Field
-                        name="born_in_uk"
-                        component={RadioButton}
-                        dataSource={[
-                            {id: true, name: 'Yes'},
-                            {id: false, name: 'No'},
-                        ]}
-                    />
-                </FieldContainer>
-                {this.props.formValues && !this.props.formValues.born_in_uk ?
-                    <FieldContainer>
-                        <FieldTitle>
-                            When did you start living in the UK?
-                        </FieldTitle>
-                        <Field
-                            name="uk_resident_since"
-                            component={FormDatePicker}
-                            maxDate={moment()}
-                            minDate={moment().subtract(100, 'years')}
-                        />
-                    </FieldContainer> : null
-                }
-                <FieldContainer>
-                    <FieldTitle>
-                        Have you ever had insurance refused?
-                    </FieldTitle>
-                    <Field
-                        name="insurance_refused"
-                        component={RadioButton}
-                        dataSource={[
-                            {id: true, name: 'Yes'},
-                            {id: false, name: 'No'},
-                        ]}
-                    />
-                </FieldContainer>
-                <FieldContainer>
-                    <FieldTitle>
-                        For how many years have you held your licence?
-                    </FieldTitle>
-                    <Field
-                        name="licence_years_held"
-                        component={StyledInput}
-                        preCheck={onlyNumber}
-                    />
-                </FieldContainer>
-                <FieldContainer>
-                    <FieldTitle>
-                        What kind of license do you hold?
-                    </FieldTitle>
-                    <Field
-                        name="licence_state"
-                        component={RadioButton}
-                        dataSource={[
-                            {id: 'full', name: 'Full'},
-                            {id: 'provisional', name: 'Provisional'},
-                            {id: 'international', name: 'International'},
-                            {id: 'automatic', name: 'Automatic'},
-                            {id: 'other', name: 'Other'},
-                        ]}
-                    />
-                </FieldContainer>
-                {this.props.formValues && this.props.formValues.license_state === 'provisional' ?
-                    <FieldContainer>
-                        <FieldTitle>
-                            How many tests have you taken?
-                        </FieldTitle>
-                        <Field
-                            name="tests_taken"
-                            component={StyledInput}
-                            preCheck={onlyNumber}
-                        />
-                    </FieldContainer> : null
-                }
-                <FieldContainer>
-                    <FieldTitle>
-                        What is your driving license number?
-                    </FieldTitle>
-                    <Field
-                        name="licence_number"
-                        component={StyledInput}
-                    />
-                </FieldContainer>
-                <FieldContainer>
-                    <FieldTitle>
-                        Are you smoker?
-                    </FieldTitle>
-                    <Field
-                        name="smoker"
-                        component={RadioButton}
-                        dataSource={[
-                            {id: true, name: 'Yes'},
-                            {id: false, name: 'No'},
-                        ]}
-                    />
-                </FieldContainer>
-                <FieldContainer>
-                    <FieldTitle>
-                        What is your relationship status?
-                    </FieldTitle>
-                    <Field
-                        name="relationship_status"
-                        component={RadioButton}
-                        dataSource={[
-                            {id: 'single', name: 'Single'},
-                            {id: 'married', name: 'Married'},
-                            {id: 'civil-partnership', name: 'Civil-partnership'},
-                            {id: 'divorced', name: 'Divorced'},
-                            {id: 'windowed', name: 'Windowed'},
-                        ]}
-                    />
-                </FieldContainer>
-                <FieldContainer>
-                    <FieldTitle>
-                        What job do you do?
-                    </FieldTitle>
-                    <Field
-                        name="vocation"
-                        component={StyledInput}
-                    />
-                </FieldContainer>
-                <FieldContainer>
-                    <FieldTitle>
-                        What industry do you work in?
-                    </FieldTitle>
-                    <Field
-                        name="industry"
-                        component={StyledInput}
-                    />
-                </FieldContainer>
-                <FieldContainer>
-                    <FieldTitle>
-                        How many years no claims discount do you have?
-                    </FieldTitle>
-                    <Field
-                        name="no_claims_discount"
-                        component={StyledInput}
-                        preCheck={onlyNumber}
-                    />
-                </FieldContainer>
-                <FieldContainer>
-                    <FieldTitle>
-                        Do you belong to a motoring organisation?
-                    </FieldTitle>
-                    <Field
-                        name="monitoring_organisation"
-                        component={FormSelect}
-                        dataSource={monitoringOrganisations}
-                        defaultText="Monitoring organisations"
-                        maxHeight={300}
-                        labelStyle={formSelectLabelStyle}
-                        iconStyle={formSelectIconStyle}
-                        style={formSelectStyle}
-                    />
-                </FieldContainer>
-                <FieldContainer>
-                    <FieldTitle>
-                        Do you have any motoring convictions?
-                    </FieldTitle>
-                    <Field
-                        name="motoring_convictions"
-                        component={RadioButton}
-                        dataSource={[
-                            {id: true, name: 'Yes'},
-                            {id: false, name: 'No'},
-                        ]}
-                    />
-                </FieldContainer>
-                <FieldArray name="conviction" component={Conviction} active={this.props.formValues && this.props.formValues.motoring_convictions} form={this.props.form}/>
-                <FieldContainer>
-                    <FieldTitle>
-                        Have you had any motoring incidents/claims in the last 5 years?
-                    </FieldTitle>
-                    <Field
-                        name="incidents_claims"
-                        component={RadioButton}
-                        dataSource={[
-                            {id: true, name: 'Yes'},
-                            {id: false, name: 'No'},
-                        ]}
-                    />
-                </FieldContainer>
-                <FieldArray name="incident" component={Incident} active={this.props.formValues && this.props.formValues.incidents_claims} form={this.props.form}/>
-                <ButtonWrapper>
-                    {this.props.cancelVisible ?
-                        <div style={{marginRight: '15px'}}>
-                            <RoundedButton
-                                label="Cancel"
-                                style={ButtonStyles}
-                                type="button"
-                                disabled={this.props.isLoading}
-                                onClick={this.props.closeClick}
-                            />
-                        </div> : null
-                    }
-                    <RoundedButton
-                        label={this.props.buttonText}
-                        style={ButtonStyles}
-                        type="submit"
-                        disabled={this.props.isLoading}
-                    />
-                </ButtonWrapper>
+            <form
+              className={this.props.className}
+              onSubmit={this.props.handleSubmit}
+            >
+                <FormSection>
+
+                  <FormSectionTitle>
+                    Basic information
+                  </FormSectionTitle>
+                  <FormSectionContainer>
+                      <FieldContainer>
+                          <Field
+                              errorAboveField
+                              label="What is your title?"
+                              name="title"
+                              component={FormSelect}
+                              design={FormSelect.Modern}
+                              options={DRIVER_TITLES}
+                              style={{ marginBottom: 10 }}
+                          />
+                      </FieldContainer>
+
+                      <FieldContainer>
+                          <FieldTitle>
+                              What's your first name?
+                          </FieldTitle>
+                          <Field
+                              name="first_name"
+                              component={StyledInput}
+                          />
+                      </FieldContainer>
+                      <FieldContainer>
+                          <FieldTitle>
+                              What's your last name?
+                          </FieldTitle>
+                          <Field
+                              name="last_name"
+                              component={StyledInput}
+                          />
+                      </FieldContainer>
+
+                      <FieldContainer>
+                          <FieldTitle>
+                              What's your Date of birth?
+                          </FieldTitle>
+                          <Field
+                              name="date_of_birth"
+                              component={FormDatePicker}
+                              maxDate={moment()}
+                              minDate={moment().subtract(100, 'years')}
+                          />
+                      </FieldContainer>
+                      <FieldContainer>
+                          <FieldTitle>
+                              What's your gender?
+                          </FieldTitle>
+                          <Field
+                              name="gender"
+                              component={RadioButton}
+                              dataSource={[
+                                  {id: 'male', name: 'Male'},
+                                  {id: 'female', name: 'Female'},
+                              ]}
+                          />
+                      </FieldContainer>
+
+                      <FieldContainer>
+                          <FieldTitle>
+                              Were you born in UK?
+                          </FieldTitle>
+                          <Field
+                              name="born_in_uk"
+                              component={RadioButton}
+                              dataSource={[
+                                  {id: true, name: 'Yes'},
+                                  {id: false, name: 'No'},
+                              ]}
+                          />
+                      </FieldContainer>
+                      {this.props.formValues && !this.props.formValues.born_in_uk ?
+                          <FieldContainer>
+                              <FieldTitle>
+                                  When did you start living in the UK?
+                              </FieldTitle>
+                              <Field
+                                  name="uk_resident_since"
+                                  component={FormDatePicker}
+                                  maxDate={moment()}
+                                  minDate={moment().subtract(100, 'years')}
+                              />
+                          </FieldContainer> : null
+                      }
+                  </FormSectionContainer>
+
+                  <FormSectionTitle>
+                    Personal details
+                  </FormSectionTitle>
+                  <FormSectionContainer>
+                      <FieldContainer>
+                          <FieldTitle>
+                              Have you ever had insurance refused?
+                          </FieldTitle>
+                          <Field
+                              name="insurance_refused"
+                              component={RadioButton}
+                              dataSource={[
+                                  {id: true, name: 'Yes'},
+                                  {id: false, name: 'No'},
+                              ]}
+                          />
+                      </FieldContainer>
+                      <FieldContainer>
+                          <FieldTitle>
+                              For how many years have you held your licence?
+                          </FieldTitle>
+                          <Field
+                              name="licence_years_held"
+                              component={StyledInput}
+                              preCheck={onlyNumber}
+                          />
+                      </FieldContainer>
+                      <FieldContainer>
+                          <Field
+                              errorAboveField
+                              label="What kind of license do you hold?"
+                              name="licence_state"
+                              component={FormSelect}
+                              design={FormSelect.Modern}
+                              options={LICENSE_STATES}
+                              style={{ marginBottom: 10 }}
+                          />
+                      </FieldContainer>
+                      {this.props.formValues && this.props.formValues.license_state === 'provisional' ?
+                          <FieldContainer>
+                              <FieldTitle>
+                                  How many tests have you taken?
+                              </FieldTitle>
+                              <Field
+                                  name="tests_taken"
+                                  component={StyledInput}
+                                  preCheck={onlyNumber}
+                              />
+                          </FieldContainer> : null
+                      }
+                      <FieldContainer>
+                          <FieldTitle>
+                              What is your driving license number?
+                          </FieldTitle>
+                          <Field
+                              name="licence_number"
+                              component={StyledInput}
+                          />
+                      </FieldContainer>
+                      <FieldContainer>
+                          <FieldTitle>
+                              Are you smoker?
+                          </FieldTitle>
+                          <Field
+                              name="smoker"
+                              component={RadioButton}
+                              dataSource={[
+                                  {id: true, name: 'Yes'},
+                                  {id: false, name: 'No'},
+                              ]}
+                          />
+                      </FieldContainer>
+
+                      <FieldContainer>
+                          <Field
+                              errorAboveField
+                              label="What is your relationship status?"
+                              name="relationship_status"
+                              component={FormSelect}
+                              design={FormSelect.Modern}
+                              options={RELATIONSHIP_STATUS}
+                              style={{ marginBottom: 10 }}
+                          />
+                      </FieldContainer>
+                      <FieldContainer>
+                          <FieldTitle>
+                              What job do you do?
+                          </FieldTitle>
+                          <Field
+                              name="vocation"
+                              component={StyledInput}
+                          />
+                      </FieldContainer>
+                      <FieldContainer>
+                          <FieldTitle>
+                              What industry do you work in?
+                          </FieldTitle>
+                          <Field
+                              name="industry"
+                              component={StyledInput}
+                          />
+                      </FieldContainer>
+                  </FormSectionContainer>
+
+                  <FormSectionTitle>
+                    Driving
+                  </FormSectionTitle>
+                  <FormSectionContainer>
+
+                      <FieldContainer>
+                          <FieldTitle>
+                              How many years no claims discount do you have?
+                          </FieldTitle>
+                          <Field
+                              name="no_claims_discount"
+                              component={StyledInput}
+                              preCheck={onlyNumber}
+                          />
+                      </FieldContainer>
+                      <FieldContainer>
+                          <Field
+                              errorAboveField
+                              label="Do you belong to a motoring organisation?"
+                              name="monitoring_organisation"
+                              component={FormSelect}
+                              design={FormSelect.Modern}
+                              options={monitoringOrganisations}
+                              style={{ marginBottom: 10 }}
+                          />
+                      </FieldContainer>
+                  </FormSectionContainer>
+
+                  <FormSectionTitle>
+                    Convictions and incidents
+                  </FormSectionTitle>
+                  <FormSectionContainer>
+                  <FieldContainer>
+                      <FieldTitle>
+                          Do you have any motoring convictions?
+                      </FieldTitle>
+                      <Field
+                          name="motoring_convictions"
+                          component={RadioButton}
+                          dataSource={[
+                              {id: true, name: 'Yes'},
+                              {id: false, name: 'No'},
+                          ]}
+                      />
+                  </FieldContainer>
+                  <FieldArray
+                    name="conviction"
+                    component={Conviction}
+                    active={this.props.formValues && this.props.formValues.motoring_convictions}
+                    form={this.props.form}
+                  />
+                  <FieldContainer>
+                      <FieldTitle>
+                          Have you had any motoring incidents/claims in the last 5 years?
+                      </FieldTitle>
+                      <Field
+                          name="incidents_claims"
+                          component={RadioButton}
+                          dataSource={[
+                              {id: true, name: 'Yes'},
+                              {id: false, name: 'No'},
+                          ]}
+                      />
+                  </FieldContainer>
+                  <FieldArray
+                    name="incident"
+                    component={Incident}
+                    active={this.props.formValues && this.props.formValues.incidents_claims}
+                    form={this.props.form}
+                  />
+                  </FormSectionContainer>
+
+                  <ButtonWrapper>
+                      {this.props.cancelVisible ?
+                          <div style={{marginRight: '15px'}}>
+                              <RoundedButton
+                                  label="Cancel"
+                                  buttonStyle={ButtonStyles}
+                                  type="button"
+                                  disabled={this.props.isLoading}
+                                  onClick={this.props.closeClick}
+                              />
+                          </div> : null
+                      }
+                      <RoundedButton
+                          label={this.props.buttonText}
+                          buttonStyle={ButtonStyles}
+                          type="submit"
+                          disabled={this.props.isLoading}
+                      />
+                  </ButtonWrapper>
+                </FormSection>
             </form>
         )
     }
@@ -347,10 +397,12 @@ const StyledDriverDetailsForm = styled(DriverDetailsForm)`
   align-items: center;
   flex: 1;
   align-self: stretch;
-  padding: 0 0 35px;
-  width: 70%;
+  background-color: #FFF;
+  padding: 40px 0 35px;
+  width: 100%;
   margin: 0 auto;
-  
+  margin-bottom: 25px;
+
   & ${Divider} {
     margin-bottom: 30px;
   }
@@ -361,11 +413,11 @@ const FieldContainer = styled.div`
   flex-direction: column;
   align-self: stretch;
   margin-bottom: 30px;
-  
+
   & > ${DatePicker} {
     align-self: center;
   }
-  
+
   & > div:last-child {
     margin-bottom: 0;
   }
@@ -376,7 +428,32 @@ const FieldTitle = styled.div`
   line-height: 22px;
   color: ${BLUE};
   margin-bottom: 10px;
-  align-self: center;
+  align-self: flex-start;
+`;
+
+const FormSection = styled.div`
+  display: block;
+`;
+
+const FormSectionTitle = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 56px;
+    background-color: #A1A4B0;
+    color: #FFF;
+    font-size: 20px;
+`;
+
+const FormSectionContainer = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-self: stretch;
+    flex: 1;
+    margin-bottom: 30px;
+    padding: 25px 30px 5px;
+    box-shadow: 0 2px 4px rgba(51, 51, 51, 0.2);
 `;
 
 const validationSchema = {
@@ -417,7 +494,7 @@ const validateForm = (values: any) => {
     return errors;
 };
 
-const initialValues = {
+const INITIAL_VALUES = {
     title: 'mr',
     gender: 'male',
     insurance_refused: false,
@@ -434,11 +511,12 @@ const initialValues = {
 const mapStateToProps = (state: IReduxState, props: IDriverDetailsForm) => ({
     isLoading: getIsLoading(state),
     formValues: getFormValues(props.form)(state),
-    initialValues: props.initialValues || initialValues,
+    initialValues: props.initialValues || INITIAL_VALUES,
 });
 
-const form = reduxForm({
+const DriversForm = reduxForm({
     validate: validateForm,
+    onSubmitFail: handleScrollToErrorField(),
 })(StyledDriverDetailsForm);
 
-export default connect(mapStateToProps, null)(form) as any;
+export default connect(mapStateToProps, null)(DriversForm) as any;

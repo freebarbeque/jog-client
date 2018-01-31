@@ -19,8 +19,7 @@ function* driverWorker(policyId: string) {
         const user = yield select(getUser);
 
         if (submit) {
-            const { formName } = submit;
-
+            const { formName, submitDeferred } = submit;
             yield put(setIsLoading(true));
 
             try {
@@ -29,21 +28,21 @@ function* driverWorker(policyId: string) {
 
                 if (errors) {
                     yield put(stopSubmit(formName, { ...errors }));
+                    submitDeferred.reject({ validationErrors: errors });
                 } else {
-                    yield put(submitDriverSuccess(true));
+                    submitDeferred.resolve();
                     const {drivers} = yield getDrivers(user.id);
                     yield put(setDriversList(drivers));
-                    yield put(updateDriverOnPolicyQuoteRequest(policyId, driver));
-                    yield put(reset(formName));
+                    // yield put(reset(formName));
                 }
             } catch (err) {
                 yield put(stopSubmit(formName, {_error: err.message}));
                 continue;
             }
-
             yield put(setIsLoading(false));
         }
         if (update) {
+          const { submitDeferred } = update;
             yield put(setIsLoading(true));
             try {
                 const values = yield select(getFormValues(UPDATE_DRIVER_FORM(update.index)));
@@ -51,11 +50,11 @@ function* driverWorker(policyId: string) {
 
                 if (errors) {
                     yield put(stopSubmit(UPDATE_DRIVER_FORM(update.index), { ...errors }));
+                    submitDeferred.reject({ validationErrors: errors });
                 } else {
-                    yield put(submitDriverSuccess(true));
+                    submitDeferred.resolve();
                     const {drivers} = yield getDrivers(user.id);
                     yield put(setDriversList(drivers));
-                    yield put(updateDriverOnPolicyQuoteRequest(policyId, driver));
                 }
             } catch (err) {
                 yield put(stopSubmit(UPDATE_DRIVER_FORM(update.index), {_error: err.message}));
@@ -65,14 +64,13 @@ function* driverWorker(policyId: string) {
         }
         if (remove) {
             yield put(setIsLoading(true));
+            const { driverId } = remove;
             try {
-                const values = yield select(getFormValues(UPDATE_DRIVER_FORM(remove.index)));
-                yield removeDriver(user.id, REMOVE_DRIVER, values.id);
-                yield put(updateDriverOnPolicyQuoteRequest(policyId, null));
-                const {drivers} = yield getDrivers(user.id);
+                yield removeDriver(user.id, REMOVE_DRIVER, driverId);
+                const { drivers } = yield getDrivers(user.id);
                 yield put(setDriversList(drivers));
             } catch (err) {
-                console.log(err);
+                console.error(err);
                 continue;
             }
             yield put(setIsLoading(false));

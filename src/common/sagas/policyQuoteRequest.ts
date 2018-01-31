@@ -9,6 +9,8 @@ import { MAKE_POLICY_QUOTE_REQUEST, QUOTE_REQUESTS_TYPE_MOTOR_POLICY } from '../
 
 import { setLoadingState } from '../actions/policyQuoteRequest';
 import { getPolicyQuoteRequest } from '../selectors/policyQuoteRequest';
+import { getDrivers } from '../api/drivers';
+import { setDriversList } from '../actions/userDetails';
 
 function* createQuotePolicy(policyId: string) {
     const user = yield select(getUser);
@@ -23,7 +25,12 @@ function* createQuotePolicy(policyId: string) {
 }
 
 export function* policyQuoteRequestWorker(policyId: string) {
+    const user = yield select(getUser);
     yield put(setLoadingState(policyId, false));
+    const {drivers} = yield getDrivers(user.id);
+    if (drivers) {
+        yield put(setDriversList(drivers));
+    }
 
     while (true) {
         try {
@@ -39,7 +46,7 @@ export function* policyQuoteRequestWorker(policyId: string) {
 
             yield put(push(`/app/quotes/motor/${motorPolicyId}/request/${motorPolicyRequestId}`));
         } catch (error) {
-            console.log('Log => quotePolicyWorker error: ', error);
+            console.error('Log => quotePolicyWorker error: ', error);
         } finally {
             yield put(setLoadingState(policyId, false));
         }

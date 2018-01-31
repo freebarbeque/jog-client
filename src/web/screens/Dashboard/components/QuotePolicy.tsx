@@ -10,11 +10,12 @@ import {push} from 'react-router-redux';
 import {Action, ActionCreator, bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import {IReduxState} from '~/common/interfaces/store';
-import {getAddress, getSelectedDriverId, getUserAddress} from '~/common/selectors/userDetils';
+import {getAddress, getSelectedDriverId, getUserAddress, getDriversList} from '~/common/selectors/userDetils';
 import {getPolicyQuoteRequest, getLoadingState, getStartPolicyDate} from '~/common/selectors/policyQuoteRequest';
 import {IAddress} from '~/common/interfaces/userDetails';
 import {policyQuoteRequestWorker} from '~/common/sagas/policyQuoteRequest';
 import {makePolicyQuoteRequest, updateStartDateOnPolicyQuoteRequest} from '~/common/actions/policyQuoteRequest';
+import {find, propEq} from 'ramda';
 
 interface IQuotePolicyProps {
     className?: string;
@@ -25,6 +26,7 @@ interface IQuotePolicyProps {
     isLoading: boolean;
     updateStartDateOnPolicyQuoteRequest: any;
     startDate: any;
+    drivers: any;
 }
 
 const ButtonStyles = {
@@ -70,8 +72,31 @@ class QuotePolicy extends React.PureComponent<IQuotePolicyProps, {}> {
         this.props.updateStartDateOnPolicyQuoteRequest(this.props.motorId, value);
     };
 
+    getDriversNames = (selected, driversList) => {
+        let output: string = '';
+        let array: any[] = [];
+        selected.forEach(item => {
+            let selectedItem = find(propEq('id', item.id))(driversList);
+            selectedItem && array.push(selectedItem);
+        });
+
+        output = array.reduce((acc, cur, index, array) => {
+            const suffix = `, `;
+            if (cur.first_name && cur.last_name) {
+              acc += `${cur.first_name} ${cur.last_name}${index < array.length - 1 ? suffix : ``}`;
+            }
+            return acc;
+        }, '');
+
+        return output;
+    };
+
     render() {
         const { policyQuoteRequest: { vehicle, driver, address }, startDate, isLoading } = this.props;
+        const { drivers: driversList } = this.props;
+        const driversNames: string = (driver && driver.length > 0 && driversList && driversList.length > 0)
+        ? this.getDriversNames(driver, driversList)
+        : 'Create or select driver(s)';
 
         return (
             <div className={this.props.className}>
@@ -91,9 +116,9 @@ class QuotePolicy extends React.PureComponent<IQuotePolicyProps, {}> {
                     <QuoteField
                         icon={<QuoteHolder/>}
                         title="Drivers details"
-                        primaryTitle={driver ? `${driver.first_name} ${driver.last_name}` : ''}
+                        primaryTitle={driversNames}
                         onClick={() => this.props.push(`/app/user/motor/${this.props.motorId}/holder`)}
-                        completed={!!driver}
+                        completed={!!(driver && driver.length > 0)}
                     />
                     <QuoteField
                         icon={<QuoteAddress/>}
@@ -131,7 +156,7 @@ const Main = styled.div``;
 
 const Aside = styled.div`
     margin-right: 20px;
-    
+
     img {
         margin-top: 15px;
     }
@@ -230,6 +255,7 @@ const QuoteContentContainer = styled.div`
 `;
 
 const mapStateToProps = (state: IReduxState, props: IQuotePolicyProps) => ({
+    drivers: getDriversList(state),
     startDate: getStartPolicyDate(state, props),
     policyQuoteRequest: getPolicyQuoteRequest(state, props.motorId),
     isLoading: getLoadingState(state, props.motorId),

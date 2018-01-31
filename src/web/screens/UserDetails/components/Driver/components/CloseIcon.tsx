@@ -14,17 +14,12 @@ const CancelIcon = (props) => (
 );
 
 const StyledCancelIcon = styled(CancelIcon)`
-  position: absolute;
-  left: 100%;
-  top: 9px;
-  margin-left: 15px;
-  width: 14px;
-  height: 14px;
+  margin: 0 0 0 10px;
+  width: 16px;
+  height: 16px;
   cursor: pointer;
-  margin-right: 10px;
-  margin-top: 5px;
   & > g > g {
-    fill: #e8e8e8;
+    fill: #000;
   }
   &:hover {
       & > g > g {
