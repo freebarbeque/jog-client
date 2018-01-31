@@ -9,12 +9,17 @@ import DocumentsPolicy from './components/DocumentsPolicy';
 import QuotePolicy from './components/QuotePolicy';
 import PolicyOverview from './components/PolicyOverview';
 
+import { getMotorPolicyInformationById, getInsuranceCompanyForPolicy } from 'src/common/selectors/policies';
+import { connect } from 'react-redux';
+
 import {CREAM} from 'src/common/constants/palette';
 
 interface IMotorPolicyScreen {
   className?: string;
   history?: any;
   match?: any;
+  currentInsuranceCompany: any;
+  currentPolicy: any;
 }
 
 const MotorPolicyScreen: React.StatelessComponent<IMotorPolicyScreen> = (props) => (
@@ -22,9 +27,9 @@ const MotorPolicyScreen: React.StatelessComponent<IMotorPolicyScreen> = (props) 
     <Header />
     <CurrentPolicy
       onBackArrowClick={() => props.history.push('/app/dashboard/motor')}
-      insurerAvatar="https://image.flaticon.com/icons/png/512/48/48982.png"
-      insurerName="Default insurer"
-      policyName="Motor Policy 1"
+      insurerAvatar={props.currentInsuranceCompany && props.currentInsuranceCompany.image && props.currentInsuranceCompany.image.url || 'https://image.flaticon.com/icons/png/512/48/48982.png'}
+      insurerName={props.currentInsuranceCompany && props.currentInsuranceCompany.name}
+      policyName={`Policy ${props.currentPolicy && props.currentPolicy.policy_number}`}
     />
     <PolicyTabs />
     <Switch>
@@ -46,4 +51,9 @@ const StyledMotorPolicyScreen = styled(MotorPolicyScreen)`
   overflow-y: scroll;
 `;
 
-export default StyledMotorPolicyScreen;
+const mapStateToProps = (state: any, props: any) => ({
+    currentPolicy: getMotorPolicyInformationById(state, props.match.params.motorId),
+    currentInsuranceCompany: getInsuranceCompanyForPolicy(state, props.match.params.motorId),
+});
+
+export default connect(mapStateToProps)(StyledMotorPolicyScreen);

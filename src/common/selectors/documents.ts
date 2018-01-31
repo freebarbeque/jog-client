@@ -26,3 +26,9 @@ export const getPreviewDocument = createSelector(
         }
     }
 )
+
+export const getDocumentsForPolicy = createSelector(
+    getPolicyDocuments,
+    (state: any, policyId: string) => policyId,
+    (documents: any, policyId: string) => documents.filter(doc => doc.documentable_id === Number(policyId))
+);

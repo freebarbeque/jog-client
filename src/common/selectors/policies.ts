@@ -140,3 +140,18 @@ export const getMotorPolicyIncompleteKeys = createSelector(
         return Object.keys(currentPolicy).filter(key => currentPolicy[key] === null);
     }
 )
+
+export const getMotorPolicyInformationById = createSelector(
+    getPolicies(MOTOR_POLICY),
+    (state: any, policyId: number|string) => policyId,
+    (policies: any, policyId: number|string) => policies.find(p => p.id === Number(policyId))
+);
+
+export const getInsuranceCompanyForPolicy = createSelector(
+    getMotorPolicyInformationById,
+    getInsuranceCompanies,
+    (policy: any, insuranceCompanies: any) => {
+        const { insurance_company_id: companyId } = policy;
+        return insuranceCompanies.find(c => c.id === companyId);
+    }
+);

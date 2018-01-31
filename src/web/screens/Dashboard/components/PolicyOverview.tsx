@@ -26,6 +26,7 @@ import {EDIT_POLICY_OVERVIEW_FORM, EDIT_POLICY_POLICY_FORM, EDIT_OVERVIEW_MODAL,
 import {injectSaga} from 'src/common/utils/saga';
 import {patchPolicyFlow} from 'src/common/sagas/policies';
 import {getIsLoading} from 'src/common/selectors/policies';
+import {getDocumentsForPolicy, getIsLoading as getDocumentsLoadingState} from 'src/common/selectors/documents';
 import EditOverviewForm from './EditOverviewForm';
 import EditPolicyForm from './EditPolicyForm';
 
@@ -41,6 +42,8 @@ interface IPolicyOverviewProps {
     patchPolicy: any;
     isLoading: boolean;
     incompleteKeys: [keyof IMotorPolicy];
+    currentPolicyDocuments: any;
+    isDocumentsLoading: boolean;
 }
 
 interface IContentProps {
@@ -63,7 +66,7 @@ class PolicyOverview extends React.Component<IPolicyOverviewProps, IContentState
     }
 
     componentWillMount() {
-        injectSaga(patchPolicyFlow)
+        injectSaga(patchPolicyFlow, this.props.motorId)
     }
 
     handleEditOverviewSubmit = (values: IPatchPolicyFormValues) => {
@@ -207,8 +210,9 @@ class PolicyOverview extends React.Component<IPolicyOverviewProps, IContentState
                         </RightSectionsContainer>
                         {
                             this.state.showNotification &&
-                            this.props.incompleteKeys.length &&
-                            < Notification
+                            !this.props.isDocumentsLoading &&
+                            !this.props.currentPolicyDocuments.length &&
+                            <Notification
                                 notificationText="Upload your policy documentation for complete profile"
                                 onCloseButtonClick={() => this.setState({showNotification: false})}
                             />
@@ -288,6 +292,8 @@ const mapStateToProps = (state: IWebReduxState, props: IPolicyOverviewProps) => 
     editPolicyInitialValues: getEditPolicyFormInitialValues(state, props),
     isLoading: getIsLoading(state),
     incompleteKeys: getMotorPolicyIncompleteKeys(state, props),
+    currentPolicyDocuments: getDocumentsForPolicy(state, props.motorId),
+    isDocumentsLoading: getDocumentsLoadingState(state),
 });
 
 const mapDispatchToProps = (dispatch: any) => bindActionCreators({

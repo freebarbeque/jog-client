@@ -16,6 +16,8 @@ import {stopSubmit} from 'redux-form';
 import {setMotorPolicies, updatePolicy, setLoading} from '../actions/policies';
 import {closeModal} from '../../web/actions/page';
 
+import {fetchDocuments} from '../api/documents';
+
 export function* createPolicyWorker() {
     const {insurance_companies} = yield getInsuranceCompanies();
     yield put(setDataSource('insuranceCompanies', insurance_companies));
@@ -64,8 +66,10 @@ export function* motorPoliciesContentFlow() {
     }
 }
 
-export function* patchPolicyWorker() {
+export function* patchPolicyWorker(policyId: string) {
     const user = yield select(getUser);
+
+    yield fetchDocuments(user.id, policyId);
 
     while (true) {
         const {patch, location} = yield race({
@@ -95,8 +99,8 @@ export function* patchPolicyWorker() {
     }
 }
 
-export function* patchPolicyFlow() {
-    const worker = yield fork(patchPolicyWorker);
+export function* patchPolicyFlow(policyId: string) {
+    const worker = yield fork(patchPolicyWorker, policyId);
     yield take(LOCATION_CHANGE);
     yield put(setLoading(false));
     yield cancel(worker);

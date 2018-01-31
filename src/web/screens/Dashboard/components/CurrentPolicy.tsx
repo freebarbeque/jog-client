@@ -15,16 +15,18 @@ interface ICurrentPolicyProps {
 
 const CurrentPolicy: React.StatelessComponent<ICurrentPolicyProps> = (props) => (
   <div className={props.className}>
-    <ArrowButton onClick={props.onBackArrowClick} position="left" width={11} height={16}/>
-    <Avatar src={props.insurerAvatar} />
-    <TextContainer>
-      <PolicyName>
-        {props.policyName}
-      </PolicyName>
-      <InsurerName>
-        {props.insurerName}
-      </InsurerName>
-    </TextContainer>
+      <div onClick={props.onBackArrowClick} style={{ display: 'flex', cursor: 'pointer' }}>
+        <ArrowButton position="left" width={11} height={16}/>
+        <Avatar src={props.insurerAvatar} />
+        <TextContainer>
+          <PolicyName>
+            {props.policyName}
+          </PolicyName>
+          <InsurerName>
+            {props.insurerName}
+          </InsurerName>
+        </TextContainer>
+      </div>
   </div>
 );
 
