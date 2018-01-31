@@ -66,7 +66,7 @@ const LeftSectionsContainer = styled.div`
   flex-direction: column;
   align-self: stretch;
   margin-right: 20px;
-  
+
   & > ${PolicySection}:first-child {
     margin-bottom: 35px;
   }
@@ -121,6 +121,7 @@ const CreatePolicyForm = (props: ICreatePolicyFormProps) => {
                                     component={FormDatePicker}
                                     style={{ marginBottom: 40 }}
                                     minDate={moment()}
+                                    maxDate={moment().add(2, 'years')}
                                 />
                                 <Field
                                     errorAboveField
