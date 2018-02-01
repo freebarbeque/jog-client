@@ -38,7 +38,7 @@ interface ICreatePolicyFormProps {
 }
 
 const Content = styled.div`
-    padding: 50px 80px;
+    padding: 0;
     align-self: center;
     text-align: center;
     display: flex;
@@ -46,38 +46,17 @@ const Content = styled.div`
 `;
 
 const Container = styled.div`
-    width: 100%;
-    max-width: 980px;
-    margin: 0 auto;
     box-sizing: border-box;
+    max-width: 980px;
+    width: 100%;
+    margin: 0 auto;
 `;
 
 const Wrapper = styled.div`
-  display: flex;
-  align-self: stretch;
-  justify-content: center;
-  flex: 1 0;
-  width: 100%;
-`;
-
-const LeftSectionsContainer = styled.div`
-  display: flex;
-  flex: 0 1 calc(70% - 20px);
-  flex-direction: column;
-  align-self: stretch;
-  margin-right: 20px;
-
-  & > ${PolicySection}:first-child {
-    margin-bottom: 35px;
-  }
-`;
-
-const RightSectionsContainer = styled.div`
-  display: flex;
-  flex-basis: 30%;
-  min-width: 300px;
-  flex-direction: column;
-  align-self: baseline;
+    display: block;
+    max-width: 680px;
+    width: 100%;
+    margin: 0 auto;
 `;
 
 const ButtonStyles = {
@@ -93,92 +72,85 @@ const CreatePolicyForm = (props: ICreatePolicyFormProps) => {
     return (
         <Container>
             <Wrapper>
-                <LeftSectionsContainer>
-                    <PolicySection title="Simply answer these questions to set up your basic policy">
-                        <form style={{display: 'flex', flexDirection: 'column'}} onSubmit={props.handleSubmit}>
-                            <Content>
-                                <Field
-                                    errorAboveField
-                                    label="Who is your insurer?"
-                                    name="insurance_company_id"
-                                    component={FormSelect}
-                                    design={FormSelect.Modern}
-                                    options={props.insurersDataSource}
-                                    style={{ marginBottom: 40 }}
-                                />
-                                <Field
-                                    errorAboveField
-                                    label="What is your policy number?"
-                                    placeholder="12345"
-                                    name="policy_number"
-                                    component={FormTextField}
-                                    style={{ marginBottom: 40 }}
-                                />
-                                <Field
-                                    errorAboveField
-                                    name="expiry"
-                                    label="When does your policy expire?"
-                                    component={FormDatePicker}
-                                    style={{ marginBottom: 40 }}
-                                    minDate={moment()}
-                                    maxDate={moment().add(2, 'years')}
-                                />
-                                <Field
-                                    errorAboveField
-                                    label="How much does your policy cost per year?"
-                                    name="annual_cost_cents"
-                                    component={FormTextField}
-                                    leftIcon="\u00A3"
-                                    normalize={onlyDecimal}
-                                    style={{ marginBottom: 40 }}
-                                />
-                                <Field
-                                    errorAboveField
-                                    label="Enter the registration of your car"
-                                    name="vehicle_registration"
-                                    component={FormTextField}
-                                    style={{ marginBottom: 40 }}
-                                />
-                                <Field
-                                    errorAboveField
-                                    label="Level of cover"
-                                    name="level_of_cover"
-                                    component={FormRadioGroup}
-                                    options={[
-                                        {id: 'Comprehensive', name: 'Comprehensive'},
-                                        {id: 'Third party', name: '3rd Party'},
-                                        {id: 'Third party, fire and theft', name: '3rd Party, Fire & Theft'},
-                                    ]}
-                                    style={{ marginBottom: 40 }}
-                                />
-                                <Field
-                                    errorAboveField
-                                    label="Years of no claims bonus"
-                                    name="no_claims_bonus"
-                                    component={FormTextField}
-                                    normalize={onlyNumber}
-                                />
-                                {props.error ?
-                                    <ErrorText>
-                                        {props.error}
-                                    </ErrorText>
-                                    : null
-                                }
-                                <RoundedButton
-                                    type="submit"
-                                    label="Set Up My Account"
-                                    disabled={props.isLoading}
-                                    style={ButtonStyles}
-                                />
-                            </Content>
-                        </form>
-                    </PolicySection>
-                </LeftSectionsContainer>
-                <RightSectionsContainer>
-                    <PolicySection title="Offers">
-                        <OffersPlaceholder />
-                    </PolicySection>
-                </RightSectionsContainer>
+                  <PolicySection title="Simply answer these questions to set up your basic policy">
+                      <form  onSubmit={props.handleSubmit}>
+                          <Content>
+                              <Field
+                                  errorAboveField
+                                  label="Who is your insurer?"
+                                  name="insurance_company_id"
+                                  component={FormSelect}
+                                  design={FormSelect.Modern}
+                                  options={props.insurersDataSource}
+                                  style={{ marginBottom: 40 }}
+                              />
+                              <Field
+                                  errorAboveField
+                                  label="What is your policy number?"
+                                  placeholder="12345"
+                                  name="policy_number"
+                                  component={FormTextField}
+                                  style={{ marginBottom: 40 }}
+                              />
+                              <Field
+                                  errorAboveField
+                                  name="expiry"
+                                  label="When does your policy expire?"
+                                  component={FormDatePicker}
+                                  style={{ marginBottom: 40 }}
+                                  minDate={moment()}
+                                  maxDate={moment().add(2, 'years')}
+                              />
+                              <Field
+                                  errorAboveField
+                                  label="How much does your policy cost per year?"
+                                  name="annual_cost_cents"
+                                  component={FormTextField}
+                                  leftIcon="\u00A3"
+                                  normalize={onlyDecimal}
+                                  style={{ marginBottom: 40 }}
+                              />
+                              <Field
+                                  errorAboveField
+                                  label="Enter the registration of your car"
+                                  name="vehicle_registration"
+                                  component={FormTextField}
+                                  style={{ marginBottom: 40 }}
+                              />
+                              <Field
+                                  errorAboveField
+                                  label="Level of cover"
+                                  name="level_of_cover"
+                                  component={FormRadioGroup}
+                                  options={[
+                                      {id: 'Comprehensive', name: 'Comprehensive'},
+                                      {id: 'Third party', name: '3rd Party'},
+                                      {id: 'Third party, fire and theft', name: '3rd Party, Fire & Theft'},
+                                  ]}
+                                  style={{ marginBottom: 40 }}
+                              />
+                              <Field
+                                  errorAboveField
+                                  label="Years of no claims bonus"
+                                  name="no_claims_bonus"
+                                  component={FormTextField}
+                                  normalize={onlyNumber}
+                              />
+                              {props.error ?
+                                  <ErrorText>
+                                      {props.error}
+                                  </ErrorText>
+                                  : null
+                              }
+                              <RoundedButton
+                                  type="submit"
+                                  label="Set Up My Account"
+                                  disabled={props.isLoading}
+                                  style={ButtonStyles}
+                              />
+                          </Content>
+                      </form>
+                  </PolicySection>
             </Wrapper>
         </Container>
     );

@@ -41,7 +41,7 @@ const Section: React.StatelessComponent<ISectionProps> = (props) => (
 const StyledSection = styled(Section)`
   display: flex;
   flex-direction: column;
-  flex: 1 0 auto;
+  flex: 1 1 auto;
   box-shadow: 0 2px 4px rgba(51, 51, 51, 0.2);
 `;
 
@@ -61,6 +61,7 @@ const SectionContent = styled.div`
   align-self: stretch;
   display: flex;
   flex-direction: column;
+  padding: 40px;
 `;
 
 const button = styledComponentWithProps<IEditButtonProps, HTMLButtonElement>(styled.button);
