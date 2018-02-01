@@ -38,23 +38,24 @@ export const Title = styled.div`
     display: flex;
     flex-direction: column;
     overflow: hidden;
+    min-width: 0;
 `;
 
 export const PrimaryTitle = styled.div`
     font-size: 18px;
-    margin-bottom: 10px;
+    margin-bottom: 5px;
     overflow: hidden;
     text-overflow: ellipsis;
 `;
 
 export const SecondaryTitle = styled.div`
     font-size: 12px;
+    margin-bottom: 5px;
 `;
 
 export const StatusText = styled.div`
-    margin-right: 15px;
-    flex: 0 0 160px;
-    font-size: 14px;
+    flex: 0 0 auto;
+    font-size: 12px;
     color: rgba(160, 165, 175, 1);
 `;
 
@@ -69,11 +70,11 @@ export const PolicyLink: StyledComponentClass<any, any, any> = styled(Link)`
 
     &:hover {
         text-decoration: none !important;
-        
+
         ${Aside} {
             background-color: rgba(200, 200, 200, 1);
         }
-        
+
         ${Content} {
             background-color: rgba(230, 230, 230, 1);
         }

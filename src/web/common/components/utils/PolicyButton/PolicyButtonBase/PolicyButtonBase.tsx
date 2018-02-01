@@ -28,8 +28,8 @@ class PolicyButtonBase extends React.PureComponent<IPolicyButtonBaseProps, any> 
                     <S.Title>
                         <S.PrimaryTitle>{primaryTitle}</S.PrimaryTitle>
                         <S.SecondaryTitle>{secondaryTitle}</S.SecondaryTitle>
+                        <S.StatusText>{statusText}</S.StatusText>
                     </S.Title>
-                    <S.StatusText>{statusText}</S.StatusText>
                     <S.Arrow>
                         <BlackArrow />
                     </S.Arrow>
