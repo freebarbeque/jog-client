@@ -47,7 +47,7 @@ function* driverWorker(policyId: string) {
             yield put(setIsLoading(false));
         }
         if (update) {
-          const { submitDeferred } = update;
+            const { submitDeferred } = update;
             yield put(setIsLoading(true));
             try {
                 const values = yield select(getFormValues(UPDATE_DRIVER_FORM(update.index)));

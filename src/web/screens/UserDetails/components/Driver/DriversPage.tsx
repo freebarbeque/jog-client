@@ -186,6 +186,7 @@ class DriversPage extends React.Component<IDriversPage, IDriversPageState> {
       let { selectedDrivers } = this.state;
       const { motorId } = this.props;
       const found = selectedDrivers.indexOf(driverId);
+      /* tslint:disable-next-line */
       found !== -1 && selectedDrivers.splice(found, 1);
       this.setState({selectedDrivers: selectedDrivers});
 

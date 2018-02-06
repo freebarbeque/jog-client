@@ -106,11 +106,11 @@ export const getEditPolicyFormInitialValues = createSelector(
     (motorPolicies: IMotorPolicy[], motorPolicyId) => {
         const currentPolicy = motorPolicies.find(m => m.id === Number(motorPolicyId));
         if (currentPolicy) {
-          const excess_amount_cents = `${Number(currentPolicy.excess_amount_cents) / 100}`;
+            const excessAmountCents = `${Number(currentPolicy.excess_amount_cents) / 100}`;
 
             return {
                 level_of_cover: currentPolicy.level_of_cover,
-                excess_amount_cents,
+                excess_amount_cents: excessAmountCents,
                 driver_name: currentPolicy.driver_name,
                 no_claims_bonus: currentPolicy.no_claims_bonus,
             }

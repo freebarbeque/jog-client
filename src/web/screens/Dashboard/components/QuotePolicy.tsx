@@ -77,6 +77,7 @@ class QuotePolicy extends React.PureComponent<IQuotePolicyProps, {}> {
         let array: any[] = [];
         selected.forEach(item => {
             let selectedItem = find(propEq('id', item.id))(driversList);
+            /* tslint:disable-next-line */
             selectedItem && array.push(selectedItem);
         });
 

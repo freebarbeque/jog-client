@@ -2,6 +2,7 @@ const webpack = require('webpack')
 const {TsConfigPathsPlugin} = require('awesome-typescript-loader');
 const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const path = require('path');
 const vars = require('dotenv').config({path: `.env.${process.env.NODE_ENV}`});
 
 console.log(`NODE_ENV=${process.env.NODE_ENV}`);
@@ -30,10 +31,16 @@ module.exports = {
     devtool: 'source-map',
 
     resolve: {
+        alias: {
+          src: 'src',
+        },
         // Add '.ts' and '.tsx' as resolvable extensions.
         extensions: ['.ts', '.tsx', '.js', '.json'],
         plugins: [
-            new TsConfigPathsPlugin()
+            new TsConfigPathsPlugin({
+                configFileName: "tsconfig.json",
+                compiler: "typescript",
+            })
         ]
     },
 
