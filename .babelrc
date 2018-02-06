@@ -1,4 +1,8 @@
 {
-  "presets": ["react-native"],
+  "presets": [
+    "react-native",
+    ["env", { "comment": "true", "targets": ["> 4%", "ie 11", "safari 10"] }],
+    "stage-1"
+  ],
   "sourceMaps": true
 }
