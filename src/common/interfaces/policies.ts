@@ -45,6 +45,7 @@ export interface ICreatePolicyFormValues {
     day: number;
     month: number;
     year: number;
+    expiry?: any;
     annual_cost_cents: number;
     level_of_cover: 'Third party' | 'Third party, fire and theft' | 'Comprehensive';
     no_claims_bonus: number;
@@ -56,6 +57,7 @@ export interface IPatchPolicyFormValues {
     day: number;
     month: number;
     year: number;
+    expiry?: any;
     vehicle_manufacturer_name: string;
     vehicle_model_name: string;
     annual_cost_cents: string|number;

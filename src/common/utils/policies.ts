@@ -5,7 +5,9 @@ export function mapCreatePolicyFormValues(values: ICreatePolicyFormValues) {
     const {day, month, year, ...rest} = values;
     const mappedValues: Partial<IPolicy> = rest;
 
-    // mappedValues.expiry = format(`${year}-${month}-${day}`);
+    if (rest.expiry) {
+        mappedValues.expiry = rest.expiry.format('YYYY-MM-DD');
+    }
     mappedValues.no_claims_bonus = values.no_claims_bonus || 0;
     mappedValues.annual_cost_cents = values.annual_cost_cents * 100;
 
@@ -16,7 +18,9 @@ export const mapPatchPolicyFormValues = (values: IPatchPolicyFormValues) => {
     const {day, month, year, ...rest} = values;
     const mappedValues: Partial<IPolicy> = rest;
 
-    // mappedValues.expiry = format(`${year}-${month}-${day}`);
+    if (rest.expiry) {
+        mappedValues.expiry = rest.expiry.format('YYYY-MM-DD');
+    }
     if (rest.annual_cost_cents) {
       mappedValues.annual_cost_cents = Number(values.annual_cost_cents) * 100;
     }

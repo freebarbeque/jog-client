@@ -8,6 +8,7 @@ import {getFormValues} from 'redux-form';
 import {stopSubmit, reset, destroy, initialize} from 'redux-form';
 import { updateDriverOnPolicyQuoteRequest } from '../../actions/policyQuoteRequest';
 import {setSteps} from '../../../web/actions/page';
+import {format} from 'date-fns';
 
 function* driverWorker(policyId: string) {
     while (true) {
@@ -23,7 +24,11 @@ function* driverWorker(policyId: string) {
             yield put(setIsLoading(true));
 
             try {
-                const formValues = yield select(getFormValues(formName));
+                const values = yield select(getFormValues(formName));
+                const formValues = {
+                    ...values,
+                    date_of_birth: values.date_of_birth.format('YYYY-MM-DD')
+                }
                 const { errors, driver } = yield createDriver(user.id, CREATE_DRIVER, formValues);
 
                 if (errors) {
@@ -46,7 +51,11 @@ function* driverWorker(policyId: string) {
             yield put(setIsLoading(true));
             try {
                 const values = yield select(getFormValues(UPDATE_DRIVER_FORM(update.index)));
-                const { errors, driver } = yield updateDriver(user.id, UPDATE_DRIVER, values.id, values);
+                const formValues = {
+                    ...values,
+                    date_of_birth: values.date_of_birth.format('YYYY-MM-DD')
+                }
+                const { errors, driver } = yield updateDriver(user.id, UPDATE_DRIVER, formValues.id, formValues);
 
                 if (errors) {
                     yield put(stopSubmit(UPDATE_DRIVER_FORM(update.index), { ...errors }));
