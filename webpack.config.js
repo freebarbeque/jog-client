@@ -11,8 +11,6 @@ console.log(vars.parsed);
 module.exports = {
     entry: [
         'babel-polyfill',
-        'core-js/es6/symbol',
-        'core-js/es6/promise',
         'whatwg-fetch',
         './src/index.tsx'
     ],
