@@ -47,7 +47,23 @@ module.exports = {
     module: {
         rules: [
             // All files with a '.ts' or '.tsx' extension will be handled by 'awesome-typescript-loader'.
-            {test: /\.tsx?$/, loader: 'awesome-typescript-loader?useBabel=true&useCache=true'},
+            {
+                test: /\.tsx?$/,
+                loader: 'awesome-typescript-loader',
+                options: {
+                    'useTranspileModule': true,
+                    'useCache': true,
+                    'useBabel': true,
+                    'babelOptions': {
+                        'plugins': ['react'],
+                        'presets': [
+                          'react-native',
+                          ['env', { 'comment': 'true', 'targets': ['> 4%', 'ie 11', 'safari 10'] }],
+                          'stage-1'
+                        ],
+                    }
+                }
+            },
             {test: /\.svg(\?v=\d+\.\d+\.\d+)?$/, loader: 'url-loader'},
             {test: /\.png|.jpg|.jpeg|.bmp|.ico$/, loader: 'url-loader'},
             {

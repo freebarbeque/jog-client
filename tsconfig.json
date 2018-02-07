@@ -43,12 +43,5 @@
     "./src/index.ios.tsx"
   ],
   "compileOnSave": false,
-  "noStrictGenericChecks": true,
-  "awesomeTypescriptLoaderOptions": {
-    "useBabel": true,
-    "babelOptions": {
-        "babelrc": true
-    },
-    "useCache": true
-  }
+  "noStrictGenericChecks": true
 }
