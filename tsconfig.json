@@ -43,5 +43,9 @@
     "./src/index.ios.tsx"
   ],
   "compileOnSave": false,
-  "noStrictGenericChecks": true
+  "noStrictGenericChecks": true,
+  "useBabel": true,
+  "babelOptions": {
+      "babelrc": true
+  }
 }
