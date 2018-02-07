@@ -1,5 +1,6 @@
 import 'babel-polyfill';
 import 'whatwg-fetch';
+import 'promise-polyfill/src/polyfill';
 
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
