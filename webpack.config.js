@@ -51,17 +51,8 @@ module.exports = {
                 test: /\.tsx?$/,
                 loader: 'awesome-typescript-loader',
                 options: {
-                    'useTranspileModule': true,
-                    'useCache': true,
                     'useBabel': true,
-                    'babelOptions': {
-                        'plugins': ['react'],
-                        'presets': [
-                          'react-native',
-                          ['env', { 'comment': 'true', 'targets': ['> 4%', 'ie 11', 'safari 10'] }],
-                          'stage-1'
-                        ],
-                    }
+                    'useCache': true
                 }
             },
             {test: /\.svg(\?v=\d+\.\d+\.\d+)?$/, loader: 'url-loader'},
