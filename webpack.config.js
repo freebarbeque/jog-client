@@ -47,7 +47,7 @@ module.exports = {
     module: {
         rules: [
             // All files with a '.ts' or '.tsx' extension will be handled by 'awesome-typescript-loader'.
-            {test: /\.tsx?$/, loader: 'awesome-typescript-loader'},
+            {test: /\.tsx?$/, loader: 'awesome-typescript-loader?useBabel=true&useCache=true'},
             {test: /\.svg(\?v=\d+\.\d+\.\d+)?$/, loader: 'url-loader'},
             {test: /\.png|.jpg|.jpeg|.bmp|.ico$/, loader: 'url-loader'},
             {

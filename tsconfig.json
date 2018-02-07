@@ -48,6 +48,7 @@
     "useBabel": true,
     "babelOptions": {
         "babelrc": true
-    }
+    },
+    "useCache": true
   }
 }
