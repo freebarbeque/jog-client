@@ -44,8 +44,10 @@
   ],
   "compileOnSave": false,
   "noStrictGenericChecks": true,
-  "useBabel": true,
-  "babelOptions": {
-      "babelrc": true
+  "awesomeTypescriptLoaderOptions": {
+    "useBabel": true,
+    "babelOptions": {
+        "babelrc": true
+    }
   }
 }
