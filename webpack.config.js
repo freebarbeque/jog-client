@@ -10,9 +10,9 @@ console.log(vars.parsed);
 
 module.exports = {
     entry: [
-        // 'babel-polyfill',
+        'babel-polyfill',
         'core-js/es6/symbol',
-        'promise-polyfill/src/polyfill',
+        'core-js/es6/promise',
         'whatwg-fetch',
         './src/index.tsx'
     ],
