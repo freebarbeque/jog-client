@@ -8,6 +8,7 @@
     "sourceMap": true,
     "allowJs": true,
     "jsx": "react",
+    "sourceMap": true,
     "lib": [
       "dom",
       "es2015",
@@ -18,17 +19,9 @@
     "strictNullChecks": true,
     "baseUrl": ".",
     "paths": {
-      "~/*": [
-        "src/*"
-      ],
-      "jog-common/*": [
-        "modules/common/src/*"
-      ],
-      // Hack: importing firebase was resolving to firebase.json, we don't want that!
-      "firebase": [
-        "node_modules/firebase"
-      ]
-    }
+      "~/*": ["src/*"]
+    },
+    "downlevelIteration": true
   },
   "include": [
     "./src/**/*.ts",
