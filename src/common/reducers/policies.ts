@@ -1,6 +1,6 @@
 import {IPoliciesReduxState} from '../interfaces/policies';
 import {IAction} from '../interfaces/action';
-import {SET_MOTOR_POLICIES, UPDATE_POLICY, SET_LOADING} from '../constants/policies';
+import {SET_MOTOR_POLICIES, UPDATE_POLICY, UPDATE_REMOVE_POLICY, SET_LOADING} from '../constants/policies';
 
 const defaultState = {
     motorPolicies: null,
@@ -20,6 +20,13 @@ export default function (state: IPoliciesReduxState = defaultState, action: IAct
             return {
                 ...state,
                 motorPolicies: state.motorPolicies && state.motorPolicies.map(p => p.id === action.policy.id ? Object.assign({}, p, action.policy) : p),
+            };
+        }
+
+        case (UPDATE_REMOVE_POLICY): {
+            return {
+                ...state,
+                motorPolicies: state.motorPolicies && state.motorPolicies.filter(p => p.id !== action.id),
             };
         }
 

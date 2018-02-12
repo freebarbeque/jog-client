@@ -5,15 +5,16 @@ import {
     EDIT_OVERVIEW_MODAL,
     MOTOR_POLICY,
     PATCH_POLICY,
+    REMOVE_POLICY,
     EDIT_POLICY_OVERVIEW_FORM,
 } from '../constants/policies';
-import {createPolicy, getInsuranceCompanies, getPolicies, patchPolicy} from '../api/policies';
+import {createPolicy, getInsuranceCompanies, getPolicies, patchPolicy, deletePolicy} from '../api/policies';
 import {setDataSource} from '../actions/dataSource';
 import {mapCreatePolicyFormValues, mapPatchPolicyFormValues} from '../utils/policies';
 import {getUser} from '../selectors/auth';
 import {LOCATION_CHANGE, push} from 'react-router-redux';
 import {stopSubmit} from 'redux-form';
-import {setMotorPolicies, updatePolicy, setLoading} from '../actions/policies';
+import {setMotorPolicies, updatePolicy, updateRemovePolicy, setLoading} from '../actions/policies';
 import {closeModal} from '../../web/actions/page';
 
 import {fetchDocuments} from '../api/documents';
@@ -101,6 +102,42 @@ export function* patchPolicyWorker(policyId: string) {
 
 export function* patchPolicyFlow(policyId: string) {
     const worker = yield fork(patchPolicyWorker, policyId);
+    yield take(LOCATION_CHANGE);
+    yield put(setLoading(false));
+    yield cancel(worker);
+}
+
+export function* removePolicyWorker(policyId: string) {
+    const user = yield select(getUser);
+
+    while (true) {
+        const {remove, location} = yield race({
+            remove: take(REMOVE_POLICY),
+            location: take(LOCATION_CHANGE),
+        });
+
+        if (location) {
+            break;
+        }
+
+        const { policyId } = remove;
+
+        try {
+            yield put(setLoading(true));
+            const deletedPolicy = yield deletePolicy(user.id, MOTOR_POLICY, policyId);
+            yield put(updateRemovePolicy(policyId));
+            yield put(setLoading(false));
+            yield put(push('/app/dashboard/motor'));
+        } catch (err) {
+            console.error(err);
+            yield put(setLoading(false));
+            continue;
+        }
+    }
+}
+
+export function* removePolicyFlow(policyId: string) {
+    const worker = yield fork(removePolicyWorker, policyId);
     yield take(LOCATION_CHANGE);
     yield put(setLoading(false));
     yield cancel(worker);

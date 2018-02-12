@@ -11,6 +11,9 @@ export const EDIT_POLICY_POLICY_FORM = 'editPolicyPolicyForm';
 
 export const PATCH_POLICY = 'policies/PATCH_POLICY';
 
+export const REMOVE_POLICY = 'policies/REMOVE_POLICY';
+export const UPDATE_REMOVE_POLICY = 'policies/UPDATE_REMOVE_POLICY';
+
 export const EDIT_OVERVIEW_MODAL = 'policies/EDIT_OVERVIEW_MODAL';
 export const EDIT_POLICY_MODAL = 'policies/EDIT_POLICY_MODAL';
 

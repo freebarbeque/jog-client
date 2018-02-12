@@ -4,6 +4,8 @@ import {
     SET_MOTOR_POLICIES,
     PATCH_POLICY,
     UPDATE_POLICY,
+    REMOVE_POLICY,
+    UPDATE_REMOVE_POLICY,
     SET_LOADING,
 } from '../constants/policies';
 
@@ -32,6 +34,16 @@ export const patchPolicy = (values: IPatchPolicyFormValues, policyId: number, mo
 export const updatePolicy = (policy: IPolicy) => ({
     type: UPDATE_POLICY,
     policy,
+});
+
+export const removePolicy = (policyId: string | number) => ({
+    type: REMOVE_POLICY,
+    policyId,
+});
+
+export const updateRemovePolicy = (id: string | number) => ({
+    type: UPDATE_REMOVE_POLICY,
+    id
 });
 
 export const setLoading = (isLoading: boolean) => ({

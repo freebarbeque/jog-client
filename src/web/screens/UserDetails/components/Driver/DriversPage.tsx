@@ -3,7 +3,6 @@ import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import {push} from 'react-router-redux';
 import styled from 'styled-components';
-// const {Styled} = require('styled-components').default;
 import * as spinners from 'react-spinners';
 import * as ReactModal from 'react-modal';
 import {findIndex, propEq} from 'ramda';
