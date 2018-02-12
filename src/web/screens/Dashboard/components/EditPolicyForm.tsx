@@ -70,8 +70,7 @@ const EditPolicyForm: React.StatelessComponent<IEditPolicyFormProps> = (props) =
         label="Level of cover"
         name="level_of_cover"
         component={FormSelect}
-        design={FormSelect.Modern}
-        options={LEVEL_OF_COVER}
+        options={LEVEL_OF_COVER.map(o => ({ value: o.id, label: o.name }))}
         style={{ marginBottom: 10 }}
       />
     </FieldWrapper>

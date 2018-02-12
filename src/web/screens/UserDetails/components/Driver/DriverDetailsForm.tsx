@@ -105,8 +105,7 @@ class DriverDetailsForm extends React.Component<IDriverDetailsForm, {}> {
                               label="What is your title?"
                               name="title"
                               component={FormSelect}
-                              design={FormSelect.Modern}
-                              options={DRIVER_TITLES}
+                              options={DRIVER_TITLES.map(o => ({ value: o.id, label: o.name }))}
                               style={{ marginBottom: 10 }}
                           />
                       </FieldContainer>
@@ -216,8 +215,7 @@ class DriverDetailsForm extends React.Component<IDriverDetailsForm, {}> {
                               label="What kind of license do you hold?"
                               name="licence_state"
                               component={FormSelect}
-                              design={FormSelect.Modern}
-                              options={LICENSE_STATES}
+                              options={LICENSE_STATES.map(o => ({ value: o.id, label: o.name }))}
                               style={{ marginBottom: 10 }}
                           />
                       </FieldContainer>
@@ -262,8 +260,7 @@ class DriverDetailsForm extends React.Component<IDriverDetailsForm, {}> {
                               label="What is your relationship status?"
                               name="relationship_status"
                               component={FormSelect}
-                              design={FormSelect.Modern}
-                              options={RELATIONSHIP_STATUS}
+                              options={RELATIONSHIP_STATUS.map(o => ({ value: o.id, label: o.name }))}
                               style={{ marginBottom: 10 }}
                           />
                       </FieldContainer>
@@ -308,8 +305,7 @@ class DriverDetailsForm extends React.Component<IDriverDetailsForm, {}> {
                               label="Do you belong to a motoring organisation?"
                               name="monitoring_organisation"
                               component={FormSelect}
-                              design={FormSelect.Modern}
-                              options={monitoringOrganisations}
+                              options={monitoringOrganisations.map(o => ({ value: o.id, label: o.name }))}
                               style={{ marginBottom: 10 }}
                           />
                       </FieldContainer>

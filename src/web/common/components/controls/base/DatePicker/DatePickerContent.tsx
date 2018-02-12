@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { ModernSelect } from '../Select';
+import Select from '../Select';
 
 import { Container, Item } from './styled';
 
@@ -26,10 +26,10 @@ class DatePickerContent extends React.PureComponent<any, any> {
             <Container name={name}>
                 {dataSource.map((fragment, index) => (
                     <Item key={index} style={fragment.rootStyles}>
-                       <ModernSelect
+                       <Select
                            placeholder={fragment.placeholder}
                            value={fragment.value}
-                           options={fragment.options}
+                           options={fragment.options.map(o => ({ value: o.id, label: o.name }))}
                            onChange={fragment.onChange}
                            {...selectProps}
                        />

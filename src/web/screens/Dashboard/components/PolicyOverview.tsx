@@ -1,34 +1,79 @@
 import * as React from 'react';
-import styled from 'styled-components';
-import {equals} from 'ramda';
-import {Redirect} from 'react-router-dom';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
-import PolicySection from './PolicySection';
-import OverviewField from './OverviewField';
-import DaysLeft from './DaysLeft';
+import * as ReactModal from 'react-modal';
+import {Redirect} from 'react-router-dom';
+import styled from 'styled-components';
+import {equals} from 'ramda';
+
+import {injectSaga} from 'src/common/utils/saga';
+import {
+  patchPolicyFlow,
+  removePolicyFlow
+} from 'src/common/sagas/policies';
+import {
+  IMotorPolicy,
+  IMotorPolicyWithDaysLeft,
+  IPatchPolicyFormValues
+} from 'src/common/interfaces/policies';
+import {styledComponentWithProps} from 'src/common/utils/types';
+import {IWebReduxState} from '~/web/interfaces/store';
+import {
+  getCurrentMotorPolicyWithDaysLeft,
+  getEditOverviewFormInitialValues,
+  getEditPolicyFormInitialValues,
+  getMotorPolicyIncompleteKeys,
+  getIsLoading
+} from 'src/common/selectors/policies';
+import {
+  getDocumentsForPolicy,
+  getIsLoading as getDocumentsLoadingState
+} from 'src/common/selectors/documents';
+import {isModalOpen} from 'src/web/selectors/page';
+import {openModal, closeModal} from 'src/web/actions/page';
+import {patchPolicy, removePolicy} from 'src/common/actions/policies';
+
+import {EDIT_POLICY_OVERVIEW_FORM, EDIT_POLICY_POLICY_FORM, EDIT_OVERVIEW_MODAL, EDIT_POLICY_MODAL} from 'src/common/constants/policies';
+
 import Notification from 'src/web/components/Notification';
+import RoundedButton from 'src/web/common/components/controls/RoundedButton';
 import OffersPlaceholder from './OffersPlaceholder';
 import OverviewDialog from './OverviewDialog';
-import {IWebReduxState} from '~/web/interfaces/store';
-import {IMotorPolicy, IMotorPolicyWithDaysLeft, IPatchPolicyFormValues} from 'src/common/interfaces/policies';
-import {
-    getCurrentMotorPolicyWithDaysLeft,
-    getEditOverviewFormInitialValues,
-    getEditPolicyFormInitialValues,
-    getMotorPolicyIncompleteKeys
-} from 'src/common/selectors/policies';
-import {styledComponentWithProps} from 'src/common/utils/types';
-import {openModal, closeModal} from 'src/web/actions/page';
-import {isModalOpen} from 'src/web/selectors/page';
-import {patchPolicy} from 'src/common/actions/policies';
-import {EDIT_POLICY_OVERVIEW_FORM, EDIT_POLICY_POLICY_FORM, EDIT_OVERVIEW_MODAL, EDIT_POLICY_MODAL} from 'src/common/constants/policies';
-import {injectSaga} from 'src/common/utils/saga';
-import {patchPolicyFlow} from 'src/common/sagas/policies';
-import {getIsLoading} from 'src/common/selectors/policies';
-import {getDocumentsForPolicy, getIsLoading as getDocumentsLoadingState} from 'src/common/selectors/documents';
+import PolicySection from './PolicySection';
+import OverviewField from './OverviewField';
 import EditOverviewForm from './EditOverviewForm';
 import EditPolicyForm from './EditPolicyForm';
+import DaysLeft from './DaysLeft';
+
+ReactModal.setAppElement('#root');
+
+const StyledModal = {
+    overlay : {
+        position          : 'fixed',
+        top               : 0,
+        left              : 0,
+        right             : 0,
+        bottom            : 0,
+        background   : 'rgba(0, 0, 0, 0.1)',
+    },
+    content : {
+        position                   : 'absolute',
+        top                        : '35%',
+        left                       : '30%',
+        right                      : '30%',
+        bottom                     : '35%',
+        border                     : '1px solid #ccc',
+        background                 : '#fff',
+        borderRadius               : '4px',
+        outline                    : 'none',
+        padding                    : '20px',
+        display: 'flex',
+        flex: 1,
+        alignSelf: 'stretch',
+        flexDirection: 'column',
+
+    }
+};
 
 interface IPolicyOverviewProps {
     className?: string;
@@ -40,6 +85,7 @@ interface IPolicyOverviewProps {
     editOverviewInitialValues: IPatchPolicyFormValues;
     editPolicyInitialValues: IPatchPolicyFormValues;
     patchPolicy: any;
+    removePolicy: any;
     isLoading: boolean;
     incompleteKeys: [keyof IMotorPolicy];
     currentPolicyDocuments: any;
@@ -52,6 +98,7 @@ interface IContentProps {
 
 interface IContentState {
     showNotification: boolean;
+    showRemoveModal: boolean;
     currentOpenedModal: string | null
 }
 
@@ -61,12 +108,14 @@ class PolicyOverview extends React.Component<IPolicyOverviewProps, IContentState
         super();
         this.state = {
             showNotification: true,
+            showRemoveModal: false,
             currentOpenedModal: null,
         };
     }
 
     componentWillMount() {
-        injectSaga(patchPolicyFlow, this.props.motorId)
+        injectSaga(patchPolicyFlow, this.props.motorId);
+        injectSaga(removePolicyFlow, this.props.motorId);
     }
 
     handleEditOverviewSubmit = (values: IPatchPolicyFormValues) => {
@@ -83,6 +132,20 @@ class PolicyOverview extends React.Component<IPolicyOverviewProps, IContentState
         } else {
             this.props.patchPolicy(values, this.props.motorId, EDIT_POLICY_MODAL, EDIT_POLICY_POLICY_FORM);
         }
+    };
+
+    // handles opening/closing of Remove Policy modal confirmation
+    handleRemoveModalOpen = index => {
+        this.setState({ showRemoveModal: true});
+    };
+    handleRemoveModalClose = () => {
+        this.setState({ showRemoveModal: false});
+    };
+
+    handleRemovePolicy = () => {
+        const { motorId } = this.props;
+        this.props.removePolicy(motorId);
+        this.handleRemoveModalClose();
     };
 
     renderEditOverviewDialog = () => {
@@ -146,6 +209,20 @@ class PolicyOverview extends React.Component<IPolicyOverviewProps, IContentState
 
     };
 
+    renderRemoveConfirmModal = () => (
+        <ReactModal
+            isOpen={this.state.showRemoveModal}
+            contentLabel="Remove policy"
+            style={StyledModal}
+        >
+            <TextModal>Are you sure that you want to remove this policy?</TextModal>
+            <ButtonModalWrapper >
+                <ButtonModal onClick={this.handleRemoveModalClose}>No</ButtonModal>
+                <ButtonModal onClick={this.handleRemovePolicy}>Yes</ButtonModal>
+            </ButtonModalWrapper>
+        </ReactModal>
+    );
+
     handleOpenEditModal = modalId => {
         this.setState({currentOpenedModal: modalId});
         this.props.openModal(modalId);
@@ -203,9 +280,18 @@ class PolicyOverview extends React.Component<IPolicyOverviewProps, IContentState
                             </PolicySection>
                         </LeftSectionsContainer>
 
+                        {this.renderRemoveConfirmModal()}
+
                         <RightSectionsContainer>
                             <PolicySection title="Offers">
                                 <OffersPlaceholder/>
+                            </PolicySection>
+                            <PolicySection title="Actions">
+                                <RoundedButton
+                                    label="Remove this policy"
+                                    type="button"
+                                    onClick={!isEditModalOpen ? this.handleRemoveModalOpen : () => {}}
+                                />
                             </PolicySection>
                         </RightSectionsContainer>
                         {
@@ -229,6 +315,9 @@ class PolicyOverview extends React.Component<IPolicyOverviewProps, IContentState
     }
 }
 
+const divWithOnClick = styledComponentWithProps<{onClick?: any}, HTMLDivElement>(styled.div);
+const div = styledComponentWithProps<IContentProps, HTMLDivElement>(styled.div);
+
 const StyledPolicyOverview = styled(PolicyOverview)`
   display: flex;
   align-self: stretch;
@@ -237,8 +326,6 @@ const StyledPolicyOverview = styled(PolicyOverview)`
   flex: 1 0 auto;
   box-sizing: border-box;
 `;
-
-const div = styledComponentWithProps<IContentProps, HTMLDivElement>(styled.div);
 
 const Content = div`
   display: flex;
@@ -260,7 +347,7 @@ const Wrapper = styled.div`
   align-self: stretch;
   justify-content: center;
   flex: 1 0;
-  padding: 52px 42px;
+  padding: 50px 40px;
 `;
 
 const LeftSectionsContainer = styled.div`
@@ -279,7 +366,46 @@ const RightSectionsContainer = styled.div`
   flex-basis: 30%;
   min-width: 300px;
   flex-direction: column;
-  align-self: baseline;
+  align-self: flex-start;
+  & > ${PolicySection}:first-child {
+    margin-bottom: 35px;
+  }
+`;
+
+const ButtonModalWrapper = styled.div`
+    display: flex;
+    justify-content: space-between;
+    & > div:first-child {
+        margin-right: 15px;
+        background-color: transparent;
+        border: 3px solid #50e3c2;
+        height: 34px;
+    }
+`;
+
+const ButtonModal = divWithOnClick`
+    height: 40px;
+    background-color: #50e3c2;
+    box-shadow: 0 4px 4px #ddd;
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 16px;
+    color: #131733;
+    display: flex;
+    flex: 1;
+    cursor: pointer;
+`;
+
+const TextModal = styled.div`
+    color: #131733;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-self: stretch;
+    height: 60%;
+    font-size: 18px;
 `;
 
 const editOverviewModal = isModalOpen(EDIT_OVERVIEW_MODAL);
@@ -300,6 +426,7 @@ const mapDispatchToProps = (dispatch: any) => bindActionCreators({
     openModal,
     closeModal,
     patchPolicy,
+    removePolicy,
 }, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(StyledPolicyOverview);
