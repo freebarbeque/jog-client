@@ -15,20 +15,12 @@ class TestForm extends React.Component<any, any> {
         return (
             <form onSubmit={this.props.handleSubmit(this.submit)} style={{ padding: '50px', backgroundColor: '#FFF' }}>
                 <Field
-                    name="K"
-                    label="What is your Policy number"
-                    component={FormRadioGroup}
-                    options={[{
-                        name: 'Owned',
-                        value: 1,
-                    }, {
-                        name: 'Leased',
-                        value: 2,
-                    }, {
-                        name: 'Financed',
-                        value: 3,
-                    }]}
+                    name="lol"
+                    label="Some test select"
+                    component={FormSelect}
                     errorAboveField
+                    placeholder="Test Value"
+                    options={[{ value: '1', label: 'name-1' }, { value: '2', label: 'name-2' }, { value: '3', label: 'name-3' }]}
                     style={{ marginBottom: '15px' }}
                 />
                 <Field
@@ -47,26 +39,6 @@ class TestForm extends React.Component<any, any> {
                     design={FormTextField.Modern}
                     errorAboveField
                     placeholder="Test Value"
-                    style={{ marginBottom: '15px' }}
-                />
-                <Field
-                    name="C"
-                    label="What is your Policy number"
-                    component={FormSelect}
-                    design={FormSelect.Modern}
-                    errorAboveField
-                    placeholder="Test Value"
-                    options={[{ id: '1', name: 'name-1' }, { id: '2', name: 'name-2' }, { id: '3', name: 'name-3' }]}
-                    style={{ marginBottom: '15px' }}
-                />
-                <Field
-                    name="D"
-                    label="What is your Policy number"
-                    component={FormSelect}
-                    errorInsideLabel
-                    compactLabel
-                    placeholder="Test Value"
-                    options={[{ id: '1', name: 'name-1' }, { id: '2', name: 'name-2' }, { id: '3', name: 'name-3' }]}
                     style={{ marginBottom: '15px' }}
                 />
                 <Field

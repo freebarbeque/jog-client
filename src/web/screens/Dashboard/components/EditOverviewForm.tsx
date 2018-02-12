@@ -28,7 +28,7 @@ interface IEditOverviewFormProps {
   year?: string;
   month?: string;
   motorId: string;
-  insurersDataSource?: IDataSource;
+  insurersDataSource?: any;
   daysLeft?: number;
   handleSubmit?: any;
   initialValues?: IPatchPolicyFormValues;
@@ -107,8 +107,7 @@ const EditOverviewForm: React.StatelessComponent<IEditOverviewFormProps> = (prop
         <Field
             name="insurance_company_id"
             component={FormSelect}
-            design={FormSelect.Modern}
-            options={props.insurersDataSource}
+            options={props.insurersDataSource.map(o => ({ value: o.id, label: o.name }))}
             placeholder="Insurance Company"
         />
       </FieldWrapper>

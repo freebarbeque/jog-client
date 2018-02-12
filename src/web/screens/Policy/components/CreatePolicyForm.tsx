@@ -80,8 +80,7 @@ const CreatePolicyForm = (props: ICreatePolicyFormProps) => {
                                   label="Who is your insurer?"
                                   name="insurance_company_id"
                                   component={FormSelect}
-                                  design={FormSelect.Modern}
-                                  options={props.insurersDataSource}
+                                  options={props.insurersDataSource.map(o => ({ value: o.id, label: o.name }))}
                                   style={{ marginBottom: 40 }}
                               />
                               <Field

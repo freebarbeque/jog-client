@@ -1,6 +1,8 @@
 @import url("https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900");
 @import url("https://fonts.googleapis.com/css?family=Work+Sans:100,200,300,400,500,600,700,800,900");
 
+@import "~react-select/dist/react-select.css";
+
 html, body {
   margin: 0;
   padding: 0;
@@ -15,4 +17,37 @@ html, body {
 
 input:focus {
   outline: 0;
+}
+
+.select-field {
+  text-align: left;
+  font-family: "Work Sans", sans-serif;
+  font-size: 18px;
+  outline: none;
+}
+
+.select-field .Select-control {
+  border: none;
+  border-radius: 0;
+  color: rgba(20, 50, 90, 1);
+  box-shadow: none !important;
+}
+
+.select-field .Select-placeholder {
+  padding-left: 0 !important;
+  color: rgba(210, 215, 220, 1);
+}
+
+.select-field .Select-value-label {
+  color: rgba(20, 50, 90, 1);
+}
+
+.select-field .Select-value,
+.select-field .Select-input {
+  padding-left: 0 !important;
+}
+
+.select-field .Select-value:active,
+.select-field .Select-value:focus {
+  outline: none;
 }

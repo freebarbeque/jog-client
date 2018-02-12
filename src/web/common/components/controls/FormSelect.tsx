@@ -1,19 +1,11 @@
 import * as React from 'react';
 
-import { ModernSelect, DefaultSelect } from './base/Select';
+import Select from './base/Select';
 import FormField from './FormField';
 
 class FormSelect extends React.PureComponent<any, any> {
-    static Modern = ModernSelect;
-    static Default = DefaultSelect;
-
-    static defaultProps = {
-        design: FormSelect.Default,
-    };
-
     render() {
         const {
-            design: DesignedComponent,
             compactLabel,
             errorInsideLabel,
             errorBelowField,
@@ -41,11 +33,9 @@ class FormSelect extends React.PureComponent<any, any> {
 
         return (
             <FormField {...formFieldProps}>
-                <DesignedComponent
-                    name={name}
+                <Select
                     value={value}
                     onChange={onChange}
-                    inputProps={restInput}
                     disabled={disabled || meta.submitting}
                     valid={meta.submitFailed && meta.valid}
                     invalid={meta.submitFailed && meta.invalid}

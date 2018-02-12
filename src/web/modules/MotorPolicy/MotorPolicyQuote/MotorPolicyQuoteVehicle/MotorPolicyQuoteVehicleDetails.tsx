@@ -70,19 +70,18 @@ class MotorPolicyQuoteVehicleDetails extends React.PureComponent<any, any> {
                         name="alarm"
                         label="What type of alarm does the car have?"
                         component={FormSelect}
-                        design={FormSelect.Modern}
                         options={[{
-                            id: 'none',
-                            name: 'No security device',
+                            value: 'none',
+                            label: 'No security device',
                         }, {
-                            id: 'cat1',
-                            name: 'Thatcham approved cat 1'
+                            value: 'cat1',
+                            label: 'Thatcham approved cat 1'
                         }, {
-                            id: 'cat2',
-                            name: 'Thatcham approved cat 2'
+                            value: 'cat2',
+                            label: 'Thatcham approved cat 2'
                         }, {
-                            id: 'other',
-                            name: 'Other',
+                            value: 'other',
+                            label: 'Other',
                         }]}
                         style={{ marginBottom: '40px' }}
                     />
@@ -154,8 +153,7 @@ class MotorPolicyQuoteVehicleDetails extends React.PureComponent<any, any> {
                             name="ownership"
                             placeholder="Select the owner of the car"
                             component={FormSelect}
-                            design={FormSelect.Modern}
-                            options={PeopleInsurance.VehicleOwner}
+                            options={PeopleInsurance.VehicleOwner.map(o => ({ value: o.id, label: o.name }))}
                             style={{marginBottom: '40px'}}
                         />
                     }
@@ -184,8 +182,7 @@ class MotorPolicyQuoteVehicleDetails extends React.PureComponent<any, any> {
                             name="registered_keeper"
                             placeholder="Select the registered keeper of the car"
                             component={FormSelect}
-                            design={FormSelect.Modern}
-                            options={PeopleInsurance.VehicleKeeper}
+                            options={PeopleInsurance.VehicleKeeper.map(o => ({ value: o.id, label: o.name }))}
                             style={{marginBottom: '40px'}}
                         />
                     }
@@ -253,16 +250,15 @@ class MotorPolicyQuoteVehicleDetails extends React.PureComponent<any, any> {
                         name="motor_vehicle_storage_location"
                         label="Where is your vehicle kept at night?"
                         component={FormSelect}
-                        design={FormSelect.Modern}
                         options={[{
-                            id: 'G',
-                            name: 'Garage',
+                            value: 'G',
+                            label: 'Garage',
                         }, {
-                            id: 'D',
-                            name: 'Driveway',
+                            value: 'D',
+                            label: 'Driveway',
                         }, {
-                            id: 'R',
-                            name: 'Road',
+                            value: 'R',
+                            label: 'Road',
                         }]}
                         style={{ marginBottom: '40px' }}
                     />

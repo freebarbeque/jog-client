@@ -1,8 +1,6 @@
 import * as React from 'react';
 import styled from 'styled-components';
 import {Route, Switch} from 'react-router-dom';
-import CarDetailsSteps from './components/Car/CarDetailsSteps';
-import AddressSteps from './components/Address/AddressSteps';
 import Header from './components/Header';
 import Footer from 'src/web/components/Footer';
 import {CREAM} from 'src/common/constants/palette';
@@ -69,23 +67,9 @@ class UserDetailsScreen extends React.Component<IUserDetailsScreenProps, {}> {
                 <Content>
                     <Switch>
                         <Route
-                            path={`${this.props.match.url}/motor/:motorId(\\d+)/car`}
-                            render={(routerProps: any) => <CarDetailsSteps
-                                currentStep={this.props.currentStep}
-                                motorId={routerProps.match.params.motorId}
-                            />}
-                        />
-                        <Route
                             path={`${this.props.match.url}/motor/:motorId(\\d+)/holder`}
                             render={(routerProps: any) => <DriversPage
                                 onSubmit={(values: any, formName: string, submitDeferred: any) => this.props.submitDriver(values, formName, submitDeferred)}
-                                motorId={routerProps.match.params.motorId}
-                            />}
-                        />
-                        <Route
-                            path={`${this.props.match.url}/motor/:motorId(\\d+)/address`}
-                            render={(routerProps: any) => <AddressSteps
-                                currentStep={this.props.currentStep}
                                 motorId={routerProps.match.params.motorId}
                             />}
                         />
