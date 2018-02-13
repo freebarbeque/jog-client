@@ -225,7 +225,7 @@ class DriverDetailsForm extends React.Component<IDriverDetailsForm, {}> {
                                 />
                             </FieldContainer>
                         ) : null}
-                        <FieldContainer>
+                        {/*<FieldContainer>
                             <FieldTitle>
                                 What is your driving license number?
                             </FieldTitle>
@@ -233,7 +233,7 @@ class DriverDetailsForm extends React.Component<IDriverDetailsForm, {}> {
                                 name="licence_number"
                                 component={StyledInput}
                             />
-                        </FieldContainer>
+                        </FieldContainer>*/}
                         <FieldContainer>
                             <FieldTitle>Are you smoker?</FieldTitle>
                             <Field

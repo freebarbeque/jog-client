@@ -9,7 +9,7 @@ export const renderDatePicker = (props: any) => (
         value={props.input.value}
         error={props.meta.error}
         touched={props.meta.touched}
-        maxDate={moment()}
         minDate={moment().subtract(100, 'years')}
+        maxDate={moment()}
     />
 );

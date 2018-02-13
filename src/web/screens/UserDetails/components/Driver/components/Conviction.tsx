@@ -71,7 +71,6 @@ const Conviction = ({ fields, active }) => (
                         component={StyledInput}
                         style={{ padding: '0 10px 0 45px' }}
                         preCheck={onlyNumber}
-                        sign="\u00A3"
                         signStyle={signStyle}
                     />
                 </FieldContainer>
