@@ -35,6 +35,15 @@ import {patchPolicy, removePolicy} from 'src/common/actions/policies';
 
 import {EDIT_POLICY_OVERVIEW_FORM, EDIT_POLICY_POLICY_FORM, EDIT_OVERVIEW_MODAL, EDIT_POLICY_MODAL} from 'src/common/constants/policies';
 
+import {
+  Content,
+  Wrapper,
+  LeftSectionsContainer,
+  RightSectionsContainer,
+  ButtonModalWrapper,
+  ButtonModal,
+  TextModal
+} from './PolicyOverview.styled';
 import Notification from 'src/web/components/Notification';
 import RoundedButton from 'src/web/common/components/controls/RoundedButton';
 import OffersPlaceholder from './OffersPlaceholder';
@@ -91,10 +100,6 @@ interface IPolicyOverviewProps {
     currentPolicyDocuments: any;
     isDocumentsLoading: boolean;
 }
-
-interface IContentProps {
-    height?: number;
-};
 
 interface IContentState {
     showNotification: boolean;
@@ -271,7 +276,7 @@ class PolicyOverview extends React.Component<IPolicyOverviewProps, IContentState
                                 withEditButton
                                 onEditButtonClick={() => this.handleOpenEditModal(EDIT_POLICY_MODAL)}
                             >
-                                <Content height={200}>
+                                <Content>
                                     <OverviewField title="Level of Cover" value={motorPolicy.level_of_cover}/>
                                     <OverviewField title="Excess" value={motorPolicy.excess} underline="dashed"/>
                                     <OverviewField title="Driver(s) name(s)" value={motorPolicy.driver_name} underline="dashed"/>
@@ -315,97 +320,14 @@ class PolicyOverview extends React.Component<IPolicyOverviewProps, IContentState
     }
 }
 
-const divWithOnClick = styledComponentWithProps<{onClick?: any}, HTMLDivElement>(styled.div);
-const div = styledComponentWithProps<IContentProps, HTMLDivElement>(styled.div);
-
 const StyledPolicyOverview = styled(PolicyOverview)`
   display: flex;
   align-self: stretch;
   width: 70%;
+  min-width: 680px;
   margin: 0px auto;
   flex: 1 0 auto;
   box-sizing: border-box;
-`;
-
-const Content = div`
-  display: flex;
-  flex-wrap: wrap;
-  align-self: stretch;
-  flex: 0 0 ${props => props.height || 290}px;
-  padding: 25px 0 20px 20px;
-  align-content: space-between;
-  box-sizing: border-box;
-
-  & > ${OverviewField}, ${DaysLeft} {
-    flex: 0 0 calc(50% - 20px);
-    margin: 0 20px 0 0;
-  }
-`;
-
-const Wrapper = styled.div`
-  display: flex;
-  align-self: stretch;
-  justify-content: center;
-  flex: 1 0;
-  padding: 50px 40px;
-`;
-
-const LeftSectionsContainer = styled.div`
-  display: flex;
-  flex: 0 1 calc(70% - 20px);
-  flex-direction: column;
-  align-self: stretch;
-  margin-right: 20px;
-  & > ${PolicySection}:first-child {
-    margin-bottom: 35px;
-  }
-`;
-
-const RightSectionsContainer = styled.div`
-  display: flex;
-  flex-basis: 30%;
-  min-width: 300px;
-  flex-direction: column;
-  align-self: flex-start;
-  & > ${PolicySection}:first-child {
-    margin-bottom: 35px;
-  }
-`;
-
-const ButtonModalWrapper = styled.div`
-    display: flex;
-    justify-content: space-between;
-    & > div:first-child {
-        margin-right: 15px;
-        background-color: transparent;
-        border: 3px solid #50e3c2;
-        height: 34px;
-    }
-`;
-
-const ButtonModal = divWithOnClick`
-    height: 40px;
-    background-color: #50e3c2;
-    box-shadow: 0 4px 4px #ddd;
-    border-radius: 5px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 16px;
-    color: #131733;
-    display: flex;
-    flex: 1;
-    cursor: pointer;
-`;
-
-const TextModal = styled.div`
-    color: #131733;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    align-self: stretch;
-    height: 60%;
-    font-size: 18px;
 `;
 
 const editOverviewModal = isModalOpen(EDIT_OVERVIEW_MODAL);
