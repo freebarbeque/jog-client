@@ -88,18 +88,6 @@ const ButtonStyles = {
 
 const YES_NO_OPTIONS = [{ id: true, name: 'Yes' }, { id: false, name: 'No' }];
 
-const renderDatePicker = (props: any) => (
-    <DatePicker
-        {...props}
-        onChange={props.input.onChange}
-        value={props.input.value}
-        error={props.meta.error}
-        touched={props.meta.touched}
-        maxDate={moment()}
-        minDate={moment().subtract(100, 'years')}
-    />
-);
-
 const rangeSelect = (numberOptions: number) => {
     if (isNaN(numberOptions)) {
         return [];
