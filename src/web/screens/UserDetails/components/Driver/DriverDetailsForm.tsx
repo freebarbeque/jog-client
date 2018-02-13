@@ -17,17 +17,17 @@ import { MotoringOrganisationTypes } from 'src/common/interfaces/drivers';
 import { getIsLoading } from '~/common/selectors/userDetils';
 import { handleScrollToErrorField } from 'src/web/common/utils/form/scrollingToErrorField';
 
-import { onlyNumber } from 'src/common/utils/form';
-import RadioButton from 'src/web/components/Forms/RadioButton/Buttons';
-import DatePicker from 'src/web/components/PolicyDatePicker';
-import Divider from 'src/web/screens/Landing/components/Divider';
-import StyledInput from '../StyledInput';
-import Incident from './components/Incident';
-import Conviction from './components/Conviction';
-
 import FormDatePicker from 'src/web/common/components/controls/FormDatePicker';
 import RoundedButton from 'src/web/common/components/controls/RoundedButton';
+import RadioButton from 'src/web/components/Forms/RadioButton/Buttons';
 import FormSelect from 'src/web/common/components/controls/FormSelect';
+import { onlyNumber } from 'src/common/utils/form';
+
+import Divider from 'src/web/screens/Landing/components/Divider';
+import DatePicker from 'src/web/components/PolicyDatePicker';
+import Incident from './components/Incident';
+import Conviction from './components/Conviction';
+import StyledInput from '../StyledInput';
 
 interface IDriverDetailsForm {
     className?: string;

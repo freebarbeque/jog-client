@@ -1,35 +1,25 @@
 import * as React from 'react';
-import styled from 'styled-components';
-import { BLUE } from 'src/common/constants/palette';
 import { reduxForm, Field } from 'redux-form';
-import { signStyle } from 'src/common/constants/userDetails';
-import DatePicker from 'src/web/components/PolicyDatePicker';
-import StyledInput from 'src/web/screens/UserDetails/components/StyledInput';
-import { onlyNumber } from 'src/common/utils/form';
-import Divider from 'src/web/screens/Landing/components/Divider';
-import { styledComponentWithProps } from 'src/common/utils/types';
-import { Add } from 'src/web/images';
-import RoundedButton from 'src/web/components/RoundedButton';
 const moment = require('moment');
 
+import { signStyle } from 'src/common/constants/userDetails';
+import { onlyNumber } from 'src/common/utils/form';
+
+import { Add } from 'src/web/images';
+import Divider from 'src/web/screens/Landing/components/Divider';
+import StyledInput from 'src/web/screens/UserDetails/components/StyledInput';
+import RoundedButton from 'src/web/components/RoundedButton';
 import { renderDatePicker } from './datePickerUtils';
-
-const ButtonStyles = {
-    width: '170px',
-    height: '40px',
-    borderRadius: '100px',
-    fontSize: '16px',
-    marginBottom: '30px',
-};
-
-interface ICircleProps {
-    backgroundColor?: string;
-    src?: string;
-}
-
-interface IContentContainer {
-    active: boolean;
-}
+import {
+    ButtonStyles,
+    Text,
+    Circle,
+    FieldTitle,
+    ButtonWrapper,
+    ContentContainer,
+    FieldContainer,
+    Context,
+} from './styled';
 
 const Conviction = ({ fields, active }) => (
     <ContentContainer active={active}>
@@ -103,70 +93,5 @@ const Conviction = ({ fields, active }) => (
         </ButtonWrapper>
     </ContentContainer>
 );
-
-const conviction = styledComponentWithProps<IContentContainer, HTMLDivElement>(
-    styled.div
-);
-
-const div = styledComponentWithProps<ICircleProps, HTMLDivElement>(styled.div);
-
-const Text = styled.div`
-    margin-left: 25px;
-    color: #131733;
-    font-size: 24px;
-`;
-
-const Circle = div`
-  width: 60px;
-  height: 60px;
-  background-color: #50e3c2;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-position: 50%;
-  background-size: cover;
-  cursor: pointer;
-`;
-
-const FieldTitle = styled.div`
-    font-size: 20px;
-    line-height: 22px;
-    color: ${BLUE};
-    margin-bottom: 10px;
-    align-self: center;
-`;
-
-const ButtonWrapper = styled.div`
-    display: flex;
-    align-self: stretch;
-    justify-content: flex-end;
-    align-items: center;
-    flex: 1;
-`;
-
-const ContentContainer = conviction`
-    display: ${props => (props.active ? 'flex' : 'none')};
-    flex-direction: column;
-    align-self: stretch;
-    margin-bottom: 30px;
-`;
-
-const FieldContainer = styled.div`
-    display: flex;
-    flex-direction: column;
-    align-self: stretch;
-    margin-bottom: 30px;
-    & > ${DatePicker} {
-        align-self: center;
-    }
-`;
-
-const Context = styled.div`
-    display: flex;
-    align-self: stretch;
-    align-items: center;
-    flex-direction: column;
-`;
 
 export default reduxForm()(Conviction) as any;
