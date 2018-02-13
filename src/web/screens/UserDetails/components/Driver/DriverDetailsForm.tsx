@@ -280,14 +280,6 @@ class DriverDetailsForm extends React.Component<IDriverDetailsForm, {}> {
                     <FormSectionTitle>Driving</FormSectionTitle>
                     <FormSectionContainer>
                         <FieldContainer>
-                            {/*<FieldTitle>
-                                How many years no claims discount do you have?
-                            </FieldTitle>
-                            <Field
-                                name="no_claims_discount"
-                                component={StyledInput}
-                                preCheck={onlyNumber}
-                            />*/}
                             <Field
                                 name="no_claims_discount"
                                 label="How many years no claims discount do you have?"
