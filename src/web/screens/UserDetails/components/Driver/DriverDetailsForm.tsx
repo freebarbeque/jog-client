@@ -86,7 +86,7 @@ const ButtonStyles = {
     marginTop: '5px',
 };
 
-const YES_NO = [{ id: true, name: 'Yes' }, { id: false, name: 'No' }];
+const YES_NO_OPTIONS = [{ id: true, name: 'Yes' }, { id: false, name: 'No' }];
 
 const renderDatePicker = (props: any) => (
     <DatePicker
@@ -99,6 +99,21 @@ const renderDatePicker = (props: any) => (
         minDate={moment().subtract(100, 'years')}
     />
 );
+
+const rangeSelect = (numberOptions: number) => {
+    if (isNaN(numberOptions)) {
+        return [];
+    }
+
+    const result = Array.from(new Array(numberOptions), (x, i) => {
+        return { value: `${i}`, label: `${i}` };
+    });
+    result.push({
+        value: `${numberOptions}+`,
+        label: `${numberOptions}+`,
+    });
+    return result;
+};
 
 class DriverDetailsForm extends React.Component<IDriverDetailsForm, {}> {
     render() {
@@ -156,7 +171,7 @@ class DriverDetailsForm extends React.Component<IDriverDetailsForm, {}> {
                             <Field
                                 name="born_in_uk"
                                 component={RadioButton}
-                                dataSource={YES_NO}
+                                dataSource={YES_NO_OPTIONS}
                             />
                         </FieldContainer>
                         {this.props.formValues &&
@@ -184,7 +199,7 @@ class DriverDetailsForm extends React.Component<IDriverDetailsForm, {}> {
                             <Field
                                 name="insurance_refused"
                                 component={RadioButton}
-                                dataSource={YES_NO}
+                                dataSource={YES_NO_OPTIONS}
                             />
                         </FieldContainer>
                         <FieldContainer>
@@ -236,7 +251,7 @@ class DriverDetailsForm extends React.Component<IDriverDetailsForm, {}> {
                             <Field
                                 name="smoker"
                                 component={RadioButton}
-                                dataSource={YES_NO}
+                                dataSource={YES_NO_OPTIONS}
                             />
                         </FieldContainer>
 
@@ -247,7 +262,7 @@ class DriverDetailsForm extends React.Component<IDriverDetailsForm, {}> {
                                 name="relationship_status"
                                 component={FormSelect}
                                 options={RELATIONSHIP_STATUS}
-                                style={{ marginBottom: 10 }}
+                                style={{ marginBottom: '10px' }}
                             />
                         </FieldContainer>
                         <FieldContainer>
@@ -265,13 +280,22 @@ class DriverDetailsForm extends React.Component<IDriverDetailsForm, {}> {
                     <FormSectionTitle>Driving</FormSectionTitle>
                     <FormSectionContainer>
                         <FieldContainer>
-                            <FieldTitle>
+                            {/*<FieldTitle>
                                 How many years no claims discount do you have?
                             </FieldTitle>
                             <Field
                                 name="no_claims_discount"
                                 component={StyledInput}
                                 preCheck={onlyNumber}
+                            />*/}
+                            <Field
+                                name="no_claims_discount"
+                                label="How many years no claims discount do you have?"
+                                component={FormSelect}
+                                errorAboveField
+                                placeholder="Select years"
+                                options={rangeSelect(25)}
+                                style={{ marginBottom: '15px' }}
                             />
                         </FieldContainer>
                         <FieldContainer>
@@ -300,7 +324,7 @@ class DriverDetailsForm extends React.Component<IDriverDetailsForm, {}> {
                             <Field
                                 name="motoring_convictions"
                                 component={RadioButton}
-                                dataSource={YES_NO}
+                                dataSource={YES_NO_OPTIONS}
                             />
                         </FieldContainer>
                         <FieldArray
@@ -320,7 +344,7 @@ class DriverDetailsForm extends React.Component<IDriverDetailsForm, {}> {
                             <Field
                                 name="incidents_claims"
                                 component={RadioButton}
-                                dataSource={YES_NO}
+                                dataSource={YES_NO_OPTIONS}
                             />
                         </FieldContainer>
                         <FieldArray
