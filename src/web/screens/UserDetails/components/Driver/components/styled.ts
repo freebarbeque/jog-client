@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { styledComponentWithProps } from 'src/common/utils/types';
-import { BLUE } from 'src/common/constants/palette';
+import { BLUE, LIGHT_GREEN, PALE_PINK } from 'src/common/constants/palette';
 
 import DatePicker from 'src/web/components/PolicyDatePicker';
 
@@ -31,14 +31,14 @@ const circleDiv = styledComponentWithProps<ICircleProps, HTMLDivElement>(
 
 export const Text = styled.div`
     margin-left: 25px;
-    color: #131733;
+    color: ${BLUE};
     font-size: 24px;
 `;
 
 export const Circle = circleDiv`
     width: 60px;
     height: 60px;
-    background-color: #50e3c2;
+    background-color: ${LIGHT_GREEN};
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -68,7 +68,8 @@ export const ContentContainer = conviction`
     display: ${props => (props.active ? 'flex' : 'none')};
     flex-direction: column;
     align-self: stretch;
-    margin-bottom: 30px;
+    padding: 30px;
+    background-color: ${PALE_PINK};
 `;
 
 export const FieldContainer = styled.div`

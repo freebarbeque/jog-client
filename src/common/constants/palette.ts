@@ -19,6 +19,7 @@ export const SECTION_HEADER_BG_COLOR = '#ECEDEF';
 export const SECTION_HEADER_BORDER_COLOR = '#dedcd8';
 export const DROPZONE_COLOR = '#D7D9DC';
 export const DARK_PINK = '#d93d57';
+export const PALE_PINK = '#FDF4F6';
 export const LIGHT_GREEN = '#41EDC1';
 export const DATEPICKER_BORDER = '#D9DEE3';
 export const FIELD_GRAY_COLOR = '#DBDDE0';

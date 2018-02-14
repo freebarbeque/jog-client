@@ -6,7 +6,6 @@ import { signStyle } from 'src/common/constants/userDetails';
 import { onlyNumber } from 'src/common/utils/form';
 
 import { Add } from 'src/web/images';
-import Divider from 'src/web/screens/Landing/components/Divider';
 import StyledInput from 'src/web/screens/UserDetails/components/StyledInput';
 import RoundedButton from 'src/web/components/RoundedButton';
 import { renderDatePicker } from './datePickerUtils';
@@ -21,11 +20,10 @@ import {
     Context,
 } from './styled';
 
-const Conviction = ({ fields, active }) => (
-    <ContentContainer active={active}>
+const Conviction = ({ fields }) => (
+    <ContentContainer active={true}>
         {fields.map((conviction, index) => (
-            <Context key={index}>
-                <Divider />
+            <Context key={conviction.id}>
                 <FieldContainer>
                     <FieldTitle>
                         For how many month were you disqualified?
@@ -81,7 +79,6 @@ const Conviction = ({ fields, active }) => (
                         onClick={() => fields.remove(index)}
                     />
                 ) : null}
-                <Divider />
             </Context>
         ))}
         <ButtonWrapper>

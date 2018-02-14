@@ -13,7 +13,6 @@ import { mapObjectToDataSource } from 'src/common/utils/dataSources';
 import { MotoringIncidentTypes } from 'src/common/interfaces/drivers';
 
 import { Add } from 'src/web/images';
-import Divider from 'src/web/screens/Landing/components/Divider';
 import StyledInput from 'src/web/screens/UserDetails/components/StyledInput';
 import RoundedButton from 'src/web/components/RoundedButton';
 import RadioButton from 'src/web/components/Forms/RadioButton/Buttons';
@@ -33,10 +32,9 @@ import {
 const motoringIncidents = mapObjectToDataSource(MotoringIncidentTypes);
 
 const Incident = ({ fields, active }) => (
-    <ContentContainer active={active}>
+    <ContentContainer active={true}>
         {fields.map((incident, index) => (
-            <Context key={index}>
-                <Divider />
+            <Context key={incident.id}>
                 <FieldContainer>
                     <FieldTitle>What's happened?</FieldTitle>
                     <Field
@@ -128,7 +126,6 @@ const Incident = ({ fields, active }) => (
                         onClick={() => fields.remove(index)}
                     />
                 ) : null}
-                <Divider />
             </Context>
         ))}
         <ButtonWrapper>

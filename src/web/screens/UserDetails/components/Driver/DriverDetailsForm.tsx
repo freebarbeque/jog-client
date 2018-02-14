@@ -6,7 +6,11 @@ const moment = require('moment');
 const validate = require('validate.js');
 
 import { IReduxState } from '~/common/interfaces/store';
-import { BLUE } from 'src/common/constants/palette';
+import {
+    BLUE,
+    WHITE,
+    DASHBOARD_INACTIVE_LINK_COLOR,
+} from 'src/common/constants/palette';
 import {
     formSelectStyle,
     formSelectLabelStyle,
@@ -307,15 +311,14 @@ class DriverDetailsForm extends React.Component<IDriverDetailsForm, {}> {
                                 dataSource={YES_NO_OPTIONS}
                             />
                         </FieldContainer>
-                        <FieldArray
-                            name="conviction"
-                            component={Conviction}
-                            active={
-                                this.props.formValues &&
-                                this.props.formValues.motoring_convictions
-                            }
-                            form={this.props.form}
-                        />
+                        {this.props.formValues &&
+                        this.props.formValues.motoring_convictions ? (
+                            <FieldArray
+                                name="conviction"
+                                component={Conviction}
+                                form={this.props.form}
+                            />
+                        ) : null}
                         <FieldContainer>
                             <FieldTitle>
                                 Have you had any motoring incidents/claims in
@@ -327,15 +330,18 @@ class DriverDetailsForm extends React.Component<IDriverDetailsForm, {}> {
                                 dataSource={YES_NO_OPTIONS}
                             />
                         </FieldContainer>
-                        <FieldArray
-                            name="incident"
-                            component={Incident}
-                            active={
-                                this.props.formValues &&
-                                this.props.formValues.incidents_claims
-                            }
-                            form={this.props.form}
-                        />
+                        {this.props.formValues &&
+                        this.props.formValues.incidents_claims ? (
+                            <FieldArray
+                                name="incident"
+                                component={Incident}
+                                active={
+                                    this.props.formValues &&
+                                    this.props.formValues.incidents_claims
+                                }
+                                form={this.props.form}
+                            />
+                        ) : null}
                     </FormSectionContainer>
 
                     <ButtonWrapper>
@@ -376,7 +382,7 @@ const StyledDriverDetailsForm = styled(DriverDetailsForm)`
     align-items: center;
     flex: 1;
     align-self: stretch;
-    background-color: #fff;
+    background-color: ${WHITE};
     padding: 40px 0 35px;
     width: 100%;
     margin: 0 auto;
@@ -420,8 +426,8 @@ const FormSectionTitle = styled.div`
     align-items: center;
     justify-content: center;
     height: 56px;
-    background-color: #a1a4b0;
-    color: #fff;
+    background-color: ${DASHBOARD_INACTIVE_LINK_COLOR};
+    color: ${WHITE};
     font-size: 20px;
 `;
 
