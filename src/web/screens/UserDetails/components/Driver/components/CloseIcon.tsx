@@ -1,8 +1,13 @@
 import * as React from 'react';
 import styled from 'styled-components';
+import { BLUE, DARK_GRAY } from 'src/common/constants/palette';
 
-const CancelIcon = (props) => (
-    <svg className={props.className} viewBox="0 0 15 14" onClick={props.onClick}>
+const CancelIcon = props => (
+    <svg
+        className={props.className}
+        viewBox="0 0 15 14"
+        onClick={props.onClick}
+    >
         <g stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
             <g transform="translate(-1185.000000, -461.000000)">
                 <g>
@@ -14,18 +19,20 @@ const CancelIcon = (props) => (
 );
 
 const StyledCancelIcon = styled(CancelIcon)`
-  margin: 0 0 0 10px;
-  width: 16px;
-  height: 16px;
-  cursor: pointer;
-  & > g > g {
-    fill: #000;
-  }
-  &:hover {
-      & > g > g {
-        fill: red;
-      }
-  }
+    margin: 0 0 0 10px;
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+    & > g > g {
+        color: ${BLUE};
+        fill: ${BLUE};
+    }
+    &:hover {
+        & > g > g {
+            color: ${DARK_GRAY};
+            fill: ${DARK_GRAY};
+        }
+    }
 `;
 
 export default StyledCancelIcon;
