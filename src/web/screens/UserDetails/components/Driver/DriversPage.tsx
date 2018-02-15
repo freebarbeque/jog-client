@@ -34,6 +34,7 @@ import {
     DARK_PINK,
     LIGHT_GREEN,
     SHADOW_COLOR,
+    FIELD_LABEL_COLOR,
     FIELD_VALID_COLOR,
     FIELD_DEFAULT_COLOR,
 } from 'src/common/constants/palette';
@@ -266,7 +267,7 @@ class DriversPage extends React.Component<IDriversPage, IDriversPageState> {
         return (
             <DriverListItem key={driverId}>
                 <DriverWrapper active={active}>
-                    <Driver>
+                    <Driver active={active}>
                         <Name>
                             {driver.first_name + ' ' + driver.last_name}
                         </Name>
@@ -457,7 +458,6 @@ const Wrapper = styled.div`
 
 const Name = styled.div`
     display: flex;
-    color: ${BLUE};
     align-items: center;
     justify-content: center;
 `;
@@ -540,16 +540,16 @@ const DriverWrapper = ActiveDriver`
     margin-bottom: 8px;
     padding: 0 16px;
     background-color: ${(props: { active: boolean }) =>
-        props.active ? FIELD_VALID_COLOR : FIELD_DEFAULT_COLOR};
+        props.active ? FIELD_LABEL_COLOR : FIELD_DEFAULT_COLOR};
     border-radius: 3px;
     box-shadow: 0 2px 4px 0 ${SHADOW_COLOR};
 `;
 
-const Driver = styled.div`
+const Driver = ActiveDriver`
     display: flex;
     align-items: center;
     justify-content: flex-start;
-    color: ${BLUE};
+    color: ${(props: { active: boolean }) => (props.active ? WHITE : BLUE)};
     font-size: 18px;
     flex: 1;
 `;
