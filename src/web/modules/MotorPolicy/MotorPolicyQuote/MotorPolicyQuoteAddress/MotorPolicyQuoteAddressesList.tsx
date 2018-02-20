@@ -12,6 +12,8 @@ import {
 import { QuoteAddress } from 'src/web/images';
 import PureLayout from 'src/web/common/layouts/PureLayout';
 import BoxContainer from 'src/web/common/components/BoxContainer';
+import RoundedButton from 'src/web/common/components/controls/RoundedButton';
+import EditIcon from 'src/web/common/components/EditIcon';
 import CloseIcon from 'src/web/common/components/CloseIcon';
 
 class MotorPolicyQuoteAddressesList extends React.PureComponent<any, any> {
@@ -33,6 +35,10 @@ class MotorPolicyQuoteAddressesList extends React.PureComponent<any, any> {
         this.props.push(`${this.props.match.url}/${id}/edit`);
     };
 
+    handleAddNewAddress = () => {
+        this.props.push(`${this.props.match.url}/add`);
+    };
+
     renderAddress = address => {
         const addressTitle = [
             address.line1,
@@ -44,12 +50,12 @@ class MotorPolicyQuoteAddressesList extends React.PureComponent<any, any> {
             .join(', ');
 
         return (
-            <Item
-                key={address.id}
-                onClick={() => this.handleEditAddress(address.id)}
-            >
+            <Item key={address.id}>
                 {addressTitle}
                 <ItemAside>
+                    <EditIcon
+                        onClick={() => this.handleEditAddress(address.id)}
+                    />
                     <CloseIcon
                         onClick={event =>
                             this.handleRemoveAddress(address.id, event)
@@ -69,14 +75,11 @@ class MotorPolicyQuoteAddressesList extends React.PureComponent<any, any> {
                     title={'At what address will the vehicle be stored?'}
                 >
                     {addresses.map(this.renderAddress)}
-                    <Item
-                        key="add"
-                        onClick={() =>
-                            this.props.push(`${this.props.match.url}/add`)
-                        }
-                    >
-                        {'Add a new address'}
-                    </Item>
+                    <RoundedButton
+                        label="Add a new address"
+                        type="button"
+                        onClick={this.handleAddNewAddress}
+                    />
                 </BoxContainer>
             </PureLayout>
         );
@@ -94,7 +97,6 @@ const Item = styled.div`
     color: rgba(102, 105, 125, 1);
     font-family: 'Work Sans';
     font-weight: 300;
-    cursor: pointer;
 
     &:not(:last-child) {
         margin-bottom: 10px;
