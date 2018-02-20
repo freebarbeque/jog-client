@@ -7,7 +7,10 @@ interface IBoxContainerProps {
     containerStyles?: any;
 }
 
-export default class BoxContainer extends React.PureComponent<IBoxContainerProps, any> {
+export default class BoxContainer extends React.PureComponent<
+    IBoxContainerProps,
+    any
+> {
     render() {
         const { title, children, containerStyles } = this.props;
 
@@ -16,11 +19,9 @@ export default class BoxContainer extends React.PureComponent<IBoxContainerProps
                 <Header>
                     <Title>{title}</Title>
                 </Header>
-                <Body>
-                    {children}
-                </Body>
+                <Body>{children}</Body>
             </Container>
-        )
+        );
     }
 }
 
@@ -38,11 +39,13 @@ const Title = styled.div`
 const Body = styled.div``;
 
 const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-self: center;
-  width: 40%;
-  background-color: #FFF;
-  padding: 20px 50px 35px;
-  box-shadow: 0 2px 4px rgba(51, 51, 51, 0.2);
+    display: flex;
+    flex-direction: column;
+    align-self: center;
+    width: 60%;
+    min-width: 660px;
+    box-sizing: border-box;
+    background-color: #fff;
+    padding: 20px 50px 35px;
+    box-shadow: 0 2px 4px rgba(51, 51, 51, 0.2);
 `;

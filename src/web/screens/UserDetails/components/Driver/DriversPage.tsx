@@ -448,7 +448,6 @@ const TextModal = styled.div`
 const ContentWrapper = styled.div`
     display: block;
     width: 100%;
-    max-width: 660px;
 `;
 
 const Wrapper = styled.div`
@@ -571,8 +570,9 @@ const StyledDriversPage = styled(DriversPage)`
     background-color: #fff;
     padding: 40px 0 35px;
     margin: 0 auto;
-    width: 100%;
-    max-width: 980px;
+    width: 60%;
+    min-width: 660px;
+    box-sizing: border-box;
     box-shadow: 0 2px 4px ${SHADOW_COLOR};
 `;
 
