@@ -27,18 +27,30 @@ import {
     CREATE_ANOTHER_DRIVER_FORM,
     UPDATE_DRIVER_FORM,
 } from 'src/common/constants/userDetails';
-import {
-    WHITE,
-    BLUE,
-    PINK,
-    DARK_PINK,
-    LIGHT_GREEN,
-    SHADOW_COLOR,
-    FIELD_LABEL_COLOR,
-    FIELD_VALID_COLOR,
-    FIELD_DEFAULT_COLOR,
-} from 'src/common/constants/palette';
+import { BLUE, SHADOW_COLOR } from 'src/common/constants/palette';
 
+import {
+    ButtonModalWrapper,
+    ButtonModal,
+    TextModal,
+    ContentWrapper,
+    Wrapper,
+    Name,
+    StyledDownArrow,
+    Button,
+    Text,
+    Circle,
+    ButtonWrapper,
+    Title,
+    DriversContainer,
+    DriverListItem,
+    DriverWrapper,
+    Driver,
+    DriverActions,
+    Container,
+    ContainerBox,
+    FormSection,
+} from './DriversPage.styled';
 import { Add, DownArrow } from 'src/web/images';
 import RoundedButton from 'src/web/common/components/controls/RoundedButton';
 import CloseIcon from 'src/web/common/components/CloseIcon';
@@ -375,7 +387,7 @@ class DriversPage extends React.Component<IDriversPage, IDriversPageState> {
         </ReactModal>
     );
 
-    renderSpinner = () => <ScaleLoader color={LIGHT_GREEN} loading={true} />;
+    renderSpinner = () => <ScaleLoader color={BLUE} loading={true} />;
 
     // MAIN RENDER
 
@@ -400,167 +412,6 @@ class DriversPage extends React.Component<IDriversPage, IDriversPageState> {
 
 // STYLE COMPONENTS
 
-const divWithOnClick = styledComponentWithProps<
-    { onClick?: any },
-    HTMLDivElement
->(styled.div);
-const ActiveDriver = styledComponentWithProps<
-    { active: boolean },
-    HTMLDivElement
->(styled.div);
-
-const ButtonModalWrapper = styled.div`
-    display: flex;
-    justify-content: space-between;
-    & > div:first-child {
-        margin-right: 15px;
-        background-color: transparent;
-        border: 3px solid ${LIGHT_GREEN};
-        height: 34px;
-    }
-`;
-
-const ButtonModal = divWithOnClick`
-    height: 40px;
-    background-color: ${LIGHT_GREEN};
-    box-shadow: 0 4px 4px #ddd;
-    border-radius: 5px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 16px;
-    color: ${BLUE};
-    display: flex;
-    flex: 1;
-    cursor: pointer;
-`;
-
-const TextModal = styled.div`
-    color: ${BLUE};
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    align-self: stretch;
-    height: 60%;
-    font-size: 18px;
-`;
-
-const ContentWrapper = styled.div`
-    display: block;
-    width: 100%;
-`;
-
-const Wrapper = styled.div`
-    display: flex;
-    align-items: center;
-`;
-
-const Name = styled.div`
-    display: flex;
-    align-items: center;
-    justify-content: center;
-`;
-
-const StyledDownArrow = styled(DownArrow)`
-    transform: rotate(180deg);
-    margin-top: 10px;
-`;
-
-const Button = styled.div`
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 15px;
-    border: 3px solid ${LIGHT_GREEN};
-    padding: 10px;
-    cursor: pointer;
-`;
-
-const Text = styled.div`
-    margin-left: 15px;
-    color: ${BLUE};
-    font-size: 24px;
-`;
-
-const Circle = styled.div`
-    width: 45px;
-    height: 45px;
-    background-color: ${LIGHT_GREEN};
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-position: 50%;
-    background-size: cover;
-    cursor: pointer;
-`;
-
-const ButtonWrapper = styled.div`
-    display: flex;
-    align-self: stretch;
-    justify-content: space-between;
-    align-items: center;
-
-    button {
-        flex: 1 1 auto;
-    }
-
-    button + button {
-        margin: 0 0 0 10px;
-    }
-`;
-
-const Title = styled.div`
-    font-size: 20px;
-    line-height: 22px;
-    color: ${BLUE};
-    margin-bottom: 25px;
-    align-self: center;
-`;
-
-const DriversContainer = styled.div`
-    display: flex;
-    flex-direction: column;
-    flex: 1;
-    align-self: stretch;
-`;
-
-const DriverListItem = styled.div`
-    display: flex;
-    flex-direction: column;
-    align-self: stretch;
-    flex: 1;
-`;
-
-const DriverWrapper = ActiveDriver`
-    display: flex;
-    flex: 1;
-    height: 40px;
-    margin-bottom: 8px;
-    padding: 0 16px;
-    background-color: ${(props: { active: boolean }) =>
-        props.active ? FIELD_LABEL_COLOR : FIELD_DEFAULT_COLOR};
-    border-radius: 3px;
-    box-shadow: 0 2px 4px 0 ${SHADOW_COLOR};
-`;
-
-const Driver = ActiveDriver`
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    color: ${(props: { active: boolean }) => (props.active ? WHITE : BLUE)};
-    font-size: 18px;
-    flex: 1;
-`;
-
-const DriverActions = styled.div`
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    flex: 1 0 auto;
-    margin-left: auto;
-`;
-
 const StyledDriversPage = styled(DriversPage)`
     display: flex;
     flex-direction: column;
@@ -574,25 +425,6 @@ const StyledDriversPage = styled(DriversPage)`
     min-width: 660px;
     box-sizing: border-box;
     box-shadow: 0 2px 4px ${SHADOW_COLOR};
-`;
-
-const Container = styled.div`
-    display: flex;
-    flex-direction: column;
-    align-self: stretch;
-    width: 100%;
-    margin-bottom: 30px;
-`;
-const ContainerBox = styled.div`
-    display: block;
-`;
-
-const FormSection = styled.div`
-    display: flex;
-    flex-direction: column;
-    align-self: stretch;
-    padding: 0 50px;
-    flex: 1;
 `;
 
 const mapStateToProps = (state: IReduxState, ownProps: any) => ({
