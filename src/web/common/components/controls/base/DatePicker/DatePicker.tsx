@@ -84,6 +84,7 @@ class DatePicker extends React.PureComponent<any, any> {
                 value: this.state.values.day,
                 options: this.state.options.days,
                 onChange: this.handleChange('day'),
+                rootStyles: { minWidth: '60px', maxWidth: '70px' },
             },
             {
                 placeholder: 'Month',
