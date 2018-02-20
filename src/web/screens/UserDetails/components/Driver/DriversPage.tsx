@@ -29,28 +29,7 @@ import {
 } from 'src/common/constants/userDetails';
 import { BLUE, SHADOW_COLOR } from 'src/common/constants/palette';
 
-import {
-    ButtonModalWrapper,
-    ButtonModal,
-    TextModal,
-    ContentWrapper,
-    Wrapper,
-    Name,
-    StyledDownArrow,
-    Button,
-    Text,
-    Circle,
-    ButtonWrapper,
-    Title,
-    DriversContainer,
-    DriverListItem,
-    DriverWrapper,
-    Driver,
-    DriverActions,
-    Container,
-    ContainerBox,
-    FormSection,
-} from './DriversPage.styled';
+import * as S from './DriversPage.styled';
 import { Add, DownArrow } from 'src/web/images';
 import RoundedButton from 'src/web/common/components/controls/RoundedButton';
 import CloseIcon from 'src/web/common/components/CloseIcon';
@@ -252,22 +231,22 @@ class DriversPage extends React.Component<IDriversPage, IDriversPageState> {
     renderDriversListContent = () => {
         const { addDriverClicked, showEditForm } = this.state;
         return (
-            <FormSection>
-                <Container>
-                    <Title>List of drivers</Title>
-                    <DriversContainer>
+            <S.FormSection>
+                <S.Container>
+                    <S.Title>List of drivers</S.Title>
+                    <S.DriversContainer>
                         {this.props.drivers.map(this.renderDriversListItem)}
-                    </DriversContainer>
-                </Container>
+                    </S.DriversContainer>
+                </S.Container>
                 {!showEditForm && (
-                    <ButtonWrapper>
+                    <S.ButtonWrapper>
                         {addDriverClicked
                             ? this.renderDriverForm(null)
                             : this.renderAddDriverButton()}
                         {!addDriverClicked && this.renderConfirmDriversButton()}
-                    </ButtonWrapper>
+                    </S.ButtonWrapper>
                 )}
-            </FormSection>
+            </S.FormSection>
         );
     };
 
@@ -277,14 +256,14 @@ class DriversPage extends React.Component<IDriversPage, IDriversPageState> {
         const active: boolean = selectedDrivers.includes(driverId);
 
         return (
-            <DriverListItem key={driverId}>
-                <DriverWrapper active={active}>
-                    <Driver active={active}>
-                        <Name>
+            <S.DriverListItem key={driverId}>
+                <S.DriverWrapper active={active}>
+                    <S.Driver active={active}>
+                        <S.Name>
                             {driver.first_name + ' ' + driver.last_name}
-                        </Name>
-                    </Driver>
-                    <DriverActions>
+                        </S.Name>
+                    </S.Driver>
+                    <S.DriverActions>
                         <EditIcon
                             onClick={() =>
                                 this.handleToggleEditDriver(driverId)
@@ -296,11 +275,11 @@ class DriversPage extends React.Component<IDriversPage, IDriversPageState> {
                         <CloseIcon
                             onClick={() => this.handleDeleteModalOpen(driverId)}
                         />
-                    </DriverActions>
-                </DriverWrapper>
+                    </S.DriverActions>
+                </S.DriverWrapper>
                 {showEditForm === driverId &&
                     this.renderEditDriver(driver, index)}
-            </DriverListItem>
+            </S.DriverListItem>
         );
     };
 
@@ -334,7 +313,7 @@ class DriversPage extends React.Component<IDriversPage, IDriversPageState> {
                 : this.handleSubmit;
 
         return (
-            <ContainerBox>
+            <S.ContainerBox>
                 <DriverDetailsForm
                     active={true}
                     form={formName}
@@ -345,7 +324,7 @@ class DriversPage extends React.Component<IDriversPage, IDriversPageState> {
                     cancelVisible={true}
                     closeClick={this.handleCloseClick}
                 />
-            </ContainerBox>
+            </S.ContainerBox>
         );
     };
 
@@ -371,19 +350,19 @@ class DriversPage extends React.Component<IDriversPage, IDriversPageState> {
             contentLabel="Remove driver"
             style={StyledModal}
         >
-            <TextModal>
+            <S.TextModal>
                 Are you sure that you want to remove the driver?
-            </TextModal>
-            <ButtonModalWrapper>
-                <ButtonModal onClick={this.handleDeleteModalClose}>
+            </S.TextModal>
+            <S.ButtonModalWrapper>
+                <S.ButtonModal onClick={this.handleDeleteModalClose}>
                     No
-                </ButtonModal>
-                <ButtonModal
+                </S.ButtonModal>
+                <S.ButtonModal
                     onClick={() => this.removeDriver(this.state.driverIndex)}
                 >
                     Yes
-                </ButtonModal>
-            </ButtonModalWrapper>
+                </S.ButtonModal>
+            </S.ButtonModalWrapper>
         </ReactModal>
     );
 
@@ -398,13 +377,13 @@ class DriversPage extends React.Component<IDriversPage, IDriversPageState> {
         return (
             <div className={this.props.className}>
                 {isLoading && this.renderSpinner()}
-                <ContentWrapper
+                <S.ContentWrapper
                     style={{ display: isLoading ? 'none' : 'flex' }}
                 >
                     {hasDrivers && this.renderDriversListContent()}
                     {!hasDrivers && this.renderCreateDriverForm()}
                     {this.renderModal()}
-                </ContentWrapper>
+                </S.ContentWrapper>
             </div>
         );
     }
