@@ -152,7 +152,9 @@ const StatusIcon = styled.div`
 const StyledQuoteField = styled(QuoteField)`
     display: flex;
     height: 90px;
-    width: ${props => props.width || '720'}px;
+    width: 100%;
+    min-width: 680px;
+    box-sizing: border-box;
     box-shadow: 0 2px 4px rgba(51, 51, 51, 0.2);
     cursor: ${props => (props.withDatePicker ? 'default' : 'pointer')};
     pointer-events: ${props => (props.disabled ? 'none' : 'auto')};

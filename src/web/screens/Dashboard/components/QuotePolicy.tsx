@@ -210,7 +210,7 @@ class QuotePolicy extends React.PureComponent<IQuotePolicyProps, {}> {
 }
 
 const Container = styled.div`
-    max-width: 600px;
+    max-width: 980px;
     display: flex;
 `;
 
@@ -310,7 +310,7 @@ const QuoteContentContainer = styled.div`
     align-items: center;
     flex: 1 0 auto;
     align-self: stretch;
-    width: 60%;
+    width: 70%;
     min-width: 720px;
     box-sizing: border-box;
     margin: 0 auto;
