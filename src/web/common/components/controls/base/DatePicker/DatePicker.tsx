@@ -33,55 +33,73 @@ class DatePicker extends React.PureComponent<any, any> {
     }
 
     handleChange = key => value => {
-      this.setState({
-          ...this.state,
-          values: {
-              ...this.state.values,
-              ...{ [key]: value },
-          },
-      }, () => {
-          this.updateOptionLists();
+        this.setState(
+            {
+                ...this.state,
+                values: {
+                    ...this.state.values,
+                    ...{ [key]: value },
+                },
+            },
+            () => {
+                this.updateOptionLists();
 
-          if (this.props.onChange) {
-              const { year, month, day } = this.state.values;
+                if (this.props.onChange) {
+                    const { year, month, day } = this.state.values;
 
-              if (year && month && day) {
-                  const date = moment(`${year}-${month}-${day}`, 'YYYY-MM-DD');
-                  this.props.onChange(date);
-              }
-          }
-      })
+                    if (year && month && day) {
+                        const date = moment(
+                            `${year}-${month}-${day}`,
+                            'YYYY-MM-DD'
+                        );
+                        this.props.onChange(date);
+                    }
+                }
+            }
+        );
     };
 
     updateOptionLists = () => {
-        this.setState(updateStateOptions({
-            state: this.state,
-            day: this.state.values.day,
-            month: this.state.values.month,
-            year: this.state.values.year,
-        }))
+        this.setState(
+            updateStateOptions({
+                state: this.state,
+                day: this.state.values.day,
+                month: this.state.values.month,
+                year: this.state.values.year,
+            })
+        );
     };
 
     render() {
-        const { gapWidth, selectProps: initialSelectProps, valid, invalid } = this.props;
+        const {
+            gapWidth,
+            selectProps: initialSelectProps,
+            valid,
+            invalid,
+        } = this.props;
 
-        const dataSource = [{
-            placeholder: 'Day',
-            value: this.state.values.day,
-            options: this.state.options.days,
-            onChange: this.handleChange('day'),
-        }, {
-            placeholder: 'Month',
-            value: this.state.values.month,
-            options: this.state.options.months,
-            onChange: this.handleChange('month'),
-            rootStyles: { margin: `0 ${gapWidth}px` }
-        }, {
-            placeholder: 'Year',
-            value: this.state.values.year,
-            options: this.state.options.years,
-            onChange: this.handleChange('year'),
-        }];
+        const dataSource = [
+            {
+                placeholder: 'Day',
+                value: this.state.values.day,
+                options: this.state.options.days,
+                onChange: this.handleChange('day'),
+            },
+            {
+                placeholder: 'Month',
+                value: this.state.values.month,
+                options: this.state.options.months,
+                onChange: this.handleChange('month'),
+                rootStyles: { margin: `0 ${gapWidth}px`, minWidth: '100px' },
+            },
+            {
+                placeholder: 'Year',
+                value: this.state.values.year,
+                options: this.state.options.years,
+                onChange: this.handleChange('year'),
+                rootStyles: { minWidth: '80px' },
+            },
+        ];
 
         const selectProps = {
             ...initialSelectProps,
