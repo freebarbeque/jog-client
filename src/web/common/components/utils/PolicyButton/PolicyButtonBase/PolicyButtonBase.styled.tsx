@@ -7,8 +7,9 @@ export const Image: StyledComponentClass<any, any, any> = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: ${(props: any) => props.bgColor || 'rgba(255, 255, 255, 1)'};
-    border-radius: ${(props: any) => props.rounded ? '50%' : 'none'};
+    background-color: ${(props: any) =>
+        props.bgColor || 'rgba(255, 255, 255, 1)'};
+    border-radius: ${(props: any) => (props.rounded ? '50%' : 'none')};
     overflow: hidden;
 `;
 
@@ -65,6 +66,10 @@ export const Arrow = styled.div`
 
 export const PolicyLink: StyledComponentClass<any, any, any> = styled(Link)`
     display: flex;
+    flex-direction: row;
+    flex: 1 0 auto;
+    align-items: stretch;
+    height: 100%;
     box-shadow: 0 2px 4px rgba(170, 170, 170, 0.5);
     text-decoration: none;
 
