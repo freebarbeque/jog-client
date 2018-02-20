@@ -37,15 +37,7 @@ import {
     EDIT_POLICY_MODAL,
 } from 'src/common/constants/policies';
 
-import {
-    Content,
-    Wrapper,
-    LeftSectionsContainer,
-    RightSectionsContainer,
-    ButtonModalWrapper,
-    ButtonModal,
-    TextModal,
-} from './PolicyOverview.styled';
+import * as S from './PolicyOverview.styled';
 import Notification from 'src/web/components/Notification';
 import RoundedButton from 'src/web/common/components/controls/RoundedButton';
 import OffersPlaceholder from './OffersPlaceholder';
@@ -240,15 +232,17 @@ class PolicyOverview extends React.Component<
             contentLabel="Remove policy"
             style={StyledModal}
         >
-            <TextModal>
+            <S.TextModal>
                 Are you sure that you want to remove this policy?
-            </TextModal>
-            <ButtonModalWrapper>
-                <ButtonModal onClick={this.handleRemoveModalClose}>
+            </S.TextModal>
+            <S.ButtonModalWrapper>
+                <S.ButtonModal onClick={this.handleRemoveModalClose}>
                     No
-                </ButtonModal>
-                <ButtonModal onClick={this.handleRemovePolicy}>Yes</ButtonModal>
-            </ButtonModalWrapper>
+                </S.ButtonModal>
+                <S.ButtonModal onClick={this.handleRemovePolicy}>
+                    Yes
+                </S.ButtonModal>
+            </S.ButtonModalWrapper>
         </ReactModal>
     );
 
@@ -282,8 +276,8 @@ class PolicyOverview extends React.Component<
         return (
             <div className={className}>
                 {motorPolicy ? (
-                    <Wrapper>
-                        <LeftSectionsContainer>
+                    <S.Wrapper>
+                        <S.LeftSectionsContainer>
                             <PolicySection
                                 title="Overview"
                                 withEditButton
@@ -293,7 +287,7 @@ class PolicyOverview extends React.Component<
                                     )
                                 }
                             >
-                                <Content>
+                                <S.Content>
                                     <DaysLeft days={motorPolicy.daysLeft} />
                                     <OverviewField
                                         title="Expires"
@@ -315,7 +309,7 @@ class PolicyOverview extends React.Component<
                                         title="Annual Cost"
                                         value={motorPolicy.annualCost}
                                     />
-                                </Content>
+                                </S.Content>
                             </PolicySection>
 
                             <PolicySection
@@ -325,7 +319,7 @@ class PolicyOverview extends React.Component<
                                     this.handleOpenEditModal(EDIT_POLICY_MODAL)
                                 }
                             >
-                                <Content>
+                                <S.Content>
                                     <OverviewField
                                         title="Level of Cover"
                                         value={motorPolicy.level_of_cover}
@@ -344,13 +338,13 @@ class PolicyOverview extends React.Component<
                                         title="No Claims Bonus"
                                         value={motorPolicy.no_claims_bonus}
                                     />
-                                </Content>
+                                </S.Content>
                             </PolicySection>
-                        </LeftSectionsContainer>
+                        </S.LeftSectionsContainer>
 
                         {this.renderRemoveConfirmModal()}
 
-                        <RightSectionsContainer>
+                        <S.RightSectionsContainer>
                             <PolicySection title="Offers">
                                 <OffersPlaceholder />
                             </PolicySection>
@@ -365,7 +359,7 @@ class PolicyOverview extends React.Component<
                                     }
                                 />
                             </PolicySection>
-                        </RightSectionsContainer>
+                        </S.RightSectionsContainer>
                         {this.state.showNotification &&
                             !this.props.isDocumentsLoading &&
                             !this.props.currentPolicyDocuments.length && (
@@ -385,7 +379,7 @@ class PolicyOverview extends React.Component<
                         {isEditModalOpen &&
                             currentOpenedModal === EDIT_POLICY_MODAL &&
                             this.renderEditPolicyDialog()}
-                    </Wrapper>
+                    </S.Wrapper>
                 ) : (
                     <Redirect to="/app/dashboard/motor" />
                 )}
