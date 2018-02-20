@@ -1,12 +1,17 @@
 import styled from 'styled-components';
-import {styledComponentWithProps} from 'src/common/utils/types';
+import { styledComponentWithProps } from 'src/common/utils/types';
 
 import PolicySection from './PolicySection';
 import OverviewField from './OverviewField';
 import DaysLeft from './DaysLeft';
 
-const divWithOnClick = styledComponentWithProps<{onClick?: any}, HTMLDivElement>(styled.div);
-const div = styledComponentWithProps<{height?: number}, HTMLDivElement>(styled.div);
+const divWithOnClick = styledComponentWithProps<
+    { onClick?: any },
+    HTMLDivElement
+>(styled.div);
+const div = styledComponentWithProps<{ height?: number }, HTMLDivElement>(
+    styled.div
+);
 
 export const Content = div`
   display: flex;
@@ -24,33 +29,33 @@ export const Content = div`
 `;
 
 export const Wrapper = styled.div`
-  display: flex;
-  align-self: stretch;
-  justify-content: center;
-  flex: 1 0;
-  padding: 50px 40px;
+    display: flex;
+    align-self: stretch;
+    justify-content: center;
+    flex: 1 0;
+    padding: 50px 40px;
 `;
 
 export const LeftSectionsContainer = styled.div`
-  display: flex;
-  flex: 0 1 calc(75% - 20px);
-  flex-direction: column;
-  align-self: stretch;
-  margin-right: 20px;
-  & > ${PolicySection}:first-child {
-    margin-bottom: 35px;
-  }
+    display: flex;
+    flex: 0 1 calc(75% - 20px);
+    flex-direction: column;
+    align-self: stretch;
+    margin-right: 20px;
+    & > ${PolicySection}:first-child {
+        margin-bottom: 35px;
+    }
 `;
 
 export const RightSectionsContainer = styled.div`
-  display: flex;
-  flex-basis: 25%;
-  min-width: 300px;
-  flex-direction: column;
-  align-self: flex-start;
-  & > ${PolicySection}:first-child {
-    margin-bottom: 35px;
-  }
+    display: flex;
+    flex-basis: 25%;
+    min-width: 250px;
+    flex-direction: column;
+    align-self: flex-start;
+    & > ${PolicySection}:first-child {
+        margin-bottom: 35px;
+    }
 `;
 
 export const ButtonModalWrapper = styled.div`

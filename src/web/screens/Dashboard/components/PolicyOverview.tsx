@@ -396,12 +396,13 @@ class PolicyOverview extends React.Component<
 
 const StyledPolicyOverview = styled(PolicyOverview)`
     display: flex;
+    flex: 1 0 auto;
     align-self: stretch;
     width: 70%;
-    min-width: 680px;
-    margin: 0px auto;
-    flex: 1 0 auto;
+    min-width: 720px;
     box-sizing: border-box;
+    margin: 0 auto;
+    padding: 0;
 `;
 
 const editOverviewModal = isModalOpen(EDIT_OVERVIEW_MODAL);

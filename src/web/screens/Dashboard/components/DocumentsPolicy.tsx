@@ -1,23 +1,31 @@
 import * as React from 'react';
 import styled from 'styled-components';
-import {connect} from 'react-redux';
-import {Action, ActionCreator, bindActionCreators} from 'redux';
+import { connect } from 'react-redux';
+import { Action, ActionCreator, bindActionCreators } from 'redux';
 import PolicySection from './PolicySection';
 import DocumentsDropzone from './DocumentsDropzone';
 import FileCard from './FileCard';
 import RoundedButton from 'src/web/components/RoundedButton';
-import {IDocument, IPendingDocument} from 'src/common/interfaces/documents';
-import {addPendingDocuments, removePendingDocument, setPreview, clearPreview} from 'src/common/actions/documents';
-import {openModal, closeModal} from 'src/web/actions/page';
-import {PDF_PREVIEW_MODAL} from '~/web/constants/documents';
-import {isModalOpen} from '~/web/selectors/page';
-import {injectSaga} from '~/common/utils/saga';
-import {documentsFlow} from '~/common/sagas/documents';
-import {uploadPendingDocuments, removeDocument} from 'src/common/actions/documents';
+import { IDocument, IPendingDocument } from 'src/common/interfaces/documents';
+import {
+    addPendingDocuments,
+    removePendingDocument,
+    setPreview,
+    clearPreview,
+} from 'src/common/actions/documents';
+import { openModal, closeModal } from 'src/web/actions/page';
+import { PDF_PREVIEW_MODAL } from '~/web/constants/documents';
+import { isModalOpen } from '~/web/selectors/page';
+import { injectSaga } from '~/common/utils/saga';
+import { documentsFlow } from '~/common/sagas/documents';
+import {
+    uploadPendingDocuments,
+    removeDocument,
+} from 'src/common/actions/documents';
 import ErrorText from 'src/web/components/Forms/ErrorText';
-import {BLUE, SECTION_HEADER_COLOR} from '~/common/constants/palette';
+import { BLUE, SECTION_HEADER_COLOR } from '~/common/constants/palette';
 import PDFPreview from './PDFPreview';
-import {getIsPreviewLoading} from 'src/common/selectors/documents';
+import { getIsPreviewLoading } from 'src/common/selectors/documents';
 
 import {
     getPolicyDocuments,
@@ -61,12 +69,12 @@ const Notification = styled.div`
     display: flex;
     align-items: center;
     padding-left: 20px;
-    
+
     span {
         font-weight: bold;
         margin-right: 10px;
     }
-`
+`;
 
 const MessageContainer = styled.div`
     color: ${SECTION_HEADER_COLOR};
@@ -75,10 +83,9 @@ const MessageContainer = styled.div`
     justify-content: center;
     align-items: center;
     width: 100%;
-`
+`;
 
 class DocumentsPolicy extends React.Component<IDocumentPolicyProps, {}> {
-
     componentWillMount() {
         injectSaga(documentsFlow, this.props.motorId);
     }
@@ -88,55 +95,70 @@ class DocumentsPolicy extends React.Component<IDocumentPolicyProps, {}> {
     }
 
     render() {
-        const {
-            policyDocuments,
-            pendingDocuments
-        } = this.props;
+        const { policyDocuments, pendingDocuments } = this.props;
 
         return (
             <div className={this.props.className}>
                 <PolicySection title="Uploaded Documents">
-                    {this.props.isUploading &&
-                    <Notification>
-                        <span>Document processing in progress</span>Your information will be online shortly
-                    </Notification>
-                    }
+                    {this.props.isUploading && (
+                        <Notification>
+                            <span>Document processing in progress</span>Your
+                            information will be online shortly
+                        </Notification>
+                    )}
                     <ContentWrapper>
                         <FilesContainer>
-                            {!this.props.isLoading && policyDocuments.map((d, i) => {
-                                const url = d.attachment.url.split('/');
-                                return (
+                            {!this.props.isLoading &&
+                                policyDocuments.map((d, i) => {
+                                    const url = d.attachment.url.split('/');
+                                    return (
+                                        <FileCard
+                                            key={i}
+                                            fileName={url[url.length - 1]}
+                                            onDeleteClick={() =>
+                                                this.props.removeDocument(d.id)
+                                            }
+                                            onPreviewClick={() => {
+                                                this.props.setPreview(i, false);
+                                                this.props.openModal(
+                                                    PDF_PREVIEW_MODAL
+                                                );
+                                            }}
+                                        />
+                                    );
+                                })}
+                            {!this.props.isLoading &&
+                                pendingDocuments.map((d, i) => (
                                     <FileCard
                                         key={i}
-                                        fileName={url[url.length - 1]}
-                                        onDeleteClick={() => this.props.removeDocument(d.id)}
+                                        fileName={d.file.name}
+                                        onDeleteClick={() =>
+                                            this.handleRemovePendingDocument(
+                                                d.pendingId
+                                            )
+                                        }
                                         onPreviewClick={() => {
-                                            this.props.setPreview(i, false);
-                                            this.props.openModal(PDF_PREVIEW_MODAL);
+                                            this.props.setPreview(i, true);
+                                            this.props.openModal(
+                                                PDF_PREVIEW_MODAL
+                                            );
                                         }}
                                     />
-                                )
-                            })}
-                            {!this.props.isLoading && pendingDocuments.map((d, i) => (
-                                <FileCard
-                                    key={i}
-                                    fileName={d.file.name}
-                                    onDeleteClick={() => this.handleRemovePendingDocument(d.pendingId)}
-                                    onPreviewClick={() => {
-                                        this.props.setPreview(i, true);
-                                        this.props.openModal(PDF_PREVIEW_MODAL);
-                                    }}
-                                />
-                            ))}
-                            {!policyDocuments.length && !pendingDocuments.length && <MessageContainer>Please upload your policy certificate and schedule</MessageContainer>}
+                                ))}
+                            {!policyDocuments.length &&
+                                !pendingDocuments.length && (
+                                    <MessageContainer>
+                                        Please upload your policy certificate
+                                        and schedule
+                                    </MessageContainer>
+                                )}
                         </FilesContainer>
-                        <DocumentsDropzone onDrop={this.props.addPendingDocuments}/>
-                        {this.props.error ?
-                            <ErrorText>
-                                {this.props.error.message}
-                            </ErrorText>
-                            : null
-                        }
+                        <DocumentsDropzone
+                            onDrop={this.props.addPendingDocuments}
+                        />
+                        {this.props.error ? (
+                            <ErrorText>{this.props.error.message}</ErrorText>
+                        ) : null}
                         <RoundedButton
                             label="Upload"
                             style={ButtonStyles}
@@ -146,7 +168,9 @@ class DocumentsPolicy extends React.Component<IDocumentPolicyProps, {}> {
                     </ContentWrapper>
                 </PolicySection>
                 <PDFPreview
-                    open={this.props.isPreviewOpen && !this.props.isPreviewLoading}
+                    open={
+                        this.props.isPreviewOpen && !this.props.isPreviewLoading
+                    }
                     onClose={() => {
                         this.props.closeModal(PDF_PREVIEW_MODAL);
                         this.props.clearPreview();
@@ -158,32 +182,37 @@ class DocumentsPolicy extends React.Component<IDocumentPolicyProps, {}> {
 }
 
 const StyledDocumentsPolicy = styled(DocumentsPolicy)`
-  display: flex;
-  flex: 1 0 auto;
-  padding: 50px 300px 135px 300px;
+    display: flex;
+    align-self: stretch;
+    flex: 1 0 auto;
+    width: 70%;
+    min-width: 720px;
+    box-sizing: border-box;
+    margin: 0 auto;
+    padding: 50px 40px;
 `;
 
 const FilesContainer = styled.div`
-  display: flex;
-  align-self: stretch;
-  flex-wrap: wrap;
-  flex: 1 0 auto;
-  margin-bottom: 15px;
-  
-  & > ${FileCard} {
-    margin: 0 0 25px 0;
-  }
+    display: flex;
+    align-self: stretch;
+    flex-wrap: wrap;
+    flex: 1 0 auto;
+    margin-bottom: 15px;
+
+    & > ${FileCard} {
+        margin: 0 0 25px 0;
+    }
 `;
 
 const ContentWrapper = styled.div`
-  display: flex;
-  flex: 1 0 auto;
-  align-self: stretch;
-  flex-direction: column;
-  padding: 26px 53px 40px 53px;
-  & > ${DocumentsDropzone} {
-    margin-bottom: 25px;
-  }
+    display: flex;
+    flex: 1 0 auto;
+    align-self: stretch;
+    flex-direction: column;
+    padding: 26px 53px 40px 53px;
+    & > ${DocumentsDropzone} {
+        margin-bottom: 25px;
+    }
 `;
 
 const isPreviewModalOpen = isModalOpen(PDF_PREVIEW_MODAL);
@@ -198,15 +227,21 @@ const mapStateToProps = (state: any) => ({
     isPreviewLoading: getIsPreviewLoading(state),
 });
 
-const mapDispatchToProps = (dispatch: any) => bindActionCreators({
-    addPendingDocuments,
-    removePendingDocument,
-    openModal,
-    closeModal,
-    uploadPendingDocuments,
-    removeDocument,
-    setPreview,
-    clearPreview,
-}, dispatch);
+const mapDispatchToProps = (dispatch: any) =>
+    bindActionCreators(
+        {
+            addPendingDocuments,
+            removePendingDocument,
+            openModal,
+            closeModal,
+            uploadPendingDocuments,
+            removeDocument,
+            setPreview,
+            clearPreview,
+        },
+        dispatch
+    );
 
-export default connect(mapStateToProps, mapDispatchToProps)(StyledDocumentsPolicy);
+export default connect(mapStateToProps, mapDispatchToProps)(
+    StyledDocumentsPolicy
+);
