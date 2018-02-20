@@ -189,7 +189,7 @@ const StyledDocumentsPolicy = styled(DocumentsPolicy)`
     min-width: 720px;
     box-sizing: border-box;
     margin: 0 auto;
-    padding: 50px 40px;
+    padding: 50px 0;
 `;
 
 const FilesContainer = styled.div`

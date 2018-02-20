@@ -33,7 +33,7 @@ export const Wrapper = styled.div`
     align-self: stretch;
     justify-content: center;
     flex: 1 0;
-    padding: 50px 40px;
+    padding: 50px 0;
 `;
 
 export const LeftSectionsContainer = styled.div`

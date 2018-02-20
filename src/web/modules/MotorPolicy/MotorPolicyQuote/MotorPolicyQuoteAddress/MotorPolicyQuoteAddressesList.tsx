@@ -1,12 +1,15 @@
 import * as React from 'react';
 import styled from 'styled-components';
-import {connect} from 'react-redux';
-import {bindActionCreators} from 'redux';
-import {push} from 'react-router-redux';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { push } from 'react-router-redux';
 
-import {removeAddressRequest} from 'src/common/actions/quoteAddresses';
-import {getQuoteAddresses, getLoadingState} from 'src/common/selectors/quoteAddresses';
-import {QuoteAddress} from 'src/web/images';
+import { removeAddressRequest } from 'src/common/actions/quoteAddresses';
+import {
+    getQuoteAddresses,
+    getLoadingState,
+} from 'src/common/selectors/quoteAddresses';
+import { QuoteAddress } from 'src/web/images';
 import PureLayout from 'src/web/common/layouts/PureLayout';
 import BoxContainer from 'src/web/common/components/BoxContainer';
 
@@ -15,7 +18,9 @@ class MotorPolicyQuoteAddressesList extends React.PureComponent<any, any> {
         title: 'Address',
         icon: QuoteAddress,
         backTitle: 'Back to overview',
-        backUrl: `/app/dashboard/motor/${this.props.match.params.policyId}/quote`,
+        backUrl: `/app/dashboard/motor/${
+            this.props.match.params.policyId
+        }/quote`,
     };
 
     renderAddress = address => {
@@ -24,12 +29,28 @@ class MotorPolicyQuoteAddressesList extends React.PureComponent<any, any> {
             address.line2,
             address.city,
             address.county,
-        ].filter(a => a !== undefined).join(', ');
+        ]
+            .filter(a => a !== undefined)
+            .join(', ');
 
         return (
-            <Item key={address.id} onClick={() => this.props.push(`${this.props.match.url}/${address.id}/edit`)}>
+            <Item
+                key={address.id}
+                onClick={() =>
+                    this.props.push(
+                        `${this.props.match.url}/${address.id}/edit`
+                    )
+                }
+            >
                 {addressTitle}
-                <ItemAside onClick={event => { event.stopPropagation(); this.props.removeAddressRequest(address.id) }}>Remove</ItemAside>
+                <ItemAside
+                    onClick={event => {
+                        event.stopPropagation();
+                        this.props.removeAddressRequest(address.id);
+                    }}
+                >
+                    Remove
+                </ItemAside>
             </Item>
         );
     };
@@ -39,12 +60,21 @@ class MotorPolicyQuoteAddressesList extends React.PureComponent<any, any> {
 
         return (
             <PureLayout description={this.layoutDescription}>
-                <BoxContainer title={'At what address will the vehicle be stored?'}>
+                <BoxContainer
+                    title={'At what address will the vehicle be stored?'}
+                >
                     {addresses.map(this.renderAddress)}
-                    <Item key="add" onClick={() => this.props.push(`${this.props.match.url}/add`)}>{'Add a new address'}</Item>
+                    <Item
+                        key="add"
+                        onClick={() =>
+                            this.props.push(`${this.props.match.url}/add`)
+                        }
+                    >
+                        {'Add a new address'}
+                    </Item>
                 </BoxContainer>
             </PureLayout>
-        )
+        );
     }
 }
 
@@ -53,14 +83,14 @@ const Item = styled.div`
     display: flex;
     align-items: center;
     justify-content: space-between;
-    background-color: #ECEDEF;
+    background-color: #ecedef;
     border-radius: 3px;
     font-size: 16px;
     color: rgba(102, 105, 125, 1);
     font-family: 'Work Sans';
     font-weight: 300;
     cursor: pointer;
-    
+
     &:not(:last-child) {
         margin-bottom: 10px;
     }
@@ -75,9 +105,15 @@ const mapStateToProps = (state: any): any => ({
     isLoading: getLoadingState(state),
 });
 
-const mapDispatchToProps = (dispatch: any): any => bindActionCreators({
-    push,
-    removeAddressRequest,
-}, dispatch);
+const mapDispatchToProps = (dispatch: any): any =>
+    bindActionCreators(
+        {
+            push,
+            removeAddressRequest,
+        },
+        dispatch
+    );
 
-export default connect(mapStateToProps, mapDispatchToProps)(MotorPolicyQuoteAddressesList) as any;
+export default connect(mapStateToProps, mapDispatchToProps)(
+    MotorPolicyQuoteAddressesList
+) as any;
