@@ -41,9 +41,9 @@ import {
 
 import { Add, DownArrow } from 'src/web/images';
 import RoundedButton from 'src/web/common/components/controls/RoundedButton';
-import CloseIcon from './components/CloseIcon';
-import EditIcon from './components/EditIcon';
-import SelectIcon from './components/SelectIcon';
+import CloseIcon from 'src/web/common/components/CloseIcon';
+import EditIcon from 'src/web/common/components/EditIcon';
+import SelectIcon from 'src/web/common/components/SelectIcon';
 import DriverDetailsForm from './DriverDetailsForm';
 
 ReactModal.setAppElement('#root');

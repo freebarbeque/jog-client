@@ -12,6 +12,7 @@ import {
 import { QuoteAddress } from 'src/web/images';
 import PureLayout from 'src/web/common/layouts/PureLayout';
 import BoxContainer from 'src/web/common/components/BoxContainer';
+import CloseIcon from 'src/web/common/components/CloseIcon';
 
 class MotorPolicyQuoteAddressesList extends React.PureComponent<any, any> {
     layoutDescription = {
@@ -21,6 +22,15 @@ class MotorPolicyQuoteAddressesList extends React.PureComponent<any, any> {
         backUrl: `/app/dashboard/motor/${
             this.props.match.params.policyId
         }/quote`,
+    };
+
+    handleRemoveAddress = (id, event) => {
+        event.stopPropagation();
+        this.props.removeAddressRequest(id);
+    };
+
+    handleEditAddress = id => {
+        this.props.push(`${this.props.match.url}/${id}/edit`);
     };
 
     renderAddress = address => {
@@ -36,20 +46,15 @@ class MotorPolicyQuoteAddressesList extends React.PureComponent<any, any> {
         return (
             <Item
                 key={address.id}
-                onClick={() =>
-                    this.props.push(
-                        `${this.props.match.url}/${address.id}/edit`
-                    )
-                }
+                onClick={() => this.handleEditAddress(address.id)}
             >
                 {addressTitle}
-                <ItemAside
-                    onClick={event => {
-                        event.stopPropagation();
-                        this.props.removeAddressRequest(address.id);
-                    }}
-                >
-                    Remove
+                <ItemAside>
+                    <CloseIcon
+                        onClick={event =>
+                            this.handleRemoveAddress(address.id, event)
+                        }
+                    />
                 </ItemAside>
             </Item>
         );
