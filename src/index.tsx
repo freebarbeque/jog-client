@@ -4,24 +4,19 @@ import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import {Provider} from 'react-redux'
-import {routerMiddleware} from 'react-router-redux';
-import history from './web/history'
+import { Provider } from 'react-redux';
+import { routerMiddleware } from 'react-router-redux';
+import history from './web/history';
 import createStore from './common/store/index';
 import reducer from './web/reducers';
 import App from './web/App';
 import './index.css';
 const injectTapEventPlugin = require('react-tap-event-plugin');
-import {PersistGate} from 'redux-persist/es/integration/react';
+import { PersistGate } from 'redux-persist/es/integration/react';
 
-import {
-    BLUE,
-    PINK,
-    DARK_GRAY,
-    WHITE,
-} from './common/constants/palette';
+import { BLUE, PINK, DARK_GRAY, WHITE } from './common/constants/palette';
 
-const {persistor, store} = createStore({
+const { persistor, store } = createStore({
     reducer,
     freeze: true,
     middleware: [routerMiddleware(history)],
@@ -59,8 +54,17 @@ const render = Component => {
                 </PersistGate>
             </Provider>
         </MuiThemeProvider>,
-        document.getElementById('root'),
-    )
-}
+        document.getElementById('root')
+    );
+};
 
 render(App);
+
+// Hot Module Replacement API
+declare var module: any;
+if (module.hot) {
+    module.hot.accept('./web/App', () => {
+        const NextRoot = require('./web/App').default;
+        render(NextRoot);
+    });
+}

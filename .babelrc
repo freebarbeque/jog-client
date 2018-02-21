@@ -1,8 +1,12 @@
 {
-  "presets": [
-    "react-native",
-    ["env", { "comment": "true", "targets": ["> 4%", "ie 11", "safari 10"] }],
-    "stage-1"
-  ],
-  "sourceMaps": true
+    "presets": [
+        "react-native",
+        [
+            "env",
+            { "comment": "true", "targets": ["> 4%", "ie 11", "safari 10"] }
+        ],
+        "stage-1"
+    ],
+    "sourceMaps": true,
+    "plugins": ["react-hot-loader/babel"]
 }
