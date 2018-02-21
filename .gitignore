@@ -57,3 +57,4 @@ fastlane/Preview.html
 fastlane/screenshots
 
 dist/
+.awcache/
