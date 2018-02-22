@@ -1,0 +1,15 @@
+function c(name: string) {
+    return `USER_DATA.${name}`;
+}
+
+export const VEHICLE_FETCH_STARTED = c('VEHICLE_FETCH_STARTED');
+export const VEHICLE_FETCH_FAILED = c('VEHICLE_FETCH_FAILED');
+export const VEHICLE_FETCH_FINISHED = c('VEHICLE_FETCH_FINISHED');
+
+export const VEHICLE_ADD = c('VEHICLE_ADD');
+export const VEHICLE_UPDATE = c('VEHICLE_UPDATE');
+export const VEHICLE_REMOVE = c('VEHICLE_REMOVE');
+
+export const VEHICLES_FETCH_STARTED = c('VEHICLES_FETCH_STARTED');
+export const VEHICLES_FETCH_FAILED = c('VEHICLES_FETCH_FAILED');
+export const VEHICLES_FETCH_FINISHED = c('VEHICLES_FETCH_FINISHED');

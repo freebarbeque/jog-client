@@ -27,11 +27,11 @@ const BenefitsSection = (props: any) => (
 );
 
 const StyledBenefitsSection = styled(BenefitsSection)`
-    align-self: stretch;
-    display: flex;
-    justify-content: space-between;
-    margin-top: 40px;
-    flex-shrink: 0;
+  align-self: stretch;
+  display: flex;
+  justify-content: space-around;
+  margin-top: 40px;
+  flex-shrink: 0;
 `;
 
 export default StyledBenefitsSection;

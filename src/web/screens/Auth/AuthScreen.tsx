@@ -20,7 +20,7 @@ const Container = styled.div`
     flex: 1;
 `
 
-class AuthScreen extends React.Component<{}, {}> {
+class AuthScreen extends React.Component<any, any> {
     componentWillMount() {
         injectSaga(authenticationFlow);
     }

@@ -76,7 +76,7 @@ export default function createStore(additionalOpts: ICreateStoreOpts): any {
 
         const reducer = persistCombineReducers(config, opts.reducer)
 
-        store = _createStore(reducer, undefined, enhancer);
+        store = _createStore(reducer, opts.initialState, enhancer);
         window.store = store;
         persistor = persistStore(store);
 

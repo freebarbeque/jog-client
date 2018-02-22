@@ -1,0 +1,15 @@
+function c(name: string) {
+    return `USER_DATA.${name}`;
+}
+
+export const DRIVER_FETCH_STARTED = c('DRIVER_FETCH_STARTED');
+export const DRIVER_FETCH_FAILED = c('DRIVER_FETCH_FAILED');
+export const DRIVER_FETCH_FINISHED = c('DRIVER_FETCH_FINISHED');
+
+export const DRIVER_ADD = c('DRIVER_ADD');
+export const DRIVER_UPDATE = c('DRIVER_UPDATE');
+export const DRIVER_REMOVE = c('DRIVER_REMOVE');
+
+export const DRIVERS_FETCH_STARTED = c('DRIVERS_FETCH_STARTED');
+export const DRIVERS_FETCH_FAILED = c('DRIVERS_FETCH_FAILED');
+export const DRIVERS_FETCH_FINISHED = c('DRIVERS_FETCH_FINISHED');

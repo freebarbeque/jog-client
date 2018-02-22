@@ -37,9 +37,9 @@ function* fetchInsuranceCompanies() {
 }
 
 export default function* () {
-    yield fork(fetchInsuranceCompanies);
-    yield all([
-        takeEvery(LOCATION_CHANGE, handleRoute),
-        takeEvery(LOG_OUT, handleLogout),
-    ])
+    // yield fork(fetchInsuranceCompanies);
+    // yield all([
+    //     takeEvery(LOCATION_CHANGE, handleRoute),
+    //     takeEvery(LOG_OUT, handleLogout),
+    // ])
 }

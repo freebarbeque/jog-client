@@ -20,6 +20,7 @@ export interface IReduxState {
     drivers: IDriversReduxState;
     userDetails: IUserDetailsReduxState;
     policyQuoteRequest: any;
+    nextStore: any;
 }
 
 export interface ICreateStoreOpts {
@@ -28,6 +29,7 @@ export interface ICreateStoreOpts {
     reducer: any;
     sagas?: any[];
     middleware?: any[];
+    initialState?: any;
 }
 
 export interface IRouterState {

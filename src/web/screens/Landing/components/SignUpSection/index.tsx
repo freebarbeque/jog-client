@@ -12,6 +12,7 @@ import {mapSignUpFormValuesToUser} from '~/common/utils/user';
 
 interface ISignUpSectionProps {
     signUp: ActionCreator<Action>;
+    join: any;
     className?: string;
 }
 
@@ -23,7 +24,7 @@ const SignUpSection = (props: ISignUpSectionProps) => (
     <TitleDescription>
       Create an account, start bringing your premiums down today
     </TitleDescription>
-    <SignUpForm form={SIGN_UP_FORM} onSubmit={(values: ISignUpFormValues) => props.signUp(mapSignUpFormValuesToUser(values))} />
+    <SignUpForm form={SIGN_UP_FORM} onSubmit={props.join} />
     <Text>
       OR
     </Text>
@@ -63,8 +64,4 @@ const Text = styled.div`
   margin-bottom: 20px;
 `;
 
-const mapDispatchToProps = (dispatch: any): Partial<ISignUpSectionProps> => bindActionCreators({
-    signUp,
-}, dispatch);
-
-export default connect(null, mapDispatchToProps)(StyledSignUpSection);
+export default StyledSignUpSection as any;

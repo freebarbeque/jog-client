@@ -62,6 +62,9 @@ export function* motorPoliciesContentFlow() {
     const user = yield select(getUser);
     const {motor_policies} = yield getPolicies(MOTOR_POLICY, user.id);
 
+    const {insurance_companies} = yield getInsuranceCompanies();
+    yield put(setDataSource('insuranceCompanies', insurance_companies));
+
     if (motor_policies) {
         yield put(setMotorPolicies(motor_policies));
     }

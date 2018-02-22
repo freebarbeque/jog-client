@@ -2,6 +2,10 @@ import {put, select} from 'redux-saga/effects';
 import {getSessionToken} from '../selectors/auth';
 import {logOut} from '../actions/auth';
 
+// we use new approach to work with store and API so we have duplicated code for now
+import { SET_CURRENT_USER } from 'src/web/next/store/auth/constants';
+import authToken from 'src/web/next/utils/authToken';
+
 interface IApiError extends Error {
     status?: number;
 }
@@ -10,7 +14,7 @@ function* getDefaultHeaders() {
     const sessionToken = yield select(getSessionToken);
     return new Headers({
         'Content-type': 'application/vnd.api+json',
-        'Authorization': sessionToken,
+        'Authorization': `Bearer ${sessionToken}`,
         'Accept': 'application/vnd.api+json',
     });
 }
@@ -54,6 +58,14 @@ function* sendRequest(endpoint: string, parseResponseBody: boolean = true, metho
     } catch (err) {
         if (err.status === 401 && authorized) {
             yield put(logOut());
+
+            yield put({
+                type: SET_CURRENT_USER,
+                payload: { user: null },
+            });
+
+            authToken.clean();
+
             return {body: {}, headers: response.headers, error: err}
         } else {
             throw err;

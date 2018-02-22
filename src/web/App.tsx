@@ -1,11 +1,15 @@
 import * as React from 'react';
-import {Redirect, Route} from 'react-router-dom';
+import {Redirect, Route, Switch} from 'react-router-dom';
 import {ConnectedRouter} from 'react-router-redux';
 import history from './history';
 import {BLUE} from 'src/common/constants/palette';
 import styled from 'styled-components';
-import AuthScreen from './screens/Auth/AuthScreen';
 import MainScreen from './screens/App/MainScreen';
+import HomePage from './HomePage';
+
+import Auth from 'src/web/next/modules/Auth';
+import PrivateRoute from 'src/web/common/components/utils/PrivateRoute';
+import PublicRoute from 'src/web/common/components/utils/PublicRoute';
 
 const Container = styled.div`
   background: ${BLUE};
@@ -29,7 +33,8 @@ const Container = styled.div`
     text-decoration: none;
 
     &:hover {
-      text-decoration: underline;
+      // text-decoration: underline;
+      text-decoration: none;
     }
 
     &:hover,
@@ -49,14 +54,18 @@ class App extends React.Component<{}, {}> {
         return (
             <ConnectedRouter history={history}>
                 <Container>
-                    <Route
-                        path="/auth"
-                        component={AuthScreen}
-                    />
-                    <Route
-                        path="/app"
-                        component={MainScreen}
-                    />
+                    <Switch>
+                        <PublicRoute
+                            forceLoggedOut={true}
+                            path={'/auth'}
+                            component={Auth}
+                        />
+                        <PrivateRoute
+                            path="/app"
+                            component={MainScreen}
+                        />
+                        <Route path="/" exact component={HomePage} />
+                    </Switch>
                 </Container>
             </ConnectedRouter>
         )

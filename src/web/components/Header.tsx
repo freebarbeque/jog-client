@@ -10,6 +10,8 @@ import {IReduxState} from '~/common/interfaces/store';
 import {logOut} from 'src/common/actions/auth';
 import {Action, ActionCreator, bindActionCreators} from 'redux';
 
+import { logout } from 'src/web/next/store/auth/actions';
+
 const LinksContainer = styled.div`
   display: flex;
   align-items: center;
@@ -29,8 +31,8 @@ const A = styled.a`
 
 interface IHeaderProps {
     className: string;
-    user: IUser | null;
-    logOut: ActionCreator<Action>;
+    loggedIn: boolean;
+    logout: any;
 }
 
 const Header = (props: IHeaderProps) => (
@@ -40,8 +42,8 @@ const Header = (props: IHeaderProps) => (
         <LinksContainer>
             <Link to="/">Policies</Link>
             <Link to="/">Settings</Link>
-            {props.user
-                ? <A onClick={() => props.logOut()}>Logout</A>
+            {props.loggedIn
+                ? <A onClick={() => props.logout()}>Logout</A>
                 : <Link to="/auth/login">Login</Link>
             }
         </LinksContainer>
@@ -60,11 +62,11 @@ const StyledHeader = styled(Header)`
 `;
 
 const mapStateToProps = (state: IReduxState): Partial<IHeaderProps> => ({
-    user: getUser(state),
+    loggedIn: !!state.nextStore.auth.currentUser && !!state.nextStore.auth.currentUser.confirmed,
 });
 
-const mapDispatchToProps = (dispatch: any): Partial<IHeaderProps> => bindActionCreators({
-    logOut,
-}, dispatch);
+const mapDispatchToProps = dispatch => ({
+    logout: () => dispatch(logout()),
+});
 
-export default connect(mapStateToProps, mapDispatchToProps)(StyledHeader);
+export default connect(mapStateToProps, mapDispatchToProps)(StyledHeader) as any;

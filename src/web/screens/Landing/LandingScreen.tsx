@@ -13,7 +13,7 @@ const LandingScreen = (props: any) => (
     <Header />
     <Description />
     <Content>
-      <SignUpSection />
+      <SignUpSection join={props.join} />
       <Divider />
       <BenefitsSection />
     </Content>
