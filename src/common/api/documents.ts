@@ -20,7 +20,7 @@ export function* uploadDocuments(userId: number, policyId: string, docs: IPendin
     const sessionToken = yield select(getSessionToken);
 
     const headers = new Headers({
-        'Authorization': sessionToken,
+        'Authorization': `Bearer ${sessionToken}`,
         'Accept': 'multipart/form-data',
     });
 
