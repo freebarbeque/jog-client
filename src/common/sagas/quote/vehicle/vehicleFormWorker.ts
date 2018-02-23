@@ -15,7 +15,12 @@ export default function* vehicleFormWorker(formName: string, policyId: number|st
 
         const {vehicle: vehicleData, submitDeferred} = yield take(SUBMIT_VEHICLE_REQUEST);
 
-        const {errors, motor_vehicle: vehicle} = yield createVehicle(currentUser.id, vehicleData);
+        const reqData = {
+            ...vehicleData,
+            ...(vehicleData.value_cents ? { value_cents: Number(vehicleData.value_cents) * 100 } : null), // should convert value from pounds to cents
+        };
+
+        const {errors, motor_vehicle: vehicle} = yield createVehicle(currentUser.id, reqData);
 
         if (errors) {
             submitDeferred.reject({validationErrors: errors});

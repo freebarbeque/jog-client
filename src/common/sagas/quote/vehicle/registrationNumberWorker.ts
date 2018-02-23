@@ -22,9 +22,10 @@ export default function* registrationNumberWorker(formName: string) {
                 const vehicleData = yield getExternalVehicleInformation(registrationNumber);
 
                 yield put(initialize(formName, {
-                    registration: registrationNumber,
                     ...formData,
                     ...vehicleData,
+                    ...(vehicleData.value_cents ? { value_cents: Number(vehicleData.value_cents) / 100 } : null), // should display result in pounds
+                    registration: registrationNumber,
                 }));
             }
 

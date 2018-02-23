@@ -28,6 +28,7 @@ function* initializeForm(formName: string, policyId: number|string) {
                 yield put(initialize(formName, {
                     ...formData,
                     ...vehicleData,
+                    ...(vehicleData.value_cents ? { value_cents: Number(vehicleData.value_cents) / 100 } : null), // should display result in pounds
                     registration: policy.vehicle_registration,
                 }));
             }
