@@ -1,15 +1,18 @@
-const path = require('path')
-const express = require('express')
+const path = require('path');
+const express = require('express');
 
-const app = express()
-const indexPath = path.join(__dirname, '/../dist/index.html')
-const staticPath = path.join(__dirname, '/../dist')
+const app = express();
+const indexPath = path.join(__dirname, '/../dist/index.html');
+const staticPath = path.join(__dirname, '/../dist');
+
+const host = '0.0.0.0';
+const port = process.env.PORT || 8080;
 
 app.use(express.static(staticPath));
-app.get('*', function (_, res) {
-    res.sendFile(indexPath)
-})
+app.get('*', function(_, res) {
+    res.sendFile(indexPath);
+});
 
-app.listen(process.env.PORT || 8080, function () {
-    console.log(`Started at ${process.env.PORT || 8080}`)
+app.listen(port, host, function() {
+    console.log(`Express server started at ${port}`);
 });

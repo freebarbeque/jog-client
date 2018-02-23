@@ -7,16 +7,17 @@
   },
   "scripts": {
     "start:native": "node node_modules/react-native/local-cli/cli.js start --skipflow & yarn run build:native -- --watch",
-    "start:web": "NODE_ENV=local webpack-dev-server",
+    "start:web": "NODE_ENV=local webpack-dev-server --config webpack.dev.config.js",
     "android": "node node_modules/react-native/local-cli/cli.js run-android",
     "ios": "node node_modules/react-native/local-cli/cli.js run-ios",
     "build:native": "rm -rf build && tsc -p tsconfig.rn.json",
-    "build:web": "webpack",
+    "build:web": "NODE_ENV=production webpack --config webpack.prod.config.js",
     "pretest": "npm run build:native && npm run build:web",
     "test": "jest",
     "lint": "tslint -c tslint.json 'src/**/*.{ts,tsx}'",
     "pre-push-lint-msg": "echo 'Pre-push is running lint...' && exit 0",
-    "pre-push-test-msg": "echo 'Pre-push is running test...' && exit 0"
+    "pre-push-test-msg": "echo 'Pre-push is running test...' && exit 0",
+    "heroku-postbuild": "webpack -p --config webpack.prod.config.js"
   },
   "pre-push": [
     "pre-push-lint-msg",
@@ -114,6 +115,7 @@
     "source-map-loader": "0.2.1",
     "style-loader": "0.18.2",
     "typescript": "2.3.2",
+    "uglifyjs-webpack-plugin": "^1.2.0",
     "url-loader": "0.5.9",
     "webpack": "3.4.1"
   },
