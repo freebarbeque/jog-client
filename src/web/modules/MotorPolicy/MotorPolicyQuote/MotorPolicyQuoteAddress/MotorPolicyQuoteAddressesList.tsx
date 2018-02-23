@@ -9,12 +9,14 @@ import {
     getQuoteAddresses,
     getLoadingState,
 } from 'src/common/selectors/quoteAddresses';
+import { updateAddressOnPolicyQuoteRequest } from 'src/common/actions/policyQuoteRequest';
 import { QuoteAddress } from 'src/web/images';
 import PureLayout from 'src/web/common/layouts/PureLayout';
 import BoxContainer from 'src/web/common/components/BoxContainer';
 import RoundedButton from 'src/web/common/components/controls/RoundedButton';
 import EditIcon from 'src/web/common/components/EditIcon';
 import CloseIcon from 'src/web/common/components/CloseIcon';
+import SelectIcon from 'src/web/common/components/SelectIcon';
 
 class MotorPolicyQuoteAddressesList extends React.PureComponent<any, any> {
     layoutDescription = {
@@ -39,6 +41,12 @@ class MotorPolicyQuoteAddressesList extends React.PureComponent<any, any> {
         this.props.push(`${this.props.match.url}/add`);
     };
 
+    handleSelectAddress = address => {
+        const { policyId } = this.props.match.params;
+        this.props.updateAddressOnPolicyQuoteRequest(policyId, address);
+        this.props.push(this.layoutDescription.backUrl);
+    };
+
     renderAddress = address => {
         const addressTitle = [
             address.line1,
@@ -55,6 +63,11 @@ class MotorPolicyQuoteAddressesList extends React.PureComponent<any, any> {
                 <ItemAside>
                     <EditIcon
                         onClick={() => this.handleEditAddress(address.id)}
+                    />
+                    <SelectIcon
+                        onClick={() => {
+                            this.handleSelectAddress(address);
+                        }}
                     />
                     <CloseIcon
                         onClick={event =>
@@ -89,6 +102,7 @@ class MotorPolicyQuoteAddressesList extends React.PureComponent<any, any> {
 const Item = styled.div`
     padding: 15px;
     display: flex;
+    flex: 1 1 auto;
     align-items: center;
     justify-content: space-between;
     background-color: #ecedef;
@@ -104,6 +118,7 @@ const Item = styled.div`
 `;
 
 const ItemAside = styled.div`
+    flex: 0 0 auto;
     margin-left: 20px;
 `;
 
@@ -117,6 +132,7 @@ const mapDispatchToProps = (dispatch: any): any =>
         {
             push,
             removeAddressRequest,
+            updateAddressOnPolicyQuoteRequest,
         },
         dispatch
     );
