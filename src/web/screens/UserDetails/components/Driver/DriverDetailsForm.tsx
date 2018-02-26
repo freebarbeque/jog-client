@@ -303,20 +303,19 @@ class DriverDetailsForm extends React.Component<IDriverDetailsForm, {}> {
                     <FormSectionContainer>
                         <FieldContainer>
                             <FieldTitle>
-                                Do you have any motoring convictions?
+                                Has anyone on the policy had any non-driving convictions, or ever had insurance declined, cancelled, voided or had special terms imposed?
                             </FieldTitle>
                             <Field
-                                name="motoring_convictions"
+                                name="motoring_conviction_visible"
                                 component={RadioButton}
                                 dataSource={YES_NO_OPTIONS}
                             />
                         </FieldContainer>
                         {this.props.formValues &&
-                        this.props.formValues.motoring_convictions ? (
+                        this.props.formValues.motoring_conviction_visible ? (
                             <FieldArray
-                                name="conviction"
+                                name="motoring_conviction"
                                 component={Conviction}
-                                form={this.props.form}
                             />
                         ) : null}
                         <FieldContainer>
@@ -487,10 +486,10 @@ const INITIAL_VALUES = {
     smoker: false,
     relationship_status: 'single',
     born_in_uk: true,
-    conviction: [{}],
     incident: [{ fault: false, personal_injury: false, current_policy: false }],
     incidents_claims: false,
-    motoring_convictions: false,
+    motoring_conviction: [{}],
+    motoring_conviction_visible: false,
 };
 
 const mapStateToProps = (state: IReduxState, props: IDriverDetailsForm) => ({

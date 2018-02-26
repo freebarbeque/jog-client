@@ -24,11 +24,12 @@ function* driverWorker(policyId: string) {
             yield put(setIsLoading(true));
 
             try {
-                const values = yield select(getFormValues(formName));
+                const { motoring_conviction, motoring_conviction_visible, ...rest } = yield select(getFormValues(formName));
                 const formValues = {
-                    ...values,
-                    date_of_birth: values.date_of_birth.format('YYYY-MM-DD')
-                }
+                    ...rest,
+                    date_of_birth: rest.date_of_birth.format('YYYY-MM-DD'),
+                    motoring_conviction_attributes: motoring_conviction && motoring_conviction_visible ? motoring_conviction[0] : null,
+                };
                 const { errors, driver } = yield createDriver(user.id, CREATE_DRIVER, formValues);
 
                 if (errors) {
@@ -37,7 +38,7 @@ function* driverWorker(policyId: string) {
                 } else {
                     submitDeferred.resolve();
                     const {drivers} = yield getDrivers(user.id);
-                    yield put(setDriversList(drivers));
+                    yield put(setDriversList(cookDrivers(drivers)));
                     // yield put(reset(formName));
                 }
             } catch (err) {
@@ -50,11 +51,13 @@ function* driverWorker(policyId: string) {
             const { submitDeferred } = update;
             yield put(setIsLoading(true));
             try {
-                const values = yield select(getFormValues(UPDATE_DRIVER_FORM(update.index)));
+                const { motoring_conviction, motoring_conviction_visible, ...rest } = yield select(getFormValues(UPDATE_DRIVER_FORM(update.index)));
                 const formValues = {
-                    ...values,
-                    date_of_birth: values.date_of_birth.format('YYYY-MM-DD')
-                }
+                    ...rest,
+                    date_of_birth: rest.date_of_birth.format('YYYY-MM-DD'),
+                    motoring_conviction_attributes: motoring_conviction && motoring_conviction_visible ? motoring_conviction[0] : null,
+                };
+
                 const { errors, driver } = yield updateDriver(user.id, UPDATE_DRIVER, formValues.id, formValues);
 
                 if (errors) {
@@ -63,7 +66,7 @@ function* driverWorker(policyId: string) {
                 } else {
                     submitDeferred.resolve();
                     const {drivers} = yield getDrivers(user.id);
-                    yield put(setDriversList(drivers));
+                    yield put(setDriversList(cookDrivers(drivers)));
                 }
             } catch (err) {
                 yield put(stopSubmit(UPDATE_DRIVER_FORM(update.index), {_error: err.message}));
@@ -77,7 +80,7 @@ function* driverWorker(policyId: string) {
             try {
                 yield removeDriver(user.id, REMOVE_DRIVER, driverId);
                 const { drivers } = yield getDrivers(user.id);
-                yield put(setDriversList(drivers));
+                yield put(setDriversList(cookDrivers(drivers)));
             } catch (err) {
                 console.error(err);
                 continue;
@@ -92,8 +95,9 @@ export function* driverFlow(policyId: string) {
     yield put(setIsLoading(true));
     const user = yield select(getUser);
     const {drivers} = yield getDrivers(user.id);
+
     if (drivers) {
-        yield put(setDriversList(drivers));
+        yield put(setDriversList(cookDrivers(drivers)));
     }
     yield put(setIsLoading(false));
     const worker = yield fork(driverWorker, policyId);
@@ -101,4 +105,15 @@ export function* driverFlow(policyId: string) {
     yield put(setIsLoading(false));
     yield put(removeDriverList());
     yield cancel(worker);
+}
+
+function cookDrivers(drivers: any) {
+    return drivers.map(driver => {
+        return {
+            ...driver,
+            motoring_conviction_visible: !!driver.motoring_conviction,
+            motoring_conviction: driver.motoring_conviction ? [driver.motoring_conviction] : [{}],
+        }
+    });
+
 }
